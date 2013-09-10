@@ -1,48 +1,61 @@
+
 [Rssdler](http://code.google.com/p/rssdler/) is a utility to automatically download enclosures and other objects linked to from various types of RSS feeds. Works well on podcasts, videocasts, and torrents. This tutorial will guide you through setting up rssdler on your Feral box. (note: Waffles.FM prevents accessing RSS feeds directly on your Feral box. See [this guide](https://www.feralhosting.com/faq//view?question=39) for a possible workaround.)
 
-### Downloading and Installing Rssdler ###
-
-#### Using SSH (recommended):####
+### Downloading and Installing Rssdler Using SSH (recommended):###
 
 Connect to your server using an SSH client: Here is a guide on [using putty](https://www.feralhosting.com/faq/view?question=12):
 
-	cd
+~~~
+cd
+~~~
 
 Moves you to your home directory. You should be here by default, but just to be safe execute this command to start.
 
-	mkdir -p ~/bin && mkdir -p ~/.rssdler
+~~~
+mkdir -p ~/bin ~/.rssdler
+~~~
 
 Makes directories named `.rssdler` and `bin` at `~/` which is short your your HOME directory.
 
 ### Download and prepare rssdler ###
 
-    wget -qNO ~/rssdler.tar.gz http://rssdler.googlecode.com/files/rssdler-0.4.2.tar.gz
-    tar -xzf ~/rssdler.tar.gz
-    cp -rf ~/rssdler042/. ~/.rssdler
-    rm -f ~/rssdler.tar.gz && rm -rf ~/rssdler042/
+~~~
+wget -qO ~/rssdler.tar.gz http://rssdler.googlecode.com/files/rssdler-0.4.2.tar.gz
+tar -xzf ~/rssdler.tar.gz
+cp -rf ~/rssdler042/. ~/.rssdler
+rm -f ~/rssdler.tar.gz && rm -rf ~/rssdler042/
+~~~
 
 Downloads rssdler, extracts it, copies the contents, removes the tar and unpacked folder.
 
-    touch ~/.rssdler/config.txt
+~~~
+touch ~/.rssdler/config.txt
+~~~
 
 Creates the config.txt
 
-    echo -e '#!/bin/bash\npython '$HOME'/.rssdler/rssdler.py --run' > ~/bin/rssdler
-    chmod 700 ~/bin/rssdler
+~~~
+echo -e '#!/bin/bash\npython '$HOME'/.rssdler/rssdler.py --run' > ~/bin/rssdler
+chmod 700 ~/bin/rssdler
+~~~
 
 This echo creates a simple script in the `~/bin` directory so we can easily run rssdler with a screen in a moment. We must then make it executable. If you get permission errors when running the screen command you did not do this step. Execute these two commands and that is the bash script created using SSH.
 
-	echo $HOME
+~~~
+echo $HOME
+~~~
 
 The last command with show you the path info you need to edit the `config.txt`
 
 *Optional:  Using the nano command below you can edit the file:*
 
-	nano -w ~/.rssdler/config.txt
+~~~
+nano -w ~/.rssdler/config.txt
+~~~
 
 Opens the blank new file in nano ready to paste in the custom config details in the paste bin link:
 
-Or you can edit the new`~/.rssdler/config.txt` file with ftp and a text editor.
+Or you can edit the new `~/.rssdler/config.txt` file with ftp and a text editor.
 
 ### The example config.txt ###
 
@@ -54,7 +67,9 @@ A commented config file with all available options can be found [commented confi
 
 The `config.txt` you need to populate with the content of the example file can be found here:
 
-	/media/DISKiD/home/USERNAME/.rssdler/config.txt
+~~~
+/media/DISKiD/home/USERNAME/.rssdler/config.txt
+~~~
 
 Note: The previous SSH commands created this file four you using the `touch` command.
 
@@ -66,19 +81,25 @@ These are already configured in the example `config.txt` linked above. You just 
 
 In the Global section:
 
-	downloadDir = /media/DISKiD/home/USERNAME/private/TESTdownload
-	workingDir = /media/DISKiD/home/USERNAME/.rssdler
+~~~
+downloadDir = /media/DISKiD/home/USERNAME/private/TESTdownload
+workingDir = /media/DISKiD/home/USERNAME/.rssdler
+~~~
 
 And in the example sections:
 
-    directory = /media/DISKiD/home/USERNAME/private/TESTlegittorrents
-    directory = /media/DISKiD/home/USERNAME/private/TESTmininova
+~~~
+directory = /media/DISKiD/home/USERNAME/private/TESTlegittorrents
+directory = /media/DISKiD/home/USERNAME/private/TESTmininova
+~~~
 
 Be sure to substitute `DISKiD` and `USERNAME` with your actual disk ID username in the config file. use this command to find your info:
 
 Remember to use this command in SSH:
 
-	echo $HOME
+~~~
+echo $HOME
+~~~
 
 This will give you the info you need to copy and replace in the `config.txt`
 
@@ -106,11 +127,15 @@ There are some demo filters with the OpenOffice Linux feed.
 
 This:
 
-	link = http://borft.student.utwente.nl/%7Emike/oo/bt.rss
+~~~
+link = http://borft.student.utwente.nl/%7Emike/oo/bt.rss
+~~~
 
 becomes:
 
-	link = http://borft.student.utwente.nl/%%7Emike/oo/bt.rss
+~~~
+link = http://borft.student.utwente.nl/%%7Emike/oo/bt.rss
+~~~
 
 Now it will work.
 
@@ -126,27 +151,37 @@ It's time to test our set-up.
 
 [SSH](https://www.feralhosting.com/faq/view?question=12) to your server. Type:
 
-	screen -dmS myrssdler rssdler
+~~~
+screen -dmS myrssdler rssdler
+~~~
 
 This command will start a screen session in the background called `myrssdler` using the bash script we created in `~/bin/rssdler`
 
 After you have done this type:
 
-	screen -ls
+~~~
+screen -ls
+~~~
 
 This will show you all active screens and we are looking for something like this:
 
-	11431.myrssdler	(30/04/13 16:51:12)	(Detached)
+~~~
+11431.myrssdler	(30/04/13 16:51:12)	(Detached)
+~~~
 
 If you do not see this then most likely something went wrong when rssdler tried to start based on your `config.txt` additions (all examples have been tested to work). You can check the `~/.rssdler/downloads.log` for any information.
 
 I found the easiest way to figure out was wrong when the app would not start was to open and attach to a screen then run the application to see the error:
 
-	screen -S myrssdler
+~~~
+screen -S myrssdler
+~~~
 
 Then inside the screen type:
 
-	rssdler
+~~~
+rssdler
+~~~
 
 You should now see what was causing the error and know where to start troubleshooting.
 
@@ -168,26 +203,30 @@ This part of the tutorial needs to be expanded on. For now please consult [this 
 
 **Example 1:**
 
-    [Example1]
-    link = http://rss.torrentleech.org/rss.php?passkey=XXXXXXXXX--EDIT-ME--XXXXXXXXXX
-    maxSize = 400
-    directory =/media/DISKiD/home/USERNAME/private/rtorrent/TEST
-    regextrue = (Dexter)
-    regexfalse = (hr|720|1080|ntsc|x264|sct)
-    nosave = False
+~~~
+[Example1]
+link = http://rss.torrentleech.org/rss.php?passkey=XXXXXXXXX--EDIT-ME--XXXXXXXXXX
+maxSize = 400
+directory =/media/DISKiD/home/USERNAME/private/rtorrent/TEST
+regextrue = (Dexter)
+regexfalse = (hr|720|1080|ntsc|x264|sct)
+nosave = False
+~~~
 
 **Example 2:**
 
-    [Example2]
-    link = http://rss.torrentleech.org/rss.php?passkey=XXXXXXXXX--EDIT-ME--XXXXXXXXXX
-    maxSize = 0
-    minSize = 195
-    nosave = False
-    # checkTime1Day = Mon
-    # checkTime1Start = 18
-    # checkTime1Stop = 21
-    regextrue = (Prison.Break|Heroes|Gossip.Girl|Sons.of.Anarchy|Fringe)
-    regexfalse = (HEBSUB|D0|DVDR|DVD-R|DVDRip)
+~~~
+[Example2]
+link = http://rss.torrentleech.org/rss.php?passkey=XXXXXXXXX--EDIT-ME--XXXXXXXXXX
+maxSize = 0
+minSize = 195
+nosave = False
+# checkTime1Day = Mon
+# checkTime1Start = 18
+# checkTime1Stop = 21
+regextrue = (Prison.Break|Heroes|Gossip.Girl|Sons.of.Anarchy|Fringe)
+regexfalse = (HEBSUB|D0|DVDR|DVD-R|DVDRip)
+~~~
 
 Please note that no download directory was specified in `Example 2` — rssdler will use the global setting in this case.
 
@@ -205,46 +244,52 @@ Provided your filters are configured correctly, these settings should suffice fo
 
 To add these commands all you have to do is edit the `~/bin/rssdler` bash script and add your options there. The kill the PID and run the screen command above again.
 
-	--config/-c can be used with all the options except --comment-config, --help
-    --comment-config: Prints a commented config file to stdout
-    --help/-h: print the short help message (command line options)
-    --full-help/-f: print the complete help message (quite long)
-    --run/-r: run according to the configuration file
-    --runonce/-o: run only once then exit
-    --daemon/-d: run in the background (Unix-like only)
-    --kill/-k: kill the currently running instance (may not work on Windows)
-    --config/-c: specify a config file (default /home/james/.rssdler/config.txt).
-    --list-failed: Will list the urls of all the failed downloads
-    --purge-failed: Use to clear the failed download queue. 
-        Use when you have a download stuck (perhaps removed from the site or 
-        wrong url in RSS feed) and you no longer care about RSSDler attempting 
-        to grab it. Will be appended to the saved download list to prevent 
-        readdition to the failed queue.
-        Should be used alone or with -c/--config. Exits after completion.
-    --list-saved: Will list everything that has been registered as downloaded.
-    --purge-saved: Clear the list of saved downloads, not stored anywhere.
-    --state/-s: Will return the process ID if another instance is running with.
-        Otherwise exits with return code 1
-        Note for Windows: will return the pid found in daemonInfo,
-        regardless of whether it is currently running.
+~~~
+--config/-c can be used with all the options except --comment-config, --help
+--comment-config: Prints a commented config file to stdout
+--help/-h: print the short help message (command line options)
+--full-help/-f: print the complete help message (quite long)
+--run/-r: run according to the configuration file
+--runonce/-o: run only once then exit
+--daemon/-d: run in the background (Unix-like only)
+--kill/-k: kill the currently running instance (may not work on Windows)
+--config/-c: specify a config file (default /home/james/.rssdler/config.txt).
+--list-failed: Will list the urls of all the failed downloads
+--purge-failed: Use to clear the failed download queue. 
+    Use when you have a download stuck (perhaps removed from the site or 
+    wrong url in RSS feed) and you no longer care about RSSDler attempting 
+    to grab it. Will be appended to the saved download list to prevent 
+    readdition to the failed queue.
+    Should be used alone or with -c/--config. Exits after completion.
+--list-saved: Will list everything that has been registered as downloaded.
+--purge-saved: Clear the list of saved downloads, not stored anywhere.
+--state/-s: Will return the process ID if another instance is running with.
+    Otherwise exits with return code 1
+    Note for Windows: will return the pid found in daemonInfo,
+    regardless of whether it is currently running.
+~~~
 
 ### Dealing with Unicode Related Issues in Rssdler ###
 rssdler is known to crash on encountering Unicode characters in file names. If the feeds you'll be using do not normally contain those, there's no further action required. If however you plan on using what.cd feeds, patching rssdler to ignore errors is a must.
 
 Open the `rssdler.py` file. Locate the line:
 
-	if not isinstance(s, basestring): s= unicode(s) # __str__ for exceptions etc
+~~~
+if not isinstance(s, basestring): s= unicode(s) # __str__ for exceptions etc
+~~~
 
 Erase it, and paste the following instead:
 
-    if not isinstance(s, basestring):
-        try:
-            s= unicode(s) # __str__ for exceptions etc
-        except:
-            s= unicode(s.__str__(), errors='ignore')
-    if isinstance(s, str): s = unicode(s, 'utf-8', 'replace')
-    if not isinstance(s, unicode): 
-        raise UnicodeEncodeError(u'could not encode %s to unicode' % s)
+~~~
+if not isinstance(s, basestring):
+    try:
+        s= unicode(s) # __str__ for exceptions etc
+    except:
+        s= unicode(s.__str__(), errors='ignore')
+if isinstance(s, str): s = unicode(s, 'utf-8', 'replace')
+if not isinstance(s, unicode): 
+    raise UnicodeEncodeError(u'could not encode %s to unicode' % s)
+~~~
 
 Be careful while editing the file. Indentation is important. Do not use tab for indentation, use the space key. The screen shot below shows what this section of the file must look like (with whitespace marked):
 

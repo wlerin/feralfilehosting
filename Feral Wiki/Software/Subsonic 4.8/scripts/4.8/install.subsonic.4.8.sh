@@ -5,7 +5,7 @@ scriptversion="1.5.7"
 scriptname="subsonic.4.8.sh"
 subsonicversion="4.8"
 madsonicversion="5.0 Beta5 Build 3600"
-javaversion="1.7 Update 25"
+javaversion="1.7 Update 40"
 #
 # Bobtentpeg 01/30/2013
 # randomessence 04/24/2013
@@ -88,6 +88,8 @@ installedjavaversion=$(cat ~/private/java/javaversion 2> /dev/null)
 # Checks if the Java path was already added to the ~/.bashrc
 bashrcpath=$(sed -n '/PATH=~\/private\/java\/bin:\$PATH/p' ~/.bashrc 2> /dev/null)
 # Some variable links for subsonic
+javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=80805"
+#
 subsonicfv="https://sourceforge.net/projects/subsonic/files/subsonic/4.8/subsonic-4.8-standalone.tar.gz"
 subsonicfvs="subsonic-4.8-standalone.tar.gz"
 sffmpegfv="https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.static.64bit.2013-06-14.tar.gz"
@@ -333,11 +335,11 @@ then
     if [ "$installedjavaversion" != "$javaversion" ]
     then
         echo "Please wait a moment while java is installed"
-        wget -qO ~/java.tar.gz http://javadl.sun.com/webapps/download/AutoDL?BundleId=78697
-        tar -xzf ~/java.tar.gz 
-        cp -rf ~/jre1.7.0_25/. ~/private/java/
+        wget -qO ~/java.tar.gz $javaupdatev
+        tar -xzf ~/java.tar.gz
+        cp -rf ~/jre1.7.0_40/. ~/private/java/
         rm -f ~/java.tar.gz
-        rm -rf ~/jre1.7.0_25
+        rm -rf ~/jre1.7.0_40
         if [ -z "$bashrcpath" ]; then
             echo -e '\nPATH=~/private/java/bin:$PATH' >> ~/.bashrc
         fi
