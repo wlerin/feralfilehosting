@@ -1,11 +1,10 @@
 #!/bin/bash
 # Add a cronjob to run a script called ~/delugecron and won't duplicate the entry.
-# wget -qO ~/delugecron.sh http://git.io/1emsaw
+# wget -qO ~/delugecron.sh http://git.io/1emsaw && bash ~/delugecron.sh
 # 0 0 * * 0 bash -l ~/delugecron.sh
 crontab -l | sed -rn 's/(.*)(bash -l ~\/delugecron)/\2/p' > ~/000delugedummy.txt
 tmpfile=$(grep -m 1 'bash\ -l\ ~/delugecron' ~/000delugedummy.txt)
 resultcnt=$(grep -c 'bash\ -l\ ~/delugecron' ~/000delugedummy.txt)
-#
 #
 if [[ "$resultcnt" -gt "1" ]]
 then
