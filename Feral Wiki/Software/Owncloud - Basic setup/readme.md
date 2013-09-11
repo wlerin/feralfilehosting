@@ -1,6 +1,8 @@
 
 Owncloud Manual installation
 
+In [SSH](https://www.feralhosting.com/faq/view?question=12) run this command. It will download the `setup.php` to the root of your `WWW`
+
 ~~~
 wget -qP ~/www/$(whoami).$(hostname)/public_html/ https://download.owncloud.com/download/community/setup-owncloud.php
 ~~~
@@ -14,15 +16,15 @@ http://username.server.feralhosting.com/setup-owncloud.php
 
 You should be able to just click on this file from your apache/ngninx/h5ai index.
 
-1: Just click next
+**1:** Just click next
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Owncloud%20-%20Basic%20setup/web-install-1.png)
 
-2: Leave the installation directory as `owncloud`. This will create and install it to a the `/owncloud` directory in your server root.
+**2:** Leave the installation directory as `owncloud`. This will create and install it to a the `/owncloud` directory in your server root.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Owncloud%20-%20Basic%20setup/web-install-2.png)
 
-3: Click next when done to visit the final stage of the setup.
+**3:** Click next when done to visit the final stage of the setup.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Owncloud%20-%20Basic%20setup/web-install-3.png)
 
@@ -32,19 +34,19 @@ Once you have visited the URl in a browser you will see this:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Owncloud%20-%20Basic%20setup/1.png)
 
-And that is basically it.
+### Using Owncloud with the valid SSL URL format instead of the default.
 
-If you want to be able to use the valid SSL URL with owncloud you must make this edit.
+If you want to be able to use the valid SSL URL with owncloud you must make these edits.
 
 Inside your `/owncloud` installation is a folder called `config` and inside this is a file called `config.php`.
 
-So the relative path to to this file from your server root will be
+So the relative path to to this file from your server root will be:
 
 ~~~
 owncloud/config/config.php
 ~~~
 
-Open this file with a text editor and add these new options.
+Open this file with a text editor and add these new options:
 
 ~~~
   'overwritehost' => 'server.feralhosting.com',
@@ -59,7 +61,7 @@ Once you have done this is will look something like this:
 
 Now Owncloud will work with the valid SSL URL format and not the other. All 3rd party apps will also work, so this is the best approach to dealing with the issue.
 
-
+These options are taken from the `config.sample.php` located in the same directory.
 
 
 
