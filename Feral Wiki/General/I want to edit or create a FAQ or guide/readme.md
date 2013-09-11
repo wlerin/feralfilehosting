@@ -1,170 +1,199 @@
-You can use Markdown to create a FAQ if you wish. You will have to convert it to Feral BBCode using this tool:
 
-[Markdown to BBCode](http://feralhosting.github.io/convert/m2b/index.html)
+[h3]How do I create a FAQ?[/h3]
+Click on this link: [url=https://www.feralhosting.com/faq/add]Add a Question[/url] and paste in your formatted text as the answer. Your question is the Title of the FAQ or guide. Open a ticket as outlined below to inform staff of the new FAQ.
 
-Please use fenced code blocks and in-line URLs (not the type linked at the bottom of the page)
+See below for formatting guidelines
 
-    ~~~
-    Some code
-    ~~~
+[h3]How do I edit a FAQ?[/h3]
+Simply [b]click on edit at the bottom of the FAQ[/b] and submit your edited version along with reason for the change.
+
+You can use Markdown to edit or create a FAQ if you wish. You will have to convert it to Feral BBCode using this tool:
+
+[url=http://feralhosting.github.io/convert/m2b/index.html]Markdown to BBCode[/url]
+
+[b]Important note:[/b] Please use fenced code blocks and in-line URLs (not the type linked at the bottom of the page). See formatting guidelines below for more info
 
 Here are some good on-line Markdown editors. 
 
-[http://markable.in/](http://markable.in/editor/) 
+[url=http://markable.in/editor/]http://markable.in/[/url] 
 
-[http://dillinger.io](http://dillinger.io/)
+[url=http://dillinger.io/]http://dillinger.io[/url]
 
-There is also a BBCode to Markdown tool for porting an existing FAQ so it can be edited or updated in Markdown.
+There is also a BBCode to Markdown tool for porting an existing FAQ so it can be edited or updated in Markdown and then converted back.
 
-[BBCode to Markdown](http://feralhosting.github.io/convert/b2m/index.html)
+[url=http://feralhosting.github.io/convert/b2m/index.html]BBCode to Markdown[/url]
 
 Copy and paste the returned text into a new FAQ or an edit. The layout and formatting will be correct, there is no need to change it.
 
 Please don't get too creative with the tags. These tools are very specific to the tags used here at Feral, which are documented below.
 
-### How do I create a FAQ?
-
-Click on this link: [Add a Question](https://www.feralhosting.com/faq/add) and paste in your formatted text as the answer. Your question is the Title of the FAQ or guide. Open a ticket as outlined below to inform staff of the new FAQ.
-
-### How do I edit a FAQ?
-
-Simply **click on edit at the bottom of the FAQ** and submit your edited version along with reason for the change.
-
 These are some Tags that work for formatting. They all need to be properly closed using [/tag].
 For example you would close code like this: [/code]
 
-Do not use [...] brackets inside a tag unless it is used with a valid BBCode listed here. It will break any tag.
+[code single][[][/[]h1][/code] Title h1 [code single][/h1][/code]
 
-[h1]  Title
-=== Hello
+Here is the markdown equivalent:
 
-[h2]  Second
---- Hello
+Markdown Title h1
+[code single]===[/code]
 
-[h3]  Third
-### Hello
+[code single][[][/[]h2][/code] Title h1 [code single][/h2][/code]
 
-[h4]  not sure
-#### Hello
+Here is the markdown equivalent:
 
-[h5]  Title
-##### Hello
+Markdown Title h2
+[code single]---[/code]
 
-[h6]  Title
-###### Hello
+[code single][[][/[]h3][/code] Title h1 [code single][/h3][/code]
 
-**[b]bold**
+Here is the markdown equivalent:
 
-[code] Standard code blocks.
-~~~
+[code single]###[/code] Markdown Title h3
 
-[code single] in-line code.
-`
+[code single][[][/[]h4][/code] Title h1 [code single][/h4][/code]
 
-[strong] (can/will be manually replaced by bold)
-**
+Here is the markdown equivalent:
 
-[i] italic.
-*
+[code single]####[/code] Markdown Title h4
 
-[em] italic (can/will be manually replaced by italic)
-`* some text*`
+[code single][[][/[]h5][/code] Title h1 [code single][/h5][/code]
 
-[img] Use this opening and closing tag for direct links to images.
-`![]()`
+Here is the markdown equivalent:
 
-[url] this tag must be used in a specific way.
-`[]()`
+[code single]#####[/code] Markdown Title h5
 
-**example URL tag:** [http://pastebin.com/VaBaWZVg](this tag must be used in a specific way)
+[code single][[][/[]h6][/code] Title h1 [code single][/h6][/code]
 
-**example URL tag:** [url=http://pastebin.com/VaBaWZVg]http://pastebin.com/VaBaWZVg)
+Here is the markdown equivalent:
 
-### CODE blocks
+[code single]######[/code] Markdown Title h6
 
-~~~
- for pre formatted code blocks follow this rule below:
+[code single][[][/[]b][/code] bold [code single][/b][/code]
+
+Here is the markdown equivalent:
+
+[code single]**[/code] bold [code single]**[/code]
+
+[code single][[][/[]code][/code] Standard code blocks [code single][[][/[]/code][/code]
+
+Here is the markdown equivalent:
+
+[code single]~~~[/code]
+Standard code blocks
+[code single]~~~[/code]
+
+[code single][[][/[]code single][/code] in-line code [code single][[][/[]/code][/code]
+
+Here is the markdown equivalent:
+
+[code single]`[/code] in-line code [code single]`[/code]
+
+[code single][[][/[]strong][/code] strong (can/will be manually replaced by italic) [code single][/strong][/code]
+
+Here is the markdown equivalent:
+
+[code single]**[/code] strong [code single]**[/code]
+
+[code single][[][/[]i][/code] italic [code single][/i][/code]
+
+Here is the markdown equivalent:
+
+[code single]*[/code] italic [code single]*[/code]
+
+[code single][[][/[]em][/code] italic (can/will be manually replaced by italic) [code single][/em][/code]
+
+Here is the markdown equivalent:
+
+[code single]*[/code] italic [code single]*[/code]
+
+Image tags - Use this opening and closing tag for direct links to images.
+
+This example tag usages will give us:
+
+[code][[][/[]img]http://i.imgur.com/pRfcyAi.jpg[/img][/code]
+This result:
+
+[img]http://i.imgur.com/pRfcyAi.jpg[/img]
+
+Here is the markdown equivalent:
+
+[code]![http://i.imgur.com/pRfcyAi.jpg](http://i.imgur.com/pRfcyAi.jpg)[/code]
+URL tags - should be used in a specific way.
+
+[code][[][/[]url=http://i.imgur.com/pRfcyAi.jpg]http://i.imgur.com/pRfcyAi.jpg[/url][/code]
+Will give us this result:
+
+[url=http://i.imgur.com/pRfcyAi.jpg]http://i.imgur.com/pRfcyAi.jpg[/url]
+
+Here is the markdown equivalent:
+
+[code][http://i.imgur.com/pRfcyAi.jpg](http://i.imgur.com/pRfcyAi.jpg)[/code]
+[h3]CODE blocks specifics[/h3]
+For [code single]pre[/code] formatted code blocks follow this rule below:
 
 When using the code tag use this rule for formatting regarding new lines please.
 
-Blank line above
+[code]Blank line above
 
-**Some code wrapped in code tags**
-No new/blank line below.
-
+[[][/[]code]Some code wrapped in code tags[[][/[]/code]
+No new/blank line below.[/code]
 This rule also applies for tags that also apply formatting above and below the line like 
-the H2 and H3 tag do, but not the Bold tag for example. You can leave a blank line below
-the b,i,img,url tags.
+the [code single]H2[/code] and [code single]H3[/code] tag do, but not the Bold tag for example. You can leave a blank line below
+the [code single]b[/code],[code single]i[/code],[code single]img[/code],[code single]url[/code] tags.
 
-**File Hosting**
-
-**IMAGES**
+[h3]File Hosting[/h3]
+[b]IMAGES[/b]
 
 When needed some images will be re-hosted, so use whatever you need/can when editing the faq.
 
-[http://imgur.com/](http://imgur.com/) is a popular choice.
+[url=http://imgur.com/]http://imgur.com/[/url] is a popular choice.
 
-**FILES**
+[b]FILES[/b]
 
 Important files will be re-hosted on a more permanent platform when needed. If this is important include this info in the ticket.
 
-[http://www.mediafire.com/](http://www.mediafire.com/) is a good choice.
+[url=http://www.mediafire.com/]http://www.mediafire.com/[/url] is a good choice.
 
-**Closing: At the end of the FAQ**
+[b]Closing: At the end of the FAQ[/b]
 
 Please leave 4 blank lines at the end of any question you edit or submit. This is a visual thing.
 
 Credit will be attributed to the original author(s) where needed manually. So do not worry about this.
 
-**After you have edited the guide please submit a ticket called:**
+[b]After you have edited the guide please submit a ticket called:[/b]
 
-**FAQ Edit - FAQ name - Category**
+[b]FAQ Edit - FAQ name - Category[/b]
 
 In the body submit a link to the FAQ you edited. So for example:
 
-**Title:** FAQ Edit - I want to edit a FAQ or guide - General
+[b]Title:[/b] FAQ Edit - I want to edit a FAQ or guide - General
 
-**Body:** https://www.feralhosting.com/faq/view?question=122 I fixed a broken link.
+[b]Body:[/b] https://www.feralhosting.com/faq/view?question=122 I fixed a broken link.
 
-**Feral FAQ Cheat Sheet**
-
+[h3]Feral FAQ Cheat Sheet[/h3]
 What is this? this is a list of preferred formatting when adding certain info. Feel free to add to this.
 
-**Use $(whoami) and $(hostname) to automatically insert a users info.**
+[b]Use [code single]$(whoami)[/code] and [code single]$(hostname)[/code] to automatically insert a users info.[/b]
 
-[code]cd ~/www/$(whoami).$(hostname)/public_html/
-~~~
+[code]cd ~/www/$(whoami).$(hostname)/public_html/[/code]
+[b]The following command in SSH to see the hostname and IP[/b]
 
-**The following command in SSH to see the hostname and IP**
+[code]host $(hostname)[/code]
+[b]The following command in SSH to see the IP only[/b]
 
-~~~
-host $(hostname)
-~~~
-
-**The following command in SSH to see the IP only**
-
-~~~
-hostname -i
-~~~
-
+[code]hostname -i[/code]
 The following command to get your external IP
 
-~~~
-curl -s icanhazip.com
-~~~
-
-**[wget](http://linux.die.net/man/1/wget)**
+[code]curl -s icanhazip.com[/code]
+[b][url=http://linux.die.net/man/1/wget]wget[/url][/b]
 
 -q quiet
 -N Overwrite if newer or different (timestamps)
 -O Save to file.
 -P Set directory prefix to prefix. Is the directory where all other files and subdirectories will be saved to
 
-~~~
-wget -q www.somelink.com/script.sh -O thisfile.sh
-~~~
-
-**[tar](http://linux.die.net/man/1/tar)**
+[code]wget -q www.somelink.com/script.sh -O thisfile.sh[/code]
+[b][url=http://linux.die.net/man/1/tar]tar[/url][/b]
 
 -c create
 -x extract
@@ -174,166 +203,100 @@ wget -q www.somelink.com/script.sh -O thisfile.sh
 -v verbose
 -C to directory
 
-~~~
-tar -xzf archive.tar.gz
-~~~
-
-~~~
-tar -xzf archive.tar.gz -C some/directory/
-~~~
-
-**[unzip](http://linux.die.net/man/1/unzip)**
+[code]tar -xzf archive.tar.gz[/code]
+[code]tar -xzf archive.tar.gz -C some/directory/[/code]
+[b][url=http://linux.die.net/man/1/unzip]unzip[/url][/b]
 
 -q quiet
 -o overwrite
 -d extract to directory 
 
-~~~
-unzip -qo archive.zip
-~~~
-
-~~~
-unzip -qo archive.zip -d some/directory/
-~~~
-
-**screen**
+[code]unzip -qo archive.zip[/code]
+[code]unzip -qo archive.zip -d some/directory/[/code]
+[b]screen[/b]
 
 Send a command to a running screen and window of choice.
 
-~~~
-screen -S screen-name -p 0 -X exec your-command-goes-here
-~~~
+[code]screen -S screen-name -p 0 -X exec your-command-goes-here[/code]
+[code single]-S[/code] screen-name you want to match
+[code single]-p[/code] number of the screen window, 0 in this case sends it to the first.
+[code single]exec[/code] some-command
 
-`-S` screen-name you want to match
-`-p` number of the screen window, 0 in this case sends it to the first.
-`exec` some-command
+When using [b]screen[/b] give the window a name by using [b]-S[/b] for easier management. The word after the [b]-S[/b] is the name of the window, in this case Rtorrent.
 
-When using **screen** give the window a name by using **-S** for easier management. The word after the **-S** is the name of the window, in this case Rtorrent.
-
-~~~
-screen -S Rtorrent rtorrent
-~~~
-
+[code]screen -S Rtorrent rtorrent[/code]
 This will attach to a screen with this name
 
-~~~
-screen -R Rtorrent rtorrent
-~~~
-
+[code]screen -R Rtorrent rtorrent[/code]
 This will attach to a screen with this name or create it if it doesn't
 
-**[kill](http://linux.die.net/man/1/kill)**
+[b][url=http://linux.die.net/man/1/kill]kill[/url][/b]
 
-~~~
-kill -9 PID
-~~~
+[code]kill -9 PID[/code]
+[b][url=http://linux.die.net/man/1/killall]killall[/url][/b]
 
-**[killall](http://linux.die.net/man/1/killall)**
-
-~~~
-killall -9 processname -u $(whoami)
-~~~
-
-**Use [b]TAB** to autocomplete parts of your SSH commands.[/b]
+[code]killall -9 processname -u $(whoami)[/code]
+[b]Use [b]TAB[/b] to autocomplete parts of your SSH commands.[/b]
 
 For example: if I am in my home folder and I wish to go to my 
 
-~~~
-~/private/rtorrent
-~~~
-
+[code]~/private/rtorrent[/code]
 I can do this
 
-~~~
-cd ~/p **TAB**
-~~~
-
+[code]cd ~/p [b]TAB[/b][/code]
 Which will give me this:
 
-~~~
-~/private/
-~~~
-
-Unless I have more than one folder starting with **p**. then I must give a second or third letter depending on how they conflict. In this case I do not have a conflicting folder name.
+[code]~/private/[/code]
+Unless I have more than one folder starting with [b]p[/b]. then I must give a second or third letter depending on how they conflict. In this case I do not have a conflicting folder name.
 
 Then if I do:
 
-~~~
-cd ~/private/r **TAB**
-~~~
-
+[code]cd ~/private/r [b]TAB[/b][/code]
 I will end up with this:
 
-~~~
-cd ~/private/rtorrent/
-~~~
+[code]cd ~/private/rtorrent/[/code]
+So now I press enter. I have now used TAB to auto-complete parts of my [b]cd[/b] command.
 
-So now I press enter. I have now used TAB to auto-complete parts of my **cd** command.
+[b]github url shortening[/b]
 
-**github url shortening**
+[url=http://git.io/]http://git.io/[/url]
 
-[http://git.io/](http://git.io/)
-
-[git-io-github-url-shortener](https://github.com/blog/985-git-io-github-url-shortener)
+[url=https://github.com/blog/985-git-io-github-url-shortener]git-io-github-url-shortener[/url]
 
 You can do it in SSH using this command.
 
-~~~
-curl -i http://git.io -F "url=YOU.URL.HERE"
-~~~
+[code]curl -i http://git.io -F "url=YOU.URL.HERE"[/code]
+[b]Chaining Commands[/b]
 
-**Chaining Commands**
+The use of [code single]&&[/code] will move to the next command if the previous command was successful.
 
-The use of `&&` will move to the next command if the previous command was successful.
+[code]cd ~/private && mkdir test && cd test[/code]
+So if the directory [code single]~/private[/code] did not exist the command would stop at the point where a single command did not execute successfully.
 
-~~~
-cd ~/private && mkdir test && cd test
-~~~
+The use is [code single];[/code] will just chain a series of commands. 
 
-So if the directory `~/private` did not exist the command would stop at the point where a single command did not execute successfully.
+[code]cd ~/private; mkdir test; cd test[/code]
+Here it will just do command one then execute the next until it reaches the end. So if [code single]~/private[/code] did not exist the command would create the [code single]test[/code] folder in the wrong place.
 
-The use is `;` will just chain a series of commands. 
+[b]Run a process and send it to the background.[/b]
 
-~~~
-cd ~/private; mkdir test; cd test
-~~~
+if you add a [code single]&[/code] to the end of your command it will be sent to the background as your run it.
 
-Here it will just do command one then execute the next until it reaches the end. So if `~/private` did not exist the command would create the `test` folder in the wrong place.
-
-**Run a process and send it to the background.**
-
-if you add a `&` to the end of your command it will be sent to the background as your run it.
-
-~~~
-./some/path/to/a/binary &
-~~~
-
-### Crontab
-
+[code]./some/path/to/a/binary &[/code]
+[h3]Crontab[/h3]
 To edit your crontab:
 
-~~~
-crontab -e
-~~~
-
+[code]crontab -e[/code]
 To execute a bash script from crontab you need to use this command:
 
-~~~
-bash -l
-~~~
-
+[code]bash -l[/code]
 For example:
 
-~~~
-@reboot bash -l ~/myscript.sh
-~~~
-
+[code]@reboot bash -l ~/myscript.sh[/code]
 You can use this command to easily create a cronjob for users in some sort of support capacity:
 
-~~~
-(crontab -l ; echo "* * * * * some/cron/thing") |uniq - | crontab -
-~~~
-
+[code](crontab -l ; echo "[i] [/i] [i] [/i] * some/cron/thing") |uniq - | crontab -[/code]
 This will create a specified cronjob while also checking to make sure it is not created more than once. So with a single command you can have create and insert a cronjob for a user. It only checks vs the last entry though.
+
 
 
