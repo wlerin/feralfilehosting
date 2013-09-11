@@ -2,11 +2,11 @@ You can use Markdown to create a FAQ if you wish. You will have to convert it to
 
 [Markdown to BBCode](http://feralhosting.github.io/convert/m2b/index.html)
 
-Please use github style code blocks and in-line URLs (not the type linked at the bottom of the page)
+Please use fenced code blocks and in-line URLs (not the type linked at the bottom of the page)
 
-    ```
+    ~~~
     Some code
-    ```
+    ~~~
 
 Here are some good on-line Markdown editors. 
 
@@ -36,10 +36,10 @@ For example you would close code like this: [/code]
 Do not use [...] brackets inside a tag unless it is used with a valid BBCode listed here. It will break any tag.
 
 [h1]  Title
-# Hello
+=== Hello
 
 [h2]  Second
-## Hello
+--- Hello
 
 [h3]  Third
 ### Hello
@@ -53,31 +53,36 @@ Do not use [...] brackets inside a tag unless it is used with a valid BBCode lis
 [h6]  Title
 ###### Hello
 
-**  [b]bold**
+**[b]bold**
+
+[code] Standard code blocks.
+~~~
+
+[code single] in-line code.
+`
 
 [strong] (can/will be manually replaced by bold)
+**
 
-`  [i]italic` 
+[i] italic.
+*
 
 [em] italic (can/will be manually replaced by italic)
+`* some text*`
 
 [img] Use this opening and closing tag for direct links to images.
+`![]()`
 
-[ this tag must be used in a specific way.
+[url] this tag must be used in a specific way.
+`[]()`
 
-**example URL tag:** [http://pastebin.com/VaBaWZVg]( this tag must be used in a specific way.
+**example URL tag:** [http://pastebin.com/VaBaWZVg](this tag must be used in a specific way)
 
 **example URL tag:** [url=http://pastebin.com/VaBaWZVg]http://pastebin.com/VaBaWZVg)
 
-**Dealing with SQUARE BRACKETS:**
-
-Currently there is a bug with the use of square brackets and anything between that is not an existing BBCode. The only way to effectively deal with this for certain things like BASH Scripts is to:
-
-**1:** Use [url=http://pastebin.com/]PasteBin.com](http://pastebin.com/VaBaWZVg) for scripts and link to them.
-
 ### CODE blocks
 
-```
+~~~
  for pre formatted code blocks follow this rule below:
 
 When using the code tag use this rule for formatting regarding new lines please.
@@ -128,25 +133,25 @@ What is this? this is a list of preferred formatting when adding certain info. F
 **Use $(whoami) and $(hostname) to automatically insert a users info.**
 
 [code]cd ~/www/$(whoami).$(hostname)/public_html/
-```
+~~~
 
 **The following command in SSH to see the hostname and IP**
 
-```
+~~~
 host $(hostname)
-```
+~~~
 
 **The following command in SSH to see the IP only**
 
-```
+~~~
 hostname -i
-```
+~~~
 
 The following command to get your external IP
 
-```
+~~~
 curl -s icanhazip.com
-```
+~~~
 
 **[wget](http://linux.die.net/man/1/wget)**
 
@@ -155,9 +160,9 @@ curl -s icanhazip.com
 -O Save to file.
 -P Set directory prefix to prefix. Is the directory where all other files and subdirectories will be saved to
 
-```
+~~~
 wget -q www.somelink.com/script.sh -O thisfile.sh
-```
+~~~
 
 **[tar](http://linux.die.net/man/1/tar)**
 
@@ -169,13 +174,13 @@ wget -q www.somelink.com/script.sh -O thisfile.sh
 -v verbose
 -C to directory
 
-```
+~~~
 tar -xzf archive.tar.gz
-```
+~~~
 
-```
+~~~
 tar -xzf archive.tar.gz -C some/directory/
-```
+~~~
 
 **[unzip](http://linux.die.net/man/1/unzip)**
 
@@ -183,21 +188,21 @@ tar -xzf archive.tar.gz -C some/directory/
 -o overwrite
 -d extract to directory 
 
-```
+~~~
 unzip -qo archive.zip
-```
+~~~
 
-```
+~~~
 unzip -qo archive.zip -d some/directory/
-```
+~~~
 
 **screen**
 
 Send a command to a running screen and window of choice.
 
-```
+~~~
 screen -S screen-name -p 0 -X exec your-command-goes-here
-```
+~~~
 
 `-S` screen-name you want to match
 `-p` number of the screen window, 0 in this case sends it to the first.
@@ -205,63 +210,63 @@ screen -S screen-name -p 0 -X exec your-command-goes-here
 
 When using **screen** give the window a name by using **-S** for easier management. The word after the **-S** is the name of the window, in this case Rtorrent.
 
-```
+~~~
 screen -S Rtorrent rtorrent
-```
+~~~
 
 This will attach to a screen with this name
 
-```
+~~~
 screen -R Rtorrent rtorrent
-```
+~~~
 
 This will attach to a screen with this name or create it if it doesn't
 
 **[kill](http://linux.die.net/man/1/kill)**
 
-```
+~~~
 kill -9 PID
-```
+~~~
 
 **[killall](http://linux.die.net/man/1/killall)**
 
-```
+~~~
 killall -9 processname -u $(whoami)
-```
+~~~
 
 **Use [b]TAB** to autocomplete parts of your SSH commands.[/b]
 
 For example: if I am in my home folder and I wish to go to my 
 
-```
+~~~
 ~/private/rtorrent
-```
+~~~
 
 I can do this
 
-```
+~~~
 cd ~/p **TAB**
-```
+~~~
 
 Which will give me this:
 
-```
+~~~
 ~/private/
-```
+~~~
 
 Unless I have more than one folder starting with **p**. then I must give a second or third letter depending on how they conflict. In this case I do not have a conflicting folder name.
 
 Then if I do:
 
-```
+~~~
 cd ~/private/r **TAB**
-```
+~~~
 
 I will end up with this:
 
-```
+~~~
 cd ~/private/rtorrent/
-```
+~~~
 
 So now I press enter. I have now used TAB to auto-complete parts of my **cd** command.
 
@@ -273,25 +278,25 @@ So now I press enter. I have now used TAB to auto-complete parts of my **cd** co
 
 You can do it in SSH using this command.
 
-```
+~~~
 curl -i http://git.io -F "url=YOU.URL.HERE"
-```
+~~~
 
 **Chaining Commands**
 
 The use of `&&` will move to the next command if the previous command was successful.
 
-```
+~~~
 cd ~/private && mkdir test && cd test
-```
+~~~
 
 So if the directory `~/private` did not exist the command would stop at the point where a single command did not execute successfully.
 
 The use is `;` will just chain a series of commands. 
 
-```
+~~~
 cd ~/private; mkdir test; cd test
-```
+~~~
 
 Here it will just do command one then execute the next until it reaches the end. So if `~/private` did not exist the command would create the `test` folder in the wrong place.
 
@@ -299,9 +304,9 @@ Here it will just do command one then execute the next until it reaches the end.
 
 if you add a `&` to the end of your command it will be sent to the background as your run it.
 
-```
+~~~
 ./some/path/to/a/binary &
-```
+~~~
 
 ### Crontab
 
