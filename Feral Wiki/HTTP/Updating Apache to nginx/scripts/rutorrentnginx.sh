@@ -7,4 +7,5 @@ echo 'location /rutorrent {
 
 location /rutorrent/conf { deny all; }
 location /rutorrent/share { deny all; }' > ~/.nginx/conf.d/000-default-server.d/rutorrent.conf
-killall -9 nginx php5-fpm -u $(whoami)
+# killall -9 nginx php5-fpm -u $(whoami)
+/usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1

@@ -23,7 +23,7 @@ Click `Add new server`.
 
 **Host:** `username.server.feralhosting.com` (server is the servername of your slot)
 
-**Port:** `80` (`443` can be used if you check `SSL` and `accept all certs`)
+**Port:** `80` ( `443` can be used if you check `SSL` and `accept all certs` )
 
 **SCGI Folder:** `/rtorrent/rpc` (case sensitive)
 
@@ -43,7 +43,7 @@ Set IP/domain to:
 server.feralhosting.com
 ~~~
 
-**Port:** `80` (`443` can be used if you check `SSL` and `accept all certs`)
+**Port:** `80` ( `443` can be used if you check `SSL` and `accept all certs` )
 
 **Deluge Web Password:** your Web Gui password from your Slot Details page. (Not to be confused with require Authentication) 
 
@@ -54,10 +54,6 @@ The important one is the Folder field. You need the `/` at the beginning and no 
 **Server OS:** `Linux`
 
 If you get an error about Web Gui not being connected to a daemon log in via the Web Gui and connect to the daemon, then try again.
-
-
-
-
 
 
 
