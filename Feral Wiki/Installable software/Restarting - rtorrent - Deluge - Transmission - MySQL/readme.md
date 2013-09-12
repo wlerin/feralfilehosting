@@ -60,7 +60,7 @@ killall -9 -u $(whoami) transmission-daemon
 
 **2:** Start transmission
 
-**Important note:** If you installed or re-installed transmission on or after the `12.09.2013` you cannot manually restart transmission. After killing the process allow up to 5 minutes or it to restart.
+**Important note:** If you installed or re-installed transmission on or after the `12.09.2013` you cannot manually restart transmission. After killing the process allow up to 5 minutes for it to automatically to restart.
 
 ~~~
 transmission-daemon
