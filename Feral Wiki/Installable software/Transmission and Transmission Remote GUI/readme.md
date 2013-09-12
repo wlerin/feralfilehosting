@@ -1,94 +1,73 @@
 
-### transmisson-remote-gui supported platforms:
-
-Windows
-Linux
-Mac
-
-This software can be installed from the [**Install Software** link in your Manager](https://www.feralhosting.com/manager/) for the slot you wish to use it on.
-
-In [SSH](https://www.feralhosting.com/faq/view?question=12) run this command to see you main info except the password:
-
-~~~
-wget -qO ~/info.sh http://git.io/QsfUKA && bash ~/info.sh
-~~~
-
-To see you password you must click on the Slot Details page of the relevant slot in your [Account Manager](https://www.feralhosting.com/manager/) and it will look like this:
+Transmission can be installed from the [**Install Software** link in your Manager](https://www.feralhosting.com/manager/) for the slot you wish to use it on.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Transmission%20and%20Transmission%20Remote%20GUI/transslotdetail.png)
 
+If you wish to set up an RPC client you will need to take note of your server name (in green), it's also listed in the menu.
+
 ### Remote GUI Client for Transmission
 
-Download it from here and then install it.
+Transmisson Remote GUI is a stand-alone client that runs on your computer and allows you to control your instance of Transmission running on the server remotely. It supports the following platforms: Windows, Mac, and Linux
 
-[transmisson-remote-gui](http://code.google.com/p/transmisson-remote-gui/)
+To start, [download the latest version](http://code.google.com/p/transmisson-remote-gui/) then follow the configuration instructions below.
 
-**Important note:** The [transmission-remote-dotnet](http://code.google.com/p/transmission-remote-dotnet/) client does not work with our services.
+**Important note:** The similarly named [transmission-remote-dotnet](http://code.google.com/p/transmission-remote-dotnet/) does not work with our installations.
 
-### Transmission Remote GUI Configuration*
+### Configuring Remote GUI
 
-Once you open transmisson-remote-gui you will see something like this:
+Opening the client you should see something similar to the following image. Click the down arrow by the connection symbol to open the menu:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Transmission%20and%20Transmission%20Remote%20GUI/1.png)
 
-This is where you will need to click to create a new connection:
+Select "New connection...":
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Transmission%20and%20Transmission%20Remote%20GUI/2.png)
 
-This is what you will see and it is also where you will enter you connection information:
+You will then be presented with the "Connection options" window like so:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Transmission%20and%20Transmission%20Remote%20GUI/3.png)
 
-It will start to look something like this:
-
-**Important note:** Do not check SSL, this will cause the connection to fail.
+We will need to fill it with information similar to below. If you want the RPC connection to be unsecured then use something similar to:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Transmission%20and%20Transmission%20Remote%20GUI/4.png)
+
+For a secure connection (always recommended) then please select SSL and use the following port:
+
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Transmission%20and%20Transmission%20Remote%20GUI/5.png)
- 
-Please use the bash script linked above to get most of this information using a single command.
 
-**Connection:** A name for this connection. Filled in automatically as you fill in the `Remote host:` field.
+**Connection:** You may choose a name or leave it blank for it to be automatically filled by the `Remote host` field.
 
-**Remote host:** You server hostname for example, `chronos.feralhosting.com`
-
-**Port non SSL/http:** `80`
-
-**Port SSL/http:** `443` and the `Use SSL` box is checked
-
-**User name:** Your Feral username
-
-**Password:** As listed under the Transmission section of your Slot Details page for the relevant slot.
-
-When you have filled out the fields correctly  click OK and you will be automatically connected to transmission running on the selected slot.
-
-### When Transmission is Unresponsive
-
-If transmission is frozen you will need to kill it. Log into your slot via  [SSH](https://www.feralhosting.com/faq/view?question=12), and run these commands:
-
-To kill the transmission daemon:
+**Remote host:** Enter the host `transmission.username.server.feralhosting.com` replacing `username` with your Feral username in lowercase and `server` with your server name, for example:
 
 ~~~
-killall -9 -u $(whoami) transmission-daemon
+transmission.peterpan.aphrodite.feralhosting.com
 ~~~
 
-You can now restart transmission again by typing: 
+**Port:** If you check `Use SSL` then use port `443` otherwise, port `80`. SSL will encrypt your connection and is recommended.
+
+**User name:** Your Feral username.
+
+**Password:** As listed under the Transmission section of your "Slot Detail" page.
+
+Once filled in, click OK and it will save then connect to the profile.
+
+### Troubleshooting Transmission
+
+If Transmission is acting abnormally e.g., has become unresponsive then a restart is in order
+
+If transmission is acting abnormally (e.g., has become unresponsive or frozen) you will need to restart it. Log into your slot via [SSH](https://www.feralhosting.com/faq/view?question=12), and run this command:
 
 ~~~
-transmission-daemon
+killall -9  -u $(whoami) transmission-daemon
 ~~~
 
-It may take a few seconds to start up if you have a lot of torrents added.
+It will then be restart automatically in the next 5 minutes.
 
-Transmission should now be accessible through web interface or remote GUI.
+If the problem persists or Transmission is not restarted then please open a support ticket.
 
-**What Version of Transmission Am I Running?**
+### What version of Transmission am I running?
 
-[SSH](https://www.feralhosting.com/faq/view?question=12) to your server, and type:
-
-~~~
-transmission-daemon -V
-~~~
+Login to the Web Gui, press the "gears" button on the bottom left hand corner and select "About". You will then be presented with a dialogue showing the version number.
 
 
 
