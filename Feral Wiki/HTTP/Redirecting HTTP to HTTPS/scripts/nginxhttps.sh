@@ -108,10 +108,12 @@ if (\$forceh = A24) {
     rewrite ^ https://\$http_x_host/\$feraluser\$request_uri? permanent;
 }" > ~/.nginx/conf.d/000-default-server.d/https.conf
 #
-echo "Restarting nginx and php"
+echo "Reloading the nginx configuration"
 echo
-killall -9 nginx php5-fpm -u $(whoami) 2> /dev/null
-echo "Please wait up to 5 minutes for nginx to restart."
+# killall -9 nginx php5-fpm -u $(whoami) 2> /dev/null
+/usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
+# echo "Please wait up to 5 minutes for nginx to restart."
+echo "Done. You may need to clear your browser cache to see the changes."
 echo
 #
 ############################
