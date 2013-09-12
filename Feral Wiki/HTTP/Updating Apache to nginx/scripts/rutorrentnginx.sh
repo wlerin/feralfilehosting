@@ -1,5 +1,5 @@
 #!/bin/bash
-# wget -qNO ~/rutnginx.sh http://git.io/9vlcyw && bash ~/rutnginx.sh
+# wget -qO ~/rutnginx.sh http://git.io/9vlcyw && bash ~/rutnginx.sh
 echo 'location /rutorrent {
     auth_basic '$(whoami)';
     auth_basic_user_file '$HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd';
