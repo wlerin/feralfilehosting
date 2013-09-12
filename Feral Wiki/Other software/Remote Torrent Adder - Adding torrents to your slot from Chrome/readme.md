@@ -9,39 +9,31 @@
 
 ### Rutorrent
 
-**Client:** ruTorrent WebUI (From the drop down menu)
+**Client:** ruTorrent WebUI from the drop down menu
 
-**Host:** server.feralhosting.com (For example : aphrodite.feralhosting.com)
+**Host:** `server.feralhosting.com` For example: `aphrodite.feralhosting.com`
 
-**Port:** 443
+**Port:** leave blank
 
-**SSL** Checked
+**SSL** Checked if you are using SSL
 
-**Username:** Your Feral Username
+**Username:** Your `Feral Username`
 
-**Password:** Your rutorrent Web Gui Password (as shown on your Slot Details page for rutorrent)
+**Password:** Your `rutorrent Web Gui Password` (as shown on your Slot Details page for rutorrent)
 
 **Important note:** on your username and password: If you have changed your default rutorrent Web Gui config using the [Password Protect Your WWW Page(s)](https://www.feralhosting.com/faq/view?question=22) guide you will need to use the **Username** and **Password** you created there.
 
-**Relative Path:** 
-
-~~~
-/username/rutorrent/
-~~~
+**Relative Path SSL:** `/username/rutorrent/`
 
 **Label:** [Nothing required]
 
 **Directory:** This is the directory where your torrent **data** will be stored, you will need the full path to this folder.
 To get this you have to SSH into your box, then navigate to your:
 
-~~~
-media/DiskID/home/username/rutorrent/data
-~~~
-
-Directory by pasting the following command into the terminal: 
+Paste the following command into the terminal: 
 
 ~~~
-cd ~/private/rtorrent/data && pwd
+ls -d $HOME/private/rtorrent/data
 ~~~
 
 The output should look something like this:
@@ -59,11 +51,31 @@ You will get an error like this:
 
 But it stills works.
 
+### Still having issues? read this section
+
+If you are having issues you can try these server settings instead:
+
+**Important note:** If you force redirection to https this URL format **will not work** unless you accept the cert in Chrome first every session. Follow these steps.
+
+1: You will need to visit the `https://username.server.feralhosting.com` URL in a Chrome and accept the cert for this session.
+
+2: You will need to check `SSL` in the remote torrent adder options since https is being forced.
+
+These settings will work if https redirection is not forced, or you have visited the https URL for this session
+
+**Host:** `username.server.feralhosting.com` For example: `peterpan.aphrodite.feralhosting.com`
+
+**Port:** leave blank
+
+**Relative Path:** `/rutorrent/`
+
+**SSL:** Checked if https is being forced, otherwise leave unchecked.
+
 ### Client: Deluge
 
 **Host:** server.feralhosting.com
 
-**Port:** 443
+**Port:** leave blank
 
 **Username:** Your Feral username
 

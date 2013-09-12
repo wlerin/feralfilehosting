@@ -106,7 +106,8 @@ Here is the markdown equivalent:
 
 [code single]*[/code] italic [code single]*[/code]
 
-Image tags - Use this opening and closing tag for direct links to images.
+[h3]Image tags[/h3]
+Use this opening and closing tag for direct links to images.
 
 This example tag usages will give us:
 
@@ -118,16 +119,24 @@ This result:
 Here is the markdown equivalent:
 
 [code]![http://i.imgur.com/pRfcyAi.jpg](http://i.imgur.com/pRfcyAi.jpg)[/code]
-URL tags - should be used in a specific way.
+[h3]URL and URL tags[/h3]
+URLs are automatically detected and do not need a tag, so this:
 
-[code][[][/[]url=http://i.imgur.com/pRfcyAi.jpg]http://i.imgur.com/pRfcyAi.jpg[/url][/code]
+[code]http://i.imgur.com/pRfcyAi.jpg[/code]
+This URL will be automatically detected and give you a click-able link, for example:
+
+http://i.imgur.com/pRfcyAi.jpg
+
+[b]URLs with a description[/b] - should be used in a specific way using the URL tag.
+
+[code][[][/[]url=http://i.imgur.com/pRfcyAi.jpg]Link description[/url][/code]
 Will give us this result:
 
-[url=http://i.imgur.com/pRfcyAi.jpg]http://i.imgur.com/pRfcyAi.jpg[/url]
+[url=http://i.imgur.com/pRfcyAi.jpg]Link description[/url]
 
 Here is the markdown equivalent:
 
-[code][http://i.imgur.com/pRfcyAi.jpg](http://i.imgur.com/pRfcyAi.jpg)[/code]
+[code][Link description](http://i.imgur.com/pRfcyAi.jpg)[/code]
 [h3]CODE blocks specifics[/h3]
 For [code single]pre[/code] formatted code blocks follow this rule below:
 
@@ -193,6 +202,11 @@ The following command to get your external IP
 -P Set directory prefix to prefix. Is the directory where all other files and subdirectories will be saved to
 
 [code]wget -q www.somelink.com/script.sh -O thisfile.sh[/code]
+You will see most FAQs use this format:
+
+[code]wget -qO ~/thisfile.sh www.somelink.com/script.sh[/code]
+This basically just puts the file in the slot root with the use of [code single]~/[/code]
+
 [b][url=http://linux.die.net/man/1/tar]tar[/url][/b]
 
 -c create
@@ -222,20 +236,23 @@ Send a command to a running screen and window of choice.
 [code single]-p[/code] number of the screen window, 0 in this case sends it to the first.
 [code single]exec[/code] some-command
 
-When using [b]screen[/b] give the window a name by using [b]-S[/b] for easier management. The word after the [b]-S[/b] is the name of the window, in this case Rtorrent.
+When using [b]screen[/b] give the window a name by using [b]-S[/b] for easier management. The word after the [b]-S[/b] is the name of the window, in this case rtorrent.
 
-[code]screen -S Rtorrent rtorrent[/code]
-This will attach to a screen with this name
+This will attach to a screen with this name:
 
-[code]screen -R Rtorrent rtorrent[/code]
-This will attach to a screen with this name or create it if it doesn't
+[code]screen -S rtorrent rtorrent[/code]
+This will attach to a screen with this name or create it if it doesn't:
 
+[code]screen -R rtorrent rtorrent[/code]
+Will start the selected process in the background as a daemon and detach from it immediately:
+
+[code]screen -dmS rtorrent rtorrent[/code]
 [b][url=http://linux.die.net/man/1/kill]kill[/url][/b]
 
 [code]kill -9 PID[/code]
 [b][url=http://linux.die.net/man/1/killall]killall[/url][/b]
 
-[code]killall -9 processname -u $(whoami)[/code]
+[code]killall -9 -u $(whoami) processname[/code]
 [b]Use [b]TAB[/b] to autocomplete parts of your SSH commands.[/b]
 
 For example: if I am in my home folder and I wish to go to my 

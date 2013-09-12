@@ -44,6 +44,7 @@ It will start to look something like this:
 **Important note:** Do not check SSL, this will cause the connection to fail.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Transmission%20and%20Transmission%20Remote%20GUI/4.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Transmission%20and%20Transmission%20Remote%20GUI/5.png)
  
 Please use the bash script linked above to get most of this information using a single command.
 
@@ -51,7 +52,9 @@ Please use the bash script linked above to get most of this information using a 
 
 **Remote host:** You server hostname for example, `chronos.feralhosting.com`
 
-**Port:** The `rpc-port` listed port in the `~/.config/transmission-daemon/settings.json` file.
+**Port non SSL/http:** `80`
+
+**Port SSL/http:** `443` and the `Use SSL` box is checked
 
 **User name:** Your Feral username
 
@@ -66,7 +69,7 @@ If transmission is frozen you will need to kill it. Log into your slot via  [SSH
 To kill the transmission daemon:
 
 ~~~
-killall -9 transmission-daemon -u $(whoami)
+killall -9 -u $(whoami) transmission-daemon
 ~~~
 
 You can now restart transmission again by typing: 
