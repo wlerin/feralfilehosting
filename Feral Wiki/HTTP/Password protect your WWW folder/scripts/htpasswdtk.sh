@@ -622,8 +622,7 @@ while [ 1 ]
         then
         echo -e 'location /links {\n    auth_basic "Please log in";\n    auth_basic_user_file '$HOME'/private/.htpasswd;\n}' > ~/.nginx/conf.d/000-default-server.d/links.conf
         /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
-        echo
-        echo "Now wait up to 5 minutes for nginx to restart"
+        echo "Done. You may need to clear your browser cache to see the changes"
         echo
         sleep 2
         else
@@ -638,8 +637,7 @@ while [ 1 ]
         then
         echo -e 'location /links {\n    auth_basic "'$(whoami)'";\n    auth_basic_user_file '$HOME'/www/'$(whoami)'.'$(hostname)'/public_html/rutorrent/.htpasswd;\n}' > ~/.nginx/conf.d/000-default-server.d/links.conf
         /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
-        echo
-        echo "Now wait up to 5 minutes for nginx to restart"
+        echo "Done. You may need to clear your browser cache to see the changes"
         echo
         sleep 2
         else
