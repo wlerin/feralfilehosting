@@ -141,10 +141,10 @@ location / {
 }
 ~~~
 
-Now restart nginx using this command:
+Now reload your nginx configuration using this command:
 
 ~~~
-killall -9 -u $(whoami) nginx php5-fpm
+/usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf
 ~~~
 
 Once it has restarted the h5ai should be working.
@@ -183,10 +183,10 @@ auth_basic_user_file /path/to/the/.htpasswd;
 }
 ~~~
 
-Then delete the `h5ai.conf` and then restart nginx:
+Then delete the `h5ai.conf` and then reload your nginx configuration:
 
 ~~~
-killall -9 -u $(whoami) nginx php5-fpm
+/usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf
 ~~~
 
 ### Contribute:

@@ -621,7 +621,7 @@ while [ 1 ]
         if [[ -f ~/private/.htpasswd && -d ~/.nginx/conf.d  ]]
         then
         echo -e 'location /links {\n    auth_basic "Please log in";\n    auth_basic_user_file '$HOME'/private/.htpasswd;\n}' > ~/.nginx/conf.d/000-default-server.d/links.conf
-        killall -9 -u $(whoami) nginx php5-fpm
+        /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
         echo
         echo "Now wait up to 5 minutes for nginx to restart"
         echo
@@ -637,7 +637,7 @@ while [ 1 ]
         if [[ -f ~/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd && -d ~/.nginx/conf.d ]]
         then
         echo -e 'location /links {\n    auth_basic "'$(whoami)'";\n    auth_basic_user_file '$HOME'/www/'$(whoami)'.'$(hostname)'/public_html/rutorrent/.htpasswd;\n}' > ~/.nginx/conf.d/000-default-server.d/links.conf
-        killall -9 -u $(whoami) nginx php5-fpm
+        /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
         echo
         echo "Now wait up to 5 minutes for nginx to restart"
         echo
