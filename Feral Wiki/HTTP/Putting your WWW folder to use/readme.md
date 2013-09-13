@@ -163,10 +163,10 @@ index  index.html  index.php  /_h5ai/server/php/index.php;
 }
 ~~~
 
-Then restart nginx:
+Then reload your nginx configuration:
 
 ~~~
-killall -9 -u $(whoami) nginx php5-fpm
+/usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf
 ~~~
 
 ### h5ai custom directory with nginx that is also password protected 

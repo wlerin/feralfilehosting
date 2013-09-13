@@ -379,13 +379,11 @@ location /
 
 Is specifying the server root and not a sub directory.
 
-Then save the edits to the `links.conf` and restart ngnix for the settings to take effect.
+Then save the edits to the `links.conf` and reload your nginx configuration for the settings to take effect.
 
 ~~~
-killall -9 nginx php5-fpm -u $(whoami)
+/usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf
 ~~~
-
-You will need to wait up to 5 minutes for it to restart. 
 
 **Important note:** Please note you may need to clear your browser cache for changes to reflected in your current browser session.
 
