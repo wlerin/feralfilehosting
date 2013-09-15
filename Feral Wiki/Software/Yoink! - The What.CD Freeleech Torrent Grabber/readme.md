@@ -1,5 +1,7 @@
 
-**Important notice:** This will download ALL freeleech torrents. At the time of this FAQ that was `169GB` of torrents. THis can change quite drastically in either direction so be careful.
+**Important notice:** This will download ALL freeleech torrents. At the time of this FAQ that was `169GB` of torrents. This can change quite drastically in either direction so be careful.
+
+Make sure you have the space to spare before running this script. You can cancel the script while it running by pressing and holding `CTRL` the pressing `c`. When you run the script again it will detect torrents it has already downloaded and continue from where it left off. Do this to grab some, check the space, do some more.
 
 ### Yoink! The Freeleech Torrent Grabber
 
@@ -30,7 +32,7 @@ pip install --user requests HTMLParser
 python ~/yoink.py
 ~~~
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Yoink!%20-%20The%20Freeleech%20Torrent%20Grabber/1.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Yoink!%20-%20The%20What.CD%20Freeleech%20Torrent%20Grabber/1.png)
 
 Now you will need to configure the `~/.yoinkrc` file:
 
@@ -64,7 +66,7 @@ python ~/yoink.py
 
 Wait fort it to finish Yoinking.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Yoink!%20-%20The%20Freeleech%20Torrent%20Grabber/2.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Yoink!%20-%20The%20What.CD%20Freeleech%20Torrent%20Grabber/2.png)
 
 ### crontab
 
@@ -79,3 +81,6 @@ Add this line for it to run every hour, edit as you see fit:
 ~~~
 
 Press and hold `CTRL` then press `x` to save. Press `y` to confirm and exit.
+
+
+
