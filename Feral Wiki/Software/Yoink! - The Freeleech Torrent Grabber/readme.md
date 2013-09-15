@@ -3,6 +3,8 @@
 
 [Yoink!](https://github.com/phracker/yoink)
 
+In SSH do these commands. Use this faq if you do not know how to SSH into your slot: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
+
 **Important note:** Only run the echo command below if you have not already done so in this FAQ or another. You can check first using this command:
 
 ~~~
@@ -28,7 +30,9 @@ python ~/yoink.py
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Yoink!%20-%20The%20Freeleech%20Torrent%20Grabber/1.png)
 
-Configure the `~/.yoinkrc` file
+Now you will need to configure the `~/.yoinkrc` file:
+
+Run this command to edit it with nano in SSH:
 
 ~~~
 nano ~/.yoinkrc
@@ -40,6 +44,14 @@ Then Make these edits:
 user:What.CDusername
 password:What.CDWebsitePass
 target:FullPathToRtorrentWatchFolder
+~~~
+
+For example:
+
+~~~
+user:peterpan
+password:sds32tsekjfsd893
+target:/media/DiskID/username/home/private/rtorrent/watch
 ~~~
 
 Now run the script again:
