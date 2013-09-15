@@ -10,7 +10,11 @@ These are parallel (concurrent) downloads and not multi segmented. Filezilla doe
 
 [BitKinex 3.2.3 (windows platform)](http://www.bitkinex.com/ftp/client/bitkinex323.exe) you can use up to 50 segments, locate your feral server entry in the Control window. Right-click on the feral server and select:
 
-`Properties > Connections > Total number of connections used by this data source:` 
+`Properties > Connections > Total number of connections used by this data source:`
+
+https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SFTP%20and%20FTP/What%20to%20do%20if%20FTP%20speeds%20are%20slow/bit-1.png
+https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SFTP%20and%20FTP/What%20to%20do%20if%20FTP%20speeds%20are%20slow/bit-2.png
+https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SFTP%20and%20FTP/What%20to%20do%20if%20FTP%20speeds%20are%20slow/bit-3.png
 
 Increase this number to 50 connections (default is 5 connections, you can experiment with this number later). First uncheck in the same window: `"Inherit properties from the parent node (SFTP/SSH)"`, otherwise the options stay greyed out.
 
