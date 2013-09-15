@@ -16,8 +16,7 @@ To install python mods using the Feral python uses these steps:
 **Important note:** You only need to do this once.
 
 ~~~
-echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc
-source ~/.bashrc
+echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc && source ~/.bashrc
 ~~~
 
 **2:** Now install `virtualenv` like this:
@@ -31,6 +30,15 @@ Other mods can be installed using the `--user` argument, for example:
 ~~~
 easy_install --user somemodule
 ~~~
+
+For example:
+
+~~~
+easy_install --user pip
+pip install --user requests
+pip install --user HTMLParser
+~~~
+
 
 **3:** Now you can use VirtualENV with programs, for example, installing [flexget](http://flexget.com):
 
