@@ -26,6 +26,8 @@ pip install --user requests HTMLParser
 python ~/yoink.py
 ~~~
 
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Yoink!%20-%20The%20Freeleech%20Torrent%20Grabber/1.png)
+
 Configure the `~/.yoinkrc` file
 
 ~~~
@@ -47,3 +49,19 @@ python ~/yoink.py
 ~~~
 
 Wait fort it to finish Yoinking.
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Yoink!%20-%20The%20Freeleech%20Torrent%20Grabber/2.png)
+
+### crontab
+
+~~~
+crontab -e
+~~~
+
+Add this line for it to run every hour, edit as you see fit:
+
+~~~
+00 * * * * python ~/yoink.py
+~~~
+
+Press and hold `CTRL` then press `x` to save. Press `y` to confirm and exit.
