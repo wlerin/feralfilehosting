@@ -1,4 +1,6 @@
 
+**Important notice:** This will download ALL freeleech torrents. At the time of this FAQ that was `169GB` of torrents. THis can change quite drastically in either direction so be careful.
+
 ### Yoink! The Freeleech Torrent Grabber
 
 [Yoink!](https://github.com/phracker/yoink)
