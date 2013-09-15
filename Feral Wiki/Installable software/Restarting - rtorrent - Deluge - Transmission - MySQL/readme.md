@@ -50,7 +50,7 @@ If all goes well, you should be greeted with your rtorrent  and you should see y
 
 ### Restarting Transmission
 
-Run the following commands through [SSH guide basics - PuTTy](https://www.feralhosting.com/faq/view?question=12). (Copy and paste these commands directly as written). Command (2) is optional, you can wait for the system to auto-restart your client.   
+Run the following commands through [SSH guide basics - PuTTy](https://www.feralhosting.com/faq/view?question=12). (Copy and paste the command directly as written).
 
 **1:** Kill transmission
 
@@ -58,17 +58,7 @@ Run the following commands through [SSH guide basics - PuTTy](https://www.feralh
 killall -9 -u $(whoami) transmission-daemon
 ~~~
 
-**2:** Start transmission
-
-**Important note:** If you installed or re-installed transmission on or after the `12.09.2013` you cannot manually restart transmission. After killing the process allow up to 5 minutes for it to automatically to restart.
-
-~~~
-transmission-daemon
-~~~
-
-If all goes well, you should be greeted with an empty command prompt
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/2.png)
+**Important note:**  Transmission cannot manually restarted by the user. After killing the process allow up to 5 minutes for it to automatically to restart.
 
 ### Restarting Deluge
 
