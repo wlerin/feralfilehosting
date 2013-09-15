@@ -9,7 +9,7 @@ aria2 is a lightweight multi-protocol & multi-source command-line download utili
 
 **Important note:** This is required for use with the Web Gui. The Web Gui does not come with the binary.
 
-[aria2c 1.17.1 x86](http://sourceforge.net/projects/aria2/files/stable/aria2-1.17.1/aria2-1.17.1-win-32bit-build1.zip/download) or [aria2c 1.17.1 x64](http://sourceforge.net/projects/aria2/files/stable/aria2-1.17.1/aria2-1.17.1-win-64bit-build1.zip/download) - Windows command line executable. 
+[aria2c 1.18.0 x86](http://sourceforge.net/projects/aria2/files/stable/aria2-1.18.0/aria2-1.18.0-win-32bit-build1.zip/download) or [aria2c 1.18.0 x64](http://sourceforge.net/projects/aria2/files/stable/aria2-1.18.0/aria2-1.18.0-win-64bit-build1.zip/download) - Windows command line executable. 
 
 **2:** Getting [Aria2c Web Gui](https://github.com/ziahamza/webui-aria2/) - A very simple Web application that you can download and run in any browser.
 
@@ -75,7 +75,7 @@ This set-up will allow you to easily download from password protected http/s fol
 
 **What is this custom set-up then? **
 
-This is the aria2c v1.17.1 x64 exe, in a folder that includes a `aria2c.bat`, a `runme.vbs` file and a custom `aria2.conf` with some pre configured settings.
+This is the aria2c v1.18.0 x64 or x86 exe, in a folder that includes a `aria2c.bat`, a `runme.vbs` file and a custom `aria2.conf` with some pre configured settings.
 
 The `aria2c.bat` file contains the command we use to run aria2c. In this case, executing it and loading our custom `aria2.conf`. You can tweak the `aria2c.bat` or the `aria2.conf` to decide start-up parameters
 
