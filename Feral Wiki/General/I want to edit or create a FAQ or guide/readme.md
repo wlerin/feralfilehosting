@@ -13,7 +13,9 @@ You can use Markdown to edit or create a FAQ if you wish. You will have to conve
 
 [b]Important note:[/b] Please use fenced code blocks and in-line URLs (not the type linked at the bottom of the page). See formatting guidelines below for more info
 
-Here are some good on-line Markdown editors. 
+Here are some good on-line Markdown editors.
+
+[url=http://benweet.github.io/stackedit/]http://benweet.github.io/stackedit/[/url]
 
 [url=http://markable.in/editor/]http://markable.in/[/url] 
 

@@ -47,7 +47,7 @@ Then Make these edits:
 ~~~
 user:What.CDusername
 password:What.CDWebsitePass
-target:FullPathToRtorrentWatchFolder
+target:RelativePathToRtorrentWatchFolder
 ~~~
 
 For example:
@@ -55,7 +55,23 @@ For example:
 ~~~
 user:peterpan
 password:sds32tsekjfsd893
-target:/media/DiskID/username/home/private/rtorrent/watch
+target:~/private/rtorrent/watch
+~~~
+
+**Important note:** You can set the directory to anything to test the script is working. The script simply downloads the requested torrent files to the `target` directory.
+
+For example:
+
+~~~
+mkdir -p ~/yoinktest
+~~~
+
+Then set the `target` in the `~/.yoinkrc` to:
+
+~~~
+user:peterpan
+password:sds32tsekjfsd893
+target:~/yoinktest
 ~~~
 
 Now run the script again:
@@ -64,7 +80,9 @@ Now run the script again:
 python ~/yoink.py
 ~~~
 
-Wait fort it to finish Yoinking.
+And all the torrents will be downloaded to `~/yoinktest/`. 
+
+All you need to do once the script is running is wait for it to finish Yoinking.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Yoink!%20-%20The%20What.CD%20Freeleech%20Torrent%20Grabber/2.png)
 

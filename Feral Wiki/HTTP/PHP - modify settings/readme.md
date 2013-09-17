@@ -65,6 +65,7 @@ And so on.
 Execute this command after nginx is installed:
 
 ~~~
+mv -f ~/.nginx/php/php.ini  ~/.nginx/php/php.ini.bak
 cp -f /etc/php5/fpm/php.ini ~/.nginx/php/php.ini
 ~~~
 
@@ -77,7 +78,7 @@ Now you can edit your `php.ini` located at:
 Restart nginx for the changes to take effect:
 
 ~~~
-killall -9 nginx php5-fpm -u $(whoami)
+killall -9 -u $(whoami) nginx php5-fpm
 ~~~
 
 Now wait until it restarts within 5 minutes.
