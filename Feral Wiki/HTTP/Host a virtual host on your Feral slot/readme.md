@@ -106,9 +106,33 @@ Here, I have liberally borrowed from [HTML5 Boilerplate's](http://html5boilerpla
 
 **You cannot use both of these at the same time. You must pick one and commit to it. www to non www is recommended.**
 
-[rewrite www.example.com → example.com](http://pastebin.com/YFCEEdHJ)
+### rewrite www.example.com → example.com
 
-[rewrite example.com → www.example.com](http://pastebin.com/mdEdBTc6)
+~~~
+# Option 1: rewrite www.example.com → example.com
+RewriteEngine On
+
+<IfModule mod_rewrite.c>
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
+</IfModule>
+~~~
+
+### rewrite example.com → www.example.com
+
+~~~
+# Option 2: rewrite example.com → www.example.com
+# Be aware that the following might not be a good idea if you use "real"
+# subdomains for certain parts of your website.
+RewriteEngine On
+
+<IfModule mod_rewrite.c>
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP_HOST} !^www\..+$ [NC]
+    RewriteRule ^ http://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+ </IfModule>
+~~~
 
 **Method 2:** Instead of creating a directory with the name `www.example.co.uk` under `www` directory you can  rather create a symbolic link that points to the directory without the www or vice versa, for example:
 
