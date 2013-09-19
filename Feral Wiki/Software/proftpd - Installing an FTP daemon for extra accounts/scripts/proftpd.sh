@@ -168,12 +168,12 @@ then
     # sftp.conf
     sed -i 's|/media/DiskID/home/my_username|'$HOME'|g' $HOME/proftpd/etc/sftp.conf
     sed -i 's|Port 23001|Port '$(shuf -i 6000-50000 -n 1)'|g' $HOME/proftpd/etc/sftp.conf
-    echo -e "This is your" "\033[31m""SFTP""\e[0m" "port:" "\033[31m""$(sed -n -e 's/^Port \(.*\)/\1/p' ~/proftpd/etc/sftp.conf)""\e[0m"
+    echo -e "This is your" "\033[31m""SFTP""\e[0m" "port:" "\033[31m""$(sed -nr 's/^Port (.*)/\1/p' ~/proftpd/etc/sftp.conf)""\e[0m"
     # ftps.conf
     sed -i 's|/media/DiskID/home/my_username|'$HOME'|g' $HOME/proftpd/etc/ftps.conf
     sed -i 's|Port 23002|Port '$(shuf -i 6000-50000 -n 1)'|g' $HOME/proftpd/etc/ftps.conf
     echo
-    echo -e "This is your" "\033[32m""FTPS""\e[0m" "port:" "\033[32m""$(sed -n -e 's/^Port \(.*\)/\1/p' ~/proftpd/etc/ftps.conf)""\e[0m"
+    echo -e "This is your" "\033[32m""FTPS""\e[0m" "port:" "\033[32m""$(sed -nr 's/^Port (.*)/\1/p' ~/proftpd/etc/ftps.conf)""\e[0m"
     echo
     echo -e "The basic setup and cofiguration has been completed." "\033[31m""Please now enter a password for your main, unlimited user""\e[0m"
     echo
