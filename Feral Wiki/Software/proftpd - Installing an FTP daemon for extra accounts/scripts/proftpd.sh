@@ -179,8 +179,10 @@ then
     echo
     ~/proftpd/bin/ftpasswd --passwd --name $(whoami) --file ~/proftpd/etc/ftpd.passwd --uid $(id -u $(whoami)) --gid $(id -g $(whoami)) --home $HOME/ --shell /bin/false
     echo
+    echo -e "\033[31m""If for some reason the user creation failed, see Step 6 of the FAQ to do this again""\e[0m"
+    echo
     echo -e "You have completed Steps 1 through 6. Please continue with the FAQ from Step 7 onwards."
-    echo -e "proftpd was not started to allow you to edit the jails as required first, shown in the FAQ."
+    echo -e "proftpd was NOT started to allow you to edit the jails as required first, shown in the FAQ."
     echo
 #
 ############################
