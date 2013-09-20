@@ -2,7 +2,7 @@
 #
 # Install Teamspeak 3
 scriptversion="1.0.8"
-teamspeakversion="3.0.8"
+teamspeakversion="3.0.9"
 # randomessence 27/04/2013
 #
 # bash ~/private/teamspeak/ts3server_startscript.sh start
@@ -37,6 +37,7 @@ fport=$(shuf -i 25001-40000 -n 1)
 # fport is file transfer port: vport + 1 used in the sed commands
 qport=$(shuf -i 40001-50000 -n 1)
 # qport is the query port: vport + 2 used in the sed commands
+teamspeakfv="http://dl.4players.de/ts/releases/3.0.9/teamspeak3-server_linux-amd64-3.0.9.tar.gz"
 #
 ############################
 ####### Variable End #######
@@ -92,8 +93,8 @@ chmod -f 700 ~/bin/teamspeak
 ### Self Updater Ends
 #
 # creates the ~/bin directory which is generally useful. Copies the script to ~/bin as teamspeak and then makes it executable.
-wget -qO ~/private/teamspeak.tar.gz http://ftp.4players.de/pub/hosted/ts3/releases/3.0.8/teamspeak3-server_linux-amd64-3.0.8.tar.gz
-# wget the latest version of the linux 3.0.8 amd64 server binary
+wget -qO ~/private/teamspeak.tar.gz $teamspeakfv
+# wget the latest version of the linux amd64 server binary
 tar -xzf ~/private/teamspeak.tar.gz -C ~/private/
 rm -f ~/private/teamspeak.tar.gz 2> /dev/null
 # extract this to the ~/private directory
@@ -148,7 +149,7 @@ else
         echo
         kill -9 $(cat ~/private/teamspeak/ts3server.pid 2> /dev/null) 2> /dev/null
         # kills last known PID
-        cp -rf ~/private/teamspeak3-server_linux-amd64/* ~/private/teamspeak/
+        cp -rf ~/private/teamspeak3-server_linux-amd64/. ~/private/teamspeak/
         # Copies the contents of the unpacked tar and overwrites the destination.
         rm -rf ~/private/teamspeak3-server_linux-amd64/
         # Removes the unpacked tar directory
@@ -190,11 +191,11 @@ logquerycommands=0
 dbclientkeepdays=30
 logappend=0" > ~/private/teamspeak/ts3server.ini
 #
-sed "s|default_voice_port=9987|default_voice_port=$vport|g" ~/private/teamspeak/ts3server.ini -i
+sed -i "s|default_voice_port=9987|default_voice_port=$vport|g" ~/private/teamspeak/ts3server.ini
 #
-sed "s|filetransfer_port=30033|filetransfer_port=$fport|g" ~/private/teamspeak/ts3server.ini -i
+sed -i "s|filetransfer_port=30033|filetransfer_port=$fport|g" ~/private/teamspeak/ts3server.ini
 #
-sed "s|query_port=10011|query_port=$qport|g" ~/private/teamspeak/ts3server.ini -i
+sed -i "s|query_port=10011|query_port=$qport|g" ~/private/teamspeak/ts3server.ini
 #
 ln -fs ~/private/teamspeak/ts3server_startscript.sh ~/bin/ts3server
 bash ~/private/teamspeak/ts3server_startscript.sh start
