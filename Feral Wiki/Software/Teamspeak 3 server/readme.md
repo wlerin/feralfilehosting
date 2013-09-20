@@ -46,7 +46,7 @@ The script has also been updated in regards to this issue.
  To install this software using a custom bash script connect to your slot using SSH. If you don't know how to do this [here is a basic guide](https://www.feralhosting.com/faq/view?question=12):
 
 ~~~
-wget -qNO ~/teamspeak.sh http://git.io/rHYfHg
+wget -qO ~/teamspeak.sh http://git.io/rHYfHg
 ~~~
 
 ~~~
@@ -103,7 +103,7 @@ We need the Linux Server amd64 3.0.*.*  which you can download manually and then
 I will try to keep the link updated but if it does not work check the version number of the latest Linux amd64 server and insert it into the url below in two places ...releases/`3.0.*.*`/team....amd64-`3.0.*.*`.tar.gz
 
 ~~~
-wget -qNO teamspeak.tar.gz http://ftp.4players.de/pub/hosted/ts3/releases/3.0.7.2/teamspeak3-server_linux-amd64-3.0.7.2.tar.gz
+wget -qO teamspeak.tar.gz http://ftp.4players.de/pub/hosted/ts3/releases/3.0.7.2/teamspeak3-server_linux-amd64-3.0.7.2.tar.gz
 ~~~
 
 using wget we download the latest version of the Linux amd64 server.
