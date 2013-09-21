@@ -11,12 +11,10 @@ python -V
 
 To install python mods using the Feral python uses these steps:
 
-**1:** Add the location to your PATH and then reload the `~/.bashrc`
-
-**Important note:** You only need to do this once.
+**1:** Add the location to your PATH:
 
 ~~~
-echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc && source ~/.bashrc
+[ -z "$(grep '~/.local/bin' ~/.bashrc)" ] && echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
 **2:** Now install `virtualenv` like this:
@@ -39,7 +37,6 @@ pip install --user requests
 pip install --user HTMLParser
 ~~~
 
-
 **3:** Now you can use VirtualENV with programs, for example, installing [flexget](http://flexget.com):
 
 ~~~
@@ -58,7 +55,7 @@ This is a basic guide to installing Python to your home directory and using it a
 Includes lots of things such as VirtualENV, distribute, PIP and more. Super simple to install.
 
 ~~~
-wget -qNO ~/ActivePython.tar.gz http://downloads.activestate.com/ActivePython/releases/2.7.2.5/ActivePython-2.7.2.5-linux-x86_64.tar.gz
+wget -qO ~/ActivePython.tar.gz http://downloads.activestate.com/ActivePython/releases/2.7.2.5/ActivePython-2.7.2.5-linux-x86_64.tar.gz
 tar -xzf ActivePython.tar.gz
 bash ~/ActivePython-2.7.2.5-linux-x86_64/install.sh
 ~~~
@@ -76,7 +73,7 @@ Read the information displayed, it will tell you what `PATH` to add and where.
 Optional: To remove the installation files.
 
 ~~~
-rm -f ActivePython-2.7.2.5-linux-x86_64.tar.gz && rm -rf ~/ActivePython-2.7.2.5-linux-x86_64
+rm -f ActivePython-2.7.2.5-linux-x86_64.tar.gz ~/ActivePython-2.7.2.5-linux-x86_64
 ~~~
 
 Type this command to reload the shell:
@@ -89,15 +86,15 @@ Done.
 
 ### Compile Python from source.
 
-In SSH do these commands. Use this faq if you do not know how to SSH into your slot: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
+In SSH do these commands. Use this FAQ if you do not know how to SSH into your slot: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
 
 ### Installing Python:
 
 ~~~
-mkdir -p ~/private/python/python.2.7
-wget -qNO ~/Python-2.7.5.tgz http://www.python.org/ftp/python/2.7.5/Python-2.7.5.tgz
+mkdir -p ~/python/python.2.7
+wget -qO ~/Python-2.7.5.tgz http://www.python.org/ftp/python/2.7.5/Python-2.7.5.tgz
 tar -xzf ~/Python-2.7.5.tgz && cd ~/Python-2.7.5
-./configure --prefix=$HOME/private/python/python.2.7 && make && make install
+./configure --prefix=$HOME/python/python.2.7 && make && make install
 ~~~
 
 The configuration and isntallation can take some time to be patient.
@@ -105,13 +102,13 @@ The configuration and isntallation can take some time to be patient.
 When it is finished installing, do some clean up with this command.
 
 ~~~
-cd && rm -rf ~/Python-2.7.5 && rm -f ~/Python-2.7.5.tgz
+cd && rm -rf ~/Python-2.7.5 ~/Python-2.7.5.tgz
 ~~~
 
 Python has been installed. Now use this command to add the PATH to your `~/.bashrc`
 
 ~~~
-echo 'PATH=~/private/python/python.2.7/bin:$PATH' >> ~/.bashrc
+echo 'PATH=~/python/python.2.7/bin:$PATH' >> ~/.bashrc
 ~~~
 
 Now use this command to reload the shell:
@@ -144,7 +141,7 @@ bash ~/setuptools-0.6c11-py2.7.egg
 rm -f ~/setuptools-0.6c11-py2.7.egg
 ~~~
 
-That is done. Python and setup tools are now installed and added to your paths. There should be no need to prefix when installing mods.
+That is done. Python and set-up tools are now installed and added to your paths. There should be no need to prefix when installing mods.
 
 Using `easy_install` from the command line to install mods:
 
@@ -159,7 +156,6 @@ easy_install virtualenv
 ~~~
 easy_install flexget
 ~~~
-
 
 ### Optional Stuff:
 

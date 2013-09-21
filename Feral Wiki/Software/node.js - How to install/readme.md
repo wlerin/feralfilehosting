@@ -3,47 +3,43 @@ In SSH do these commands. Use this FAQ if you do not know how to SSH into your s
 
 These commands will download the linked version of node.js and set it up inside your `~/private` directory.
 
+This downloads the `node-v0.10.18-linux-x64.tar.gz` and then saves it as `node.tar.gz` in your  `~/private` directory.
+
 ~~~
 wget -qO ~/node.js.tar.gz http://nodejs.org/dist/v0.10.18/node-v0.10.18-linux-x64.tar.gz
 ~~~
 
-This downloads the `node-v0.10.18-linux-x64.tar.gz` and then saves it as `node.tar.gz` in your  `~/private` directory.
+This unpacks the folder archived inside the node.tar.gz.
 
 ~~~
-tar -xzf ~/node.js.tar.gz -C ~/private
-~~~
-
-This unpacks the folder archived inside the node.tar.gz into the `~/private` directory.
-
-~~~
-cp -rf ~/private/node-*/. ~/private/node/
+tar -xzf ~/node.js.tar.gz
 ~~~
 
 This moves and renames the recently unpacked folder to `~/node`
 
 ~~~
-rm -rf ~/node.js.tar.gz ~/private/node-*
+cp -rf ~/node-*/. ~/programs
 ~~~
 
-This deletes the tar archive.
+This deletes the tar archive and unpacked folder we no longer need.
 
 ~~~
-echo 'PATH=~/private/node/bin:$PATH' >> ~/.bashrc
+rm -rf ~/node.js.tar.gz ~/node-*
 ~~~
 
 This command appends the path to the bottom of the `~/.bashrc` for you. As long as you have not changed the paths in the previous commands. If you have, for example, decided to store the main directory in the root, you need to edit the path in the echo.
 
 ~~~
-source ~/.bashrc
+[ -z "$(grep '~/programs/bin' ~/.bashrc)" ] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
-This reloads your shell.
+Tries to call `node.js` to check the version:
 
 ~~~
 node -v
 ~~~
 
-Tries to call node.js to check the version and should return:
+Which should return:
 
 ~~~
 v0.10.18
@@ -51,7 +47,7 @@ v0.10.18
 
 If you see the version then it is ready to use.
 
-Once you have done this, you are ready to start writing and running your node.js apps from anywhere in your account. I personally put all my apps in `~/private/node/apps/` to keep things tidy though.
+Once you have done this, you are ready to start writing and running your `node.js` apps from anywhere in your account. I personally put all my apps in `~/node/apps/` to keep things tidy though.
 
 
 

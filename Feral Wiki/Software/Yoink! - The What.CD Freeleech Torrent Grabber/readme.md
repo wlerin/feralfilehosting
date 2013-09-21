@@ -7,20 +7,12 @@ Make sure you have the space to spare before running this script. You can cancel
 
 [Yoink!](https://github.com/phracker/yoink)
 
-In SSH do these commands. Use this faq if you do not know how to SSH into your slot: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
+In SSH do this command. Use this FAQ if you do not know how to SSH into your slot: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
 
-**Important note:** Only run the echo command below if you have not already done so in this FAQ or another. You can check first using this command:
-
-~~~
-grep "~/.local/bin" ~/.bashrc
-~~~
-
-No result means you have not used it. More than one result means you have used the command more than you needed. Remove extra entries.
-
-Add the location to your PATH using this command.
+This command will add the user installed Python modules location to your path if it is not already present:
 
 ~~~
-echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc && source ~/.bashrc
+[ -z "$(grep '~/.local/bin' ~/.bashrc)" ]&&echo 'PATH=~/.local/bin:$PATH'>>~/.bashrc;source ~/.bashrc
 ~~~
 
 ### Download and prepare Yoink!
@@ -57,6 +49,8 @@ user:peterpan
 password:sds32tsekjfsd893
 target:~/private/rtorrent/watch
 ~~~
+
+The press and hold `CTRL` then press `x` to save. Press `y` to confirm.
 
 **Important note:** You can set the directory to anything to test the script is working. The script simply downloads the requested torrent files to the `target` directory.
 

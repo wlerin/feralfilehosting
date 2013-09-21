@@ -32,21 +32,13 @@ or
 Please got to [https://aerofs.com/](https://aerofs.com/ "aerofs.com") and create an account.
 
 ~~~
-wget -qNO ~/aerofs.tgz https://dsy5cjk52fz4a.cloudfront.net/aerofs-installer.tgz
-tar -xzf ~/aerofs.tgz -C ~/private/
-wget -qNO ~/sharutils.deb http://ftp.uk.debian.org/debian/pool/main/s/sharutils/sharutils_4.11.1-1_amd64.deb
-dpkg-deb -x ~/sharutils.deb ~/private/aerofs
-cp -r private/aerofs/usr/bin/. private/aerofs/ && rm -rf private/aerofs/usr/
+wget -qO ~/aerofs.tgz https://dsy5cjk52fz4a.cloudfront.net/aerofs-installer.tgz
+tar -xzf ~/aerofs.tgz
+wget -qO ~/sharutils.deb http://ftp.uk.debian.org/debian/pool/main/s/sharutils/sharutils_4.11.1-1_amd64.deb
+dpkg-deb -x ~/sharutils.deb ~/aerofs
+cp -rf ~/aerofs/usr/bin/. ~/aerofs && rm -rf ~/aerofs/usr
 rm -f ~/sharutils.deb && rm -f ~/aerofs.tgz
-echo 'PATH=~/private/aerofs/:$PATH' >> ~/.bashrc
-~~~
-
-These command download and install everything we need.
-
-Please reload your shell using this command:
-
-~~~
-source ~/.bashrc
+[ -z "$(grep '~/aerofs' ~/.bashrc)" ] && echo 'PATH=~/aerofs:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
 At first run we need set up the app and it work better in a screen, so type this command:

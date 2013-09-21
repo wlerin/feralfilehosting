@@ -39,3 +39,9 @@ where `username` if your Feral username and `server` if the name of the server t
 ~~~
 source ~/.bashrc && source ~/.profile
 ~~~
+
+~~~
+[ -z "$(grep '~/.local/bin' ~/.bashrc)" ]&&echo 'PATH=~/.local/bin:$PATH'>>~/.bashrc;source ~/.bashrc
+
+[ -z "$(grep '~/programs/bin' ~/.bashrc)" ]&&echo 'PATH=~/programs/bin:$PATH'>>~/.bashrc;source ~/.bashrc
+~~~

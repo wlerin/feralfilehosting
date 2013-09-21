@@ -1,11 +1,10 @@
 
 ### Flexget Setup
 
-Add this location to your PATH:
+Add this location to your PATH using this command:
 
 ~~~
-echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc
-source ~/.bashrc
+[ -z "$(grep '~/.local/bin' ~/.bashrc)" ] && echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc; source ~/.bashrc
 ~~~
 
 **Important note:** Why is the `~/flexget/bin` not added to the PATH to? to avoid potential `easy_install`, `pip` and mods conflicts. Use the activate command below instead.

@@ -47,13 +47,7 @@ So now it will be:
 Now run this command if you copied the binaries using the command above:
 
 ~~~
-echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc
-~~~
-
-Now reload your shell
-
-~~~
-source ~/.bashrc
+[ -z "$(grep '~/programs/bin' ~/.bashrc)" ] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
 OK, now you can simply use
