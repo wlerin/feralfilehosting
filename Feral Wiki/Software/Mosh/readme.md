@@ -1,38 +1,49 @@
 
+### Feralhosting Mosh
+
+Add the main binary location to your PATH using this command:
+
+~~~
+[ -z "$(grep '~/programs/bin' ~/.bashrc)" ] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
+~~~
+
 ### Protobuf
 
 This is a required dependency that is not included with your slot.
 
 ~~~
-mkdir -p ~/private/programs
+mkdir -p ~/programs
 wget -qO ~/protobuf-2.5.0.tar.gz http://protobuf.googlecode.com/files/protobuf-2.5.0.tar.gz
 tar xf ~/protobuf-2.5.0.tar.gz && cd ~/protobuf-2.5.0
-./configure --prefix=$HOME/private/programs && make && make install && cd
+./configure --prefix=$HOME/programs && make && make install && cd
+rm -rf  ~/protobuf-2.5.0.tar.gz ~/protobuf-2.5.0
 ~~~
 
 ### Mosh
 
+Now download and install mosh:
+
 ~~~
 wget -qO ~/mosh-1.2.4.tar.gz http://mosh.mit.edu/mosh-1.2.4.tar.gz
 tar xf ~/mosh-1.2.4.tar.gz && cd ~/mosh-1.2.4
-./configure --prefix=$HOME/private/programs PKG_CONFIG_PATH=$HOME/private/programs/lib/pkgconfig
+./configure --prefix=$HOME/programs PKG_CONFIG_PATH=$HOME/programs/lib/pkgconfig
 make && make install && cd
+rm -rf ~/mosh-1.2.4.tar.gz ~/mosh-1.2.4
 ~~~
 
-**Important note:** Only run the echo command below if you have not already done so in this FAQ or another. You can check first using this command:
+Add the `LD_LIBRARY_PATH` using this command to overcome this error:
 
 ~~~
-grep "~/private/programs" ~/.bashrc
+mosh-server: error while loading shared libraries: libprotobuf.so.8: cannot open shared object file: No such file or directory
 ~~~
 
-No result means you have not used it. More than one result means you have used the command more than you needed. Remove duplicate entries.
-
-If needed add the locations to your PATH/LD_LIBRARY_PATH using these commands.
+By using this command:
 
 ~~~
-echo 'PATH=~/private/programs/bin:$PATH' >> ~/.bashrc && source ~/.bashrc
-echo 'export LD_LIBRARY_PATH=~/private/programs/lib:$LD_LIBRARY_PATH' >> ~/.bashrc && source ~/.bashrc
+echo 'export LD_LIBRARY_PATH=~/programs/lib:$LD_LIBRARY_PATH' >> ~/.bashrc && source ~/.bashrc
 ~~~
+
+Connect to your slot using this command.
 
 ~~~
 mosh username@server.feralhosting.com --server="LANG=$LANG mosh-server"

@@ -20,7 +20,7 @@ wget -qO ~/java.tar.gz http://javadl.sun.com/webapps/download/AutoDL?BundleId=80
 ### Unpack the files:
 
 ~~~
-tar -xzf java.tar.gz && cp -rf ~/jre1.7.0_40/. ~/programs && rm -f ~/java.tar.gz && rm -rf ~/jre1.7.0_40
+tar -xzf java.tar.gz && cp -rf ~/jre1.7.0_40/. ~/programs && rm -rf ~/java.tar.gz ~/jre1.7.0_40
 ~~~
 
 This command also removes the folders and archives we don't need after we are done with them.
