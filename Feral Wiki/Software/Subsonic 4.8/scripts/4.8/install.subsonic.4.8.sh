@@ -1,11 +1,12 @@
 #!/bin/bash
 # Install Subsonic
 #
-scriptversion="1.5.7"
+scriptversion="1.5.8"
 scriptname="subsonic.4.8.sh"
 subsonicversion="4.8"
 madsonicversion="5.0 Beta5 Build 3600"
 javaversion="1.7 Update 40"
+jvdecimal="1.7.0_40"
 #
 # Bobtentpeg 01/30/2013
 # randomessence 04/24/2013
@@ -68,6 +69,7 @@ javaversion="1.7 Update 40"
 # v 1.5.5 RSK updateda and various readability tweaks
 # v 1.5.6 Madsonic 5.0 Beta4 Build 3560 with custom Audioffmpeg and ffmpeg. Some hardcoded things changed to variables for easier updating of the script
 # v 1.5.7 updated subsonic version. Add an option to update installtion.
+# v 1.5.8 Java installation moved to fall in line with general FAQ locations using ~/programs
 #
 ############################
 ### Version History Ends ###
@@ -84,9 +86,9 @@ https=$(expr 1 + $http)
 # Defines the submemory memory variable
 submemory="512"
 # Gets the Java version from the last time this scrip installed Java
-installedjavaversion=$(cat ~/private/java/javaversion 2> /dev/null)
+installedjavaversion=$(cat ~/programs/javaversion 2> /dev/null)
 # Checks if the Java path was already added to the ~/.bashrc
-bashrcpath=$(sed -n '/PATH=~\/private\/java\/bin:\$PATH/p' ~/.bashrc 2> /dev/null)
+bashrcpath=$(sed -n '/PATH=~\/programs\/bin:\$PATH/p' ~/.bashrc 2> /dev/null)
 # Some variable links for subsonic
 javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=80805"
 #
@@ -335,15 +337,17 @@ then
     if [ "$installedjavaversion" != "$javaversion" ]
     then
         echo "Please wait a moment while java is installed"
+        rm -rf ~/private/java
         wget -qO ~/java.tar.gz $javaupdatev
         tar -xzf ~/java.tar.gz
-        cp -rf ~/jre1.7.0_40/. ~/private/java/
+        cp -rf ~/jre$jvdecimal/. ~/programs
         rm -f ~/java.tar.gz
-        rm -rf ~/jre1.7.0_40
-        if [ -z "$bashrcpath" ]; then
-            echo -e '\nPATH=~/private/java/bin:$PATH' >> ~/.bashrc
+        rm -rf ~/jre$jvdecimal
+        if [ -z "$bashrcpath" ]
+        then
+            echo -e '\nPATH=~/programs/bin:$PATH' >> ~/.bashrc
         fi
-        echo "$javaversion" > ~/private/java/javaversion
+        echo -n "$javaversion" > ~/programs/javaversion
         # we create a custom Java version file for comparison so the installer only runs once
         echo -e "\033[31m""Important:""\e[0m" "Java" "\033[32m""$javaversion""\e[0m" "has been installed to" "\033[36m""~/private/java""\e[0m"
         echo
@@ -355,7 +359,8 @@ then
         exit 1
     fi
     ### Install Java 1.7 end
-    if [ ! -d ~/private/subsonic/ ]; then
+    if [ ! -d ~/private/subsonic/ ]
+    then
         read -ep "Install Subsonic [s] or install Madsonic [m]: "  whichversion
         echo
         if [[ $whichversion =~ ^[Ss]$ ]]
