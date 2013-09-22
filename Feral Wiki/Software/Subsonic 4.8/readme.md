@@ -116,7 +116,7 @@ You can delete the contents of `~/private/subsonic` and re-install to reset the 
 The easiest way to stop the running subsonic process is to use this command:
 
 ~~~
-killall -9 java -u $(whoami)
+killall -9 -u $(whoami) java
 ~~~
 
 This will kill `ALL` Java processes. `There are no Feral Java processes` so this only matters if you are running another custom application.
