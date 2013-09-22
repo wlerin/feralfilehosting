@@ -152,6 +152,24 @@ This rule also applies for tags that also apply formatting above and below the l
 the [code single]H2[/code] and [code single]H3[/code] tag do, but not the Bold tag for example. You can leave a blank line below
 the [code single]b[/code],[code single]i[/code],[code single]img[/code],[code single]url[/code] tags.
 
+[h3]Custom Software[/h3]
+Custom software installations that have a typical structures, such as [code single]~/something/bin[/code] should be installed to [code single]~/programs[/code]. The use this command to add it to the [code single]PATH[/code] if needed. This will fall in line with other software installation FAQs.
+
+[code][ -z "$(grep '~/programs/bin' ~/.bashrc)" ] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc[/code]
+Exceptions to the rule?
+
+1: Programs like AeroFS and Spideroak that do not have a directory structure that would work for the [code single]~/programs[/code] location or other self contained applications.
+
+2: Programs that might conflict with slot operations such as Python. Then use a custom location for this software. Try not to use a very complex or needlessly deep directory structure.
+
+[h3]Python and user mods.[/h3]
+When a [code single]--user[/code] mod is installed using the slot's included Python, it will always go to the location:
+
+[code]~/.local/bin[/code]
+So in this case, use this command to add the [code single]PATH[/code] to the [code single]~/.bashrc[/code]. This will fall in line with other Python FAQs.
+
+[code][ -z "$(grep '~/.local/bin' ~/.bashrc)" ] && echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc[/code]
+
 [h3]File Hosting[/h3]
 [b]IMAGES[/b]
 
