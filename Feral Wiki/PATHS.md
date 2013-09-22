@@ -1,3 +1,4 @@
+
 FAQs with PATH echoes:
 
 ### `~/programs/bin`
@@ -9,6 +10,8 @@ FAQs with PATH echoes:
 [node.js - How to install](https://www.feralhosting.com/faq/view?question=199)
 
 [WeeChat - an IRC Client - Basic Setup](https://www.feralhosting.com/faq/view?question=250)
+
+[Java 1.7](https://www.feralhosting.com/faq/view?question=183)
 
 ### `~/.local/bin`
 
@@ -22,6 +25,6 @@ FAQs with PATH echoes:
 
 [AeroFS - How to install](https://www.feralhosting.com/faq/view?question=207)
 
-[Java 1.7](https://www.feralhosting.com/faq/view?question=183)
+Install Python from source:
 
 [Python - How to install](https://www.feralhosting.com/faq/view?question=204)

@@ -40,8 +40,16 @@ where `username` if your Feral username and `server` if the name of the server t
 source ~/.bashrc && source ~/.profile
 ~~~
 
-~~~
-[ -z "$(grep '~/.local/bin' ~/.bashrc)" ]&&echo 'PATH=~/.local/bin:$PATH'>>~/.bashrc;source ~/.bashrc
+Add `PATHS` to the `~/.bashrc`#
 
-[ -z "$(grep '~/programs/bin' ~/.bashrc)" ]&&echo 'PATH=~/programs/bin:$PATH'>>~/.bashrc;source ~/.bashrc
+Python `~/.local/bin`:
+
+~~~
+[ -z "$(grep '~/.local/bin' ~/.bashrc)" ] && echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
+~~~
+
+Custom software installations to `~/programs`
+
+~~~
+[ -z "$(grep '~/programs/bin' ~/.bashrc)" ] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~

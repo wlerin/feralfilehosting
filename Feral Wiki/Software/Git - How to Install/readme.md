@@ -18,7 +18,7 @@ mkdir -p ~/programs
 wget -qO ~/git-1.8.4.tar.gz  http://git-core.googlecode.com/files/git-1.8.4.tar.gz
 tar -xzf ~/git-1.8.4.tar.gz && cd ~/git-1.8.4
 ./configure --prefix=$HOME/programs && make && make install
-cd && rm -rf git-1.8.4.tar.gz ~/git.tar.gz
+cd && rm -rf ~/git-1.8.4 git-1.8.4.tar.gz
 ~~~
 
 Git has been installed. Now use this command to add the PATH to your `~/.bashrc`

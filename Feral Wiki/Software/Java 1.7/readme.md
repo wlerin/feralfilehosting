@@ -20,7 +20,7 @@ wget -qO ~/java.tar.gz http://javadl.sun.com/webapps/download/AutoDL?BundleId=80
 ### Unpack the files:
 
 ~~~
-tar -xzf java.tar.gz && cp -rf ~/jre1.7.0_40/. ~/private/java/ && rm -f ~/java.tar.gz && rm -rf ~/jre1.7.0_40
+tar -xzf java.tar.gz && cp -rf ~/jre1.7.0_40/. ~/programs && rm -f ~/java.tar.gz && rm -rf ~/jre1.7.0_40
 ~~~
 
 This command also removes the folders and archives we don't need after we are done with them.
@@ -28,7 +28,7 @@ This command also removes the folders and archives we don't need after we are do
 Manually call java it like this:
 
 ~~~
-~/private/java/bin/java -version
+~/programs/bin/java -version
 ~~~
 
 You will see this:
@@ -42,13 +42,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 24.0-b56, mixed mode)
 Or add it to your PATH using the `~/.bashrc` so it is used by default:
 
 ~~~
-echo 'PATH=~/private/java/bin:$PATH' >> ~/.bashrc
-~~~
-
-Reload your shell using this command:
-
-~~~
-source ~/.bashrc
+[ -z "$(grep '~/programs/bin' ~/.bashrc)" ] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
 Now do this command from any location:
