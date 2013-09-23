@@ -1,4 +1,3 @@
-
 This software can be installed from the manager [Install Software](https://www.feralhosting.com/manager/).
 
 After OpenVPN has been set up on your server you will need to install an OpenVPN client on your own computer to use it. 
@@ -9,29 +8,29 @@ Using the [OpenVPN 2.3.2 Stable/Current](http://openvpn.net/index.php/open-sourc
  
 After installing, you should connect to your server via SFTP (use an FTP/SFTP client such as Filezilla) and download the contents of 
 
-```
+~~~
 ~/private/vpn/
-```
+~~~
 
 Full path will look something like: 
 
-```
+~~~
 /media/sdk1/home/username/private/vpn/
-```
+~~~
 
 Copy the contents of this folder into:
 
-```
+~~~
 C:/Program Files/OpenVPN/config/
-```
+~~~
 
 (or the location where OpenVPN was installed, maybe `Program Files (x86)`).
 
 So after you have downloaded the files to your:
 
-```
+~~~
 /config folder
-```
+~~~
 
 You will see inside it:
 
@@ -51,12 +50,12 @@ Now start the opengui as admin, once it has loaded you should be able to right c
 
 On `some` Windows 7/8 systems, internet traffic is not properly routed through the VPN. In such a case the client.ovpn file must be edited, adding these lines at the end:
 
-```
+~~~
 route-method exe
 route-delay
 route-metric 512
 route 0.0.0.0 0.0.0.0
-```
+~~~
 
 **OS X & Snow Leopard**
 
@@ -65,6 +64,26 @@ The networking stack of OS X has VPN support built-in, however a dedicated clien
 You need to download the contents of `~/private/vpn/` to a secure location in your home directory. Then in Viscosity Preferences, simply "Import Connection" and use the client.ovpn file; Viscosity will import all the needed data. You can then delete the vpn directory you downloaded as Viscosity stores the data in its own Library location.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/OpenVPN%20-%20How%20to%20connect%20to%20your%20vpn/osx1.png)
+
+### iOS
+
+**1:** Download [OpenVPN Connect](https://itunes.apple.com/us/app/openvpn-connect/id590379981?mt=8) from the app store.  It's a free download.
+
+**2:** Download the contents of ~/private/vpn to the machine you sync your device with.
+
+**3:** Open iTunes on your PC.  Go to your device's 'apps' tab.  Scroll down until you see file sharing and then select OpenVPN Connect in the list of apps.
+
+**4:** Add client.ovpn AND the files inside the 'keys' folder to OpenVPN Connect.
+
+**5:** Launch OpenVPN Connect on your iOS device.  It will prompt you to add a new connection; press the plus sign.
+
+**6:** Enjoy your new VPN.
+
+### Android 4.0 +
+
+Use this FAQ:
+
+[OpenVPN - Connect on Android 4.0 and up - using OpenVPN Connect](https://www.feralhosting.com/faq/view?question=220)
 
 ### Linux
 
@@ -133,11 +152,8 @@ Example path to files on feralhosting: /media/sdb1/home/YOURUSERNAME/private/vpn
 
 If you cannot connect, open a terminal up and type:
 
-```
+~~~
 tail -f /var/log/syslog
-```
+~~~
 
 This will monitor the NetworkManager as you try and connect to the VPN. Review and google the answers to best determine what is preventing the connection.
-
-
-

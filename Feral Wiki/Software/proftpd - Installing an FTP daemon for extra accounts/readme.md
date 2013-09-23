@@ -1,17 +1,23 @@
 
 **Notice:** If you just want your Ports or did not complete the user creation/password part of the script? See Step 5 for ports and 6 for the command you need.
 
+In SSH do the commands described in this FAQ. If you do not know how to SSH into your slot use this FAQ: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
+
 ### To set up your own SFTP or FTPS server with your own virtual users on your slot, follow this guide:
 
-This bash script will perform the **basic setup** outlined in Steps 1 through 6 only. 
+This bash script will perform the **basic setup** outlined in Steps 1,2,3,4,5,6. Including creating your main user account.
 
-**important note:** This script can also update proftpd without losing any settings, jails or users you have configured.
+**Important note:** This script can also update proftpd without losing any settings, jails or users you have configured.
 
 So if you use the bash script and complete it successfully you can continue from Step 7 of the FAQ.
 
 ~~~
 wget -qO ~/proftpd.sh http://git.io/nMVKJA && bash ~/proftpd.sh
 ~~~
+
+### Manual Installation Steps
+
+Follow these steps to manually download and install proftpd. The bash script will complete Steps 1,2,3,4,5,6 for you.
 
 ### Step 1: Get the package and extract it:
 
@@ -83,15 +89,15 @@ Here you need to generate the SFTP keys and/or the SSL certs for FTPS
 
 **For SFTP:**
 
-Pass-phrases are optional. Proftpd asks for the pass-phrases when you start the daemon if there are any. 
+Pass-phrases are optional. Proftpd asks for the pass-phrases when you start the daemon if there are any.
 
 **Copy and paste this command below.** It is required to create our SSH keys.
 
 ~~~
-ssh-keygen -t rsa -f ~/proftpd/etc/keys/sftp_rsa && ssh-keygen -t dsa -f ~/proftpd/etc/keys/sftp_dsa
+ssh-keygen -qt rsa -f ~/proftpd/etc/keys/sftp_rsa && ssh-keygen -qt dsa -f ~/proftpd/etc/keys/sftp_dsa
 ~~~
 
-Press enter 4 times (no need to use pass-phrases)
+Press enter 4 times to generate keyfiles with no passphrase. Using a Pass-phrases is optional. Proftpd will ask for the pass-phrases when you start the daemon if one was used.
 
 **For FTPS:**
 
@@ -119,17 +125,19 @@ They are **READ ONLY** by default, accessible to all non main users so all you n
 
 These configuration files have been set-up to work in a specific way. 
 
-The `proftpd.conf` is home to the global settings that are loaded/included in both the `sftp.conf` and the `ftps.conf` when they are called. 
+**1:** The `proftpd.conf` is home to the global settings that are loaded/included in both the `sftp.conf` and the `ftps.conf` when they are called. 
 
-The `sftp.conf` and `ftps.conf` contain only protocol specific settings.
+**2:** The `sftp.conf` and `ftps.conf` contain only protocol specific settings.
 
 **Important Note:** These files have already been downloaded, if you used the bash script or followed the commands in `Step 1`, and configured, if you used the bash script or followed the steps in `Step 3.2`. 
 
 For manual set-up or altering, they can be found in the `~/proftpd/etc/` of the installation directory, for example:`~/proftpd/etc/proftpd.conf`
 
-### Manual Configuration (only if you did not use the bash script or skipped step 3.2)
+### Manual Configuration of conf files
 
-#### proftpd.conf
+You only if you did not use the bash script or skipped using the `sed` commands in step 3.2
+
+### proftpd.conf
 
 In the Global Section of the `proftpd.conf`
 
@@ -203,7 +211,7 @@ Use this command to create the main user and enter a password when prompted.
 
 **Important note:** This user (with your username) will not be jailed. This is a full access account. This is for your use and not public sharing.
 
-**Explanation: using UID and GID:**
+**Explanation: using `UID` and `GID`:**
 
 Do these commands in SSH, where `my_username` is your Feral username
 
@@ -239,7 +247,7 @@ Returns:
 1032
 ~~~
 
-This will give you **your** UID and GID, which in this example, are both **1032**. When creating a user if you provide the UID and GID listed from those commands you will have your full permissions when accessing the slot. The username does not matter as long as the UID and GID match. This is important for using some programs like WinSCP or when creating an account for yourself.
+This will give you **your** `UID` and `GID`, which in this example, are both **1032**. When creating a user if you provide the `UID` and `GID` listed from those commands you will have your full permissions when accessing the slot. The username does not matter as long as the `UID` and `GID` match. This is important for using some programs like WinSCP or when creating an account for yourself.
 
 ### Step 7: Creating new users and groups
 
@@ -247,7 +255,7 @@ These users, when created, are all **jailed by default** based on the configurat
 
 There is a bash add user script (optional) linked near the end of this section. The users created with this script are also jailed by default.
 
-**Important note:** You will get a directory listing error when connecting if your user's `HOME`, when created, does not match an existing jail path. You can get around this by manually specifying a remote path which is supported by most FTP programs. See Step 8 of this FAQ for more info.
+**Important note:** You will get a directory listing error when connecting if your user's `HOME`, when created, does not match an existing jail path. You can get around this by manually specifying a remote path which is supported by most FTP programs. See Step 8 of this FAQ for more info on specifying a users' root/home directory.
 
 **Important note:** There are three existing and default jail directories you can use without needing to edit the configuration files.
 

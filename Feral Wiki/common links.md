@@ -5,7 +5,7 @@
 
 [putty 0.63 zip](http://the.earth.li/~sgtatham/putty/latest/x86/putty.zip)
 
-In SSH do these commands. Use this faq if you do not know how to SSH into your slot: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
+In SSH do the commands described in this FAQ. If you do not know how to SSH into your slot use this FAQ: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
 
 How to [SSH](https://www.feralhosting.com/faq/view?question=12) into your slot.
 
