@@ -277,7 +277,7 @@ export LC_ALL=en_GB.UTF-8
 quiet=0
 ~~~
 
-After you have saved the file using `CTRL x` then `y` in nano. 
+The press and hold `CTRL` then press `x` to save. Press `y` to confirm.
 
 You can start the subsonic service (from any location) using this command:
 

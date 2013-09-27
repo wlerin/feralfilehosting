@@ -1,9 +1,27 @@
 
+In SSH do the commands described in this FAQ. If you do not know how to SSH into your slot use this FAQ: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
+
+### The easy way
+
+Run the below command in SSH, it will output your disk usage.
+
+~~~
+du -s --si ~/
+~~~
+
+For a list, sorted by size, of the files/folders in the current directory use:
+
+~~~
+du -s --si * | sort -h
+~~~
+
+### The prettier way
+
 ![](http://idzr.org/w7tn?.png)
 
-**1:** [SSH](https://www.feralhosting.com/faq/view?question=12) into your slot.
+**Step 1:** SSH into your slot.
 
-Now run the command the matches your slot type
+First, run the command the matches your slot type, then move to Step 2:
   
 For instance, for a `Helium-4` run you would run `echo '400000' >> ~/.quotaspace`
 
@@ -85,14 +103,22 @@ Radon
 echo -n '3000000' > ~/.quotaspace
 ~~~
 
-**2:** After SSHing into your slot, run the following the commands
+**Step 2:** After SSHing into your slot, run the following the commands
 
 ~~~
 mkdir -p ~/bin
-wget -qNO ~/bin/quota http://git.io/FolBxw
-chmod +x ~/bin/quota
+wget -qO ~/bin/quota http://git.io/FolBxw
+chmod 700 ~/bin/quota
 source ~/.bashrc && source ~/.profile
 ~~~
 
-Now running `quota` in SSH will give you your disk quota
+Now running the command:
+
+~~~
+quota
+~~~
+
+In SSH will give you your disk quota.
+
+
 

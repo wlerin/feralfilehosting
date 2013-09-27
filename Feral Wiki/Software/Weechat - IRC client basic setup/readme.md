@@ -17,7 +17,7 @@ Add the location to your `PATH` using this command.
 [ -z "$(grep '~/programs/bin' ~/.bashrc)" ] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
-### 2: Download and extract pre build cmake-2.8.11.2-Linux-i386
+### 2 Pre-built: Download and extract pre build cmake-2.8.11.2-Linux-i386
 
 **Recommended** fast and simple.
 
@@ -28,7 +28,7 @@ cp -rf ~/cmake-2.8.11.2-Linux-i386/. ~/programs
 rm -rf ~/cmake-2.8.11.2-Linux-i386 ~/cmake.tar.gz
 ~~~
 
-### 2: Or, build cmake from source instead
+### 2 From Source: Or, build cmake from source instead
 
 **Optional** It takes a bit longer than using a precompiled cmake binary, but some prefer compiling from source. You can skip this step if you've already got cmake available.
 
@@ -50,6 +50,14 @@ wget -qO ~/weechat.tar.gz http://www.weechat.org/files/src/weechat-0.4.1.tar.gz
 tar -xzf ~/weechat.tar.gz
 cd ~/weechat-0.4.1
 cmake -DPREFIX=$HOME/programs
+make && make install && cd
+rm -rf ~/weechat.tar.gz ~/weechat-0.4.1
+~~~
+
+If you get an error regarding `CURL` this you may need to run this command instead.
+
+~~~
+cmake -DPREFIX=$HOME/programs -DCURL_LIBRARY=/opt/curl/current/lib/libcurl.so -DCURL_INCLUDE_DIR=/opt/curl/current/include
 make && make install && cd
 rm -rf ~/weechat.tar.gz ~/weechat-0.4.1
 ~~~

@@ -1,31 +1,34 @@
+
 You need to SSH into your slot to complete this guide. If you don't know how to do this [here is a basic guide](https://www.feralhosting.com/faq/view?question=12):
 
-	mkdir -p ~/private/ruby
-	wget ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p0.tar.gz
-	tar -xzf ~/ruby-2.0.0-p0.tar.gz
-	cd ~/ruby-2.0.0-p0
-	./configure --prefix=$HOME/private/ruby && make && make install
-	cd && rm -rf ~/ruby-2.0.0-p0 && rm -f ~/ruby-2.0.0-p0.tar.gz
-	echo 'PATH=~/private/ruby/bin:$PATH' >> ~/.bashrc
-
-###The do this to reload your shell:###
-
-	bash
+~~~
+mkdir -p ~/programs
+wget -qO ~/ruby.tar.gz http://cache.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz
+tar -xzf ~/ruby.tar.gz && cd ~/ruby-*
+./configure --prefix=$HOME/programs && make && make install
+cd && rm -rf ~/ruby-* ~/ruby.tar.gz
+[ -z "$(grep '~/.local/bin' ~/.bashrc)" ] && echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
+~~~
 
 ###Check our versions:###
 
 Now these to check your versions:
 
-	ruby -v
-	gem -v
+~~~
+ruby -v
+gem -v
+~~~
 
 This command to update gems to 2.0.3
 
-	gem update --system
-
+~~~
+gem update --system
+~~~
 
 ### Optional Stuff: ###
 
-Specify a custom libraries path.
+Specify a custom libraries path by customising and then adding this line to the end of your `~/.basrc`.
 
-	echo 'GEM_HOME=~/path/to/my/libs:$PATH >> ~/.bashrc
+~~~
+GEM_HOME=~/path/to/my/libs:$PATH
+~~~

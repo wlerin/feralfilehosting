@@ -1,5 +1,5 @@
 
-**Important notice:** This will download ALL freeleech torrents. At the time of this FAQ that was `169GB` of torrents. This can change quite drastically in either direction so be careful.
+**Important notice:** This will download ALL freeleech torrents. At `28.09.2013` there was `1086` torrents totalling `200GB`. This can change quite drastically in either direction so be careful.
 
 Make sure you have the space to spare before running this script. You can cancel the script while it running by pressing and holding `CTRL` the pressing `c`. When you run the script again it will detect torrents it has already downloaded and continue from where it left off. Do this to grab some, check the space, do some more.
 

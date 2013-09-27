@@ -29,8 +29,8 @@ Copy and paste the returned text into a new FAQ or an edit. The layout and forma
 
 Please don't get too creative with the tags. These tools are very specific to the tags used here at Feral, which are documented below.
 
-These are some Tags that work for formatting. They all need to be properly closed using [/tag].
-For example you would close code like this: [/code]
+These are some Tags that work for formatting. They all need to be properly closed using [code single][[][/[]/tag][/code].
+For example you would close code like this: [code single][[][/[]/code][/code]
 
 [code single][[][/[]h1][/code] Title h1 [code single][/h1][/code]
 
@@ -39,32 +39,32 @@ Here is the markdown equivalent:
 Markdown Title h1
 [code single]===[/code]
 
-[code single][[][/[]h2][/code] Title h1 [code single][/h2][/code]
+[code single][[][/[]h2][/code] Title h2 [code single][/h2][/code]
 
 Here is the markdown equivalent:
 
 Markdown Title h2
 [code single]---[/code]
 
-[code single][[][/[]h3][/code] Title h1 [code single][/h3][/code]
+[code single][[][/[]h3][/code] Title h3 [code single][/h3][/code]
 
 Here is the markdown equivalent:
 
 [code single]###[/code] Markdown Title h3
 
-[code single][[][/[]h4][/code] Title h1 [code single][/h4][/code]
+[code single][[][/[]h4][/code] Title h4 [code single][/h4][/code]
 
 Here is the markdown equivalent:
 
 [code single]####[/code] Markdown Title h4
 
-[code single][[][/[]h5][/code] Title h1 [code single][/h5][/code]
+[code single][[][/[]h5][/code] Title h5 [code single][/h5][/code]
 
 Here is the markdown equivalent:
 
 [code single]#####[/code] Markdown Title h5
 
-[code single][[][/[]h6][/code] Title h1 [code single][/h6][/code]
+[code single][[][/[]h6][/code] Title h6 [code single][/h6][/code]
 
 Here is the markdown equivalent:
 

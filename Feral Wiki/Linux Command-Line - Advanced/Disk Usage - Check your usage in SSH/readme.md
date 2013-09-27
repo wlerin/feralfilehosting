@@ -1,20 +1,30 @@
 
+**Important note:** Feral uses powers of 1000 to calculate your usage!
+
+`1000` = `kB` / `MB` / `GB` / `TB`
+
+`1024` = `KiB` / `MiB` / `GiB` / `TiB`
+
 To check the amount of space used in your slice, type this command:
 
 ~~~
 du -sB GB ~/
 ~~~
 
-`1000` = `kb` / `MB` / `GB` / `TB`
+`-s` is for summarize, instead of each folder size listed separately
 
-`1024` = `KiB` / `MiB` / `GiB` / `TiB`
+`-B` is for block size. In this case it is `GB`
 
- -s is for summarize, instead of each folder size listed separately
- --si is for use powers of 1000, not 1024 (Feral uses powers of 1000 to calculate your usage!)
+There might be a delay before any response is displayed — it may possibly take up to 3 minutes for the system to calculate the amount of data in your slice.
 
-There might be a delay before any response is displayed — it may take up to 3 minutes for the system to calculate the amount of data in your slice.
+To check the size of a folder you can do:
 
-Tip:
+~~~
+du -sB GB ~/private/rtorrent/data
+~~~
+
+### Tip
+
 You can create an alias for the above command (or any command) in your `.bash_aliases` file, which is located in your `~/` (home) directory. Just edit the `.bash_aliases` file, and add this line to it:
 
 ~~~

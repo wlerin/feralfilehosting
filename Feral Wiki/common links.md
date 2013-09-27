@@ -33,7 +33,6 @@ The press and hold `CTRL` and `a` then press `d` to detach from the screen. This
 
 where `username` if your Feral username and `server` if the name of the server that the relevant slot is hosted on.
 
-
 ### Common Commands
 
 ~~~
