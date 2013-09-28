@@ -28,39 +28,14 @@ cp -rf ~/cmake-2.8.11.2-Linux-i386/. ~/programs
 rm -rf ~/cmake-2.8.11.2-Linux-i386 ~/cmake.tar.gz
 ~~~
 
-### 2 From Source: Or, build cmake from source instead
+### 3: Build WeeChat and install it
 
-**Optional** It takes a bit longer than using a precompiled cmake binary, but some prefer compiling from source. You can skip this step if you've already got cmake available.
+Please use this script.
 
-~~~
-wget -qO ~/cmake-2.8.11.2.tar.gz http://www.cmake.org/files/v2.8/cmake-2.8.11.2.tar.gz
-tar xzf ~/cmake-2.8.11.2.tar.gz
-cd ~/cmake-2.8.11.2
-./bootstrap --prefix=$HOME/programs
-make && make install && cd
-rm -rf ~/cmake-2.8.11.2 ~/cmake-2.8.11.2.tar.gz
-~~~
-
-### 3: Build WeeChat using cmake
-
-Use these commands to build Weechat, placing the binary into `~/private/programs`
+**Important note:** You need to have completed Steps 1 and 2 before running this script.
 
 ~~~
-wget -qO ~/weechat.tar.gz http://www.weechat.org/files/src/weechat-0.4.1.tar.gz
-tar -xzf ~/weechat.tar.gz
-cd ~/weechat-0.4.1
-cmake -DCMAKE_INSTALL_PREFIX:PATH=$HOME/programs
-make && make install && cd
-rm -rf ~/weechat.tar.gz ~/weechat-0.4.1
-~~~
-
-If you get an error regarding `CURL` this you may need to run these commands instead from within the `~/weechat-0.4.1` directory.
-
-~~~
-sed -i 's/SET(CMAKE_SKIP_RPATH ON)//g' ~/weechat-0.4.1/CMakeLists.txt
-cmake -DCMAKE_INSTALL_RPATH=/opt/curl/current/lib -DPREFIX=$HOME/programs -DCURL_LIBRARY=/opt/curl/current/lib/libcurl.so -DCURL_INCLUDE_DIR=/opt/curl/current/include
-make && make install && cd
-rm -rf ~/weechat.tar.gz ~/weechat-0.4.1
+wget -qO ~/weechat.sh http://git.io/L6oalA && bash ~/weechat.sh
 ~~~
 
 ### 4: Start WeeChat

@@ -1,5 +1,6 @@
 #!/bin/bash
 # weechat installation
+# wget -qO ~/weechat.sh http://git.io/L6oalA && bash ~/weechat.sh
 scriptversion="1.0.0"
 scriptname="weechat"
 # randomessence
@@ -108,11 +109,8 @@ make install
 cd
 rm -rf ~/weechat.tar.gz ~/weechat-$weechatfv
 echo
-echo "Done. To start weechat use this command:"
+echo "Done. Continue with the rest of the FAQ to configure weechat"
 echo
-echo "weechat-curses"
-echo
-echo "Continue with the rest of the FAQ to configure weechat"
 #
 ############################
 ####### Script Ends  #######
