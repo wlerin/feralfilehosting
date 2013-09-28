@@ -49,15 +49,16 @@ Use these commands to build Weechat, placing the binary into `~/private/programs
 wget -qO ~/weechat.tar.gz http://www.weechat.org/files/src/weechat-0.4.1.tar.gz
 tar -xzf ~/weechat.tar.gz
 cd ~/weechat-0.4.1
-cmake -DPREFIX=$HOME/programs
+cmake -DCMAKE_INSTALL_PREFIX:PATH=$HOME/programs
 make && make install && cd
 rm -rf ~/weechat.tar.gz ~/weechat-0.4.1
 ~~~
 
-If you get an error regarding `CURL` this you may need to run this command instead.
+If you get an error regarding `CURL` this you may need to run these commands instead from within the `~/weechat-0.4.1` directory.
 
 ~~~
-cmake -DPREFIX=$HOME/programs -DCURL_LIBRARY=/opt/curl/current/lib/libcurl.so -DCURL_INCLUDE_DIR=/opt/curl/current/include
+sed -i 's/SET(CMAKE_SKIP_RPATH ON)//g' ~/weechat-0.4.1/CMakeLists.txt
+cmake -DCMAKE_INSTALL_RPATH=/opt/curl/current/lib -DPREFIX=$HOME/programs -DCURL_LIBRARY=/opt/curl/current/lib/libcurl.so -DCURL_INCLUDE_DIR=/opt/curl/current/include
 make && make install && cd
 rm -rf ~/weechat.tar.gz ~/weechat-0.4.1
 ~~~
