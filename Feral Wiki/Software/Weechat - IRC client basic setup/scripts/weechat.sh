@@ -41,20 +41,20 @@ mkdir -p $HOME/bin
 #
 if [ ! -f $HOME/weechat.sh ]
 then
-    wget -qO $HOME/weechat.sh https://raw.github.com/feralhosting
+    wget -qO $HOME/weechat.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Weechat%20-%20IRC%20client%20basic%20setup/scripts/weechat.sh
 fi
 if [ ! -f $HOME/bin/weechat ]
 then
-    wget -qO $HOME/bin/weechat https://raw.github.com/feralhosting
+    wget -qO $HOME/bin/weechat https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Weechat%20-%20IRC%20client%20basic%20setup/scripts/weechat.sh
 fi
 #
-wget -qO $HOME/000weechat.sh https://raw.github.com/feralhosting
+wget -qO $HOME/000weechat.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Weechat%20-%20IRC%20client%20basic%20setup/scripts/weechat.sh
 #
 if ! diff -q $HOME/000weechat.sh $HOME/weechat.sh > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/weechat.sh https://raw.github.com/feralhosting
-    wget -qO $HOME/bin/weechat https://raw.github.com/feralhosting
+    wget -qO $HOME/weechat.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Weechat%20-%20IRC%20client%20basic%20setup/scripts/weechat.sh
+    wget -qO $HOME/bin/weechat https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Weechat%20-%20IRC%20client%20basic%20setup/scripts/weechat.sh
     bash $HOME/weechat.sh
     exit 1' > $HOME/111weechat.sh
     bash $HOME/111weechat.sh
@@ -63,8 +63,8 @@ fi
 if ! diff -q $HOME/000weechat.sh $HOME/bin/weechat > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/weechat.sh https://raw.github.com/feralhosting
-    wget -qO $HOME/bin/weechat https://raw.github.com/feralhosting
+    wget -qO $HOME/weechat.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Weechat%20-%20IRC%20client%20basic%20setup/scripts/weechat.sh
+    wget -qO $HOME/bin/weechat https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Weechat%20-%20IRC%20client%20basic%20setup/scripts/weechat.sh
     bash $HOME/weechat.sh
     exit 1' > $HOME/222weechat.sh
     bash $HOME/222weechat.sh
@@ -103,12 +103,16 @@ tar -xzf ~/weechat.tar.gz
 cd ~/weechat-$weechatfv
 sed -i 's/SET(CMAKE_SKIP_RPATH ON)//g' ~/weechat-$weechatfv/CMakeLists.txt
 cmake -DCMAKE_INSTALL_RPATH=/opt/curl/current/lib -DPREFIX=$HOME/programs -DCURL_LIBRARY=/opt/curl/current/lib/libcurl.so -DCURL_INCLUDE_DIR=/opt/curl/current/include
-make && make install && cd
+make
+make install
+cd
 rm -rf ~/weechat.tar.gz ~/weechat-$weechatfv
 echo
 echo "Done. To start weechat use this command:"
 echo
 echo "weechat-curses"
+echo
+echo "Continue with the rest of the FAQ to configure weechat"
 #
 ############################
 ####### Script Ends  #######
