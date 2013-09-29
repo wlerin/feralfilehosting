@@ -15,7 +15,7 @@ After installing, you should connect to your server via SFTP (use an FTP/SFTP cl
 Full path will look something like: 
 
 ~~~
-/media/sdk1/home/username/private/vpn/
+/media/DiskID/home/username/private/vpn/
 ~~~
 
 Copy the contents of this folder into:
