@@ -27,9 +27,11 @@ You will need to have Mysql already installed. You can do this from the [**Insta
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/installmysql.png)
 ~~~
 
-The press and hold `CTRL` then press `x` to save. Press `y` to confirm.
+Then press and hold `CTRL` and then press `c` to quit.
 
-The press and hold `CTRL` and `a` then press `d` to detach from the screen. This leaves it running in the background.
+Then press and hold `CTRL` and then press `x` to save. Press `y` to confirm.
+
+Then press and hold `CTRL` and `a` then press `d` to detach from the screen. This leaves it running in the background.
 
 where `username` if your Feral username and `server` if the name of the server that the relevant slot is hosted on.
 
