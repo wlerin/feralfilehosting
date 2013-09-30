@@ -95,7 +95,7 @@ then
 # 1
 #
 mkdir -p ~/programs
-[ -z "$(grep '~/programs/bin' ~/.bashrc)" ] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
+[[ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 #
 # 2
 #

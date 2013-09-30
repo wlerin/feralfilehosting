@@ -46,11 +46,11 @@ Add `PATHS` to the `~/.bashrc`#
 Python `~/.local/bin`:
 
 ~~~
-[ -z "$(grep '~/.local/bin' ~/.bashrc)" ] && echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
+[[][/[][ ! "$(grep '~/.local/bin' ~/.bashrc)" ]] && echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
 Custom software installations to `~/programs`
 
 ~~~
-[ -z "$(grep '~/programs/bin' ~/.bashrc)" ] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
+[[][/[][ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~

@@ -14,7 +14,7 @@ mkdir -p ~/programs
 Add the location to your `PATH` using this command.
 
 ~~~
-[ -z "$(grep '~/programs/bin' ~/.bashrc)" ] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
+[[][/[][ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
 ### 2 Pre-built: Download and extract pre build cmake-2.8.11.2-Linux-i386
