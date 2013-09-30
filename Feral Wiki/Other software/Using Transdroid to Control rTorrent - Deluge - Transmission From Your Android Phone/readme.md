@@ -25,7 +25,7 @@ Open Transdroid on your device and open the settings, then click on `Add new ser
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/rutorrent/rutorrent.host.png)
 
-**SCGI Folder:** `/rtorrent/rpc` (case sensitive)
+**SCGI Folder:** `/username/rtorrent/rpc` (case sensitive and where username is your Feral username)
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/rutorrent/rutorrent.rpc.png)
 
