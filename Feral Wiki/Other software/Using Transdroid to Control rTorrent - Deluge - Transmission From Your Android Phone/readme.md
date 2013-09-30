@@ -27,6 +27,8 @@ Open Transdroid on your device and open the settings, then click on `Add new ser
 
 **SCGI Folder:** `/username/rtorrent/rpc` (case sensitive and where username is your Feral username)
 
+You need the `/` at the beginning and no trailing slash.
+
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/rutorrent/rutorrent.rpc.png)
 
 **Use authentication:** `Yes` (checked)
@@ -35,13 +37,15 @@ Open Transdroid on your device and open the settings, then click on `Add new ser
 
 **Password:** The password listed on your manager page for the rutorrent Web Gui
 
+When entering your password, if you rotate your phone horizontally you can see the characters.
+
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/rutorrent/rutorrent.auth.png)
 
 **Server OS:** `Linux`
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/rutorrent/rutorrent.os.png)
 
-** SSL **
+**SSL**
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/rutorrent/rutorrent.ssl.png)
 
@@ -61,7 +65,9 @@ Open Transdroid on your device and open the settings, then click on `Add new ser
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/deluge/deluge.host.png)
 
-**Deluge Web Password:** your Web Gui password from your Slot Details page. (Not to be confused with Require Authentication option) 
+**Deluge Web Password:** your Web Gui password from your Slot Details page. (Not to be confused with Require Authentication option)
+
+When entering your password, if you rotate your phone horizontally you can see the characters.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/deluge/deluge.webpass.png)
 
@@ -77,9 +83,10 @@ You need the `/` at the beginning and no trailing slash.
 
 If you get an error about Web Gui not being connected to a daemon log in via the Web Gui and connect to the daemon, then try again.
 
-** SSL **
+**SSL**
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/deluge/deluge.ssl.png)
 
+### Transdroid desktop
 
-
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/transdropid.desktop.png)
