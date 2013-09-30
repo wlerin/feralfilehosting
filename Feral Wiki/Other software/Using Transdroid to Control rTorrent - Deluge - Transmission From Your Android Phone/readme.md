@@ -51,7 +51,7 @@ Open Transdroid on your device and open the settings, then click on `Add new ser
 
 **1:** Have Deluge installed already via the Software Install page for the relevant slot.
 
-**2::** Log into the WebUi to connect the WebUi to the daemon process.
+**2:** Log into the WebUi to connect the WebUi to the daemon process.
 
 Open Transdroid on your device and open the settings, then click on `Add new server`.
 
