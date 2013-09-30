@@ -155,7 +155,7 @@ the [code single]b[/code],[code single]i[/code],[code single]img[/code],[code si
 [h3]Custom Software[/h3]
 Custom software installations that have a typical structures, such as [code single]~/something/bin[/code] should be installed to [code single]~/programs[/code]. The use this command to add it to the [code single]PATH[/code] if needed. This will fall in line with other software installation FAQs.
 
-[code][ -z "$(grep '~/programs/bin' ~/.bashrc)" ] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc[/code]
+[code][[][/[][ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc[/code]
 Exceptions to the rule?
 
 1: Programs like AeroFS and Spideroak that do not have a directory structure that would work for the [code single]~/programs[/code] location or other self contained applications.
@@ -168,7 +168,7 @@ When a [code single]--user[/code] mod is installed using the slot's included Pyt
 [code]~/.local/bin[/code]
 So in this case, use this command to add the [code single]PATH[/code] to the [code single]~/.bashrc[/code]. This will fall in line with other Python FAQs.
 
-[code][ -z "$(grep '~/.local/bin' ~/.bashrc)" ] && echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc[/code]
+[code][[][/[][ ! "$(grep '~/.local/bin' ~/.bashrc)" ]] && echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc[/code]
 
 [h3]File Hosting[/h3]
 [b]IMAGES[/b]
@@ -332,7 +332,7 @@ For example:
 [code]@reboot bash -l ~/myscript.sh[/code]
 You can use this command to easily create a cronjob for users in some sort of support capacity:
 
-[code](crontab -l ; echo "[i] [/i] [i] [/i] * some/cron/thing") |uniq - | crontab -[/code]
+[code](crontab -l ; echo "* * * * * some/cron/thing") |uniq - | crontab -[/code]
 This will create a specified cronjob while also checking to make sure it is not created more than once. So with a single command you can have create and insert a cronjob for a user. It only checks vs the last entry though.
 
 

@@ -14,7 +14,7 @@ To install python mods using the Feral python uses these steps:
 **1:** Add the location to your PATH:
 
 ~~~
-[ -z "$(grep '~/.local/bin' ~/.bashrc)" ] && echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
+[[][/[][ ! "$(grep '~/.local/bin' ~/.bashrc)" ]] && echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
 **2:** Now install `virtualenv` like this:

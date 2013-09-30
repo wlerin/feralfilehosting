@@ -12,7 +12,7 @@ In SSH do this command. Use this FAQ if you do not know how to SSH into your slo
 This command will add the user installed Python modules location to your path if it is not already present:
 
 ~~~
-[ -z "$(grep '~/.local/bin' ~/.bashrc)" ]&&echo 'PATH=~/.local/bin:$PATH'>>~/.bashrc;source ~/.bashrc
+[[][/[][ ! "$(grep '~/.local/bin' ~/.bashrc)" ]] && echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
 ### Download and prepare Yoink!
