@@ -12,9 +12,9 @@ var config = {
 // Create the bot
 var infobot = new irc.Client(config.server, config.botName, { 
     channels: config.channels,
-    port: 6697,
-    secure: true,
-    selfSigned: true,
+//    port: 6697,
+//    secure: true,
+//   selfSigned: true,
     autoRejoin: true,
     autoConnect: true
 });
