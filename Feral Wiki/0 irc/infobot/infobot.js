@@ -1,6 +1,7 @@
 // a modified version of benbot
 var irc = require("irc");
-//var http= require('http');
+// https://github.com/martynsmith/node-irc/issues/160 -- creds = { rejectUnauthorized: !self.opt.secure };
+// var http= require('http');
 
 var config = {
 	channels: ["#mytest123"],
@@ -8,7 +9,7 @@ var config = {
 	botName: "infobot",
 };
 
-// Create the bot name
+// Create the bot
 var infobot = new irc.Client(config.server, config.botName, { 
     channels: config.channels,
     port: 6697,
@@ -28,8 +29,9 @@ infobot.addListener('message', function(from, to, message) {
 			infobot.say(to, "work in progress, use the triggers for now, see %help");
 			return;
 		}
-        // what is this? an example of hwo to use trigger words with the prefix %faq. coming back to this at some point.
-                
+        
+        // what is this? an example of hwo to use trigger words with the prefix %faq. coming back to this at some point.  
+        //
         //      if ( message.indexOf('newuser') >= 0 ) {
         //          infobot.say(to, "How long until my slot is activated -- https://www.feralhosting.com/faq/view?question=15");
         //          return;
@@ -120,7 +122,7 @@ infobot.addListener('message', function(from, to, message) {
     }
     
     if ( message == '%quota' ) {
-        infobot.say(to, "Check your disk quota in SSH -- https://www.feralhosting.com/faq/");
+        infobot.say(to, "Check your disk quota in SSH -- https://www.feralhosting.com/faq/view?question=221");
         return;
     }
     
@@ -231,7 +233,7 @@ infobot.addListener('message', function(from, to, message) {
     // help
     
     if ( message == '%help' ) {
-        infobot.say(to, "Available triggers: %proftpd %rsync %nginx %www %slowftp %autodl %newuser %upgrade $sshfs $xshell %kitty %ssh %rtorrent");
+        infobot.say(to, "Available triggers: %newuser %rtorrent %deluge %transmission %vpn %mysql %restart %delugethin %changeclient %ssh %xshell %kitty %sshfs %quota %publickey %tunnels %slowftp %nginx %WWW %webapps %media %upgrade %late %proftpd %autodl %rsync %irssi %ip %timezone");
         return;
     }
 
