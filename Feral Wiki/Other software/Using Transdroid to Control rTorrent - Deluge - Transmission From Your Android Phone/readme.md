@@ -3,6 +3,8 @@
 
 [Transdroid-desktop](http://code.google.com/p/transdroid-desktop/) can be used on your computer to control rtorrent(Cross-platform).
 
+See the end of the FAQ for setting up Transdroid desktop.
+
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/1.png)
 
 ### Rutorrent
@@ -89,4 +91,6 @@ If you get an error about Web Gui not being connected to a daemon log in via the
 
 ### Transdroid desktop
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/transdropid.desktop.png)
+Rutorrent.
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/transdroid.desktop.png)
