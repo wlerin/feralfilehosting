@@ -4,7 +4,7 @@ var irc = require("irc");
 // var http= require('http');
 
 var config = {
-	channels: ["#mytest123"],
+	channels: ["#feral"],
 	server: "irc.what-network.net",
 	botName: "infobot",
 };
