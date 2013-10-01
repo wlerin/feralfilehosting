@@ -8,5 +8,6 @@ wget -qO $HOME/infobot.js https://raw.github.com/feralhosting/feralfilehosting/m
 if ! diff -q $HOME/infobot.js $HOME/nodeapps/infobot.js > /dev/null 2>&1 ; then
     cp -f $HOME/infobot.js $HOME/nodeapps/infobot.js
     rm -f $HOME/infobot.js
+    echo "$(date +"%H:%M on the %d.%m.%y")" >> $HOME/updateinfobot.log
     exit 1
 fi
