@@ -56,7 +56,7 @@ if ( message == '%trigger' || message == '%trigger' + result ) {
 
 infobot.addListener('message', function(from, to, message) {
 
-    if (message.match(/^%(.*) (.*)?/)) { var result = message.match(/^%(.*) (.*)/)[2]; } else { var result = ''; }
+    if (message.match(/^%(.*)\s(.*)?/)) { var result = message.match(/^%(.*)\s(.*)/)[2]; } else { var result = ''; }
     if ( result !== '' ) { var result =  ' ' + result; }
     
     // No triggers above here
@@ -281,7 +281,14 @@ infobot.addListener('message', function(from, to, message) {
         infobot.say(to, result + "Password protect your WWW folder -- https://www.feralhosting.com/faq/view?question=22");
         return;
     }
+    
+    if ( message == '%pwprotect' || message == '%pwprotect' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
 
+        infobot.say(to, result + "Password protect your WWW folder -- https://www.feralhosting.com/faq/view?question=22");
+        return;
+    }
+    
     if ( message == '%vhost' || message == '%vhost' + result ) {
         if ( result !== '' ) { var result = result + ': '; }
 
@@ -573,12 +580,12 @@ infobot.addListener('message', function(from, to, message) {
         }
         
         if ( message.indexOf('other') >= 0 ) {
-          infobot.say(to, "%xbmc %aria2c %cygwin %tor %remoteadder %speedtest");
+          infobot.say(to, "%xbmc %aria2c %cygwin %tor %remoteadder");
           return;
         }
         
         if ( message.indexOf('slots') >= 0 ) {
-          infobot.say(to, "%activated %common %pwchange %upgrade %late ");
+          infobot.say(to, "%speedtest");
           return;
         }
         
