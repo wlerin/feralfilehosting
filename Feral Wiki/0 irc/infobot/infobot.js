@@ -6,7 +6,7 @@ var irc = require("irc");
 var config = {
 	channels: ["#feral"],
 	server: "irc.what-network.net",
-	botName: "infobot",
+	botName: "faqbot",
 };
 
 // Create the bot
@@ -21,8 +21,8 @@ var infobot = new irc.Client(config.server, config.botName, {
 
 infobot.setMaxListeners(0);
 
+/*
 infobot.addListener('message', function(from, to, message) {
-
 	if ( message.substring(0,4) == '%faq' ) {
 
 		if ( message.length < 5 ) {
@@ -30,25 +30,30 @@ infobot.addListener('message', function(from, to, message) {
 			return;
 		}
         
-        // what is this? an example of hwo to use trigger words with the prefix %faq. coming back to this at some point.  
-        //
-        //      if ( message.indexOf('newuser') >= 0 ) {
-        //          infobot.say(to, "How long until my slot is activated -- https://www.feralhosting.com/faq/view?question=15");
-        //          return;
-        //      }  
+        what is this? an example of how to use trigger words with the prefix %faq.
+        
+        if ( message.indexOf('newuser') >= 0 ) {
+          infobot.say(to, "How long until my slot is activated -- https://www.feralhosting.com/faq/view?question=15");
+         return;
+        }  
     }
     
-});
+}); 
+*/
     
-    // Start of triggers
-    
-    //    if ( message == '%trigger' || message == '%trigger' + result ) {
-    //        if ( result !== '' ) { var result = result + ': '; }
-    //
-    //        infobot.say(to, result + "FAQ name -- FAQ URL");
-    //        return;
-    //    }
-    
+// Start of triggers
+
+// How to use these triggers. Here is a template:
+
+/*
+if ( message == '%trigger' || message == '%trigger' + result ) {
+    if ( result !== '' ) { var result = result + ': '; }
+
+    infobot.say(to, result + "FAQ name -- FAQ URL");
+    return;
+}
+*/
+
 infobot.addListener('message', function(from, to, message) {
 
     if (message.match(/^%(.*) (.*)?/)) { var result = message.match(/^%(.*) (.*)/)[2]; } else { var result = ''; }
@@ -527,17 +532,74 @@ infobot.addListener('message', function(from, to, message) {
         infobot.say(to, result + "Feralhosting on Twitter -- https://twitter.com/feralstatus");
         return;
     }
+}); 
 
-    // help
+// End of triggers
 
-    if ( message == '%help' ) {
-        if ( result !== '' ) { var result = result + ': '; }
+// Help section
+
+infobot.addListener('message', function(from, to, message) {
+
+	if ( message.substring(0,5) == '%help' ) {
+    
+		if ( message.length < 6 ) {
+			infobot.say(to, "Use %help with one of these: general installable ssh ftp http other slots software linux generic ");
+			return;
+		}
         
-        infobot.say(to, result + "%activated %common %pwchange %upgrade %late %rtorrent %rutorrent %wtorrent %pausing %deluge %transmission %vpn %mysql %restart %delugethin %changeclient %ssh %xshell %kitty %sshfs %quota %publickey %tunnels %slowftp %winscp %lftp %nginx %www %vhost %webapps");
-        infobot.say(to, result + "%apache %phpmyadmin %php %xbmc %aria2c %cygwin %tor %remoteadder %speedtest %subsonic %ampache %icecast %proftpd %autodl %java %dropbox %p7zip %btsync %software %yoink! %weechat %node %spideroak %rsync %irssi %ip timezone %screen %email %twitter &multideluge &multirtorrent ");
-        return;
+        if ( message.indexOf('general') >= 0 ) {
+          infobot.say(to, "%activated %newuser %common %pwchange %upgrade %late ");
+          return;
+        }
+        
+        if ( message.indexOf('installable') >= 0 ) {
+          infobot.say(to, "%rtorrent %rutorrent %wtorrent %pausing %deluge %transmission %vpn %mysql %restart %delugethin %changeclient");
+          return;
+        }
+        
+        if ( message.indexOf('ssh') >= 0 ) {
+          infobot.say(to, "%ssh %xshell %kitty %sshfs %quota %publickey %tunnels ");
+          return;
+        }
+        
+        if ( message.indexOf('ftp') >= 0 ) {
+          infobot.say(to, "%slowftp %winscp %lftp ");
+          return;
+        }
+        
+        if ( message.indexOf('http') >= 0 ) {
+          infobot.say(to, "%nginx %www %vhost %webapps %apache %phpmyadmin %php ");
+          return;
+        }
+        
+        if ( message.indexOf('other') >= 0 ) {
+          infobot.say(to, "%xbmc %aria2c %cygwin %tor %remoteadder %speedtest");
+          return;
+        }
+        
+        if ( message.indexOf('slots') >= 0 ) {
+          infobot.say(to, "%activated %common %pwchange %upgrade %late ");
+          return;
+        }
+        
+        if ( message.indexOf('software') >= 0 ) {
+          infobot.say(to, "%subsonic %ampache %icecast %proftpd %autodl %java %dropbox %p7zip %btsync %software %yoink! %weechat %node %spideroak &multideluge &multirtorrent");
+          return;
+        }
+        
+        if ( message.indexOf('linux') >= 0 ) {
+          infobot.say(to, "%rsync %irssi %ip timezone %screen ");
+          return;
+        }
+        
+        if ( message.indexOf('generic') >= 0 ) {
+          infobot.say(to, "%email %twitter");
+          return;
+        }
     }
-}); // End of triggers
+});
+
+// End of help section
 
 // Console stuff and error reporting
 
