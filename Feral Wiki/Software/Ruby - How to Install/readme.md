@@ -3,11 +3,13 @@ You need to SSH into your slot to complete this guide. If you don't know how to 
 
 ~~~
 mkdir -p ~/programs
+[[][/[][ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'export PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
+
+~~~
 wget -qO ~/ruby.tar.gz http://cache.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz
 tar -xzf ~/ruby.tar.gz && cd ~/ruby-*
 ./configure --prefix=$HOME/programs && make && make install
 cd && rm -rf ~/ruby-* ~/ruby.tar.gz
-[ -z "$(grep '~/.local/bin' ~/.bashrc)" ] && echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
 ###Check our versions:###

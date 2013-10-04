@@ -15,15 +15,14 @@ You need to SSH into your slot to complete this guide. If you don't know how to 
 
 ~~~
 mkdir -p ~/programs
-[[][/[][ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
+[[][/[][ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'export PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
 ~~~
 wget -qO ~/git-1.8.4.tar.gz  http://git-core.googlecode.com/files/git-1.8.4.tar.gz
 tar xf ~/git-1.8.4.tar.gz && cd ~/git-1.8.4
 ./configure --prefix=$HOME/programs --with-curl=/opt/curl/current
-make && make install
-cd && rm -rf ~/git-1.8.4 git-1.8.4.tar.gz
+make && make install && cd && rm -rf ~/git-1.8.4 git-1.8.4.tar.gz
 ~~~
 
 Then do this to check the version.
