@@ -15,16 +15,15 @@ You need to SSH into your slot to complete this guide. If you don't know how to 
 
 ~~~
 mkdir -p ~/programs
+[[][/[][ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
+~~~
+
+~~~
 wget -qO ~/git-1.8.4.tar.gz  http://git-core.googlecode.com/files/git-1.8.4.tar.gz
-tar -xzf ~/git-1.8.4.tar.gz && cd ~/git-1.8.4
-./configure --prefix=$HOME/programs && make && make install
+tar xf ~/git-1.8.4.tar.gz && cd ~/git-1.8.4
+./configure --prefix=$HOME/programs --with-curl=/opt/curl/current
+make && make install
 cd && rm -rf ~/git-1.8.4 git-1.8.4.tar.gz
-~~~
-
-Git has been installed. Now use this command to add the PATH to your `~/.bashrc`
-
-~~~
-[ -z "$(grep '~/programs/bin' ~/.bashrc)" ] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
 Then do this to check the version.
@@ -33,10 +32,17 @@ Then do this to check the version.
 git --version
 ~~~
 
+If the version is still `1.7.10.4` do this command then try again:
+
+~~~
+source ~/.bashrc
+~~~
+
 You can now do things like clone. Here is an example command:
 
 ~~~
 git clone git://github.com/username/repo.git ~/where/you/want/this/repo
+git clone https://github.com/username/repo.git ~/where/you/want/this/repo
 ~~~
 
 

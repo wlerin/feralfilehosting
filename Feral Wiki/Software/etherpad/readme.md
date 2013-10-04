@@ -6,10 +6,16 @@ npm install sqlite3
 git clone git://github.com/ether/etherpad-lite.git
 ~~~
 
+Start ether pad to perform the intial setup. It will produce errors. We just need ot to install some files and create the `settings.json`
+
+~~~
+~/etherpad-lite/bin/run.sh
+~~~
+
 Edit this file:
 
 ~~~
-nano -w ~/etherpad-lite/settings.json.template
+nano -w ~/etherpad-lite/settings.json
 ~~~
 
 Find and make these changes:
@@ -52,7 +58,7 @@ Change the port. Anything between `6000` to `50000`
                  },
 ~~~
 
-Change the database settings:
+Change the database settings. I use sqlite3, but you can use redis:
 
 ~~~
   "dbType" : "sqlite",
@@ -119,12 +125,48 @@ cd
 
 **Apache**
 
+To use https you create your owb certs, then uncomment the relevent sewction in the `settings.json`. Then add the relative paths to your certs.
+
 ~~~
 mkdir -p ~/etherpad-lite/ssl
 openssl req -new -x509 -nodes -days 365 -subj '/C=GB/ST=none/L=none/CN=none' -newkey rsa:2048 -keyout ~/etherpad-lite/ssl/etherpad.key.pem -out ~/etherpad-lite/ssl/etherpad.cert.pem
 ~~~
 
+
+~~~
+  /*  
+  // Node native SSL support
+  // this is disabled by default
+  //
+  // make sure to have the minimum and correct file access permissions set
+  // so that the Etherpad server can access them
+
+  "ssl" : {
+            "key"  : "/path-to-your/epl-server.key",
+            "cert" : "/path-to-your/epl-server.crt"
+          },
+
+  */
+~~~
+
+Becomes:
+
+~~~
+  // Node native SSL support
+  // this is disabled by default
+  //
+  // make sure to have the minimum and correct file access permissions set
+  // so that the Etherpad server can access them
+
+  "ssl" : {
+            "key"  : "ssl/etherpad.key.pem",
+            "cert" : "ssl/etherpad.cert.pem"
+          },
+~~~
+
 **Nginx**
+
+In ngnix we can use proxypass to work with the existing and valid ssl URL format.
 
 Change the `username` in two places and `PORT` in one, to match yours.
 
