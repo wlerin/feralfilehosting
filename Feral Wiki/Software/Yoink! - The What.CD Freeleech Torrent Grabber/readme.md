@@ -68,6 +68,34 @@ password:sds32tsekjfsd893
 target:~/yoinktest
 ~~~
 
+**Important note:** For Deluge you may want to do this so that your files are not removed from the files directory for Yoink.
+
+Make this folder using this command:
+
+~~~
+mkdir -p ~/yoinkfiles
+~~~
+
+In your `~/.yoinkrc` use this target:
+
+~~~
+~/yoinkfiles
+~~~
+
+Now add this to your crontab.
+
+~~~
+crontab -e
+~~~
+
+Then add this at the end on a blank line
+
+~~~
+* * * * * cp -rf ~/yoinkfiles/. ~/private/deluge/watch
+~~~
+
+Then press and hold `CTRL` and then press `x` to save. Press `y` to confirm.
+
 Now run the script again:
 
 ~~~

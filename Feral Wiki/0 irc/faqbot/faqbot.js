@@ -71,7 +71,7 @@ faqbot.addListener('message', function(from, to, message) {
 
 faqbot.addListener('message', function(from, to, message) {
 
-    if (message.match(/^%(.*)\s(.*)?/)) { var result = message.match(/^%(.*)\s(.*)/)[2]; } else { var result = ''; }
+    if (message.match(/%([^\s]+)\s([^\s]+ |[^\s]+)/)) { var result = message.match(/%([^\s]+)\s([^\s]+ |[^\s]+)/)[2]; } else { var result = ''; }
     if ( result !== '' ) { var result =  ' ' + result; }
     
     // No triggers above here
