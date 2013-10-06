@@ -1,5 +1,5 @@
 
-Unlike using OpenVPN that encrypts `all` network traffic at the driver level for that device, creating SSH tunnels enables you to route your for traffic/applications selectively. 
+Unlike using OpenVPN that encrypts **all** network traffic at the driver level for that device, creating SSH tunnels enables you to route your for traffic/applications selectively. 
 
 For example: You could open a tunnel only for browsing or an application, letting the rest of your traffic go through your ISP directly, unencrypted. This can prevent a lot of problems for casual usage, such as using an imap application such as Thunderbird or using Personal websites like Paypal.
 
@@ -37,7 +37,7 @@ Under the section labeled `Add a new forwarded port` type in a port like 55000 f
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20tunnels%20basics%20-%20Putty%20and%20setting%20a%20Socks%20proxy/5.png)
 
-In the PuTTY navigation tree on the left click on the `Session` node (at the top of the tree), then select `Your Currently loaded Sessin` (or any other session name you configured previously) and click the `Save` button on the right side of the screen to save this configuration.
+In the PuTTY navigation tree on the left click on the `Session` node (at the top of the tree), then select `Your Currently loaded Session` (or any other session name you configured previously) and click the `Save` button on the right side of the screen to save this configuration.
 
 **Please note that you have to keep your PuTTY session open for the SSH tunnel to remain functional.**
 
@@ -46,4 +46,6 @@ In the PuTTY navigation tree on the left click on the `Session` node (at the top
 See this FAQ for more info.
 
 [SSH Tunnels - How to use them with your applications](https://www.feralhosting.com/faq/view?question=242)
+
+
 
