@@ -60,6 +60,15 @@ faqbot.addListener('message', function(from, to, message) {
 }); 
 */
 
+// topic
+
+faqbot.addListener('topic', function (from, to) { faqbot.say(from, to) });
+faqbot.addListener('message', function(from, to, message) {
+    if ( message == '%topic' ) {
+        faqbot.send('TOPIC', to);
+    }
+});
+
 // status
 
 faqbot.addListener('message', function(from, to, message) {
