@@ -37,9 +37,9 @@ Make a copy of your existing [private key](https://www.feralhosting.com/faq/view
 
 MyEnTunnel does not support passing keyfile passphrases to the server. PAGEANT MUST BE USED or use a keyfile with no passphrase.
 
-Please see the PAGEANT - pagnt section of the [SSH Guide Super](https://www.feralhosting.com/faq/view?question=165) and download and install the [putty-0.62-installer.exe](http://the.earth.li/~sgtatham/putty/latest/x86/putty-0.62-installer.exe) bundle.
+Please see [Putty - using PAGEANT](https://www.feralhosting.com/faq/view?question=241)  FAQ and download and install the [putty installer](hhttps://www.feralhosting.com/faq/view?question=12) bundle.
 
-If you installed putty using the putty installer then you can either double click on a keyfile to load it or find PAGEANT located here (Program files (x86)/PuTTy/) for creating a custom short cut as shown in the Super guide.
+If you installed putty using the putty installer then you can either double click on a keyfile to load it or find PAGEANT, located here `Program files (x86)/PuTTy/`, for creating a custom short cut as shown in the PAGEANT guide.
 
 **Step 4**
 
@@ -65,51 +65,6 @@ If your private key is function able and you filled out the connection details c
 
 **Basic usage of tunnels in applications**
 
-On Windows once you have created and opened your tunnels you need to configure you applications to use them.
+See this FAQ for more info.
 
-This guide cannot possibly cover each and every program. Also your program needs to support proxying in some way.
-
-This will usually be in the settings or preferences somewhere under the title of
-
-Proxy  / Network Settings / Connection Settings
-
-Now with most programs you can either proxy directly using settings or with addons or plugins of some type. like foxyproxy in firefox.
-
-**FireFox's Connection settings**
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20Super%20-%20SSH%20basics%20-%20SSH%20tunnels%20-%20FTP%20to%20SFTP%20bridges/applications/settings.png)
-
-**Filezilla proxy settings**
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20Super%20-%20SSH%20basics%20-%20SSH%20tunnels%20-%20FTP%20to%20SFTP%20bridges/applications/filezilla.png)
-
-**Firefox**
-
-[Firefox Foxy Proxy](https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/)
-
-This is the best method for firefox. A very customizable proxy addon. 
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20Super%20-%20SSH%20basics%20-%20SSH%20tunnels%20-%20FTP%20to%20SFTP%20bridges/applications/foxyproxy1.png)
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20Super%20-%20SSH%20basics%20-%20SSH%20tunnels%20-%20FTP%20to%20SFTP%20bridges/applications/foxyproxy2.png)
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20Super%20-%20SSH%20basics%20-%20SSH%20tunnels%20-%20FTP%20to%20SFTP%20bridges/applications/foxyproxy3.png)
-
-**Chrome**
-
-[Chrome Proxy SwitchySharp](https://chrome.google.com/webstore/detail/proxy-switchysharp/dpplabbmogkhghncfbfdeeokoefdjegm)
-
-Chrome does not give the user any useful built in network/proxy options. The plugin below is the best choice to do this (it is a good plugin)
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20Super%20-%20SSH%20basics%20-%20SSH%20tunnels%20-%20FTP%20to%20SFTP%20bridges/applications/proxysharp.png)
-
-After you have saved, you can click on the icon to select from any configured proxies.
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20Super%20-%20SSH%20basics%20-%20SSH%20tunnels%20-%20FTP%20to%20SFTP%20bridges/applications/proxysharp1.png)
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20Super%20-%20SSH%20basics%20-%20SSH%20tunnels%20-%20FTP%20to%20SFTP%20bridges/applications/proxysharp2.png)
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20Super%20-%20SSH%20basics%20-%20SSH%20tunnels%20-%20FTP%20to%20SFTP%20bridges/applications/proxysharp3.png)
-
-
-
-
-
+[SSH Tunnels - How to use them with your applications](https://www.feralhosting.com/faq/view?question=242)
