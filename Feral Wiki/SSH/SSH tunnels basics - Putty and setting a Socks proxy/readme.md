@@ -9,37 +9,33 @@ You can create and have open as many tunnels as you need per device which is mor
 
 This FAQ when applied to and used with [Portable Firefox](http://portableapps.com/apps/internet/firefox_portable) along with [Portable PuTTY](http://portableapps.com/apps/internet/putty_portable) on your USB thumb drive, will give you a portable navigation suite for using just about anywhere, including the corporate network in your office.
 
-NOTE: Putty cannot save passwords for sessions, so to get around this:
+**Important note:** Putty cannot save passwords for sessions, so to get around this. For saving your passwords for a session use KiTTy or Xshell:
 
-You can use KiTTy instead of PuTTy since KiTTy can save passwords for sessions.
+[XShell - SSH - SSH tunnels - Private Keys](https://www.feralhosting.com/faq/view?question=238)
 
-For saving your passwords for a session using KiTTy please see the KiTTy - ktssh section of this 
-more comprehensive guide - [SSH Guide Super](https://www.feralhosting.com/faq/view?question=165)
-
-KiTTy is an upgraded version of PuTTy. It can also be used as a direct replacement for the putty.exe by simply
-renaming kitty.exe to putty.exe
+[Kitty - SSH - Private Keys - SSH tunnels](https://www.feralhosting.com/faq/view?question=240)
 
 You can also follow our tutorial on [Setting up Public Key Authentication on Windows](https://www.feralhosting.com/faq/view?question=13). 
 This way you will not have to type in your password each time you initiate a session (unless a keyfile passphrase is used).
 **Configuring PuTTY**
 
-[SSH Guide Basic - How to SSH Into Your Feral Slot](https://www.feralhosting.com/faq/view?question=12) is a prerequisite of this guide. Please follow the steps there to SSH before using these next steps.
+[SSH guide basics - PuTTy](https://www.feralhosting.com/faq/view?question=12) is a prerequisite of this guide. Please follow the steps there to SSH before using these next steps.
 
 When you start PuTTY you should see a window that looks like this:
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20tunnels%20basics%20-%20PuTTy/1.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20tunnels%20basics%20-%20Putty%20and%20setting%20a%20Socks%20proxy/1.png)
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20tunnels%20basics%20-%20PuTTy/2.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20tunnels%20basics%20-%20Putty%20and%20setting%20a%20Socks%20proxy/2.png)
 
 In the navigation tree on the left select the `Tunnels` item. If this item isn't already visible, you can find it by clicking the `Connection` node in the tree, then `SSH`, and then `Tunnels`:
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20tunnels%20basics%20-%20PuTTy/3.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20tunnels%20basics%20-%20Putty%20and%20setting%20a%20Socks%20proxy/3.png)
 
 Under the section labeled `Add a new forwarded port` type in a port like 55000 for the source port. Leave the Destination field blank, then select the `Dynamic` and `Auto` radio buttons. Then click the `Add` button, and you should see the text `D55000` show up in the textarea just above the `Add a new forwarded port`.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20tunnels%20basics%20-%20PuTTy/4.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20tunnels%20basics%20-%20Putty%20and%20setting%20a%20Socks%20proxy/4.png)
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20tunnels%20basics%20-%20PuTTy/5.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20tunnels%20basics%20-%20Putty%20and%20setting%20a%20Socks%20proxy/5.png)
 
 In the PuTTY navigation tree on the left click on the `Session` node (at the top of the tree), then select `Your Currently loaded Sessin` (or any other session name you configured previously) and click the `Save` button on the right side of the screen to save this configuration.
 

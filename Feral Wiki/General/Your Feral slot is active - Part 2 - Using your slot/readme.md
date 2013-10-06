@@ -163,7 +163,7 @@ Here is a picture showing the basic concepts of using SSH tunnels with your slot
 
 **Related tutorial:**  [SSH tunnels - MyEnTunnel 3.5 using Plink and setting a Socks proxy](https://www.feralhosting.com/faq/view?question=79)
 
-**Related tutorial:**  [SSH guide Super - SSH basics - SSH tunnels - FTP to SFTP bridges](https://www.feralhosting.com/faq/view?question=165)
+**Related tutorial:**  [SSH guide basics - Mac](https://www.feralhosting.com/faq/view?question=217)
 
 ### OpenVPN
 

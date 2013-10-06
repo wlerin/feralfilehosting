@@ -27,6 +27,10 @@ You will need to have Mysql already installed. You can do this from the [**Insta
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/installmysql.png)
 ~~~
 
+~~~
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot%20detail.png)
+~~~
+
 Then press and hold `CTRL` and then press `c` to quit.
 
 Then press and hold `CTRL` and then press `x` to save. Press `y` to confirm.
