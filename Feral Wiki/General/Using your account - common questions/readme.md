@@ -45,9 +45,9 @@ A: Your slot is running on Debian 7 Stable (wheezy)
 
 This SSH command will show you your current Debian version
 
-```
+~~~
 lsb_release -d
-```
+~~~
 
 **Q:** OpenVPN - How many open and active connections can I have?
 
@@ -131,11 +131,11 @@ Related FAQ: [Late Payments](https://www.feralhosting.com/faq/view?question=8)
 
 **Q:** Can I install my own software software?
 
-A: Users do not have Root privileges so cannot use apt or packet managers to install software. In order to install software a user must install the program to their $HOME location, for example:
+A: Users do not have Root privileges so cannot use apt or packet managers to install software. In order to install software a user must install the program to their `$HOME` location, for example:
 
-```
-./configure --prefix=${HOME}/private/
-```
+~~~
+./configure --prefix=$HOME/progams
+~~~
 
 The software may not always support this though, and it it not an issue the staff support. You can always jump on IRC and ask, maybe another user will be around willing to help.
 
@@ -198,7 +198,7 @@ SSH is useful for complete control over your account and is used to help fix any
 Related tutorial: [Connecting with Putty on Windows](https://www.feralhosting.com/faq/view?question=12)
 Related tutorial: [SSH Tunnels Basic - PuTTy](https://www.feralhosting.com/faq/view?question=37)
 Related tutorial: [Setting up Public Key Authentication for Password-less Login](https://www.feralhosting.com/faq/view?question=13)
-Related tutorial: [SSH Basics, SSH Tunnels and FTP to SFTP Bridges](https://www.feralhosting.com/faq/view?question=165)
+Related tutorial: [SSH guide basics - Mac](https://www.feralhosting.com/faq/view?question=217)
 
 **HTTP**
 

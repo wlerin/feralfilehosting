@@ -1,6 +1,4 @@
 
-**Important note:** Myentunnel 3.5.2 only works with plink.exe 0.62 and not 0.63 for the moment. Myentunnel 3.5.2 and plink.exe 0.62 are bundled together in a link in Step 1 ready to use.
-
 Unlike using OpenVPN that encrypts **all** network traffic at the driver level for that device, creating SSH tunnels enables you to route your for traffic/applications selectively. 
 
 For example: You could open a tunnel only for browsing or an application, letting the rest of your traffic go through your ISP directly, unencrypted. This can prevent a lot of problems for casual usage, such as using an imap application such as Thunderbird or using Personal websites like Paypal.
@@ -31,7 +29,7 @@ Make sure your private key works before your proceed to the next step.
 
 If you installed putty using the putty installer then you can either double click on a keyfile to load it or find PAGEANT, located here `Program files (x86)/PuTTy/`, for creating a custom short cut as shown in the PAGEANT guide.
 
-**Step 4**
+**Step 3**
 
 Launch `myentunnel.exe`, go to the `Settings` tab and fill out the fields according to the screen shot below:
 
@@ -49,11 +47,11 @@ Substitute `server` with your the name of the Feral server, and `username` with 
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20tunnels%20-%20MyEnTunnel%203.5%20and%20Plink/5.png)
 
-**Step 5**
+**Step 4**
 
 Press `connect`.
 
-If your private key is function able and you filled out the connection details correctly, MyEnTunnel should establish a tunnel to your Feral box and listen for connections on local port 55555.
+If your private key is function able and you filled out the connection details correctly, MyEnTunnel should establish a tunnel to your Feral box and listen for connections the local port you selected.
 
 **Basic usage of tunnels in applications**
 
