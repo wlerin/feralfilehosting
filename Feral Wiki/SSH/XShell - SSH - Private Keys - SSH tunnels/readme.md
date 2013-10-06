@@ -11,8 +11,6 @@ The guide follows a specific format for each section.
 
 **5:** Creating SSH Tunnels.
 
-**6:** SFTP Bridges where applicable.
-
 **Important note:** You only need to use the stages that apply to what you want to do.  Complete only the steps that you require.
 
 ### Xshell 4  SSH Client (recommended by guide author) - xsssh
@@ -21,19 +19,19 @@ Xshell is a very good SSH client with many useful and advanced features such as 
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/XShell%20-%20SSH%20-%20Private%20Keys%20-%20SSH%20tunnels/logo.png)
 
-#### Download XShell - 
+### Download XShell - 
 
 [Download XShell - email required](http://www.netsarang.com/download/down_xsh.html)
 
 **Important note:** This guide assumes you have created a private key according to this FAQ if you need or want to use private keys to connect: [Setting up Public Key Authentication for Password-less Login](https://www.feralhosting.com/faq/view?question=13)
 
-#### Topics covered:
+### Topics covered:
 
 - Connecting Via SSH using the default password
 - Importing and using private key files for authorisation.
 - Creating SSH tunnels.
 
-#### Key Features :
+### Key Features :
 
 - Saves Passwords and Key file Pass phrases
 - Easily configure multiple SSH tunnels from a single GUI.
@@ -41,7 +39,7 @@ Xshell is a very good SSH client with many useful and advanced features such as 
 - Gui is feature rich with right click context options, theme changing and more
 - Can be be used with [Xftp](http://www.netsarang.com/products/xfp_overview.html), an FTP/SFTP app by the same company, also free for home use.
 
-#### Installing XShell
+### Installing XShell
 
 After you have Downloaded XShell 4, run the installer and make sure to select the correct license when installing:
 
@@ -69,7 +67,7 @@ Here we will configure the basic detail for connecting to our Feral server:
 
 Continue with the FAQ if you want XShell to store your username and password, to use Private Keys and SSH tunnels.
 
-#### Authentication using a Username and Password
+### Authentication using a Username and Password
 
 XShell can store and save our username and password for the connection. This will mean it won't prompt your for your username or password when connecting.
 
@@ -77,7 +75,7 @@ XShell can store and save our username and password for the connection. This wil
 
 Continue with the FAQ if you want to use Private Keys and SSH tunnels.
 
-#### Authentication using a public/private key and Username
+### Authentication using a public/private key and Username
 
 **Important note:** Please see last two sections of this FAQ for creating and managing keyfiles with XShell.
 
@@ -113,7 +111,7 @@ Now briefly look over the settings to make sure things they are correct.
 
 Continue with the FAQ if you to create and use SSH tunnels.
 
-#### Creating our SSH tunnel
+### Creating our SSH tunnel
 
 Select the SSH/Tunneling section. Then click on Add to begin creating a new tunnel
 
@@ -127,7 +125,7 @@ You will now see that our tunnel has been created and is listed in the list. Opt
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/XShell%20-%20SSH%20-%20Private%20Keys%20-%20SSH%20tunnels/tunnel.3.png)
 
-#### Finalizing the set-up and connecting
+### Finalizing the set-up and connecting
 
 This is the Session manager again. Here you can create, connect to or edits sessions. Make sure the box is ticked to "Show this dialog box at startup"
 
