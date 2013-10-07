@@ -1,7 +1,7 @@
 
 When you switch to a different type of slot, we will gladly transfer your files from the old server to the new one. Simply [raise a ticket](https://www.feralhosting.com/manager/tickets/new) to have this done for you (please title the ticket **Data Transfer Request**).
 
-Everything will be copied over to the new server recursively — including your data, `.torrents`, and other files. Your directory structure will also be preserved.
+Everything will be copied over to the new server recursively. This includes your data, `.torrents`, and other files. Your directory structure will also be preserved.
 
 As soon as your new slot is active, please use the [**Install Software** link in your Manager](https://www.feralhosting.com/manager/) to install software on the new server in preparation for completing the data transfer.
 
@@ -13,7 +13,7 @@ When the transfer is complete you will find your files under your home directory
 ~/data-from-server
 ~~~
 
-Where **server** is the name of your old server. For example:
+Where `server` in `data-from-server` is the name of your old server. For example:
 
 ~~~
 ~/data-from-aphrodite
@@ -27,9 +27,9 @@ What you will find below this directory is a complete mirror of your old slot wi
 
 **2:** Move your data and `.torrents` to the right locations on the server.
 
-There is a certain amount of risk involved in this operation in the sense that in some cases your torrent client will fail to locate the data for certain `.torrents` and will attempt to re-download from the tracker. Which is why
+There is a certain amount of risk involved in this operation in the sense that in some cases your torrent client will fail to locate the data for certain `.torrents` and will attempt to re-download from the tracker. Which is why we recommend:
 
-**Be SURE TO THROTTLE YOUR TORRENT CLIENT'S DOWNLOAD SPEED to the lowest possible value (1 KB/s) before you move data and `.torrents`**
+**You throttle yoru torrent client's download speed to the lowest possible value (1 KB/s) before you move data and `.torrents`**
 
 ### rTorrent / ruTorrent
 
@@ -53,7 +53,7 @@ Optional: The copy command if needed:
 cp -rf ~/data-from-server/private/rtorrent/data/. ~/private/rtorrent/data
 ~~~
 
-Substitute **server** with the name of your old server.
+Substitute `server` in `data-from-server` with the name of your old server.
 
 **Move the the rTorrent .torrents**
 
@@ -69,7 +69,7 @@ Optional: The copy command if needed:
 cp -rf ~/data-from-server/private/rtorrent/work/*.torrent ~/private/rtorrent/watch
 ~~~
 
-Substitute **server** with the name of your old server.
+Substitute `server` in `data-from-server` with the name of your old server.
 
 ### Deluge
 
@@ -77,7 +77,7 @@ Deluge: throttle your download.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/General/Completing%20a%20data%20transfer/deluge.png)
 
-[SSH to your new server](https://www.feralhosting.com/faq/view?question=12) and execute the following commands in this particular order:
+[SSH](https://www.feralhosting.com/faq/view?question=12) to your new server and execute the following commands in this particular order:
 
 **Move the Deluge Data**
 
@@ -93,7 +93,7 @@ Optional: The copy command if needed:
 cp -rf ~/data-from-server/private/deluge/data/. ~/private/deluge/data
 ~~~
 
-Substitute **server** with the name of your old server.
+Substitute `server` in `data-from-server` with the name of your old server.
 
 **Move the the rTorrent .torrents**
 
@@ -109,7 +109,7 @@ Optional: The copy command if needed:
 cp -rf ~/data-from-server/.config/deluge/state/*.torrent ~/private/deluge/watch
 ~~~
 
-Substitute **server** with the name of your old server.
+Substitute `server` in `data-from-server` with the name of your old server.
 
 ### Transmission
 
@@ -118,7 +118,7 @@ Transmission: throttle your download.
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/General/Completing%20a%20data%20transfer/transmission 1.png)
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/General/Completing%20a%20data%20transfer/transmission 2.png)
 
-[SSH to your new server](https://www.feralhosting.com/faq/view?question=12) and execute the following commands in this particular order:
+[SSH](https://www.feralhosting.com/faq/view?question=12) to your new server and execute the following commands in this particular order:
 
 **Move the Transmission Data**
 
@@ -134,7 +134,7 @@ Optional: The copy command if needed:
 cp -rf ~/data-from-server/private/transmission/data/. ~/private/transmission/data
 ~~~
 
-Substitute **server** with the name of your old server.
+Substitute `server` in `data-from-server` with the name of your old server.
 
 **Move the the Transmission .torrents**
 
@@ -150,10 +150,13 @@ Optional: The copy command if needed:
 cp -rf ~/data-from-server/.config/transmission-daemon/torrents/*.torrent ~/private/transmission/watch
 ~~~
 
-Substitute **server** with the name of your old server.
+Substitute `server` in `data-from-server` with the name of your old server.
 
 ### Final Steps
 
 After you are done moving your data and .torrents, your torrent client will re-hash the data and start seeding. Depending on the amount of data to re-hash, this might take some time.
 
 Once all of your .torrents are seeding, do not forget to un-throttle your torrent client's download speed (set it back to **off/unlimited**).
+
+
+

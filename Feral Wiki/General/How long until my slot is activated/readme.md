@@ -7,9 +7,9 @@ Here is an example of the pricing page where all available slots have been exhau
 
 If there are no slots available in a product type, it will display: 
 
-```
+~~~
 0* available
-```
+~~~
 
 In this case you are put into a queue and you will get your slot when more become available.
 
@@ -21,9 +21,9 @@ You will receive an e-mail containing your username and password after registeri
 
 You may want to white list Feral in case of an aggressive spam filter.
 
-```
+~~~
 *.feralhosting.com
-```
+~~~
 
 Add this to your email spam filter white list to ensure you get all emails from Feral.
 
@@ -33,17 +33,13 @@ In the mean time we suggest you take a look at the [FAQs](https://www.feralhosti
 
 If at any time you wish to cancel before receiving your details, please talk to us using one of these methods:
 
-Open a [support ticket](https://www.feralhosting.com/manager/tickets/) 
+Open a [support ticket](https://www.feralhosting.com/manager/tickets/new) 
 
 or
 
 [Contact us](https://www.feralhosting.com/about/), stating your reasons. 
 
 You may be subject to a 20p [Twenty pence](http://en.wikipedia.org/wiki/Twenty_pence_%28British_coin%29) transaction charge, however.  This is to cover the cost involved in the transaction.
-
-
-
-
 
 
 
