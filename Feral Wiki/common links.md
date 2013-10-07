@@ -5,6 +5,8 @@
 
 [putty 0.63 zip](http://the.earth.li/~sgtatham/putty/latest/x86/putty.zip)
 
+Optionally, you can edit it over FTP, please read and understand this FAQ first - [Text editing - Over FTP or SFTP](https://www.feralhosting.com/faq/view?question=219)
+
 In SSH do the commands described in this FAQ. If you do not know how to SSH into your slot use this FAQ: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
 
 How to [SSH](https://www.feralhosting.com/faq/view?question=12) into your slot.

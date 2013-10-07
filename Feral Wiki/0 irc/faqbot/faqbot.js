@@ -717,6 +717,14 @@ faqbot.addListener('message', function(from, to, message) {
         faqbot.say(to, result + "Feralhosting on Twitter -- https://twitter.com/feralstatus");
         return;
     }
+    
+    if ( message == '%ticket' || message == '%ticket' + result || message == '%Ticket' || message == '%Ticket' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "Open a Ticket -- https://www.feralhosting.com/manager/tickets/new");
+        return;
+    }
+    
 }); 
 
 // End of triggers
@@ -778,7 +786,7 @@ faqbot.addListener('message', function(from, to, message) {
         }
         
         if ( message.indexOf('generic') >= 0 ) {
-          faqbot.say(to, "%email %twitter");
+          faqbot.say(to, "%email %twitter %ticket");
           return;
         }
     }
