@@ -25,6 +25,10 @@ You can do this from the Install Software link in your [Account Manager](https:/
 
 [Account Manager](https://www.feralhosting.com/manager/)
 
+[open a ticket](https://www.feralhosting.com/manager/tickets/new)
+
+[IRC](https://www.feralhosting.com/chat)
+
 You will need to have MySQL already installed. You can do this from the [**Install Software** link in your Manager](https://www.feralhosting.com/manager/)
 
 ~~~
@@ -37,7 +41,6 @@ You will need to have MySQL already installed. You can do this from the [**Insta
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/install_software_page.png)
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/install_software_link.png)
 ~~~
-
 
 Then press and hold `CTRL` and then press `c` to quit.
 

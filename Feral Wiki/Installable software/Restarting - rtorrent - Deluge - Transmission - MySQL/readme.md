@@ -1,19 +1,20 @@
 
-**Important note:** To use these commands it is required that you [SSH](https://www.feralhosting.com/faq/view?question=12) into your slot.
+
+**Important note:** A quick way to restart software is to install it again from the software page - this will leave data intact, but will reset configuration, passwords, RSS feeds and custom folders.
+
+Copy and paste commands directly as written in this FAQ.
 
 ### Restarting rtorrent
 
-**Important note:** a quick way to restart software is to install it again from the software page - this will leave data intact,but will reset configuration (e.g., passwords, RSS feeds, custom folders).
+Run the following commands through [SSH](https://www.feralhosting.com/faq/view?question=12).
 
-Run the following commands through [SSH](https://www.feralhosting.com/faq/view?question=12). (Copy and paste these commands directly as written). 
-
-**1:** Kill rtorrent
+**Step 1:** Kill rtorrent
  
 ~~~
 killall -9 -u $(whoami) rtorrent
 ~~~
 
-**2:** Start it again in a screen
+**Step 2:** Start it again in a screen
 
 ~~~
 screen -S rtorrent rtorrent
@@ -21,9 +22,9 @@ screen -S rtorrent rtorrent
 
 If all goes well, you should be greeted with your rtorrent  and you should see your torrents. To exit rtorrent (and keep it running) press and hold `CTRL` and `a` then press `d` to detach from the screen once you are sure rtorrent is running.
 
-If you are given a "screen is terminating" error, please consult command (3).
+If you are given a `screen is terminating` error, please consult the commands in Step 3.0
 
-**3.0:** Screen is terminating error
+**Step 3.0:** Screen is terminating error
 
 Attempt to start rtorrent using this command:
 
@@ -31,14 +32,17 @@ Attempt to start rtorrent using this command:
 rtorrent
 ~~~
 
-You will now usually see the error that rtorrent it throwing out. 
+You will now usually see the error that rtorrent it throwing out.
+ 
 You can try this in some cases: 
 
 ~~~
 rm -rf ~/private/rtorrent/work/rtorrent.*
 ~~~
 
-**3.1:** Start it again in a screen:
+If the error means nothing to you can [open a ticket](https://www.feralhosting.com/manager/tickets/new) or ask on [IRC](https://www.feralhosting.com/chat) for help.
+
+**3.1:** Start it again in a screen once you have resolved the errors:
 
 ~~~
 screen -S rtorrent rtorrent
@@ -59,6 +63,16 @@ killall -9 -u $(whoami) transmission-daemon
 ~~~
 
 **Important note:**  Transmission cannot manually restarted by the user. After killing the process allow up to 5 minutes for it to automatically to restart.
+
+You can do this to see if the process has restarted:
+
+~~~
+ps x | grep transmission | grep -v grep
+~~~
+
+You will see this if the process is running.
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/transmission.png)
 
 ### Restarting Deluge
 
