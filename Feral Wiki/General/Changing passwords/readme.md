@@ -95,21 +95,13 @@ If you want to set a custom password for your Rutorrent Web Gui, you will need t
 
 By default, when rutorrent is installed from the [**Install Software** page in your manager](https://www.feralhosting.com/manager/), it places the `.htpasswd` file in the rutorrent folder.
 
-To use htpasswd, you need to execute the following set of commands in the shell:
+To use `htpasswd`, you need to execute the following set of commands in the shell:
 
 ~~~
-cd ~/www/$(whoami).$(hostname)/public_html/rutorrent/
+htpasswd -m ~/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd username
 ~~~
-
-This will transfer you to the `/rutorrent` directory on the server where the `.htpasswd` file for rutorrent resides by default.
-
-Now execute:
 
 **Important note:** Replace `username` with your Feral username. This will prompt to update the password for this user if they exist instead of creating a new one.
-
-~~~
-htpasswd -m .htpasswd username
-~~~
 
 At this point, you will be prompted to enter your new password, and then verify.
 
@@ -122,8 +114,10 @@ htpasswd: cannot modify file /media/DiskID/home/username/www/username.server.fer
 Then please adjust the command line accordingly, from inside the rutorrent folder:
 
 ~~~
-htpasswd -cm .htpasswd username newpassword
+htpasswd -cm ~/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd username
 ~~~
+
+This will create a new and hashed `.htpasswd` file.
 
 You can get more info about the htpasswd command by typing `htpasswd` without any options. It will then display the options and switches you can use.
 
@@ -141,7 +135,9 @@ You should then see on-screen prompts asking you for your current and new passwo
 
 If you don't remember your originally assigned password, please go to the [Slot Details](https://www.feralhosting.com/manager/slot/) for your slot, and it will be listed there.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/General/0%20Generic/slot%20detail%ssh.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_link.png)
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_ssh.png)
 
 
 
