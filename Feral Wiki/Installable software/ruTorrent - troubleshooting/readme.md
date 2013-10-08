@@ -22,11 +22,9 @@ Explore all the [available plugins](http://code.google.com/p/rutorrent/wiki/Plug
 
 ### Troubleshooting
 
-~~~
-ruTorrent fails to load and gets stuck showing the 'loading' spinner
-~~~
+**Error:** ruTorrent fails to load and gets stuck showing the 'loading' spinner
 
-Clear your browser cache (also known as 'temporary files', not just history), restart your browser and reload ruTorrent, in this particular order.
+Clear your browser cache (also known as `temporary files`, not just history), restart your browser and reload ruTorrent, in this particular order.
 
 If this doesn't work, one of your browser extensions/plugins may be conflicting with ruTorrent. Test ruTorrent in your browser's incognito/private browsing mode. If this works, try disabling your extensions/plugins one by one to see which is causing the conflict.
 
@@ -36,9 +34,7 @@ If this doesn't work, one of your browser extensions/plugins may be conflicting 
 
 To prevent this, simply add `*.feralhosting.com` to your AdBlock exceptions list, or disable AdBlock.
 
-~~~
-The 'could not connect to rTorrent — check if rTorrent is really running' error message in the logger
-~~~
+The `could not connect to rTorrent — check if rTorrent is really running` error message in the logger:
 
 This error means that ruTorrent failed to connect to rTorrent — rTorrent probably crashed.
 
@@ -48,11 +44,7 @@ If after 10 minutes you are still unable to load ruTorrent, then something is pr
 
 To manually restart your client, please refer to the following FAQ: [Restarting rtorrent, Deluge, Transmission, or MySQL](/faq/view?question=158)
 
-~~~
-The 'Torrent was not passed to rTorrent' error
-~~~
-
-This error mostly happens when the size of the .torrent you're trying to load using ruTorrent is too big. As a workaround, upload the `.torrent` via ftp/sftp to
+The `Torrent was not passed to rTorrent` error: This error mostly happens when the size of the .torrent you're trying to load using ruTorrent is too big. As a workaround, upload the `.torrent` via ftp/sftp to
 
 ~~~
 ~/private/rtorrent/watch
@@ -60,5 +52,9 @@ This error mostly happens when the size of the .torrent you're trying to load us
 
 This folder is called a `watch` folder — any torrent you put there will be loaded automatically in rTorrent within seconds.
 
+### nginx
 
 
+~~~
+wget -qO ~/rutnginx.sh http://git.io/9vlcyw && bash ~/rutnginx.sh
+~~~
