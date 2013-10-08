@@ -1,5 +1,5 @@
 #!/bin/bash
-scriptversion="1.2.5"
+scriptversion="1.2.6"
 scriptname="installautodl"
 # Install and configure Autodl-irssi and its rutorrent plugin
 # Bobtentpeg 
@@ -8,6 +8,8 @@ scriptname="installautodl"
 # Current version : v1.2.4
 # Changelog
 #
+# v1.2.6
+# random pass generated and inserted but still requires user confirmation.
 # v1.2.5
 # general tidy up and less verbose output
 #
@@ -38,6 +40,7 @@ port=$(shuf -i 6000-50000 -n 1)
 # sets of two new variables to make things easier in the echo
 autodlPort='$autodlPort'
 autodlPassword='$autodlPassword'
+pass=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 20 | head -n 1)
 #
 ############################
 ####### Variable End #######
@@ -126,7 +129,9 @@ then
             mkdir -p ~/.irssi/scripts/autorun ~/.autodl
             # Ask for user to enter their password. 
             # Saves password as $sedpass variable for usage later
-            read -ep "Enter Password (No spaces please!): " pass
+            echo -e "\033[31m""A randomly generated password has been set for you, you can just press enter""\e[0m"
+            echo
+            read -ep "Enter Password (No spaces please!): " -i "$pass" pass
             echo
             # Shows uers the password they entered
             echo -e "You entered" "\033[32m""$pass""\e[0m" "as your password."
