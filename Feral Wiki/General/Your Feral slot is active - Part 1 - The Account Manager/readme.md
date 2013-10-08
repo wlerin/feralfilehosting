@@ -42,9 +42,7 @@ Now, the feralhosting.com manager is only part of managing your slot. Whilst you
 
 The colours have a specific meaning in regards to the payment status of you slot.
 
-**Green** means you've paid for a month
-**Yellow** means you still need to pay 
-**Red** means you are overdue.
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral Wiki/General/Your Feral slot is active - Part 1 - The Account Manager/paymentstatus.png)
 
 You have a **72 hour** grace period in the event that you forget or cannot to make a payment before the deadline. 
 
