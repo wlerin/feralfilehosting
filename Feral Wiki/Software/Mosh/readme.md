@@ -4,7 +4,7 @@
 Add the main binary location to your PATH using this command:
 
 ~~~
-[ -z "$(grep '~/programs/bin' ~/.bashrc)" ] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
+[[ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'export PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
 ### Protobuf
@@ -40,7 +40,7 @@ mosh-server: error while loading shared libraries: libprotobuf.so.8: cannot open
 By using this command:
 
 ~~~
-echo 'export LD_LIBRARY_PATH=~/programs/lib:$LD_LIBRARY_PATH' >> ~/.bashrc && source ~/.bashrc
+[[ ! "$(grep '~/programs/lib' ~/.bashrc)" ]] && echo 'export LD_LIBRARY_PATH=~/programs/lib:$LD_LIBRARY_PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
 Connect to your slot using this command.
