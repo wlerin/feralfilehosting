@@ -123,7 +123,7 @@ Now provide the file or URL of the torrent you wish to open.
 
 You can also control some of the server software as if it was installed on your PC in some cases using these programs.
 
-**Rutorrent, Deluge and Transmission:** you can run [Transdroid](http://www.transdroid.org/) (requires Java)
+**Rutorrent and Deluge:** you can run [Transdroid](https://www.feralhosting.com/faq/view?question=81) (requires Java)
 
 **Deluge only:** you can also run the [Thin Client](https://www.feralhosting.com/faq/view?question=76). Recommended for Deluge, requires you install Deluge first using the Install Software link in your manager.
 

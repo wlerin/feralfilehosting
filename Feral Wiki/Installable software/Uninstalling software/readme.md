@@ -31,7 +31,7 @@ touch ~/private/mysql/.prevent-restart
 
 With the `.prevent-restart` file in place, the client will not be started automatically. If you change your mind in the future, just remove the file from the corresponding folder. Remember, it is a .dot file or hidden, so it may seem like it's not there in your FTP or SFTP client; make sure you tell it to display hidden files and folders. In the shell, use the `ls -a` command to see it listed and `rm` command to remove it. After removing the special file, the client will be automatically restarted for you. 
 
-But wait! You say that the very sight of the program's folder offends you? Just remove the folder for the client from the `~/private` directory, and don't forget the webui from the `public_html` directory and the program is gone. All that will remain is the login information on your [Plan's page under your manager](https://www.feralhosting.com/manager/) — we can't do much about that part, without going into a lengthy explanation. You can always change your mind later and issue a re-install from the [**Install Software** link in your manager](https://www.feralhosting.com/manager/).
+But wait! You say that the very sight of the program's folder offends you? Just remove the folder for the client from the `~/private` directory, and don't forget the webui from the `public_html` directory and the program is gone. All that will remain is the login information on your [Slot Detail](https://www.feralhosting.com/manager/) page for the relevant slot — we can't do much about that part, without going into a lengthy explanation. You can always change your mind later and issue a re-install from the [**Install Software** link in your manager](https://www.feralhosting.com/manager/).
 
 
 

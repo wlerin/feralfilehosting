@@ -17,5 +17,13 @@ To upgrade or move your slot please:
 
 **4:** Request a refund on your current slot (optional).
 
+### Related FAQs:
+
+[Completing a data transfer](https://www.feralhosting.com/faq/view?question=122)
+
+[rsync - Transferring data from slot to slot](https://www.feralhosting.com/faq/view?question=117)
+
+[Backing up rutorrent RSS feeds and filters](https://www.feralhosting.com/faq/view?question=162)
+
 
 
