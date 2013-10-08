@@ -1,5 +1,4 @@
 
-
 **Important note:** A quick way to restart software is to install it again from the software page - this will leave data intact, but will reset configuration, passwords, RSS feeds and custom folders.
 
 Copy and paste commands directly as written in this FAQ.
@@ -54,7 +53,7 @@ If all goes well, you should be greeted with your rtorrent  and you should see y
 
 ### Restarting Transmission
 
-Run the following commands through [SSH guide basics - PuTTy](https://www.feralhosting.com/faq/view?question=12). (Copy and paste the command directly as written).
+Run the following commands in [SSH](https://www.feralhosting.com/faq/view?question=12).
 
 **1:** Kill transmission
 
@@ -76,7 +75,7 @@ You will see this if the process is running.
 
 ### Restarting Deluge
 
-Run the following commands through [ SSH](https://www.feralhosting.com/faq/view?question=12). (Copy and paste these commands directly as written). Commands (3) and (4) are optional, you can wait for the system to autorestart your client.
+Run the following commands through [ SSH](https://www.feralhosting.com/faq/view?question=12).
 
 Use the commands you need to kill and start the deluge daemon and Web Gui:
 
@@ -120,7 +119,7 @@ deluge-web --fork
 deluged && deluge-web --fork
 ~~~
 
-If you get this error you will need to open a [support ticket](https://www.feralhosting.com/manager/tickets/) with a relevant title. This problem requires Staff to fix.
+If you get this error you will need to open a [support ticket](https://www.feralhosting.com/manager/tickets/new) with a relevant title. This problem requires Staff to fix.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/twisted.png)
 
