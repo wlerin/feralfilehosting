@@ -141,7 +141,7 @@ You should then see on-screen prompts asking you for your current and new passwo
 
 If you don't remember your originally assigned password, please go to the [Slot Details](https://www.feralhosting.com/manager/slot/) for your slot, and it will be listed there.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/General/Your%20Feral%20slot%20is%20active%20-%20Part%201%20-%20The%20Account%20Manager/02%20slot%20detail%201.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/General/0%20Generic/slot%20detail%ssh.png)
 
 
 
