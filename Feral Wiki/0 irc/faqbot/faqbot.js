@@ -725,6 +725,19 @@ faqbot.addListener('message', function(from, to, message) {
         return;
     }
     
+    if ( message == '%contact' || message == '%contact' + result || message == '%Contact' || message == '%Contact' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "About us Page -- https://www.feralhosting.com/about/");
+        return;
+    }
+    
+    if ( message == '%abuse' || message == '%abuse' + result || message == '%Abuse' || message == '%Abuse' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "Report abuse to this email, we understand you might be frustrated but please be polite. -- report-abuse@feralhosting.com");
+        return;
+    }
 }); 
 
 // End of triggers
@@ -786,7 +799,7 @@ faqbot.addListener('message', function(from, to, message) {
         }
         
         if ( message.indexOf('generic') >= 0 ) {
-          faqbot.say(to, "%email %twitter %ticket");
+          faqbot.say(to, "%email %twitter %ticket %contact %abuse");
           return;
         }
     }
