@@ -1,7 +1,7 @@
 
 ### ruTorrent Is Not a Bittorrent client
 
-It is important that you understand that ruTorrent is not a bittorrent client, which is why **it cannot crash and cannot be restarted**.
+It is important that you understand that ruTorrent is not a bittorrent client, which is why it cannot crash and cannot be restarted. It is a web application that runs in the browser.
 
 ruTorrent is a web-based user interface (WebUi) for [rTorrent](http://www.feralhosting.com/heron/faq/view?question=2) which **is** a bittorrent client. rTorrent runs quietly in shell and you do not get to see it most of the time unless you want to. You use your web browser to load ruTorrent — ruTorrent connects to rTorrent behind the scenes and shows you what goes on in rTorrent, your bittorrent client.
 
@@ -30,7 +30,11 @@ Clear your browser cache (also known as 'temporary files', not just history), re
 
 If this doesn't work, one of your browser extensions/plugins may be conflicting with ruTorrent. Test ruTorrent in your browser's incognito/private browsing mode. If this works, try disabling your extensions/plugins one by one to see which is causing the conflict.
 
-`AdBlock users on Eros:` AdBlock blocks what it thinks are ads coming from domains that match the `'/eros.` rule, which includes `eros.feralhosting.com`. This will stop ruTorrent loading correctly over HTTPS, causing it to look like [this](http://i.imgur.com/PLvPCy3.png). To prevent this, simply add `'*.feralhosting.com'` to your AdBlock exceptions list, or disable AdBlock.
+**Important note:** AdBlock users on Eros: AdBlock blocks what it thinks are ads coming from domains that match the `/eros.` rule, which includes `eros.feralhosting.com`. This will stop ruTorrent loading correctly over HTTPS, causing it to look like: 
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/eros.png)
+
+To prevent this, simply add `*.feralhosting.com` to your AdBlock exceptions list, or disable AdBlock.
 
 ~~~
 The 'could not connect to rTorrent — check if rTorrent is really running' error message in the logger
