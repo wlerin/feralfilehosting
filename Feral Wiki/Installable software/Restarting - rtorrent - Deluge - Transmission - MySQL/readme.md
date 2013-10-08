@@ -119,6 +119,16 @@ deluge-web --fork
 deluged && deluge-web --fork
 ~~~
 
+Do this command to see if it running:
+
+~~~
+ps x | grep deluge | grep -v grep
+~~~
+
+If the processes are running the result will look like this:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/transmission.png)
+
 If you get this error you will need to open a [support ticket](https://www.feralhosting.com/manager/tickets/new) with a relevant title. This problem requires Staff to fix.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/twisted.png)
