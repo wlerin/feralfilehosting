@@ -17,11 +17,19 @@ do
         read CHOICE
         case "$CHOICE" in
                 "1")
-                        echo "Restarting rtorrent"
+                        echo "Killing all instances and restarting rtorrent"
                         killall -9 -u $(whoami) rtorrent
-                        screen -dmS rtorrent rtorrent
+                        screen -wipe > /dev/null 2>&1
+                        sleep 2
+                        screen -fa -dmS rtorrent rtorrent
+                        sleep 2
+                        echo "Is the process running?"
+                        echo
+                        ps x | grep current/bin/rtorrent | grep -v grep
                         echo "Is the screen running?"
                         screen -ls | grep rtorrent
+                        echo
+                        echo "If rtorrent is not running please refer to the FAQ for troubleshooting."
                         ;;
                 "2")
                         echo "Restarting Deluge"

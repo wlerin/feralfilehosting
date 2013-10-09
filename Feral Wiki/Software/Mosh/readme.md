@@ -4,6 +4,7 @@
 Add the main binary location to your PATH using this command:
 
 ~~~
+mkdir -p ~/programs
 [[ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'export PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
@@ -12,7 +13,6 @@ Add the main binary location to your PATH using this command:
 This is a required dependency that is not included with your slot.
 
 ~~~
-mkdir -p ~/programs
 wget -qO ~/protobuf-2.5.0.tar.gz http://protobuf.googlecode.com/files/protobuf-2.5.0.tar.gz
 tar xf ~/protobuf-2.5.0.tar.gz && cd ~/protobuf-2.5.0
 ./configure --prefix=$HOME/programs && make && make install && cd
@@ -48,3 +48,6 @@ Connect to your slot using this command.
 ~~~
 mosh username@server.feralhosting.com --server="LANG=$LANG mosh-server"
 ~~~
+
+
+

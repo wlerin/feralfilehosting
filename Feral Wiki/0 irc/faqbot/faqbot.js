@@ -558,12 +558,32 @@ faqbot.addListener('message', function(from, to, message) {
         faqbot.say(to, result + "proftpd - Installing an FTP daemon for extra accounts -- https://www.feralhosting.com/faq/view?question=193");            
         return;
     }
-
+    
     if ( message == '%autodl' || message == '%autodl' + result || message == '%auto-dl' || message == '%auto-dl' + result || message == '%autodl-irssi' || message == '%autodl-irssi' + result ) {
         if ( result !== '' ) { var result = result + ': '; }
         
+        faqbot.say(to, result + "Autodl-irssi and rutorrent plugin - community edition -- https://www.feralhosting.com/faq/view?question=142");
+        return;
+    }
+    
+    if ( message == '%autodlinstall' || message == '%autodlinstall' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+        
         faqbot.say(to, result + "Install it: wget -qO ~/installautodl.sh http://git.io/Ch0LqA && bash ~/installautodl.sh");
+        return;
+    }
+    
+    if ( message == '%autodlfix' || message == '%autodlfix' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
         faqbot.say(to, result + "Fix it: wget -qO ~/autodlrutorrentfix.sh http://git.io/BBUryw && bash ~/autodlrutorrentfix.sh");
+        return;
+    }
+    
+    if ( message == '%autodlport' || message == '%autodlport' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "Change Port and password: wget -qO ~/autodlport.sh http://git.io/vCft_Q && bash ~/autodlport.sh");
         return;
     }
 
@@ -789,7 +809,7 @@ faqbot.addListener('message', function(from, to, message) {
         }
         
         if ( message.indexOf('software') >= 0 ) {
-          faqbot.say(to, "%multirtorrent %multideluge %subsonic %ampache %icecast %proftpd %autodl %java %dropbox %p7zip %btsync %software %yoink! %weechat %node %spideroak %aerofs %duplicity");
+          faqbot.say(to, "%multirtorrent %multideluge %subsonic %ampache %icecast %proftpd %autodl %autodlinstall %autodlfix %autodlport %java %dropbox %p7zip %btsync %software %yoink! %weechat %node %spideroak %aerofs %duplicity");
           return;
         }
         

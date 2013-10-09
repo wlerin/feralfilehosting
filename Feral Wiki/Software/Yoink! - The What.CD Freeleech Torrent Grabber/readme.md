@@ -68,7 +68,13 @@ password:sds32tsekjfsd893
 target:~/yoinktest
 ~~~
 
-**Important note:** For Deluge you may want to do this so that your files are not removed from the files directory for Yoink.
+**Important note:** For Deluge you may want to: 
+
+1: Set a custom location for your downloaded torrents
+
+2: Use a cronjob to copy them to Deluge's watch folder. 
+
+This so that your files are not removed from the target directory for Yoink to check what you have already downloaded. You only need to do this for deluge. Skip it otherwise.
 
 Make this folder using this command:
 
