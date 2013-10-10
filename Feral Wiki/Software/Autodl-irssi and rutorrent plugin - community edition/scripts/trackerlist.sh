@@ -40,20 +40,20 @@ mkdir -p $HOME/bin
 #
 if [ ! -f $HOME/trackerlist.sh ]
 then
-    wget -qO $HOME/trackerlist.sh https://raw.github.com/feralhosting
+    wget -qO $HOME/trackerlist.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/trackerlist.sh
 fi
 if [ ! -f $HOME/bin/trackerlist ]
 then
-    wget -qO $HOME/bin/trackerlist https://raw.github.com/feralhosting
+    wget -qO $HOME/bin/trackerlist https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/trackerlist.sh
 fi
 #
-wget -qO $HOME/000somescript.sh https://raw.github.com/feralhosting
+wget -qO $HOME/000somescript.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/trackerlist.sh
 #
 if ! diff -q $HOME/000somescript.sh $HOME/trackerlist.sh > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/trackerlist.sh https://raw.github.com/feralhosting
-    wget -qO $HOME/bin/trackerlist https://raw.github.com/feralhosting
+    wget -qO $HOME/trackerlist.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/trackerlist.sh
+    wget -qO $HOME/bin/trackerlist https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/trackerlist.sh
     bash $HOME/trackerlist.sh
     exit 1' > $HOME/111somescript.sh
     bash $HOME/111somescript.sh
@@ -62,8 +62,8 @@ fi
 if ! diff -q $HOME/000somescript.sh $HOME/bin/trackerlist > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/trackerlist.sh https://raw.github.com/feralhosting
-    wget -qO $HOME/bin/trackerlist https://raw.github.com/feralhosting
+    wget -qO $HOME/trackerlist.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/trackerlist.sh
+    wget -qO $HOME/bin/trackerlist https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/trackerlist.sh
     bash $HOME/trackerlist.sh
     exit 1' > $HOME/222somescript.sh
     bash $HOME/222somescript.sh
