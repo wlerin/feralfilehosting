@@ -102,7 +102,9 @@ then
     echo "Restarting Irssi for the changes to take effect"
     screen -dmS autodl irssi
     echo "done"
+    echo
     screen -ls | grep autodl
+    echo
 else
     echo -e "\033[31m""Make sure you have installed autodl first before using this trackerlist script:""\e[0m"
     echo
