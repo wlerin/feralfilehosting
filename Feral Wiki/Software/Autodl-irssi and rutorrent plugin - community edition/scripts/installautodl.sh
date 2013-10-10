@@ -42,7 +42,7 @@ port=$(shuf -i 6000-50000 -n 1)
 # sets of two new variables to make things easier in the echo
 autodlPort='$autodlPort'
 autodlPassword='$autodlPassword'
-pass=$(< /dev/urandom tr -dc '12345!@#ANCDEFGHIJKLMNOPabcdefghijklmnop' | head -c${1:-15};echo;)
+pass=$(< /dev/urandom tr -dc '12345!@#ANCDEFGHIJKLMNOPabcdefghijklmnop' | head -c${1:-20};echo;)
 #
 ############################
 ####### Variable End #######
