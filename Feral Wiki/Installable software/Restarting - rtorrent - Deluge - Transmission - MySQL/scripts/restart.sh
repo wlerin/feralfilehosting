@@ -92,18 +92,19 @@ then
             case "$CHOICE" in
                     "1")
                             echo
-                            echo -e "\033[31m""Killing all instances or rtorrent""\e[0m"
+                            echo -e "\033[31m""Killing all instances of rtorrent""\e[0m"
                             echo
                             killall -9 -u $(whoami) rtorrent
                             screen -wipe > /dev/null 2>&1
                             echo "Restaring rtorrent"
+                            echo
                             screen -fa -dmS rtorrent rtorrent
                             sleep 2
                             echo -e "\033[33m""Checking if the process is running:""\e[0m"
                             echo
                             ps x | grep current/bin/rtorrent | grep -v grep
                             echo
-                            echo -e "\033[33m""Is the screen running?""\e[0m"
+                            echo -e "\033[33m""Checking if the screen is running""\e[0m"
                             echo
                             screen -ls | grep rtorrent
                             echo
