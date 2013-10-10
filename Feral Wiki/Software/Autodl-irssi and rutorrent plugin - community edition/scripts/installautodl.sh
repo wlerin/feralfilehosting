@@ -8,6 +8,8 @@ scriptname="installautodl"
 # Current version : v1.2.4
 # Changelog
 #
+# v1.2.7
+# also gets and installs most current tracker list
 # v1.2.6
 # random pass generated and inserted but still requires user confirmation.
 # v1.2.5
@@ -151,16 +153,18 @@ then
                 echo "Downloading autodl-irssi"
                 # Downloads the newest  RELEASE version  of the autodl community edition and saves it as a zip file
                 wget -qO ~/autodl-irssi.zip https://autodl-irssi-community.googlecode.com/files/autodl-irssi-community.zip
+                wget -qO ~/autodl-trackers.zip https://autodl-irssi-community.googlecode.com/files/autodl-trackers.zip
                 echo "autodl-irssi download finished"
                 # Unzips the files downloaded above
                 echo "Unzipping"
                 unzip -qo ~/autodl-irssi.zip -d ~/.irssi/scripts/
+                unzip -qo ~/autodl-trackers.zip -d ~/.irssi/scripts/AutodlIrssi/trackers/
                 echo "Unzipping complete"
                 # Moves the files around to their proper homes.  The .pl file is moved to autorun so that autodl starts automatically when we open irssi
                 # the AutodlIrssi folder is moved to scripts  (inside the perl path) so that  its contents can be loaded by irssi when it starts
                 echo "Moving files around"
                 cp -f ~/.irssi/scripts/autodl-irssi.pl ~/.irssi/scripts/autorun/ 
-                rm -f ~/autodl-irssi.zip ~/.irssi/scripts/README* ~/.irssi/scripts/autodl-irssi.pl
+                rm -f ~/autodl-irssi.zip ~/.irssi/scripts/README* ~/autodl-irssi.zip ~/.irssi/scripts/CONTRIBUTING.md ~/.irssi/scripts/autodl-irssi.pl ~/autodl-trackers.zip
                 # Uses echo to make our autodl.cfg config file.  Takes the two previously made variables, $port and $pass to  populate per user
                 echo "Writing configuration files"
                 echo -e "[options]\ngui-server-port = $port\ngui-server-password = $pass" > ~/.autodl/autodl.cfg
