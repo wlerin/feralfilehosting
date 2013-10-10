@@ -1,5 +1,5 @@
 #!/bin/bash
-# Script name
+# autodlrutorrentfix.sh
 scriptversion="1.0.3"
 scriptname="autodlrutorrentfix"
 # randomessence

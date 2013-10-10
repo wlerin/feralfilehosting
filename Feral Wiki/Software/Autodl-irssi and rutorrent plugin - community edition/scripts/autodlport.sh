@@ -1,5 +1,9 @@
 #!/bin/bash
-# wget -qNO ~/autodlport.sh http://git.io/vCft_Q && bash ~/autodlport.sh
+# autodlport.sh
+# randomessence
+#
+# wget -qO ~/autodlport.sh http://git.io/vCft_Q && bash ~/autodlport.sh
+#
 # Autodl change ports and pass
 port=$(shuf -i 6000-50000 -n 1)
 if [[ -f ~/.autodl/autodl.cfg && -f ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/conf.php ]]

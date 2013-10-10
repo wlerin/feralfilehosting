@@ -1,22 +1,26 @@
 #!/bin/bash
+# installautodl.sh
 scriptversion="1.2.8"
 scriptname="installautodl"
-# Install and configure Autodl-irssi and its rutorrent plugin
 # Bobtentpeg 
+# randomessence
+#
+# wget -qO ~/installautodl.sh http://git.io/Ch0LqA && bash ~/installautodl.sh
+#
+# Install and configure Autodl-irssi and its rutorrent plugin
 # FeralHosting  || www.feralhosting.com
 # Feral Hosting is a small team of individuals working towards managed solutions for a variety of problems focusing on minimal systems that can do more.
-# Current version : v1.2.4
+#
 # Changelog
 #
 # v1.2.8
-# removes autodl files before installing. Clean install. No longer overwrites existing autodl.cfg if present when reinstalling
+#   removes autodl files before installing. Clean install. No longer overwrites existing autodl.cfg if present when reinstalling
 # v1.2.7
-# also gets and installs most current tracker list
+#   also gets and installs most current tracker list
 # v1.2.6
-# random pass generated and inserted but still requires user confirmation.
+#   random pass generated and inserted but still requires user confirmation.
 # v1.2.5
-# general tidy up and less verbose output
-#
+#   general tidy up and less verbose output
 # v1.2.4
 #   merged fix script
 # v1.2.3
