@@ -1,5 +1,6 @@
 #!/bin/bash
 # Script name
+# wget -qO ~/trackerlist.sh http://git.io/kv9LsQ && bash ~/trackerlist.sh
 scriptversion="1.0.0"
 scriptname="trackerlist"
 # Author name
@@ -90,16 +91,25 @@ then
 ####### Script Start #######
 ############################
 #
-echo "Downloading and extracting latest tracker list"
-wget -qO ~/autodl-trackers.zip https://autodl-irssi-community.googlecode.com/files/autodl-trackers.zip
-unzip -qo ~/autodl-trackers.zip -d ~/.irssi/scripts/AutodlIrssi/trackers/
-rm -f ~/autodl-trackers.zip
-echo "Killing all Irssi processes"
-killall -u $(whoami) irssi
-echo "Restarting Irssi for the changes to take effect"
-screen -dmS autodl irssi
-echo "done"
-screen -ls | grep autodl
+if [[ -d ~/.irssi/scripts/AutodlIrssi ]]
+then
+    echo "Downloading and extracting latest tracker list"
+    wget -qO ~/autodl-trackers.zip https://autodl-irssi-community.googlecode.com/files/autodl-trackers.zip
+    unzip -qo ~/autodl-trackers.zip -d ~/.irssi/scripts/AutodlIrssi/trackers/
+    rm -f ~/autodl-trackers.zip
+    echo "Killing all Irssi processes"
+    killall -u $(whoami) irssi
+    echo "Restarting Irssi for the changes to take effect"
+    screen -dmS autodl irssi
+    echo "done"
+    screen -ls | grep autodl
+else
+    echo "Make sure you have installed autodl first before using this script"
+    echo
+    echo "wget -qO ~/installautodl.sh http://git.io/Ch0LqA && bash ~/installautodl.sh"
+    echo
+    exit 1
+fi
 #
 ############################
 ####### Script Ends  #######
