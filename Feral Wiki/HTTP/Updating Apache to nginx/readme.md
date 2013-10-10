@@ -40,7 +40,7 @@ Configuration for the default domain can be updated by adding (or editing) files
 ~/.nginx/conf.d/000-default-server.d
 ~~~
 
-You will need to restart `nginx` to apply configuration.
+**Important note:** You will need to restart `nginx` to apply configuration changes you make, once nginx has been loaded, for them to take effect.
 
 If you run any custom configuration in Apache (found in the `.htaccess` files or the `~/.apache2/conf.d/` directory) then you should carefully review and apply this configuration to `nginx`. 
 
