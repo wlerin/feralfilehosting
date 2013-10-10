@@ -104,9 +104,9 @@ then
     echo "done"
     screen -ls | grep autodl
 else
-    echo "Make sure you have installed autodl first before using this script"
+    echo -e "\033[31m""Make sure you have installed autodl first before using this trackerlist script:""\e[0m"
     echo
-    echo "wget -qO ~/installautodl.sh http://git.io/Ch0LqA && bash ~/installautodl.sh"
+    echo -e "\033[32m""wget -qO ~/installautodl.sh http://git.io/Ch0LqA && bash ~/installautodl.sh""\e[0m"
     echo
     exit 1
 fi
