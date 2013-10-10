@@ -1,5 +1,5 @@
 #!/bin/bash
-scriptversion="1.2.6"
+scriptversion="1.2.8"
 scriptname="installautodl"
 # Install and configure Autodl-irssi and its rutorrent plugin
 # Bobtentpeg 
@@ -8,6 +8,8 @@ scriptname="installautodl"
 # Current version : v1.2.4
 # Changelog
 #
+# v1.2.8
+# removes autodl files before installing. Clean install. No longer overwrites existing autodl.cfg if present when reinstalling
 # v1.2.7
 # also gets and installs most current tracker list
 # v1.2.6
@@ -150,6 +152,10 @@ then
                 # Kill any existing processes
                 killall -9 -u $(whoami) irssi 2> /dev/null 
                 screen -wipe > /dev/null 2>&1
+                # Clean install
+                rm -rf ~/.irssi/scripts/AutodlIrssi
+                rm -f ~/.irssi/scripts/autorun/autodl-irssi.pl
+                rm -rf ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi
                 echo "Downloading autodl-irssi"
                 # Downloads the newest  RELEASE version  of the autodl community edition and saves it as a zip file
                 wget -qO ~/autodl-irssi.zip https://autodl-irssi-community.googlecode.com/files/autodl-irssi-community.zip
@@ -167,7 +173,13 @@ then
                 rm -f ~/autodl-irssi.zip ~/.irssi/scripts/README* ~/autodl-irssi.zip ~/.irssi/scripts/CONTRIBUTING.md ~/.irssi/scripts/autodl-irssi.pl ~/autodl-trackers.zip
                 # Uses echo to make our autodl.cfg config file.  Takes the two previously made variables, $port and $pass to  populate per user
                 echo "Writing configuration files"
-                echo -e "[options]\ngui-server-port = $port\ngui-server-password = $pass" > ~/.autodl/autodl.cfg
+                if [[ -f ~/.autodl/autodl.cfg ]]
+                then
+                    sed -ri 's/(.*)gui-server-port =(.*)/gui-server-port = '$port'/g' ~/.autodl/autodl.cfg
+                    sed -ri 's/(.*)gui-server-password =(.*)/gui-server-password = '$pass'/g' ~/.autodl/autodl.cfg
+                else 
+                    echo -e "[options]\ngui-server-port = $port\ngui-server-password = $pass" > ~/.autodl/autodl.cfg
+                fi
                 echo
                 sleep 2
                 #
