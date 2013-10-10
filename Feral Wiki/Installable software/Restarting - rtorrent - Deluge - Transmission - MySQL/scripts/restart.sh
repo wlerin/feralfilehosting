@@ -96,7 +96,7 @@ then
                             echo
                             killall -9 -u $(whoami) rtorrent
                             screen -wipe > /dev/null 2>&1
-                            echo "Restaring rtorrent"
+                            echo "Restarting rtorrent"
                             echo
                             screen -fa -dmS rtorrent rtorrent
                             sleep 2

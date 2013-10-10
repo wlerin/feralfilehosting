@@ -1,6 +1,18 @@
 
 **Important note:** A quick way to restart software is to install it again from the software page - this will leave data intact, but will reset configuration, passwords, RSS feeds and custom folders.
 
+### Bash script
+
+Here is a simple bash script for restarting rtorrent,deluge, transmission (kill only) and mysql with some checks to see they restarted. 
+
+If you get errors on restarting a particular programs refer back to this FAQ for troubleshooting. 
+
+~~~
+wget -qO ~/restart.sh http://git.io/5Uw8Gw && bash ~/restart.sh
+~~~
+
+### Manually restarting programs
+
 Copy and paste commands directly as written in this FAQ.
 
 ### Restarting rtorrent
