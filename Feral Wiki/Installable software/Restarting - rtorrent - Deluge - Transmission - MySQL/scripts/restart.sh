@@ -1,5 +1,8 @@
 #!/bin/bash
 # restart.sh
+#
+# wget -qO ~/restart.sh http://git.io/5Uw8Gw && bash ~/restart.sh
+#
 scriptversion="1.0.0"
 scriptname="restart"
 # randomessence
@@ -38,15 +41,15 @@ scriptname="restart"
 #
 if [ ! -f $HOME/restart.sh ]
 then
-    wget -qO $HOME/restart.sh https://raw.github.com/feralhosting
+    wget -qO $HOME/restart.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/scripts/restart.sh
 fi
 #
-wget -qO $HOME/000restart.sh https://raw.github.com/feralhosting
+wget -qO $HOME/000restart.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/scripts/restart.sh
 #
 if ! diff -q $HOME/000restart.sh $HOME/restart.sh > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/restart.sh https://raw.github.com/feralhosting
+    wget -qO $HOME/restart.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/scripts/restart.sh
     bash $HOME/restart.sh
     exit 1' > $HOME/111restart.sh
     bash $HOME/111restart.sh
