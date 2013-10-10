@@ -94,6 +94,7 @@ then
 if [[ -d ~/.irssi/scripts/AutodlIrssi ]]
 then
     echo "Downloading and extracting latest tracker list"
+    rm -rf ~/.irssi/scripts/AutodlIrssi/trackers/*
     wget -qO ~/autodl-trackers.zip https://autodl-irssi-community.googlecode.com/files/autodl-trackers.zip
     unzip -qo ~/autodl-trackers.zip -d ~/.irssi/scripts/AutodlIrssi/trackers/
     rm -f ~/autodl-trackers.zip
