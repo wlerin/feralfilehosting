@@ -2,8 +2,7 @@
 # installautodl.sh
 scriptversion="1.2.8"
 scriptname="installautodl"
-# Bobtentpeg 
-# randomessence
+# Bobtentpeg, randomessence
 #
 # wget -qO ~/installautodl.sh http://git.io/Ch0LqA && bash ~/installautodl.sh
 #
@@ -11,33 +10,27 @@ scriptname="installautodl"
 # FeralHosting  || www.feralhosting.com
 # Feral Hosting is a small team of individuals working towards managed solutions for a variety of problems focusing on minimal systems that can do more.
 #
-# Changelog
+############################
+## Version History Starts ##
+############################
 #
-# v1.2.8
-#   removes autodl files before installing. Clean install. No longer overwrites existing autodl.cfg if present when reinstalling
-# v1.2.7
-#   also gets and installs most current tracker list
-# v1.2.6
-#   random pass generated and inserted but still requires user confirmation.
-# v1.2.5
-#   general tidy up and less verbose output
-# v1.2.4
-#   merged fix script
-# v1.2.3
-#   Added disclaimer
-# v1.2.2
-#   Fixed mv steps, dir struct did in fact change by using the release builds
-# v1.2.1
-#   Code cleanup (cleaner var names, better structure)...more commenting
-# v1.2
-#   Updated plugin to community edition, freeleech flag and a few other extras
-# v1.1
-#   Set the password prompt to tell you not to use spaces, fixed a typo and made sure to set svn to --quiet.
-#   Groundwork for version checking
-# v1.0.1
-#   Finish rutorrent check mechanism -- checks for rutorrent folder in vhost
-# v1.0
-#   Initial release
+# v1.2.8 - removes autodl files before installing. Clean install. No longer overwrites existing autodl.cfg if present when reinstalling
+# v1.2.7 - also gets and installs most current tracker list
+# v1.2.6 - random pass generated and inserted but still requires user confirmation.
+# v1.2.5 - general tidy up and less verbose output
+# v1.2.4 - merged fix script
+# v1.2.3 - Added disclaimer
+# v1.2.2 - Fixed mv steps, dir struct did in fact change by using the release builds
+# v1.2.1 - Code cleanup (cleaner var names, better structure)...more commenting
+# v1.2 - Updated plugin to community edition, freeleech flag and a few other extras
+# v1.1 - Set the password prompt to tell you not to use spaces, fixed a typo and made sure to set svn to --quiet. Groundwork for version checking
+# v1.0.1 - Finish rutorrent check mechanism -- checks for rutorrent folder in vhost
+# v1.0 - Initial release
+#
+############################
+### Version History Ends ###
+############################
+#
 #
 ############################
 ###### Variable Start ######

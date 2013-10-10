@@ -1,9 +1,10 @@
 #!/bin/bash
 # trackerlist.sh
-# wget -qO ~/trackerlist.sh http://git.io/kv9LsQ && bash ~/trackerlist.sh
 scriptversion="1.0.0"
 scriptname="trackerlist"
 # randomessence
+#
+# wget -qO ~/trackerlist.sh http://git.io/kv9LsQ && bash ~/trackerlist.sh
 #
 ############################
 ## Version History Starts ##
