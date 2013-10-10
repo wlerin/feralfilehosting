@@ -77,7 +77,6 @@ then
 #
     showMenu () 
     {
-            echo
             echo "1"": Restart rtorrent"
             echo "2"": Restart Deluge"
             echo "3"": Restart Tranmission"
@@ -93,13 +92,14 @@ then
             case "$CHOICE" in
                     "1")
                             echo
-                            echo -e "\033[31m""Killing all instances and restarting rtorrent""\e[0m"
+                            echo -e "\033[31m""Killing all instances or rtorrent""\e[0m"
                             echo
                             killall -9 -u $(whoami) rtorrent
                             screen -wipe > /dev/null 2>&1
+                            echo "Restaring rtorrent"
                             screen -fa -dmS rtorrent rtorrent
                             sleep 2
-                            echo -e "\033[33m""Is the process running?""\e[0m"
+                            echo -e "\033[33m""Checking if the process is running:""\e[0m"
                             echo
                             ps x | grep current/bin/rtorrent | grep -v grep
                             echo
