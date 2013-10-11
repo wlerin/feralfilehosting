@@ -29,7 +29,7 @@ What you will find below this directory is a complete mirror of your old slot wi
 
 There is a certain amount of risk involved in this operation in the sense that in some cases your torrent client will fail to locate the data for certain `.torrents` and will attempt to re-download from the tracker. Which is why we recommend:
 
-**You throttle yoru torrent client's download speed to the lowest possible value (1 KB/s) before you move data and `.torrents`**
+**You throttle your torrent client's download speed to the lowest possible value (1 KB/s) before you move data and `.torrents`**
 
 ### rTorrent / ruTorrent
 
