@@ -705,7 +705,7 @@ while [ 1 ]
         echo
         if [ -f $HOME/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd ]
         then
-            echo -e "\033[32m""Here is a list of the usernames and their order in your" "\033[36m""/rutorrent-$suffix/.htpasswd""\e[0m"
+            echo -e "\033[32m""Here is a list of the usernames and their order in your" "\033[36m""/rtorrent-$suffix/.htpasswd""\e[0m"
             echo -e "\033[1;31m"
             cat $HOME/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd | cut -d: -f1
             echo -e "\e[0m"
