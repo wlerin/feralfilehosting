@@ -134,7 +134,7 @@ showMenu ()
     #
     echo -e "\033[32m""Multi Rtorrent/Rutorrent specific options section""\e[0m"
     #
-    echo -e "\033[31m""17""\e[0m" "\033[1;30m""Multi Rtorrent/Rutorrent:""\e[0m" "Add or edit a user in the existing Rutorrent .htpasswd"
+    echo -e "\033[31m""17""\e[0m" "\033[1;30m""Multi Rtorrent/Rutorrent:""\e[0m" "Add or edit a user in the existing Rutorrent-suffix .htpasswd/nginx rpc"
     #
     echo -e "\033[31m""18""\e[0m" "\033[1;30m""Multi Rtorrent/Rutorrent:""\e[0m" "Delete a user in the existing Rutorrent .htpasswd"
     #
@@ -661,6 +661,17 @@ while [ 1 ]
             echo -e "\033[33m""Enter an existing username to update or a new one to create an entry.""\e[0m"
             read -ep "What is the username you wish to create, if they are not listed above, or edit if they exist?: " username
             htpasswd -m $HOME/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd $username
+            echo
+            if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+            then
+                if [[ -s $HOME/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd ]]
+                then
+                    cp -f ~/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd ~/.nginx/conf.d/000-default-server.d/scgi-$suffix-htpasswd
+                    sed -i 's/\(.*\):\(.*\)/rutorrent:\2/g' ~/.nginx/conf.d/000-default-server.d/scgi-$suffix-htpasswd
+                    echo -e "This user and password have been used for the" "\033[36m""/rutorrent-$suffix/rpc""\e[0m"
+                    echo
+                fi
+            fi
             sleep 2
         else
             echo -e "\033[31m" "The file does not exist at rutorrent-$suffix." "\033[32m""Check the suffix was correct""\e[0m"

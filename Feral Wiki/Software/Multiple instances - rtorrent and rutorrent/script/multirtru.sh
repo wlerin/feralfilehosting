@@ -140,6 +140,7 @@ else
         if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
         then
             echo -e 'location /rutorrent-'$suffix' {\n    auth_basic "rutorrent-'$suffix'";\n    auth_basic_user_file '$HOME'/www/'$(whoami)'.'$(hostname)'/public_html/rutorrent-'$suffix'/.htpasswd;\n}\n\nlocation /rutorrent-'$suffix'/conf { deny all; }\nlocation /rutorrent-'$suffix'/share { deny all; }' > ~/.nginx/conf.d/000-default-server.d/rtorrent-$suffix.conf
+            echo -e 'location /rtorrent-'$suffix'/rpc {\n    include   /etc/nginx/scgi_params;\n    scgi_pass unix://'$HOME'/private/rtorrent-'$suffix'/.socket;\n\n    auth_basic '\''rtorrent SCGI for rutorrent-'$suffix''\'';\n    auth_basic_user_file conf.d/000-default-server.d/scgi-'$suffix'-htpasswd;\n}' > ~/.nginx/conf.d/000-default-server.d/rtorrent-$suffix-rpc.conf
             /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
         fi
         echo -e 'AuthType Basic\nAuthName "rtorrent-'$suffix'"\nAuthUserFile "'$HOME'/www/'$(whoami)'.'$(hostname)'/public_html/rutorrent-'$suffix'/.htpasswd"\nRequire valid-user' > ~/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htaccess
@@ -150,12 +151,23 @@ else
             echo -e "You entered" "\033[32m""$username""\e[0m" "as the choice of username"
             echo
             htpasswd -cm ~/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd $username
+            echo
         else
             echo -e "No username was give so i am using a generic username which is:" "\033[32m""rutorrent-$suffix""\e[0m"
             echo
             htpasswd -cm ~/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd rutorrent-$suffix
+            echo
         fi
-        echo
+        # nginx copy rutorrent-suffix htpassd to create the rpc htpassd file.
+        if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+        then
+            if [[ -s $HOME/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd ]]
+            then
+                cp -f ~/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd ~/.nginx/conf.d/000-default-server.d/scgi-$suffix-htpasswd
+                sed -i 's/\(.*\):\(.*\)/rutorrent:\2/g' ~/.nginx/conf.d/000-default-server.d/scgi-$suffix-htpasswd
+            fi
+        fi
+        #
         echo -e "\033[31m""You can use the htpasswdtk script to manage these installations.""\e[0m"
         chmod 644 ~/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htaccess ~/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd
         echo
@@ -183,6 +195,50 @@ else
         fi
         echo -e "The URL is:" "\033[32m""https://$(hostname)/$(whoami)/rutorrent-$suffix""\e[0m"
         echo
+        if [[ -s ~/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd ]]
+        then
+            echo -e "\033[33m""Don't forget, you can manage your passwords with this FAQ:""\e[0m" "\033[36m""https://www.feralhosting.com/faq/view?question=22""\e[0m"
+            echo
+        else
+            echo -e "\033[31m""There was a problem. The rutorrent-$suffix .htpasswd is empty.""\e[0m"
+            if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+            then
+                echo -e "\033[32m""This means this custom instance has no password and the rpc will not work.""\e[0m"
+            else
+                echo -e "\033[32m""This means this custom instance has no password""\e[0m"
+            fi
+            #
+            echo "Lets try again, Make sure your passwords match this time:"
+            echo
+            #
+            if [[ -n "$username" ]]
+            then
+                echo -e "You entered" "\033[32m""$username""\e[0m" "as the choice of username"
+                echo
+                htpasswd -cm ~/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd $username
+                echo
+            else
+                echo -e "No username was give so i am using a generic username which is:" "\033[32m""rutorrent-$suffix""\e[0m"
+                echo
+                htpasswd -cm ~/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd rutorrent-$suffix
+                echo
+            fi
+            #
+            if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+            then
+                if [[ -s $HOME/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd ]]
+                then
+                    cp -f ~/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd ~/.nginx/conf.d/000-default-server.d/scgi-$suffix-htpasswd
+                    sed -i 's/\(.*\):\(.*\)/rutorrent:\2/g' ~/.nginx/conf.d/000-default-server.d/scgi-$suffix-htpasswd
+                else
+                    echo -e "\033[31m""There was a problem. The rutorrent-$suffix .htpasswd is empty.""\e[0m"
+                    echo -e "\033[32m""This means your passwords did not match in the previous step, again.""\e[0m"
+                    echo -e "\033[33m""You will need to use the script in this FAQ:""\e[0m" "\033[36m""https://www.feralhosting.com/faq/view?question=22""\e[0m"
+                    echo
+                fi
+            fi
+            #
+        fi
         exit 1
     else
         echo -e "\033[31m""This particular suffix already exists, try another. The script will restart.""\e[0m"
