@@ -1,6 +1,6 @@
 #!/bin/bash
 # multi rtorrent/rutorrent
-scriptversion="1.0.2"
+scriptversion="1.0.3"
 scriptname="multirtru"
 # Author name
 #
@@ -137,6 +137,12 @@ else
         # Password protect the setup
         echo -e "\033[31m""3:""\e[0m" "Password Protect the Installation"
         echo
+        if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+        then
+            echo -e 'location /rutorrent-'$suffix' {\n    auth_basic "rutorrent-'$suffix'";\n    auth_basic_user_file '$HOME'/www/'$(whoami)'.'$(hostname)'/public_html/rutorrent-'$suffix'/.htpasswd;\n}\n\nlocation /rutorrent-'$suffix'/conf { deny all; }\nlocation /rutorrent-'$suffix'/share { deny all; }' > ~/.nginx/conf.d/000-default-server.d/rtorrent-$suffix.conf
+            echo -e 'location /rtorrent-'$suffix'/rpc {\n    include   /etc/nginx/scgi_params;\n    scgi_pass unix://'$HOME'/private/rtorrent-'$suffix'/.socket;\n\n    auth_basic '\''rtorrent SCGI for rutorrent-'$suffix''\'';\n    auth_basic_user_file conf.d/000-default-server.d/scgi-'$suffix'-htpasswd;\n}' > ~/.nginx/conf.d/000-default-server.d/rtorrent-$suffix-rpc.conf
+            /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
+        fi
         echo -e 'AuthType Basic\nAuthName "rtorrent-'$suffix'"\nAuthUserFile "'$HOME'/www/'$(whoami)'.'$(hostname)'/public_html/rutorrent-'$suffix'/.htpasswd"\nRequire valid-user' > ~/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htaccess
         read -ep "Please give me a username for the user we are creating: " username
         echo
