@@ -662,14 +662,18 @@ while [ 1 ]
             read -ep "What is the username you wish to create, if they are not listed above, or edit if they exist?: " username
             htpasswd -m $HOME/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd $username
             echo
-            if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+            read -ep "Do you want to use this user's password for the rpc: [y]es or [n]o ?" rpcchoice
+            if [[ $rpcchoice =~ ^[Yy]$ ]]
             then
-                if [[ -s $HOME/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd ]]
+                if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
                 then
-                    cp -f ~/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd ~/.nginx/conf.d/000-default-server.d/scgi-$suffix-htpasswd
-                    sed -i 's/\(.*\):\(.*\)/rutorrent:\2/g' ~/.nginx/conf.d/000-default-server.d/scgi-$suffix-htpasswd
-                    echo -e "This user and password have been used for the" "\033[36m""/rutorrent-$suffix/rpc""\e[0m"
-                    echo
+                    if [[ -s $HOME/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd ]]
+                    then
+                        cp -f ~/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd ~/.nginx/conf.d/000-default-server.d/scgi-$suffix-htpasswd
+                        sed -i 's/\(.*\):\(.*\)/rutorrent:\2/g' ~/.nginx/conf.d/000-default-server.d/scgi-$suffix-htpasswd
+                        echo -e "This user's password has been used for the" "\033[36m""/rutorrent-$suffix/rpc""\e[0m"
+                        echo
+                    fi
                 fi
             fi
             sleep 2
