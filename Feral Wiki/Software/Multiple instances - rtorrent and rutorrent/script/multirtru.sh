@@ -193,7 +193,7 @@ else
             echo -e "The username for this instance is:" "\033[32m""rutorrent-$suffix""\e[0m"
             echo
         fi
-        echo -e "The URL is:" "\033[32m""https://$(hostname)/$(whoami)/rutorrent-$suffix""\e[0m"
+        echo -e "Visit this URL to see your new instance:" "\033[32m""https://$(hostname)/$(whoami)/""\e[0m"
         echo
         if [[ -s ~/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd ]]
         then

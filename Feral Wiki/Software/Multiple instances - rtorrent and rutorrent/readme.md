@@ -1,15 +1,19 @@
 
+**Important notice:** These custom installations are **NOT** restarted automatically. If you need to restart the process look for this file: `~/multirtru.restart.txt` in your slot root. This file has the custom restart commands for any custom installation you have created using the bash script. Copy and paste the command you need into your SSH window.
+
 ### Bash script
 
 This script will:
 
-1: Ask you for a suffix for this unique instance of rtorrent and rutorrent.
-2: Create you a fresh install based on the Feral rtorrent and rutorrent installation. Colored ratio and Feralstats plugins included.
-3: Make the required edits to some using this suffix so it becomes an independent installation.
-4: Ask you for a username and password to password protect the folder. All instances are unique and will not clash even if the same username and password is used in another instance.
-5: Start rtorrent in a screen using the unique rtorrent/rc for this instance.
+**1:** Ask you for a suffix for this unique instance of rtorrent and rutorrent.
+**2:** Create you a fresh install based on the Feral rtorrent and rutorrent installation. Colored ratio and Feralstats plugins included.
+**3:** Make the required edits to some using this suffix so it becomes an independent installation.
+**4:** Ask you for a username and password to password protect the folder. All instances are unique and will not clash even if the same username and password is used in another instance.
+**5:** Start rtorrent in a screen using the unique `rtorrent.rc` for this instance.
+**6:** Create a file called `~/multirtru.restart.txt` in your slot root that contains the restart command for any custom installation you have created.
+**7:** If you are using nginx it will also create the `rpc` info required to use transdroid with this custom installation.
 
-It will not damage your existing installation or overwrite custom instances if the same suffix is used.
+It will **NOT** damage your existing installation or overwrite custom instances if the same suffix is used.
 
 ~~~
 wget -qO ~/multirtru.sh http://git.io/m_dugQ && bash ~/multirtru.sh
