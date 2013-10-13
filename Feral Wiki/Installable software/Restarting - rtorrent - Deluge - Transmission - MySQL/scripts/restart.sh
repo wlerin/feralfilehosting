@@ -1,11 +1,10 @@
 #!/bin/bash
 # restart.sh
-#
-# wget -qO ~/restart.sh http://git.io/5Uw8Gw && bash ~/restart.sh
-#
 scriptversion="1.0.0"
 scriptname="restart"
 # randomessence
+#
+# wget -qO ~/restart.sh http://git.io/5Uw8Gw && bash ~/restart.sh
 #
 ############################
 ## Version History Starts ##
@@ -18,7 +17,7 @@ scriptname="restart"
 # 4: Then replace ALL "https://raw.github.com/feralhosting" with the URL to the RAW script URL.
 # 5: Insert you script in the "Script goes here" labelled section 
 #
-# This updater deals with updating a single file, the  "~/somescript.sh".
+# This updater deals with updating two files at the same time, the  "~/somescript.sh" and the "~/bin/somescript" . You can remove one part of the updater, if you wish, to focus on a single file instance.
 #
 ############################
 ### Version History Ends ###
@@ -39,9 +38,15 @@ scriptname="restart"
 #### Self Updater Start ####
 ############################
 #
+mkdir -p $HOME/bin
+#
 if [ ! -f $HOME/restart.sh ]
 then
     wget -qO $HOME/restart.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/scripts/restart.sh
+fi
+if [ ! -f $HOME/bin/restart ]
+then
+    wget -qO $HOME/bin/restart https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/scripts/restart.sh
 fi
 #
 wget -qO $HOME/000restart.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/scripts/restart.sh
@@ -50,9 +55,20 @@ if ! diff -q $HOME/000restart.sh $HOME/restart.sh > /dev/null 2>&1
 then
     echo '#!/bin/bash
     wget -qO $HOME/restart.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/scripts/restart.sh
+    wget -qO $HOME/bin/restart https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/scripts/restart.sh
     bash $HOME/restart.sh
     exit 1' > $HOME/111restart.sh
     bash $HOME/111restart.sh
+    exit 1
+fi
+if ! diff -q $HOME/000restart.sh $HOME/bin/restart > /dev/null 2>&1
+then
+    echo '#!/bin/bash
+    wget -qO $HOME/restart.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/scripts/restart.sh
+    wget -qO $HOME/bin/restart https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/scripts/restart.sh
+    bash $HOME/restart.sh
+    exit 1' > $HOME/222restart.sh
+    bash $HOME/222restart.sh
     exit 1
 fi
 #
@@ -60,7 +76,8 @@ echo
 echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
 echo
 #
-rm -f $HOME/000restart.sh $HOME/111restart.sh
+rm -f $HOME/000restart.sh $HOME/111restart.sh $HOME/222restart.sh
+chmod -f 700 $HOME/bin/restart
 #
 ############################
 ##### Self Updater End #####
