@@ -1,5 +1,5 @@
 
-**Notice:** If you just want your Ports or did not complete the user creation/password part of the script? See Step 5 for ports and 6 for the command you need.
+**Notice:** If you just want to find out which Ports to use for connecting, see Step 5. If did not complete the user creation/password part of the script see Step 6 for the `ftpasswd` commands you need to 1: create your main user and 2: other jailed users.
 
 In SSH do the commands described in this FAQ. If you do not know how to SSH into your slot use this FAQ: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
 
