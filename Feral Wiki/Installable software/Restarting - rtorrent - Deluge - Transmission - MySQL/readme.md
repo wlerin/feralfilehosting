@@ -3,9 +3,9 @@
 
 ### Bash script
 
-Here is a simple bash script for restarting rtorrent,deluge, transmission (kill only) and mysql with some checks to see they restarted. 
+Here is a simple bash script for restarting rtorrent,deluge, transmission (kill only) and mysql with some checks to see they restarted. The script performs the basic kill and restart (where applicable) functions outlined in this FAQ.
 
-If you get errors on restarting a particular programs refer back to this FAQ for troubleshooting. 
+If you get errors on restarting a particular program or they fail to start, refer back to this FAQ for troubleshooting.
 
 ~~~
 wget -qO ~/restart.sh http://git.io/5Uw8Gw && bash ~/restart.sh

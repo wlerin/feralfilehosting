@@ -133,5 +133,15 @@ echo 'export PATH=~/ffmpeg:$PATH' >> ~/.bashrc && source ~/.bashrc
 ffmpeg -version
 ~~~
 
+### filebot
+
+~~~
+wget -qO ~/filebot.deb "http://www.filebot.net/download.php?mode=s&type=deb&arch=amd64"
+dpkg-deb -x ~/filebot.deb ~/filebot
+cp -rf ~/filebot/usr/share/filebot/. ~/filebot && rm -rf ~/filebot/usr
+sed -i 's|/usr/share/|'$HOME/'|g' ~/filebot/bin/filebot.sh
+bash ~/filebot/bin/filebot.sh
+~~~
+
 
 
