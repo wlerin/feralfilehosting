@@ -27,8 +27,10 @@ Now to run filebot you would do this, which will also show you the `-help` page 
 ~~~
 
 ~~~
-~/filebot/bin/filebot.sh -rename path/to/episodes
+~/filebot/bin/filebot.sh -rename "$HOME/path/to/episodes"
 ~~~
+
+Use `" "` around paths. Use `$HOME` in paths instead of `~`. Filebot gets confused about the `~`
 
 Please refer to this page: [Filebot Command Line](http://www.filebot.net/cli.html) for more options.
 

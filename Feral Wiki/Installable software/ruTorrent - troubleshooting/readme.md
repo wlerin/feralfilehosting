@@ -76,5 +76,9 @@ Run this command in [SSH](https://www.feralhosting.com/faq/view?question=12) and
 wget -qO ~/rutnginx.sh http://git.io/9vlcyw && bash ~/rutnginx.sh
 ~~~
 
+### Public Trackers are red / unreachable
 
+In the rutorrent WebUi do this:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/ruTorrent%20-%20troubleshooting/publictorrents.png)
 

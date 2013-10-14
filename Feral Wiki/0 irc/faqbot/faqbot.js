@@ -722,6 +722,13 @@ faqbot.addListener('message', function(from, to, message) {
         return;
     }
     
+    if ( message == '%FileBot' || message == '%FileBot' + result ||  message == '%filebot' || message == '%filebot' + result || message == '%Filebot' || message == '%Filebot' + result) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "FileBot CLI - Basic Setup -- https://www.feralhosting.com/faq/view?question=256");
+        return;
+    }
+    
     // other
 
     if ( message == '%email' || message == '%email' + result  || message == '%Interxion' || message == '%Interxion' + result || message == '%interxion' || message == '%interxion' + result || message == '%moving' || message == '%moving' + result || message == '%fibre' || message == '%fibre' + result || message == '%fiber' || message == '%fiber' + result ) {
