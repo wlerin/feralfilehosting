@@ -87,8 +87,6 @@ https=$(expr 1 + $http)
 submemory="512"
 # Gets the Java version from the last time this scrip installed Java
 installedjavaversion=$(cat ~/programs/javaversion 2> /dev/null)
-# Checks if the Java path was already added to the ~/.bashrc
-bashrcpath=$(sed -n '/PATH=~\/programs\/bin:\$PATH/p' ~/.bashrc 2> /dev/null)
 # Some variable links for subsonic
 javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=81812"
 #
@@ -343,9 +341,9 @@ then
         cp -rf ~/jre$jvdecimal/. ~/programs
         rm -f ~/java.tar.gz
         rm -rf ~/jre$jvdecimal
-        if [ -z "$bashrcpath" ]
+        if [[ ! "$(grep -o 'PATH=~/programs/bin:$PATH' ~/.bashrc)" ]]
         then
-            echo -e '\nPATH=~/programs/bin:$PATH' >> ~/.bashrc
+            echo 'export PATH=~/programs/bin:$PATH' >> ~/.bashrc
         fi
         echo -n "$javaversion" > ~/programs/javaversion
         # we create a custom Java version file for comparison so the installer only runs once
