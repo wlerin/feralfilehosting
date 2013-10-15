@@ -415,7 +415,7 @@ faqbot.addListener('message', function(from, to, message) {
         if ( result !== '' ) { var result = result + ': '; }
 
         faqbot.say(to, result + "Owncloud - Basic setup - https://www.feralhosting.com/faq/view?question=249");
-        faqbot.say(to, result + "Ajaxplorer 5 - Basic setup -- https://www.feralhosting.com/faq/view?question=222");
+        faqbot.say(to, result + "Pydio - Basic setup -- https://www.feralhosting.com/faq/view?question=222");
         return;
     }
 
@@ -437,6 +437,41 @@ faqbot.addListener('message', function(from, to, message) {
         if ( result !== '' ) { var result = result + ': '; }
 
         faqbot.say(to, result + "PHP - modify settings -- https://www.feralhosting.com/faq/view?question=213");
+        return;
+    }
+    
+    if ( message == '%ajaxplorer' || message == '%ajaxplorer' + result || message == '%Ajaxplorer' || message == '%Ajaxplorer' + result || message == '%AjaXplorer' || message == '%AjaXplorer' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "This program has been rebranded as Pydio. Search for Pydio instead");
+        return;
+    }
+    
+    if ( message == '%owncloud' || message == '%owncloud' + result || message == '%Owncloud' || message == '%Owncloud' + result) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "Owncloud - Basic setup -- https://www.feralhosting.com/faq/view?question=249");
+        return;
+    }
+    
+    if ( message == '%pydio' || message == '%pydio' + result || message == '%Pydio' || message == '%Pydio' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "Pydio - Basic setup -- https://www.feralhosting.com/faq/view?question=222");
+        return;
+    }
+    
+    if ( message == '%Adminer' || message == '%Adminer' + result || message == '%adminer' || message == '%adminer' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "Adminer - MySQL administration -- https://www.feralhosting.com/faq/view?question=116");
+        return;
+    }
+    
+    if ( message == '%Wordpress' || message == '%Wordpress' + result || message == '%wordpress' || message == '%wordpress' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "Wordpress - Basic setup -- https://www.feralhosting.com/faq/view?question=211");
         return;
     }
 
