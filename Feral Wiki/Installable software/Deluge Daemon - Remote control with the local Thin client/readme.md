@@ -21,6 +21,8 @@ You will then be able to connect to deluge using the thin client with the inform
 wget -qO ~/delugethin.sh http://git.io/obe0mA && bash ~/delugethin.sh
 ~~~
 
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Deluge%20Daemon%20-%20Remote%20control%20with%20the%20local%20Thin%20client/script.png)
+
 ### Manual Installation Steps:
 
 **Step 1:** Gather Server Information

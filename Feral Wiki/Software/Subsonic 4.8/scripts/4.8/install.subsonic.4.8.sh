@@ -5,8 +5,8 @@ scriptversion="1.5.8"
 scriptname="subsonic.4.8.sh"
 subsonicversion="4.8"
 madsonicversion="5.0 Beta5 Build 3600"
-javaversion="1.7 Update 40"
-jvdecimal="1.7.0_40"
+javaversion="1.7 Update 45"
+jvdecimal="1.7.0_45"
 #
 # Bobtentpeg 01/30/2013
 # randomessence 04/24/2013
@@ -90,7 +90,7 @@ installedjavaversion=$(cat ~/programs/javaversion 2> /dev/null)
 # Checks if the Java path was already added to the ~/.bashrc
 bashrcpath=$(sed -n '/PATH=~\/programs\/bin:\$PATH/p' ~/.bashrc 2> /dev/null)
 # Some variable links for subsonic
-javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=80805"
+javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=81812"
 #
 subsonicfv="https://sourceforge.net/projects/subsonic/files/subsonic/4.8/subsonic-4.8-standalone.tar.gz"
 subsonicfvs="subsonic-4.8-standalone.tar.gz"
