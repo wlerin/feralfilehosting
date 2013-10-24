@@ -16,6 +16,7 @@ var faqbot = new irc.Client(config.server, config.botName, {
     port: 6697,
     secure: true,
     selfSigned: true,
+    certExpired: true,
     autoRejoin: true,
     autoConnect: true
 });
@@ -61,13 +62,14 @@ faqbot.addListener('message', function(from, to, message) {
 */
 
 // topic
-
+/*
 faqbot.addListener('topic', function (from, to) { faqbot.say(from, to) });
 faqbot.addListener('message', function(from, to, message) {
     if ( message == '%topic' ) {
         faqbot.send('TOPIC', to);
     }
 });
+*/
 
 // status
 

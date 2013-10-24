@@ -23,7 +23,7 @@ Add the location to your `PATH` using this command.
 
 ~~~
 wget -qO ~/cmake.tar.gz http://www.cmake.org/files/v2.8/cmake-2.8.11.2-Linux-i386.tar.gz
-tar -xzf ~/cmake.tar.gz
+tar xf ~/cmake.tar.gz
 cp -rf ~/cmake-2.8.11.2-Linux-i386/. ~/programs
 rm -rf ~/cmake-2.8.11.2-Linux-i386 ~/cmake.tar.gz
 ~~~
@@ -79,7 +79,7 @@ Some final settings:
 ~~~
 /set irc.server.What-Network.ssl on
 /set irc.server.What-Network.ssl_verify off
-/set irc.server.What-Network.ssl_dhkey_size 1024
+/set irc.server.What-Network.ssl_dhkey_size 512
 /save
 ~~~
 

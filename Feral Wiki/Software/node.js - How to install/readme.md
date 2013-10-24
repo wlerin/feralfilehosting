@@ -3,10 +3,10 @@ In SSH do these commands. Use this FAQ if you do not know how to SSH into your s
 
 These commands will download the linked version of node.js and set it up inside your `~/private` directory.
 
-This downloads the `node-v0.10.20-linux-x64.tar.gz` and then saves it as `node.tar.gz` in your  `~/private` directory.
+This downloads the `node-v0.10.21-linux-x64.tar.gz` and then saves it as `node.tar.gz` in your  `~/private` directory.
 
 ~~~
-wget -qO ~/node.js.tar.gz http://nodejs.org/dist/v0.10.20/node-v0.10.20-linux-x64.tar.gz
+wget -qO ~/node.js.tar.gz http://nodejs.org/dist/v0.10.21/node-v0.10.21-linux-x64.tar.gz
 ~~~
 
 This unpacks the folder archived inside the node.tar.gz.
@@ -30,7 +30,7 @@ rm -rf ~/node.js.tar.gz  ~/node-v0.10.*-linux-x64
 This command appends the path to the bottom of the `~/.bashrc` for you. As long as you have not changed the paths in the previous commands. If you have, for example, decided to store the main directory in the root, you need to edit the path in the echo.
 
 ~~~
-[[][/[][ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
+[[][/[][ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'export PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
 Tries to call `node.js` to check the version:
@@ -42,7 +42,7 @@ node -v
 Which should return:
 
 ~~~
-v0.10.20
+v0.10.21
 ~~~
 
 If you see the version then it is ready to use.

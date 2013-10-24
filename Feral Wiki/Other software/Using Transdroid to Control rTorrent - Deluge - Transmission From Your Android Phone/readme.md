@@ -25,9 +25,13 @@ Open Transdroid on your device and open the settings, then click on `Add new ser
 
 **Port:** `443`
 
+**Important note:** Transdroid 2 this is under Advanced Settings as the option "Port number".
+
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/rutorrent/rutorrent.host.png)
 
 **SCGI Folder:** `/username/rtorrent/rpc` (case sensitive and where username is your Feral username)
+
+**Important note:** Transdroid 2 this is under Advanced Settings as the option "Folder". Set the `SCGI` path there.
 
 You need the `/` at the beginning and no trailing slash.
 
@@ -45,9 +49,13 @@ When entering your password, if you rotate your phone horizontally you can see t
 
 **Server OS:** `Linux`
 
+**Important note:** Transdroid 2 this is under Optional Settings as the option "Server OS".
+
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/rutorrent/rutorrent.os.png)
 
 **SSL**
+
+**Important note:** Transdroid 2 this is under Advanced as the option "Use SSL"
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/rutorrent/rutorrent.ssl.png)
 
@@ -94,3 +102,6 @@ If you get an error about Web Gui not being connected to a daemon log in via the
 Rutorrent.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/transdroid.desktop.png)
+
+
+
