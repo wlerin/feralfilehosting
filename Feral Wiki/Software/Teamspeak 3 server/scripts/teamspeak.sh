@@ -2,7 +2,7 @@
 #
 # Install Teamspeak 3
 scriptversion="1.0.8"
-teamspeakversion="3.0.9"
+teamspeakversion="3.0.10"
 # randomessence 27/04/2013
 #
 # bash ~/private/teamspeak/ts3server_startscript.sh start
@@ -37,7 +37,7 @@ fport=$(shuf -i 25001-40000 -n 1)
 # fport is file transfer port: vport + 1 used in the sed commands
 qport=$(shuf -i 40001-50000 -n 1)
 # qport is the query port: vport + 2 used in the sed commands
-teamspeakfv="http://dl.4players.de/ts/releases/3.0.9/teamspeak3-server_linux-amd64-3.0.9.tar.gz"
+teamspeakfv="http://dl.4players.de/ts/releases/3.0.10/teamspeak3-server_linux-amd64-3.0.10.tar.gz"
 #
 ############################
 ####### Variable End #######
