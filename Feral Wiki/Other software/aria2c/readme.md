@@ -9,7 +9,7 @@ aria2 is a lightweight multi-protocol & multi-source command-line download utili
 
 **Important note:** This is required for use with the Web Gui. The Web Gui does not come with the binary.
 
-[aria2c 1.18.0 x86](http://sourceforge.net/projects/aria2/files/stable/aria2-1.18.0/aria2-1.18.0-win-32bit-build1.zip/download) or [aria2c 1.18.0 x64](http://sourceforge.net/projects/aria2/files/stable/aria2-1.18.0/aria2-1.18.0-win-64bit-build1.zip/download) - Windows command line executable. 
+[aria2c 1.18.1 x86](http://sourceforge.net/projects/aria2/files/stable/aria2-1.18.1/aria2-1.18.1-win-32bit-build1.zip/download) or [aria2c 1.18.1 x64](http://sourceforge.net/projects/aria2/files/stable/aria2-1.18.1/aria2-1.18.1-win-64bit-build1.zip/download) - Windows command line executable. 
 
 **2:** Getting [Aria2c Web Gui](https://github.com/ziahamza/webui-aria2/) - A very simple Web application that you can download and run in any browser.
 
