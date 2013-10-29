@@ -1,6 +1,6 @@
 #!/bin/bash
 # restart.sh
-scriptversion="1.0.0"
+scriptversion="1.0.1"
 scriptname="restart"
 # randomessence
 #
@@ -40,18 +40,18 @@ scriptname="restart"
 #
 mkdir -p $HOME/bin
 #
-if [ ! -f $HOME/restart.sh ]
+if [[ ! -f "$HOME/restart.sh" ]]
 then
     wget -qO $HOME/restart.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/scripts/restart.sh
 fi
-if [ ! -f $HOME/bin/restart ]
+if [[ ! -f "$HOME/bin/restart" ]]
 then
     wget -qO $HOME/bin/restart https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/scripts/restart.sh
 fi
 #
 wget -qO $HOME/000restart.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/scripts/restart.sh
 #
-if ! diff -q $HOME/000restart.sh $HOME/restart.sh > /dev/null 2>&1
+if ! diff -q "$HOME/000restart.sh" "$HOME/restart.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
     wget -qO $HOME/restart.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/scripts/restart.sh
@@ -61,7 +61,7 @@ then
     bash $HOME/111restart.sh
     exit 1
 fi
-if ! diff -q $HOME/000restart.sh $HOME/bin/restart > /dev/null 2>&1
+if ! diff -q "$HOME/000restart.sh" "$HOME/bin/restart" > /dev/null 2>&1
 then
     echo '#!/bin/bash
     wget -qO $HOME/restart.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/scripts/restart.sh
@@ -126,6 +126,8 @@ then
                             screen -ls | grep rtorrent
                             echo
                             echo -e "\033[32m""For troubleshooting refer to the FAQ:""\e[0m" "\033[36m""https://www.feralhosting.com/faq/view?question=158""\e[0m"
+                            echo
+                            echo "To restart other instances of rtorrent/rutorrent check this file:" "\033[36m""~/rtorrent.restart.txt""\e[0m"
                             echo
                             sleep 2
                             ;;
