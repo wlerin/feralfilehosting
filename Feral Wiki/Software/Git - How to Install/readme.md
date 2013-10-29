@@ -7,9 +7,9 @@ This command will show you your installed Git version
 git --version
 ~~~
 
-If you specifically need a higher version you can used the FAQ to install 1.8.3.1.
+If you specifically need a higher version you can used the FAQ to install 1.8.4
 
-### Git 1.8.4.0
+### Git 1.8.4.2
 
 You need to SSH into your slot to complete this guide. If you don't know how to do this [here is a basic guide](https://www.feralhosting.com/faq/view?question=12)
 
@@ -19,10 +19,10 @@ mkdir -p ~/programs
 ~~~
 
 ~~~
-wget -qO ~/git-1.8.4.tar.gz  http://git-core.googlecode.com/files/git-1.8.4.tar.gz
-tar xf ~/git-1.8.4.tar.gz && cd ~/git-1.8.4
+wget -qO ~/git-1.8.4.2.tar.gz http://git-core.googlecode.com/files/git-1.8.4.2.tar.gz
+tar xf ~/git-1.8.4.2.tar.gz && cd ~/git-1.8.4.2
 ./configure --prefix=$HOME/programs --with-curl=/opt/curl/current
-make && make install && cd && rm -rf ~/git-1.8.4 git-1.8.4.tar.gz
+make && make install && cd && rm -rf ~/git-1.8.4.2 git-1.8.4.2.tar.gz
 ~~~
 
 Then do this to check the version.
