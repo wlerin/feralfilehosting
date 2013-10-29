@@ -36,14 +36,14 @@ scriptname="somescript"
 #### Self Updater Start ####
 ############################
 #
-if [ ! -f $HOME/somescript.sh ]
+if [[ ! -f "$HOME/somescript.sh" ]]
 then
     wget -qO $HOME/somescript.sh https://raw.github.com/feralhosting
 fi
 #
 wget -qO $HOME/000somescript.sh https://raw.github.com/feralhosting
 #
-if ! diff -q $HOME/000somescript.sh $HOME/somescript.sh > /dev/null 2>&1
+if ! diff -q "$HOME/000somescript.sh" "$HOME/somescript.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
     wget -qO $HOME/somescript.sh https://raw.github.com/feralhosting

@@ -38,18 +38,18 @@ scriptname="somescript"
 #
 mkdir -p $HOME/bin
 #
-if [ ! -f $HOME/somescript.sh ]
+if [[ ! -f "$HOME/somescript.sh" ]]
 then
     wget -qO $HOME/somescript.sh https://raw.github.com/feralhosting
 fi
-if [ ! -f $HOME/bin/somescript ]
+if [[ ! -f "$HOME/bin/somescript" ]]
 then
     wget -qO $HOME/bin/somescript https://raw.github.com/feralhosting
 fi
 #
 wget -qO $HOME/000somescript.sh https://raw.github.com/feralhosting
 #
-if ! diff -q $HOME/000somescript.sh $HOME/somescript.sh > /dev/null 2>&1
+if ! diff -q "$HOME/000somescript.sh" "$HOME/somescript.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
     wget -qO $HOME/somescript.sh https://raw.github.com/feralhosting
@@ -59,7 +59,7 @@ then
     bash $HOME/111somescript.sh
     exit 1
 fi
-if ! diff -q $HOME/000somescript.sh $HOME/bin/somescript > /dev/null 2>&1
+if ! diff -q "$HOME/000somescript.sh" "$HOME/bin/somescript" > /dev/null 2>&1
 then
     echo '#!/bin/bash
     wget -qO $HOME/somescript.sh https://raw.github.com/feralhosting
