@@ -127,7 +127,7 @@ then
                             echo
                             echo -e "\033[32m""For troubleshooting refer to the FAQ:""\e[0m" "\033[36m""https://www.feralhosting.com/faq/view?question=158""\e[0m"
                             echo
-                            echo "To restart other instances of rtorrent/rutorrent check this file:" "\033[36m""~/rtorrent.restart.txt""\e[0m"
+                            echo -e "To restart other instances of rtorrent/rutorrent check this file:" "\033[36m""~/rtorrent.restart.txt""\e[0m"
                             echo
                             sleep 2
                             ;;
