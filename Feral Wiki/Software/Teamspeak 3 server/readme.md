@@ -41,7 +41,7 @@ Run these commands and the problem will be fixed. Just some changes to the IP se
 
 The script has also been updated in regards to this issue.
 
-## Teamspeak 3 on Feral Slots.
+### Teamspeak 3 on Feral Slots.
 
  To install this software using a custom bash script connect to your slot using SSH. If you don't know how to do this [here is a basic guide](https://www.feralhosting.com/faq/view?question=12):
 
@@ -65,7 +65,7 @@ teamspeak
 
 **Features:**
 
-Installs and starts a new instance of 3.0.7.2
+Installs and starts a new instance of 3.0.10
 
 Sets up the ts3server.ini for the user automatically.
 
@@ -99,28 +99,25 @@ We need the Linux Server amd64 3.0.*.*  which you can download manually and then
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Teamspeak%203%20server/0.1.png)
 
-**Or direct to the server using wget** (replace version number with the current version) 
-I will try to keep the link updated but if it does not work check the version number of the latest Linux amd64 server and insert it into the url below in two places ...releases/`3.0.*.*`/team....amd64-`3.0.*.*`.tar.gz
+Download the server:
 
 ~~~
-wget -qO teamspeak.tar.gz http://ftp.4players.de/pub/hosted/ts3/releases/3.0.7.2/teamspeak3-server_linux-amd64-3.0.7.2.tar.gz
+wget -qO ~/teamspeak.tar.gz http://dl.4players.de/ts/releases/3.0.10/teamspeak3-server_linux-amd64-3.0.10.tar.gz
 ~~~
 
-using wget we download the latest version of the Linux amd64 server.
-
-**If you uploaded the zip manually Start Here**
+Now unpack the archive:
 
 ~~~
-tar -xzf teamspeak.tar.gz -C ~/private
+tar xf ~/teamspeak.tar.gz -C ~/private
 ~~~
 
-This commands will untar/extract the file we just downloaded using wget or uploaded manually
+This will rename the extracted directory to something more manageable
 
 ~~~
 mv ~/private/teamspeak3-server_linux-amd64 ~/private/teamspeak
 ~~~
 
-This will rename the extracted directory to something more manageable
+Open the file with nano:
 
 ~~~
 nano ~/private/teamspeak/ts3server.ini
@@ -149,14 +146,14 @@ logquerycommands=0
 dbclientkeepdays=30
 ~~~
 
-Press **CTRL+X** then **Y** to save and exit.
+Then press and hold `CTRL` and then press `x` to save. Press `y` to confirm.
 
 Do these commands. They will edit the required sections for you using random numbers.
 
 ~~~
 sed -i "s|default_voice_port=.*|default_voice_port=$(shuf -i 6000-30000 -n 1)|g" ~/private/teamspeak/ts3server.ini
-sed -i "s|filetransfer_port=.*|filetransfer_port=$(shuf -i 30001-50000 -n 1)|g" ~/private/teamspeak/ts3server.ini
-sed -i "s|query_port=.*|query_port=$(shuf -i 50001-60000 -n 1)|g" ~/private/teamspeak/ts3server.ini
+sed -i "s|filetransfer_port=.*|filetransfer_port=$(shuf -i 30001-40000 -n 1)|g" ~/private/teamspeak/ts3server.ini
+sed -i "s|query_port=.*|query_port=$(shuf -i 40001-50000 -n 1)|g" ~/private/teamspeak/ts3server.ini
 ~~~
 
 Your final file will look something like this.
@@ -186,7 +183,6 @@ Get the Hostname:Default_voice_port to use when connecting with this command.
 ~~~
 echo "$(hostname):$(sed -n -e 's/default_voice_port=\(.*\)/\1/p' ~/private/teamspeak/ts3server.ini)"
 ~~~
-
 
 Download and install the Teamspeak 3 client for your platform from: [http://www.teamspeak.com/?page=downloads](http://www.teamspeak.com/?page=downloads)
 

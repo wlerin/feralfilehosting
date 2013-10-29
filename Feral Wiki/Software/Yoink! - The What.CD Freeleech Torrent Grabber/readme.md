@@ -1,5 +1,5 @@
 
-**Important notice:** This will download ALL freeleech torrents. At `28.09.2013` there was `1086` torrents totalling `200GB`. This can change quite drastically in either direction so be careful.
+**Important notice:** This will download ALL freeleech torrents. At `28.10.2013` there was about `1610` torrents totalling `320GB`. This can change quite drastically in either direction so be careful.
 
 Make sure you have the space to spare before running this script. You can cancel the script while it running by pressing and holding `CTRL` then pressing `c`. When you run the script again it will detect torrents it has already downloaded and continue from where it left off. Do this to grab some, check the space, do some more.
 
@@ -9,18 +9,11 @@ Make sure you have the space to spare before running this script. You can cancel
 
 In SSH do this command. Use this FAQ if you do not know how to SSH into your slot: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
 
-This command will add the user installed Python modules location to your path if it is not already present:
-
-~~~
-[[][/[][ ! "$(grep '~/.local/bin' ~/.bashrc)" ]] && echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
-~~~
-
 ### Download and prepare Yoink!
 
 ~~~
 wget -qO ~/yoink.py https://raw.github.com/phracker/yoink/master/yoink.py
-easy_install --user pip
-pip install --user requests HTMLParser
+easy_install --user requests HTMLParser
 python ~/yoink.py
 ~~~
 

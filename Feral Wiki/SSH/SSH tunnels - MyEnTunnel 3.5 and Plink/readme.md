@@ -1,4 +1,6 @@
 
+**Important note:** Don't use plink 0.63. It does not work. This FAQ contains permanently hosted link to a zip with Myentunnel 3.5.2 and plink 0.62.
+
 Unlike using OpenVPN that encrypts **all** network traffic at the driver level for that device, creating SSH tunnels enables you to route your for traffic/applications selectively. 
 
 For example: You could open a tunnel only for browsing or an application, letting the rest of your traffic go through your ISP directly, unencrypted. This can prevent a lot of problems for casual usage, such as using an imap application such as Thunderbird or using Personal websites like Paypal.
@@ -58,3 +60,6 @@ If your private key is function able and you filled out the connection details c
 See this FAQ for more info.
 
 [SSH Tunnels - How to use them with your applications](https://www.feralhosting.com/faq/view?question=242)
+
+
+
