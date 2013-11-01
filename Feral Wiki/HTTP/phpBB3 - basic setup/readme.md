@@ -1,33 +1,37 @@
 
-You will need to have Mysql already installed. You can do this from your [Manager](https://www.feralhosting.com/manager/)
+You will need to have MySQL already installed. You can do this from your [Manager](https://www.feralhosting.com/manager/)
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Worpress/installmysql.png)
 
-In SSH do these commands. Use this faq if you do not know how to SSH into your slot: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
-
-If you have your own domain you can use this [Host a virtual host on your Feral slot](https://www.feralhosting.com/faq/view?question=52) FAQ to host it here.
-
-This is a relevant FAQ: [Mysql - Change php settings using htaccess](https://www.feralhosting.com/faq/view?question=213)
+In SSH do these commands. Use this FAQ if you do not know how to SSH into your slot: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
 
 ### Download and extract
 
-Download the phpbb3 package:
+Download the phpBB3 package:
 
-```
-wget -qO ~/phpBB-3.0.11.zip https://www.phpbb.com/files/release/phpBB-3.0.11.zip
-```
+~~~
+wget -qO ~/phpBB-3.0.12.zip https://www.phpbb.com/files/release/phpBB-3.0.12.zip
+~~~
 
 Then extract the file archive:
 
-```
-unzip -qo ~/phpBB-3.0.11.zip -d ~/www/$(whoami).$(hostname)/public_html
-```
+~~~
+unzip -qo ~/phpBB-3.0.12.zip -d ~/www/$(whoami).$(hostname)/public_html
+~~~
 
 Optional: Clean up by removing the phpBB3 zip
 
-```
-rm -f ~/~/phpBB-3.0.11.zip
-```
+~~~
+rm -f ~/~/phpBB-3.0.12.zip
+~~~
+
+### Preparation
+
+**1:** Make a limited access user and a new database to use with phpBB3 - [Adminer - MySQL administration](https://www.feralhosting.com/faq/view?question=116)
+
+**2:** Set your default mysql and mysqli socket paths - [PHP - modify settings](https://www.feralhosting.com/faq/view?question=213)
+
+**3:** The continue with the installation using `mysql + mysqli extenstion` and `localhost` as the hostname.
 
 ### Installation
 
@@ -37,13 +41,19 @@ It is highly recommended you follow this FAQ and create a new database with a li
 
 Next Visit the web based installer, which by default is at
 
-```
+~~~
 www/username.feralhosting.com/public_html/phpbb3/
-```
+~~~
 
 Progress with the installer.
 
 **Important note:** Feral does not include email support via php mail. You will have to configure phpBB3 to use an external smtp service, like Google Apps.
+
+### Database settings
+
+**Important note:** Make sure you completed step 3 of the preparation.
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/phpBB3 - basic setup/dbsettings.png)
 
 ### URL Settings
 
