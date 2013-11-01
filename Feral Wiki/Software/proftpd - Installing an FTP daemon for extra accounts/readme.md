@@ -327,7 +327,7 @@ You will need to:
 
 **3:** Enter a password.
 
-And that should be your new user created and ready to connect.
+And that should be your new user created and ready to connect once you have started the servers in step 9.
 
 ### Step 8: Jail your users:
 
