@@ -20,18 +20,18 @@ installedproftpdversion=$(cat $HOME/proftpd/.proftpdversion 2> /dev/null)
 #
 mkdir -p $HOME/bin
 #
-if [ ! -f $HOME/proftpd.sh ]
+if [[ ! -f "$HOME/proftpd.sh" ]]
 then
     wget -qO $HOME/proftpd.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/scripts/proftpd.sh
 fi
-if [ ! -f $HOME/bin/proftpd ]
+if [[ ! -f "$HOME/bin/proftpd" ]]
 then
     wget -qO $HOME/bin/proftpd https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/scripts/proftpd.sh
 fi
 #
 wget -qO $HOME/000proftpd.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/scripts/proftpd.sh
 #
-if ! diff -q $HOME/000proftpd.sh $HOME/proftpd.sh > /dev/null 2>&1
+if ! diff -q "$HOME/000proftpd.sh" "$HOME/proftpd.sh" > /dev/null 2>&1
 then
 	echo '#!/bin/bash
 	wget -qO $HOME/proftpd.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/scripts/proftpd.sh
@@ -41,7 +41,7 @@ then
 	bash $HOME/111proftpd.sh
 	exit 1
 fi
-if ! diff -q $HOME/000proftpd.sh $HOME/bin/proftpd > /dev/null 2>&1
+if ! diff -q "$HOME/000proftpd.sh" "$HOME/bin/proftpd" > /dev/null 2>&1
 then
 	echo '#!/bin/bash
 	wget -qO $HOME/proftpd.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/scripts/proftpd.sh

@@ -24,7 +24,7 @@ Follow these steps to manually download and install proftpd. The bash script wil
 ~~~
 mkdir -p ~/proftpd/etc/sftp/authorized_keys ~/proftpd/etc/keys ~/proftpd/ssl
 wget -qO proftpd.tar.gz ftp://ftp.proftpd.org/distrib/source/proftpd-1.3.4d.tar.gz
-tar -xzf ~/proftpd.tar.gz -C ~/ && rm -f ~/proftpd.tar.gz
+tar xf ~/proftpd.tar.gz -C ~/ && rm -f ~/proftpd.tar.gz
 cd ~/proftpd-1.3.4d
 ~~~
 
