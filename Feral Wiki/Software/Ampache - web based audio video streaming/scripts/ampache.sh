@@ -40,20 +40,20 @@ mkdir -p $HOME/bin
 #
 if [[ ! -f "$HOME/ampache.sh" ]]
 then
-    wget -qO $HOME/ampache.sh https://raw.github.com/feralhosting
+    wget -qO $HOME/ampache.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Ampache%20-%20web%20based%20audio%20video%20streaming/scripts/ampache.sh
 fi
 if [[ ! -f "$HOME/bin/ampache" ]]
 then
-    wget -qO $HOME/bin/ampache https://raw.github.com/feralhosting
+    wget -qO $HOME/bin/ampache https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Ampache%20-%20web%20based%20audio%20video%20streaming/scripts/ampache.sh
 fi
 #
-wget -qO $HOME/000ampache.sh https://raw.github.com/feralhosting
+wget -qO $HOME/000ampache.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Ampache%20-%20web%20based%20audio%20video%20streaming/scripts/ampache.sh
 #
 if ! diff -q "$HOME/000ampache.sh" "$HOME/ampache.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/ampache.sh https://raw.github.com/feralhosting
-    wget -qO $HOME/bin/ampache https://raw.github.com/feralhosting
+    wget -qO $HOME/ampache.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Ampache%20-%20web%20based%20audio%20video%20streaming/scripts/ampache.sh
+    wget -qO $HOME/bin/ampache https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Ampache%20-%20web%20based%20audio%20video%20streaming/scripts/ampache.sh
     bash $HOME/ampache.sh
     exit 1' > $HOME/111ampache.sh
     bash $HOME/111ampache.sh
@@ -62,8 +62,8 @@ fi
 if ! diff -q "$HOME/000ampache.sh" "$HOME/bin/ampache" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/ampache.sh https://raw.github.com/feralhosting
-    wget -qO $HOME/bin/ampache https://raw.github.com/feralhosting
+    wget -qO $HOME/ampache.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Ampache%20-%20web%20based%20audio%20video%20streaming/scripts/ampache.sh
+    wget -qO $HOME/bin/ampache https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Ampache%20-%20web%20based%20audio%20video%20streaming/scripts/ampache.sh
     bash $HOME/ampache.sh
     exit 1' > $HOME/222ampache.sh
     bash $HOME/222ampache.sh
