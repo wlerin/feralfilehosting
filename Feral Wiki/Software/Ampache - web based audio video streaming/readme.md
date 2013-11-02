@@ -52,22 +52,23 @@ After you have used the bash script then navigate to this folder in your web bro
 http://username.server.feralhosting.com/ampache/
 ~~~
 
-Now you should come to a page where it should check so all your settings are OK, should say OK with a green text on all points there. Then you just press start configuration.
+Now you should come to a page where it should check so all your settings are OK, should say OK with a green text on all points there. Then you just press `Start Configuration`.
 
-Now you come to the page where you need the information from your MySQL page on the feralhosting page. You need your root password and the socket in order to make this work.
-
-The MySQL administrative password should be the password you got on the same page as your socket, then fill in the rest as you want to have it.
-Fill in `root` as username and the password you had on the next page. Press `write config` and you should get this back.
+**Step 1:**
 
 **Important note:** You mysql socket will be automatically entered for you in the hostname field. Refresh the page if you have removed it to get it back
 
-**Step 1:**
+Then you come to the page where you need the information from your MySQL installation on the Slot Details page for the relevant slot. You need your mysql root password.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Ampache%20-%20web%20based%20audio%20video%20streaming/stage1.png)
 
 **Step 2:**
 
+Fill in the required information in the format shown in the image below:
+
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Ampache%20-%20web%20based%20audio%20video%20streaming/stage2.png)
+
+This is what you see if the configuration file is successfully written:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Ampache%20-%20web%20based%20audio%20video%20streaming/stage22.png)
 
