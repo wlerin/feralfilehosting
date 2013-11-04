@@ -1,0 +1,3 @@
+
+# 04.11.2013
+# v1.0.0 = Split Madsonic section of the subsonic script into its own script for easier updating and due to Madsonic rebranding. It was going ot get complictaed to manage both version in a single script with different directory structures.

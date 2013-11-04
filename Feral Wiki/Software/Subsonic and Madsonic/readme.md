@@ -303,7 +303,7 @@ Avconv: A static build found here can also be used.
 
 [06.14.2013 avconv build](https://bitbucket.org/feralhosting/feralfiles/downloads/libav-linux64-20130614.tar.gz)
 
-[Daily libav/avconc static builds](http://dl.dropbox.com/u/24633983/libav/index.html)
+[Daily libav/avconc static builds](http://johnvansickle.com/libav/)
 
 Use these commands to download and extract a static build 06.14.2013 ready for use:
 
