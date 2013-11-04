@@ -227,7 +227,7 @@ then
                 echo
                 if [[ \$confirmrsk =~ ^[Yy]\$ ]]
                 then
-                bash ~/bin/subsonicrsk
+                    bash ~/bin/subsonicrsk
                 fi
                 exit 1
             fi
