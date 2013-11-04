@@ -143,5 +143,14 @@ sed -i 's|/usr/share/|'$HOME/'|g' ~/filebot/bin/filebot.sh
 bash ~/filebot/bin/filebot.sh
 ~~~
 
+### Sphinx search
 
+~~~
+mkdir -p ~/programs
+wget -qO ~/sphinx.tar.gz http://sphinxsearch.com/files/sphinx-2.1.2-release.tar.gz
+tar xf ~/sphinx.tar.gz && cd ~/sphinx-2.1.2-release
+./configure --prefix=$HOME/programs --with-mysql=$HOME/private/mysql
+make && make install && cd
+rm -rf ~/sphinx.tar.gz ~/sphinx-2.1.2-release
+~~~
 

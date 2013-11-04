@@ -76,17 +76,19 @@ Press `Proceed to step 3`. Create the admin account for your Ampache server, the
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Ampache%20-%20web%20based%20audio%20video%20streaming/stage3.png)
 
-Login with your admin account, to add where you keep your music you press `add catalog`, then navigate to the directory in which you keep all your music on your server via SSH. write `pwd` while in this directory. You should get the full filepath back, such as `/media/c0d7/home/user/private/rtorrent/data` , you fill this in under Path. and then write whatever you want under the catalog name (this is useful if you got your music sorted on your seedbox etc... Then it should say catalogue created.
+Login with your admin account, to add where you keep your music you press `add catalog`, then navigate to the directory in which you keep all your music on your server via SSH. write `pwd` while in this directory. You should get the full filepath back, such as `/media/c0d7/home/user/private/rtorrent/data` , you fill this in under Path. and then write whatever you want under the catalog name. Then it should say catalogue created.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Ampache%20-%20web%20based%20audio%20video%20streaming/login.png)
+
+**Important note:** You must change this setting once you have access to the web interface for transcoding to work:
+
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Ampache%20-%20web%20based%20audio%20video%20streaming/streaming.png)
+
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Ampache%20-%20web%20based%20audio%20video%20streaming/catalogue.png)
+
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Ampache%20-%20web%20based%20audio%20video%20streaming/cataloguecreated.png)
+
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Ampache%20-%20web%20based%20audio%20video%20streaming/player.png)
-
-You must change this setting once you have access to the web interface for transcoding to work:
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Ampache%20-%20web%20based%20audio%20video%20streaming/streaming.png)
 
 
 

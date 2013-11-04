@@ -772,6 +772,7 @@ faqbot.addListener('message', function(from, to, message) {
         if ( result !== '' ) { var result = result + ': '; }
         
         faqbot.say(to, result + "Moving to Interxion -- https://www.feralhosting.com/email/moving-to-interxion.html");
+        faqbot.say(to, result + "Moving to Interxion on the 19th November 2013 -- https://www.feralhosting.com/email/moving-to-interxion-2.html");
         return;
     }
 

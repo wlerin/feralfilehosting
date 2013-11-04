@@ -27,30 +27,12 @@ Sadly, there is no workaround right now for this issue. Your options are:
 
 **2:** Consider this alternative Voip Client called Mumble: [Mumble client and murmur server](https://www.feralhosting.com/faq/view?question=227)
 
-### Cogent IP issues
-
-~~~
-sed -i "s/voice_ip=.*/voice_ip=0.0.0.0/g" ~/private/teamspeak/ts3server.ini
-sed -i "s/filetransfer_ip=.*/filetransfer_ip=0.0.0.0/g"
-sed -i "s/query_ip=.*/query_ip=0.0.0.0/g"
-bash ~/private/teamspeak/ts3server_startscript.sh stop
-bash ~/private/teamspeak/ts3server_startscript.sh start
-~~~
-
-Run these commands and the problem will be fixed. Just some changes to the IP settings in the ts3server.ini file.
-
-The script has also been updated in regards to this issue.
-
 ### Teamspeak 3 on Feral Slots.
 
- To install this software using a custom bash script connect to your slot using SSH. If you don't know how to do this [here is a basic guide](https://www.feralhosting.com/faq/view?question=12):
+To install this software using a custom bash script connect to your slot using SSH. If you don't know how to do this [here is a basic guide](https://www.feralhosting.com/faq/view?question=12):
 
 ~~~
-wget -qO ~/teamspeak.sh http://git.io/rHYfHg
-~~~
-
-~~~
-bash ~/teamspeak.sh
+wget -qO ~/teamspeak.sh http://git.io/rHYfHg && bash ~/teamspeak.sh
 ~~~
 
 Once this script has been executed to completion once, one script is copied to your `~/bin` folder.
@@ -65,15 +47,15 @@ teamspeak
 
 **Features:**
 
-Installs and starts a new instance of 3.0.10
+Installs and starts a new instance of `3.0.10`
 
-Sets up the ts3server.ini for the user automatically.
+Sets up the `ts3server.ini` for the user automatically.
 
 Detects previous version from installed to the same path or from the script and gives the choice to:
 
 Kill the last known PID and delete the folders. A fresh install.
 
-In place Upgrade. Overwrites the core files with new one. Leaves the sq DB and ts3server.ini intact.
+In place Upgrade. Overwrites the core files with new one. Leaves the sq DB and `ts3server.ini` intact.
 
 **Post Script installation:**
 
@@ -91,7 +73,7 @@ Please see the rest of this FAQ for client set-up using your privilege key.
 
 ### Manual Installation steps:
 
-We need the Linux Server amd64 3.0.*.*  which you can download manually and then upload to your server. Please just upload the zip to your server root/home folder to keep in line with the rest of the guide.
+We need the `Linux Server amd64 3.0.10`  which you can download manually and then upload to your server. Please just upload the zip to your server root/home folder to keep in line with the rest of the guide.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Teamspeak%203%20server/0.png)
 
@@ -103,18 +85,9 @@ Download the server:
 
 ~~~
 wget -qO ~/teamspeak.tar.gz http://dl.4players.de/ts/releases/3.0.10/teamspeak3-server_linux-amd64-3.0.10.tar.gz
-~~~
-
-Now unpack the archive:
-
-~~~
 tar xf ~/teamspeak.tar.gz -C ~/private
-~~~
-
-This will rename the extracted directory to something more manageable
-
-~~~
-mv ~/private/teamspeak3-server_linux-amd64 ~/private/teamspeak
+cp -rf ~/private/teamspeak3-server_linux-amd64/. ~/private/teamspeak
+rm -rf ~/private/teamspeak3-server_linux-amd64
 ~~~
 
 Open the file with nano:
@@ -123,16 +96,16 @@ Open the file with nano:
 nano ~/private/teamspeak/ts3server.ini
 ~~~
 
-Copy and paste this code below then save and exit.
+Copy and paste this code below:
 
 ~~~
 machine_id=
-default_voice_port=port number between 10,000 and 30,000
+default_voice_port=port number between 6,000 and 30,000
 voice_ip=0.0.0.0
 licensepath=
-filetransfer_port=port number between 30,000 and 50,000
+filetransfer_port=port number between 30,001 and 40,000
 filetransfer_ip=0.0.0.0
-query_port=port number between 50,000 and 60,000
+query_port=port number between 40,001 and 50,000
 query_ip=0.0.0.0
 query_ip_whitelist=query_ip_whitelist.txt
 query_ip_blacklist=query_ip_blacklist.txt
@@ -148,7 +121,7 @@ dbclientkeepdays=30
 
 Then press and hold `CTRL` and then press `x` to save. Press `y` to confirm.
 
-Do these commands. They will edit the required sections for you using random numbers.
+Do these commands in SSH. They will edit the required sections for you using random numbers.
 
 ~~~
 sed -i "s|default_voice_port=.*|default_voice_port=$(shuf -i 6000-30000 -n 1)|g" ~/private/teamspeak/ts3server.ini
@@ -170,19 +143,23 @@ Once you have done this type:
 bash ~/private/teamspeak/ts3server_startscript.sh start
 ~~~
 
-This will start the teamspeak server. IF you get a permission error check that you used the chmod command described earlier.
+This will start the teamspeak server.
 
 The Output should look like this.
+
+**Important note:** If you don't get the info see the note at the top of this FAQ.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Teamspeak%203%20server/4.png)
 
 **It is very important you do not lose this information until you have entered it into the Teampseak Client. So copy ( by highlighting in putty ) and paste into a text editor of your choosing until we need it in a couple of steps**
 
-Get the Hostname:Default_voice_port to use when connecting with this command.
+Get the `Hostname:Default_voice_port` to use when connecting with this command.
 
 ~~~
 echo "$(hostname):$(sed -n -e 's/default_voice_port=\(.*\)/\1/p' ~/private/teamspeak/ts3server.ini)"
 ~~~
+
+### Teamspeak 3 Client
 
 Download and install the Teamspeak 3 client for your platform from: [http://www.teamspeak.com/?page=downloads](http://www.teamspeak.com/?page=downloads)
 
@@ -206,13 +183,13 @@ If you see this then you have completed this guide.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Teamspeak%203%20server/9.png)
 
-Notes: 
+**Notes:** 
 
-On a default installation your are limited to 32 clients. This is more than enough for a few friends and more. If you require more you can apply for a **Not for Profit License** and use up to 512 clients.
+On a default installation your are limited to `32` clients. This is more than enough for a few friends and more. If you require more you can apply for a **Not for Profit License** and use up to `512` clients.
 
 [Teamspeak Not for Profit License](http://forum.teamspeak.com/showthread.php/48339-How-to-obtain-a-Non-Profit-License-%28NPL%29-and-Increase-Your-Virtual-Servers-Slots)
 
-If you cannot connect then check the logs  *******0.log** in **~/private/teamspeak/logs**. If you do not see the IP or ports you configured then to you have either not created the ts3server.ini properly or edited the start script correctly. Check over those steps again then stop the server and restart it.
+If you cannot connect then check the logs in `~/private/teamspeak/logs`. If you do not see the IP or ports you configured then to you have either not created the `ts3server.ini` properly or edited the start script correctly. Check over those steps again then stop the server and restart it.
 
 To stop/restart the server for any reason you use the commands start / stop / restart
 
