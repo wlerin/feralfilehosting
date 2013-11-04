@@ -50,3 +50,4 @@
 # v 1.5.7 updated subsonic version. Add an option to update installtion.
 # v 1.5.8 Java installation moved to fall in line with general FAQ locations using ~/programs
 # v 1.6.0 Madsonic installed to its own location as it is now rebranded. Treated as two separate installations instead of one.
+# v 1.6.1 split and updated
