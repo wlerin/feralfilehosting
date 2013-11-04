@@ -108,6 +108,7 @@ chmod -f 700 $HOME/bin/install.madsonic
 #### madsonicrsk starts  ####
 #############################
 #
+# This section MUST be escaped properly using backslash when adding to it.
 echo -e "#!/bin/bash
 if [[ -d ~/private/madsonic ]]
 then
@@ -493,6 +494,7 @@ then
             bash
             exit 1
         else
+            echo "You chose no, the script will exit"
             echo
             exit 1
         fi
