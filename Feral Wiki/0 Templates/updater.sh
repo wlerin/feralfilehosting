@@ -98,6 +98,7 @@ then
 #
 else
     echo -e "You chose to exit after updating the scripts."
+    echo
     exit 1
     cd && bash
 fi
