@@ -58,20 +58,20 @@ mkdir -p $HOME/bin
 #
 if [[ ! -f "$HOME/madsonic.sh" ]]
 then
-    wget -qO $HOME/madsonic.sh https://raw.github.com/feralhosting
+    wget -qO $HOME/madsonic.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%204.8/scripts/madsonic/madsonic.sh
 fi
 if [[ ! -f "$HOME/bin/madsonic" ]]
 then
-    wget -qO $HOME/bin/madsonic https://raw.github.com/feralhosting
+    wget -qO $HOME/bin/madsonic https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%204.8/scripts/madsonic/madsonic.sh
 fi
 #
-wget -qO $HOME/000madsonic.sh https://raw.github.com/feralhosting
+wget -qO $HOME/000madsonic.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%204.8/scripts/madsonic/madsonic.sh
 #
 if ! diff -q "$HOME/000madsonic.sh" "$HOME/madsonic.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/madsonic.sh https://raw.github.com/feralhosting
-    wget -qO $HOME/bin/madsonic https://raw.github.com/feralhosting
+    wget -qO $HOME/madsonic.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%204.8/scripts/madsonic/madsonic.sh
+    wget -qO $HOME/bin/madsonic https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%204.8/scripts/madsonic/madsonic.sh
     bash $HOME/madsonic.sh
     exit 1' > $HOME/111madsonic.sh
     bash $HOME/111madsonic.sh
@@ -80,8 +80,8 @@ fi
 if ! diff -q "$HOME/000madsonic.sh" "$HOME/bin/madsonic" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/madsonic.sh https://raw.github.com/feralhosting
-    wget -qO $HOME/bin/madsonic https://raw.github.com/feralhosting
+    wget -qO $HOME/madsonic.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%204.8/scripts/madsonic/madsonic.sh
+    wget -qO $HOME/bin/madsonic https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%204.8/scripts/madsonic/madsonic.sh
     bash $HOME/madsonic.sh
     exit 1' > $HOME/222madsonic.sh
     bash $HOME/222madsonic.sh
@@ -455,7 +455,7 @@ then
                 then
                     bash ~/madsonic.4.8.sh
                 else
-                    wget -qO ~/madsonic.sh https://raw.github.com/feralhosting/feralfilehosting/master/
+                    wget -qO ~/madsonic.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%204.8/scripts/madsonic/madsonic.sh/feralfilehosting/master/
                     bash ~/madsonic.4.8.sh
                 fi
             else
