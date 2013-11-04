@@ -394,7 +394,7 @@ then
         echo
         if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
         then
-            echo -e "Subsonic is accessible at:" "\033[32m""https://$(hostname)/$(whoami)subsonic""\e[0m"
+            echo -e "Subsonic is accessible at:" "\033[32m""https://$(hostname)/$(whoami)/subsonic""\e[0m"
         else
             echo -e "\033[31m""HTTP""\e[0m" "is accessible at" "\033[31m""http://$(hostname)""\e[0m"":""\033[33m""$(sed -n -e 's/SUBSONIC_PORT=\([0-9]\+\)/\1/p' ~/private/subsonic/subsonic.sh 2> /dev/null)""\e[0m"
             echo -e "HTTPS uses a custom but invalid subsonic.org cert and not one from Feral. It is safe to accept."
