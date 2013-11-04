@@ -11,7 +11,7 @@ jvdecimal="1.7.0_45"
 #
 # * * * * * bash -l ~/bin/subsonicron
 #
-# wget -qO ~/install.subsonic.sh http://git.io/aFIIXg && bash ~/install.subsonic.sh
+# wget -qO ~/install.subsonic.sh http://git.io/GBjb3w && bash ~/install.subsonic.sh
 #
 ############################
 ## Version History Starts ##

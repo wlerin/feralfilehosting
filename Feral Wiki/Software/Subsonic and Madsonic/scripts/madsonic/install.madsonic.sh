@@ -7,9 +7,10 @@ javaversion="1.7 Update 45"
 jvdecimal="1.7.0_45"
 #
 # randomessence
+#
 # * * * * * bash -l ~/bin/madsonicron
 #
-# wget -qO ~/install.madsonic.sh http://git.io/0510Pw && bash ~/install.madsonic.sh
+# wget -qO ~/install.madsonic.sh http://git.io/Eq97bg && bash ~/install.madsonic.sh
 #
 ############################
 ## Version History Starts ##
