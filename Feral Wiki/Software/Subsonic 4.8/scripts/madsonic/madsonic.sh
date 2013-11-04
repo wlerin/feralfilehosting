@@ -4,7 +4,7 @@ scriptversion="1.0.0"
 scriptname="madsonic"
 # randomessence
 #
-# wget -qO ~/madsonic.sh http://git.io/0510Pw
+# wget -qO ~/madsonic.sh http://git.io/0510Pw && bash ~/madsonic.sh
 #
 ############################
 ## Version History Starts ##
@@ -269,9 +269,6 @@ then
 ####### Script Start #######
 ############################
 #
-if [[ $confirm =~ ^[Yy]$ ]]
-then
-# exit option after scripts have been updated in case they just wanted a newer rsk.
     echo -e "\033[31m""User Notice:""\e[0m" "\033[33m""This is a user supported script. Please don't expect or ask staff to support this directly.\nTo get support you can jump on IRC and ask other users for help.\nAll critical bugs should be reported and bug fixes or improvements are welcomed and encouraged.""\e[0m"
     echo
     # A user notice regarding what support is available for this script and how to contribute.
@@ -495,12 +492,6 @@ then
             echo
             exit 1
         fi
-    fi
-    else
-        echo -e "You chose to exit after updating the scripts."
-        echo
-        bash
-        exit 1
     fi
 ############################
 ####### Script Ends  #######
