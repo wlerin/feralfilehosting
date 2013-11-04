@@ -1,35 +1,25 @@
 
-**Server update issue:** Debian Wheezy (stable)
-
-**Important note:** The bash script now installs Java 1.7 as part of the installation process
-
-If you are having issues with Subsonic running you will need install Java 1.7. It is actually very easy to do so don't panic. Reinstall Subsonic using the bash script or install Java manually using the FAQ linked below:
-
-[Install Java 1.7](https://www.feralhosting.com/faq/view?question=183)
-
-**Cogent IP update issues.** If you are on Cogent and your subsonic has just stopped working:
-
-**Important Note:** The bash script has been updated to deal with the Cogent IP issues.
-
-Try restarting subsonic using the `subsonicrsk` or manually. If that does not work you need to change the IP in the `subsonic.sh` and restart it.
-
-The commands and info you need are in this pastebin link. They will force the use of the new IP.
-
-[Cogent IP fixes on pastebin](http://pastebin.com/D7m8n4gw)
-
 ### Subsonic or Madsonic automatic installation using a bash script:
 
 To install this software using a custom bash script connect to your slot using SSH. If you don't know how to do this [here is a basic guide](https://www.feralhosting.com/faq/view?question=12):
 
 The execute command (you can copy and paste):
 
+For Subsonic:
+
 ~~~
-wget -qO ~/subsonic.4.8.sh http://git.io/aFIIXg && bash ~/subsonic.4.8.sh
+wget -qO ~/install.subsonic.sh http://git.io/GBjb3w && bash ~/install.subsonic.sh
+~~~
+
+For Madsonic:
+
+~~~
+wget -qO ~/install.madsonic.sh http://git.io/Eq97bg && bash ~/install.madsonic.sh
 ~~~
 
 Then follow the progress in your terminal. Some steps require user input. You will be asked whether you want to install Subsonic or Madsonic.
 
-**subsonic.4.8.sh features:**
+**install.subsonic.sh/install.madsonic.sh features:**
 
 - Installs Java 1.7
 - Installs Subsonic or Madsonic servers.
@@ -37,23 +27,26 @@ Then follow the progress in your terminal. Some steps require user input. You wi
 - Fully configures the start-up script. Unique to each user.
 - Option to enter a path to a media folder during installation.
 - Creates a custom script to `restart/start/kill` subsonic (RSK) when the script is executed.
+- Can update the existing installation to a new version.
 
-Once this script has been executed once, the `subsonic4.8.sh` is copied to the `~/bin` directory as `subsonic4.8` and the `subsonicrsk` is created in the `~/bin`
+Once this script has been executed once, the `install.subsonic.sh`/`install.madsonic.sh` is copied to the `~/bin` directory as `install.madsonic` and the `subsonicrsk`/`madsonicrsk` is created in the `~/bin`
 
 Now you can simply type this from anywhere in SSH to execute the installer script: 
 
 ~~~
-subsonic.4.8
+install.subsonic
+install.madsonic
 ~~~
 
 **Subsonic removal:** Run the script again to kill all be given the option to uninstall Subsonic or Madsonic. It will kill all Java processes and removes the folders and files the script created. Then you can simply run the script again to reinstall.
 
-### subsonicrsk
+### subsonicrsk or madsonicrsk
 
-Execute the `restart/start/kill` script like this (requires you ran the `subsonic4.8.sh` at least once):
+Execute the `restart/start/kill` script like this (requires you ran the relevant installer script at least once):
 
 ~~~
 subsonicrsk
+madsonicrsk
 ~~~
 
 The `restart/start/kill` (rsk) script does these things:
@@ -77,14 +70,30 @@ This crontab command will check to restart at reboot:
 
 Run at reboot:
 
+Subsonic:
+
 ~~~
 @reboot bash -l ~/bin/subsonicron
 ~~~
 
+Madsonic:
+
+~~~
+@reboot bash -l ~/bin/madsonicron
+~~~
+
 Check every minute. You can customise the timing before you use the command:
+
+Subsonic:
 
 ~~~
 * * * * * bash -l ~/bin/subsonicron
+~~~
+
+Madsonic:
+
+~~~
+* * * * * bash -l ~/bin/madsonicron
 ~~~
 
 ### Subsonic Manual installation Steps Intro:
@@ -143,19 +152,15 @@ If you still cannot connect to your usual port after a reinstall or a reboot of 
 
 ### FFmpeg versions
 
-FFmpeg versions in this guide. all versions are based on static builds created here [http://ffmpeg.gusari.org/static/64bit/](http://ffmpeg.gusari.org/static/64bit/), The problem is there is only ever a set number of versions available and a new version is created everyday. So linking to an old version will only work for a set period of time. To deal with this versions here will be permanently hosted elsewhere. These version are not changed in anyway.
+FFmpeg versions in this guide. All versions used in the scripts and FAQ are based on static builds created here [http://forum.madsonic.org](http://forum.madsonic.org).
 
-[ffmpeg.static.64bit.2012-09-26.tar.gz](https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.static.64bit.2012-09-26.tar.gz)
+[Madsonic build ffmpeg.31.10.2013.zip](https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.31.10.2013.zip)
 
-[ffmpeg.static.64bit.2012-11-16.tar.gz](https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.static.64bit.2012-11-16.tar.gz)
+Alternate static builds:
 
-[ffmpeg.static.64bit.2013-02-10.tar.gz](https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.static.64bit.2013-02-10.tar.gz)
+[http://johnvansickle.com/ffmpeg/](http://johnvansickle.com/ffmpeg/)
 
-[ffmpeg.static.64bit.2013-04-14.tar.gz](https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.static.64bit.2013-04-14.tar.gz)
-
-[ffmpeg.static.64bit.2013-04-24.tar.gz](https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.static.64bit.2013-04-24.tar.gz)
-
-[ffmpeg.static.64bit.2013-06-14.tar.gz](https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.static.64bit.2013-06-14.tar.gz)
+[ffmpeg-2.0.1-64bit-static.zip](https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg-2.0.1-64bit-static.zip)
 
 ### Subsonic Manual installation Steps using SSH
 
@@ -182,19 +187,19 @@ wget -qO ~/subsonic.tar.gz http://sourceforge.net/projects/subsonic/files/subson
 Extracts the archive we just downloaded
 
 ~~~
-tar -xzf ~/subsonic.tar.gz -C ~/private/subsonic/
+tar xf ~/subsonic.tar.gz -C ~/private/subsonic/
 ~~~
 
 Downloads a long term hosted version of ffmpeg static. Dated at `06/14/2013`
 
 ~~~
-wget -qO ~/ffmpeg.tar.gz https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.static.64bit.2013-06-14.tar.gz
+wget -qO ~/ffmpeg.tar.gz https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.31.10.2013.zip
 ~~~
 
 Extracts the ffmpeg version we downloaded to the transcode directory
 
 ~~~
-tar -xzf ~/ffmpeg.tar.gz -C ~/private/subsonic/transcode/
+tar xf ~/ffmpeg.tar.gz -C ~/private/subsonic/transcode/
 ~~~
 
 Copies over the local version of lame to ~/private/subsonic/transcode/
@@ -244,11 +249,11 @@ Change the:
 
 **2:** `SUBSONIC_HOST=` leave this as it is `0.0.0.0` This default behaviour binds to all network interfaces.
 
-**3:** The `SUBSONIC_PORT=` and `SUBSONIC_HTTPS_PORT=` ports, change them to anything over `10000` and under `55000`. Try avoid rounded numbers like `15000`
+**3:** The `SUBSONIC_PORT=` and `SUBSONIC_HTTPS_PORT=` ports, change them to anything over `10000` and under `50000`. Try avoid rounded numbers like `15000`
 
-**4:** `SUBSONIC_MAX_MEMORY=` to `512` like `SUBSONIC_MAX_MEMORY=512`
+**4:** `SUBSONIC_MAX_MEMORY=` to `2048` like `SUBSONIC_MAX_MEMORY=2048`
 
-**5** `SUBSONIC_PIDFILE=` Set the path for the `PID` file as: `~/private/subsonic/subsonic.4.8.sh.PID`
+**5** `SUBSONIC_PIDFILE=` Set the path for the `PID` file as: `~/private/subsonic/subsonic.sh.PID`
 
 **6:** `SUBSONIC_DEFAULT_MUSIC_FOLDER` Is the path to you music folder (but this can be done in the gui)
 
@@ -265,7 +270,7 @@ SUBSONIC_PORT=45681
 SUBSONIC_HTTPS_PORT=45682
 SUBSONIC_CONTEXT_PATH=/
 SUBSONIC_MAX_MEMORY=512
-SUBSONIC_PIDFILE=~/private/subsonic/subsonic.4.8.sh.PID
+SUBSONIC_PIDFILE=~/private/subsonic/subsonic.sh.PID
 SUBSONIC_DEFAULT_MUSIC_FOLDER=~/PATH/TO/music
 SUBSONIC_DEFAULT_PODCAST_FOLDER=~/private/subsonic/Podcast
 SUBSONIC_DEFAULT_PLAYLIST_FOLDER=~/private/subsonic/playlists
@@ -301,15 +306,15 @@ Hostname:Port
 
 Avconv: A static build found here can also be used.
 
-[06.14.2013 avconv build](https://bitbucket.org/feralhosting/feralfiles/downloads/libav-linux64-20130614.tar.gz)
+[http://johnvansickle.com/libav/](http://johnvansickle.com/libav/)
 
-[Daily libav/avconc static builds](http://johnvansickle.com/libav/)
+[libav.31.10.2103.zip](https://bitbucket.org/feralhosting/feralfiles/downloads/libav.31.10.2103.zip)
 
 Use these commands to download and extract a static build 06.14.2013 ready for use:
 
 ~~~
-wget -qO ~/avconv.tar.gz https://bitbucket.org/feralhosting/feralfiles/downloads/libav-linux64-20130614.tar.gz
-tar -xzf ~/avconv.tar.gz -C ~/private/subsonic/transcode/
+wget -qO ~/avconv.tar.gz https://bitbucket.org/feralhosting/feralfiles/downloads/libav.31.10.2103.zip
+tar xf ~/avconv.tar.gz -C ~/private/subsonic/transcode/
 rm -f ~/avconv.tar.gz
 ~~~
 
