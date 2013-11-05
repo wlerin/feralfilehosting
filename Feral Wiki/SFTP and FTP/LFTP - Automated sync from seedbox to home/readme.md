@@ -19,9 +19,9 @@ brew install lftp
 
 ### Windows
 
-[Download/Install Cygwin](http://www.cygwin.com/)
+[Install Cygwin](https://www.feralhosting.com/faq/view?question=235)
 
-**Select the following addons during the installation**
+**Make sure to select the following addons during the installation**
 
 ~~~
 LFTP
@@ -31,45 +31,100 @@ cron
 ~~~
 
 Create a file called `synctorrents.sh`, replace all < > with your values.  The only code you need to modify is within the top 6 lines.
- 
+
+**Important note:** bash takes EOL (End of line) quite seriously. You will need to use UNIX/LF style end of lines for bash scripts. See this FAQ for info [Text editing - Over FTP or SFTP](https://www.feralhosting.com/faq/view?question=219)
+
+In the script these are the variables you will need to customise to meet your requirements.
+
 ~~~
 #!/bin/bash
-login=username
-pass=password
-host=host dns
-remote_dir=lftp/
-local_dir=/cygdrive/s/lftp <your directory>
+login="username"
+pass="password"
+host="server.feralhosting.com"
+remote_dir="/folder/you/want/to/copy"
+local_dir="/cygdrive/s/lftp/somefolder/where/you.want/your/files/"
 ~~~
 
-The main script has been pastebinned due to a small glitch in the way it was being displayed. Copy and edit this script.
-
-[The full script from pastebin](http://pastebin.com/pLDjCD2a)
-
-[Here is an edited script for sftp.](http://pastebin.com/v3Se1VQR)
+Here is the basic script:
 
 ~~~
-chmod +x synctorrents.sh
+#!/bin/bash
+login="username"
+pass="password"
+host="server.feralhosting.com"
+remote_dir="/folder/you/want/to/copy"
+local_dir="/cygdrive/s/lftp/somefolder/where/you.want/your/files/"
+ 
+trap "rm -f /tmp/synctorrent.lock" SIGINT SIGTERM
+if [ -e /tmp/synctorrent.lock ]
+then
+  echo "Synctorrent is running already."
+  exit 1
+else
+  touch /tmp/synctorrent.lock
+  lftp -u $login,$pass $host << EOF
+  set ftp:ssl-allow no
+  set mirror:use-pget-n 5
+  mirror -c -P5 --log=synctorrents.log $remote_dir $local_dir
+  quit
+EOF
+  rm -f /tmp/synctorrent.lock
+  trap - SIGINT SIGTERM
+  exit 0
+fi
 ~~~
 
-Gives the script executing privs
-
-The important parameters for lftp are:
+Here is an edited version for use with sftp:
 
 ~~~
-'set mirror:use-pget-n 5'
+#!/bin/sh
+login="username"
+pass="password"
+host="server.feralhosting.com"
+remote_dir="/folder/you/want/to/copy"
+local_dir="/cygdrive/s/lftp/somefolder/where/you.want/your/files/"
+
+trap "rm -f /tmp/synctorrent.lock" SIGINT SIGTERM
+if [ -e /tmp/synctorrent.lock ]
+then
+echo "Synctorrent is running already."
+exit 1
+else
+touch /tmp/synctorrent.lock
+lftp -p 22 -u $login,$pass sftp://$host << EOF
+set mirror:use-pget-n 5
+mirror -c -P5 --log=synctorrents.log $remote_dir $local_dir
+quit
+EOF
+rm -f /tmp/synctorrent.lock
+trap - SIGINT SIGTERM
+exit 0
+fi
+~~~
+
+Make the script executable:
+
+~~~
+chmod 700 synctorrents.sh
+~~~
+
+The important parameters for `lftp` are:
+
+~~~
+set mirror:use-pget-n 5
 ~~~
 
 This makes lftp try to split up files in 5 pieces for parallel downloading. Likewise,
 
 ~~~
-'-P5'
+-P5
 ~~~
 
  
 Means it will download at most 5 files in parallel (for a total 25 connections). Those 2 combined work wonders. In my case, I always end up downloading the files at the limit of my connection, but feel free to play with them and find what works best for you.
 
 ~~~
-'-c'
+-c
 ~~~
 
 Just tells it to try and resume an interrupted download if it' s the case.

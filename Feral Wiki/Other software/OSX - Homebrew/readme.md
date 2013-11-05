@@ -71,6 +71,18 @@ You have now successfully installed homebrew and are now ready to install some a
 
 ### Installing homebrew apps.
 
+The first thing to do is update the formulae:
+
+~~~
+brew update
+~~~
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/OSX%20-%20Homebrew/homebrewupdate1.png)
+
+Once everything is updated it will look like this:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/OSX%20-%20Homebrew/homebrewupdate2.png)
+
 [A list of available programs](https://github.com/mxcl/homebrew/tree/master/Library/Formula)
 
 The basic idea of it is that you will run this command in your terminal window
