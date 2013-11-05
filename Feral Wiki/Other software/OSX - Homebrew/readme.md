@@ -107,11 +107,25 @@ Here is an example of using `lftp` to show the version installed:
 brew install aria2
 ~~~
 
-
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/OSX%20-%20Homebrew/homebrewaria21.png)
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/OSX%20-%20Homebrew/homebrewaria22.png)
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/OSX%20-%20Homebrew/homebrewaria2.png)
+Once it has successfully installed you can called it using the command:
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/OSX%20-%20Homebrew/homebrewaria2.png)
+~~~
+aria2c
+~~~
+
+For example:
+
+~~~
+aria2c --version
+~~~
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/OSX%20-%20Homebrew/homebrewaria23.png)
+
+Check out this FAQ for using `aria2c` - [aria2c](https://www.feralhosting.com/faq/view?question=236)
+
+
+

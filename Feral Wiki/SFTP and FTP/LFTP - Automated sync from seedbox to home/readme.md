@@ -1,4 +1,3 @@
-
 ### Automated LFTP Sync from SeedBox to Home
 
 This tutorial will explain how to use an automated LFTP script that runs every few minutes (or of your choosing) matching a remote directory with your home.  This script only works one way, so if you remove the file on your server, it will not be removed from your home directory.  It will also work with Windows, Mac, and Linux.
@@ -9,8 +8,7 @@ I prefer LFTP because, not only is it a fully automated daemon, it also maximize
 
 ### MacOS
 
-[Install Xcode and the Command Line Tools from Preferences > Components](https://developer.apple.com/xcode/)
-[Install Homebrew](http://mxcl.github.io/homebrew/)
+[Install Homebrew](https://www.feralhosting.com/faq/view?question=262)
 
 After the above is installed execute the following within terminal to install LFTP
 
@@ -66,6 +64,7 @@ This makes lftp try to split up files in 5 pieces for parallel downloading. Like
 ~~~
 '-P5'
 ~~~
+
  
 Means it will download at most 5 files in parallel (for a total 25 connections). Those 2 combined work wonders. In my case, I always end up downloading the files at the limit of my connection, but feel free to play with them and find what works best for you.
 
