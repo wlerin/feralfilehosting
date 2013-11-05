@@ -71,18 +71,47 @@ You have now successfully installed homebrew and are now ready to install some a
 
 ### Installing homebrew apps.
 
+[A list of available programs](https://github.com/mxcl/homebrew/tree/master/Library/Formula)
+
 The basic idea of it is that you will run this command in your terminal window
 
 ~~~
 brew install someapp
 ~~~
 
-LFTP:
+**lftp:**
 
 ~~~
 brew install lftp
 ~~~
 
+Use the above command in your terminal window to install `lftp`:
+
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/OSX%20-%20Homebrew/homebrewlftp1.png)
 
+The process will begin and it can take some times. Be patient and wait for it to finish:
+
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/OSX%20-%20Homebrew/homebrewlftp2.png)
+
+Once it has finished you will have the prompt returned and be able to use `lftp`:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/OSX%20-%20Homebrew/homebrewlftp3.png)
+
+Here is an example of using `lftp` to show the version installed:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/OSX%20-%20Homebrew/homebrewlftp4.png)
+
+**aria2:**
+
+~~~
+brew install aria2
+~~~
+
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/OSX%20-%20Homebrew/homebrewaria21.png)
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/OSX%20-%20Homebrew/homebrewaria22.png)
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/OSX%20-%20Homebrew/homebrewaria2.png)
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/OSX%20-%20Homebrew/homebrewaria2.png)
