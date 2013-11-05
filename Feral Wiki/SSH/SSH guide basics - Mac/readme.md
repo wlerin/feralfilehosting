@@ -13,6 +13,12 @@ If you haven't already created a dock icon for "Terminal", open your Macintosh H
 
 ### OS X Built-in SSH Client
 
+When you open the terminal you will see something like this:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20Mac/3.png)
+
+Now we enter the SSH command to connect to the slot:
+
 **Important note:** This is NOT a number 1. It is a non-capitalised letter `L`
 
 ~~~
@@ -25,11 +31,15 @@ For example:
 ssh -l peterpan aphrodite.feralhosting.com
 ~~~
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20Mac/3.png)
-
-If this is the first time connecting to this host you will see something like this. Type `yes` to save the host's key.
-
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20Mac/4.png)
+
+If this is the first time connecting to this host you will see something like this.
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20Mac/5.png)
+
+Type `yes` to save the host's key.
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20Mac/6.png)
 
 Now enter your Feral SSH/SFTP password at the prompt found on your slot details page for the relevant slot:
 
@@ -41,13 +51,13 @@ Now enter your Feral SSH/SFTP password at the prompt found on your slot details 
 
 **There will be no visual response when you paste in your password** — this is a security measure so that your password cannot be stolen by someone looking over your shoulder. Simply paste it and press **enter** to send the password to the server.
 
-At this point you should be logged into your Feral server and ready to execute commands in shell.
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20Mac/7.png)
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20Mac/5.png)
+At this point you should be logged into your Feral server and ready to execute commands in shell.
 
 After you have saved the host key and use the command shown in this FAQ it will look like this when connecting.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20Mac/6.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20Mac/8.png)
 
 ### OS X Built-in SSH Client using private/public key pair
 
