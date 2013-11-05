@@ -23,7 +23,7 @@ Find and use the login information provided to you in the Slot Detail page for t
 
 ### Step 3 Enter your server information:
 
-Type or copy & paste the hostname of your server, for example: `mauve.feralhosting.com`
+Type or copy & paste the hostname of your server, for example: `aphrodite.feralhosting.com`
 
 Leave the port on default 22, optionally type in a name for the session if you want to save it for later use (recommended!), then click `Open`. This will connect you to the host.
 
@@ -35,7 +35,7 @@ Leave the port on default 22, optionally type in a name for the session if you w
 
 **Optional Step 3.3: Private Keyfile usage**
 
-If you have a .ppk keyfile you would like to use instead of the default password or you have followed this guide for [Setting up Public Key Authentication for Password-less Login](https://www.feralhosting.com/faq/view?question=13) you can load it here like this.
+If you have a `.ppk` keyfile you would like to use instead of the default password or you have followed this guide for [Setting up Public Key Authentication for Password-less Login](https://www.feralhosting.com/faq/view?question=13) you can load it here like this.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20PuTTy/putty3.png)
 

@@ -33,9 +33,25 @@ To paste it in.
 
 At this point you should be logged into your Feral server and ready to execute commands in shell.
 
-### OS X Built-in SSH Client - oxssh
+### OS X Built-in SSH Client
 
-ssh is the built-in OS X SSH client and is very powerful and simple to use if you follow the instructions in this guide.
+**Important note:** This is NOT a number 1. It is a non-capitalised letter `L`
+
+~~~
+ssh -l username server.feralhosting.com
+~~~
+
+For example:
+
+~~~
+ssh -l peterpan aphrodite.feralhosting.com
+~~~
+
+Then enter your password at the prompt
+
+### OS X Built-in SSH Client using private/public key pair
+
+SSH is the built-in OS X SSH client and is very powerful and simple to use if you follow the instructions in this guide.
 
 **Connecting Via SSH using the default password and using private key files.**
 
@@ -58,13 +74,22 @@ to copy the key to your clipboard
 
 **3:** Then run:
 
+**Important note:** This is NOT a number 1. It is a non-capitalised letter `L`
+
 ~~~
-ssh -l <feralusername> <servername>.feralhosting.com
+ssh -l username server.feralhosting.com
 ~~~
 
-- replace `feralusername` and  `servername` with your own details 
-- use the SSH password from your feral Manager webpage
-   
+For example:
+
+~~~
+ssh -l peterpan aphrodite.feralhosting.com
+~~~
+
+Replace `username` and  `server` with your own details provided to by Feral. Use the SSH password from your feral Manager Slot details page for the relevant slot.
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_ssh.png)
+
 **4:** Once logged into your feral slot via ssh run:
 
 ~~~
