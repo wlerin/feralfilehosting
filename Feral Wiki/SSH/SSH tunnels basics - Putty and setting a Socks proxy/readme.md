@@ -31,7 +31,7 @@ In the navigation tree on the left select the `Tunnels` item. If this item isn't
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20tunnels%20basics%20-%20Putty%20and%20setting%20a%20Socks%20proxy/3.png)
 
-Under the section labeled `Add a new forwarded port` type in a port like 55000 for the source port. Leave the Destination field blank, then select the `Dynamic` and `Auto` radio buttons. Then click the `Add` button, and you should see the text `D55000` show up in the textarea just above the `Add a new forwarded port`.
+Under the section labeled `Add a new forwarded port` type in a port like 55000 for the source port. Use a port within the range `6000` - `55000`. Leave the Destination field blank, then select the `Dynamic` and `Auto` radio buttons. Then click the `Add` button, and you should see the text `D55000` show up in the textarea just above the `Add a new forwarded port`.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20tunnels%20basics%20-%20Putty%20and%20setting%20a%20Socks%20proxy/4.png)
 
