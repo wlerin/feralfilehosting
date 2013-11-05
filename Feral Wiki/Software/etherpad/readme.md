@@ -6,7 +6,7 @@ npm install sqlite3
 git clone git://github.com/ether/etherpad-lite.git
 ~~~
 
-Start ether pad to perform the intial setup. It will produce errors. We just need ot to install some files and create the `settings.json`
+Start ether pad to perform the intial setup. It will produce errors. We just need to to install some files and create the `settings.json`
 
 ~~~
 ~/etherpad-lite/bin/run.sh

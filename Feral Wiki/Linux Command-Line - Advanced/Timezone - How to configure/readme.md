@@ -1,4 +1,3 @@
-
 Tired of seeing everything in the wrong timezone? irssi in particular annoyed me, so here's a fix for everyone.
 
 To set your personal timezone on your slot for your user, use the following command.
@@ -18,7 +17,7 @@ That will set the timezone until for this SSH session.
 To make it permanent, you can modify and use this command in SSH:
 
 ~~~
-echo 'export TZ="/usr/share/zoneinfo/{zone-dir}/{zone-file}" >> ~/.bashrc
+echo 'export TZ="/usr/share/zoneinfo/{zone-dir}/{zone-file}"' >> ~/.bashrc
 ~~~
 
 **Important note:** Don't forget to edit it to match your timezone first.
