@@ -412,7 +412,6 @@ then
         echo
         if [[ $confirm =~ ^[Yy]$ ]]
         then
-            echo
             echo "Killing all Java processes."
             killall -9 -u $(whoami) java 2> /dev/null
             echo -e "\033[31m" "Done""\e[0m"
