@@ -14,7 +14,7 @@ To install python mods using the Feral python uses these steps:
 **1:** Add the location to your PATH:
 
 ~~~
-[[][/[][ ! "$(grep '~/.local/bin' ~/.bashrc)" ]] && echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
+[[][/[][ ! "$(grep '~/.local/bin' ~/.bashrc)" ]] && echo 'export PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
 **2:** Now install `virtualenv` like this:
@@ -162,9 +162,8 @@ easy_install flexget
 Specify a custom libraries path.
 
 ~~~
-echo 'PYTHONPATH=~/path/to/my/libs:$PATH' >> ~/.bashrc
+echo 'export PYTHONPATH=~/path/to/my/libs:$PATH' >> ~/.bashrc
 ~~~
-
 
 
 

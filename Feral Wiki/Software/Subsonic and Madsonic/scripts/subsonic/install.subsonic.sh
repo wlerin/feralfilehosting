@@ -471,6 +471,20 @@ then
                 chmod -f 700 ~/private/subsonic/transcode/ffmpeg
                 echo -n "$subsonicfvs" > ~/private/subsonic/.version
                 rm -rf ~/subsonic.tar.gz ~/ffmpeg.zip ~/sonictmp
+                # Some nginx magic. We use proxy pass and a custom conf to work with valid feral ssl.
+                if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+                then
+                    sed -i "s|SUBSONIC_CONTEXT_PATH=/|SUBSONIC_CONTEXT_PATH=/$(whoami)/subsonic|g" ~/private/subsonic/subsonic.sh
+                    echo -e 'location /subsonic {\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /subsonic/(.*) /'$(whoami)'/subsonic/$1 break;\nproxy_pass https://10.0.0.1:'$(sed -n -e 's/SUBSONIC_HTTPS_PORT=\([0-9]\+\)/\1/p' ~/private/subsonic/subsonic.sh 2> /dev/null)/''$(whoami)'/subsonic/;\n}' > ~/.nginx/conf.d/000-default-server.d/subsonic.conf
+                    /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
+                fi
+                if [[ ! -d ~/.nginx/conf.d/000-default-server.d ]]
+                then
+                    sed -i "s|SUBSONIC_CONTEXT_PATH=/$(whoami)/subsonic|SUBSONIC_CONTEXT_PATH=/|g" ~/private/subsonic/subsonic.sh
+                fi
+                # contextpath: set this now the file exists.
+                contextpath="$(sed -n '0,/SUBSONIC_CONTEXT_PATH=/s|SUBSONIC_CONTEXT_PATH=\(.*\)|\1|p' ~/private/subsonic/subsonic.sh)"
+                #
                 bash ~/private/subsonic/subsonic.sh
                 echo -e "A restart/start/kill script has been created at:" "\033[35m""~/bin/subsonicrsk""\e[0m"
                 echo -e "\033[32m""Subsonic is now started, use the links below to access it. Don't forget to set path to FULL path to you music folder in the gui.""\e[0m"

@@ -474,6 +474,20 @@ then
             chmod -f 700 ~/private/madsonic/transcode/Audioffmpeg ~/private/madsonic/transcode/ffmpeg
             echo -n "$madsonicfvs" > ~/private/madsonic/.version
             rm -rf ~/madsonic.zip ~/ffmpeg.zip ~/sonictmp
+            # Some nginx magic. We use proxy pass and a custom conf to work with valid feral ssl.
+            if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+            then
+                sed -i "s|MADSONIC_CONTEXT_PATH=/|MADSONIC_CONTEXT_PATH=/$(whoami)/madsonic|g" ~/private/madsonic/madsonic.sh
+                echo -e 'location /madsonic {\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /madsonic/(.*) /'$(whoami)'/madsonic/$1 break;\nproxy_pass https://10.0.0.1:'$(sed -n -e 's/MADSONIC_HTTPS_PORT=\([0-9]\+\)/\1/p' ~/private/madsonic/madsonic.sh 2> /dev/null)/''$(whoami)'/madsonic/;\n}' > ~/.nginx/conf.d/000-default-server.d/madsonic.conf
+                /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
+            fi
+            if [[ ! -d ~/.nginx/conf.d/000-default-server.d ]]
+            then
+                sed -i "s|MADSONIC_CONTEXT_PATH=/$(whoami)/madsonic|MADSONIC_CONTEXT_PATH=/|g" ~/private/madsonic/madsonic.sh
+            fi
+            # contextpath: set this now the file exists.
+            contextpath="$(sed -n '0,/MADSONIC_CONTEXT_PATH=/s|MADSONIC_CONTEXT_PATH=\(.*\)|\1|p' ~/private/madsonic/madsonic.sh)"
+            #
             bash ~/private/madsonic/madsonic.sh
             echo -e "A restart/start/kill script has been created at:" "\033[35m""~/bin/madsonicrsk""\e[0m"
             echo -e "\033[32m""Madsonic is now started, use the links below to access it. Don't forget to set path to FULL path to you music folder in the gui.""\e[0m"

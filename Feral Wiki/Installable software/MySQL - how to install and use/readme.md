@@ -25,13 +25,7 @@ You can call them directly from there prefixing this to any command:
 Or add it to your PATH using this command:
 
 ~~~
-echo 'PATH=~/private/mysql/bin:$PATH' >> ~/.bashrc
-~~~
-
-The run this command to reload your shell:
-
-~~~
-source ~/.bashrc
+[[][/[][ ! "$(grep '~/private/mysql/bin' ~/.bashrc)" ]] && echo 'export PATH=~/private/mysql/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
 ### Restarting Mysql
