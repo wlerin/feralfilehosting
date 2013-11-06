@@ -42,6 +42,8 @@ You can edit the configuration files to your needs but you are asked to remember
 
 ### Enable Networking
 
+**Important note:** the default user `root` is `localhost` only. This means that this user cannot access the server over networking. It is recommended you leave this as it is and create new and limited users for your network connections where possible.
+
 Networking has been disabled by default, within the configuration which means only a socket connection is available.
 
 ~~~
