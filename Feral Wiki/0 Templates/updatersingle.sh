@@ -26,7 +26,7 @@ scriptname="somescript"
 ###### Variable Start ######
 ############################
 #
-#
+scripturl="https://raw.github.com/feralhosting"
 #
 ############################
 ####### Variable End #######
@@ -38,18 +38,18 @@ scriptname="somescript"
 #
 if [[ ! -f "$HOME/somescript.sh" ]]
 then
-    wget -qO $HOME/somescript.sh https://raw.github.com/feralhosting
+    wget -qO "$HOME/somescript.sh" "$scripturl"
 fi
 #
-wget -qO $HOME/000somescript.sh https://raw.github.com/feralhosting
+wget -qO "$HOME/000somescript.sh" "$scripturl"
 #
 if ! diff -q "$HOME/000somescript.sh" "$HOME/somescript.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/somescript.sh https://raw.github.com/feralhosting
+    wget -qO $HOME/somescript.sh "'$scripturl'"
     bash $HOME/somescript.sh
-    exit 1' > $HOME/111somescript.sh
-    bash $HOME/111somescript.sh
+    exit 1' > "$HOME/111somescript.sh"
+    bash "$HOME/111somescript.sh"
     exit 1
 fi
 #
@@ -57,7 +57,7 @@ echo
 echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
 echo
 #
-rm -f $HOME/000somescript.sh $HOME/111somescript.sh
+rm -f "$HOME/000somescript.sh" "$HOME/111somescript.sh"
 #
 ############################
 ##### Self Updater End #####
