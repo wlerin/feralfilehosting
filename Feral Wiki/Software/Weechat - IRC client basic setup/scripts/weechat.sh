@@ -1,7 +1,7 @@
 #!/bin/bash
 # weechat installation
 # wget -qO ~/weechat.sh http://git.io/L6oalA && bash ~/weechat.sh
-scriptversion="1.0.0"
+scriptversion="1.0.1"
 scriptname="weechat"
 # randomessence
 #

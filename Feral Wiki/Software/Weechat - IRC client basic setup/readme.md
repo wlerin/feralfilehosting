@@ -14,7 +14,7 @@ mkdir -p ~/programs
 Add the location to your `PATH` using this command.
 
 ~~~
-[[][/[][ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
+[[][/[][ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'export PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
 ### 2 Pre-built: Download and extract pre build cmake-2.8.11.2-Linux-i386
@@ -22,10 +22,10 @@ Add the location to your `PATH` using this command.
 **Recommended** fast and simple.
 
 ~~~
-wget -qO ~/cmake.tar.gz http://www.cmake.org/files/v2.8/cmake-2.8.11.2-Linux-i386.tar.gz
+wget -qO ~/cmake.tar.gz http://www.cmake.org/files/v2.8/cmake-2.8.12-Linux-i386.tar.gz
 tar xf ~/cmake.tar.gz
-cp -rf ~/cmake-2.8.11.2-Linux-i386/. ~/programs
-rm -rf ~/cmake-2.8.11.2-Linux-i386 ~/cmake.tar.gz
+cp -rf ~/cmake-2.8.12-Linux-i386/. ~/programs
+rm -rf ~/cmake-2.8.12-Linux-i386 ~/cmake.tar.gz
 ~~~
 
 ### 3: Build WeeChat and install it
