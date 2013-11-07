@@ -27,8 +27,9 @@ scriptname="weechat"
 ###### Variable Start ######
 ############################
 #
-weechat="http://www.weechat.org/files/src/weechat-0.4.1.tar.gz"
-weechatfv="0.4.1"
+weechat="http://www.weechat.org/files/src/weechat-0.4.2.tar.gz"
+weechatfv="0.4.2"
+scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Weechat%20-%20IRC%20client%20basic%20setup/scripts/weechat.sh"
 #
 ############################
 ####### Variable End #######
@@ -38,37 +39,37 @@ weechatfv="0.4.1"
 #### Self Updater Start ####
 ############################
 #
-mkdir -p $HOME/bin
+mkdir -p "$HOME/bin"
 #
-if [ ! -f $HOME/weechat.sh ]
+if [[ ! -f "$HOME/weechat.sh" ]]
 then
-    wget -qO $HOME/weechat.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Weechat%20-%20IRC%20client%20basic%20setup/scripts/weechat.sh
+    wget -qO "$HOME/weechat.sh" "$scripturl"
 fi
-if [ ! -f $HOME/bin/weechat ]
+if [[ ! -f "$HOME/bin/weechat" ]]
 then
-    wget -qO $HOME/bin/weechat https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Weechat%20-%20IRC%20client%20basic%20setup/scripts/weechat.sh
+    wget -qO "$HOME/bin/weechat" "$scripturl"
 fi
 #
-wget -qO $HOME/000weechat.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Weechat%20-%20IRC%20client%20basic%20setup/scripts/weechat.sh
+wget -qO "$HOME/000weechat.sh" "$scripturl"
 #
-if ! diff -q $HOME/000weechat.sh $HOME/weechat.sh > /dev/null 2>&1
+if ! diff -q "$HOME/000weechat.sh" "$HOME/weechat.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/weechat.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Weechat%20-%20IRC%20client%20basic%20setup/scripts/weechat.sh
-    wget -qO $HOME/bin/weechat https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Weechat%20-%20IRC%20client%20basic%20setup/scripts/weechat.sh
-    bash $HOME/weechat.sh
-    exit 1' > $HOME/111weechat.sh
-    bash $HOME/111weechat.sh
+    wget -qO "$HOME/weechat.sh" "'$scripturl'"
+    wget -qO "$HOME/bin/weechat" "'$scripturl'"
+    bash "$HOME/weechat.sh"
+    exit 1' > "$HOME/111weechat.sh"
+    bash "$HOME/111weechat.sh"
     exit 1
 fi
-if ! diff -q $HOME/000weechat.sh $HOME/bin/weechat > /dev/null 2>&1
+if ! diff -q "$HOME/000weechat.sh" "$HOME/bin/weechat" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/weechat.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Weechat%20-%20IRC%20client%20basic%20setup/scripts/weechat.sh
-    wget -qO $HOME/bin/weechat https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Weechat%20-%20IRC%20client%20basic%20setup/scripts/weechat.sh
-    bash $HOME/weechat.sh
-    exit 1' > $HOME/222weechat.sh
-    bash $HOME/222weechat.sh
+    wget -qO "$HOME/weechat.sh" "'$scripturl'"
+    wget -qO "$HOME/bin/weechat" "'$scripturl'"
+    bash "$HOME/weechat.sh"
+    exit 1' > "$HOME/222weechat.sh"
+    bash "$HOME/222weechat.sh"
     exit 1
 fi
 #
@@ -76,8 +77,8 @@ echo
 echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
 echo
 #
-rm -f $HOME/000weechat.sh $HOME/111weechat.sh $HOME/222weechat.sh
-chmod -f 700 $HOME/bin/weechat
+rm -f "$HOME/000weechat.sh" "$HOME/111weechat.sh" "$HOME/222weechat.sh"
+chmod -f 700 "$HOME/bin/weechat"
 #
 ############################
 ##### Self Updater End #####
@@ -95,12 +96,12 @@ then
 # 1
 #
 mkdir -p ~/programs
-[[ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
+[[ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'export PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 #
 # 2
 #
 wget -qO ~/weechat.tar.gz $weechat
-tar -xzf ~/weechat.tar.gz
+tar xf ~/weechat.tar.gz
 cd ~/weechat-$weechatfv
 sed -i 's/SET(CMAKE_SKIP_RPATH ON)//g' ~/weechat-$weechatfv/CMakeLists.txt
 cmake -DCMAKE_INSTALL_RPATH=/opt/curl/current/lib -DPREFIX=$HOME/programs -DCURL_LIBRARY=/opt/curl/current/lib/libcurl.so -DCURL_INCLUDE_DIR=/opt/curl/current/include

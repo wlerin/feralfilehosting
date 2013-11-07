@@ -26,7 +26,7 @@ scriptname="somescript"
 ###### Variable Start ######
 ############################
 #
-#
+scripturl="https://raw.github.com/feralhosting"
 #
 ############################
 ####### Variable End #######
@@ -36,37 +36,37 @@ scriptname="somescript"
 #### Self Updater Start ####
 ############################
 #
-mkdir -p $HOME/bin
+mkdir -p "$HOME/bin"
 #
 if [[ ! -f "$HOME/somescript.sh" ]]
 then
-    wget -qO $HOME/somescript.sh https://raw.github.com/feralhosting
+    wget -qO "$HOME/somescript.sh" "$scripturl"
 fi
 if [[ ! -f "$HOME/bin/somescript" ]]
 then
-    wget -qO $HOME/bin/somescript https://raw.github.com/feralhosting
+    wget -qO "$HOME/bin/somescript" "$scripturl"
 fi
 #
-wget -qO $HOME/000somescript.sh https://raw.github.com/feralhosting
+wget -qO "$HOME/000somescript.sh" "$scripturl"
 #
 if ! diff -q "$HOME/000somescript.sh" "$HOME/somescript.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/somescript.sh https://raw.github.com/feralhosting
-    wget -qO $HOME/bin/somescript https://raw.github.com/feralhosting
-    bash $HOME/somescript.sh
-    exit 1' > $HOME/111somescript.sh
-    bash $HOME/111somescript.sh
+    wget -qO "$HOME/somescript.sh" "'$scripturl'"
+    wget -qO "$HOME/bin/somescript" "'$scripturl'"
+    bash "$HOME/somescript.sh"
+    exit 1' > "$HOME/111somescript.sh"
+    bash "$HOME/111somescript.sh"
     exit 1
 fi
 if ! diff -q "$HOME/000somescript.sh" "$HOME/bin/somescript" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/somescript.sh https://raw.github.com/feralhosting
-    wget -qO $HOME/bin/somescript https://raw.github.com/feralhosting
-    bash $HOME/somescript.sh
-    exit 1' > $HOME/222somescript.sh
-    bash $HOME/222somescript.sh
+    wget -qO "$HOME/somescript.sh" "'$scripturl'"
+    wget -qO "$HOME/bin/somescript" "'$scripturl'"
+    bash "$HOME/somescript.sh"
+    exit 1' > "$HOME/222somescript.sh"
+    bash "$HOME/222somescript.sh"
     exit 1
 fi
 #
@@ -74,8 +74,8 @@ echo
 echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
 echo
 #
-rm -f $HOME/000somescript.sh $HOME/111somescript.sh $HOME/222somescript.sh
-chmod -f 700 $HOME/bin/somescript
+rm -f "$HOME/000somescript.sh" "$HOME/111somescript.sh" "$HOME/222somescript.sh"
+chmod -f 700 "$HOME/bin/somescript"
 #
 ############################
 ##### Self Updater End #####
