@@ -3,7 +3,7 @@
 
 ~~~
 mkdir -p ~/programs
-[[ ! "$(grep '~/.local/bin' ~/.bashrc)" ]] && echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
+[[ ! "$(grep '~/.local/bin' ~/.bashrc)" ]] && echo 'export PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 [[ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'export PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 [[ ! "$(grep '~/programs/lib' ~/.bashrc)" ]] && echo 'export LD_LIBRARY_PATH=~/programs/lib:$LD_LIBRARY_PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
@@ -11,30 +11,44 @@ mkdir -p ~/programs
 ### Curl
 
 ~~~
-wget -qO ~/curl.tar.gz http://curl.haxx.se/download/curl-7.32.0.tar.gz
-tar xf ~/curl.tar.gz && cd ~/curl-7.32.0
+wget -qO ~/curl.tar.gz http://curl.haxx.se/download/curl-7.33.0.tar.gz
+tar xf ~/curl.tar.gz && cd ~/curl-7.33.0
 ./configure --prefix=$HOME/programs
-make && make install && cd && rm -rf ~/curl-7.32.0 ~/curl.tar.gz
+make && make install && cd && rm -rf ~/curl-7.33.0 ~/curl.tar.gz
 ~~~
 
 ### Cmake
 
 ~~~
-wget -qO ~/cmake.tar.gz http://www.cmake.org/files/v2.8/cmake-2.8.11.2.tar.gz
-tar xf ~/cmake.tar.gz && cd ~/cmake-2.8.11.2
+wget -qO ~/cmake.tar.gz http://www.cmake.org/files/v2.8/cmake-2.8.12.tar.gz
+tar xf ~/cmake.tar.gz && cd ~/cmake-2.8.12
 ./bootstrap --prefix=$HOME/programs
 ./configure --prefix=$HOME/programs
-make && make install && cd && rm -rf ~/cmake.tar.gz ~/cmake-2.8.11.2
+make && make install && cd && rm -rf ~/cmake.tar.gz ~/cmake-2.8.12
 ~~~
 
 ### WeeChat - curl first
 
 ~~~
-wget -qO ~/weechat.tar.gz http://www.weechat.org/files/src/weechat-0.4.1.tar.gz
-tar xf ~/weechat.tar.gz && cd ~/weechat-0.4.1
+wget -qO ~/weechat.tar.gz http://www.weechat.org/files/src/weechat-0.4.2.tar.gz
+tar xf ~/weechat.tar.gz && cd ~/weechat-0.4.2
 cmake -DPREFIX=$HOME/programs
+~~~
+
+Feral default:
+
+~~~
+cmake -DCMAKE_INSTALL_RPATH=/opt/curl/current/lib -DPREFIX=$HOME/programs -DCURL_LIBRARY=/opt/curl/current/lib/libcurl.so -DCURL_INCLUDE_DIR=/opt/curl/current/include
+~~~
+
+Curl installed to `~/programs`:
+
+~~~
 cmake -DPREFIX=$HOME/programs -DCURL_LIBRARY=$HOME/programs/lib/libcurl.so -DCURL_INCLUDE_DIR=$HOME/programs/include
-make && make install && cd && rm -rf ~/weechat.tar.gz ~/weechat-0.4.1
+~~~
+
+~~~
+make && make install && cd && rm -rf ~/weechat.tar.gz ~/weechat-0.4.2
 ~~~
 
 ### node
@@ -49,11 +63,24 @@ make && make install && cd && rm -rf ~/node-v0.10.*/ ~/node.tar.gz
 ### git - curl first
 
 ~~~
-wget -qO ~/git.tar.gz  http://git-core.googlecode.com/files/git-1.8.4.tar.gz
-tar xf ~/git.tar.gz && cd ~/git-1.8.4
+wget -qO ~/git-1.8.4.2.tar.gz http://git-core.googlecode.com/files/git-1.8.4.2.tar.gz
+tar xf ~/git-1.8.4.2.tar.gz && cd ~/git-1.8.4.2
+~~~
+
+Feral default:
+
+~~~
 ./configure --prefix=$HOME/programs --with-curl=/opt/curl/current
+~~~
+
+Curl installed to `~/programs`
+
+~~~
 ./configure --prefix=$HOME/programs --with-curl=$HOME/programs
-make && make install && cd && rm -rf ~/git-1.8.4 git.tar.gz
+~~~
+
+~~~
+make && make install && cd && rm -rf ~/git-1.8.4.2 git-1.8.4.2.tar.gz
 ~~~
 
 ~~~
@@ -128,7 +155,7 @@ znc --makeconf
 
 ~~~
 wget -qO ~/ffmpeg.tar.gz http://ffmpeg.gusari.org/static/64bit/ffmpeg.static.64bit.2013-09-16.tar.gz
-mkdir -p ~/ffmpeg && tar -xzf ~/ffmpeg.tar.gz -C ~/ffmpeg && rm -f ~/ffmpeg.tar.gz
+mkdir -p ~/ffmpeg && tar xf ~/ffmpeg.tar.gz -C ~/ffmpeg && rm -f ~/ffmpeg.tar.gz
 echo 'export PATH=~/ffmpeg:$PATH' >> ~/.bashrc && source ~/.bashrc
 ffmpeg -version
 ~~~

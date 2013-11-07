@@ -17,7 +17,7 @@ Add the location to your `PATH` using this command.
 [[][/[][ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'export PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
-### 2 Pre-built: Download and extract pre build cmake-2.8.11.2-Linux-i386
+### 2 Pre-built: Download and extract pre build cmake-2.8.12-Linux-i386
 
 **Recommended** fast and simple.
 
