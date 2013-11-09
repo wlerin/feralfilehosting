@@ -32,15 +32,54 @@ Go to `Tools > Global Options > Transfer > When selecting MAX in multi-part tran
 
 When selecting a file to download, right-click on `File > Download Advanced > Multi-part Download > MAX (7 parts)`
 
+### LFTP 
+
+The Windows and OSX versions are port from the Unix version. Once you have `lftp` installed for your platform you can use the Unix section below to run `lftp` via a terminal like Putty or terminal in OSX
+
+Once you have `lftp` installed continue with the unix section of this FAQ for LFTP.
+
 ### In lftp (Windows via cygwin)
 
-Once installed, you use the Cygwin terminal as you would use lftp on nix. So the just follow the nix info below.
+For Windows users to install lftp - [Cygwin and lftp on Windows ](https://www.feralhosting.com/faq/view?question=235)
 
-[Installing Cygwin and lftp on Windows ](https://www.feralhosting.com/faq/view?question=235)
+### In lftp (OSX via Homebreww)
 
-### In lftp (*nix)
+For Mac users to install lftp - [OSX - Homebrew](https://www.feralhosting.com/faq/view?question=262)
 
-You can use the command **pget** to transfer a file with several connections (specify **-n <maxcon>**). You can also use **mirror** to transfer a folder but specify:
+### In lftp (Unix)
+
+The first thing you will do is open your terminal program and type this command:
+
+~~~
+lftp sftp://user-name@server.feralhosting.com
+~~~
+
+Where user-name is your Feral username and server is the name of the Feral server your lost is hosted on, for example:
+
+~~~
+lftp sftp://peterpan@aphrodite.feralhosting.com
+~~~
+
+At this point you will be asked for your Feral FTP / SFTP / SSH password. Enter it now then press enter.
+
+If you connect successfully then can do this command to save your connection and password for future use:
+
+~~~
+set bmk:save-passwords true
+bookmark add Feral
+~~~
+
+Now you can navigate your slot using `lftp` just like normal:
+
+~~~
+cd ~/private/rtorrent/data
+~~~
+
+Will put you inside this folder.
+
+### lftp usage
+
+You can use the command `pget` to transfer a file with several connections (specify `-n maxcon`). You can also use `mirror` to transfer a folder but specify:
 
 ~~~
 --use-pget[-n=N]
@@ -52,7 +91,7 @@ or
 --parallel[=N]
 ~~~
 
-The former uses **pget** to transfer each file, the latter specifies to transfer multiple files at once. You can set whatever default combination you like in your **~/.lftp/rc** file, such as the following:
+The former uses `pget` to transfer each file, the latter specifies to transfer multiple files at once. You can set whatever default combination you like in your `~/.lftp/rc` file, such as the following:
 
 ~~~
 set pget:default-n 10
@@ -71,9 +110,9 @@ You can max out your connection with progressive downloader as an alternative to
 
 2: Use this FAQ - [aria2c ](https://www.feralhosting.com/faq/view?question=236)
 
-While this FAQ appears Windows only, the commands and set-up of aria2c work exactly the same across platforms.
+For Mac users to install aria2c - [OSX - Homebrew](https://www.feralhosting.com/faq/view?question=262)
 
-For Mac users - [macports.org](https://trac.macports.org/browser/trunk/dports/net/aria2/Portfile)
+While this FAQ appears Windows only, the commands and set-up of aria2c work exactly the same across platforms.
 
 ### Further Problems
 

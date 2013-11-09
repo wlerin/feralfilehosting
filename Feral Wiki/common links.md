@@ -31,7 +31,13 @@ You can do this from the Install Software link in your [Account Manager](https:/
 
 You will need to have MySQL already installed. You can do this from the [**Install Software** link in your Manager](https://www.feralhosting.com/manager/)
 
-Where username is you Feral username and server is the name of the server that is hosting rutorrent.
+Where username is your Feral username and server is the name of the server that is hosting rutorrent.
+
+Where user-name is your Feral username and server is the name of the Feral server yoru lost is hosted on, for example:
+
+~~~
+peterpan@aphrodite.feralhosting.com
+~~~
 
 ~~~
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/install_mysql.png)
