@@ -31,61 +31,70 @@ scriptname="rsync"
 #
 mish="$(shuf -i 1-100 -n 1)"
 defaultpath="rsync"
+scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Linux%20Command-Line%20-%20Advanced/rsync%20-%20Transferring%20data%20from%20slot%20to%20slot/scripts/rsynctk.sh"
 #
 ############################
 ####### Variable End #######
 ############################
 #
 ############################
-####### Script Start #######
+#### Self Updater Start ####
 ############################
 #
-###### Self Updater Starts
-mkdir -p $HOME/bin
+mkdir -p "$HOME/bin"
 #
-if [ ! -f ~/rsynctk.sh ]
+if [[ ! -f "$HOME/rsynctk.sh" ]]
 then
-    wget -qO $HOME/rsynctk.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Linux%20Command-Line%20-%20Advanced/rsync%20-%20Transferring%20data%20from%20slot%20to%20slot/scripts/rsynctk.sh
+    wget -qO "$HOME/rsynctk.sh" "$scripturl"
 fi
-if [ ! -f ~/bin/rsynctk ]
+if [[ ! -f "$HOME/bin/rsynctk.sh" ]]
 then
-    wget -qO $HOME/bin/rsynctk https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Linux%20Command-Line%20-%20Advanced/rsync%20-%20Transferring%20data%20from%20slot%20to%20slot/scripts/rsynctk.sh
+    wget -qO "$HOME/bin/rsynctk" "$scripturl"
 fi
 #
-wget -qO $HOME/000rsynctk.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Linux%20Command-Line%20-%20Advanced/rsync%20-%20Transferring%20data%20from%20slot%20to%20slot/scripts/rsynctk.sh
+wget -qO "$HOME/000rsynctk.sh" "$scripturl"
 #
-if ! diff -q $HOME/000rsynctk.sh $HOME/rsynctk.sh > /dev/null 2>&1
+if ! diff -q "$HOME/000rsynctk.sh" "$HOME/rsynctk.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/rsynctk.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Linux%20Command-Line%20-%20Advanced/rsync%20-%20Transferring%20data%20from%20slot%20to%20slot/scripts/rsynctk.sh
-    wget -qO $HOME/bin/rsynctk https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Linux%20Command-Line%20-%20Advanced/rsync%20-%20Transferring%20data%20from%20slot%20to%20slot/scripts/rsynctk.sh
-    bash $HOME/rsynctk.sh
-    exit 1' > $HOME/111rsynctk.sh
-    bash $HOME/111rsynctk.sh
+    wget -qO "$HOME/rsynctk.sh" "'$scripturl'"
+    wget -qO "$HOME/bin/rsynctk" "'$scripturl'"
+    bash "$HOME/rsynctk.sh"
+    exit 1' > "$HOME/111rsynctk.sh"
+    bash "$HOME/111rsynctk.sh"
     exit 1
 fi
-if ! diff -q $HOME/000rsynctk.sh $HOME/bin/rsynctk > /dev/null 2>&1
+if ! diff -q "$HOME/000rsynctk.sh" "$HOME/bin/rsynctk" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/rsynctk.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Linux%20Command-Line%20-%20Advanced/rsync%20-%20Transferring%20data%20from%20slot%20to%20slot/scripts/rsynctk.sh
-    wget -qO $HOME/bin/rsynctk https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Linux%20Command-Line%20-%20Advanced/rsync%20-%20Transferring%20data%20from%20slot%20to%20slot/scripts/rsynctk.sh
-    bash $HOME/rsynctk.sh
-    exit 1' > $HOME/222rsynctk.sh
-    bash $HOME/222rsynctk.sh
+    wget -qO "$HOME/rsynctk.sh" "'$scripturl'"
+    wget -qO "$HOME/bin/rsynctk" "'$scripturl'"
+    bash "$HOME/rsynctk.sh"
+    exit 1' > "$HOME/222rsynctk.sh"
+    bash "$HOME/222rsynctk.sh"
     exit 1
 fi
 #
 echo
 echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
 #
-rm -f $HOME/000rsynctk.sh $HOME/111rsynctk.sh $HOME/222rsynctk.sh
-chmod -f 700 ~/bin/rsynctk
+rm -f "$HOME/000rsynctk.sh" "$HOME/111rsynctk.sh" "$HOME/222rsynctk.sh"
+chmod -f 700 "$HOME/bin/rsynctk"
 echo
-### Self Updater Ends
+#
+############################
+##### Self Updater End #####
+############################
+#
 read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " updatestatus
 echo
 if [[ $updatestatus =~ ^[Yy]$ ]]
 then
+#
+############################
+####### Script Start #######
+############################
+#
 read -ep "Do you want to Copy from another Feral server [f] or import from whatbox.ca [w] : " feral
 echo
 if [[ $feral =~ ^[Ff]$ ]]
