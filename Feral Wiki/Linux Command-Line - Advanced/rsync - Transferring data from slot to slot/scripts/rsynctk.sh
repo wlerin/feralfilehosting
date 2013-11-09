@@ -119,7 +119,7 @@ then
     echo
     if [[ $confirm =~ ^[Yy]$ ]]
     then
-        read -ep "Please enter the relative path to the folder you wish to copy: $\HOME/" remotepath
+        read -ep "Please enter the relative path to the folder you wish to copy: \$HOME/" remotepath
         echo
         read -ep "Would you like to select a custom destination for your files? [y]es or [n]o: " customdest
         echo
