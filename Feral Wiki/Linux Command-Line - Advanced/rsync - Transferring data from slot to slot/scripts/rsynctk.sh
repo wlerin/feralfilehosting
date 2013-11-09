@@ -99,7 +99,7 @@ read -ep "Do you want to Copy from another Feral server [f] or import from whatb
 echo
 if [[ $feral =~ ^[Ff]$ ]]
 then
-    mkdir -p ~/rsync
+    mkdir -p "$HOME/rsync"
     echo -e "\033[32m""Give the username of the feral account that controls the slot""\e[0m"
     read -ep " What is your username on the old slot? : " username
     echo
@@ -126,7 +126,7 @@ then
         if [[ $customdest =~ ^[Yy]$ ]]
         then
             read -ep "Please enter the relative path to the custom destination folder: ~/" defaultpath
-            mkdir -p ~/$defaultpath
+            mkdir -p "$HOME/$defaultpath"
             echo
         fi
     else
@@ -140,9 +140,9 @@ then
     echo
     if [[ $confirmscreen1 =~ ^[Yy]$ ]]
     then
-        if [[ ! -f ~/.ssh/rsynctk_rsa ]]
+        if [[ ! -f "$HOME/.ssh/rsynctk_rsa" ]]
         then
-            ssh-keygen -q -t rsa -b 2048 -f ~/.ssh/rsynctk_rsa -N ''
+            ssh-keygen -q -t rsa -b 2048 -f "$HOME/.ssh/rsynctk_rsa" -N ''
         fi
         echo -e "Make sure you have copied the contents of the file:" "\033[36m""~/.ssh/rsynctk_rsa.pub""\e[0m" "we just generated, to your OLD slot's" "\033[36m""~/.ssh/authorized_keys""\e[0m" "file."
         echo -e "\033[31m""We can do this while the script is loaded using SSH and the ssh-copy-id command if you have not already done it.""\e[0m"
@@ -185,7 +185,7 @@ then
     fi
 elif [[ $feral =~ ^[Ww]$ ]]
 then
-    mkdir -p ~/rsync
+    mkdir -p "$HOME/rsync"
     echo -e "\033[32m""Give the username of the whatbox account that controls the slot""\e[0m"
     read -ep " What is your username on the old server? : " username
     echo
@@ -212,7 +212,7 @@ then
         if [[ $customdest =~ ^[Yy]$ ]]
         then
             read -ep "Please enter the relative path to the custom destination folder: ~/" defaultpath
-            mkdir -p ~/$defaultpath
+            mkdir -p "$HOME/$defaultpath"
             echo
         fi
     else
@@ -226,9 +226,9 @@ then
     echo
     if [[ $confirmscreen1 =~ ^[Yy]$ ]]
     then
-        if [[ ! -f ~/.ssh/rsynctk_rsa ]]
+        if [[ ! -f "$HOME/.ssh/rsynctk_rsa" ]]
         then
-            ssh-keygen -q -t rsa -b 2048 -f ~/.ssh/rsynctk_rsa -N ''
+            ssh-keygen -q -t rsa -b 2048 -f "$HOME/.ssh/rsynctk_rsa" -N ''
         fi
         echo -e "Make sure you have copied the contents of the file:" "\033[36m""~/.ssh/rsynctk_rsa.pub""\e[0m" "we just generated, to your OLD slot's" "\033[36m""~/.ssh/authorized_keys""\e[0m" "file."
         echo -e "\033[31m""We can do this while the script is loaded using SSH and the ssh-copy-id command if you have not already done it.""\e[0m"
@@ -271,11 +271,13 @@ then
     fi
 else
     echo "I am confused let me start over"
+    echo
     bash ~/rsynctk.sh
     exit 1
 fi
 else
     echo -e "You chose to exit after updating the scripts."
+    echo
     cd && bash
     exit 1
 fi
