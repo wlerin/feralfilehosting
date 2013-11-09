@@ -179,6 +179,7 @@ Here is the command broken down.
 -o, --owner             preserve owner (super-user only)
 -D                      same as --devices --specials
 
+-v, --verbose           increase verbosity
 -h, --human-readable    output numbers in a human-readable format
 -P                      same as --partial --progress
 -S, --sparse            handle sparse files efficiently
@@ -190,7 +191,7 @@ Here is the command broken down.
 -z, --compress          compress file data during the transfer
 
 ~~~
--anczvhPS
+-avhPSncz
 ~~~
 
 

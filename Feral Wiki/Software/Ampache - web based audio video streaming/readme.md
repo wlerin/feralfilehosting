@@ -21,7 +21,7 @@ You will need your MySQL details to complete this FAQ.
 
 ### The bash script
 
-Because there are quite a few configuration and tweaks required to make Ampache work on your slot am manual guide a bit too much. So there is only a bash script installer.
+Because there are quite a few configuration and tweaks required to make Ampache work on your slot, a manual guide a bit too much since the bash script already automates it for you. For this reason there is only a bash script installer.
 
 This bash script uses Ampache master from github and also applies some default configuration settings.
 
