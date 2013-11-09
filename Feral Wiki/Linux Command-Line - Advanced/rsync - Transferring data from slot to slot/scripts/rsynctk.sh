@@ -119,7 +119,7 @@ then
     echo
     if [[ $confirm =~ ^[Yy]$ ]]
     then
-        read -ep "Please enter the relative path to the folder you wish to copy: ~/" path
+        read -ep "Please enter the relative path to the folder you wish to copy: ~/" remotepath
         echo
         read -ep "Would you like to select a custom destination for your files? [y]es or [n]o: " customdest
         echo
@@ -134,7 +134,7 @@ then
     fi
     echo -e "\033[33m""Here is the command you have just created:""\e[0m"
     echo
-    echo -e "\033[31m""rsync" "\033[32m""-avhPSe ssh" "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".feralhosting.com:""\033[36m""~/$path ~/$defaultpath""\e[0m"
+    echo -e "\033[31m""rsync" "\033[32m""-avhPSe ssh" "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".feralhosting.com:""\033[36m""~/$remotepath ~/$defaultpath""\e[0m"
     echo
     read -ep "Would you like to try and run this command in a screen [y] or exit now [e]: " confirmscreen1
     echo
@@ -163,7 +163,7 @@ then
             #
             screen -dmS rsynctk$mish
             sleep 2
-            screen -S rsynctk$mish -p 0 -X exec rsync -avhPSe "ssh -i $HOME/.ssh/rsynctk_rsa" $username@$servername.feralhosting.com:~/$path ~/$defaultpath
+            screen -S rsynctk$mish -p 0 -X exec rsync -avhPSe "ssh -i $HOME/.ssh/rsynctk_rsa" $username@$servername.feralhosting.com:~/$remotepath ~/$defaultpath
             echo
             echo "Here is the screen process"
             echo
@@ -171,10 +171,10 @@ then
             echo
             echo -e "\033[31m""Useful Notes:""\e[0m"
             echo -e "The normal command, requires you create a screen an enter your old slot's SSH password"
-            echo -e "\033[31m""rsync" "\033[32m""-avhPSe ssh" "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".feralhosting.com:""\033[36m""~/$path ~/$defaultpath""\e[0m"
+            echo -e "\033[31m""rsync" "\033[32m""-avhPSe ssh" "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".feralhosting.com:""\033[36m""~/$remotepath ~/$defaultpath""\e[0m"
             echo
             echo -e "The command that uses our public/private key file pair."
-            echo -e "\033[31m""rsync" "\033[32m""-avhPSe" "\e[0m""\033[37m""\"ssh -i $HOME/.ssh/rsynctk_rsa\"" "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".feralhosting.com:""\033[36m""~/$path ~/$defaultpath""\e[0m"
+            echo -e "\033[31m""rsync" "\033[32m""-avhPSe" "\e[0m""\033[37m""\"ssh -i $HOME/.ssh/rsynctk_rsa\"" "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".feralhosting.com:""\033[36m""~/$remotepath ~/$defaultpath""\e[0m"
             echo
             echo -e "\033[33m""The command to copy our public key to the old slot's" "\033[36m""~/.ssh/authorized_keys""\e[0m" "\033[33m""file.""\e[0m"
             echo -e "ssh-copy-id -i ~/.ssh/rsynctk_rsa.pub $username@$servername.feralhosting.com"
@@ -205,7 +205,7 @@ then
     echo
     if [[ $confirm =~ ^[Yy]$ ]]
     then
-        read -ep "Please enter the relative path to the folder you wish to copy: ~/" path
+        read -ep "Please enter the relative path to the folder you wish to copy: ~/" remotepath
         echo
         read -ep "Would you like to select a custom destination for your files? [y]es or [n]o: " customdest
         echo
@@ -220,7 +220,7 @@ then
     fi
     echo -e "\033[33m""Here is the command you have just created:""\e[0m"
     echo
-    echo -e "\033[31m""rsync" "\033[32m""-avhPSe ssh" "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".whatbox.ca:""\033[36m""~/$path ~/$defaultpath""\e[0m"
+    echo -e "\033[31m""rsync" "\033[32m""-avhPSe ssh" "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".whatbox.ca:""\033[36m""~/$remotepath ~/$defaultpath""\e[0m"
     echo
     read -ep "Would you like to try and run this command in a screen [y] or exit now [e]: " confirmscreen1
     echo
@@ -249,7 +249,7 @@ then
             #
             screen -dmS rsynctk$mish
             sleep 2
-            screen -S rsynctk$mish -p 0 -X exec rsync -avhPSe "ssh -i $HOME/.ssh/rsynctk_rsa" $username@$servername.whatbox.ca:~/$path ~/$defaultpath
+            screen -S rsynctk$mish -p 0 -X exec rsync -avhPSe "ssh -i $HOME/.ssh/rsynctk_rsa" $username@$servername.whatbox.ca:~/$remotepath ~/$defaultpath
             echo
             echo "Here is the screen process"
             echo
@@ -257,10 +257,10 @@ then
             echo
             echo -e "\033[31m""Useful Notes:""\e[0m"
             echo -e "The normal command, requires you create a screen an enter your old slot's SSH password"
-            echo -e "\033[31m""rsync" "\033[32m""-avhPSe ssh" "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".whatbox.ca:""\033[36m""~/$path ~/$defaultpath""\e[0m"
+            echo -e "\033[31m""rsync" "\033[32m""-avhPSe ssh" "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".whatbox.ca:""\033[36m""~/$remotepath ~/$defaultpath""\e[0m"
             echo
             echo -e "The command that uses our public/private key file pair."
-            echo -e "\033[31m""rsync" "\033[32m""-avhPSe" "\e[0m""\033[37m""\"ssh -i $HOME/.ssh/rsynctk_rsa\"" "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".whatbox.ca:""\033[36m""~/$path ~/$defaultpath""\e[0m"
+            echo -e "\033[31m""rsync" "\033[32m""-avhPSe" "\e[0m""\033[37m""\"ssh -i $HOME/.ssh/rsynctk_rsa\"" "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".whatbox.ca:""\033[36m""~/$remotepath ~/$defaultpath""\e[0m"
             echo
             echo -e "\033[33m""The command to copy our public key to the old slot's" "\033[36m""~/.ssh/authorized_keys""\e[0m" "\033[33m""file.""\e[0m"
             echo -e "ssh-copy-id -i ~/.ssh/rsynctk_rsa.pub $username@$servername.whatbox.ca"
