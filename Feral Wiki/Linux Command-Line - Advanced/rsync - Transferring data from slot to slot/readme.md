@@ -1,4 +1,3 @@
-
 ### Rsync toolkit bash script
 
 Do this command on your **NEW** slot:
@@ -169,29 +168,29 @@ Here is the command broken down.
 -avhPS
 ~~~
 
--a, --archive           archive mode; equals -rlptgoD (no -H,-A,-X)
+-a, --archive       archive mode; equals -rlptgoD (no -H,-A,-X)
 
--r, --recursive         recurse into directories
--l, --links             copy symlinks as symlinks
--p, --perms             preserve permissions
--t, --times             preserve modification times
--g, --group             preserve group
--o, --owner             preserve owner (super-user only)
--D                      same as --devices --specials
+-r, --recursive     recurse into directories
+-l, --links         copy symlinks as symlinks
+-p, --perms         preserve permissions
+-t, --times         preserve modification times
+-g, --group         preserve group
+-o, --owner         preserve owner (super-user only)
+-D                  same as --devices --specials
 
--v, --verbose           increase verbosity
--h, --human-readable    output numbers in a human-readable format
--P                      same as --partial --progress
--S, --sparse            handle sparse files efficiently
+-v, --verbose       increase verbosity
+-h, --human-readableoutput numbers in a human-readable format
+-P                  same as --partial --progress
+-S, --sparse        handle sparse files efficiently
 
 **Optional arguments**
 
--n, --dry-run           perform a trial run with no changes made
--c, --checksum          skip based on checksum, not mod-time & size
--z, --compress          compress file data during the transfer
+-n, --dry-run       perform a trial run with no changes made
+-c, --checksum      skip based on checksum, not mod-time & size
+-z, --compress      compress file data during the transfer
 
 ~~~
--avhPSncz
+-anczvhPS
 ~~~
 
 

@@ -140,7 +140,7 @@ then
     echo
     if [[ $confirmscreen1 =~ ^[Yy]$ ]]
     then
-        if [ ! -f ~/.ssh/rsynctk_rsa ]
+        if [[ ! -f ~/.ssh/rsynctk_rsa ]]
         then
             ssh-keygen -q -t rsa -b 2048 -f ~/.ssh/rsynctk_rsa -N ''
         fi
@@ -226,7 +226,7 @@ then
     echo
     if [[ $confirmscreen1 =~ ^[Yy]$ ]]
     then
-        if [ ! -f ~/.ssh/rsynctk_rsa ]
+        if [[ ! -f ~/.ssh/rsynctk_rsa ]]
         then
             ssh-keygen -q -t rsa -b 2048 -f ~/.ssh/rsynctk_rsa -N ''
         fi
