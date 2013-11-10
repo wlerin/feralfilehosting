@@ -1,6 +1,6 @@
 #!/bin/bash
 # rsynctk
-scriptversion="1.1.3"
+scriptversion="1.1.4"
 scriptname="rsync"
 # randomessence
 ############################
@@ -20,6 +20,7 @@ scriptname="rsync"
 # 1.1.1 some visual tweaks and clearer echoes
 # 1.1.2 Option to select custom destination. Default is ~/rsync
 # 1.1.3 custom destination is created incase it is a nested location and other small tweaks
+# 1.1.4 allows the use of paths with spaces in the custom and screen command
 #
 ############################
 ### Version History Ends ###
@@ -158,12 +159,11 @@ then
         echo
         if [[ $confirmscreen2 =~ ^[Yy]$ ]]
         then
-            echo
             echo -e "\033[32m""I will now attempt to create a screen and start the proccess." "\033[31m""If you have not copied you public key it won't work.""\e[0m"
             #
             screen -dmS "rsynctk$mish"
             sleep 2
-            screen -S rsynctk$mish -p 0 -X exec rsync -avhPSe "ssh -i $HOME/.ssh/rsynctk_rsa" $username@$servername.feralhosting.com:~/$remotepath ~/$defaultpath
+            screen -S "rsynctk$mish" -p 0 -X exec rsync -avhPSe "ssh -i $HOME/.ssh/rsynctk_rsa" "$username"@"$servername".feralhosting.com:'"\$HOME/'"$remotepath"'"' "$HOME/$defaultpath"
             echo
             echo "Here is the screen process"
             echo
@@ -177,9 +177,9 @@ then
             echo -e "\033[31m""rsync" "\033[32m""-avhPSe" "\e[0m""\033[37m""\"ssh -i $HOME/.ssh/rsynctk_rsa\"" "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".feralhosting.com:""\033[36m""'\"\$HOME/$remotepath\"'"  "\"\$HOME/$defaultpath\"""\e[0m"
             echo
             echo -e "\033[33m""The command to copy our public key to the old slot's" "\033[36m""~/.ssh/authorized_keys""\e[0m" "\033[33m""file.""\e[0m"
-            echo -e "ssh-copy-id -i ~/.ssh/rsynctk_rsa.pub \"$username@$servername.feralhosting.com\""
+            echo -e "ssh-copy-id -i ~/.ssh/rsynctk_rsa.pub $username@$servername.feralhosting.com"
             echo
-            echo -e "Type:" "\033[33m""screen -r \"rsynctk$mish\"""\e[0m" "To attach to the screen"
+            echo -e "Type:" "\033[33m""screen -r rsynctk$mish""\e[0m" "To attach to the screen"
             echo
         fi
     fi
@@ -244,12 +244,11 @@ then
         echo
         if [[ $confirmscreen2 =~ ^[Yy]$ ]]
         then
-            echo
             echo -e "\033[32m""I will now attempt to create a screen and start the proccess." "\033[31m""If you have not copied you public key it won't work.""\e[0m"
             #
             screen -dmS "rsynctk$mish"
             sleep 2
-            screen -S rsynctk$mish -p 0 -X exec rsync -avhPSe "ssh -i $HOME/.ssh/rsynctk_rsa" $username@$servername.whatbox.ca:~/$remotepath ~/$defaultpath
+            screen -S "rsynctk$mish" -p 0 -X exec rsync -avhPSe "ssh -i $HOME/.ssh/rsynctk_rsa" "$username"@"$servername".whatbox.ca:'"\$HOME/'"$remotepath"'"' "$HOME/$defaultpath"
             echo
             echo "Here is the screen process"
             echo
@@ -263,9 +262,9 @@ then
             echo -e "\033[31m""rsync" "\033[32m""-avhPSe" "\e[0m""\033[37m""\"ssh -i $HOME/.ssh/rsynctk_rsa\"" "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".whatbox.ca:""\033[36m""'\"\$HOME/$remotepath\"'"  "\"\$HOME/$defaultpath\"""\e[0m"
             echo
             echo -e "\033[33m""The command to copy our public key to the old slot's" "\033[36m""~/.ssh/authorized_keys""\e[0m" "\033[33m""file.""\e[0m"
-            echo -e "ssh-copy-id -i ~/.ssh/rsynctk_rsa.pub \"$username@$servername.whatbox.ca\""
+            echo -e "ssh-copy-id -i ~/.ssh/rsynctk_rsa.pub $username@$servername.whatbox.ca"
             echo
-            echo -e "Type:" "\033[33m""screen -r \"rsynctk$mish\"""\e[0m" "To attach to the screen"
+            echo -e "Type:" "\033[33m""screen -r rsynctk$mish""\e[0m" "To attach to the screen"
             echo
         fi
     fi
