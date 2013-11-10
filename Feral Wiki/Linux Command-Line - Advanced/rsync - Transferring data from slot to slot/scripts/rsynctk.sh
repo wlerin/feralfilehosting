@@ -4,7 +4,7 @@ scriptversion="1.1.4"
 scriptname="rsync"
 # randomessence
 #
-# wget -qO ~/rsynctk.sh http://git.io/ikae7Q
+# wget -qO ~/rsynctk.sh http://git.io/ikae7Q && bash ~/rsynctk.sh
 #
 ############################
 ## Version History Starts ##
@@ -173,6 +173,7 @@ then
             screen -ls | grep "rsynctk$mish"
             echo
             echo -e "\033[31m""Useful Notes:""\e[0m"
+            echo
             echo -e "The normal command, requires you create a screen an enter your old slot's SSH password"
             echo -e "\033[31m""rsync" "\033[32m""-avhPSe ssh" "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".feralhosting.com:""\033[36m""'\"\$HOME/$remotepath\"'"  "\"\$HOME/$defaultpath\"""\e[0m"
             echo
@@ -258,6 +259,7 @@ then
             screen -ls | grep "rsynctk$mish"
             echo
             echo -e "\033[31m""Useful Notes:""\e[0m"
+            echo
             echo -e "The normal command, requires you create a screen an enter your old slot's SSH password"
             echo -e "\033[31m""rsync" "\033[32m""-avhPSe ssh" "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".whatbox.ca:""\033[36m""'\"\$HOME/$remotepath\"'"  "\"\$HOME/$defaultpath\"""\e[0m"
             echo
