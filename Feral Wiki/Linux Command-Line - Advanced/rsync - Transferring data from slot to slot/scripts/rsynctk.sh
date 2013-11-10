@@ -3,6 +3,9 @@
 scriptversion="1.1.4"
 scriptname="rsync"
 # randomessence
+#
+# wget -qO ~/rsynctk.sh http://git.io/ikae7Q
+#
 ############################
 ## Version History Starts ##
 ############################
