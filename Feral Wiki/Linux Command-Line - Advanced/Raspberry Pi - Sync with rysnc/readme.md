@@ -286,17 +286,17 @@ Credit to konichiwa, and ozymandias, for helping out with the technical stuff.
 
 **How the overall log file looks**
 
-![](http://img841.imageshack.us/img841/6223/rvzy.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Linux%20Command-Line%20-%20Advanced/Raspberry%20Pi%20-%20Sync%20with%20rysnc/1.1.png)
 
-![](http://img708.imageshack.us/img708/9253/a8rg.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Linux%20Command-Line%20-%20Advanced/Raspberry%20Pi%20-%20Sync%20with%20rysnc/2.2.png)
 
 [italic]The file will grow longer, the longer the script goes, and eventually say `Syncing Complete`
 
 **How the detailed log files look**
 
-![](http://img21.imageshack.us/img21/8522/mp8m.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Linux%20Command-Line%20-%20Advanced/Raspberry%20Pi%20-%20Sync%20with%20rysnc/3.3.png)
 
-![](http://img716.imageshack.us/img716/985/4gc7.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Linux%20Command-Line%20-%20Advanced/Raspberry%20Pi%20-%20Sync%20with%20rysnc/4.4.png)
 
 ### Troubleshooting 
 
@@ -318,21 +318,22 @@ sudo chown pi:pi –R *
 
 **The log showing up weird using SSH?**
 
-That’s because you need the GUI, to view the log properly. Follow this guide, to install tightvnc, so you can view your raspberry pi’s desktop remotely.
-[http://programmaticponderings.wordpress.com/2012/12/26/installing-tightvnc-on-the-raspberry-pi/](http://programmaticponderings.wordpress.com/2012/12/26/installing-tightvnc-on-the-raspberry-pi/) 
+That’s because you need the GUI, to view the log properly. Follow this guide, to install tightvnc, so you can view your raspberry pi’s desktop remotely - [installing tightvnc on the raspberry pi](http://programmaticponderings.wordpress.com/2012/12/26/installing-tightvnc-on-the-raspberry-pi/) 
 
 **Another way of monitoring if the pi is downloading.**
 
 We can see the general internet from the pi, using `bwm-ng`.
+
 To get this, type:
 
 ~~~
 sudo apt-get install bwm-ng
 ~~~
 
-When you now type `bwm-ng` in pi’s terminal, you can see the general speed the whole pi is using.
-But do you really want to type that long sentence each time to check the speed? NO
+When you now type `bwm-ng` in pi’s terminal, you can see the general speed the whole pi is using. But do you really want to type that long sentence each time to check the speed? NO
+
 We want to create an alias. So we only need to type `speed`, to see the speed.
+
 Type this in the terminal:
 
 ~~~
@@ -345,7 +346,8 @@ Now type this in:
 alias speed='bwm-ng'
 ~~~
 
-`Ctrl+x` then `y`, to save and exit.
+Then press and hold `CTRL` and then press `x` to save. Press `y` to confirm.
+
 For the alias to take effect, reboot the pi using:
 
 ~~~
@@ -368,7 +370,9 @@ Now add this to the document:
 ~~~
 
 As you proberly can see, you would have to type: `/opt/vc/bin/vcgencmd measure_temp'`, to see the temp, but now you only need to write `temp`.
-`Ctrl+x` then `y`, to save and exit.
+
+Then press and hold `CTRL` and then press `x` to save. Press `y` to confirm.
+
 For the alias to take effect, reboot the pi using:
 
 ~~~
