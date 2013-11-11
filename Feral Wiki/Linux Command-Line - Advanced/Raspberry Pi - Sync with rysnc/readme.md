@@ -6,23 +6,31 @@ This FAQ will explain, how you can sync specific folders to a raspberry pi, usin
 I strongly recommend to SSH into your pi, so you can just copy and paste the code, directly to the pi.
 
 **1:** First, we want to open the SSH from outside sources. To do that, you will have to connect your pi to your monitor, and plug in a keyboard. (Mouse not needed). Log into your pi by using:
-Username: pi
-Password default: raspberry
+
+**Username:** `pi`
+
+**Password default:** `raspberry`
+
 To get into the config of the pi, type:
 
 ~~~
 sudo raspi-config
 ~~~
 
- that will get you into a GUI.
-A super good idea, is first to `expand filesystem`, next `Change User Password`, then `Add to Rastrack` and `Internationalisation Options`. Here you can change the language if you want to, as well as the keyboard layout, and time zone. It is also safe, to enter the `Overclock` settings, and chose the preset `medium`. If you do this, you will also have to reboot the pi, before we continue. You are prompted for that. If not, type:
+That will get you into a GUI.
+
+A super good idea, is first to `expand filesystem` then `Change User Password`. Now `Add to Rastrack` and `Internationalisation Options`. Here you can change the language if you want to, as well as the keyboard layout, and time zone. It is also safe, to enter the `Overclock` settings, and chose the preset `medium`. If you do this, you will also have to reboot the pi, before we continue. You are prompted for that. If not, type:
 
 ~~~
 sudo reboot
 ~~~
 
 Now to enable the SSH access.  Enter `Advanced Options`, then `SSH`, and `Enable`. 
-Before we exit, go into `Advanced Options` again, and choose `Update`. This will update the entire pi. It will take 3-10 min, depending on overclock, and your SD card’s speed class. An SD card speed class 10, does a major difference. Just as big as going from HDD to SSD on a computer, if not bigger.
+
+Before we exit, go into `Advanced Options` again, and choose `Update`. This will update the entire pi. It will take `3` to `10` min, depending on overclock, and your SD card’s speed class. 
+
+An SD card speed class 10 can have a noticeable difference difference in large file transfers. Just as big as going from HDD to SSD on a computer, if not bigger.
+
 Reboot your pi, by using:
 
 ~~~
@@ -32,36 +40,38 @@ sudo reboot
 Go ahead, and unplug the pi form you monitor, as well as your keyboard.
 
 **2:** Now on your regular computer, you will need to connect to the pi.
-To do that, follow this guide: [https://www.feralhosting.com/faq/view?question=12](https://www.feralhosting.com/faq/view?question=12). Just replace `server.feralhosting.com`, with the IP of your raspberry pi.
+
+To do that, follow this guide: [SSH](https://www.feralhosting.com/faq/view?question=12). Just replace `server.feralhosting.com`, with the IP of your raspberry pi.
 
 ### Step 2: Installing rsync
 
-Since I want to make this in 
+Since I want to make this using sudo i will do this:
 
 ~~~
 sudo crontab –e
 ~~~
 
- and not 
+and not just using this command:
 
 ~~~
 crontab –e
 ~~~
 
-, I will be running everything with sudo in front of every command. This is especially important, when we make the SSH-keys, since sudo, and non-sudo, will store the keys different places. 
-If you don’t want to use 
+I will be running everything with `sudo` in front of every command. This is especially important, when we make the SSH-keys, since `sudo` will store the keys in different places.
+
+If you don’t want to use this command:
 
 ~~~
 sudo crontab –e
 ~~~
 
- but 
+but prefer to only use this version:
 
 ~~~
 crontab –e
 ~~~
 
-, then don’t use sudo at all.
+Then don’t use `sudo` at all.
 
 **1: rsync** To install rsync, SSH into your pi, and run this command:
 
@@ -84,22 +94,28 @@ Remember, if you want to use
 sudo crontab –e
 ~~~
 
- use sudo, if you want 
+Use sudo, or if you chose not to use sudo:
 
 ~~~
 crontab –e
 ~~~
 
-, don’t use sudo.
 Then run this command:
 
 ~~~
 sudo ssh-keygen -q -t rsa -b 2048 -N ''
 ~~~
 
-This will create a key, with no passphrase. It will hang for some time. 
-When is asks where to save it, just press enter, since we want it in the default directory.
-Now we want to transfer the public key, to feralhosting. 
+You can specify a name and path for this file if you want using the `-f` argument:
+
+~~~
+sudo ssh-keygen -q -f "/root/.ssh/mykey.pub" -t rsa -b 2048 -N ''
+~~~
+
+This will create a key, with no passphrase. It will hang for some time. When is asks where to save it, just press enter, since we want it in the default directory.
+
+Now we want to transfer the public key, to feralhosting.
+
 Type this command:
 
 ~~~
@@ -110,7 +126,8 @@ Done with the SSH-keys.
 
 ### Step 4: Making the rsync script
 
-We want to make many of these commands, and we want them to be run every 5 min. But if we simply put this into cron, cron will run it every 5 min. Since it’s unlikely that the first will be done in 5 min, multiple rsync’s will begin, downloading the same file. Then finally crash the pi. We would very much wan, to avoid this :D. 
+We want to make many of these commands, and we want them to be run every 5 min. But if we simply put this into cron, cron will run it every 5 min. Since it’s unlikely that the first will be done in 5 min, multiple rsync’s will begin, downloading the same file. Then finally crash the pi. We would very much wan, to avoid this:
+
 There is this thing called flock. It will create a `flocktmp.lock` file, denying any new rsync’s beginning, until the first one is done. We can simply not use this for all the rsync commands. That’s why we are going to put all the rsync’s, into one script.
 
 **1: The script**
@@ -163,8 +180,8 @@ What is the `2>&1 >` for? That I will explain later. But it’s related to our l
 
 I will first explain what exactly it does. The `2>&1 >` is a part of a log writing progress. If you write the rsync directly in the terminal, you would see the download speed, / size / ETA. We still want to be able to do this, even though it is being run automatically. `2>&1 >` will write a log, to `/home/pi/SB_sync_logs/1.name.of.folder.log`, containing the same info, as if it was being run manually in the terminal. So we will be able to see, how long the individual download is. Since the `.log` is being kept writing to, just close the log, and open it again, and it will be updated. The > at the end, means that it will overwrite the .log file, when it is being run again. That way we wont get a super long log file. IF you want a super long log file, just add an extra `>`. So it would be  `2>&1 >>`. I strongly recommend, not doing this though.
 
-This gives us an individual detailed log, for every rsync you make. 
-We also want a log, just showing the overall progress, of which rsync it is doing right now right?
+This gives us an individual detailed log, for every rsync you make. We also want a log, just showing the overall progress, of which rsync it is doing right now right?
+
 To do this, go ahead and open up your script again.
 
 **1: Completing the script**
@@ -175,10 +192,10 @@ To open your script, type:
 sudo nano $HOME/scripts/SB_sync
 ~~~
 
-Right under `#!/bin/sh`, type: `mkdir -p /home/pi/SB_sync_logs`. 
-This will make a directory, for all the small logs.
-On the third line, type: `echo "Syncing my rsync" > /home/pi/SB_sync.log`
-This will be the text showing up, in the `overall status` log. 
+Right under `#!/bin/sh`, type: `mkdir -p /home/pi/SB_sync_logs`. This will make a directory, for all the small logs.
+
+On the third line, type: `echo "Syncing my rsync" > /home/pi/SB_sync.log`. This will be the text showing up, in the `overall status` log.
+
 Your script should now look like this:
 
 ~~~
@@ -186,7 +203,13 @@ Your script should now look like this:
 mkdir -p /home/pi/SB_sync_logs
 echo "Syncing my rsync" > /home/pi/SB_sync.log
 /usr/bin/rsync -avhPS --chmod=a+rwx --delete user@server.feralhosting.com:'"path/to/remote/dir/"' "/path/to/store/on/pi" 2>&1 > /home/pi/SB_sync_logs/1.name.of.folder.log
-Repeat this progress, if you want another rsync in this script. MY whole script looks like this:
+~~~
+
+Repeat this progress, if you want another rsync in this script.
+
+My whole script looks like this:
+
+~~~
 #!/bin/sh
 mkdir -p /home/pi/SB_sync_logs
 echo "Syncing iRL HD" > /home/pi/SB_sync.log
@@ -218,26 +241,25 @@ echo "Syncing Complete" >> /home/pi/SB_sync.log
 
 Please notice, that ONLY the first `echo "Syncing my folder" > /home/pi/SB_sync.log`, have ONE >. All the others should have two `>>`. As you can see in my script above. Also notice, that the numbers in the rsync command itself, goes higher and higher, depending on how many rsyncs you have.
 
-Now, `ctrl+x`  then `y`, to save and exit. 
+Then press and hold `CTRL` and then press `x` to save. Press `y` to confirm.
 
 ### Step 6: Check the script
 
 Okay, so now we want to see if the script actually works. The first time it is used, you will have to accept feralhosting’s fingerprint. Else cron won’t be able to run it. The smart thing with our cron logs, is that it does not only show progress, it also shows errors. This can come in very handy.
+
 So to accept feralhosting’s fingerprint, we will have to run the script manually at least one time.
+
 Type:
 
 ~~~
 $HOME/scripts/SB_sync
 ~~~
 
-Then accept feralhosting’s fingerprint. 
-When the sync then starts, just cancel it again. 
-Hold ctrl+c to do that. 
+Then accept feralhosting’s fingerprint. When the sync then starts, just cancel it again. Hold `CTRL` and then press `c` to do that. 
 
 ### Step 7: flock
 
-As said earlier, we only want this script run, if it aint already running. 
-To do that, we need to modify our cron job, in the cron tab. 
+As said earlier, we only want this script run, if it aint already running. To do that, we need to modify our cron job, in the cron tab. 
 
 **1: Making the cron entry**
 
