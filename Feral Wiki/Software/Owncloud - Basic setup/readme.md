@@ -1,4 +1,6 @@
 
+**Important note:** Owncloud does not work with nginx.
+
 Owncloud Manual installation
 
 In [SSH](https://www.feralhosting.com/faq/view?question=12) run this command. It will download the `setup.php` to the root of your `WWW`
