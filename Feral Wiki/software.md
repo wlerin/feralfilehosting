@@ -198,3 +198,31 @@ cd ~/ImageMagick-6.8.7-5
 make && make install && cd 
 rm -rf ~/imagemagick.tar.gz ~/ImageMagick-6.8.7-5
 ~~~
+
+### Wired
+
+[http://wired.read-write.fr/](http://wired.read-write.fr/)
+
+~~~
+wget -qO ~/wired.tar.gz http://downloads.sourceforge.net/project/wired2/wired/wired.tar.gz
+tar xf ~/wired.tar.gz && cd ~/wired
+env CPPFLAGS="-I$HOME/programs/include" LDFLAGS="-L$HOME/programs/lib" ./configure --prefix=$HOME/ --with-user=$(whoami) --with-group=$(whoami)
+make && make install
+rm -rf ~/wired ~/wired.tar.gz 
+~~~
+
+### ruby
+
+~~~
+wget -qO ~/ruby.tar.gz http://cache.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz
+tar xf ~/ruby.tar.gz && cd ~/ruby-*
+./configure --prefix=$HOME/programs && make && make install
+cd && rm -rf ~/ruby-* ~/ruby.tar.gz
+~~~
+
+Now these to check your versions:
+
+~~~
+ruby -v
+gem -v
+~~~

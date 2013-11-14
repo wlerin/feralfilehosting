@@ -7,7 +7,7 @@ mkdir -p ~/programs
 
 ~~~
 wget -qO ~/ruby.tar.gz http://cache.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz
-tar -xzf ~/ruby.tar.gz && cd ~/ruby-*
+tar xf ~/ruby.tar.gz && cd ~/ruby-*
 ./configure --prefix=$HOME/programs && make && make install
 cd && rm -rf ~/ruby-* ~/ruby.tar.gz
 ~~~
@@ -27,10 +27,5 @@ This command to update gems to 2.0.3
 gem update --system
 ~~~
 
-### Optional Stuff: ###
 
-Specify a custom libraries path by customising and then adding this line to the end of your `~/.basrc`.
 
-~~~
-GEM_HOME=~/path/to/my/libs:$PATH
-~~~
