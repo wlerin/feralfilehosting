@@ -33,10 +33,9 @@ I will call mine `pydio.conf`. Now add these lines to it and save the changes.
 ~~~
 location /pydio/conf/       { deny all; }
 location /pydio/data/       { deny all; }
+location /pydio/data/public       { allow all; }
 location /pydio/robots.txt  { access_log off; log_not_found off; }
 location /pydio/favicon.ico { access_log off; log_not_found off; }
-location ~ /pydio/\.          { access_log off; log_not_found off; deny all; }
-location ~ /pydio/~$           { access_log off; log_not_found off; deny all; }
 ~~~
 
 Now reload the configurations using this command (You can ignore errors about the log file):
