@@ -55,7 +55,7 @@ This means you can turn off your PC and it will not affect the running processes
 
 ### Rutorrent Web Gui
 
-**Important note:** Rutorrent (Gui) is blamed for causing rtorrent (the actual program) to crash and become unstable when dealing with large number of active torrents. In this case it is recommended to only use rtorrent (SSH) for managing your torrents. This means you should avoid using the Gui with large volumes of files and active torrents.
+**Important note:** Rutorrent (Gui) is blamed for causing rtorrent (the actual program) to crash and become unstable when dealing with large number of active torrents, in the range 1500 to 5000. In this case it is recommended to only use rtorrent (SSH) for managing your torrents. This means you should avoid using the Gui with large volumes of files and active torrents.
 
 [ruTorrent](http://code.google.com/p/rutorrent/) is a front-end for the popular Bittorrent client [rTorrent](http://libtorrent.rakshasa.no/). It uses the power of the rtorrent back-end combined with the Web interface from utorrent for one powerful combination. rtorrent is a very powerful client, and comes preconfigured with settings. The default settings work fine so you should only troubleshoot by changing the settings as a last resort. Rutorrent comes with a number of plug-ins installed that expand what rutorrent can do. rtorrent without a Web Gui can handle thousands of torrents and is highly stable.
 
