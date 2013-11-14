@@ -126,6 +126,10 @@ Thumbs.db
 # Folder config file
 Desktop.ini
 
+# goodsync
+
+**/_gsdata_
+
 
 #############
 ## Python
