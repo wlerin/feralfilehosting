@@ -3,10 +3,10 @@ In SSH do these commands. Use this FAQ if you do not know how to SSH into your s
 
 These commands will download the linked version of node.js and set it up inside your `~/private` directory.
 
-This downloads the `node-v0.10.21-linux-x64.tar.gz` and then saves it as `node.tar.gz` in your  `~/private` directory.
+This downloads the `node-v0.10.22-linux-x64.tar.gz` and then saves it as `node.tar.gz` in your  `~/private` directory.
 
 ~~~
-wget -qO ~/node.js.tar.gz http://nodejs.org/dist/v0.10.21/node-v0.10.21-linux-x64.tar.gz
+wget -qO ~/node.js.tar.gz http://nodejs.org/dist/v0.10.22/node-v0.10.22-linux-x64.tar.gz
 ~~~
 
 This unpacks the folder archived inside the node.tar.gz.
@@ -42,7 +42,7 @@ node -v
 Which should return:
 
 ~~~
-v0.10.21
+v0.10.22
 ~~~
 
 If you see the version then it is ready to use.

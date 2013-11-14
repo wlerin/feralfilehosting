@@ -45,7 +45,7 @@ To do that, follow this guide: [SSH](https://www.feralhosting.com/faq/view?quest
 
 ### Step 2: Installing rsync
 
-Since I want to make this using sudo i will do this:
+Since I want to make this using `sudo`, i will do this:
 
 ~~~
 sudo crontab –e
@@ -290,7 +290,7 @@ Credit to konichiwa, and ozymandias, for helping out with the technical stuff.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Linux%20Command-Line%20-%20Advanced/Raspberry%20Pi%20-%20Sync%20with%20rysnc/2.2.png)
 
-[italic]The file will grow longer, the longer the script goes, and eventually say `Syncing Complete`
+The file will grow longer, the longer the script goes, and eventually say `Syncing Complete`
 
 **How the detailed log files look**
 
@@ -302,7 +302,7 @@ Credit to konichiwa, and ozymandias, for helping out with the technical stuff.
 
 **Are you having problems with permissions?**
 
-This command, will give it 777 rights (Open to EVERYONE)
+This command, will give it `777` rights (Open to EVERYONE)
 
 ~~~
 sudo chmod –R 777 *
@@ -318,7 +318,9 @@ sudo chown pi:pi –R *
 
 **The log showing up weird using SSH?**
 
-That’s because you need the GUI, to view the log properly. Follow this guide, to install tightvnc, so you can view your raspberry pi’s desktop remotely - [installing tightvnc on the raspberry pi](http://programmaticponderings.wordpress.com/2012/12/26/installing-tightvnc-on-the-raspberry-pi/) 
+You can also use nano in terminal. The catch is, that nano will just show one long gigantic line. You can go to the end of that line, by pressing `ctrl` plus `e` and to the start of the line, by pressing `ctrl` plus `a`. But if you want to have a MUCH better overview, you're want to use tightvnc.
+
+That’s because you need the GUI, to view the log properly. Follow this guide, to install `tightvnc`, so you can view your raspberry pi’s desktop remotely - [installing tightvnc on the raspberry pi](http://programmaticponderings.wordpress.com/2012/12/26/installing-tightvnc-on-the-raspberry-pi/) 
 
 **Another way of monitoring if the pi is downloading.**
 
@@ -369,7 +371,7 @@ Now add this to the document:
  alias temp='/opt/vc/bin/vcgencmd measure_temp'
 ~~~
 
-As you proberly can see, you would have to type: `/opt/vc/bin/vcgencmd measure_temp'`, to see the temp, but now you only need to write `temp`.
+As you proberly can see, you would have to type: `/opt/vc/bin/vcgencmd measure_temp`, to see the temp, but now you only need to write `temp`.
 
 Then press and hold `CTRL` and then press `x` to save. Press `y` to confirm.
 

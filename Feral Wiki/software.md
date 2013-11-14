@@ -14,7 +14,8 @@ mkdir -p ~/programs
 wget -qO ~/curl.tar.gz http://curl.haxx.se/download/curl-7.33.0.tar.gz
 tar xf ~/curl.tar.gz && cd ~/curl-7.33.0
 ./configure --prefix=$HOME/programs
-make && make install && cd && rm -rf ~/curl-7.33.0 ~/curl.tar.gz
+make && make install && cd
+rm -rf ~/curl-7.33.0 ~/curl.tar.gz
 ~~~
 
 ### Cmake
@@ -24,7 +25,8 @@ wget -qO ~/cmake.tar.gz http://www.cmake.org/files/v2.8/cmake-2.8.12.tar.gz
 tar xf ~/cmake.tar.gz && cd ~/cmake-2.8.12
 ./bootstrap --prefix=$HOME/programs
 ./configure --prefix=$HOME/programs
-make && make install && cd && rm -rf ~/cmake.tar.gz ~/cmake-2.8.12
+make && make install && cd
+rm -rf ~/cmake.tar.gz ~/cmake-2.8.12
 ~~~
 
 ### WeeChat - curl first
@@ -54,17 +56,18 @@ make && make install && cd && rm -rf ~/weechat.tar.gz ~/weechat-0.4.2
 ### node
 
 ~~~
-wget -qO ~/node.tar.gz http://nodejs.org/dist/v0.10.20/node-v0.10.20.tar.gz
+wget -qO ~/node.tar.gz http://nodejs.org/dist/v0.10.22/node-v0.10.22.tar.gz
 tar xf ~/node.tar.gz && cd ~/node-v0.10.*
 ./configure --prefix=$HOME/programs
-make && make install && cd && rm -rf ~/node-v0.10.*/ ~/node.tar.gz
+make && make install && cd
+rm -rf ~/node-v0.10.*/ ~/node.tar.gz
 ~~~
 
 ### git - curl first
 
 ~~~
-wget -qO ~/git-1.8.4.2.tar.gz http://git-core.googlecode.com/files/git-1.8.4.2.tar.gz
-tar xf ~/git-1.8.4.2.tar.gz && cd ~/git-1.8.4.2
+wget -qO ~/git-1.8.4.3.tar.gz http://git-core.googlecode.com/files/git-1.8.4.3.tar.gz
+tar xf ~/git-1.8.4.3.tar.gz && cd ~/git-1.8.4.3
 ~~~
 
 Feral default:
@@ -101,7 +104,8 @@ tar xf ~/protobuf-2.5.0.tar.gz && cd ~/protobuf-2.5.0
 wget -qO ~/mosh-1.2.4.tar.gz http://mosh.mit.edu/mosh-1.2.4.tar.gz
 tar xf ~/mosh-1.2.4.tar.gz && cd ~/mosh-1.2.4
 ./configure --prefix=$HOME/programs PKG_CONFIG_PATH=$HOME/programs/lib/pkgconfig
-make && make install && cd && rm -rf ~/mosh-1.2.4.tar.gz ~/mosh-1.2.4
+make && make install && cd
+rm -rf ~/mosh-1.2.4.tar.gz ~/mosh-1.2.4
 ~~~
 
 ### sqlite
@@ -109,7 +113,8 @@ make && make install && cd && rm -rf ~/mosh-1.2.4.tar.gz ~/mosh-1.2.4
 ~~~
 wget -qO ~/sqlite3.tar.gz http://www.sqlite.org/2013/sqlite-autoconf-3080002.tar.gz
 tar xf ~/sqlite3.tar.gz && cd ~/sqlite-*/
-./configure --prefix=$HOME/programs && make && make install && cd && rm -rf ~/sqlite-*/ ~/sqlite3.tar.gz
+./configure --prefix=$HOME/programs && make && make install && cd
+rm -rf ~/sqlite-*/ ~/sqlite3.tar.gz
 ~~~
 
 Some programs require linking to the installation like this:
@@ -124,7 +129,8 @@ env CPPFLAGS="-I$HOME/programs/include" LDFLAGS="-L$HOME/programs/lib" ./configu
 wget -qO ~/librsync.tar.gz http://downloads.sourceforge.net/project/librsync/librsync/0.9.7/librsync-0.9.7.tar.gz
 tar xf ~/librsync.tar.gz && cd ~/librsync-0.9.7
 ./configure --prefix=$HOME/programs --with-pic
-make && make install && cd && rm -rf ~/librsync-0.9.7 ~/librsync-0.9.7
+make && make install && cd
+rm -rf ~/librsync-0.9.7 ~/librsync-0.9.7
 ~~~
 
 ### duplicity
@@ -181,3 +187,14 @@ make && make install && cd
 rm -rf ~/sphinx.tar.gz ~/sphinx-2.1.2-release
 ~~~
 
+### Imagemagick
+
+~~~
+mkdir -p ~/programs
+wget -qO ~/imagemagick.tar.gz http://www.imagemagick.org/download/ImageMagick.tar.gz
+tar xf ~/imagemagick.tar.gz
+cd ~/ImageMagick-6.8.7-5
+./configure --prefix=$HOME/programs
+make && make install && cd 
+rm -rf ~/imagemagick.tar.gz ~/ImageMagick-6.8.7-5
+~~~
