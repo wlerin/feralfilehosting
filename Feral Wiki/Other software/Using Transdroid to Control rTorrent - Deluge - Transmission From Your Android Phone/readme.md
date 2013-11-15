@@ -1,12 +1,6 @@
 
 [Transdroid](http://transdroid.org) can be used to control rTorrent from your Android phone.
 
-[Transdroid-desktop](http://code.google.com/p/transdroid-desktop/) can be used on your computer to control rtorrent(Cross-platform).
-
-See the end of the FAQ for setting up Transdroid desktop.
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/1.png)
-
 ### Rutorrent
 
 **Important note:** To use transdroid with rutorrent/rtorrent you are required to:
@@ -15,15 +9,21 @@ See the end of the FAQ for setting up Transdroid desktop.
 
 **2:** Then [update to nginx using this FAQ](https://www.feralhosting.com/faq/view?question=231). Once you have done that, use this information below to use transdroid to connect to rtorrent.
 
-Open Transdroid on your device and open the settings, then click on `Add new server`.
+## rutorrent
+
+Open Transdroid on your device. Click on the menu button and then click on `settings`. 
+
+then click on `Add new server`.
 
 **Name:** Can be anything you want, such as `feral`
 
 **Server type:** rtorrent
 
-**Set IP/domain:** `server.feralhosting.com` (server is the servername of your slot)
+**IP or host name:** `server.feralhosting.com` (server is the servername of your slot)
 
-**Port:** `443`
+**User Name:** `443`
+
+**Password:** `443`
 
 **Important note:** Transdroid 2 this is under Advanced Settings as the option "Port number".
 
@@ -97,11 +97,6 @@ If you get an error about Web Gui not being connected to a daemon log in via the
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/deluge/deluge.ssl.png)
 
-### Transdroid desktop
-
-Rutorrent.
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/transdroid.desktop.png)
 
 
 
