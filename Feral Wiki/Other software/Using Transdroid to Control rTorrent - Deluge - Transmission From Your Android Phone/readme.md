@@ -1,7 +1,7 @@
 
 [Transdroid](http://transdroid.org) can be used to control rTorrent from your Android phone.
 
-### Rutorrent
+## Required prerequisites
 
 **Important note:** To use transdroid with rutorrent/rtorrent you are required to:
 
@@ -33,8 +33,6 @@ You will now see this:
 
 **IP or host name:** `server.feralhosting.com` (server is the servername of your slot)
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/rutorrent.slotdetails.png)
-
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/rutorrent/hostname.png)
 
 **User Name:** `rutorrent`
@@ -43,29 +41,27 @@ You will now see this:
 
 **Password:** `*********`  This password will be the password shown in your Slot Details page for the relevant slot.
 
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/rutorrent.slotdetails.png)
+
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/rutorrent/password.png)
 
-**SCGI Folder:** `/username/rtorrent/rpc` (case sensitive and where username is your Feral username)
+### Advanced Options
 
-**Important note:** Transdroid 2 this is under Advanced Settings as the option "Folder". Set the `SCGI` path there.
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/main/advancedoptions.png)
 
-You need the `/` at the beginning and no trailing slash.
+***Port numder** `443`
 
-**Use authentication:** `Yes` (checked)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/main/port.png)
 
-**Username:** `rutorrent`
+**SCGI/Folder:** `/username/rtorrent/rpc` (case sensitive and where username is your Feral username)
 
-**Password:** The password listed on your manager page for the rutorrent Web Gui
+**Important note:** You need the `/` at the beginning and no trailing slash.
 
-When entering your password, if you rotate your phone horizontally you can see the characters.
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/rutorrent/scgipath.png)
 
 **Server OS:** `Linux`
 
-**Important note:** Transdroid 2 this is under Optional Settings as the option "Server OS".
-
 **SSL**
-
-**Important note:** Transdroid 2 this is under Advanced as the option "Use SSL"
 
 ### Deluge
 
