@@ -3,7 +3,8 @@
 
 [Transdroid](http://transdroid.org) can be used to control rTorrent from your Android phone.
 
-## Required prerequisites
+Required prerequisites
+---
 
 **Important note:** To use transdroid with rutorrent/rtorrent you are required to:
 
@@ -63,7 +64,7 @@ Click on `Advanced Options` now. You will see this list of options.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/rutorrent/scgipath.png)
 
-**Use SSL** MAke sure to tick this box
+**Use SSL** Make sure to tick this box
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/main/ssl.png)
 
@@ -126,6 +127,12 @@ Click on `Options Settings` now.
 **Server OS:** `Linux`
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/main/port.png)
+
+**Important note:**
+
+You may need to close and restart Transdroid for deluge to actually connect. It can fail with an error until you force a restart.
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/main/forceend.png)
 
 If all settings were correctly entered you should now be able to connect:
 
