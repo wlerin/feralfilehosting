@@ -69,9 +69,11 @@ Click on `Advanced Options` now. You will see this list of options.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/main/ssl.png)
 
-### Options Settings
+### Optional Settings
 
-Click on `Options Settings` now.
+Click on `Optional Settings` now.
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/main/optionalsettings.png)
 
 **Server OS:** `Linux`
 
@@ -122,9 +124,11 @@ Click on `Advanced Options` now. You will see this list of options.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/main/ssl.png)
 
-### Options Settings
+### Optional Settings
 
-Click on `Options Settings` now.
+Click on `Optional Settings` now.
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/main/optionalsettings.png)
 
 **Server OS:** `Linux`
 
