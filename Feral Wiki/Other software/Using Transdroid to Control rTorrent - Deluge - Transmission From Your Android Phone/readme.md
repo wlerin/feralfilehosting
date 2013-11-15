@@ -11,31 +11,45 @@
 
 ## rutorrent
 
-Open Transdroid on your device. Click on the menu button and then click on `settings`. 
+Open Transdroid 2 on your device. Click on the menu button and then click on `settings`.
 
-then click on `Add new server`.
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/main/settings.png)
+
+Then click on `Add new server`.
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/main/addserver.png)
+
+You will now see this:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/main/mainoptions.png)
 
 **Name:** Can be anything you want, such as `feral`
 
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/rutorrent/name.png)
+
 **Server type:** rtorrent
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/rutorrent/servertype.png)
 
 **IP or host name:** `server.feralhosting.com` (server is the servername of your slot)
 
-**User Name:** `443`
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_ssh.png)
 
-**Password:** `443`
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/rutorrent/hostname.png)
 
-**Important note:** Transdroid 2 this is under Advanced Settings as the option "Port number".
+**User Name:** `rutorrent`
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/rutorrent/rutorrent.host.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/rutorrent/username.png)
+
+**Password:** `*********`  This password will be the password shown in your Slot Details page for the relevant slot.
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/rutorrent/password.png)
 
 **SCGI Folder:** `/username/rtorrent/rpc` (case sensitive and where username is your Feral username)
 
 **Important note:** Transdroid 2 this is under Advanced Settings as the option "Folder". Set the `SCGI` path there.
 
 You need the `/` at the beginning and no trailing slash.
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/rutorrent/rutorrent.rpc.png)
 
 **Use authentication:** `Yes` (checked)
 
@@ -45,19 +59,13 @@ You need the `/` at the beginning and no trailing slash.
 
 When entering your password, if you rotate your phone horizontally you can see the characters.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/rutorrent/rutorrent.auth.png)
-
 **Server OS:** `Linux`
 
 **Important note:** Transdroid 2 this is under Optional Settings as the option "Server OS".
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/rutorrent/rutorrent.os.png)
-
 **SSL**
 
 **Important note:** Transdroid 2 this is under Advanced as the option "Use SSL"
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/rutorrent/rutorrent.ssl.png)
 
 ### Deluge
 
@@ -73,29 +81,19 @@ Open Transdroid on your device and open the settings, then click on `Add new ser
 
 **Port:** `443`
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/deluge/deluge.host.png)
-
 **Deluge Web Password:** your Web Gui password from your Slot Details page. (Not to be confused with Require Authentication option)
 
 When entering your password, if you rotate your phone horizontally you can see the characters.
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/deluge/deluge.webpass.png)
 
 **Folder:** `/username/deluge` (username is your Feral username)
 
 You need the `/` at the beginning and no trailing slash.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/deluge/deluge.folder.png)
-
 **Server OS:** `Linux`
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/deluge/deluge.os.png)
 
 If you get an error about Web Gui not being connected to a daemon log in via the Web Gui and connect to the daemon, then try again.
 
 **SSL**
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/deluge/deluge.ssl.png)
 
 
 
