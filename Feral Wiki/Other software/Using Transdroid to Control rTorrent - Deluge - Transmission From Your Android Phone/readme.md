@@ -159,7 +159,7 @@ transmission
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/transmission/servertype.png)
 
-**Set IP/domain:** `server.feralhosting.com` (where server is the name of the actual server that hosts the relevant slot)
+**Set IP/domain:** `server.feralhosting.com` (where `server` is the name of the actual server that hosts the relevant slot)
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/main/hostname.png)
 
