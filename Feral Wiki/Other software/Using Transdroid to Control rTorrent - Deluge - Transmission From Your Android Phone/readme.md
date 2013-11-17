@@ -8,7 +8,7 @@ Required prerequisites
 
 **1:** Have rutorrent/rtorrent installed already via the Software Install page for the relevant slot.
 
-**2:** For rutorrent you must then [update to nginx using this FAQ](https://www.feralhosting.com/faq/view?question=231). Once you have done that, use this information below to use transdroid to connect to rutorrent.
+**2:** You must then [update to nginx using this FAQ](https://www.feralhosting.com/faq/view?question=231). Once you have done that, use this information below to use transdroid to connect to rutorrent.
 
 Open Transdroid 2 on your device. Click on the menu button and then click on `settings`.
 
@@ -98,7 +98,7 @@ Deluge
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/deluge/servertype.png)
 
-**Set IP/domain:** `server.feralhosting.com` (where server is the name of the actual server that hosts the relevant slot)
+**Set IP/domain:** `server.feralhosting.com` (where `server` is the name of the actual server that hosts the relevant slot)
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/main/hostname.png)
 
@@ -171,7 +171,7 @@ transmission
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/transmission.slotdetails.png)
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/transmission/password.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/main/password.png)
 
 **Port number** `443`
 
@@ -179,7 +179,7 @@ transmission
 
 **Folder:** `/username/transmission/` (case sensitive and where username is your Feral username)
 
-**Important note:** You need the `/` at the beginning and at the end.
+**Important note:** You need the leading `/` at the beginning and the trailing `/` at the end.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/transmission/folderpath.png)
 
