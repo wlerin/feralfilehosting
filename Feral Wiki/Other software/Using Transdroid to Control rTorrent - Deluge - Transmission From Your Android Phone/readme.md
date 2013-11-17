@@ -148,7 +148,8 @@ If all settings were correctly entered you should now be able to connect:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/deluge/delugefinal.png)
 
-## transmission
+transmission
+---
 
 **Name:** Can be anything you want, such as `transmission`
 
@@ -172,7 +173,7 @@ If all settings were correctly entered you should now be able to connect:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/transmission/password.png)
 
-***Port number** `443`
+**Port number** `443`
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/main/port.png)
 
