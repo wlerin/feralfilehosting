@@ -1,4 +1,3 @@
-
 Your FTP / SFTP / SSH login information can be found on the Slot Details page for the relevant slot.
 
 Use this link in your Account Manager to access the relevant slot:
@@ -48,7 +47,7 @@ Once you have installed Filezilla, run the application and you will be able to w
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SFTP%20and%20FTP/FTP%20and%20SFTP%20basics%20-%20Filezilla/9.png)
 
-*After clicking Connect or OK this site will now be saved to the Site Manager for future use or using quick connects as shown in image 3.*
+**Important note:** After clicking Connect or OK this site will now be saved to the Site Manager for future use or using quick connects as shown in image 3.
 
 If you need to use a keyfile for connecting please follow the steps in these images below for adding your key to Filezilla according to these rules:
 

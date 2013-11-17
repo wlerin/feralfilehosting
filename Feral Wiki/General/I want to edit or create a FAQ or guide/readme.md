@@ -17,11 +17,11 @@ You can use Markdown to edit or create a FAQ if you wish. You will have to conve
 
 Here are some good on-line Markdown editors.
 
-[http://benweet.github.io/stackedit/](http://benweet.github.io/stackedit/)
+[stackedit.io](https://stackedit.io/)
 
-[http://markable.in/](http://markable.in/editor/) 
+[markable.in](http://markable.in/editor/) 
 
-[http://dillinger.io](http://dillinger.io/)
+[dillinger.io](http://dillinger.io/)
 
 There is also a BBCode to Markdown tool for porting an existing FAQ so it can be edited or updated in Markdown and then converted back.
 
@@ -36,12 +36,13 @@ For example you would close code like this: `[/code]`
 
 ### Title tags:
 
-`[h1]` Title h1 `[/h1][/code]
+`[h1]` Title h1 `[/h1]`
 
 Here is the markdown equivalent:
 
 Markdown Title h1
 `===`
+
 
 `[h2]` Title h2 `[/h2]`
 
@@ -49,6 +50,7 @@ Here is the markdown equivalent:
 
 Markdown Title h2
 `---`
+
 
 `[h3]` Title h3 `[/h3]`
 
@@ -144,7 +146,7 @@ Here is the markdown equivalent:
 
 `*` italic `*`
 
-`[em]` italic (can/will be manually replaced by italic) `[/em]`
+`[em]` italic (will be manually replaced by italic) `[/em]`
 
 Here is the markdown equivalent:
 
@@ -200,15 +202,15 @@ Here is the markdown equivalent:
 
 ### Custom Software
 
-Custom software installations that have a typical structures, such as `~/something/bin` should be installed to `~/programs`. The use this command to add it to the [code single]PATH[/code] if needed. This will fall in line with other software installation FAQs.
+Custom software installations that have a typical structures, such as `~/something/bin` should be installed to `~/programs`. The use this command to add it to the `PATH` if needed. This will fall in line with other software installation FAQs.
 
 ~~~
-[[ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
+[[ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'export PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
 Exceptions to the rule?
 
-1: Programs like AeroFS and Spideroak that do not have a directory structure that would work for the [code single]~/programs[/code] location or other self contained applications.
+1: Programs like AeroFS and Spideroak that do not have a directory structure that would work for the `~/programs` location or other self contained applications.
 
 2: Programs that might conflict with slot operations such as Python. Then use a custom location for this software. Try not to use a very complex or needlessly deep directory structure.
 
@@ -223,7 +225,7 @@ When a `--user` mod is installed using the slot's included Python, it will alway
 So in this case, use this command to add the `PATH` to the `~/.bashrc`. This will fall in line with other Python FAQs.
 
 ~~~
-[[ ! "$(grep '~/.local/bin' ~/.bashrc)" ]] && echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
+[[ ! "$(grep '~/.local/bin' ~/.bashrc)" ]] && echo 'export PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
 ### File Hosting
@@ -246,9 +248,7 @@ Please leave 4 blank lines at the end of any question you edit or submit. This i
 
 Credit will be attributed to the original author(s) where needed manually. So do not worry about this.
 
-**After you have edited the guide please submit a ticket called:**
-
-`FAQ Edit - FAQ name - Category`
+**Attention:** After you have edited the guide please submit a ticket using the title format `FAQ Edit - FAQ name - Category`
 
 In the body submit a link to the FAQ you edited. So for example:
 
@@ -431,7 +431,7 @@ You can do it in SSH using this command.
 curl -i http://git.io -F "url=YOU.URL.HERE"
 ~~~
 
-**Chaining Commands**
+### Chaining Commands
 
 The use of `&&` will move to the next command if the previous command was successful.
 
@@ -459,6 +459,26 @@ if you add a `&` to the end of your command it will be sent to the background as
 
 ### Crontab
 
+**Important note:** It is generally best practice to use full paths to the programs you wish to execute. To get the full path do this in SSH:
+
+Use the `whereis` command to find the binary locations:
+
+~~~
+whereis cp
+~~~
+
+Will return something like this:
+
+~~~
+cp: /bin/cp /usr/share/man/man1/cp.1.gz
+~~~
+
+Here the path we need is:
+
+~~~
+/bin/cp
+~~~
+
 To edit your crontab:
 
 ~~~
@@ -480,7 +500,7 @@ For example:
 You can use this command to easily create a cronjob for users in some sort of support capacity:
 
 ~~~
-(crontab -l ; echo "* * * * * some/cron/thing") |uniq - | crontab -
+(crontab -l ; echo "* * * * * some/cron/thing") | uniq - | crontab -
 ~~~
 
 This will create a specified cronjob while also checking to make sure it is not created more than once. So with a single command you can have create and insert a cronjob for a user. It only checks vs the last entry though.
