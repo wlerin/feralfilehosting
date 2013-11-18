@@ -20,21 +20,21 @@ You should be able to just click on this file from your apache/ngninx/h5ai index
 
 **1:** Just click next
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Owncloud%20-%20Basic%20setup/web-install-1.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Owncloud%20-%20Basic%20setup/web-install-1.png)
 
 **2:** Leave the installation directory as `owncloud`. This will create and install it to a the `/owncloud` directory in your server root.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Owncloud%20-%20Basic%20setup/web-install-2.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Owncloud%20-%20Basic%20setup/web-install-2.png)
 
 **3:** Click next when done to visit the final stage of the setup.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Owncloud%20-%20Basic%20setup/web-install-3.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Owncloud%20-%20Basic%20setup/web-install-3.png)
 
 The easiest way to install Owncloud is to use the sqlite database option (default). Using MySQL can be done but requires a lot of extra steps that we are not going to cover in this basic set-up.
 
 Once you have visited the URl in a browser you will see this:
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Owncloud%20-%20Basic%20setup/1.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Owncloud%20-%20Basic%20setup/1.png)
 
 ### Using Owncloud with the valid SSL URL format instead of the default.
 
@@ -59,7 +59,7 @@ Where `server` is the name of your Feral server that is hosting owncloud and whe
 
 Once you have done this is will look something like this:
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Owncloud%20-%20Basic%20setup/config.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Owncloud%20-%20Basic%20setup/config.png)
 
 Now Owncloud will work with the valid SSL URL format and not the other. All 3rd party apps will also work, so this is the best approach to dealing with the issue.
 
