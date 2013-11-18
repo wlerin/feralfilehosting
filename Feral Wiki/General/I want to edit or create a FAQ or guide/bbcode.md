@@ -1,10 +1,10 @@
 
-[h3]How do I create a FAQ?[/h3]
+[h2]How do I create a FAQ?[/h2]
 Click on this link: [url=https://www.feralhosting.com/faq/add]Add a Question[/url] and paste in your formatted text as the answer. Your question is the Title of the FAQ or guide. Open a ticket as outlined below to inform staff of the new FAQ.
 
 See below for formatting guidelines
 
-[h3]How do I edit a FAQ?[/h3]
+[h2]How do I edit a FAQ?[/h2]
 Simply [b]click on edit at the bottom of the FAQ[/b] and submit your edited version along with reason for the change.
 
 You can use Markdown to edit or create a FAQ if you wish. You will have to convert it to Feral BBCode using this tool:
@@ -15,11 +15,11 @@ You can use Markdown to edit or create a FAQ if you wish. You will have to conve
 
 Here are some good on-line Markdown editors.
 
-[url=http://benweet.github.io/stackedit/]http://benweet.github.io/stackedit/[/url]
+[url=https://stackedit.io/]stackedit.io[/url]
 
-[url=http://markable.in/editor/]http://markable.in/[/url] 
+[url=http://markable.in/editor/]markable.in[/url] 
 
-[url=http://dillinger.io/]http://dillinger.io[/url]
+[url=http://dillinger.io/]dillinger.io[/url]
 
 There is also a BBCode to Markdown tool for porting an existing FAQ so it can be edited or updated in Markdown and then converted back.
 
@@ -32,83 +32,120 @@ Please don't get too creative with the tags. These tools are very specific to th
 These are some Tags that work for formatting. They all need to be properly closed using [code single][[][/[]/tag][/code].
 For example you would close code like this: [code single][[][/[]/code][/code]
 
-[code single][[][/[]h1][/code] Title h1 [code single][/h1][/code]
+[h2]Title tags[/h2]
+h1
 
+[code][[][/[]h1]Title h1[[][/[]/h1][/code]
 Here is the markdown equivalent:
 
-Markdown Title h1
-[code single]===[/code]
+[code]Markdown Title h1
+===[/code]
+h2
 
-[code single][[][/[]h2][/code] Title h2 [code single][/h2][/code]
-
+[code][[][/[]h2]Title h2[[][/[]/h2][/code]
 Here is the markdown equivalent:
 
-Markdown Title h2
-[code single]---[/code]
+[code]Markdown Title h2
+---[/code]
+h3
 
-[code single][[][/[]h3][/code] Title h3 [code single][/h3][/code]
-
+[code][[][/[]h3]Title h3[[][/[]/h3][/code]
 Here is the markdown equivalent:
 
-[code single]###[/code] Markdown Title h3
+[code]### Markdown Title h3[/code]
+h4
 
-[code single][[][/[]h4][/code] Title h4 [code single][/h4][/code]
-
+[code][[][/[]h4]Title h4[[][/[]/h4][/code]
 Here is the markdown equivalent:
 
-[code single]####[/code] Markdown Title h4
+[code]#### Markdown Title h4[/code]
+h5
 
-[code single][[][/[]h5][/code] Title h5 [code single][/h5][/code]
-
+[code][[][/[]h5]Title h5[[][/[]/h5][/code]
 Here is the markdown equivalent:
 
-[code single]#####[/code] Markdown Title h5
+[code]##### Markdown Title h5[/code]
+h6
 
-[code single][[][/[]h6][/code] Title h6 [code single][/h6][/code]
-
+[code][[][/[]h6]Title h6[[][/[]/h6][/code]
 Here is the markdown equivalent:
 
-[code single]######[/code] Markdown Title h6
+[code]###### Markdown Title h6[/code]
+[h2]Code blocks[/h2]
+For single lines:
 
-[code single][[][/[]b][/code] bold [code single][/b][/code]
+[code][[][/[]code]Standard code blocks with a single line[[][/[]/code][/code]
+For multiple lines:
 
+[code][[][/[]code]Standard
+code 
+blocks
+with
+multiple
+lines[[][/[]/code][/code]
 Here is the markdown equivalent:
 
-[code single]**[/code] bold [code single]**[/code]
+For single lines:
 
-[code single][[][/[]code][/code] Standard code blocks [code single][[][/[]/code][/code]
+[code]~~~
+Standard code blocks with a single line
+~~~[/code]
+For multiple lines:
 
+[code]~~~
+Standard
+code 
+blocks
+with
+multiple
+lines
+~~~[/code]
+
+In-line code blocks:
+
+[code][[][/[]code single]in-line code[[][/[]/code][/code]
 Here is the markdown equivalent:
 
-[code single]~~~[/code]
-Standard code blocks
-[code single]~~~[/code]
+[code]`in-line code`[/code]
+[h2]CODE blocks specifics[/h2]
+For formatted code blocks follow this rule below:
 
-[code single][[][/[]code single][/code] in-line code [code single][[][/[]/code][/code]
+When using the code tag use this rule for formatting regarding new lines please.
 
+[code]Blank line above
+
+[[][/[]code]Some code wrapped in code tags[[][/[]/code]
+No new/blank line below.[/code]
+This rule also applies for tags that also apply formatting above and below the line like 
+the [code single]H2[/code] and [code single]H3[/code] tag do, but not the Bold tag for example. You can leave a blank line below
+the [code single]b[/code],[code single]i[/code],[code single]img[/code],[code single]url[/code] tags.
+
+[h2]Bold and Italic tags[/h2]
+Bold:
+
+[code][[][/[]b]bold[[][/[]/b][/code]
 Here is the markdown equivalent:
 
-[code single]`[/code] in-line code [code single]`[/code]
+[code]**bold**[/code]
+Strong:
 
-[code single][[][/[]strong][/code] strong (can/will be manually replaced by italic) [code single][/strong][/code]
-
+[code][[][/[]strong]strong (can/will be manually replaced by italic)[[][/[]/strong][/code]
 Here is the markdown equivalent:
 
-[code single]**[/code] strong [code single]**[/code]
+[code]**strong**[/code]
+Italic:
 
-[code single][[][/[]i][/code] italic [code single][/i][/code]
-
+[code][[][/[]i]italic[[][/[]/i][/code]
 Here is the markdown equivalent:
 
-[code single]*[/code] italic [code single]*[/code]
+[code]*italic*[/code]
+Emphasis:
 
-[code single][[][/[]em][/code] italic (can/will be manually replaced by italic) [code single][/em][/code]
-
+[code][[][/[]em]emphasis (can/will be manually replaced by italic)[[][/[]/em][/code]
 Here is the markdown equivalent:
 
-[code single]*[/code] italic [code single]*[/code]
-
-[h3]Image tags[/h3]
+[code]*emphasis*[/code]
+[h2]Image tags[/h2]
 Use this opening and closing tag for direct links to images.
 
 This example tag usages will give us:
@@ -120,7 +157,7 @@ This result:
 
 Here is the markdown equivalent:
 
-[code]![http://i.imgur.com/pRfcyAi.jpg](http://i.imgur.com/pRfcyAi.jpg)[/code]
+[code]![](http://i.imgur.com/pRfcyAi.jpg)[/code]
 [h3]URL and URL tags[/h3]
 URLs are automatically detected and do not need a tag, so this:
 
@@ -139,20 +176,7 @@ Will give us this result:
 Here is the markdown equivalent:
 
 [code][Link description](http://i.imgur.com/pRfcyAi.jpg)[/code]
-[h3]CODE blocks specifics[/h3]
-For [code single]pre[/code] formatted code blocks follow this rule below:
-
-When using the code tag use this rule for formatting regarding new lines please.
-
-[code]Blank line above
-
-[[][/[]code]Some code wrapped in code tags[[][/[]/code]
-No new/blank line below.[/code]
-This rule also applies for tags that also apply formatting above and below the line like 
-the [code single]H2[/code] and [code single]H3[/code] tag do, but not the Bold tag for example. You can leave a blank line below
-the [code single]b[/code],[code single]i[/code],[code single]img[/code],[code single]url[/code] tags.
-
-[h3]Custom Software[/h3]
+[h2]Custom Software[/h2]
 Custom software installations that have a typical structures, such as [code single]~/something/bin[/code] should be installed to [code single]~/programs[/code]. The use this command to add it to the [code single]PATH[/code] if needed. This will fall in line with other software installation FAQs.
 
 [code][[][/[][ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc[/code]
@@ -183,15 +207,12 @@ Important files will be re-hosted on a more permanent platform when needed. If t
 
 [url=http://www.mediafire.com/]http://www.mediafire.com/[/url] is a good choice.
 
-[b]Closing: At the end of the FAQ[/b]
-
+[h2]Closing: At the end of the FAQ[/h2]
 Please leave 4 blank lines at the end of any question you edit or submit. This is a visual thing.
 
 Credit will be attributed to the original author(s) where needed manually. So do not worry about this.
 
-[b]After you have edited the guide please submit a ticket called:[/b]
-
-[b]FAQ Edit - FAQ name - Category[/b]
+[b]Attention:[/b] After you have edited the guide please submit a ticket using the title format [code single]FAQ Edit - FAQ name - Category[/code]
 
 In the body submit a link to the FAQ you edited. So for example:
 
@@ -199,56 +220,57 @@ In the body submit a link to the FAQ you edited. So for example:
 
 [b]Body:[/b] https://www.feralhosting.com/faq/view?question=122 I fixed a broken link.
 
-[h3]Feral FAQ Cheat Sheet[/h3]
+[h2]Feral FAQ Cheat Sheet[/h2]
 What is this? this is a list of preferred formatting when adding certain info. Feel free to add to this.
 
-[b]Use [code single]$(whoami)[/code] and [code single]$(hostname)[/code] to automatically insert a users info.[/b]
+Use [code single]$(whoami)[/code] and [code single]$(hostname)[/code] to automatically insert a users info.
 
 [code]cd ~/www/$(whoami).$(hostname)/public_html/[/code]
-[b]The following command in SSH to see the hostname and IP[/b]
+The following command in SSH to see the [code single]hostname[/code] and IP:
 
 [code]host $(hostname)[/code]
-[b]The following command in SSH to see the IP only[/b]
+The following command in SSH to see the IP only:
 
 [code]hostname -i[/code]
-The following command to get your external IP
+The following command to get your external IP:
 
 [code]curl -s icanhazip.com[/code]
-[b][url=http://linux.die.net/man/1/wget]wget[/url][/b]
+[url=http://linux.die.net/man/1/wget]wget[/url]
 
--q quiet
--N Overwrite if newer or different (timestamps)
--O Save to file.
--P Set directory prefix to prefix. Is the directory where all other files and subdirectories will be saved to
+[code single]-q[/code] quiet
+[code single]-N[/code] Overwrite if newer or different (timestamps)
+[code single]-O[/code] Save to file.
+[code single]-P[/code] Set directory prefix to prefix. Is the directory where all other files and subdirectories will be saved to
 
 [code]wget -q www.somelink.com/script.sh -O thisfile.sh[/code]
 You will see most FAQs use this format:
 
 [code]wget -qO ~/thisfile.sh www.somelink.com/script.sh[/code]
-This basically just puts the file in the slot root with the use of [code single]~/[/code]
+This basically just puts the file in the slot root with the use of [code single]~/[/code] using the filename specified.
 
-[b][url=http://linux.die.net/man/1/tar]tar[/url][/b]
+[url=http://linux.die.net/man/1/tar]tar[/url]
 
--c create
--x extract
--z .gz or .tgz
--j .bz2
--f file
--v verbose
--C to directory
+[code single]-c[/code] create
+[code single]-x[/code] extract
+[code single]-z[/code] .gz or .tgz
+[code single]-j[/code] .bz2
+[code single]-f[/code] file
+[code single]-v[/code] verbose
+[code single]-C[/code] to directory
 
-[code]tar -xzf archive.tar.gz[/code]
-[code]tar -xzf archive.tar.gz -C some/directory/[/code]
-[b][url=http://linux.die.net/man/1/unzip]unzip[/url][/b]
+[b]Important note:[/b] [code single]tar[/code] can detect the compression used so it is not actually required to specify it. This means the use of [code single]z[/code] and [code single]j[/code] are optional.
 
--q quiet
--o overwrite
--d extract to directory 
+[code]tar xf archive.tar.gz[/code]
+[code]tar xf archive.tar.gz -C some/directory/[/code]
+[url=http://linux.die.net/man/1/unzip]unzip[/url]
+
+[code single]-q[/code] quiet
+[code single]-o[/code] overwrite
+[code single]-d[/code] extract to directory 
 
 [code]unzip -qo archive.zip[/code]
 [code]unzip -qo archive.zip -d some/directory/[/code]
-[b]screen[/b]
-
+[h3]screen[/h3]
 Send a command to a running screen and window of choice.
 
 [code]screen -S screen-name -p 0 -X exec your-command-goes-here[/code]
@@ -267,20 +289,21 @@ This will attach to a screen with this name or create it if it doesn't:
 Will start the selected process in the background as a daemon and detach from it immediately:
 
 [code]screen -dmS rtorrent rtorrent[/code]
-[b][url=http://linux.die.net/man/1/kill]kill[/url][/b]
+[url=http://linux.die.net/man/1/kill]kill[/url]
 
 [code]kill -9 PID[/code]
-[b][url=http://linux.die.net/man/1/killall]killall[/url][/b]
+[url=http://linux.die.net/man/1/killall]killall[/url]
 
 [code]killall -9 -u $(whoami) processname[/code]
-[b]Use [b]TAB[/b] to autocomplete parts of your SSH commands.[/b]
+[h3]TAB autocomplete[/h3]
+Use [code single]TAB[/code] to autocomplete parts of your SSH commands.
 
 For example: if I am in my home folder and I wish to go to my 
 
 [code]~/private/rtorrent[/code]
 I can do this
 
-[code]cd ~/p [b]TAB[/b][/code]
+[code]cd ~/p TAB[/code]
 Which will give me this:
 
 [code]~/private/[/code]
@@ -288,14 +311,13 @@ Unless I have more than one folder starting with [b]p[/b]. then I must give a se
 
 Then if I do:
 
-[code]cd ~/private/r [b]TAB[/b][/code]
+[code]cd ~/private/r TAB[/code]
 I will end up with this:
 
 [code]cd ~/private/rtorrent/[/code]
 So now I press enter. I have now used TAB to auto-complete parts of my [b]cd[/b] command.
 
-[b]github url shortening[/b]
-
+[h3]github url shortening[/h3]
 [url=http://git.io/]http://git.io/[/url]
 
 [url=https://github.com/blog/985-git-io-github-url-shortener]git-io-github-url-shortener[/url]
@@ -303,8 +325,7 @@ So now I press enter. I have now used TAB to auto-complete parts of my [b]cd[/b]
 You can do it in SSH using this command.
 
 [code]curl -i http://git.io -F "url=YOU.URL.HERE"[/code]
-[b]Chaining Commands[/b]
-
+[h3]Chaining Commands[/h3]
 The use of [code single]&&[/code] will move to the next command if the previous command was successful.
 
 [code]cd ~/private && mkdir test && cd test[/code]
@@ -321,6 +342,17 @@ if you add a [code single]&[/code] to the end of your command it will be sent to
 
 [code]./some/path/to/a/binary &[/code]
 [h3]Crontab[/h3]
+[b]Important note:[/b] It is generally best practice to use full paths to the programs you wish to execute. To get the full path do this in SSH:
+
+Use the [code single]whereis[/code] command to find the binary locations:
+
+[code]whereis cp[/code]
+Will return something like this:
+
+[code]cp: /bin/cp /usr/share/man/man1/cp.1.gz[/code]
+Here the path we need is:
+
+[code]/bin/cp[/code]
 To edit your crontab:
 
 [code]crontab -e[/code]
@@ -332,7 +364,7 @@ For example:
 [code]@reboot bash -l ~/myscript.sh[/code]
 You can use this command to easily create a cronjob for users in some sort of support capacity:
 
-[code](crontab -l ; echo "* * * * * some/cron/thing") |uniq - | crontab -[/code]
+[code](crontab -l ; echo "* * * * * some/cron/thing") | uniq - | crontab -[/code]
 This will create a specified cronjob while also checking to make sure it is not created more than once. So with a single command you can have create and insert a cronjob for a user. It only checks vs the last entry though.
 
 

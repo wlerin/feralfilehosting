@@ -1,11 +1,13 @@
 
-### How do I create a FAQ?
+How do I create a FAQ?
+---
 
 Click on this link: [Add a Question](https://www.feralhosting.com/faq/add) and paste in your formatted text as the answer. Your question is the Title of the FAQ or guide. Open a ticket as outlined below to inform staff of the new FAQ.
 
 See below for formatting guidelines
 
-### How do I edit a FAQ?
+How do I edit a FAQ?
+---
 
 Simply **click on edit at the bottom of the FAQ** and submit your edited version along with reason for the change.
 
@@ -34,53 +36,93 @@ Please don't get too creative with the tags. These tools are very specific to th
 These are some Tags that work for formatting. They all need to be properly closed using `[/tag]`.
 For example you would close code like this: `[/code]`
 
-### Title tags:
+Title tags
+---
 
-`[h1]` Title h1 `[/h1]`
+h1
+
+~~~
+[h1]Title h1[/h1]
+~~~
 
 Here is the markdown equivalent:
 
+~~~
 Markdown Title h1
-`===`
+===
+~~~
 
+h2
 
-`[h2]` Title h2 `[/h2]`
+~~~
+[h2]Title h2[/h2]
+~~~
 
 Here is the markdown equivalent:
 
+~~~
 Markdown Title h2
-`---`
+---
+~~~
 
+h3
 
-`[h3]` Title h3 `[/h3]`
-
-Here is the markdown equivalent:
-
-`###` Markdown Title h3
-
-`[h4]` Title h4 `[/h4]`
+~~~
+[h3]Title h3[/h3]
+~~~
 
 Here is the markdown equivalent:
 
-`####` Markdown Title h4
+~~~
+### Markdown Title h3
+~~~
 
-`[h5]` Title h5 `[/h5]`
+h4
+
+~~~
+[h4]Title h4[/h4]
+~~~
 
 Here is the markdown equivalent:
 
-`#####` Markdown Title h5
+~~~
+#### Markdown Title h4
+~~~
 
-`[h6]` Title h6 `[/h6]`
+h5
+
+~~~
+[h5]Title h5[/h5]
+~~~
 
 Here is the markdown equivalent:
 
-`######` Markdown Title h6
+~~~
+##### Markdown Title h5
+~~~
 
-### Code blocks:
+h6
+
+~~~
+[h6]Title h6[/h6]
+~~~
+
+Here is the markdown equivalent:
+
+~~~
+###### Markdown Title h6
+~~~
+
+Code blocks
+---
+
+For single lines:
 
 ~~~
 [code]Standard code blocks with a single line[/code]
 ~~~
+
+For multiple lines:
 
 ~~~
 [code]Standard
@@ -93,8 +135,21 @@ lines[/code]
 
 Here is the markdown equivalent:
 
+For single lines:
+
     ~~~
-    Standard code blocks
+    Standard code blocks with a single line
+    ~~~
+
+For multiple lines:
+
+    ~~~
+    Standard
+    code 
+    blocks
+    with
+    multiple
+    lines
     ~~~
 
 In-line code blocks:
@@ -109,7 +164,8 @@ Here is the markdown equivalent:
 `in-line code`
 ~~~
 
-### CODE blocks specifics:
+CODE blocks specifics
+---
 
 For formatted code blocks follow this rule below:
 
@@ -126,33 +182,59 @@ This rule also applies for tags that also apply formatting above and below the l
 
 This rule does not apply when using markdown and the converter to format the document.
 
-### Bold and Italic tags
+Bold and Italic tags
+---
 
-`[b]` bold `[/b]`
+Bold:
 
-Here is the markdown equivalent:
-
-`**` bold `**`
-
-`[strong]` strong (will be manually replaced by bold) `[/strong]`
-
-Here is the markdown equivalent:
-
-`**` strong `**`
-
-`[i]` italic `[/i]`
+~~~
+[b]bold[/b]
+~~~
 
 Here is the markdown equivalent:
 
-`*` italic `*`
+~~~
+**bold**
+~~~
 
-`[em]` italic (will be manually replaced by italic) `[/em]`
+Strong:
+
+~~~
+[strong]strong (will be manually replaced by bold)[/strong]
+~~~
 
 Here is the markdown equivalent:
 
-`*` italic `*`
+~~~
+**strong**
+~~~
 
-### Image tags
+Italic:
+
+~~~
+[i]italic[/i]
+~~~
+
+Here is the markdown equivalent:
+
+~~~
+*italic*
+~~~
+
+Emphasis:
+
+~~~
+[em]emphasis (will be manually replaced by italic)[/em]
+~~~
+
+Here is the markdown equivalent:
+
+~~~
+*emphasis*
+~~~
+
+Image tags
+---
 
 Use this opening and closing tag for direct links to images.
 
@@ -172,7 +254,8 @@ Here is the markdown equivalent:
 ![](http://i.imgur.com/pRfcyAi.jpg)
 ~~~
 
-### URL and URL tags
+URL and URL tags
+---
 
 URLs are automatically detected and do not need a tag, so this:
 
@@ -200,7 +283,8 @@ Here is the markdown equivalent:
 [Link description](http://i.imgur.com/pRfcyAi.jpg)
 ~~~
 
-### Custom Software
+Custom Software
+---
 
 Custom software installations that have a typical structures, such as `~/something/bin` should be installed to `~/programs`. The use this command to add it to the `PATH` if needed. This will fall in line with other software installation FAQs.
 
@@ -214,7 +298,8 @@ Exceptions to the rule?
 
 2: Programs that might conflict with slot operations such as Python. Then use a custom location for this software. Try not to use a very complex or needlessly deep directory structure.
 
-### Python and user mods.
+Python and user mods.
+---
 
 When a `--user` mod is installed using the slot's included Python, it will always go to the location:
 
@@ -228,7 +313,8 @@ So in this case, use this command to add the `PATH` to the `~/.bashrc`. This wil
 [[ ! "$(grep '~/.local/bin' ~/.bashrc)" ]] && echo 'export PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
-### File Hosting
+File Hosting
+---
 
 **IMAGES**
 
@@ -242,7 +328,8 @@ Important files will be re-hosted on a more permanent platform when needed. If t
 
 [http://www.mediafire.com/](http://www.mediafire.com/) is a good choice.
 
-### Closing: At the end of the FAQ
+Closing: At the end of the FAQ
+---
 
 Please leave 4 blank lines at the end of any question you edit or submit. This is a visual thing.
 
@@ -256,7 +343,8 @@ In the body submit a link to the FAQ you edited. So for example:
 
 **Body:** https://www.feralhosting.com/faq/view?question=122 I fixed a broken link.
 
-### Feral FAQ Cheat Sheet
+Feral FAQ Cheat Sheet
+---
 
 What is this? this is a list of preferred formatting when adding certain info. Feel free to add to this.
 
@@ -381,7 +469,7 @@ kill -9 PID
 killall -9 -u $(whoami) processname
 ~~~
 
-### `TAB` autocomplete
+### TAB autocomplete
 
 Use `TAB` to autocomplete parts of your SSH commands.
 
