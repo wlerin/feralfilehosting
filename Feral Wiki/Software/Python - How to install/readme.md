@@ -50,14 +50,14 @@ You **do not** need to follow this FAQ to use python or python scripts. If you h
 
 This is a basic guide to installing Python to your home directory and using it as your default Python. You will also be able to use easy_install to install mods.
 
-### Python Active State 2.7.2:
+### Python Active State 2.7.5.6:
 
 Includes lots of things such as VirtualENV, distribute, PIP and more. Super simple to install.
 
 ~~~
-wget -qO ~/ActivePython.tar.gz http://downloads.activestate.com/ActivePython/releases/2.7.2.5/ActivePython-2.7.2.5-linux-x86_64.tar.gz
+wget -qO ~/ActivePython.tar.gz http://downloads.activestate.com/ActivePython/releases/2.7.5.6/ActivePython-2.7.5.6-linux-x86_64.tar.gz
 tar -xzf ActivePython.tar.gz
-bash ~/ActivePython-2.7.2.5-linux-x86_64/install.sh
+bash ~/ActivePython-2.7.5.6-linux-x86_64/install.sh
 ~~~
 
 Select a path to install to. This will create the path if it does not exist.
@@ -73,7 +73,7 @@ Read the information displayed, it will tell you what `PATH` to add and where.
 Optional: To remove the installation files.
 
 ~~~
-rm -f ActivePython-2.7.2.5-linux-x86_64.tar.gz ~/ActivePython-2.7.2.5-linux-x86_64
+rm -f ActivePython-2.7.5.6-linux-x86_64.tar.gz ~/ActivePython-2.7.5.6-linux-x86_64
 ~~~
 
 Type this command to reload the shell:
@@ -88,27 +88,27 @@ Done.
 
 In SSH do these commands. Use this FAQ if you do not know how to SSH into your slot: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
 
-### Installing Python:
+### Installing Python 2.7.6:
 
 ~~~
 mkdir -p ~/python/python.2.7
-wget -qO ~/Python-2.7.5.tgz http://www.python.org/ftp/python/2.7.5/Python-2.7.5.tgz
-tar -xzf ~/Python-2.7.5.tgz && cd ~/Python-2.7.5
+wget -qO ~/Python-2.7.6.tgz http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tgz
+tar -xzf ~/Python-2.7.6.tgz && cd ~/Python-2.7.6
 ./configure --prefix=$HOME/python/python.2.7 && make && make install
 ~~~
 
-The configuration and isntallation can take some time to be patient.
+The configuration and installation can take some time to be patient.
 
 When it is finished installing, do some clean up with this command.
 
 ~~~
-cd && rm -rf ~/Python-2.7.5 ~/Python-2.7.5.tgz
+cd && rm -rf ~/Python-2.7.6 ~/Python-2.7.6.tgz
 ~~~
 
 Python has been installed. Now use this command to add the PATH to your `~/.bashrc`
 
 ~~~
-echo 'PATH=~/python/python.2.7/bin:$PATH' >> ~/.bashrc
+echo 'export PATH=~/python/python.2.7/bin:$PATH' >> ~/.bashrc
 ~~~
 
 Now use this command to reload the shell:
