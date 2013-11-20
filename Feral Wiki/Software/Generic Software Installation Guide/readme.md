@@ -237,11 +237,11 @@ ls
 
 As we can see the folder name is `node-v0.10.22-linux-x64`
 
-![](lsnode.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral Wiki/Software/Generic Software Installation Guide/lsnode.png)
 
 The directory structure of the pre compile programs will commonly resemble the standard Unix directory structure.
 
-![](nodedirectory.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral Wiki/Software/Generic Software Installation Guide/nodedirectory.png)
 
 So what we need to do is copy the contents of the folder to our desired location:
 
@@ -290,7 +290,7 @@ Now the contents of the archive has just been extracted to the `HOME` folder of 
 ls
 ~~~
 
-![](lscurl.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral Wiki/Software/Generic Software Installation Guide/lscurl.png)
 
 As we can see the folder name is `curl-7.33.0`. So now we move into this folder using the `cd` command:
 
@@ -365,7 +365,7 @@ dpkg-deb -x ~/some.deb ~/desired-location
 
 Now you will find that the contents of the `desired-location` contain a standard directory structure. This is because file would generally be extracted to the core system folders and not a subdirectory when installed using a `deb`. 
 
-![](debdirectory.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral Wiki/Software/Generic Software Installation Guide/debdirectory.png)
 
 So to make it more user like we can do this:
 
@@ -384,28 +384,41 @@ Examples:
 ---
 
 [node.js - How to install](https://www.feralhosting.com/faq/view?question=199)
+
 [Java 1.7](https://www.feralhosting.com/faq/view?question=183)
+
 [p7zip - basic installation](https://www.feralhosting.com/faq/view?question=245)
+
 [Teamspeak 3 server](https://www.feralhosting.com/faq/view?question=175)
+
 [BitTorrent Sync btsync - basic setup](https://www.feralhosting.com/faq/view?question=224)
+
 [Mumble client and murmur server](https://www.feralhosting.com/faq/view?question=227)
+
 [ffmpeg](https://www.feralhosting.com/faq/view?question=268)
 
 2: Source-code examples
 ---
 
 [git](https://www.feralhosting.com/faq/view?question=206)
+
 [ruby](https://www.feralhosting.com/faq/view?question=265)
+
 [python](https://www.feralhosting.com/faq/view?question=204)
+
 [znc](https://www.feralhosting.com/faq/view?question=264)
+
 [duplicity](https://www.feralhosting.com/faq/view?question=255)
+
 [Curl](https://www.feralhosting.com/faq/view?question=267)
+
 [mosh](https://www.feralhosting.com/faq/view?question=269)
 
 3: Debian packages examples
 ---
 
 [SpiderOak](https://www.feralhosting.com/faq/view?question=203)
+
 [FileBot CLI - Basic Setup](https://www.feralhosting.com/faq/view?question=256)
 
 
