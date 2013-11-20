@@ -49,5 +49,15 @@ If you see the version then it is ready to use.
 
 Once you have done this, you are ready to start writing and running your `node.js` apps from anywhere in your account. I personally put all my apps in `~/node/apps/` to keep things tidy though.
 
+### Install from source:
+
+~~~
+wget -qO ~/node.tar.gz http://nodejs.org/dist/v0.10.22/node-v0.10.22.tar.gz
+tar xf ~/node.tar.gz && cd ~/node-v0.10.*
+./configure --prefix=$HOME/programs
+make && make install && cd
+rm -rf ~/node-v0.10.*/ ~/node.tar.gz
+~~~
+
 
 

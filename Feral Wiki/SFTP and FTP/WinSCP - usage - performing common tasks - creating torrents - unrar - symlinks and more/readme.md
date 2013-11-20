@@ -5,7 +5,8 @@ WinSCP is often disregarded by many users. The purpose of this tutorial, however
 
 WinSCP is a very useful program for novice users.
 
-### Getting Familiar with WinSCP
+Getting Familiar with WinSCP
+---
 
 [Download](http://winscp.net/download/winscp517setup.exe) the installer version 5.1.7. This installation package has certain explorer like plug-ins for drag and drop.
 

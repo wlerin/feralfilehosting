@@ -12,9 +12,12 @@ mkdir -p ~/programs
 
 ~~~
 wget -qO ~/curl.tar.gz http://curl.haxx.se/download/curl-7.33.0.tar.gz
-tar xf ~/curl.tar.gz && cd ~/curl-7.33.0
+tar xf ~/curl.tar.gz
+cd ~/curl-7.33.0
 ./configure --prefix=$HOME/programs
-make && make install && cd
+make
+make install
+cd
 rm -rf ~/curl-7.33.0 ~/curl.tar.gz
 ~~~
 
@@ -25,7 +28,9 @@ wget -qO ~/cmake.tar.gz http://www.cmake.org/files/v2.8/cmake-2.8.12.tar.gz
 tar xf ~/cmake.tar.gz && cd ~/cmake-2.8.12
 ./bootstrap --prefix=$HOME/programs
 ./configure --prefix=$HOME/programs
-make && make install && cd
+make
+make install
+cd
 rm -rf ~/cmake.tar.gz ~/cmake-2.8.12
 ~~~
 
@@ -59,7 +64,9 @@ make && make install && cd && rm -rf ~/weechat.tar.gz ~/weechat-0.4.2
 wget -qO ~/node.tar.gz http://nodejs.org/dist/v0.10.22/node-v0.10.22.tar.gz
 tar xf ~/node.tar.gz && cd ~/node-v0.10.*
 ./configure --prefix=$HOME/programs
-make && make install && cd
+make
+make install
+cd
 rm -rf ~/node-v0.10.*/ ~/node.tar.gz
 ~~~
 
@@ -94,8 +101,11 @@ git clone https://github.com/RuudBurger/CouchPotatoServer.git ~/.couchpotato && 
 
 ~~~
 wget -qO ~/protobuf-2.5.0.tar.gz http://protobuf.googlecode.com/files/protobuf-2.5.0.tar.gz
-tar xf ~/protobuf-2.5.0.tar.gz && cd ~/protobuf-2.5.0
-./configure --prefix=$HOME/programs && make && make install && cd && rm -rf  ~/protobuf-2.5.0.tar.gz ~/protobuf-2.5.0
+tar xf ~/protobuf-2.5.0.tar.gz
+cd ~/protobuf-2.5.0
+./configure --prefix=$HOME/programs && make && make install
+cd
+rm -rf  ~/protobuf-2.5.0.tar.gz ~/protobuf-2.5.0
 ~~~
 
 ### Mosh - protobuf needs to be done first
@@ -104,7 +114,9 @@ tar xf ~/protobuf-2.5.0.tar.gz && cd ~/protobuf-2.5.0
 wget -qO ~/mosh-1.2.4.tar.gz http://mosh.mit.edu/mosh-1.2.4.tar.gz
 tar xf ~/mosh-1.2.4.tar.gz && cd ~/mosh-1.2.4
 ./configure --prefix=$HOME/programs PKG_CONFIG_PATH=$HOME/programs/lib/pkgconfig
-make && make install && cd
+make
+make install
+cd
 rm -rf ~/mosh-1.2.4.tar.gz ~/mosh-1.2.4
 ~~~
 
@@ -149,7 +161,9 @@ mkdir -p ~/programs
 wget -qO ~/znc.tar.gz http://znc.in/releases/znc-latest.tar.gz
 tar xf ~/znc.tar.gz && cd ~/znc-*
 ./configure --prefix=$HOME/programs
-make && make install && cd
+make
+make install
+cd
 rm -rf ~/znc.tar.gz ~/znc-*
 ~~~
 
@@ -160,9 +174,9 @@ znc --makeconf
 ### ffmpeg static
 
 ~~~
-wget -qO ~/ffmpeg.tar.gz http://ffmpeg.gusari.org/static/64bit/ffmpeg.static.64bit.2013-09-16.tar.gz
-mkdir -p ~/ffmpeg && tar xf ~/ffmpeg.tar.gz -C ~/ffmpeg && rm -f ~/ffmpeg.tar.gz
-echo 'export PATH=~/ffmpeg:$PATH' >> ~/.bashrc && source ~/.bashrc
+wget -qO ~/ffmpeg.tar.gz http://johnvansickle.com/ffmpeg/releases/ffmpeg-2.0.1-64bit-static.tar.bz2
+tar xf ~/ffmpeg.tar.gz -C ~/programs
+rm -f ~/ffmpeg.tar.gz
 ffmpeg -version
 ~~~
 
