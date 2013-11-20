@@ -61,8 +61,9 @@ faqbot.addListener('message', function(from, to, message) {
 }); 
 */
 
-// topic
 /*
+// topic
+
 faqbot.addListener('topic', function (from, to) { faqbot.say(from, to) });
 faqbot.addListener('message', function(from, to, message) {
     if ( message == '%topic' ) {
@@ -97,10 +98,16 @@ faqbot.addListener('message', function(from, to, message) {
         return;
     }
 
-    if ( message == '%newuser' || message == '%newuser' + result ) {
+    if ( message == '%activepart1' || message == '%activepart1' + result ) {
         if ( result !== '' ) { var result = result + ': '; }
 
         faqbot.say(to, result + "Your Feral slot is active - Part 1 - The Account Manager -- https://www.feralhosting.com/faq/view?question=134");
+        return;
+    }
+    
+    if ( message == '%activepart2' || message == '%activepart2' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
         faqbot.say(to, result + "Your Feral slot is active - Part 2 - Using your slot -- https://www.feralhosting.com/faq/view?question=225");
         return;
     }
@@ -126,10 +133,10 @@ faqbot.addListener('message', function(from, to, message) {
         return;
     }
     
-    if ( message == '%moveslot' || message == '%moveslot' + result ) {
+    if ( message == '%late' || message == '%late' + result ) {
         if ( result !== '' ) { var result = result + ': '; }
 
-        faqbot.say(to, result + c.green('1: ') + 'Purchase the slot from our website. ' + c.green('2: ') + 'Wait until you receive the slot. ' + c.green('3: ') + 'Then open a ticket requesting a data transfer ' + c.olive('(optional) ') + c.green('4: ') + 'Request a refund on your current slot ' + c.olive('(optional) '));
+        faqbot.say(to, result + "Late payments -- https://www.feralhosting.com/faq/view?question=8");
         return;
     }
 
@@ -152,13 +159,6 @@ faqbot.addListener('message', function(from, to, message) {
 
         faqbot.say(to, result + "Slot Upgrades -- https://www.feralhosting.com/faq/view?question=33");
         faqbot.say(to, result + "Completing a data transfer -- https://www.feralhosting.com/faq/view?question=122");
-        return;
-    }
-
-    if ( message == '%late' || message == '%late' + result ) {
-        if ( result !== '' ) { var result = result + ': '; }
-
-        faqbot.say(to, result + "Late payments -- https://www.feralhosting.com/faq/view?question=8");
         return;
     }
     
@@ -292,43 +292,7 @@ faqbot.addListener('message', function(from, to, message) {
         faqbot.say(to, result + "SSH guide basics - Mac - https://www.feralhosting.com/faq/view?question=217");
         return;
     }
-
-    if ( message == '%xshell' || message == '%xshell' + result ) {
-        if ( result !== '' ) { var result = result + ': '; }
-
-        faqbot.say(to, result + "XShell - SSH - SSH tunnels - Private Keys -- https://www.feralhosting.com/faq/view?question=238");
-        return;
-    }
-
-    if ( message == '%kitty' || message == '%kitty' + result ) {
-        if ( result !== '' ) { var result = result + ': '; }
-
-        faqbot.say(to, result + "Kitty - SSH - Private Keys - SSH tunnels -- https://www.feralhosting.com/faq/view?question=240");
-        return;
-    }
-
-    if ( message == '%sshfs' || message == '%sshfs' + result ) {
-        if ( result !== '' ) { var result = result + ': '; }
-
-        faqbot.say(to, result + "Mount Your Server as a Local Filesystem - Windows - Dokan - win-sshfs -- https://www.feralhosting.com/faq/view?question=136");
-        faqbot.say(to, result + "Mount Your Server as a Local Filesystem - Linux -- https://www.feralhosting.com/faq/view?question=24");
-        return;
-    }
-
-    if ( message == '%quota' || message == '%quota' + result ) {
-        if ( result !== '' ) { var result = result + ': '; }
-
-        faqbot.say(to, result + "Check your disk quota in SSH -- https://www.feralhosting.com/faq/view?question=221");
-        return;
-    }
-
-    if ( message == '%publickey' || message == '%publickey' + result ) {
-        if ( result !== '' ) { var result = result + ': '; }
-
-        faqbot.say(to, result + "Public Key Authentication for password-less login -- https://www.feralhosting.com/faq/view?question=13");
-        return;
-    }
-
+    
     if ( message == '%tunnel' || message == '%tunnel' + result || message == '%sshtunnel' || message == '%tunnels' || message == '%socks' || message == '%proxy' || message == '%socksproxy' ) {
         if ( result !== '' ) { var result = result + ': '; }
         
@@ -343,6 +307,13 @@ faqbot.addListener('message', function(from, to, message) {
         faqbot.say(to, result + "SSH tunnels - MyEnTunnel 3.5 using Plink and setting a Socks proxy -- https://www.feralhosting.com/faq/view?question=79");
         return;
     }
+    
+    if ( message == '%publickey' || message == '%publickey' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "Public Key Authentication for password-less login -- https://www.feralhosting.com/faq/view?question=13");
+        return;
+    }
 
     if ( message == '%pageant' || message == '%pageant' + result ) {
         if ( result !== '' ) { var result = result + ': '; }
@@ -351,10 +322,39 @@ faqbot.addListener('message', function(from, to, message) {
         return;
     }
 
+    if ( message == '%xshell' || message == '%xshell' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "XShell - SSH - SSH tunnels - Private Keys -- https://www.feralhosting.com/faq/view?question=238");
+        return;
+    }
+
+    if ( message == '%kitty' || message == '%kitty' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "Kitty - SSH - Private Keys - SSH tunnels -- https://www.feralhosting.com/faq/view?question=240");
+        return;
+    }
+    
     if ( message == '%bitvise' || message == '%bitvise' + result ) {
         if ( result !== '' ) { var result = result + ': '; }
 
         faqbot.say(to, result + "Bitvise - SSH - Private Keys - SSH tunnels - FTP to SFTP Bridge -- https://www.feralhosting.com/faq/view?question=239");
+        return;
+    }
+    
+    if ( message == '%quota' || message == '%quota' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "Check your disk quota in SSH -- https://www.feralhosting.com/faq/view?question=221");
+        return;
+    }
+
+    if ( message == '%sshfs' || message == '%sshfs' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "Mount Your Server as a Local Filesystem - Windows - Dokan - win-sshfs -- https://www.feralhosting.com/faq/view?question=136");
+        faqbot.say(to, result + "Mount Your Server as a Local Filesystem - Linux -- https://www.feralhosting.com/faq/view?question=24");
         return;
     }
     
@@ -381,21 +381,42 @@ faqbot.addListener('message', function(from, to, message) {
         faqbot.say(to, result + "LFTP - Automated sync from seedbox to home -- https://www.feralhosting.com/faq/view?question=153");
         return;
     }
-
-    // HTTP
-
-    if ( message == '%nginx' || message == '%nginx' + result ) {
+    
+    if ( message == '%filezilla' || message == '%filezilla' + result ) {
         if ( result !== '' ) { var result = result + ': '; }
 
-        faqbot.say(to, result + "Updating Apache to nginx -- https://www.feralhosting.com/faq/view?question=231");
+        faqbot.say(to, result + "FTP and SFTP basics - Filezilla -- https://www.feralhosting.com/faq/view?question=187");
         return;
     }
+
+    if ( message == '%textediting' || message == '%textediting' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "Text editing - Over FTP or SFTP -- https://www.feralhosting.com/faq/view?question=219");
+        return;
+    }
+
+    if ( message == '%fxp' || message == '%fxp' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "How to move data between two servers in windows -- https://www.feralhosting.com/faq/view?question=68");
+        return;
+    }
+
+    // HTTP
 
     if ( message == '%www' || message == '%www' + result ) {
         if ( result !== '' ) { var result = result + ': '; }
 
         faqbot.say(to, result + "Putting your WWW folder to use -- https://www.feralhosting.com/faq/view?question=20");
         faqbot.say(to, result + "Password protect your WWW folder -- https://www.feralhosting.com/faq/view?question=22");
+        return;
+    }
+    
+    if ( message == '%forcehttps' || message == '%forcehttps' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "Redirecting HTTP to HTTPS -- https://www.feralhosting.com/faq/view?question=161");
         return;
     }
     
@@ -412,47 +433,11 @@ faqbot.addListener('message', function(from, to, message) {
         faqbot.say(to, result + "Host a virtual host on your Feral slot -- https://www.feralhosting.com/faq/view?question=52");
         return;
     }
-
-    if ( message == '%webapps' || message == '%webapps' + result ) {
-        if ( result !== '' ) { var result = result + ': '; }
-
-        faqbot.say(to, result + "Owncloud - Basic setup - https://www.feralhosting.com/faq/view?question=249");
-        faqbot.say(to, result + "Pydio - Basic setup -- https://www.feralhosting.com/faq/view?question=222");
-        return;
-    }
-
-    if ( message == '%apache' || message == '%apache' + result || message == '%Apache' || message == '%Apache' + result ) {
-        if ( result !== '' ) { var result = result + ': '; }
-
-        faqbot.say(to, result + "Apache - basics -- https://www.feralhosting.com/faq/view?question=214");
-        return;
-    }
-
-    if ( message == '%phpmyadmin' || message == '%phpmyadmin' + result || message == '%pma' || message == '%pma' + result ) {
-        if ( result !== '' ) { var result = result + ': '; }
-        
-        faqbot.say(to, result + "phpmyadmin - MySQL Administration -- https://www.feralhosting.com/faq/view?question=230");
-        return;
-    }
-
-    if ( message == '%php' || message == '%php' + result ) {
-        if ( result !== '' ) { var result = result + ': '; }
-
-        faqbot.say(to, result + "PHP - modify settings -- https://www.feralhosting.com/faq/view?question=213");
-        return;
-    }
     
-    if ( message == '%ajaxplorer' || message == '%ajaxplorer' + result || message == '%Ajaxplorer' || message == '%Ajaxplorer' + result || message == '%AjaXplorer' || message == '%AjaXplorer' + result ) {
+    if ( message == '%Wordpress' || message == '%Wordpress' + result || message == '%wordpress' || message == '%wordpress' + result ) {
         if ( result !== '' ) { var result = result + ': '; }
 
-        faqbot.say(to, result + "This program has been rebranded as Pydio. Search for Pydio instead");
-        return;
-    }
-    
-    if ( message == '%owncloud' || message == '%owncloud' + result || message == '%Owncloud' || message == '%Owncloud' + result) {
-        if ( result !== '' ) { var result = result + ': '; }
-
-        faqbot.say(to, result + "Owncloud - Basic setup -- https://www.feralhosting.com/faq/view?question=249");
+        faqbot.say(to, result + "Wordpress - Basic setup -- https://www.feralhosting.com/faq/view?question=211");
         return;
     }
     
@@ -463,6 +448,48 @@ faqbot.addListener('message', function(from, to, message) {
         return;
     }
     
+    if ( message == '%ajaxplorer' || message == '%ajaxplorer' + result || message == '%Ajaxplorer' || message == '%Ajaxplorer' + result || message == '%AjaXplorer' || message == '%AjaXplorer' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "This program has been rebranded as Pydio. Search for Pydio instead");
+        return;
+    }
+    
+    if ( message == '%nginx' || message == '%nginx' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "Updating Apache to nginx -- https://www.feralhosting.com/faq/view?question=231");
+        return;
+    }
+
+    if ( message == '%phpmyadmin' || message == '%phpmyadmin' + result || message == '%pma' || message == '%pma' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+        
+        faqbot.say(to, result + "phpmyadmin - MySQL Administration -- https://www.feralhosting.com/faq/view?question=230");
+        return;
+    }
+    
+    if ( message == '%phpbb3' || message == '%phpbb3' + result || message == '%phpBB3' || message == '%phpBB3' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+        
+        faqbot.say(to, result + "phpBB3 - basic setup -- https://www.feralhosting.com/faq/view?question=228");
+        return;
+    }
+    
+    if ( message == '%apache' || message == '%apache' + result || message == '%Apache' || message == '%Apache' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "Apache - basics -- https://www.feralhosting.com/faq/view?question=214");
+        return;
+    }
+
+    if ( message == '%php' || message == '%php' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "PHP - modify settings -- https://www.feralhosting.com/faq/view?question=213");
+        return;
+    }
+    
     if ( message == '%Adminer' || message == '%Adminer' + result || message == '%adminer' || message == '%adminer' + result ) {
         if ( result !== '' ) { var result = result + ': '; }
 
@@ -470,19 +497,19 @@ faqbot.addListener('message', function(from, to, message) {
         return;
     }
     
-    if ( message == '%Wordpress' || message == '%Wordpress' + result || message == '%wordpress' || message == '%wordpress' + result ) {
+    if ( message == '%owncloud' || message == '%owncloud' + result || message == '%Owncloud' || message == '%Owncloud' + result) {
         if ( result !== '' ) { var result = result + ': '; }
 
-        faqbot.say(to, result + "Wordpress - Basic setup -- https://www.feralhosting.com/faq/view?question=211");
+        faqbot.say(to, result + "Owncloud - Basic setup -- https://www.feralhosting.com/faq/view?question=249");
         return;
     }
 
     // Other Software
     
-    if ( message == '%mediashare' || message == '%mediashare' + result ) {
+    if ( message == '%fileshare' || message == '%fileshare' + result ) {
         if ( result !== '' ) { var result = result + ': '; }
 
-        faqbot.say(to, result + "Rutorrent - Installing the mediashare plugin -- https://www.feralhosting.com/faq/view?question=209");
+        faqbot.say(to, result + "Rutorrent - Installing the fileshare plugin -- https://www.feralhosting.com/faq/view?question=210");
         return;
     }
     
@@ -493,17 +520,17 @@ faqbot.addListener('message', function(from, to, message) {
         return;
     }
     
-    if ( message == '%fileshare' || message == '%fileshare' + result ) {
+    if ( message == '%mediashare' || message == '%mediashare' + result ) {
         if ( result !== '' ) { var result = result + ': '; }
 
-        faqbot.say(to, result + "Rutorrent - Installing the fileshare plugin -- https://www.feralhosting.com/faq/view?question=210");
+        faqbot.say(to, result + "Rutorrent - Installing the mediashare plugin -- https://www.feralhosting.com/faq/view?question=209");
         return;
     }
     
-    if ( message == '%xbmc' || message == '%xbmc' + result || message == '%XBMC' || message == '%XBMC' + result ) {
+    if ( message == '%tor' || message == '%tor' + result ) {
         if ( result !== '' ) { var result = result + ': '; }
 
-        faqbot.say(to, result + "XBMC - connecting to shares -- https://www.feralhosting.com/faq/view?question=215");
+        faqbot.say(to, result + "Can I run a Tor node on my slot? -- https://www.feralhosting.com/faq/view?question=246");
         return;
     }
 
@@ -520,11 +547,39 @@ faqbot.addListener('message', function(from, to, message) {
         faqbot.say(to, result + "Cygwin - Linux tools on Windows -- https://www.feralhosting.com/faq/view?question=235");
         return;
     }
-
-    if ( message == '%tor' || message == '%tor' + result ) {
+    
+    if ( message == '%androidvpn' || message == '%androidvpn' + result ) {
         if ( result !== '' ) { var result = result + ': '; }
 
-        faqbot.say(to, result + "Can I run a Tor node on my slot? -- https://www.feralhosting.com/faq/view?question=246");
+        faqbot.say(to, result + "OpenVPN - Connect on Android 4.0 and up - using OpenVPN Connect -- https://www.feralhosting.com/faq/view?question=220");
+        return;
+    }
+    
+    if ( message == '%xbmc' || message == '%xbmc' + result || message == '%XBMC' || message == '%XBMC' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "XBMC - connecting to shares -- https://www.feralhosting.com/faq/view?question=215");
+        return;
+    }
+    
+    if ( message == '%transdroid' || message == '%transdroid' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "Using Transdroid to Control - rTorrent - Deluge - Transmission From Your Android Phone -- https://www.feralhosting.com/faq/view?question=81");
+        return;
+    }
+    
+    if ( message == '%thumbnails' || message == '%thumbnails' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "How do I make thumbnails of video files -- https://www.feralhosting.com/faq/view?question=170");
+        return;
+    }
+    
+    if ( message == '%minecraft' || message == '%minecraft' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "Can I run a minecraft or similar game server on my slot? -- https://www.feralhosting.com/faq/view?question=168");
         return;
     }
 
@@ -532,6 +587,13 @@ faqbot.addListener('message', function(from, to, message) {
         if ( result !== '' ) { var result = result + ': '; }
         
         faqbot.say(to, result + "Remote Torrent Adder - Adding torrents to your slot from Chrome -- https://www.feralhosting.com/faq/view?question=146");
+        return;
+    }
+
+    if ( message == '%homebrew' || message == '%homebrew' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "OSX - Homebrew -- https://www.feralhosting.com/faq/view?question=262");
         return;
     }
 
@@ -655,7 +717,7 @@ faqbot.addListener('message', function(from, to, message) {
     if ( message == '%software' || message == '%software' + result || message == '%Software' || message == '%Software' + result ) {
         if ( result !== '' ) { var result = result + ': '; }
 
-        faqbot.say(to, result + "Generic software install guide - ZNC as an example -- https://www.feralhosting.com/faq/view?question=195");            
+        faqbot.say(to, result + "Generic software install guide -- https://www.feralhosting.com/faq/view?question=195");            
         return;
     }
 
@@ -663,6 +725,13 @@ faqbot.addListener('message', function(from, to, message) {
         if ( result !== '' ) { var result = result + ': '; }
 
         faqbot.say(to, result + "Yoink! The What.cd Freeleech Torrent Grabber -- https://www.feralhosting.com/faq/view?question=251");            
+        return;
+    }
+    
+    if ( message == '%whatfreegrab' || message == '%whatfreegrab!' + result || message == '%wfg' || message == '%wfg' + result) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "WhatFreeGrab - Basic usage -- https://www.feralhosting.com/faq/view?question=259");            
         return;
     }
     
@@ -698,6 +767,55 @@ faqbot.addListener('message', function(from, to, message) {
         if ( result !== '' ) { var result = result + ': '; }
 
         faqbot.say(to, result + "Duplicity - Basic Setup -- https://www.feralhosting.com/faq/view?question=255");            
+        return;
+    }
+    
+    if ( message == '%cmake' || message == '%cmake' + result || message == '%CMAKE' || message == '%CMAKE' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "CMAKE - Basic Setup -- https://www.feralhosting.com/faq/view?question=270");            
+        return;
+    }
+    
+    if ( message == '%curl' || message == '%curl' + result || message == '%Curl' || message == '%Curl' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "Curl - Basic Setup -- https://www.feralhosting.com/faq/view?question=267");            
+        return;
+    }
+    
+    if ( message == '%imagegagick' || message == '%imagegagick' + result || message == '%ImageMagick' || message == '%ImageMagick' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "ImageMagick - Basic Setup -- https://www.feralhosting.com/faq/view?question=266");            
+        return;
+    }
+    
+    if ( message == '%mosh' || message == '%mosh' + result || message == '%Mosh' || message == '%Mosh' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "Mosh - Basic Setup -- https://www.feralhosting.com/faq/view?question=269");            
+        return;
+    }
+    
+    if ( message == '%ruby' || message == '%ruby' + result || message == '%Ruby' || message == '%Ruby' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "Ruby - Basic Setup -- https://www.feralhosting.com/faq/view?question=265");            
+        return;
+    }
+    
+    if ( message == '%znc' || message == '%znc' + result || message == '%ZNC' || message == '%ZNC' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "ZNC - Basic Setup -- https://www.feralhosting.com/faq/view?question=264");            
+        return;
+    }
+    
+    if ( message == '%ffmpeg' || message == '%ffmpeg' + result || message == '%FFmpeg' || message == '%FFmpeg' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "ffmpeg - Basic Setup -- https://www.feralhosting.com/faq/view?question=268");            
         return;
     }
     
@@ -803,6 +921,13 @@ faqbot.addListener('message', function(from, to, message) {
         faqbot.say(to, result + "Report abuse to this email, we understand you might be frustrated but please be polite. -- report-abuse@feralhosting.com");
         return;
     }
+    
+    if ( message == '%moveslot' || message == '%moveslot' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + c.green('1: ') + 'Purchase the slot from our website. ' + c.green('2: ') + 'Wait until you receive the slot. ' + c.green('3: ') + 'Then open a ticket requesting a data transfer ' + c.olive('(optional) ') + c.green('4: ') + 'Request a refund on your current slot ' + c.olive('(optional) '));
+        return;
+    }
 }); 
 
 // End of triggers
@@ -819,7 +944,7 @@ faqbot.addListener('message', function(from, to, message) {
 		}
         
         if ( message.indexOf('general') >= 0 ) {
-          faqbot.say(to, "%activated %newuser %common %pwchange %transfer %moveslot %useful %edit %upgrade %late ");
+          faqbot.say(to, "%activated %activepart1 %activepart2 %common %pwchange %transfer %useful %edit %upgrade %late ");
           return;
         }
         
@@ -834,17 +959,17 @@ faqbot.addListener('message', function(from, to, message) {
         }
         
         if ( message.indexOf('ftp') >= 0 ) {
-          faqbot.say(to, "%slowftp %winscp %lftp ");
+          faqbot.say(to, "%slowftp %winscp %lftp %filezilla %textediting %fxp");
           return;
         }
         
         if ( message.indexOf('http') >= 0 ) {
-          faqbot.say(to, "%nginx %www %pwprotect %vhost %webapps %apache %phpmyadmin %php ");
+          faqbot.say(to, "%www %forcehttps %pwprotect %vhost %Wordpress %pydio %ajaxplorer %nginx %phpmyadmin %phpbb3 %apache %php %Adminer %owncloud");
           return;
         }
         
         if ( message.indexOf('other') >= 0 ) {
-          faqbot.say(to, "%mediashare %ratiocolor %fileshare %xbmc %aria2c %cygwin %tor %remoteadder");
+          faqbot.say(to, "%fileshare %ratiocolor %mediashare %tor %aria2c %cygwin %androidvpn %xbmc %transdroid %thumbnails %minecraft %remoteadder %homebrew %speedtest %bandwidth");
           return;
         }
         
@@ -854,7 +979,7 @@ faqbot.addListener('message', function(from, to, message) {
         }
         
         if ( message.indexOf('software') >= 0 ) {
-          faqbot.say(to, "%multirtorrent %multideluge %subsonic %ampache %icecast %proftpd %autodl %autodlinstall %autodlfix %autodlport %java %dropbox %p7zip %btsync %software %yoink! %weechat %node %spideroak %aerofs %duplicity");
+          faqbot.say(to, "%multirtorrent %multideluge %subsonic %ampache %icecast %proftpd %autodl %autodlinstall %autodlfix %autodlport %java %dropbox %p7zip %btsync %software %yoink! %whatfreegrab %weechat %node %spideroak %aerofs %duplicity %cmake %curl %imagemagick %mosh %ruby %znc %ffmpeg");
           return;
         }
         
@@ -864,7 +989,7 @@ faqbot.addListener('message', function(from, to, message) {
         }
         
         if ( message.indexOf('generic') >= 0 ) {
-          faqbot.say(to, "%email %twitter %ticket %contact %abuse");
+          faqbot.say(to, "%email %twitter %ticket %contact %abuse '%moveslot");
           return;
         }
     }
