@@ -14,6 +14,14 @@ You login information for the relevant slot will be shown here:
 Ruby installation
 ---
 
+**Important note:** Ruby 1.9 is already installed on your slot. Use this command to check the existing version:
+
+~~~
+ruby -v
+~~~
+
+Ruby manual installation
+---
 
 Use these first two commands to create to do some pre requisite tasks:
 
