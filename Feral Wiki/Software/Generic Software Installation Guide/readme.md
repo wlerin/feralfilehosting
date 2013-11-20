@@ -1,4 +1,6 @@
 
+**Important note:** Just because you can do something does not automatically mean you should. For example, custom python installations tend to cause more problems that they solve.  Also if you think the programs you want to install will interfere with other users or that Staff might not want you using them you should [open a ticket](https://www.feralhosting.com/manager/tickets/new) and ask first. Please use some common sense with the programs you try to install and use.
+
 Generic Software Guide Introduction:
 ---
 
@@ -10,23 +12,25 @@ su
 sudo
 ~~~
 
-This does not mean you cannot install software on your slot. It does means that you will have to attempt to install it to your HOME directory or below manually. For this there is no official support from Feral staff. For this guide we will look at the methods available to you to install software on your slot.
+This does not mean you cannot install software on your slot. It does means that you will have to attempt to install it to your `HOME` directory, or below, manually. **There is no official support from Feral staff for users doing this**. For this guide we will look at the methods available to you to install software on your slot.
 
-The main methods are:
+The main methods for installing software are:
 
-Pre-compiled binaries created by the developers or similar. Examples of this include:
+**1:** Pre-compiled binaries or scripts created by the developers or similar. Examples of this include:
 
 - ffmpeg
 - java
+- Python programs like flexget
 
-Source-code to compile the binary on your slot. Examples of this include:
+**2:** Source-code to compile the binary on your slot. Examples of this include:
 
 - git
 - znc
 
-Some Debian packages via unpacking them to access the binary.
+**3:** Some Debian packages via unpacking them to access the binary.
 
 - Spideroak
+-  filebot
 
 It is important that you understand that no one of these methods is a guaranteed thing. There are many factors that will contribute to the success or failure of the attempt. These could be dependencies on other applications, binaries, libraries or additional requirements that you have no way to fulfil. This is just something you will have to accept before attempting to install any software on your slot. In this linked examples you will see various methods and solutions to such issues.
 
@@ -77,7 +81,7 @@ You could then manage you installations and have more than one version of a prog
 CMAKE
 ---
 
-Some application do not use `configure` and instead require you use`cmake` to build them. You can use this guide to install and use `CMAKE`:
+Some applications do not use `configure` and instead require you use `cmake` to build them. You can use this guide to install and use `CMAKE`:
 
 [CMAKE - Basic Setup](https://www.feralhosting.com/faq/view?question=270)
 
@@ -88,15 +92,19 @@ It is very common for source code application to come with an executable file ca
 
 If you do not specify a `prefix` what happens is that `configure` will assume you want to use the standard file structure such as `/etc` and `/lib` for which you do not have permission to use. So what we do is specify a `--prefix` that tell `configure` where to install the application and subsequently where to find the files it needs to run.
 
-So when we pass this argument to `configure`
+So when we pass this argument to `configure`:
 
 ~~~
 --prefix=$HOME/desired-location
 ~~~
 
-We are telling it to install the application to `desired-location` in our `HOME` directory.
+We are telling it to install the application to `desired-location` in our `HOME` directory. For example, with the above `prefix` our application will use this as the root installation directory when configuring the application
 
-**Important note:** You can read the `configure` file with a text editor. In this file you will be able to find and see the available arguments you can use with this installation when you encounter some errors.
+~~~
+/media/12345/username/home/desired-location
+~~~
+
+**Important note:** You can read the `configure` file with a text editor. In this file you will be able to find and see the available arguments you can use with this installation when you encounter some errors. Search for `--prefix` to find the rest of the options.
 
 In some cases `configure` does not exist or is not included with the files and you must refer to the developers documentation to see how the files are required to be processed.
 
@@ -113,7 +121,7 @@ One thing to consider when adding locations to the `PATH` variable is the order 
 PATH=~/programs/bin:$PATH
 ~~~
 
-This is the variable we are modifying:
+This is the variable we are modifying by saying `PATH` equals something. Like this:
 
 ~~~
 PATH=
@@ -152,6 +160,8 @@ If we instead did this, it would find the existing `ffmpeg` before find our own 
 ~~~
 PATH=$PATH:~/programs/bin
 ~~~
+
+**Important note:** This also means that the order in which you add paths to your `~/ bashrc` can change the search result.
 
 For more information see this page - [internal variables.](http://tldp.org/LDP/abs/html/internalvariables.html)
 
@@ -229,7 +239,7 @@ tar xf ~/node.js.tar.gz
 
 **Important note:** Effectively, once you have extracted the the contents of the archive, the program is ready to use by directly calling it via a full path in you terminal using `~/node-v0.10.22-linux-x64/bin/node` . For the purposes of this FAQ will continue to move the files to a desired location and add that location to our `PATH` for easy use and so you become more familiar with the overall process.
 
-Now the contents of the archive has just been extracted to the `HOME` folder of our slot. It will generally be safe to assume the new folder name is the same as the archive's minus the extension, but to make sure, we can type this command in our shell:
+Now the contents of the archive has just been extracted to the `HOME` folder of our slot. It will generally be safe to assume the new folder name is the same as the archive's minus the extension, but to make sure, we can type this command in our terminal:
 
 ~~~
 ls
@@ -239,7 +249,7 @@ As we can see the folder name is `node-v0.10.22-linux-x64`
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral Wiki/Software/Generic Software Installation Guide/lsnode.png)
 
-The directory structure of the pre compile programs will commonly resemble the standard Unix directory structure.
+The directory structure of the pre-compiled programs will commonly resemble the standard Unix directory structure, though this is not always true so it is good to check first.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral Wiki/Software/Generic Software Installation Guide/nodedirectory.png)
 
@@ -252,7 +262,7 @@ cp -rf ~/node-v0.10.22-linux-x64/. ~/programs
 Now we add this location to our `PATH` using the special command.
 
 ~~~
-[[][/[][[ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'export PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
+[[][/[][ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'export PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
 This command is meant to be reusable without duplicating the intended result. It will check to see if the location already exists before appending to the `~/bashrc` and reloading the file. You do not need to understand the entire command, just the intended function.
@@ -333,7 +343,7 @@ rm -rf ~/curl-7.33.0 ~/curl.tar.gz
 Now we add this location to our `PATH` using the special command.
 
 ~~~
-[[][/[][[ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'export PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
+[[][/[][ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'export PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
 This command is meant to be reusable without duplicating the intended result. It will check to see if the location already exists before appending to the `~/bashrc` and reloading the file. You do not need to understand the entire command, just the intended function.
@@ -396,6 +406,8 @@ Examples:
 [Mumble client and murmur server](https://www.feralhosting.com/faq/view?question=227)
 
 [ffmpeg](https://www.feralhosting.com/faq/view?question=268)
+
+[Flexget - Basic installation](https://www.feralhosting.com/faq/view?question=234)
 
 2: Source-code examples
 ---
