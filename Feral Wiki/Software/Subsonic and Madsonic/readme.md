@@ -1,5 +1,6 @@
 
-### Subsonic or Madsonic automatic installation using a bash script:
+Subsonic or Madsonic automatic installation using a bash script:
+---
 
 To install this software using a custom bash script connect to your slot using SSH. If you don't know how to do this [here is a basic guide](https://www.feralhosting.com/faq/view?question=12):
 
@@ -40,7 +41,8 @@ install.madsonic
 
 **Subsonic removal:** Run the script again to kill all be given the option to uninstall Subsonic or Madsonic. It will kill all Java processes and removes the folders and files the script created. Then you can simply run the script again to reinstall.
 
-### subsonicrsk or madsonicrsk
+subsonicrsk / madsonicrsk
+---
 
 Execute the `restart/start/kill` script like this (requires you ran the relevant installer script at least once):
 
@@ -60,7 +62,8 @@ The `restart/start/kill` (rsk) script does these things:
 
 To update these scripts you must run the **subsonic.4.8.sh** or **subsonic.4.8** again.
 
-### Crontab and Subsonic.
+Crontab and Subsonic.
+---
 
 This script creates a special mini bash script for restarting the Subsonic process located at `~/bin/subsonicron`. This bash script will check to if the `PID` created by Subsonic or Madsonic the last time it was run is currently alive. If it is alive, the script does nothing, to prevent duplicate processes being run. If the process is not alive the script will restart Subsonic or Madsonic. So if you add it to your crontab using the command below you can make sure the process is always available.
 
@@ -96,19 +99,22 @@ Madsonic:
 * * * * * bash -l ~/bin/madsonicron
 ~~~
 
-### Subsonic Manual installation Steps Intro:
+Subsonic Manual installation Steps Intro:
+---
 
 **Important Note:** Please use the bash script for Madsonic.
 
 **Important Note:** Java is installed on your slot but the included version is very unstable with Subsonic. You will need to install Java 1.7:
 
-### How to install Java 1.7
+How to install Java 1.7
+---
 
 If you would like to install a newer Java version you can use this guide:
 
 [How to install java 1.7](https://www.feralhosting.com/faq/view?question=183)
 
-### Important notes:
+Important notes:
+---
 
 - Default mp3 bitrate is set in `Settings/Players/Max bitrate` per selected player
 - The bash script makes installation and management of Subsonic and Madsonic very easy. Consider using it over the manual steps.
@@ -116,7 +122,8 @@ If you would like to install a newer Java version you can use this guide:
 - Subsonic will ask for a license key after 30 days, that you can get by donating to the creator of the program. After 30 days, video streaming and mobile application support are deactivated. You can use the bash script to install Madsonic instead, that has no such restrictions.
 - HTML5 - [Minisub Chrome App](https://chrome.google.com/webstore/detail/minisub/jccdpflnecheidefpofmlblgebobbloc) (if you use https you must visit the subsonic server URL and accept the cert first
 
-### Reinstalling or stopping the subsonic server
+Reinstalling or stopping the subsonic server
+---
 
 You can delete the contents of `~/private/subsonic` and re-install to reset the 30 days limit. Users will have to be re created as well as lost settings so doing this is not always easy.
 
@@ -150,9 +157,10 @@ kill -9 30801
 
 If you still cannot connect to your usual port after a reinstall or a reboot of subsonic, try changing ports.
 
-### FFmpeg versions
+FFmpeg versions
+---
 
-FFmpeg versions in this guide. All versions used in the scripts and FAQ are based on static builds created here [http://forum.madsonic.org](http://forum.madsonic.org).
+All versions used in the scripts and FAQ are based on static builds created here: [http://forum.madsonic.org](http://forum.madsonic.org).
 
 [Madsonic build ffmpeg.31.10.2013.zip](https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.31.10.2013.zip)
 
@@ -162,7 +170,8 @@ Alternate static builds:
 
 [ffmpeg-2.0.1-64bit-static.zip](https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg-2.0.1-64bit-static.zip)
 
-### Subsonic Manual installation Steps using SSH
+Subsonic Manual installation Steps using SSH
+---
 
 We are using the files here because they work “out of the box” pretty much. 4.6 does not seem to work with default settings using either a slots included ffmpeg or a static build. With this FAQ all transcoding and stuff just works. No tweaking needed.
 
@@ -302,7 +311,8 @@ To visit your subsonic Gui you visit your hostname URL with the port. Enjoy.
 Hostname:Port
 ~~~
 
-### Notes:
+Notes:
+---
 
 Avconv: A static build found here can also be used.
 
