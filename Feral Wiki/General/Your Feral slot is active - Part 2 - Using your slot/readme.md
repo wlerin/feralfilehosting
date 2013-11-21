@@ -9,7 +9,7 @@ When you buy a slot from Feral it will be activated and created on a server in t
 
 No matter where in the world you are, you will be connecting to this location when you directly access your slot's features. 
 
-All *outgoing* traffic from your Feral Slot originates from this London location.
+All *outgoing* traffic from your Feral Slot originates from this Netherlands location.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral Wiki/General/Your Feral slot is active - Part 2 - Using your slot/01 location 2.png)
 
