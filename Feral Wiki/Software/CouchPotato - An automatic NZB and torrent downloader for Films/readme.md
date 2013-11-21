@@ -1,3 +1,14 @@
+
+In SSH do the commands described in this FAQ. If you do not know how to SSH into your slot use this FAQ: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
+
+Your FTP / SFTP / SSH login information can be found on the Slot Details page for the relevant slot. Use this link in your Account Manager to access the relevant slot:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_link.png)
+
+You login information for the relevant slot will be shown here:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_ssh.png)
+
 ### Prerequisites
 
 If you used this guide for Pyton 2.7.4 - [Python - How to install](https://www.feralhosting.com/faq/view?question=204) Couchpotato won't start. It is a bug with pysqlite and i have not fixed it yet.
@@ -11,17 +22,17 @@ You also need to have Git installed on your slot. If you haven't done that, [her
 
 **1: Download the CouchPotato source to your home directory**
 
-```
+~~~
 git clone https://github.com/RuudBurger/CouchPotatoServer.git ~/.couchpotato && mkdir ~/.couchpotato/ssl
-```
+~~~
 
 **HTTPS - To use https you will have to generate your own certificates**
 
 After you have git cloned Couchpotatocopy and paste this command to generate your certificates to use https.
 
-```
+~~~
 openssl req -new -x509 -nodes -days 365 -subj '/C=GB/ST=none/L=none/CN=none'  -newkey rsa:2048 -keyout ~/.couchpotato/ssl/couch.key.pem -out ~/.couchpotato/ssl/couch.cert.pem
-```
+~~~
 
 Your certificates are generated to `~/.couchpotato/ssl/`
 
@@ -43,17 +54,17 @@ If you get an error message about the address already being in use, just pick an
 
 First we are going to run it to see if it works and do some basic setup. After that we will stop it then start it as a daemon in the background.
 
-```
+~~~
 python ~/.couchpotato/CouchPotato.py
-```
+~~~
 
 If all goes well you will see nothing after you press enter.
 
 You should now be able to access CouchPotato in your browser at:
 
-```
+~~~
 https://server.feralhosting.com:YOUR_PORT
-```
+~~~
 
 Using https the port generated above.
 
@@ -67,9 +78,9 @@ Under Downloaders, the default option is Black Hole, which will just download th
 
 By default, that should be:
 
-```
+~~~
 ~/private/client/watch
-```
+~~~
 
 Make sure to replace **client** with whichever client you use.
 
@@ -89,9 +100,9 @@ Now that CouchPotato is running successfully on your slot, you should run it as 
 
 Now restart it as a daemon using this command:
 
-```
+~~~
 python ~/.couchpotato/CouchPotato.py --daemon
-```
+~~~
 
 CouchPotato is now completely installed, and ready to use.
 
@@ -103,15 +114,15 @@ Important Note: This section is limited to the `username.server.feralhosting.com
 
 By default, the URL to access CouchPotato is:
 
-```
+~~~
 https://userername.server.feralhosting.com:YOUR_PORT
-```
+~~~
 
 It's possible to change this to a more meaningful URL, such as 
 
-```
+~~~
 https://userername.server.feralhosting.com/couchpotato/
-```
+~~~
 
 **Create a custom Apache configuration**
 
@@ -121,14 +132,14 @@ Replace **YOUR_PORT** below with which ever port you picked.
 
 or using SSH:
 
-```
+~~~
 mkdir -p ~/.apache2/conf.d
 cat >> ~/.apache2/conf.d/couch.conf << EOF
-```
+~~~
 
 Now paste and edit these commands. Press enter to go to a new line. The last line "EOF" closes and saves the document when you type it and press enter..
 
-```
+~~~
 Include /etc/apache2/mods-available/proxy.load
 Include /etc/apache2/mods-available/proxy_http.load
 
@@ -137,7 +148,7 @@ Include /etc/apache2/mods-available/proxy_http.load
   ProxyPassReverse http://localhost:YOUR_PORT/couchpotato/
 </Location>
 EOF
-```
+~~~
 
 Get your generated port using this command:
 
@@ -149,19 +160,19 @@ In your web browser, go to your CouchPotato homepage, and access the settings vi
 
 In order for these new settings to be used, we need to restart both CouchPotato and Apache.
 
-```
+~~~
 pkill -f CouchPotato
 python ~/.couchpotato/CouchPotato.py --daemon
 /usr/sbin/apache2ctl restart
-```
+~~~
 
 **Access CouchPotato via the new URL**
 
 You can now access CouchPotato via the following URL
 
-```
+~~~
 http://username.server.feralhosting.com:PORT/couchpotato/
-```
+~~~
 
 If it doesn't immediately load, give it a bit of time, as the python daemon can often take a while to start listening to requests from Apache.
 

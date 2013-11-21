@@ -1,9 +1,21 @@
 
-### Streaming
+In SSH do the commands described in this FAQ. If you do not know how to SSH into your slot use this FAQ: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
+
+Your FTP / SFTP / SSH login information can be found on the Slot Details page for the relevant slot. Use this link in your Account Manager to access the relevant slot:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_link.png)
+
+You login information for the relevant slot will be shown here:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_ssh.png)
+
+Streaming
+---
 
 Use VLC to stream with Ampache. It can now accept invalid SSL certificates. This script will also modify the `conf` to scan for `mkv` files in catalogues.
 
-### Ampache
+Ampache
+---
 
 **First:** go to the software install page for feralhosting at: [Install Software](https://www.feralhosting.com/manager/slot/install).
 
@@ -13,13 +25,15 @@ Use VLC to stream with Ampache. It can now accept invalid SSL certificates. This
 
 In SSH do these commands. Use this FAQ if you do not know how to SSH into your slot: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
 
-### Installing Ampache on Feral slots.
+Installing Ampache on Feral slots.
+---
 
 You will need your MySQL details to complete this FAQ.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/mysql_socket.png)
 
-### The bash script
+The bash script
+---
 
 Because there are quite a few configuration and tweaks required to make Ampache work on your slot, a manual guide a bit too much since the bash script already automates it for you. For this reason there is only a bash script installer.
 
@@ -44,7 +58,8 @@ wget -qO ~/ampache.sh http://git.io/wESU5A && bash ~/ampache.sh
 
 Don't forget to change it.
 
-### Post script installation
+Post script installation
+---
 
 After you have used the bash script then navigate to this folder in your web browser, it should be like:
 

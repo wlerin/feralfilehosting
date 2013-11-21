@@ -394,37 +394,30 @@ Examples:
 ---
 
 [node.js - How to install](https://www.feralhosting.com/faq/view?question=199)
-
 [Java 1.7](https://www.feralhosting.com/faq/view?question=183)
-
 [p7zip - basic installation](https://www.feralhosting.com/faq/view?question=245)
-
 [Teamspeak 3 server](https://www.feralhosting.com/faq/view?question=175)
-
 [BitTorrent Sync btsync - basic setup](https://www.feralhosting.com/faq/view?question=224)
-
 [Mumble client and murmur server](https://www.feralhosting.com/faq/view?question=227)
-
 [ffmpeg](https://www.feralhosting.com/faq/view?question=268)
-
 [Flexget - Basic installation](https://www.feralhosting.com/faq/view?question=234)
+[Subsonic 4.8 or Madsonic 5.0](https://www.feralhosting.com/faq/view?question=159)
+[Plowshare - a download tool for file sharing websites - with auto captcha solving](https://www.feralhosting.com/faq/view?question=157)
+[CouchPotato - An automatic NZB and torrent downloader for Films](https://www.feralhosting.com/faq/view?question=218)
+[Dropbox - How to install](https://www.feralhosting.com/faq/view?question=205)
 
 2: Source-code examples
 ---
 
-[git](https://www.feralhosting.com/faq/view?question=206)
-
-[ruby](https://www.feralhosting.com/faq/view?question=265)
-
-[python](https://www.feralhosting.com/faq/view?question=204)
-
-[znc](https://www.feralhosting.com/faq/view?question=264)
-
-[duplicity](https://www.feralhosting.com/faq/view?question=255)
-
-[Curl](https://www.feralhosting.com/faq/view?question=267)
-
-[mosh](https://www.feralhosting.com/faq/view?question=269)
+[Icecast - streaming media server](https://www.feralhosting.com/faq/view?question=155)
+[ImageMagick - Basic Setup](https://www.feralhosting.com/faq/view?question=266)
+[Git - How to Install](https://www.feralhosting.com/faq/view?question=206)
+[Ruby - Basic Setup](https://www.feralhosting.com/faq/view?question=265)
+[Python - How to install](https://www.feralhosting.com/faq/view?question=204)
+[ZNC - Basic Setup](https://www.feralhosting.com/faq/view?question=264)
+[Curl - Basic Setup](https://www.feralhosting.com/faq/view?question=267)
+[Mosh - Basic Setup](https://www.feralhosting.com/faq/view?question=269)
+[Duplicity - Basic Setup](https://www.feralhosting.com/faq/view?question=255)
 
 3: Debian packages examples
 ---
