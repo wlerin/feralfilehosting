@@ -1,4 +1,17 @@
 
+In SSH do the commands described in this FAQ. If you do not know how to SSH into your slot use this FAQ: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
+
+Your FTP / SFTP / SSH login information can be found on the Slot Details page for the relevant slot. Use this link in your Account Manager to access the relevant slot:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_link.png)
+
+You login information for the relevant slot will be shown here:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_ssh.png)
+
+Plowshare
+---
+
 Plowshare homepage: [http://code.google.com/p/plowshare/](http://code.google.com/p/plowshare/)
 Plowshare Readme: [http://code.google.com/p/plowshare/wiki/Readme4](http://code.google.com/p/plowshare/wiki/Readme4)
 
@@ -13,13 +26,13 @@ Plowshare is a command line tool and while not hard to install, setup, and run, 
 ### Step 1 - Get the Plowshare source file on to your Feral slot.
 
 Download the latest "Plowshare source tarball" (the file which ends in ".tar.gz") from this page:
-     
+ 
 [http://code.google.com/p/plowshare/downloads/list](http://code.google.com/p/plowshare/downloads/list)
 
-The current version as of July 24, 2013 is `plowshare4-snapshot-git20130520.2b2d736.tar.gz` but that will change in time. You want the "plowshare4-snapshot..." and NOT the "plowshare3-snapshot...".
-     
+The current version as of November 21, 2013 is `plowshare4-snapshot-git20131102.b72c58d.tar.gz `  but that will change in time. You want the "plowshare4-snapshot..." and NOT the "plowshare3-snapshot...".
+ 
 Create a temp 'install' directory on your Feral slot, let's say 'plowtemp', and put the "plowshare-snapshot-version-num.tar.gz" file into that directory.
-     
+ 
 More advanced Linux users can use wget to download the file directly to their Feral slot. e.g.
 
 Note: For the correct link to use with wget click on the ".tar.gz" file on the Plowshare downloads page and then copy the download link on the page you are taken to.
@@ -76,7 +89,7 @@ make install PREFIX=$HOME
 ~~~
 
 The "make install" command will install the Plowshare script into a directory called 'share' in your home directory. It will also create another directory in your home directory called 'bin' (if that does not already exist) into which it will place symbolic links to the various executable scripts that make up Plowshare. Do not move or change the names of these directories or anything inside them or Plowshare won't work.
-     
+ 
 You can now check to see if Plowshare is installed, just run the following command:
 
 ~~~
@@ -90,7 +103,7 @@ At this point you can delete the temp install directory you created, i.e. 'plowt
 ### Step 4 - Fix Potential IPv6 (Internet Protocol v6) Problem.
 
 There is no support on Feral slots for IPv6 (Internet Protocol version 6) at the moment. Plowshare makes extensive use of a program called 'curl' to access the web and you must create a 'curl' init file to make sure 'curl' always uses IPv4 IP addresses and not IPv6.
-     
+ 
 Create a file in your home directory called '.curlrc' and in it place just the short line below:
 
 ~~~
@@ -102,6 +115,7 @@ You can achieve this by running the following command:
 ~~~
 echo '--ipv4' >> ~/.curlrc
 ~~~
+
  
 ### Step 5 - Create an automated captcha Account.
 
@@ -143,7 +157,7 @@ rapidshare/a=UserName:UserPass
 # Note: The "/a" denotes a premium account, the "/b" denotes a registered but free account.
 
 [Plowdown]
-# Timeout in seconds: 43200 = 12 hours * 60 mins * 60 secs
+# Timeout in seconds: 43200 = 12 hours ` 60 mins ` 60 secs
 timeout=43200
 
 # Num retries you want per file.
@@ -172,7 +186,7 @@ captchamethod=online
 I have a rapidshare.com account, so my login details go in the `General` section. The other sites can have login details entered as well, see the notes in the example config file above and the readme linked below. If you don't have any account just delete the `General` section.
 
 The `Plowdown` section can have all kinds of things set in them, I just have a few. If you are using 9kw.eu enter your key details in the way of my example, likewise antigate, if deathbycaptcha then enter your username and pass seperated by a ':' and if there are spaces in your user/pass then add double quotes, e.g. deathbycaptcha="User Name:Pass Word".
-     
+ 
 Any option can be placed in the config file, please see the Plowshare Readme config file section, here:
 [http://code.google.com/p/plowshare/wiki/Readme4#Configuration_file](http://code.google.com/p/plowshare/wiki/Readme4#Configuration_file)
 
@@ -227,7 +241,7 @@ plowdown -c links.txt
 **How to run plowdown even after you have logged off Feral:**
 
 A useful hint for Feral users is that if you use the '&' control operator at the end of the command line, then the command will 'return' immediately and continue to run as a background task. This means you can start plowdown and then logoff Feral while plowdown continues to run. If you stay logged in you will continue to get messages from plowdown in your terminal window (unless you used the -q, --quiet switch) but logging out of Feral will not kill the process.
-     
+ 
 Just enter the command, add a '&' at the end of it, and afterwards logout of Feral as normal, e.g.
 
 ~~~
@@ -239,8 +253,5 @@ Note: A much better option than using the command followed by '&' so that plowdo
 [Screen User's Manual](http://www.gnu.org/software/screen/manual/screen.html)
 
 That is the end of this tutorial but there is lots more information on the Plowshare site.
-
-**Thanks to user gencon for the writeup!**
-
 
 

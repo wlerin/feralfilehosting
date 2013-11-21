@@ -1,9 +1,7 @@
 
 In SSH do the commands described in this FAQ. If you do not know how to SSH into your slot use this FAQ: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
 
-Your FTP / SFTP / SSH login information can be found on the Slot Details page for the relevant slot.
-
-Use this link in your Account Manager to access the relevant slot:
+Your FTP / SFTP / SSH login information can be found on the Slot Details page for the relevant slot. Use this link in your Account Manager to access the relevant slot:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_link.png)
 
@@ -18,7 +16,8 @@ mkdir -p ~/programs
 [[][/[][ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'export PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
-### Protobuf
+Protobuf
+---
 
 This is a required dependency that is not included with your slot.
 
@@ -29,7 +28,8 @@ tar xf ~/protobuf-2.5.0.tar.gz && cd ~/protobuf-2.5.0
 rm -rf  ~/protobuf-2.5.0.tar.gz ~/protobuf-2.5.0
 ~~~
 
-### Mosh
+Mosh
+---
 
 Now download and install `mosh`:
 

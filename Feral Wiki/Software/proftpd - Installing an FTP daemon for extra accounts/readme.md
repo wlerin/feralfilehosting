@@ -1,13 +1,22 @@
 
-**Notice:** If you just want to find out which Ports to use for connecting, see Step 5. If did not complete the user creation/password part of the script see Step 6 for the `ftpasswd` commands you need to 1: create your main user and 2: other jailed users.
-
 In SSH do the commands described in this FAQ. If you do not know how to SSH into your slot use this FAQ: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
 
-### To set up your own SFTP or FTPS server with your own virtual users on your slot, follow this guide:
+Your FTP / SFTP / SSH login information can be found on the Slot Details page for the relevant slot. Use this link in your Account Manager to access the relevant slot:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_link.png)
+
+You login information for the relevant slot will be shown here:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_ssh.png)
+
+**Important note:** If you just want to find out which Ports to use for connecting, see Step 5. If did not complete the user creation/password part of the script see Step 6 for the `ftpasswd` commands you need to 1: create your main user and 2: other jailed users.
+
+Bash script installation
+---
 
 This bash script will perform the **basic setup** outlined in Steps 1,2,3,4,5,6. Including creating your main user account.
 
-**Important note:** This script can also update proftpd without losing any settings, jails or users you have configured.
+**Important note:** This script can also update proftpd, when updates become available and the script is updated, without losing any settings, jails or users you have configured.
 
 So if you use the bash script and complete it successfully you can continue from Step 7 of the FAQ.
 
@@ -15,11 +24,13 @@ So if you use the bash script and complete it successfully you can continue from
 wget -qO ~/proftpd.sh http://git.io/nMVKJA && bash ~/proftpd.sh
 ~~~
 
-### Manual Installation Steps
+Manual Installation Steps
+---
 
 Follow these steps to manually download and install proftpd. The bash script will complete Steps 1,2,3,4,5,6 for you.
 
-### Step 1: Get the package and extract it:
+Step 1: Get the package and extract it:
+---
 
 ~~~
 mkdir -p ~/proftpd/etc/sftp/authorized_keys ~/proftpd/etc/keys ~/proftpd/ssl
@@ -28,7 +39,8 @@ tar xf ~/proftpd.tar.gz -C ~/ && rm -f ~/proftpd.tar.gz
 cd ~/proftpd-1.3.4d
 ~~~
 
-### Step 2: Configure and then install it:
+Step 2: Configure and then install it:
+---
 
 ~~~
 install_user=$(whoami) install_group=$(whoami) ./configure --prefix=$HOME/proftpd --enable-openssl --enable-dso --enable-nls --enable-ctrls --with-shared=mod_ratio:mod_readme:mod_sftp:mod_tls:mod_ban
@@ -36,7 +48,8 @@ make && make install
 cd && rm -rf ~/proftpd-1.3.4d
 ~~~
 
-### Step 3.1: Download and create some required configuration files we need:
+Step 3.1: Download and create some required configuration files we need:
+---
 
 Do these commands to download the preconfigured configuration files.
 
@@ -46,7 +59,8 @@ wget -qO ~/proftpd/etc/sftp.conf http://git.io/SFHs5g
 wget -qO ~/proftpd/etc/ftps.conf http://git.io/ee86Hw
 ~~~
 
-### Step 3.2: Optional Configuration:
+Step 3.2: Optional Configuration:
+---
 
 Use these commands if you would like the conf files configured using SSH commands. Skip this section if you wish to do it manually.
 
@@ -83,7 +97,8 @@ Once these commands have been completed the conf files have all been configured 
 
 Continue with FAQ.
 
-### Step 4: Generate some keys and certs:
+Step 4: Generate some keys and certs:
+---
 
 Here you need to generate the SFTP keys and/or the SSL certs for FTPS
 
@@ -107,7 +122,8 @@ Press enter 4 times to generate keyfiles with no passphrase. Using a Pass-phrase
 openssl req -new -x509 -nodes -days 365 -subj '/C=GB/ST=none/L=none/CN=none' -newkey rsa:2048 -keyout ~/proftpd/ssl/proftpd.key.pem -out ~/proftpd/ssl/proftpd.cert.pem
 ~~~
 
-### Step 5: The Configuration files:
+Step 5: The Configuration files:
+---
 
 **Important note:** These configuration files just work. They do not need to changed to get the functionality described in this guide, apart from where you are directed to do so. 
 
@@ -133,11 +149,13 @@ These configuration files have been set-up to work in a specific way.
 
 For manual set-up or altering, they can be found in the `~/proftpd/etc/` of the installation directory, for example:`~/proftpd/etc/proftpd.conf`
 
-### Manual Configuration of conf files
+Manual Configuration of conf files
+---
 
 You only if you did not use the bash script or skipped using the `sed` commands in step 3.2
 
-### proftpd.conf
+proftpd.conf
+---
 
 In the Global Section of the `proftpd.conf`
 
@@ -158,7 +176,7 @@ These are the partial line changes you want to change with your own path in the 
 /media/DiskID/home/my_username
 ~~~
 
-#### sftp.conf
+### sftp.conf
 
 Change the port to a different number (between 6000 and 50000)
 
@@ -172,7 +190,7 @@ These are the partial line changes you want to change with your own path in the 
 /media/DiskID/home/my_username
 ~~~
 
-#### ftps.conf
+### ftps.conf
 
 Change the port to a different number (between 6000 and 50000)
 
@@ -193,7 +211,8 @@ echo  SFTP = $(grep '^Port [0-9]*' ~/proftpd/etc/sftp.conf)
 echo  FTPS = $(grep '^Port [0-9]*' ~/proftpd/etc/ftps.conf)
 ~~~
 
-### Step 6: Create our main user with full access
+Step 6: Create our main user with full access
+---
 
 This command below will automatically create a user using:
 
@@ -249,7 +268,8 @@ Returns:
 
 This will give you **your** `UID` and `GID`, which in this example, are both **1032**. When creating a user if you provide the `UID` and `GID` listed from those commands you will have your full permissions when accessing the slot. The username does not matter as long as the `UID` and `GID` match. This is important for using some programs like WinSCP or when creating an account for yourself.
 
-### Step 7: Creating new users and groups
+Step 7: Creating new users and groups
+---
 
 These users, when created, are all **jailed by default** based on the configuration file settings.
 
@@ -267,7 +287,8 @@ private/transmission/data
 
 If you use one of these jail paths as your user's `HOME` or as a remote directory in your FTP program your user will already have access and get a successful directory listing when connecting.
 
-### Creating or editing users in SSH using ftpasswd:
+Creating or editing users in SSH using ftpasswd:
+---
 
 In the command below, replace `my_username` with the username of the user you want to add. Add your Jail path after `$HOME/`, for example `$HOME/private/jail`
 
@@ -289,7 +310,8 @@ To delete an existing users use this command, where `my_username` is the name of
 
 Please see then end of this section for an easy way to add users using a bash script.
 
-### Creating or editing groups in SSH using ftpasswd:
+Creating or editing groups in SSH using ftpasswd:
+---
 
 Now we can add that user to a group (optional):
 
@@ -305,7 +327,8 @@ Delete an existing group, where `my_group` is the name of the group you wish to 
 ~/proftpd/bin/ftpasswd --group --name my_group --delete-group --file ~/proftpd/etc/ftpd.group
 ~~~
 
-### Create user bash script
+Create user bash script
+---
 
 ~~~
 wget -qO ~/proftpdadduser.sh http://git.io/NGk2Aw
@@ -329,7 +352,8 @@ You will need to:
 
 And that should be your new user created and ready to connect once you have started the servers in step 9.
 
-### Step 8: Jail your users:
+Step 8: Jail your users:
+---
 
 **Important note:** Don't forget changes made to the` proftpd.conf`, `sftp.conf` and `ftps.conf` will require the proftpd running process to restarted for the changes to take effect. See `Step 9` for restart commands.
 
@@ -363,7 +387,8 @@ This way when they log in they will be put into this folder. If you don't give t
 
 To add more jails look at the example described next to see how we do this.
 
-### Adding or editing custom jails
+Adding or editing custom jails
+---
 
 **Step 1:** Choose or create a folder to lock them in (their HOME location). Then use the relative path to that folder in the commands below for `--home`. This is an optional step, but if their `HOME` corresponds to the jail path you wish to set for them, they will connect directly to their `HOME` folder by default, using an FTP client, with no need to manually specify the location.
 
@@ -397,7 +422,8 @@ AllowAll
 </Directory>
 ~~~
 
-### Using symlinks to other directories
+Using symlinks to other directories
+---
 
 If you want to be able to follow symlinks outside the allowed directory you will need to add a new `<Directory>` section for each folder inside the `proftpd.conf`, for example:
 
@@ -439,7 +465,8 @@ AllowAll
 
 Then you will need to restart the proftpd running process for the changes to take effect.
 
-### AllowAll or AllowUser
+AllowAll or AllowUser
+---
 
 The use of `AllowAll` means that any non main user has read only access to the default jails in the default `proftpd.conf`. 
 
@@ -458,7 +485,8 @@ In this example only `my_username` has read only access to this jail. You can ad
 
 This will let you fine tune access to the jails.
 
-### Make a jail writeable so users can upload.
+Make a jail writeable so users can upload.
+---
 
 To make a directory writeable so users can upload to it you would add `WRITE` permissions.
 
@@ -486,7 +514,8 @@ So instead of `WRITE` you could allow the specific permissions only.
 
 Please see the Useful links section at the end of the FAQ for info on directives you can use in the proftpd.conf and the use of Limits.
 
-### Step 9: Let's start ProFTPD:
+Step 9: Let's start ProFTPD:
+---
 
 **Important note:** If you make changes to the `proftpd.conf` you will need to restart it for these changes to take effect.
 
@@ -546,7 +575,8 @@ killall -9 proftpd -u $(whoami)
 
 To kill all processes.
 
-### Crontab automatic restart on server reboot
+Crontab automatic restart on server reboot
+---
 
 To edit your crontab you must do this command:
 
@@ -570,7 +600,8 @@ Now all you need to do is add whichever of these lines you want to restart on a 
 
 Then press and hold `CTRL` then press `X` to save then press `Y` say yes and exit
 
-### Step 10: Connecting to my Server
+Step 10: Connecting to my Server
+---
 
 The process is the same as normal:
 
@@ -580,7 +611,8 @@ The process is the same as normal:
 **username**: whatever user names you created
 **port**: as you defined in the config files.
 
-### SFTP Public/Private Keys (optional)
+SFTP Public/Private Keys (optional)
+---
 
 The `sftp.conf` has been configured to accept and use key pairs. There is just one things you must do to make it work. You must convert it to `SSH RFC 4716` format. This is not as complicated as it sounds.
 
@@ -633,7 +665,8 @@ ssh-keygen -e -f ~/.ssh/authorized_keys
 
 **Important note:** I could only make it return the first line of multiple lines in this command. If anyone has a solutions to this please update the FAQ. I suggest using the command directly on the OpenSSH format private or public keys.
 
-### Quick FAQs:
+Quick FAQs:
+---
 
 Q: I get permission errors uploading files or trying to change permissions.
 
@@ -643,7 +676,8 @@ Q: "Failed to retrieve directory listing" and "Failed to parse returned path."
 
 A: Your users Jail home must correspond to an existing Jail path. IF you have made changes to any of the conf files don't forget to restart proftpd as shown in Step 9
 
-### Useful Links:
+Useful Links:
+---
 
 [Proftpd FAQ](http://www.proftpd.org/docs/faq/linked/faq.html)
 

@@ -1,10 +1,21 @@
 
-### Flexget Setup
+In SSH do the commands described in this FAQ. If you do not know how to SSH into your slot use this FAQ: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
+
+Your FTP / SFTP / SSH login information can be found on the Slot Details page for the relevant slot. Use this link in your Account Manager to access the relevant slot:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_link.png)
+
+You login information for the relevant slot will be shown here:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_ssh.png)
+
+Flexget Setup
+---
 
 Add this location to your PATH using this command:
 
 ~~~
-[ -z "$(grep '~/.local/bin' ~/.bashrc)" ] && echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc; source ~/.bashrc
+[[][/[][ ! "$(grep '~/.local/bin' ~/.bashrc)" ]] && echo 'export PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
 **Important note:** Why is the `~/flexget/bin` not added to the PATH to? to avoid potential `easy_install`, `pip` and mods conflicts. Use the activate command below instead.
@@ -55,7 +66,8 @@ server.feralhosting.com:PORT
 
 **PASSWORD** = A password just for the Web Gui
 
-### RSS Configuration
+RSS Configuration
+---
 
 The `config.yml` file can be found here:
 
