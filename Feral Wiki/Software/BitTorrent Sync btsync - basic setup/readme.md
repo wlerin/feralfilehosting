@@ -16,7 +16,6 @@ Here are some basic set-up steps for btsync.
 
 Info: Automatically sync files via secure, distributed technology. [btsync homepage](http://labs.bittorrent.com/experiments/sync.html)
 
-
 You will need to execute these commands in [SSH](https://www.feralhosting.com/faq/view?question=12)
 
 ~~~
@@ -56,7 +55,7 @@ Something like this:
 
 **Important note:** The `USERNAME` and `PASSWORD` you create here is unique, just for the btsync Web Gui. It is not related to any Feral provided passwords.
 
-**Important note:** Pick a port between `6000` to `55000`
+**Important note:** Pick a port between `6000` to `50000`
 
 ~~~
 //  Make sure to pick a PORT by changing #### then Change USERNAME and PASSWORD. Leave the host as 0.0.0.0
@@ -72,9 +71,7 @@ Once you have done this edit, execute this command. It will send itself to the b
 ~/btsync/./btsync --config ~/btsync/sync.conf
 ~~~
 
-To access the Web Gui you must use a browser and visit the URL:
-
-**Important note:** where `username` if your Feral username and `server` is the name of your Feral server that hosts the slot btsync is installed on:
+To access the Web Gui you must use a browser and visit the URL, where `username` is your Feral username and `server` is the name of your Feral server that hosts the slot btsync is installed on:
 
 **Important note:** `https` is not supported by bysync. You must only use `http`
 
@@ -114,7 +111,7 @@ ps x | grep btsync | grep -v grep
 Kill all btsync processes this way:
 
 ~~~
-killall -9 btsync -u $(whoami)
+killall -9 -u $(whoami) btsync
 ~~~
 
 
