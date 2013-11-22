@@ -52,8 +52,8 @@ wget -qO "$HOME/000somescript.sh" "$scripturl"
 if ! diff -q "$HOME/000somescript.sh" "$HOME/somescript.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO "$HOME/somescript.sh" "'$scripturl'"
-    wget -qO "$HOME/bin/somescript" "'$scripturl'"
+    wget -qO "$HOME/somescript.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/somescript" "'"$scripturl"'"
     bash "$HOME/somescript.sh"
     exit 1' > "$HOME/111somescript.sh"
     bash "$HOME/111somescript.sh"
@@ -62,8 +62,8 @@ fi
 if ! diff -q "$HOME/000somescript.sh" "$HOME/bin/somescript" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO "$HOME/somescript.sh" "'$scripturl'"
-    wget -qO "$HOME/bin/somescript" "'$scripturl'"
+    wget -qO "$HOME/somescript.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/somescript" "'"$scripturl"'"
     bash "$HOME/somescript.sh"
     exit 1' > "$HOME/222somescript.sh"
     bash "$HOME/222somescript.sh"

@@ -2,7 +2,7 @@
 #
 # Install Teamspeak 3
 scriptversion="1.0.8"
-teamspeakversion="3.0.10"
+teamspeakversion="3.0.10.1"
 # randomessence 27/04/2013
 #
 # bash ~/private/teamspeak/ts3server_startscript.sh start
@@ -37,7 +37,8 @@ fport=$(shuf -i 25001-40000 -n 1)
 # fport is file transfer port: vport + 1 used in the sed commands
 qport=$(shuf -i 40001-50000 -n 1)
 # qport is the query port: vport + 2 used in the sed commands
-teamspeakfv="http://dl.4players.de/ts/releases/3.0.10/teamspeak3-server_linux-amd64-3.0.10.tar.gz"
+teamspeakfv="http://dl.4players.de/ts/releases/3.0.10.1/teamspeak3-server_linux-amd64-3.0.10.1.tar.gz"
+scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Teamspeak%203%20server/scripts/teamspeak.sh"
 #
 ############################
 ####### Variable End #######
@@ -48,70 +49,70 @@ teamspeakfv="http://dl.4players.de/ts/releases/3.0.10/teamspeak3-server_linux-am
 ############################
 #
 ###### Self Updater Starts
-mkdir -p $HOME/bin
+mkdir -p "$HOME/bin"
 #
-if [ ! -f  ~/teamspeak.sh ]
+if [[ ! -f "$HOME/teamspeak.sh" ]]
 then
-    wget -qO $HOME/teamspeak.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Teamspeak%203%20server/scripts/teamspeak.sh
+    wget -qO "$HOME/teamspeak.sh" "$scripturl"
 fi
-if [ ! -f  ~/bin/teamspeak ]
+if [[ ! -f "$HOME/bin/teamspeak" ]]
 then
-    wget -qO $HOME/bin/teamspeak https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Teamspeak%203%20server/scripts/teamspeak.sh
+    wget -qO "$HOME/bin/teamspeak" "$scripturl"
 fi
 #
+wget -qO "$HOME/000teamspeak.sh" "$scripturl"
 #
-wget -qO $HOME/000teamspeak.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Teamspeak%203%20server/scripts/teamspeak.sh
-#
-if ! diff -q $HOME/000teamspeak.sh $HOME/teamspeak.sh > /dev/null 2>&1
+if ! diff -q "$HOME/000teamspeak.sh" "$HOME/teamspeak.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/teamspeak.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Teamspeak%203%20server/scripts/teamspeak.sh
-    wget -qO $HOME/bin/teamspeak https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Teamspeak%203%20server/scripts/teamspeak.sh
+    wget -qO $HOME/teamspeak.sh "'"$scripturl"'"
+    wget -qO $HOME/bin/teamspeak "'"$scripturl"'"
     bash $HOME/teamspeak.sh
-    exit 1' > $HOME/111teamspeak.sh
-    bash $HOME/111teamspeak.sh
+    exit 1' > "$HOME/111teamspeak.sh"
+    bash "$HOME/111teamspeak.sh"
     exit 1
 fi
-if ! diff -q $HOME/000teamspeak.sh $HOME/bin/teamspeak > /dev/null 2>&1
+if ! diff -q "$HOME/000teamspeak.sh" "$HOME/bin/teamspeak" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/teamspeak.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Teamspeak%203%20server/scripts/teamspeak.sh
-    wget -qO $HOME/bin/teamspeak https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Teamspeak%203%20server/scripts/teamspeak.sh
+    wget -qO $HOME/teamspeak.sh "'"$scripturl"'"
+    wget -qO $HOME/bin/teamspeak "'"$scripturl"'"
     bash $HOME/teamspeak.sh
-    exit 1' > $HOME/222teamspeak.sh
-    bash $HOME/222teamspeak.sh
+    exit 1' > "$HOME/222teamspeak.sh"
+    bash "$HOME/222teamspeak.sh"
     exit 1
 fi
 #
 echo
-echo -e "Hello $(whoami), you have the latest version of this script. This script version is:" "\033[31m""$scriptversion""\e[0m"
-echo -e "The version of the teamspeak server being used in this script is:" "\033[31m""$teamspeakversion""\e[0m"
+echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
 echo
 #
-rm -f $HOME/000teamspeak.sh $HOME/111teamspeak.sh $HOME/222teamspeak.sh $HOME/6274546.sh $HOME/292857.sh
+rm -f "$HOME/000teamspeak.sh" "$HOME/111teamspeak.sh" "$HOME/222teamspeak.sh" "$HOME/6274546.sh" "$HOME/292857.sh"
 chmod -f 700 ~/bin/teamspeak
 ### Self Updater Ends
 #
 # creates the ~/bin directory which is generally useful. Copies the script to ~/bin as teamspeak and then makes it executable.
 wget -qO ~/private/teamspeak.tar.gz $teamspeakfv
 # wget the latest version of the linux amd64 server binary
-tar -xzf ~/private/teamspeak.tar.gz -C ~/private/
+tar xf ~/private/teamspeak.tar.gz -C ~/private/
 rm -f ~/private/teamspeak.tar.gz 2> /dev/null
 # extract this to the ~/private directory
-if [ ! -d ~/private/teamspeak ]; then
+if [[ ! -d ~/private/teamspeak ]]
+then
 # checks if the ~/private/teamspeak already exists : If does NOT exist then :
     killall -9 -qe ts3server_linux_amd64 2> /dev/null
     # killall ts3server_linux_amd64 incase they deleted the folder but left the process running.
     sleep 2
     # ts3 licensing states for free use only one instance can be run and this is checked in shared memory. Need to give the application time to close fully.
-    mv ~/private/teamspeak3-server_linux-amd64 ~/private/teamspeak
+    mv -f ~/private/teamspeak3-server_linux-amd64 ~/private/teamspeak
     # renames the extracted folder to teamspeak
     sed 's|COMMANDLINE_PARAMETERS="${2}"|COMMANDLINE_PARAMETERS="${2} inifile=ts3server.ini"|g' ~/private/teamspeak/ts3server_startscript.sh -i
     # edits the startup parameters of the ts3server_startscript.sh to load the ini file.
 else
     echo -e "\033[32m1: The folder\e[0m \033[31m~/private/teamspeak\e[0m \033[32malready exists.\e[0m"
     echo
-    if [ -f ~/private/teamspeak/ts3server.pid ]; then
+    if [[ -f ~/private/teamspeak/ts3server.pid ]]
+    then
         echo -e "2: This is the PID:\033[31m$(cat ~/private/teamspeak/ts3server.pid 2> /dev/null)\e[0m generated when teamspeak was last started"
         echo
         # Gets the PID from the ts3server.pid and shows it to the user and the last run process

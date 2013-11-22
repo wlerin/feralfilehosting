@@ -1,7 +1,7 @@
 // a modified version of benbot
 var irc = require("irc");
 var c = require('irc-colors');
-// https://github.com/martynsmith/node-irc/issues/160 -- creds = { rejectUnauthorized: !self.opt.secure };
+// https://github.com/martynsmith/node-irc/issues/160 -- creds = {rejectUnauthorized: !self.opt.secure};
 // var http= require('http');
 
 var config = {
@@ -17,34 +17,19 @@ var faqbot = new irc.Client(config.server, config.botName, {
     secure: true,
     selfSigned: true,
     certExpired: true,
+    showErrors: true,
     autoRejoin: true,
-    autoConnect: true
+    autoConnect: true,
+    retryCount: null,
+    retryDelay: 2000,
+    floodProtection: true,
+    floodProtectionDelay: 1000
 });
 
 // https://www.feralhosting.com/manager/bandwidth
 
 faqbot.setMaxListeners(0);
 
-/*
-faqbot.addListener('message', function(from, to, message) {
-	if ( message.substring(0,4) == '%faq' ) {
-
-		if ( message.length < 5 ) {
-			faqbot.say(to, "work in progress, use the triggers for now, see %help");
-			return;
-		}
-        
-        what is this? an example of how to use trigger words with the prefix %faq.
-        
-        if ( message.indexOf('newuser') >= 0 ) {
-          faqbot.say(to, "How long until my slot is activated -- https://www.feralhosting.com/faq/view?question=15");
-         return;
-        }  
-    }
-    
-}); 
-*/
-    
 // Start of triggers
 
 // How to use these triggers. Here is a template:
@@ -61,26 +46,7 @@ faqbot.addListener('message', function(from, to, message) {
 }); 
 */
 
-/*
-// topic
-
-faqbot.addListener('topic', function (from, to) { faqbot.say(from, to) });
-faqbot.addListener('message', function(from, to, message) {
-    if ( message == '%topic' ) {
-        faqbot.send('TOPIC', to);
-    }
-});
-*/
-
-// status
-
-faqbot.addListener('message', function(from, to, message) {
-
-    if ( message == '%ping' ) {
-        faqbot.say(to, "pong");
-        return;
-    }
-});
+setInterval(function(){faqbot.send('PONG', 'empty');}, 5*60*1000);
 
 faqbot.addListener('message', function(from, to, message) {
 
@@ -1002,9 +968,11 @@ faqbot.addListener('message', function(from, to, message) {
 faqbot.addListener('message', function (from, to, message) {
     console.log(from + ' => ' + to + ': ' + message);
 });
+
 faqbot.addListener('error', function(message) {
     console.log('error: ', message);
 });
+
 faqbot.addListener('netError', function(error) {
   console.log('netError: ' + error);
 });
