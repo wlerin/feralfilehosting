@@ -46,7 +46,7 @@ wget -qO "$HOME/000somescript.sh" "$scripturl"
 if ! diff -q "$HOME/000somescript.sh" "$HOME/somescript.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/somescript.sh "'$scripturl'"
+    wget -qO $HOME/somescript.sh "'"$scripturl"'"
     bash $HOME/somescript.sh
     exit 1' > "$HOME/111somescript.sh"
     bash "$HOME/111somescript.sh"
