@@ -53,7 +53,7 @@ After you have saved the host key and use the command shown in this FAQ it will 
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20OS%20X/8.png)
 
-You have now successfully connect to your slot via SSH using terminal on OS X.
+You have now successfully connected to your slot via SSH using terminal on OS X.
 
 
 
