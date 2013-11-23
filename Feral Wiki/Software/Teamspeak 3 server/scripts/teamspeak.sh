@@ -22,7 +22,7 @@ teamspeakversion="3.0.10.1"
 # v 1.0.6
 # v 1.0.7
 # v 1.0.8 used random ports in a range using shuf
-# v 1.1.0 updated to be inline with script formatting guidelines.
+# v 1.1.1 updated to be inline with script formatting guidelines and general tweaks.
 
 #
 ############################

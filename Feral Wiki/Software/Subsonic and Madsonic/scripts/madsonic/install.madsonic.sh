@@ -126,7 +126,7 @@ then
     echo
     if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
     then
-        echo -e \"\\\033[31mMadsonic\\\e[0m last accessible at \\\033[31mhttp://\$(hostname)\$contextpath\\\e[0m\"
+        echo -e \"\\\033[31mMadsonic\\\e[0m last accessible at \\\033[31mhttps://\$(hostname)\$contextpath\\\e[0m\"
     else
         echo -e \"\\\033[31mHTTP\\\e[0m last accessible at \\\033[31mhttp://\$(hostname)\\\e[0m:\\\033[33m\$httpport\\\e[0m\"\$contextpath
         echo -e \"\\\033[32mHTTPS\\\e[0m last accessible at \\\033[32mhttps://\$(hostname)\\\e[0m:\\\033[33m\$httpsport\\\e[0m\"\$contextpath
@@ -206,7 +206,7 @@ then
                 echo
                 if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
                 then
-                    echo -e \"\\\033[31mMadsonic\\\e[0m last accessible at \\\033[31mhttp://\$(hostname)\$contextpath\\\e[0m\"
+                    echo -e \"\\\033[31mMadsonic\\\e[0m last accessible at \\\033[31mhttps://\$(hostname)\$contextpath\\\e[0m\"
                 else
                     echo -e \"\\\033[31mHTTP\\\e[0m last accessible at \\\033[31mhttp://\$(hostname)\\\e[0m:\\\033[33m\$httpport\\\e[0m\"\$contextpath
                     echo -e \"\\\033[32mHTTPS\\\e[0m last accessible at \\\033[32mhttps://\$(hostname)\\\e[0m:\\\033[33m\$httpsport\\\e[0m\"\$contextpath
