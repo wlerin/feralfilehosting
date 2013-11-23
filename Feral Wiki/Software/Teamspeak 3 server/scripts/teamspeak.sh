@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Install Teamspeak 3
-scriptversion="1.1.0"
+scriptversion="1.1.1"
 teamspeakversion="3.0.10.1"
 # randomessence 27/04/2013
 #
@@ -147,12 +147,14 @@ then
             echo -e "\033[31mYou chose:\e[0m \033[36mRemove it\e[0m"
             # kills last known PID
             kill -9 $(cat ~/private/teamspeak/ts3server.pid 2> /dev/null) 2> /dev/null
+            sleep 2
             # removes the ~/private/teamspeak/ directory
             rm -rf ~/private/teamspeak/
             # renames the unpacked tar file to teamspeak
             mv -f ~/teamspeak3-server_linux-amd64 ~/private/teamspeak
             # Edits the startup script to load the ini file
             sed 's|COMMANDLINE_PARAMETERS="${2}"|COMMANDLINE_PARAMETERS="${2} inifile=ts3server.ini"|g' ~/private/teamspeak/ts3server_startscript.sh -i
+            sleep 2
         elif [[ "$confirm" =~ ^[Uu]$ ]]
         then
         # This is the Upgrade section of the script. Unpacks then copies to ~/private/teamspeak, overwriting the old files. Edits the startup script to load the ini file
@@ -160,12 +162,14 @@ then
             echo
             # kills last known PID
             kill -9 $(cat ~/private/teamspeak/ts3server.pid 2> /dev/null) 2> /dev/null
+            sleep 2
             # Copies the contents of the unpacked tar and overwrites the destination.
             cp -rf ~/teamspeak3-server_linux-amd64/. ~/private/teamspeak/
             # Removes the unpacked tar directory
             rm -rf ~/teamspeak3-server_linux-amd64/
             # Edits the startup script to load the ini file
             sed 's|COMMANDLINE_PARAMETERS="${2}"|COMMANDLINE_PARAMETERS="${2} inifile=ts3server.ini"|g' ~/private/teamspeak/ts3server_startscript.sh -i
+            sleep 2
             bash ~/private/teamspeak/ts3server_startscript.sh start
             echo
             # These show the user the IP and the Port from the ts3server.ini
