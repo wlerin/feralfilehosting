@@ -259,10 +259,46 @@ faqbot.addListener('message', function(from, to, message) {
         return;
     }
     
+    if ( message == '%sshpc' || message == '%sshpc' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "SSH guide basics - PuTTy -- https://www.feralhosting.com/faq/view?question=12");
+        return;
+    }
+    
+    if ( message == '%sshosx' || message == '%sshosx' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        faqbot.say(to, result + "SSH guide basics - Mac - https://www.feralhosting.com/faq/view?question=217");
+        return;
+    }
+    
     if ( message == '%tunnel' || message == '%tunnel' + result || message == '%sshtunnel' || message == '%tunnels' || message == '%socks' || message == '%proxy' || message == '%socksproxy' ) {
         if ( result !== '' ) { var result = result + ': '; }
         
         faqbot.say(to, result + "SSH tunnels basics - Putty and setting a Socks proxy -- https://www.feralhosting.com/faq/view?question=37");
+        faqbot.say(to, result + "SSH tunnels - OS X -- https://www.feralhosting.com/faq/view?question=271");
+        return;
+    }
+
+    if ( message == '%tunnelpc' || message == '%tunnelpc' + result ) {
+    
+        if ( result !== '' ) { var result = result + ': '; }
+        
+        faqbot.say(to, result + "SSH tunnels basics - Putty and setting a Socks proxy -- https://www.feralhosting.com/faq/view?question=37");
+        return;
+    }
+    
+    if ( message == '%tunnelosx' || message == '%tunnelosx' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+        
+        faqbot.say(to, result + "SSH tunnels - OS X -- https://www.feralhosting.com/faq/view?question=271");
+        return;
+    }
+    
+    if ( message == '%usetunnel' || message == '%usetunnel' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+        
         faqbot.say(to, result + "SSH Tunnels - How to use them with your applications -- https://www.feralhosting.com/faq/view?question=242");
         return;
     }
@@ -920,7 +956,7 @@ faqbot.addListener('message', function(from, to, message) {
         }
         
         if ( message.indexOf('ssh') >= 0 ) {
-          faqbot.say(to, "%ssh %xshell %kitty %sshfs %quota %publickey %tunnel %myentunnel %pageant %bitvise");
+          faqbot.say(to, "%ssh %sshpc %sshosx %tunnel %tunnelpc %tunnelosx %usetunnel %xshell %kitty %sshfs %quota %publickey %tunnel %myentunnel %pageant %bitvise");
           return;
         }
         
