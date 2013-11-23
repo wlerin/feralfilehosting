@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Install Teamspeak 3
-scriptversion="1.0.9"
+scriptversion="1.1.0"
 teamspeakversion="3.0.10.1"
 # randomessence 27/04/2013
 #
@@ -22,6 +22,8 @@ teamspeakversion="3.0.10.1"
 # v 1.0.6
 # v 1.0.7
 # v 1.0.8 used random ports in a range using shuf
+# v 1.1.0 updated to be inline with script formatting guidelines.
+
 #
 ############################
 ### Version History Ends ###
@@ -103,36 +105,33 @@ then
 ####### Script Start #######
 ############################
 #
-    # creates the ~/bin directory which is generally useful. Copies the script to ~/bin as teamspeak and then makes it executable.
-    wget -qO ~/private/teamspeak.tar.gz $teamspeakfv
-    # wget the latest version of the linux amd64 server binary
-    tar xf ~/private/teamspeak.tar.gz -C ~/private/
-    rm -f ~/private/teamspeak.tar.gz 2> /dev/null
-    # extract this to the ~/private directory
+    wget -qO ~/teamspeak.tar.gz $teamspeakfv
+    tar xf ~/teamspeak.tar.gz
+    rm -f ~/teamspeak.tar.gz 2> /dev/null
+    # checks if the ~/private/teamspeak already exists : If does NOT exist then :
     if [[ ! -d ~/private/teamspeak ]]
     then
-    # checks if the ~/private/teamspeak already exists : If does NOT exist then :
-        killall -9 -qe ts3server_linux_amd64 2> /dev/null
         # killall ts3server_linux_amd64 incase they deleted the folder but left the process running.
-        sleep 2
+        killall -9 -qe ts3server_linux_amd64 2> /dev/null
         # ts3 licensing states for free use only one instance can be run and this is checked in shared memory. Need to give the application time to close fully.
-        mv -f ~/private/teamspeak3-server_linux-amd64 ~/private/teamspeak
+        sleep 2
         # renames the extracted folder to teamspeak
-        sed 's|COMMANDLINE_PARAMETERS="${2}"|COMMANDLINE_PARAMETERS="${2} inifile=ts3server.ini"|g' ~/private/teamspeak/ts3server_startscript.sh -i
+        mv -f ~/teamspeak3-server_linux-amd64 ~/private/teamspeak
         # edits the startup parameters of the ts3server_startscript.sh to load the ini file.
+        sed 's|COMMANDLINE_PARAMETERS="${2}"|COMMANDLINE_PARAMETERS="${2} inifile=ts3server.ini"|g' ~/private/teamspeak/ts3server_startscript.sh -i
     else
         echo -e "\033[32m1: The folder\e[0m \033[31m~/private/teamspeak\e[0m \033[32malready exists.\e[0m"
         echo
         if [[ -f ~/private/teamspeak/ts3server.pid ]]
         then
+            # Gets the PID from the ts3server.pid and shows it to the user and the last run process
             echo -e "2: This is the PID:\033[31m$(cat ~/private/teamspeak/ts3server.pid 2> /dev/null)\e[0m generated when teamspeak was last started"
             echo
-            # Gets the PID from the ts3server.pid and shows it to the user and the last run process
-            echo -e "\033[33m3: Let's see if teamspeak is running?\e[0m"
             # a question
+            echo -e "\033[33m3: Let's see if teamspeak is running?\e[0m"
             echo
-            ps p $(cat ~/private/teamspeak/ts3server.pid 2> /dev/null) --no-heading
             # check for any running instances of this previous PID. BAsed on the last run instance in the ts3server.pid
+            ps p $(cat ~/private/teamspeak/ts3server.pid 2> /dev/null) --no-heading
             echo
         else
             echo -e "2: It seems you stopped teamspeak using \033[31mts3server_startscript.sh stop\e[0m (\033[36mts3server stop\e[0m) already which deletes the ts3server.pid when executed."
@@ -147,64 +146,65 @@ then
         then
         # This is the Removal section.Kills the last known running instance then deletes ~/private/teamspeak. Extracts then renames the folder to teamspeak. Edits the startup script to load the ini file
             echo -e "\033[31mYou chose:\e[0m \033[36mRemove it\e[0m"
-            kill -9 $(cat ~/private/teamspeak/ts3server.pid 2> /dev/null) 2> /dev/null
             # kills last known PID
-            rm -rf ~/private/teamspeak/
+            kill -9 $(cat ~/private/teamspeak/ts3server.pid 2> /dev/null) 2> /dev/null
             # removes the ~/private/teamspeak/ directory
-            mv -f ~/private/teamspeak3-server_linux-amd64 ~/private/teamspeak
+            rm -rf ~/private/teamspeak/
             # renames the unpacked tar file to teamspeak
-            sed 's|COMMANDLINE_PARAMETERS="${2}"|COMMANDLINE_PARAMETERS="${2} inifile=ts3server.ini"|g' ~/private/teamspeak/ts3server_startscript.sh -i
+            mv -f ~/teamspeak3-server_linux-amd64 ~/private/teamspeak
             # Edits the startup script to load the ini file
+            sed 's|COMMANDLINE_PARAMETERS="${2}"|COMMANDLINE_PARAMETERS="${2} inifile=ts3server.ini"|g' ~/private/teamspeak/ts3server_startscript.sh -i
         elif [[ $confirm =~ ^[Uu]$ ]]
         then
         # This is the Upgrade section of the script. Unpacks then copies to ~/private/teamspeak, overwriting the old files. Edits the startup script to load the ini file
             echo -e "\033[31mYou chose:\e[0m \033[36mUpgrade/Overwrite\e[0m"
             echo
-            kill -9 $(cat ~/private/teamspeak/ts3server.pid 2> /dev/null) 2> /dev/null
             # kills last known PID
-            cp -rf ~/private/teamspeak3-server_linux-amd64/. ~/private/teamspeak/
+            kill -9 $(cat ~/private/teamspeak/ts3server.pid 2> /dev/null) 2> /dev/null
             # Copies the contents of the unpacked tar and overwrites the destination.
-            rm -rf ~/private/teamspeak3-server_linux-amd64/
+            cp -rf ~/teamspeak3-server_linux-amd64/. ~/private/teamspeak/
             # Removes the unpacked tar directory
-            sed 's|COMMANDLINE_PARAMETERS="${2}"|COMMANDLINE_PARAMETERS="${2} inifile=ts3server.ini"|g' ~/private/teamspeak/ts3server_startscript.sh -i
+            rm -rf ~/teamspeak3-server_linux-amd64/
             # Edits the startup script to load the ini file
+            sed 's|COMMANDLINE_PARAMETERS="${2}"|COMMANDLINE_PARAMETERS="${2} inifile=ts3server.ini"|g' ~/private/teamspeak/ts3server_startscript.sh -i
             bash ~/private/teamspeak/ts3server_startscript.sh start
             echo
+            # These show the user the IP and the Port from the ts3server.ini
             echo -e "\033[32mCurrent\e[0m \033[31mHOST\e[0m:\033[36mPORT\e[0m =\e[0m \033[31m"$(hostname)"\e[0m:\033[36m"$(sed -n -e 's/default_voice_port=\(.*\)/\1/p' ~/private/teamspeak/ts3server.ini)"\e[0m"
             echo
-            # These show the user the IP and the Port from the ts3server.ini
             echo -e "\033[33mThis script updated the teamspeak files and will now exit\e[0m"
             echo
             cd && bash
             exit 1
         else
-            rm -rf ~/private/teamspeak3-server_linux-amd64/
+            rm -rf ~/teamspeak3-server_linux-amd64/
             echo -e "\033[31mYou must delete or upgrade this directory to continue then restart the script.\e[0m \033[32mYou might want to backup your ts3server.ini file first.\e[0m"
             echo
             cd && bash
             exit 1
         fi
     fi
-    touch ~/private/teamspeak/ts3server.ini
-    echo "machine_id=
-    default_voice_port=9987
-    voice_ip=0.0.0.0
-    licensepath=
-    filetransfer_port=30033
-    filetransfer_ip=0.0.0.0
-    query_port=10011
-    query_ip=0.0.0.0
-    query_ip_whitelist=query_ip_whitelist.txt
-    query_ip_blacklist=query_ip_blacklist.txt
-    dbplugin=ts3db_sqlite3
-    dbpluginparameter=
-    dbsqlpath=sql/
-    dbsqlcreatepath=create_sqlite/
-    dbconnections=10
-    logpath=logs
-    logquerycommands=0
-    dbclientkeepdays=30
-    logappend=0" > ~/private/teamspeak/ts3server.ini
+echo "machine_id=
+default_voice_port=9987
+voice_ip=0.0.0.0
+licensepath=
+filetransfer_port=30033
+filetransfer_ip=0.0.0.0
+query_port=10011
+query_ip=0.0.0.0
+query_ip_whitelist=query_ip_whitelist.txt
+query_ip_blacklist=query_ip_blacklist.txt
+dbplugin=ts3db_sqlite3
+dbpluginparameter=
+dbsqlpath=sql/
+dbsqlcreatepath=create_sqlite/
+dbconnections=10
+logpath=logs
+logquerycommands=0
+dbclientkeepdays=30
+logappend=0
+query_skipbruteforcecheck=0
+" > ~/private/teamspeak/ts3server.ini
     #
     sed -i "s|default_voice_port=9987|default_voice_port=$vport|g" ~/private/teamspeak/ts3server.ini
     #
@@ -213,6 +213,7 @@ then
     sed -i "s|query_port=10011|query_port=$qport|g" ~/private/teamspeak/ts3server.ini
     #
     ln -fs ~/private/teamspeak/ts3server_startscript.sh ~/bin/ts3server
+    chmod 700 ~/bin/ts3server
     bash ~/private/teamspeak/ts3server_startscript.sh start
     #
     echo -e "\033[32mHere is the connection info:\e[0m \033[31m"$(hostname)"\e[0m:\033[33m"$vport"\e[0m"
