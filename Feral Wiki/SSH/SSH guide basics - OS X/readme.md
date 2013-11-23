@@ -37,7 +37,7 @@ Type `yes` to save the host's key.
 
 Now enter your Feral SSH/SFTP password at the prompt found on your slot details page for the relevant slot:
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/General/Your%20Feral%20slot%20is%20active%20-%20Part%201%20-%20The%20Account%20Manager/02%20slot%20detail%201.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_ssh.png)
 
 **Do not type it in** — copy it (be careful not too introduce extra white spaces) paste it by pressing: 
 
