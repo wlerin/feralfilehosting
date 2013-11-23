@@ -33,9 +33,9 @@ teamspeakversion="3.0.10.1"
 ###### Variable Start ######
 ############################
 #
-vport=$(shuf -i 6000-25000 -n 1)
+vport=$(shuf -i 6000-20000 -n 1)
 # vport the voice port: random port between 6000-50000 used in the sed commands
-fport=$(shuf -i 25001-40000 -n 1)
+fport=$(shuf -i 20001-40000 -n 1)
 # fport is file transfer port: vport + 1 used in the sed commands
 qport=$(shuf -i 40001-50000 -n 1)
 # qport is the query port: vport + 2 used in the sed commands
@@ -98,14 +98,14 @@ chmod -f 700 "$HOME/bin/teamspeak"
 #
 read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " updatestatus
 echo
-if [[ $updatestatus =~ ^[Yy]$ ]]
+if [[ "$updatestatus" =~ ^[Yy]$ ]]
 then
 #
 ############################
 ####### Script Start #######
 ############################
 #
-    wget -qO ~/teamspeak.tar.gz $teamspeakfv
+    wget -qO ~/teamspeak.tar.gz "$teamspeakfv"
     tar xf ~/teamspeak.tar.gz
     rm -f ~/teamspeak.tar.gz 2> /dev/null
     # checks if the ~/private/teamspeak already exists : If does NOT exist then :
@@ -118,7 +118,7 @@ then
         # renames the extracted folder to teamspeak
         mv -f ~/teamspeak3-server_linux-amd64 ~/private/teamspeak
         # edits the startup parameters of the ts3server_startscript.sh to load the ini file.
-        sed 's|COMMANDLINE_PARAMETERS="${2}"|COMMANDLINE_PARAMETERS="${2} inifile=ts3server.ini"|g' ~/private/teamspeak/ts3server_startscript.sh -i
+        sed -i 's|COMMANDLINE_PARAMETERS="${2}"|COMMANDLINE_PARAMETERS="${2} inifile=ts3server.ini"|g' ~/private/teamspeak/ts3server_startscript.sh
     else
         echo -e "\033[32m1: The folder\e[0m \033[31m~/private/teamspeak\e[0m \033[32malready exists.\e[0m"
         echo
@@ -127,7 +127,6 @@ then
             # Gets the PID from the ts3server.pid and shows it to the user and the last run process
             echo -e "2: This is the PID:\033[31m$(cat ~/private/teamspeak/ts3server.pid 2> /dev/null)\e[0m generated when teamspeak was last started"
             echo
-            # a question
             echo -e "\033[33m3: Let's see if teamspeak is running?\e[0m"
             echo
             # check for any running instances of this previous PID. BAsed on the last run instance in the ts3server.pid
@@ -142,7 +141,7 @@ then
         echo
         read -ep "Kill "$(cat ~/private/teamspeak/ts3server.pid 2> /dev/null)" & remove ~/private/teamspeak? A clean, new install. [y] Update the files. ts3server.ini is unchanged? [u] Press [q] to quit: "  confirm
         echo
-        if [[ $confirm =~ ^[Yy]$ ]]
+        if [[ "$confirm" =~ ^[Yy]$ ]]
         then
         # This is the Removal section.Kills the last known running instance then deletes ~/private/teamspeak. Extracts then renames the folder to teamspeak. Edits the startup script to load the ini file
             echo -e "\033[31mYou chose:\e[0m \033[36mRemove it\e[0m"
@@ -154,7 +153,7 @@ then
             mv -f ~/teamspeak3-server_linux-amd64 ~/private/teamspeak
             # Edits the startup script to load the ini file
             sed 's|COMMANDLINE_PARAMETERS="${2}"|COMMANDLINE_PARAMETERS="${2} inifile=ts3server.ini"|g' ~/private/teamspeak/ts3server_startscript.sh -i
-        elif [[ $confirm =~ ^[Uu]$ ]]
+        elif [[ "$confirm" =~ ^[Uu]$ ]]
         then
         # This is the Upgrade section of the script. Unpacks then copies to ~/private/teamspeak, overwriting the old files. Edits the startup script to load the ini file
             echo -e "\033[31mYou chose:\e[0m \033[36mUpgrade/Overwrite\e[0m"
