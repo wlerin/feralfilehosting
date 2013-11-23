@@ -1,5 +1,16 @@
 
-### Error on Start up
+In SSH do the commands described in this FAQ. If you do not know how to SSH into your slot use this FAQ: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
+
+Your FTP / SFTP / SSH login information can be found on the Slot Details page for the relevant slot. Use this link in your Account Manager to access the relevant slot:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_link.png)
+
+You login information for the relevant slot will be shown here:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_ssh.png)
+
+Error on Start up
+---
 
 If Teamspeak is not giving you the privilege key on first run you will need to check the logs at:
 
@@ -27,7 +38,8 @@ Sadly, there is no workaround right now for this issue. Your options are:
 
 **2:** Consider this alternative Voip Client called Mumble: [Mumble client and murmur server](https://www.feralhosting.com/faq/view?question=227)
 
-### Teamspeak 3 on Feral Slots.
+Teamspeak 3 on Feral Slots.
+---
 
 To install this software using a custom bash script connect to your slot using SSH. If you don't know how to do this [here is a basic guide](https://www.feralhosting.com/faq/view?question=12):
 
@@ -47,7 +59,7 @@ teamspeak
 
 **Features:**
 
-Installs and starts a new instance of `3.0.10`
+Installs and starts a new instance of `3.0.10.1`
 
 Sets up the `ts3server.ini` for the user automatically.
 
@@ -71,9 +83,10 @@ ts3server restart
 
 Please see the rest of this FAQ for client set-up using your privilege key.
 
-### Manual Installation steps:
+Manual Installation steps:
+---
 
-We need the `Linux Server amd64 3.0.10`  which you can download manually and then upload to your server. Please just upload the zip to your server root/home folder to keep in line with the rest of the guide.
+We need the `Linux Server amd64 3.0.10.1`  which you can download manually and then upload to your server. Please just upload the zip to your server root/home folder to keep in line with the rest of the guide.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Teamspeak%203%20server/0.png)
 
@@ -84,10 +97,10 @@ We need the `Linux Server amd64 3.0.10`  which you can download manually and the
 Download the server:
 
 ~~~
-wget -qO ~/teamspeak.tar.gz http://dl.4players.de/ts/releases/3.0.10/teamspeak3-server_linux-amd64-3.0.10.tar.gz
-tar xf ~/teamspeak.tar.gz -C ~/private
-cp -rf ~/private/teamspeak3-server_linux-amd64/. ~/private/teamspeak
-rm -rf ~/private/teamspeak3-server_linux-amd64
+wget -qO ~/teamspeak.tar.gz http://dl.4players.de/ts/releases/3.0.10.1/teamspeak3-server_linux-amd64-3.0.10.1.tar.gz
+tar xf ~/teamspeak.tar.gz
+cp -rf ~/teamspeak3-server_linux-amd64/. ~/private/teamspeak
+rm -rf ~/teamspeak3-server_linux-amd64 ~/teamspeak.tar.gz
 ~~~
 
 Open the file with nano:
@@ -159,7 +172,8 @@ Get the `Hostname:Default_voice_port` to use when connecting with this command.
 echo "$(hostname):$(sed -n -e 's/default_voice_port=\(.*\)/\1/p' ~/private/teamspeak/ts3server.ini)"
 ~~~
 
-### Teamspeak 3 Client
+Teamspeak 3 Client
+---
 
 Download and install the Teamspeak 3 client for your platform from: [http://www.teamspeak.com/?page=downloads](http://www.teamspeak.com/?page=downloads)
 
@@ -204,7 +218,6 @@ bash ~/private/teamspeak/ts3server_startscript.sh stop
 ~~~
 bash ~/private/teamspeak/ts3server_startscript.sh restart
 ~~~
-
 
 
 
