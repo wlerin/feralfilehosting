@@ -13,9 +13,9 @@ Redis
 ---
 
 ~~~
-wget -qO ~/redis-2.6.16.tar.gz http://download.redis.io/releases/redis-2.6.16.tar.gz
-tar xzf ~/redis-2.6.16.tar.gz
-mv -f ~/redis-2.6.16 ~/redis
+wget -qO ~/redis-2.8.0.tar.gz http://download.redis.io/releases/redis-2.8.0.tar.gz
+tar xf ~/redis-2.8.0.tar.gz
+mv -f ~/redis-2.8.0 ~/redis
 cd ~/redis && make
 ~~~
 
@@ -35,11 +35,11 @@ Cmake
 ---
 
 ~~~
-wget -qO ~/cmake.tar.gz http://www.cmake.org/files/v2.8/cmake-2.8.12.tar.gz
-tar xf ~/cmake.tar.gz && cd ~/cmake-2.8.12
+wget -qO ~/cmake.tar.gz http://www.cmake.org/files/v2.8/cmake-2.8.12.1.tar.gz
+tar xf ~/cmake.tar.gz && cd ~/cmake-2.8.12.1
 ./configure --prefix=$HOME/programs
 make && make install && cd
-rm -rf ~/cmake.tar.gz ~/cmake-2.8.12
+rm -rf ~/cmake.tar.gz ~/cmake-2.8.12.1
 ~~~
 
 WeeChat - Optionally install curl first

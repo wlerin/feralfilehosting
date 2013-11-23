@@ -136,7 +136,8 @@ then
             echo -e "2: It seems you stopped teamspeak using \033[31mts3server_startscript.sh stop\e[0m (\033[36mts3server stop\e[0m) already which deletes the ts3server.pid when executed."
             echo -e "\033[33m3: The\e[0m \033[31m~/private/teamspeak/\e[0m \033[33mexists but there is no ts3server.pid to read from.\e[0m"
             echo -e "4:\033[35m I recommend you try the command\e[0m \033[36mts3server start\e[0m \033[35mor use the \033[36mUpdate [u]\e[0m option of this script.\e[0m"
-        fi      
+        fi
+        #
         echo -e "\033[31mPlease pick from one of the following options\e[0m"
         echo
         read -ep "Kill "$(cat ~/private/teamspeak/ts3server.pid 2> /dev/null)" & remove ~/private/teamspeak? A clean, new install. [y] Update the files. ts3server.ini is unchanged? [u] Press [q] to quit: "  confirm
@@ -145,6 +146,7 @@ then
         then
         # This is the Removal section.Kills the last known running instance then deletes ~/private/teamspeak. Extracts then renames the folder to teamspeak. Edits the startup script to load the ini file
             echo -e "\033[31mYou chose:\e[0m \033[36mRemove it\e[0m"
+            echo
             # kills last known PID
             kill -9 $(cat ~/private/teamspeak/ts3server.pid 2> /dev/null) 2> /dev/null
             sleep 2
@@ -155,6 +157,7 @@ then
             # Edits the startup script to load the ini file
             sed 's|COMMANDLINE_PARAMETERS="${2}"|COMMANDLINE_PARAMETERS="${2} inifile=ts3server.ini"|g' ~/private/teamspeak/ts3server_startscript.sh -i
             sleep 2
+        #
         elif [[ "$confirm" =~ ^[Uu]$ ]]
         then
         # This is the Upgrade section of the script. Unpacks then copies to ~/private/teamspeak, overwriting the old files. Edits the startup script to load the ini file
@@ -210,18 +213,18 @@ query_skipbruteforcecheck=0
 " > ~/private/teamspeak/ts3server.ini
     #
     sed -i "s|default_voice_port=9987|default_voice_port=$vport|g" ~/private/teamspeak/ts3server.ini
-    #
     sed -i "s|filetransfer_port=30033|filetransfer_port=$fport|g" ~/private/teamspeak/ts3server.ini
-    #
     sed -i "s|query_port=10011|query_port=$qport|g" ~/private/teamspeak/ts3server.ini
     #
     ln -fs ~/private/teamspeak/ts3server_startscript.sh ~/bin/ts3server
     chmod 700 ~/bin/ts3server
+    sleep 2
     bash ~/private/teamspeak/ts3server_startscript.sh start
     #
     echo -e "\033[32mHere is the connection info:\e[0m \033[31m"$(hostname)"\e[0m:\033[33m"$vport"\e[0m"
     echo -e "\033[32mPress \033[36mCTRL + C\e[0m \033[32mto get your prompt back in the next section\e[0m"
     echo -e "\033[31mThis script has done its job and will now exit\e[0m"
+    echo
     cd && bash
     exit 1
 #
