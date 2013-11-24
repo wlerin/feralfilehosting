@@ -1,10 +1,36 @@
 
+In SSH do the commands described in this FAQ. If you do not know how to SSH into your slot use this FAQ: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
+
+Your FTP / SFTP / SSH login information can be found on the Slot Details page for the relevant slot. Use this link in your Account Manager to access the relevant slot:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_link.png)
+
+You login information for the relevant slot will be shown here:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_ssh.png)
+
+Important notes:
+---
+
+- Default mp3 bitrate is set in `Settings/Players/Max bitrate` per selected player
+- The bash script makes installation and management of Subsonic and Madsonic very easy. Consider using it over the manual steps.
+- Use the version used of ffmpeg linked in this guide as the newer or older versions may play well with Subsonic. 
+- Subsonic will ask for a license key after 30 days, that you can get by donating to the creator of the program. After 30 days, video streaming and mobile application support are deactivated. You can use the bash script to install Madsonic instead, that has no such restrictions.
+- HTML5 - [Minisub Chrome App](https://chrome.google.com/webstore/detail/minisub/jccdpflnecheidefpofmlblgebobbloc) (if you use https you must visit the subsonic server URL and accept the cert first
+- Works with the IOS and Android apps. Madsonic may behave differently with some apps that were designed to support Subsonic. Madsonic has its own Android app.
+
 Subsonic or Madsonic automatic installation using a bash script:
 ---
 
-To install this software using a custom bash script connect to your slot using SSH. If you don't know how to do this [here is a basic guide](https://www.feralhosting.com/faq/view?question=12):
+**install.subsonic.sh/install.madsonic.sh bash script features:**
 
-The execute command (you can copy and paste):
+- Installs Java 1.7
+- Installs Subsonic or Madsonic servers. Can be installed side by side since they use separate locations.
+- Detects previous installations giving the option to remove, update or quit.
+- Fully configures the start-up script. Unique to each user.
+- Option to enter a path to a media folder during installation.
+- Creates a custom script to `restart/start/kill` subsonic/madsonic (RSK) when the script is executed.
+- Will `proxypass` automatically if nginx is detected so the URL will be in the valid SSL format `https://server.feralhosting.com/username/subsonic` or `https://server.feralhosting.com/username/madsonic`
 
 For Subsonic:
 
@@ -20,16 +46,6 @@ wget -qO ~/install.madsonic.sh http://git.io/Eq97bg && bash ~/install.madsonic.s
 
 Then follow the progress in your terminal. Some steps require user input. You will be asked whether you want to install Subsonic or Madsonic.
 
-**install.subsonic.sh/install.madsonic.sh features:**
-
-- Installs Java 1.7
-- Installs Subsonic or Madsonic servers.
-- Detects previous installations giving the option to remove or quit.
-- Fully configures the start-up script. Unique to each user.
-- Option to enter a path to a media folder during installation.
-- Creates a custom script to `restart/start/kill` subsonic (RSK) when the script is executed.
-- Can update the existing installation to a new version.
-
 Once this script has been executed once, the `install.subsonic.sh`/`install.madsonic.sh` is copied to the `~/bin` directory as `install.madsonic` and the `subsonicrsk`/`madsonicrsk` is created in the `~/bin`
 
 Now you can simply type this from anywhere in SSH to execute the installer script: 
@@ -39,7 +55,10 @@ install.subsonic
 install.madsonic
 ~~~
 
-**Subsonic removal:** Run the script again to kill all be given the option to uninstall Subsonic or Madsonic. It will kill all Java processes and removes the folders and files the script created. Then you can simply run the script again to reinstall.
+Subsonic removal
+---
+
+Run the script again to kill all be given the option to remove Subsonic or Madsonic. It will kill all Java processes and removes the folders and files the script created. Then you can simply run the script again to reinstall.
 
 subsonicrsk / madsonicrsk
 ---
@@ -113,15 +132,6 @@ If you would like to install a newer Java version you can use this guide:
 
 [How to install java 1.7](https://www.feralhosting.com/faq/view?question=183)
 
-Important notes:
----
-
-- Default mp3 bitrate is set in `Settings/Players/Max bitrate` per selected player
-- The bash script makes installation and management of Subsonic and Madsonic very easy. Consider using it over the manual steps.
-- Use the version used of ffmpeg linked in this guide as the newer or older versions may play well with Subsonic. 
-- Subsonic will ask for a license key after 30 days, that you can get by donating to the creator of the program. After 30 days, video streaming and mobile application support are deactivated. You can use the bash script to install Madsonic instead, that has no such restrictions.
-- HTML5 - [Minisub Chrome App](https://chrome.google.com/webstore/detail/minisub/jccdpflnecheidefpofmlblgebobbloc) (if you use https you must visit the subsonic server URL and accept the cert first
-
 Reinstalling or stopping the subsonic server
 ---
 
@@ -184,7 +194,7 @@ Once you have successfully SSH'd into your slot carry on with the FAQ.
 Creates some directories we need for configuring the start-up script
 
 ~~~
-mkdir -p  ~/private/subsonic/transcode ~/private/subsonic/playlists ~/private/subsonic/Podcasts
+mkdir -p  ~/private/subsonic/{transcode,playlists,Podcasts}
 ~~~
 
 Gets the latest version of subsonic from sourceforge.net, currently at: `4.8`
@@ -202,13 +212,13 @@ tar xf ~/subsonic.tar.gz -C ~/private/subsonic/
 Downloads a long term hosted version of ffmpeg static. Dated at `06/14/2013`
 
 ~~~
-wget -qO ~/ffmpeg.tar.gz https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.31.10.2013.zip
+wget -qO ~/ffmpeg.zip https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.31.10.2013.zip
 ~~~
 
 Extracts the ffmpeg version we downloaded to the transcode directory
 
 ~~~
-tar xf ~/ffmpeg.tar.gz -C ~/private/subsonic/transcode/
+unzip -qo ~/ffmpeg.zip -d ~/private/subsonic/transcode/
 ~~~
 
 Copies over the local version of lame to ~/private/subsonic/transcode/
@@ -223,10 +233,16 @@ Copies over the local version of flac to ~/private/subsonic/transcode/
 cp -f /usr/bin/flac ~/private/subsonic/transcode/
 ~~~
 
+Make the binaries executable:
+
+~~~
+chmod 700  ~/private/subsonic/transcode/{Audioffmpeg,ffmpeg,lame,flac}
+~~~
+
 Tidy up to files we downloaded:
 
 ~~~
-rm -f ~/subsonic.tar.gz ~/ffmpeg.tar.gz
+rm -f ~/{subsonic.tar.gz,ffmpeg.zip
 ~~~
 
 Now you can edit the `subsonic.sh` with a text editor over ftp or do this

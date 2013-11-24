@@ -15,6 +15,10 @@ Transmission + Transmission remote GUI - [Transmission and Transmission Remote G
 MYSQL - [Using Mysql](https://www.feralhosting.com/faq/view?question=9)
 OpenVPN - [Using Openvpn](https://www.feralhosting.com/faq/view?question=5)
 
+**Q:** Can I send emails from my slot?
+
+A: Email has been blocked due to abuse from people attempting to spam. If you need to send email from your programs or Web Apps you can usually configure them to use an external smtp service like `Google Apps`. Here is an example of the configuration settings - [Google smtp settings](https://www.digitalocean.com/community/articles/how-to-use-google-s-smtp-server)
+
 **Q:** Does my slot have a dedicated IP? 
 
 A: You server has a dedicated IP that is shared by all the users on your server. So while you slot does have a dedicated IP, this IP is not unique to you.

@@ -9,12 +9,20 @@ You login information for the relevant slot will be shown here:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_ssh.png)
 
-ffmpeg installation
+ffmpeg installation (static)
 ---
+
+FFmpeg is already installed on your slots and available for you to use, do this command in SSH to see:
+
+~~~
+ffmpeg
+~~~
+
+If you require and alternative or updated build then use this FAQ to install a pre compiled statically linked version.
 
 **Important note:** `ffmpeg` has a directory structure that does not really fit in with other FAQs so it gets to use a unique location and `PATH`. It will be installed to `~/ffmpeg` in this FAQ:
 
-We will use the static pre-compiled version of `ffmepg` since it makes this a lot easier. All versions are from [http://johnvansickle.com/ffmpeg/](http://johnvansickle.com/ffmpeg/)
+We will use the statically linked, pre-compiled version of `ffmepg` since it makes this a lot easier. All versions are from [http://johnvansickle.com/ffmpeg/](http://johnvansickle.com/ffmpeg/)
 
 Use these first two commands to create to do some pre requisite tasks:
 
