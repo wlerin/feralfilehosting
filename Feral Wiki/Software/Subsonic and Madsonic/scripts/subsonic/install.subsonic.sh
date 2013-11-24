@@ -42,6 +42,8 @@ subsonicfvs="subsonic-4.8-standalone.tar.gz"
 sffmpegfv="https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.31.10.2013.zip"
 sffmpegfvs="ffmpeg.31.10.2013.zip"
 #
+scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/subsonic/install.subsonic.sh"
+#
 ############################
 ####### Variable End #######
 ############################
@@ -50,37 +52,37 @@ sffmpegfvs="ffmpeg.31.10.2013.zip"
 #### Self Updater Start ####
 ############################
 #
-mkdir -p $HOME/bin
+mkdir -p "$HOME/bin"
 #
 if [[ ! -f "$HOME/install.subsonic.sh" ]]
 then
-    wget -qO $HOME/install.subsonic.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/subsonic/install.subsonic.sh
+    wget -qO "$HOME/install.subsonic.sh" "$scripturl"
 fi
 if [[ ! -f "$HOME/bin/install.subsonic" ]]
 then
-    wget -qO $HOME/bin/install.subsonic https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/subsonic/install.subsonic.sh
+    wget -qO "$HOME/bin/install.subsonic" "$scripturl"
 fi
 #
-wget -qO $HOME/000install.subsonic.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/subsonic/install.subsonic.sh
+wget -qO "$HOME/000install.subsonic.sh" "$scripturl"
 #
 if ! diff -q "$HOME/000install.subsonic.sh" "$HOME/install.subsonic.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/install.subsonic.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/subsonic/install.subsonic.sh
-    wget -qO $HOME/bin/install.subsonic https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/subsonic/install.subsonic.sh
-    bash $HOME/install.subsonic.sh
-    exit 1' > $HOME/111install.subsonic.sh
-    bash $HOME/111install.subsonic.sh
+    wget -qO "$HOME/install.subsonic.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/install.subsonic" "'"$scripturl"'"
+    bash "$HOME/install.subsonic.sh"
+    exit 1' > "$HOME/111install.subsonic.sh"
+    bash "$HOME/111install.subsonic.sh"
     exit 1
 fi
 if ! diff -q "$HOME/000install.subsonic.sh" "$HOME/bin/install.subsonic" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/install.subsonic.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/subsonic/install.subsonic.sh
-    wget -qO $HOME/bin/install.subsonic https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/subsonic/install.subsonic.sh
-    bash $HOME/install.subsonic.sh
-    exit 1' > $HOME/222install.subsonic.sh
-    bash $HOME/222install.subsonic.sh
+    wget -qO "$HOME/install.subsonic.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/install.subsonic" "'"$scripturl"'"
+    bash "$HOME/install.subsonic.sh"
+    exit 1' > "$HOME/222install.subsonic.sh"
+    bash "$HOME/222install.subsonic.sh"
     exit 1
 fi
 #
@@ -96,8 +98,8 @@ then
 fi    
 echo
 #
-rm -f $HOME/000install.subsonic.sh $HOME/111install.subsonic.sh $HOME/222install.subsonic.sh
-chmod -f 700 $HOME/bin/install.subsonic
+rm -f "$HOME/000install.subsonic.sh" "$HOME/111install.subsonic.sh" "$HOME/222install.subsonic.sh"
+chmod -f 700 "$HOME/bin/install.subsonic"
 #
 ############################
 ##### Self Updater End #####

@@ -65,7 +65,7 @@ rm -f "$HOME/000somescript.sh" "$HOME/111somescript.sh"
 #
 read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " updatestatus
 echo
-if [[ $updatestatus =~ ^[Yy]$ ]]
+if [[ "$updatestatus" =~ ^[Yy]$ ]]
 then
 #
 ############################

@@ -43,6 +43,8 @@ madsonicfvs="5.0.3780-standalone.zip"
 mffmpegfvc="https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.31.10.2013.zip"
 mffmpegfvcs="ffmpeg.31.10.2013.zip"
 #
+scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/madsonic/install.madsonic.sh"
+#
 ############################
 ####### Variable End #######
 ############################
@@ -51,37 +53,37 @@ mffmpegfvcs="ffmpeg.31.10.2013.zip"
 #### Self Updater Start ####
 ############################
 #
-mkdir -p $HOME/bin
+mkdir -p "$HOME/bin"
 #
 if [[ ! -f "$HOME/install.madsonic.sh" ]]
 then
-    wget -qO $HOME/install.madsonic.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/madsonic/install.madsonic.sh
+    wget -qO "$HOME/install.madsonic.sh" "$scripturl"
 fi
 if [[ ! -f "$HOME/bin/install.madsonic" ]]
 then
-    wget -qO $HOME/bin/install.madsonic https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/madsonic/install.madsonic.sh
+    wget -qO "$HOME/bin/install.madsonic" "$scripturl"
 fi
 #
-wget -qO $HOME/000install.madsonic.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/madsonic/install.madsonic.sh
+wget -qO "$HOME/000install.madsonic.sh" "$scripturl"
 #
 if ! diff -q "$HOME/000install.madsonic.sh" "$HOME/install.madsonic.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/install.madsonic.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/madsonic/install.madsonic.sh
-    wget -qO $HOME/bin/install.madsonic https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/madsonic/install.madsonic.sh
-    bash $HOME/install.madsonic.sh
-    exit 1' > $HOME/111install.madsonic.sh
-    bash $HOME/111install.madsonic.sh
+    wget -qO "$HOME/install.madsonic.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/install.madsonic" "'"$scripturl"'"
+    bash "$HOME/install.madsonic.sh"
+    exit 1' > "$HOME/111install.madsonic.sh"
+    bash "$HOME/111install.madsonic.sh"
     exit 1
 fi
 if ! diff -q "$HOME/000install.madsonic.sh" "$HOME/bin/install.madsonic" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/install.madsonic.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/madsonic/install.madsonic.sh
-    wget -qO $HOME/bin/install.madsonic https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/madsonic/install.madsonic.sh
-    bash $HOME/install.madsonic.sh
-    exit 1' > $HOME/222install.madsonic.sh
-    bash $HOME/222install.madsonic.sh
+    wget -qO "$HOME/install.madsonic.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/install.madsonic" "'"$scripturl"'"
+    bash "$HOME/install.madsonic.sh"
+    exit 1' > "$HOME/222install.madsonic.sh"
+    bash "$HOME/222install.madsonic.sh"
     exit 1
 fi
 #
@@ -97,8 +99,8 @@ then
 fi    
 echo
 #
-rm -f $HOME/000install.madsonic.sh $HOME/111install.madsonic.sh $HOME/222install.madsonic.sh
-chmod -f 700 $HOME/bin/install.madsonic
+rm -f "$HOME/000install.madsonic.sh" "$HOME/111install.madsonic.sh" "$HOME/222install.madsonic.sh"
+chmod -f 700 "$HOME/bin/install.madsonic"
 #
 ############################
 ##### Self Updater End #####

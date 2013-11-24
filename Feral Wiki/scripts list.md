@@ -35,9 +35,7 @@ Ampache - web based audio video streaming
 
 [Autodl-irssi and rutorrent plugin - community edition](https://www.feralhosting.com/faq/view?question=142) - `autodlport.sh` and `autodlrutorrentfix.sh` and `installautodl.sh`
 
-[proftpd - Installing an FTP daemon for extra accounts](https://www.feralhosting.com/faq/view?question=193) - `proftpd.sh`
-
-proftpd add user
+[proftpd - Installing an FTP daemon for extra accounts](https://www.feralhosting.com/faq/view?question=193) - `proftpd.sh` proftpd add user
 
 mumble /murmur
 
