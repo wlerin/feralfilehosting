@@ -64,14 +64,14 @@ faqbot.addListener('message', function(from, to, message) {
         return;
     }
 
-    if ( message == '%activepart1' || message == '%activepart1' + result ) {
+    if ( message == '%activated1' || message == '%activated1' + result ) {
         if ( result !== '' ) { var result = result + ': '; }
 
         faqbot.say(to, result + "Your Feral slot is active - Part 1 - The Account Manager -- https://www.feralhosting.com/faq/view?question=134");
         return;
     }
     
-    if ( message == '%activepart2' || message == '%activepart2' + result ) {
+    if ( message == '%activated2' || message == '%activated2' + result ) {
         if ( result !== '' ) { var result = result + ': '; }
 
         faqbot.say(to, result + "Your Feral slot is active - Part 2 - Using your slot -- https://www.feralhosting.com/faq/view?question=225");
@@ -946,7 +946,7 @@ faqbot.addListener('message', function(from, to, message) {
 		}
         
         if ( message.indexOf('general') >= 0 ) {
-          faqbot.say(to, "%activated %activepart1 %activepart2 %common %pwchange %transfer %useful %edit %upgrade %late ");
+          faqbot.say(to, "%activated %activated1 %activated2 %common %pwchange %transfer %useful %edit %upgrade %late ");
           return;
         }
         
