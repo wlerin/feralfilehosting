@@ -24,11 +24,10 @@ Curl
 
 ~~~
 wget -qO ~/curl.tar.gz http://curl.haxx.se/download/curl-7.33.0.tar.gz
-tar xf ~/curl.tar.gz
-cd ~/curl-7.33.0
+tar xf ~/curl.tar.gz && cd ~/curl-7.33.0
 ./configure --prefix=$HOME/programs
 make && make install && cd
-rm -rf ~/curl-7.33.0 ~/curl.tar.gz
+rm -rf ~/{curl-7.33.0,curl.tar.gz}
 ~~~
 
 Cmake
@@ -39,7 +38,7 @@ wget -qO ~/cmake.tar.gz http://www.cmake.org/files/v2.8/cmake-2.8.12.1.tar.gz
 tar xf ~/cmake.tar.gz && cd ~/cmake-2.8.12.1
 ./configure --prefix=$HOME/programs
 make && make install && cd
-rm -rf ~/cmake.tar.gz ~/cmake-2.8.12.1
+rm -rf ~/{cmake.tar.gz,cmake-2.8.12.1}
 ~~~
 
 WeeChat - Optionally install curl first
@@ -64,7 +63,8 @@ cmake -DPREFIX=$HOME/programs -DCURL_LIBRARY=$HOME/programs/lib/libcurl.so -DCUR
 ~~~
 
 ~~~
-make && make install && cd && rm -rf ~/weechat.tar.gz ~/weechat-0.4.2
+make && make install && cd 
+rm -rf ~/{weechat.tar.gz,weechat-0.4.2}
 ~~~
 
 node
@@ -99,7 +99,8 @@ Curl installed to `~/programs`
 ~~~
 
 ~~~
-make && make install && cd && rm -rf ~/git-1.8.4.2 git-1.8.4.2.tar.gz
+make && make install && cd
+rm -rf ~/{git-1.8.4.3,git-1.8.4.3.tar.gz}
 ~~~
 
 ~~~
@@ -111,11 +112,10 @@ Protobuf
 
 ~~~
 wget -qO ~/protobuf-2.5.0.tar.gz http://protobuf.googlecode.com/files/protobuf-2.5.0.tar.gz
-tar xf ~/protobuf-2.5.0.tar.gz
-cd ~/protobuf-2.5.0
+tar xf ~/protobuf-2.5.0.tar.gz && cd ~/protobuf-2.5.0
 ./configure --prefix=$HOME/programs
 make && make install && cd
-rm -rf  ~/protobuf-2.5.0.tar.gz ~/protobuf-2.5.0
+rm -rf  ~/{protobuf-2.5.0.tar.gz,protobuf-2.5.0}
 ~~~
 
 Mosh - protobuf needs to be done first
@@ -175,9 +175,7 @@ mkdir -p ~/programs
 wget -qO ~/znc.tar.gz http://znc.in/releases/znc-latest.tar.gz
 tar xf ~/znc.tar.gz && cd ~/znc-*
 ./configure --prefix=$HOME/programs
-make
-make install
-cd
+make && make install && cd
 rm -rf ~/znc.tar.gz ~/znc-*
 ~~~
 
