@@ -33,7 +33,9 @@ You will need to have MySQL already installed. You can do this from the [**Insta
 
 Where username is your Feral username and server is the name of the server that is hosting rutorrent.
 
-Where user-name is your Feral username and server is the name of the Feral server yoru lost is hosted on, for example:
+where `user-name` is your Feral user-name and `server` is the name of the Feral server your slot is hosted on:
+
+Now we enter the SSH command to connect to the slot, where `username` is your Feral username and `server` is the name of the server you wish to SSH into:
 
 ~~~
 peterpan@aphrodite.feralhosting.com
