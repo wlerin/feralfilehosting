@@ -4,7 +4,7 @@
 Generic Software Guide Introduction:
 ---
 
-With your Feral slot you do not have `root` access to the server. Your account runs as user account in a Debian linux environment. These are not dedicated servers which means you cannot use these commands on your slot:
+With your Feral slot you do not have `root` access to the server. Your account runs as user account in a Debian Linux environment. These are not dedicated servers which means you cannot use these commands on your slot:
 
 ~~~
 apt-get
@@ -12,9 +12,9 @@ su
 sudo
 ~~~
 
-This does not mean you cannot install software on your slot. It does means that you will have to attempt to install it to your `HOME` directory, or below, manually. **There is no official support from Feral staff for users doing this**. For this guide we will look at the methods available to you to install software on your slot.
+This does not mean you cannot install software on your slot. It does means that you will have to attempt to install it to your `HOME` directory, or below, manually. **There is no official support from Feral staff for users doing this**. You can open a ticket to ask for any standard dependencies to be installed to your slot that you may require. Again this comes down to common sense when looking at the nature of the application and dependencies.
 
-The main methods for installing software are:
+For this guide we will look at the methods available to you to install software on your slot. The main methods for installing software are:
 
 **1:** Pre-compiled binaries or scripts created by the developers or similar. Examples of this include:
 
@@ -51,7 +51,7 @@ And then this location is added to the `PATH`:
 
 When we add a location to the `PATH` in Linux it basically tells the SSH terminal to include this location when it looks for the binaries to execute. If a location is not in the `PATH` you would be required to use a full path to that program in order to execute it in your terminal. This method is used for simplicity. All files are installed to the `~/programs` folder and generally maintain a standardised directory structure.
 
-This FAQ will use the same directory structure for any examples used, though once you understand the process you can install application where ever you want. 
+This FAQ will use the same directory structure for any examples used, though once you understand the process you can install applications where ever you want. 
 
 Alternative Software locations:
 ---
