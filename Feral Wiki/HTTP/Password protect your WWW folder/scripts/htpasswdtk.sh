@@ -663,6 +663,8 @@ then
             if [[ -f ~/.nginx/conf.d/000-default-server.d/scgi-htpasswd ]]
             then
                 htpasswd -m $HOME/.nginx/conf.d/000-default-server.d/scgi-htpasswd rutorrent
+                sed -ri '/^rutorrent:(.*)/! s/(.*)//g' ~/.nginx/conf.d/000-default-server.d/scgi-htpasswd
+                sed -ri '/^$/d' ~/.nginx/conf.d/000-default-server.d/scgi-htpasswd
                 echo
                 sleep 2
             else
@@ -701,6 +703,7 @@ then
                             sed -ri '/^$/d' ~/.nginx/conf.d/000-default-server.d/scgi-$suffix-htpasswd
                             echo -e "This user's password has been used for the" "\033[36m""/rutorrent-$suffix/rpc""\e[0m"
                             echo
+                            sleep 2
                         else
                             echo "The rutorrent-$suffix htpasswd is empty. Re run option 18 to create a user first."
                             echo
@@ -760,6 +763,8 @@ then
             if [[ -f ~/.nginx/conf.d/000-default-server.d/scgi-$suffix-htpasswd ]]
             then
                 htpasswd -m $HOME/.nginx/conf.d/000-default-server.d/scgi-$suffix-htpasswd rutorrent
+                sed -ri '/^rutorrent:(.*)/! s/(.*)//g' ~/.nginx/conf.d/000-default-server.d/scgi-$suffix-htpasswd
+                sed -ri '/^$/d' ~/.nginx/conf.d/000-default-server.d/scgi-$suffix-htpasswd
                 echo
                 sleep 2
             else
