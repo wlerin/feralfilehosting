@@ -19,6 +19,7 @@ scriptname="htpasswdtk"
 # 1.0.4 nginx /links and apache /links options added
 # 1.0.5 multi rtorrent/rutorrent options
 # 1.1.0 Changes to Authname generation to avoid conflict or allow single login
+# 1.1.1 nginx rcp specific options for default and multple instances. tweaked the way option 18 works.
 #
 ############################
 ### Version History Ends ###
@@ -429,7 +430,7 @@ then
             ;;
     ##########
             "3") # Add a new user or update an existing user, in your ~/private/.htpasswd
-            if [ -f $HOME/private/.htpasswd ]
+            if [[ -f $HOME/private/.htpasswd ]]
             then
                 echo -e "\033[1;32m""Note: Use a good password manager like keepass so you can easily manage good passwords.""\e[0m"
                 echo -e "\033[31m""Enter an existing username to update, or a new username to create an entry.""\e[0m"
@@ -448,7 +449,7 @@ then
             ;;
     ##########
             "4") # Delete a user from your ~/private/.htpasswd
-            if [ -f $HOME/private/.htpasswd ]
+            if [[ -f $HOME/private/.htpasswd ]]
             then
                 echo -e "Here is a list of the usernames and their order in your" "\033[36m""$HOME/private/.htpasswd""\e[0m"
                 echo -e "\033[1;31m"
@@ -469,7 +470,7 @@ then
             ;;
     ##########
             "5") # Protect the /links directory using ~/private/.htpasswd
-            if [ -d $HOME/www/$(whoami).$(hostname)/public_html/links ]
+            if [[ -d $HOME/www/$(whoami).$(hostname)/public_html/links ]]
             then
                 echo -e "######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" > $HOME/www/$(whoami).$(hostname)/public_html/links/.htaccess
                 echo -e "The" "\033[36m""/links""\e[0m" "directory has been protected using the" "\033[36m""~/private/.htpasswd""\e[0m"
@@ -494,7 +495,7 @@ then
             ;;
     ##########
             "7") # RuTorrent: Change the existing Rutorrent .htaccess to use ~/private/.htpasswd
-            if [ -f $HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htaccess ]
+            if [[ -f $HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htaccess ]]
             then
                 echo -e "\033[32m""This will change where the rutorrent htaccess looks for the htpasswd file""\e[0m"
                 read -ep "Are you sure you want to change this [y] or quit back to the menu [q] : " confirm
@@ -511,7 +512,7 @@ then
             ;;
     ##########
             "8") # RuTorrent: Add or edit a user in the existing Rutorrent .htpasswd
-            if [ -f $HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd ]
+            if [[ -f $HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd ]]
             then
                 echo -e "\033[1;32m""Note: Use a good password manager like keepass so you can easily manage good passwords.""\e[0m"
                 echo -e "\033[32m""Here is a list of the usernames and their order in your" "\033[36m""/rutorrent/.htpasswd""\e[0m"
@@ -529,7 +530,7 @@ then
             ;;
     ##########
             "9") # RuTorrent: Delete a user in the existing Rutorrent .htpasswd
-            if [ -f $HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd ]
+            if [[ -f $HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd ]]
             then
                 echo -e "\033[32m""Here is a list of the usernames and their order in your" "\033[36m""/rutorrent/.htpasswd""\e[0m"
                 echo -e "\033[1;31m"
@@ -546,7 +547,7 @@ then
             ;;
     ##########
             "10") #RuTorrent: Protect the /links directory using /rutorrent/.htpasswd
-            if [ -d $HOME/www/$(whoami).$(hostname)/public_html/links ]
+            if [[ -d $HOME/www/$(whoami).$(hostname)/public_html/links ]]
             then
                 echo -e "######\nAuthUserFile \"$HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"$(whoami)\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" > $HOME/www/$(whoami).$(hostname)/public_html/links/.htaccess
                 echo -e "The" "\033[36m""/links""\e[0m" "directory has been protected using the" "\033[36m""/rutorrent/.htpasswd""\e[0m"
@@ -557,7 +558,7 @@ then
             ;;
     ##########
             "11") # RuTorrent: List .htpasswd users and their order
-            if [ -f $HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd ]
+            if [[ -f $HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd ]]
             then
                 echo -e "\033[32m""Here is a list of the usernames and their order in your" "\033[36m""/rutorrent/.htpasswd""\e[0m"
                 echo -e "\033[1;31m"
@@ -720,7 +721,7 @@ then
             echo -e "Where you have" "\033[32m""rutorrent-4""\e[0m" "then" "\033[31m""4""\e[0m" "is the suffix."
             read -ep "Please state the suffix of the instance you wish to modify: " suffix
             echo
-            if [ -f $HOME/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd ]
+            if [[ -f $HOME/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd ]]
             then
                 echo -e "\033[32m""Here is a list of the usernames and their order in your" "\033[36m""/rutorrent-$suffix/.htpasswd""\e[0m"
                 echo -e "\033[1;31m"
@@ -740,7 +741,7 @@ then
             echo -e "Where you have" "\033[32m""rutorrent-4""\e[0m" "then" "\033[31m""4""\e[0m" "is the suffix."
             read -ep "Please state the suffix of the instance you wish to modify: " suffix
             echo
-            if [ -f $HOME/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd ]
+            if [[ -f $HOME/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd ]]
             then
                 echo -e "\033[32m""Here is a list of the usernames and their order in your" "\033[36m""/rtorrent-$suffix/.htpasswd""\e[0m"
                 echo -e "\033[1;31m"
