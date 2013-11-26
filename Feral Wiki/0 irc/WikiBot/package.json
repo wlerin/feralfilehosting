@@ -24,7 +24,8 @@
   },
   "dependencies": {
     "irc": "~0.3.6",
-    "irc-colors": "~1.0.3"
+    "irc-colors": "~1.0.3",
+    "nickserv": "~0.3.0"
   },
   "devDependencies": {},
   "bundleDependencies": [],
