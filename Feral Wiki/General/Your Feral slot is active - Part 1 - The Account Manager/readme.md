@@ -1,17 +1,17 @@
 
-Let us overview the options available on the feralhosting.com website for managing your slot. 
+Your feralhosting.com Account
+---
 
-### Your feralhosting.com Account
+Let us overview the options available on the feralhosting.com website for managing your slot:
 
-You will be able to access the Manager at all times. It does not run on your Slot's server: [www.feralhosting.com/manager/](https://www.feralhosting.com/manager/) 
+You will be able to access the Manager at all times to overview and manage key aspects of your account and related services. The Account Manager does not run on your Slot's server: [www.feralhosting.com/manager/](https://www.feralhosting.com/manager/) 
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral Wiki/General/Your Feral slot is active - Part 1 - The Account Manager/01 account overview 1.png)
 
-#### Account Overview
+Account Overview
+---
 
-This is the first page you see after logging in. It displays the username and email associated with your account as well as displaying the payment status for your slot(s).
-
-Here you can manage and oversee some of the core features of your account, such as:
+This is the first page you see after logging in. It displays the username and email associated with your account as well as displaying the payment status for your slot(s). Here you can manage and oversee some of the core features of your account, such as:
 
 [Overview](https://www.feralhosting.com/manager/) - This link takes you to the slot overview page
 
