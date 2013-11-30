@@ -118,7 +118,7 @@ Click on `Advanced Options` now. You will see this list of options.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Using%20Transdroid%20to%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/main/port.png)
 
-**SCGI/Folder:** `/username/rtorrent/rpc` (case sensitive and where username is your Feral username)
+**SCGI/Folder:** `/username/deluge` (case sensitive and where username is your Feral username)
 
 **Important note:** You need the `/` at the beginning and no trailing slash.
 
