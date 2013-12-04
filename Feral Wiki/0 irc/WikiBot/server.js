@@ -1,4 +1,4 @@
-// a modified version of benbot
+// a modified version of benbot by BenHarris
 var irc = require("irc");
 var c = require('irc-colors');
 // https://github.com/martynsmith/node-irc/issues/160 -- creds = {rejectUnauthorized: !self.opt.secure};
