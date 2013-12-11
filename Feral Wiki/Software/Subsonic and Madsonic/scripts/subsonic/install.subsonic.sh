@@ -343,7 +343,7 @@ then
         echo -e "\033[36m""$sffmpegfvs""\e[0m" "Has been downloaded and renamed to" "\033[36m""ffmpeg.zip\e[0m"
         echo -e "\033[36m""$sffmpegfvs""\e[0m" "Is being unpacked now."
         unzip -qo ~/sonictmp/ffmpeg.zip -d ~/private/subsonic/transcode/
-        chmod -f 700 ~/private/subsonic/transcode/ffmpeg
+        chmod -f 700 ~/private/subsonic/transcode/Audioffmpeg ~/private/subsonic/transcode/ffmpeg
         echo -e "\033[36m""$sffmpegfvs""\e[0m" "Has been unpacked to" "\033[36m~/private/subsonic/transcode/\e[0m"
         rm -rf ~/sonictmp
         sleep 1
