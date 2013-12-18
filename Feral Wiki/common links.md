@@ -66,8 +66,10 @@ where `username` if your Feral username and `server` if the name of the server t
 
 ### Common Commands
 
+Use this command to create the `~/bin` directory and reload your shell for this change to take effect.
+
 ~~~
-source ~/.bashrc && source ~/.profile
+mkdir -p ~/bin && bash
 ~~~
 
 Add `PATHS` to the `~/.bashrc`#
@@ -75,14 +77,5 @@ Add `PATHS` to the `~/.bashrc`#
 Python `~/.local/bin`:
 
 ~~~
-[[][/[][ ! "$(grep '~/.local/bin' ~/.bashrc)" ]] && echo 'export PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
-~~~
-
-Custom software installations to `~/programs`
-
-~~~
-[[][/[][ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'export PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
-~~~
-~~~
-[[][/[][ ! "$(grep '~/programs/lib' ~/.bashrc)" ]] && echo 'export LD_LIBRARY_PATH=~/programs/lib:$LD_LIBRARY_PATH' >> ~/.bashrc ; source ~/.bashrc
+[ ! "$(grep '~/.local/bin' ~/.bashrc)" ] && echo 'export PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~

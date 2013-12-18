@@ -1,12 +1,28 @@
 
+[h2]Titles[/h2]
+For titling your FAQ you can use - [url=http://titlecapitalization.com/]titlecapitalization.com[/url]
+
 [h2]How do I create a FAQ?[/h2]
 Click on this link: [url=https://www.feralhosting.com/faq/add]Add a Question[/url] and paste in your formatted text as the answer. Your question is the Title of the FAQ or guide. Open a ticket as outlined below to inform staff of the new FAQ.
 
-See below for formatting guidelines
+[b]Important note:[/b] After you have created the guide please submit a ticket using the title format [code single]New FAQ - FAQ name - Category[/code]
+
+[b]Title:[/b] New FAQ - How To Use SSH - SSH
+
+[b]Body:[/b] Can you please review my new FAQ
 
 [h2]How do I edit a FAQ?[/h2]
 Simply [b]click on edit at the bottom of the FAQ[/b] and submit your edited version along with reason for the change.
 
+[b]Important note:[/b] After you have edited the guide please submit a ticket using the title format [code single]FAQ Edit - FAQ name - Category[/code]
+
+In the body submit a link to the FAQ you edited. So for example:
+
+[b]Title:[/b] FAQ Edit - SSH Guide Basics - PuTTy - SSH
+
+[b]Body:[/b] https://www.feralhosting.com/faq/view?question=12 I fixed a broken link.
+
+[h2]Formatting[/h2]
 You can use Markdown to edit or create a FAQ if you wish. You will have to convert it to Feral BBCode using this tool:
 
 [url=http://feralhosting.github.io/convert/m2b/index.html]Markdown to BBCode[/url]
@@ -177,24 +193,28 @@ Here is the markdown equivalent:
 
 [code][Link description](http://i.imgur.com/pRfcyAi.jpg)[/code]
 [h2]Custom Software[/h2]
-Custom software installations that have a typical structures, such as [code single]~/something/bin[/code] should be installed to [code single]~/programs[/code]. The use this command to add it to the [code single]PATH[/code] if needed. This will fall in line with other software installation FAQs.
+Custom software installations that have a typical directory structures, such as [code single]~/bin[/code] should be installed to [code single]$HOME[/code], like this:
 
-[code][[][/[][ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc[/code]
+[code]configure --prefix=$HOME[/code]
+This will use the [code single]~/bin[/code] folder for binaries and this location will automatically be added to the [code single]PATH[/code] via the [code single]~/.profile[/code] file once the user has logged out of their SSH session and logs back in.
+
+You can ask them to log out and log into a new SSH session or optionally use this command at the start of the FAQ to create the directory and to reload the shell for the change to take effect:
+
+[code]mkdir -p ~/bin && bash[/code]
 Exceptions to the rule?
 
-1: Programs like AeroFS and Spideroak that do not have a directory structure that would work for the [code single]~/programs[/code] location or other self contained applications.
+1: Programs like AeroFS,Spideroak and Filebot that do not have a conventional directory structure that would work with the [code single]~/bin[/code] location, or for other self contained applications.
 
-2: Programs that might conflict with slot operations such as Python. Then use a custom location for this software. Try not to use a very complex or needlessly deep directory structure.
+2: Programs that might conflict with slot operations such as Python or where you want multiple versions of an application. Then use a custom location for this software. Try not to use a very complex or needlessly deep directory structure where possible. In these cases it is advised you do not add the locations to the PATH and provide full paths to the binaries for use when needed instead.
 
-[h3]Python and user mods.[/h3]
+[h2]Python and user mods.[/h2]
 When a [code single]--user[/code] mod is installed using the slot's included Python, it will always go to the location:
 
 [code]~/.local/bin[/code]
-So in this case, use this command to add the [code single]PATH[/code] to the [code single]~/.bashrc[/code]. This will fall in line with other Python FAQs.
+Python will detect this location for any required dependencies a script might have, but if you need to call an installed module directly in your terminal you can use this command to add the [code single]~/.local/bin[/code] to the [code single]~/.bashrc[/code].
 
-[code][[][/[][ ! "$(grep '~/.local/bin' ~/.bashrc)" ]] && echo 'PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc[/code]
-
-[h3]File Hosting[/h3]
+[code][ ! "$(grep '~/.local/bin' ~/.bashrc)" ] && echo 'export PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc[/code]
+[h2]File Hosting[/h2]
 [b]IMAGES[/b]
 
 When needed some images will be re-hosted, so use whatever you need/can when editing the faq.
@@ -209,16 +229,6 @@ Important files will be re-hosted on a more permanent platform when needed. If t
 
 [h2]Closing: At the end of the FAQ[/h2]
 Please leave 4 blank lines at the end of any question you edit or submit. This is a visual thing.
-
-Credit will be attributed to the original author(s) where needed manually. So do not worry about this.
-
-[b]Attention:[/b] After you have edited the guide please submit a ticket using the title format [code single]FAQ Edit - FAQ name - Category[/code]
-
-In the body submit a link to the FAQ you edited. So for example:
-
-[b]Title:[/b] FAQ Edit - I want to edit a FAQ or guide - General
-
-[b]Body:[/b] https://www.feralhosting.com/faq/view?question=122 I fixed a broken link.
 
 [h2]Feral FAQ Cheat Sheet[/h2]
 What is this? this is a list of preferred formatting when adding certain info. Feel free to add to this.
@@ -362,10 +372,6 @@ To execute a bash script from crontab you need to use this command:
 For example:
 
 [code]@reboot bash -l ~/myscript.sh[/code]
-You can use this command to easily create a cronjob for users in some sort of support capacity:
-
-[code](crontab -l ; echo "* * * * * some/cron/thing") | uniq - | crontab -[/code]
-This will create a specified cronjob while also checking to make sure it is not created more than once. So with a single command you can have create and insert a cronjob for a user. It only checks vs the last entry though.
 
 
 
