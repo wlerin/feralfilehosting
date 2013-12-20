@@ -24,7 +24,7 @@ To install python mods using the Feral python uses these steps:
 **1:** Add the location to your PATH:
 
 ~~~
-[[][/[][ ! "$(grep '~/.local/bin' ~/.bashrc)" ]] && echo 'export PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
+[ ! "$(grep '~/.local/bin' ~/.bashrc)" ] && echo 'export PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
 ~~~
 
 **2:** Now install `virtualenv` like this:
@@ -60,7 +60,8 @@ You **do not** need to follow this FAQ to use python or python scripts. If you h
 
 This is a basic guide to installing Python to your home directory and using it as your default Python. You will also be able to use easy_install to install mods.
 
-### Python Active State 2.7.5.6:
+Python Active State 2.7.5.6:
+---
 
 Includes lots of things such as VirtualENV, distribute, PIP and more. Super simple to install.
 
@@ -71,6 +72,8 @@ bash ~/ActivePython-2.7.5.6-linux-x86_64/install.sh
 ~~~
 
 Select a path to install to. This will create the path if it does not exist.
+
+**Important note:** We do not recommend you install directly to `$HOME` or use this installation in the `PATH` over the existing version.  There will be problems if you do. Do something like this instead:
 
 ~~~
 Install directory: ~/activestate
@@ -83,20 +86,27 @@ Read the information displayed, it will tell you what `PATH` to add and where.
 Optional: To remove the installation files.
 
 ~~~
-rm -f ActivePython-2.7.5.6-linux-x86_64.tar.gz ~/ActivePython-2.7.5.6-linux-x86_64
+cd && rm -f ActivePython{-2.7.5.6-linux-x86_64.tar.gz,-2.7.5.6-linux-x86_64}
 ~~~
 
 Type this command to reload the shell:
 
 ~~~
-source ~/.bashrc
+bash
 ~~~
 
 Done.
 
-### Compile Python from source.
+Compile Python from source.
+----
 
 In SSH do these commands. Use this FAQ if you do not know how to SSH into your slot: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
+
+**Important note:** We do not recommend you install directly to `$HOME` or use this installation in the `PATH` over the existing version.  There will be problems if you do. Do something like this instead:
+
+~~~
+--prefix=$HOME/python/python.2.7
+~~~
 
 ### Installing Python 2.7.6:
 
@@ -124,16 +134,17 @@ echo 'export PATH=~/python/python.2.7/bin:$PATH' >> ~/.bashrc
 Now use this command to reload the shell:
 
 ~~~
-source ~/.bashrc
+bash
 ~~~
 
 Now check which version is in use:
 
 ~~~
-python -V
+~/python/python.2.7/bin/python -V
 ~~~
 
-### Installing distribute
+Installing distribute
+---
 
 ~~~
 curl -o ~/distribute_setup.py http://python-distribute.org/distribute_setup.py
@@ -143,7 +154,8 @@ rm -f ~/distribute_setup.py
 
 Distribute is replacing setuptools.
 
-### Installing setuptools:
+Installing setuptools:
+---
 
 ~~~
 wget https://pypi.python.org/packages/2.7/s/setuptools/setuptools-0.6c11-py2.7.egg
@@ -156,15 +168,15 @@ That is done. Python and set-up tools are now installed and added to your paths.
 Using `easy_install` from the command line to install mods:
 
 ~~~
-easy_install pip
+~/python/python.2.7/bin/easy_install pip
 ~~~
 
 ~~~
-easy_install virtualenv
+~/python/python.2.7/bin/easy_install virtualenv
 ~~~
 
 ~~~
-easy_install flexget
+~/python/python.2.7/bin/easy_install flexget
 ~~~
 
 ### Optional Stuff:
