@@ -23,7 +23,7 @@ $ip servername
 
 For example:
 
-~~
+~~~
 $ip pontus
 ~~~
 
@@ -37,21 +37,17 @@ The DNS settings of any domain are controlled by the host of the Name Servers. I
 
 Optionally, for this FAQ I recommend using this DNS service: [http://rage4.com/](http://rage4.com/) - See this page for namerserver settings - [Nameservers](http://gbshouse.uservoice.com/knowledgebase/articles/107710-rage4-dns-frequently-asked-questions-faq-)
 
-Your domain registrar or name server host will provide you with basic or advanced tools (a DNS records editor) to manage your DNS settings for each domain they are managing the name servers for.
+Your domain registrar or name server host will provide you with basic or advanced tools (a DNS records editor) to manage your DNS settings for each domain they are managing the name servers for. Find their DNS Settings Manager or similar and then we are going to two main records for this domain. The first is an `A` record for the main IP and the second will be a `cname` for the `www` version. Click on the domain name you'd like to configure, and then click the `Manage DNS` or similar options.
 
-Find their DNS Settings Manager or similar and then we are going to two main records for this domain. The first is an `A` record for the main IP and the second will be a `cname` for the `www` version.
+We are going to create two new records for our custom domain. 1: an `A` record linking to the server IP and 2: a `CNAME` to redirect the `www` subdomain to the main A record
 
-Click on the domain name you'd like to configure, and then click the `Manage DNS` or similar options.
+**Important note:** Some hosting providers will automatically create a `CNAME` for your www version, such a GoDaddy. In this case you should only need to create Record 1, the `A` record. 
 
-**Important note:** Some hosting providers will automatically create a `CNAME` for your www version, such a GoDaddy. In this case you should only need to create Record 1.
+**Record 1 A record:** `example.co.uk` pointing to `123.123.123.123`
 
-You will have to create two A records. One for the non www version one for the www version:
+**Record 2 CNAME record:** `www.example.co.uk` pointing to `example.co.uk`
 
-**Record 1 A record:** example.co.uk
-
-**Record 2 CNAME record:** www.example.co.uk
-
-These are treated as two separate domains. This is something you can deal with after the DNS records have been correctly set up.
+Here are the example records we use for the `example.co.uk` domain.
 
 **Record 1 A record:**
 
@@ -81,7 +77,7 @@ Add this new Record.
 
 Add this new Record.
 
-Note: Activating domains can take up to 24 hours while the DNS propagates fully. This is beyond Feral's control and you should consider changing your DNS servers if your ISP is taking too long to acknowledge the changes.
+**Important Note:** Activating domains can take up to 24 hours while the DNS propagates fully. This is beyond Feral's control and you should consider changing your DNS servers if your ISP is taking too long to acknowledge the changes.
 
 [Google DNS](https://developers.google.com/speed/public-dns/)
 
@@ -91,9 +87,9 @@ Note: Activating domains can take up to 24 hours while the DNS propagates fully.
 
 **STEP 4: Add it to the Server**
 
-After you're done with the above steps, simply create a new folder with the same name as the domain inside the `~/www/` directory on your slot. All slots have this directory in their root location.
+After you're done with the above steps, simply create a new folder with the same name as the domain inside the `~/www` directory on your slot. All slots have this directory in their root location.
 
-**Folder name 1:** example.co.uk
+**Folder name:** `example.co.uk`
 
 So you will have something that looks like this:
 
@@ -104,9 +100,12 @@ It should be added almost immediately and when it is, another folder "public_htm
 The final directory structure will look something like:
 
 ~~~
-/media/12345/home/username/www/example.co.uk/public_html
+/media/12345/home/username/www/example.co.uk/public_html/
 ~~~
 
+When you visit your domain's URL in a browser you will be seeing any files that are inside the `public_html` directory.
+
+Now visit your website URL in a browser. You may need to clear your browser cache in some case to see the change.
 
 
 
