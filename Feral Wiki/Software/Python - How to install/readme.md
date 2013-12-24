@@ -21,7 +21,7 @@ python -V
 
 To install python mods using the Feral python uses these steps:
 
-**1:** Add the location to your PATH:
+**1:** Add the `~/.local/bin` location to your `PATH` using this command:
 
 ~~~
 [ ! "$(grep '~/.local/bin' ~/.bashrc)" ] && echo 'export PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
@@ -56,12 +56,13 @@ virtualenv ~/flexget/
 
 **Related FAQ:** [Flexget - Basic installation](https://www.feralhosting.com/faq/view?question=234)
 
-You **do not** need to follow this FAQ to use python or python scripts. If you have a missing module you can open a ticket and ask staff to install it.
+Installing Python locally:
 
-This is a basic guide to installing Python to your home directory and using it as your default Python. You will also be able to use easy_install to install mods.
+You **do not** need to follow this FAQ to use python or python scripts. If you have a missing module you can open a ticket and ask staff to install it or use the above section to install it locally.
 
-Python Active State 2.7.5.6:
----
+This is a basic guide to installing Python to your home directory . You will also be able to use `easy_install` to install mods.
+
+### Python Active State 2.7.5.6:
 
 Includes lots of things such as VirtualENV, distribute, PIP and more. Super simple to install.
 
@@ -95,10 +96,15 @@ Type this command to reload the shell:
 bash
 ~~~
 
+To use `easy_install` with this installation use the full path to your installation.
+
+~~~
+~/activestate/bin/easy_install
+~~~
+
 Done.
 
-Compile Python from source.
-----
+### Installing Python 2.7.6 from source:
 
 In SSH do these commands. Use this FAQ if you do not know how to SSH into your slot: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
 
@@ -107,8 +113,6 @@ In SSH do these commands. Use this FAQ if you do not know how to SSH into your s
 ~~~
 --prefix=$HOME/python/python.2.7
 ~~~
-
-### Installing Python 2.7.6:
 
 ~~~
 mkdir -p ~/python/python.2.7
