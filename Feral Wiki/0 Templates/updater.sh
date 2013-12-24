@@ -74,7 +74,7 @@ echo
 echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
 echo
 #
-rm -f "$HOME/000somescript.sh" "$HOME/111somescript.sh" "$HOME/222somescript.sh"
+cd && rm -f {000,111,222}somescript.sh
 chmod -f 700 "$HOME/bin/somescript"
 #
 ############################
@@ -99,6 +99,6 @@ then
 else
     echo -e "You chose to exit after updating the scripts."
     echo
-    exit 1
     cd && bash
+    exit 1
 fi

@@ -46,8 +46,8 @@ wget -qO "$HOME/000somescript.sh" "$scripturl"
 if ! diff -q "$HOME/000somescript.sh" "$HOME/somescript.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/somescript.sh "'"$scripturl"'"
-    bash $HOME/somescript.sh
+    wget -qO "$HOME/somescript.sh" "'"$scripturl"'"
+    bash "$HOME/somescript.sh"
     exit 1' > "$HOME/111somescript.sh"
     bash "$HOME/111somescript.sh"
     exit 1
@@ -57,7 +57,7 @@ echo
 echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
 echo
 #
-rm -f "$HOME/000somescript.sh" "$HOME/111somescript.sh"
+cd && rm -f {000,111}somescript.sh
 #
 ############################
 ##### Self Updater End #####
@@ -81,6 +81,6 @@ then
 else
     echo -e "You chose to exit after updating the scripts."
     echo
-    exit 1
     cd && bash
+    exit 1
 fi
