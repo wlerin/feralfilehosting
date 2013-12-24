@@ -125,7 +125,7 @@ then
     if [[ "$license" = yes ]]
     then
         # checks for rutorrent...see bottom else statement for negative return
-        if [[ -d ~/www/$(whoami).$(hostname)/public_html/rutorrent/ ]]
+        if [[ -d ~/www/$(whoami).$(hostname)/public_html/rutorrent ]]
         then
             echo -e "\033[32m""Installing autodl-irssi and its rutorrent plugin""\e[0m"
             echo
@@ -208,9 +208,11 @@ then
             fi
         else
             echo -e "\033[31m Install rtorrent/rutorrent first" "\e[0m"
+            echo
         fi
     else
         echo "This installer will now exit"
+        echo
         sleep 2
         exit 1
     fi
