@@ -1,6 +1,6 @@
 #!/bin/bash
 # installautodl.sh
-scriptversion="1.2.8"
+scriptversion="1.2.9"
 scriptname="installautodl"
 # Bobtentpeg, randomessence
 #
@@ -14,6 +14,7 @@ scriptname="installautodl"
 ## Version History Starts ##
 ############################
 #
+# v1.2.9 - modernised
 # v1.2.8 - removes autodl files before installing. Clean install. No longer overwrites existing autodl.cfg if present when reinstalling
 # v1.2.7 - also gets and installs most current tracker list
 # v1.2.6 - random pass generated and inserted but still requires user confirmation.
@@ -42,6 +43,7 @@ port=$(shuf -i 6000-50000 -n 1)
 autodlPort='$autodlPort'
 autodlPassword='$autodlPassword'
 pass=$(< /dev/urandom tr -dc '12345!@#ANCDEFGHIJKLMNOPabcdefghijklmnop' | head -c${1:-20};echo;)
+scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/installautodl.sh"
 #
 ############################
 ####### Variable End #######
@@ -51,37 +53,37 @@ pass=$(< /dev/urandom tr -dc '12345!@#ANCDEFGHIJKLMNOPabcdefghijklmnop' | head -
 #### Self Updater Start ####
 ############################
 #
-mkdir -p $HOME/bin
+mkdir -p "$HOME/bin"
 #
-if [ ! -f $HOME/installautodl.sh ]
+if [[ ! -f "$HOME/installautodl.sh" ]]
 then
-    wget -qO $HOME/installautodl.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/installautodl.sh
+    wget -qO "$HOME/installautodl.sh" "$scripturl"
 fi
-if [ ! -f $HOME/bin/installautodl ]
+if [[ ! -f "$HOME/bin/installautodl" ]]
 then
-    wget -qO $HOME/bin/installautodl https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/installautodl.sh
+    wget -qO "$HOME/bin/installautodl" "$scripturl"
 fi
 #
-wget -qO $HOME/000installautodl.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/installautodl.sh
+wget -qO "$HOME/000installautodl.sh" "$scripturl"
 #
-if ! diff -q $HOME/000installautodl.sh $HOME/installautodl.sh > /dev/null 2>&1
+if ! diff -q "$HOME/000installautodl.sh" "$HOME/installautodl.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/installautodl.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/installautodl.sh
-    wget -qO $HOME/bin/installautodl https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/installautodl.sh
-    bash $HOME/installautodl.sh
-    exit 1' > $HOME/111installautodl.sh
-    bash $HOME/111installautodl.sh
+    wget -qO "$HOME/installautodl.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/installautodl" "'"$scripturl"'"
+    bash "$HOME/installautodl.sh"
+    exit 1' > "$HOME/111installautodl.sh"
+    bash "$HOME/111installautodl.sh"
     exit 1
 fi
-if ! diff -q $HOME/000installautodl.sh $HOME/bin/installautodl > /dev/null 2>&1
+if ! diff -q "$HOME/000installautodl.sh" "$HOME/bin/installautodl" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO $HOME/installautodl.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/installautodl.sh
-    wget -qO $HOME/bin/installautodl https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/installautodl.sh
-    bash $HOME/installautodl.sh
-    exit 1' > $HOME/222installautodl.sh
-    bash $HOME/222installautodl.sh
+    wget -qO "$HOME/installautodl.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/installautodl" "'"$scripturl"'"
+    bash "$HOME/installautodl.sh"
+    exit 1' > "$HOME/222installautodl.sh"
+    bash "$HOME/222installautodl.sh"
     exit 1
 fi
 #
@@ -89,21 +91,22 @@ echo
 echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
 echo
 #
-rm -f $HOME/000installautodl.sh $HOME/111installautodl.sh $HOME/222installautodl.sh
-chmod -f 700 $HOME/bin/installautodl
+cd && rm -f {000,111,222}installautodl.sh
+chmod -f 700 "$HOME/bin/installautodl"
 #
 ############################
 ##### Self Updater End #####
 ############################
 #
-read -ep "The script has been updated, do you wish to continue [y] or exit now [q] : " updatestatus
+read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " updatestatus
 echo
-if [[ $updatestatus =~ ^[Yy]$ ]]
+if [[ "$updatestatus" =~ ^[Yy]$ ]]
 then
 #
 ############################
 ####### Script Start #######
 ############################
+#
     #
     echo -e "    ######################################""\033[33m""DISCLAIMER""\e[0m""#############################################
     #############################################################################################
@@ -119,10 +122,10 @@ then
     echo
     read -ep "If you understand the above disclaimer, enter 'yes' to continue: " license
     echo
-    if [[ $license = yes ]]
+    if [[ "$license" = yes ]]
     then
         # checks for rutorrent...see bottom else statement for negative return
-        if [ -d ~/www/$(whoami).$(hostname)/public_html/rutorrent/ ]
+        if [[ -d ~/www/$(whoami).$(hostname)/public_html/rutorrent/ ]]
         then
             echo -e "\033[32m""Installing autodl-irssi and its rutorrent plugin""\e[0m"
             echo
@@ -141,7 +144,7 @@ then
             read -p "Please confirm this is the password you wish to use [y/n]: " confirm
             echo
             # If they like their chosen password, the script installs autodl. =~ ^[Yy] is matching for Y or y
-            if [[ $confirm =~ ^[Yy]$ ]]
+            if [[ "$confirm" =~ ^[Yy]$ ]]
             then
                 # autodl irssi begins
                 #
@@ -172,8 +175,8 @@ then
                 echo "Writing configuration files"
                 if [[ -f ~/.autodl/autodl.cfg ]]
                 then
-                    sed -ri 's/(.*)gui-server-port =(.*)/gui-server-port = '$port'/g' ~/.autodl/autodl.cfg
-                    sed -ri 's/(.*)gui-server-password =(.*)/gui-server-password = '$pass'/g' ~/.autodl/autodl.cfg
+                    sed -ri 's/(.*)gui-server-port =(.*)/gui-server-port = '"$port"'/g' ~/.autodl/autodl.cfg
+                    sed -ri 's/(.*)gui-server-password =(.*)/gui-server-password = '"$pass"'/g' ~/.autodl/autodl.cfg
                 else 
                     echo -e "[options]\ngui-server-port = $port\ngui-server-password = $pass" > ~/.autodl/autodl.cfg
                 fi
@@ -255,12 +258,14 @@ then
     echo
     exit 1
     #
-else
-    echo -e "You chose to exit after updating the scripts."
-    exit 1
-    cd && bash
-fi
+#
 ############################
 ####### Script Ends  #######
 ############################
 #
+else
+    echo -e "You chose to exit after updating the scripts."
+    echo
+    cd && bash
+    exit 1
+fi
