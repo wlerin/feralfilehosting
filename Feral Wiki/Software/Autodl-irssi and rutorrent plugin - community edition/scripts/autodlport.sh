@@ -1,6 +1,6 @@
 #!/bin/bash
 # autodlport.sh
-scriptversion="1.0.1"
+scriptversion="1.0.2"
 scriptname="autodlport"
 # randomessence
 #
@@ -10,7 +10,7 @@ scriptname="autodlport"
 ## Version History Starts ##
 ############################
 #
-#
+# 1.0.2 generates optional password for the user like the install script.
 #
 ############################
 ### Version History Ends ###
@@ -20,6 +20,7 @@ scriptname="autodlport"
 ###### Variable Start ######
 ############################
 #
+pass=$(< /dev/urandom tr -dc '12345!@#ANCDEFGHIJKLMNOPabcdefghijklmnop' | head -c${1:-20};echo;)
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/autodlport.sh"
 #
 ############################
@@ -87,10 +88,9 @@ then
     port=$(shuf -i 6000-50000 -n 1)
     if [[ -f ~/.autodl/autodl.cfg && -f ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/conf.php ]]
     then
-        echo
         echo "This script will change your password and port for autodl and the rutorrent plugin, then restart irssi."
         echo
-        read -ep "Enter Password (No spaces please!): " pass
+        read -ep "Enter Password (No spaces please!): " -i "$pass" pass
         echo
         echo -e "You entered" "\033[32m""$pass""\e[0m" "as your password."
         echo
