@@ -1,4 +1,6 @@
-### Rsync toolkit bash script
+
+Rsync toolkit bash script
+---
 
 Do this command on your **NEW** slot:
 
@@ -16,7 +18,8 @@ This script basically does 3 things.
 
 If anything, you can just do stage one to get a working command. Remember, you run this script on your **NEW** slot. It copies files from your old slot to the new. The process is started and runs on the new slot.
 
-### rysnc Intro
+rysnc Intro
+---
 
 Let us say that you have just purchased an upgraded slot and would like to move files over from the old slot over to your newer slot. This can be done through a ticket and usually is, but here I will explain how to do this partially or completely by yourself in SSH with very reliable results using a program called screen with another program called rsync.
 
@@ -30,7 +33,8 @@ If you plan on cloning/copying your entire HOME folder or a particular and exist
 
 **Step 2:** further describes the use of rysnc to copy files.
 
-### Step 1: Prepare our NEW slot
+Step 1: Prepare our NEW slot
+---
 
 **1** [SSH](https://www.feralhosting.com/faq/view?question=12) to your NEW slot.
 
@@ -44,7 +48,8 @@ This means there is now a folder called `rysnc` within your `~/` or slot root on
 
 Now the process below will describe how to copy all or parts of your old slot's data to the newly created `rsync` folder on your new slot.
 
-### Step 2: Using rysnc
+Step 2: Using rysnc
+---
 
 **2.1**
 
@@ -118,7 +123,8 @@ Be careful with the use of a trailing slash. You could use the general rule of t
 
 Here is a useful explanation of the use of a trailing slash: [External link](http://devblog.virtage.com/2013/01/to-trailing-slash-or-not-to-trailing-slash-to-rsync-path/)
 
-### Step 3: Applying our command:
+Step 3: Applying our command:
+---
 
 Once we have the correct command, with the relevant paths to your directories, let's do a quick check:
 
@@ -142,7 +148,7 @@ Then in your screen window copy or type this command (in putty or Linux a right 
 
 If all goes to plan, the transfers should start and you will see stuff being moved in the screen window. You can either wait around and monitor its progress or detach from the screen to leave it running in the background. This will allow you to close the SSH connection (terminal) without interrupting the transfer. To do this in your screen:
 
-Press and hold `CTRL` then press `d` to detach from the screen. This leaves it running in the background.
+Press and hold `CTRL` and `a` then press `d` to detach from the screen. This leaves it running in the background.
 
 You should see a "you have been detached" or similar prompt from within the terminal.
 
@@ -156,7 +162,8 @@ screen -r transfer
 
 Please see this Guide for [Completing a Data transfer](https://www.feralhosting.com/faq/view?question=122) for getting your torrent programs back up and running.
 
-### Notes:
+Notes:
+---
 
 [http://linux.die.net/man/1/rsync](http://linux.die.net/man/1/rsync)
 
