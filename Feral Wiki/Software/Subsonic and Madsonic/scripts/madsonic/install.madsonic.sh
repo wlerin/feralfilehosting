@@ -1,10 +1,10 @@
 #!/bin/bash
 # Install Madsonic
-scriptversion="1.6.1"
+scriptversion="1.6.2"
 scriptname="install.madsonic"
-madsonicversion="5.0 Build 3780"
-javaversion="1.7 Update 45"
-jvdecimal="1.7.0_45"
+madsonicversion="5.0 Build 3840"
+javaversion="1.7 Update 51"
+jvdecimal="1.7.0_51"
 #
 # randomessence
 #
@@ -34,14 +34,14 @@ https=$(expr 1 + $http)
 initmemory="2048"
 maxmemory="2048"
 # Gets the Java version from the last time this scrip installed Java
-installedjavaversion=$(cat ~/programs/javaversion 2> /dev/null)
+installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 # Java URL
-javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=81812"
-madsonicfv="https://bitbucket.org/feralhosting/feralfiles/downloads/5.0.3780-standalone.zip"
-madsonicfvs="5.0.3780-standalone.zip"
+javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=83374"
+madsonicfv="https://bitbucket.org/feralhosting/feralfiles/downloads/5.0.3840-standalone.zip"
+madsonicfvs="5.0.3840-standalone.zip"
 # Madsonic custom ffmpeg with Audioffmpeg
-mffmpegfvc="https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.31.10.2013.zip"
-mffmpegfvcs="ffmpeg.31.10.2013.zip"
+mffmpegfvc="https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.30.11.2013.zip"
+mffmpegfvcs="ffmpeg.30.11.2013.zip"
 #
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/madsonic/install.madsonic.sh"
 #
@@ -283,7 +283,7 @@ echo -e "The" "\033[36m""~/bin/madsonicrsk""\e[0m" "has been updated."
 echo
 read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " updatestatus
 echo
-if [[ $updatestatus =~ ^[Yy]$ ]]
+if [[ "$updatestatus" =~ ^[Yy]$ ]]
 then
 #
 ############################
@@ -298,18 +298,14 @@ then
     then
         echo "Please wait a moment while java is installed"
         rm -rf ~/private/java
-        wget -qO ~/java.tar.gz $javaupdatev
+        wget -qO ~/java.tar.gz "$javaupdatev"
         tar xf ~/java.tar.gz
-        cp -rf ~/jre$jvdecimal/. ~/programs
+        cp -rf ~/jre"$jvdecimal"/. "$HOME/"
         rm -f ~/java.tar.gz
-        rm -rf ~/jre$jvdecimal
-        if [[ ! "$(grep -o 'PATH=~/programs/bin:$PATH' ~/.bashrc)" ]]
-        then
-            echo 'export PATH=~/programs/bin:$PATH' >> ~/.bashrc
-        fi
-        echo -n "$javaversion" > ~/programs/javaversion
+        rm -rf ~/jre"$jvdecimal"
+        echo -n "$javaversion" > ~/.javaversion
         # we create a custom Java version file for comparison so the installer only runs once
-        echo -e "\033[31m""Important:""\e[0m" "Java" "\033[32m""$javaversion""\e[0m" "has been installed to" "\033[36m""~/programs""\e[0m"
+        echo -e "\033[31m""Important:""\e[0m" "Java" "\033[32m""$javaversion""\e[0m" "has been installed to" "\033[36m""$HOME/""\e[0m"
         echo
         echo -e "This Script needs to exit for the Java changes to take effect. Please restart the Script using this command:"
         echo
@@ -335,7 +331,7 @@ then
         echo -n "$madsonicfvs" > ~/private/madsonic/.version
         echo
         echo -e "\033[32m""$madsonicfvs""\e[0m" "Is downloading now."
-        wget -qO ~/sonictmp/madsonic.zip $madsonicfv
+        wget -qO ~/sonictmp/madsonic.zip "$madsonicfv"
         echo -e "\033[36m""$madsonicfvs""\e[0m" "Has been downloaded and renamed to" "\033[36m""madsonic.zip\e[0m"
         echo -e "\033[36m""madsonic.zip""\e[0m" "Is unpacking now."
         unzip -qo ~/sonictmp/madsonic.zip -d ~/private/madsonic
@@ -343,11 +339,11 @@ then
         sleep 1
         echo
         echo -e "\033[32m""$mffmpegfvcs""\e[0m" "Is downloading now."
-        wget -qO ~/sonictmp/ffmpeg.zip $mffmpegfvc
+        wget -qO ~/sonictmp/ffmpeg.zip "$mffmpegfvc"
         echo -e "\033[36m""$mffmpegfvcs""\e[0m" "Has been downloaded and renamed to" "\033[36m""ffmpeg.tar.gz\e[0m"
         echo -e "\033[36m""$mffmpegfvcs""\e[0m" "Is being unpacked now."
         unzip -qo ~/sonictmp/ffmpeg.zip -d ~/private/madsonic/transcode/
-        chmod -f 700 ~/private/madsonic/transcode/Audioffmpeg ~/private/madsonic/transcode/ffmpeg
+        chmod -f 700 ~/private/madsonic/transcode/{Audioffmpeg,ffmpeg,lame,xmp}
         echo -e "\033[36m""$mffmpegfvcs""\e[0m" "Has been unpacked to" "\033[36m~/private/madsonic/transcode/\e[0m"
         rm -rf ~/sonictmp
         sleep 1
@@ -419,7 +415,7 @@ then
         echo
         read -ep "Would you like me to kill Java (all Java processes) and remove the directories for you? [y] or update your installation [u] quit now [q]: "  confirm
         echo
-        if [[ $confirm =~ ^[Yy]$ ]]
+        if [[ "$confirm" =~ ^[Yy]$ ]]
         then
             echo "Killing all Java processes."
             killall -9 -u $(whoami) java 2> /dev/null
@@ -447,7 +443,7 @@ then
             echo
             sleep 1
             read -ep "Would you like you relaunch the installer [y] or quit [q]: "  confirm
-            if [[ $confirm =~ ^[Yy]$ ]]
+            if [[ "$confirm" =~ ^[Yy]$ ]]
             then
                 echo
                 echo -e "\033[32m" "Relaunching the installer.""\e[0m"
@@ -461,19 +457,19 @@ then
             else
                 exit 1
             fi
-        elif [[ $confirm =~ ^[Uu]$ ]]
+        elif [[ "$confirm" =~ ^[Uu]$ ]]
         then
             echo -e "Madsonic is being updated. This will only take a moment."
             echo
             killall -9 -u $(whoami) java 2> /dev/null
             mkdir -p ~/sonictmp
-            wget -qO ~/madsonic.zip $madsonicfv
+            wget -qO ~/madsonic.zip "$madsonicfv"
             unzip -qo ~/madsonic.zip -d ~/sonictmp
             rm -f ~/sonictmp/madsonic.sh
             cp -rf ~/sonictmp/. ~/private/madsonic/
-            wget -qO ~/ffmpeg.zip $mffmpegfvc
+            wget -qO ~/ffmpeg.zip "$mffmpegfvc"
             unzip -qo ~/ffmpeg.zip -d ~/private/madsonic/transcode
-            chmod -f 700 ~/private/madsonic/transcode/Audioffmpeg ~/private/madsonic/transcode/ffmpeg
+            chmod -f 700 ~/private/madsonic/transcode/{Audioffmpeg,ffmpeg,lame,xmp}
             echo -n "$madsonicfvs" > ~/private/madsonic/.version
             rm -rf ~/madsonic.zip ~/ffmpeg.zip ~/sonictmp
             # Some nginx magic. We use proxy pass and a custom conf to work with valid feral ssl.
