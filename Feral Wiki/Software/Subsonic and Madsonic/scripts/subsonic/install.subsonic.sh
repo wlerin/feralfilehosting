@@ -1,10 +1,10 @@
 #!/bin/bash
 # Install Subsonic
-scriptversion="1.6.1"
+scriptversion="1.6.2"
 scriptname="install.subsonic"
 subsonicversion="4.8"
-javaversion="1.7 Update 45"
-jvdecimal="1.7.0_45"
+javaversion="1.7 Update 51"
+jvdecimal="1.7.0_51"
 #
 # Bobtentpeg 01/30/2013
 # randomessence 04/24/2013
@@ -34,9 +34,9 @@ https=$(expr 1 + $http)
 # Defines the memory variable
 submemory="2048"
 # Gets the Java version from the last time this scrip installed Java
-installedjavaversion=$(cat ~/programs/javaversion 2> /dev/null)
+installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 # Java URL
-javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=81812"
+javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=83374"
 subsonicfv="https://sourceforge.net/projects/subsonic/files/subsonic/4.8/subsonic-4.8-standalone.tar.gz"
 subsonicfvs="subsonic-4.8-standalone.tar.gz"
 sffmpegfv="https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.31.10.2013.zip"
@@ -282,7 +282,7 @@ echo -e "The" "\033[36m""~/bin/subsonicrsk""\e[0m" "has been updated."
 echo
 read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " updatestatus
 echo
-if [[ $updatestatus =~ ^[Yy]$ ]]
+if [[ "$updatestatus" =~ ^[Yy]$ ]]
 then
 #
 ############################
@@ -297,18 +297,14 @@ then
     then
         echo "Please wait a moment while java is installed"
         rm -rf ~/private/java
-        wget -qO ~/java.tar.gz $javaupdatev
+        wget -qO ~/java.tar.gz "$javaupdatev"
         tar xf ~/java.tar.gz
-        cp -rf ~/jre$jvdecimal/. ~/programs
+        cp -rf ~/jre"$jvdecimal"/. "$HOME/"
         rm -f ~/java.tar.gz
-        rm -rf ~/jre$jvdecimal
-        if [[ ! "$(grep -o 'PATH=~/programs/bin:$PATH' ~/.bashrc)" ]]
-        then
-            echo 'export PATH=~/programs/bin:$PATH' >> ~/.bashrc
-        fi
-        echo -n "$javaversion" > ~/programs/javaversion
+        rm -rf ~/jre"$jvdecimal"
+        echo -n "$javaversion" > ~/.javaversion
         # we create a custom Java version file for comparison so the installer only runs once
-        echo -e "\033[31m""Important:""\e[0m" "Java" "\033[32m""$javaversion""\e[0m" "has been installed to" "\033[36m""~/programs""\e[0m"
+        echo -e "\033[31m""Important:""\e[0m" "Java" "\033[32m""$javaversion""\e[0m" "has been installed to" "\033[36m""$HOME/""\e[0m"
         echo
         echo -e "This Script needs to exit for the Java changes to take effect. Please restart the Script using this command:"
         echo
@@ -331,7 +327,7 @@ then
         echo -n "$subsonicfvs" > ~/private/subsonic/.version
         echo
         echo -e "\033[32m""$subsonicfvs""\e[0m" "Is downloading now."
-        wget -qO ~/sonictmp/subsonic.tar.gz $subsonicfv
+        wget -qO ~/sonictmp/subsonic.tar.gz "$subsonicfv"
         echo -e "\033[36m""$subsonicfvs""\e[0m" "Has been downloaded and renamed to" "\033[36m""subsonic.tar.gz\e[0m"
         echo -e "\033[36m""subsonic.tar.gz""\e[0m" "Is unpacking now."
         tar xf ~/sonictmp/subsonic.tar.gz -C ~/private/subsonic/
@@ -339,7 +335,7 @@ then
         sleep 1
         echo
         echo -e "\033[32m""$sffmpegfvs""\e[0m" "Is downloading now."
-        wget -qO ~/sonictmp/ffmpeg.zip $sffmpegfv
+        wget -qO ~/sonictmp/ffmpeg.zip "$sffmpegfv"
         echo -e "\033[36m""$sffmpegfvs""\e[0m" "Has been downloaded and renamed to" "\033[36m""ffmpeg.zip\e[0m"
         echo -e "\033[36m""$sffmpegfvs""\e[0m" "Is being unpacked now."
         unzip -qo ~/sonictmp/ffmpeg.zip -d ~/private/subsonic/transcode/
@@ -412,7 +408,7 @@ then
         echo
         read -ep "Would you like me to kill Java (all Java processes) and remove the directories for you? [y] or update your installation [u] quit now [q]: "  confirm
         echo
-        if [[ $confirm =~ ^[Yy]$ ]]
+        if [[ "$confirm" =~ ^[Yy]$ ]]
         then
             echo "Killing all Java processes."
             killall -9 -u $(whoami) java 2> /dev/null
@@ -440,7 +436,7 @@ then
             echo
             sleep 1
             read -ep "Would you like you relaunch the installer [y] or quit [q]: "  confirm
-            if [[ $confirm =~ ^[Yy]$ ]]
+            if [[ "$confirm" =~ ^[Yy]$ ]]
             then
                 echo
                 echo -e "\033[32m" "Relaunching the installer.""\e[0m"
@@ -454,21 +450,21 @@ then
             else
                 exit 1
             fi
-        elif [[ $confirm =~ ^[Uu]$ ]]
+        elif [[ "$confirm" =~ ^[Uu]$ ]]
         then
             read -ep "Would you like to update Subsonic [y]es or [n]o: "  confirmupdate
             echo
-            if [[ $confirmupdate =~ ^[Yy$ ]]
+            if [[ "$confirmupdate" =~ ^[Yy$ ]]
             then
                 echo -e "Subsonic is being updated. This will only take a moment."
                 echo
                 killall -9 -u $(whoami) java 2> /dev/null
                 mkdir -p ~/sonictmp
-                wget -qO ~/subsonic.tar.gz $subsonicfv
+                wget -qO ~/subsonic.tar.gz "$subsonicfv"
                 tar xf ~/subsonic.tar.gz -C ~/sonictmp
                 rm -f ~/sonictmp/subsonic.sh
                 cp -rf ~/sonictmp/. ~/private/subsonic/
-                wget -qO ~/ffmpeg.zip $sffmpegfv
+                wget -qO ~/ffmpeg.zip "$sffmpegfv"
                 unzip -qo ~/ffmpeg.zip -d ~/private/subsonic/transcode
                 chmod -f 700 ~/private/subsonic/transcode/ffmpeg
                 echo -n "$subsonicfvs" > ~/private/subsonic/.version
