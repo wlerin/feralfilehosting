@@ -39,8 +39,8 @@ installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=83374"
 subsonicfv="https://sourceforge.net/projects/subsonic/files/subsonic/4.8/subsonic-4.8-standalone.tar.gz"
 subsonicfvs="subsonic-4.8-standalone.tar.gz"
-sffmpegfv="https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.31.10.2013.zip"
-sffmpegfvs="ffmpeg.31.10.2013.zip"
+sffmpegfv="https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.30.11.2013.zip"
+sffmpegfvs="ffmpeg.30.11.2013.zip"
 #
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/subsonic/install.subsonic.sh"
 #
@@ -339,7 +339,7 @@ then
         echo -e "\033[36m""$sffmpegfvs""\e[0m" "Has been downloaded and renamed to" "\033[36m""ffmpeg.zip\e[0m"
         echo -e "\033[36m""$sffmpegfvs""\e[0m" "Is being unpacked now."
         unzip -qo ~/sonictmp/ffmpeg.zip -d ~/private/subsonic/transcode/
-        chmod -f 700 ~/private/subsonic/transcode/Audioffmpeg ~/private/subsonic/transcode/ffmpeg
+        chmod -f 700 ~/private/subsonic/transcode/{Audioffmpeg,ffmpeg,lame,xmp}
         echo -e "\033[36m""$sffmpegfvs""\e[0m" "Has been unpacked to" "\033[36m~/private/subsonic/transcode/\e[0m"
         rm -rf ~/sonictmp
         sleep 1
@@ -466,7 +466,7 @@ then
                 cp -rf ~/sonictmp/. ~/private/subsonic/
                 wget -qO ~/ffmpeg.zip "$sffmpegfv"
                 unzip -qo ~/ffmpeg.zip -d ~/private/subsonic/transcode
-                chmod -f 700 ~/private/subsonic/transcode/ffmpeg
+                chmod -f 700 ~/private/subsonic/transcode/{Audioffmpeg,ffmpeg,lame,xmp}
                 echo -n "$subsonicfvs" > ~/private/subsonic/.version
                 rm -rf ~/subsonic.tar.gz ~/ffmpeg.zip ~/sonictmp
                 # Some nginx magic. We use proxy pass and a custom conf to work with valid feral ssl.
