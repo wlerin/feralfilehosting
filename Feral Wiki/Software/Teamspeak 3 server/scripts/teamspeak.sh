@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Install Teamspeak 3
-scriptversion="1.1.3"
+scriptversion="1.1.4"
 teamspeakversion="3.0.10.3"
 # randomessence 27/04/2013
 #
@@ -25,7 +25,7 @@ teamspeakversion="3.0.10.3"
 # v 1.1.1 updated to be inline with script formatting guidelines and general tweaks.
 # v 1.1.2 3.0.10.2
 # v 1.1.3 3.0.10.3
-
+# v 1.1.4 updater tweaked
 #
 ############################
 ### Version History Ends ###
@@ -42,6 +42,7 @@ fport=$(shuf -i 20001-40000 -n 1)
 qport=$(shuf -i 40001-50000 -n 1)
 # qport is the query port: vport + 2 used in the sed commands
 teamspeakfv="http://dl.4players.de/ts/releases/3.0.10.3/teamspeak3-server_linux-amd64-3.0.10.3.tar.gz"
+#
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Teamspeak%203%20server/scripts/teamspeak.sh"
 #
 ############################
@@ -53,37 +54,38 @@ scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20W
 ############################
 #
 ###### Self Updater Starts
+#
 mkdir -p "$HOME/bin"
 #
-if [[ ! -f "$HOME/teamspeak.sh" ]]
+if [[ ! -f "$HOME/$scriptname.sh" ]]
 then
-    wget -qO "$HOME/teamspeak.sh" "$scripturl"
+    wget -qO "$HOME/$scriptname.sh" "$scripturl"
 fi
-if [[ ! -f "$HOME/bin/teamspeak" ]]
+if [[ ! -f "$HOME/bin/$scriptname" ]]
 then
-    wget -qO "$HOME/bin/teamspeak" "$scripturl"
+    wget -qO "$HOME/bin/$scriptname" "$scripturl"
 fi
 #
-wget -qO "$HOME/000teamspeak.sh" "$scripturl"
+wget -qO "$HOME/000$scriptname.sh" "$scripturl"
 #
-if ! diff -q "$HOME/000teamspeak.sh" "$HOME/teamspeak.sh" > /dev/null 2>&1
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO "$HOME/teamspeak.sh" "'"$scripturl"'"
-    wget -qO "$HOME/bin/teamspeak" "'"$scripturl"'"
-    bash "$HOME/teamspeak.sh"
-    exit 1' > "$HOME/111teamspeak.sh"
-    bash "$HOME/111teamspeak.sh"
+    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
+    bash "$HOME/$scriptname.sh"
+    exit 1' > "$HOME/111$scriptname.sh"
+    bash "$HOME/111$scriptname.sh"
     exit 1
 fi
-if ! diff -q "$HOME/000teamspeak.sh" "$HOME/bin/teamspeak" > /dev/null 2>&1
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO "$HOME/teamspeak.sh" "'"$scripturl"'"
-    wget -qO "$HOME/bin/teamspeak" "'"$scripturl"'"
-    bash "$HOME/teamspeak.sh"
-    exit 1' > "$HOME/222teamspeak.sh"
-    bash "$HOME/222teamspeak.sh"
+    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
+    bash "$HOME/$scriptname.sh"
+    exit 1' > "$HOME/222$scriptname.sh"
+    bash "$HOME/222$scriptname.sh"
     exit 1
 fi
 #
@@ -91,8 +93,8 @@ echo
 echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
 echo
 #
-rm -f "$HOME/000teamspeak.sh" "$HOME/111teamspeak.sh" "$HOME/222teamspeak.sh" "$HOME/6274546.sh" "$HOME/292857.sh"
-chmod -f 700 "$HOME/bin/teamspeak"
+cd && rm -f {000,111,222}"$scriptname.sh"
+chmod -f 700 "$HOME/bin/$scriptname"
 #
 ############################
 ##### Self Updater End #####
