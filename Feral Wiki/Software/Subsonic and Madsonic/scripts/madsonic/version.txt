@@ -3,3 +3,4 @@
 # v 1.6.0 = Split Madsonic section of the subsonic script into its own script for easier updating and due to Madsonic rebranding. It was going ot get complictaed to manage both version in a single script with different directory structures.
 # v 1.6.1 = Added nginx proxypass. Automatically set up when nginx is detected. Will survive a revert to apache along with the links generated in the madsonicrsk
 # v 1.6.2 java 7 update 51 and ffmpeg updated. minor script tweaks
+# v 1.6.3 Updater tweaked
