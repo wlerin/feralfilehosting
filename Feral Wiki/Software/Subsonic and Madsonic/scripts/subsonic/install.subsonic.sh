@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Subsonic
-scriptversion="1.6.2"
+scriptversion="1.6.3"
 scriptname="install.subsonic"
 subsonicversion="4.8"
 javaversion="1.7 Update 51"
@@ -37,8 +37,10 @@ submemory="2048"
 installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 # Java URL
 javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=83374"
+# Subsonic Standalone files
 subsonicfv="https://sourceforge.net/projects/subsonic/files/subsonic/4.8/subsonic-4.8-standalone.tar.gz"
 subsonicfvs="subsonic-4.8-standalone.tar.gz"
+# ffmpeg files
 sffmpegfv="https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.30.11.2013.zip"
 sffmpegfvs="ffmpeg.30.11.2013.zip"
 #
@@ -54,35 +56,35 @@ scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20W
 #
 mkdir -p "$HOME/bin"
 #
-if [[ ! -f "$HOME/install.subsonic.sh" ]]
+if [[ ! -f "$HOME/$scriptname.sh" ]]
 then
-    wget -qO "$HOME/install.subsonic.sh" "$scripturl"
+    wget -qO "$HOME/$scriptname.sh" "$scripturl"
 fi
-if [[ ! -f "$HOME/bin/install.subsonic" ]]
+if [[ ! -f "$HOME/bin/$scriptname" ]]
 then
-    wget -qO "$HOME/bin/install.subsonic" "$scripturl"
+    wget -qO "$HOME/bin/$scriptname" "$scripturl"
 fi
 #
-wget -qO "$HOME/000install.subsonic.sh" "$scripturl"
+wget -qO "$HOME/000$scriptname.sh" "$scripturl"
 #
-if ! diff -q "$HOME/000install.subsonic.sh" "$HOME/install.subsonic.sh" > /dev/null 2>&1
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO "$HOME/install.subsonic.sh" "'"$scripturl"'"
-    wget -qO "$HOME/bin/install.subsonic" "'"$scripturl"'"
-    bash "$HOME/install.subsonic.sh"
-    exit 1' > "$HOME/111install.subsonic.sh"
-    bash "$HOME/111install.subsonic.sh"
+    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
+    bash "$HOME/$scriptname.sh"
+    exit 1' > "$HOME/111$scriptname.sh"
+    bash "$HOME/111$scriptname.sh"
     exit 1
 fi
-if ! diff -q "$HOME/000install.subsonic.sh" "$HOME/bin/install.subsonic" > /dev/null 2>&1
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO "$HOME/install.subsonic.sh" "'"$scripturl"'"
-    wget -qO "$HOME/bin/install.subsonic" "'"$scripturl"'"
-    bash "$HOME/install.subsonic.sh"
-    exit 1' > "$HOME/222install.subsonic.sh"
-    bash "$HOME/222install.subsonic.sh"
+    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
+    bash "$HOME/$scriptname.sh"
+    exit 1' > "$HOME/222$scriptname.sh"
+    bash "$HOME/222$scriptname.sh"
     exit 1
 fi
 #
@@ -91,10 +93,10 @@ echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$script
 echo
 echo -e "The version of the" "\033[33m""Subsonic""\e[0m" "server being used in this script is:" "\033[31m""$subsonicversion""\e[0m"
 echo -e "The version of the" "\033[33m""Java""\e[0m" "being used in this script is:" "\033[31m""$javaversion""\e[0m"
-if [[ -f ~/private/subsonic/.version ]]
+if [[ -f "$HOME/private/subsonic/.version" ]]
 then
     echo
-    echo -e "Your currently installed version is:" "\033[32m""$(sed -n '1p' ~/private/subsonic/.version)""\e[0m"
+    echo -e "Your currently installed version is:" "\033[32m""$(sed -n '1p' $HOME/private/subsonic/.version)""\e[0m"
 fi    
 echo
 #

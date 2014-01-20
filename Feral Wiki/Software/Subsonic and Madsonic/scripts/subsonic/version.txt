@@ -52,3 +52,4 @@
 # v 1.6.0 Madsonic installed to its own location as it is now rebranded. Treated as two separate installations instead of one.
 # v 1.6.1 split and updated
 # v 1.6.2 java 7 update 51 and ffmpeg updated. minor script tweaks
+# v 1.6.3 updater tweaked
