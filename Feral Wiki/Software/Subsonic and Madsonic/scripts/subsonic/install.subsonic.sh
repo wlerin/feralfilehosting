@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Subsonic
-scriptversion="1.6.3"
+scriptversion="1.6.4"
 scriptname="install.subsonic"
 subsonicversion="4.8"
 javaversion="1.7 Update 51"
@@ -70,6 +70,7 @@ wget -qO "$HOME/000$scriptname.sh" "$scripturl"
 if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
+    scriptname="'"$scriptname"'"
     wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
     wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
     bash "$HOME/$scriptname.sh"
@@ -80,6 +81,7 @@ fi
 if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" > /dev/null 2>&1
 then
     echo '#!/bin/bash
+    scriptname="'"$scriptname"'"
     wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
     wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
     bash "$HOME/$scriptname.sh"
