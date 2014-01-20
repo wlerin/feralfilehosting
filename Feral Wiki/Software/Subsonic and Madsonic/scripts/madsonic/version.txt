@@ -4,3 +4,4 @@
 # v 1.6.1 = Added nginx proxypass. Automatically set up when nginx is detected. Will survive a revert to apache along with the links generated in the madsonicrsk
 # v 1.6.2 java 7 update 51 and ffmpeg updated. minor script tweaks
 # v 1.6.3 Updater tweaked
+# v 1.6.4 Updater fixed

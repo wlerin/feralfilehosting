@@ -53,3 +53,4 @@
 # v 1.6.1 split and updated
 # v 1.6.2 java 7 update 51 and ffmpeg updated. minor script tweaks
 # v 1.6.3 updater tweaked
+# v 1.6.4 Updater fixed
