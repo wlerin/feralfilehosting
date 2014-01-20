@@ -10,10 +10,9 @@ scriptname="somescript"
 #
 # How do I customise this updater? 
 # 1: scriptversion="0.0.0" replace "0.0.0" with your script version. This will be shown to the user at the current version.
-# 2: scriptname="somescript" replace "somescript" with your script name. this will be shown to the user when they first run the script.
-# 3: Search and replace all instances of "somescript", 29 including this one, with the name of your script, do not include the .sh aside from doing step 2.
-# 4: Then replace ALL "https://raw.github.com/feralhosting" with the URL to the RAW script URL.
-# 5: Insert you script in the "Script goes here" labelled section 
+# 2: scriptname="somescript" replace "somescript" with your script name. Make it unique to this script.
+# 3: Set the scripturl variable in the variable section to the RAW github URl of the script for updating.
+# 4: Insert your script in the "Script goes here" labelled section
 #
 # This updater deals with updating a single file, the  "~/somescript.sh".
 #
@@ -35,20 +34,20 @@ scripturl="https://raw.github.com/feralhosting"
 #### Self Updater Start ####
 ############################
 #
-if [[ ! -f "$HOME/somescript.sh" ]]
+if [[ ! -f "$HOME/$scriptname.sh" ]]
 then
-    wget -qO "$HOME/somescript.sh" "$scripturl"
+    wget -qO "$HOME/$scriptname.sh" "$scripturl"
 fi
 #
-wget -qO "$HOME/000somescript.sh" "$scripturl"
+wget -qO "$HOME/000$scriptname.sh" "$scripturl"
 #
-if ! diff -q "$HOME/000somescript.sh" "$HOME/somescript.sh" > /dev/null 2>&1
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO "$HOME/somescript.sh" "'"$scripturl"'"
-    bash "$HOME/somescript.sh"
-    exit 1' > "$HOME/111somescript.sh"
-    bash "$HOME/111somescript.sh"
+    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
+    bash "$HOME/$scriptname.sh"
+    exit 1' > "$HOME/111$scriptname.sh"
+    bash "$HOME/111$scriptname.sh"
     exit 1
 fi
 #
@@ -56,7 +55,7 @@ echo
 echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
 echo
 #
-cd && rm -f {000,111}somescript.sh
+cd && rm -f {000,111}"$scriptname.sh"
 #
 ############################
 ##### Self Updater End #####

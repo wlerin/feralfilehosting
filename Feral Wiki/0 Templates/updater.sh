@@ -10,12 +10,12 @@ scriptname="somescript"
 #
 # How do I customise this updater? 
 # 1: scriptversion="0.0.0" replace "0.0.0" with your script version. This will be shown to the user at the current version.
-# 2: scriptname="somescript" replace "somescript" with your script name. this will be shown to the user when they first run the script.
-# 3: Search and replace all instances of "somescript", 29 including this one, with the name of your script, do not include the .sh aside from doing step 2.
-# 4: Then replace ALL "https://raw.github.com/feralhosting" with the URL to the RAW script URL.
-# 5: Insert you script in the "Script goes here" labelled section 
+# 2: scriptname="somescript" replace "somescript" with your script name. Make it unique to this script.
+# 3: Set the scripturl variable in the variable section to the RAW github URl of the script for updating.
+# 4: Insert your script in the "Script goes here" labelled section 
 #
-# This updater deals with updating two files at the same time, the  "~/somescript.sh" and the "~/bin/somescript" . You can remove one part of the updater, if you wish, to focus on a single file instance.
+# This updater deals with updating two files at the same time, the  "~/somescript.sh" and the "~/bin/somescript".
+# This updater deals with updating two files at the same time, the  "~/somescript.sh" and the "~/bin/somescript".
 #
 ############################
 ### Version History Ends ###
@@ -37,35 +37,35 @@ scripturl="https://raw.github.com/feralhosting"
 #
 mkdir -p "$HOME/bin"
 #
-if [[ ! -f "$HOME/somescript.sh" ]]
+if [[ ! -f "$HOME/$scriptname.sh" ]]
 then
-    wget -qO "$HOME/somescript.sh" "$scripturl"
+    wget -qO "$HOME/$scriptname.sh" "$scripturl"
 fi
-if [[ ! -f "$HOME/bin/somescript" ]]
+if [[ ! -f "$HOME/bin/$scriptname" ]]
 then
-    wget -qO "$HOME/bin/somescript" "$scripturl"
+    wget -qO "$HOME/bin/$scriptname" "$scripturl"
 fi
 #
-wget -qO "$HOME/000somescript.sh" "$scripturl"
+wget -qO "$HOME/000$scriptname.sh" "$scripturl"
 #
-if ! diff -q "$HOME/000somescript.sh" "$HOME/somescript.sh" > /dev/null 2>&1
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO "$HOME/somescript.sh" "'"$scripturl"'"
-    wget -qO "$HOME/bin/somescript" "'"$scripturl"'"
-    bash "$HOME/somescript.sh"
-    exit 1' > "$HOME/111somescript.sh"
-    bash "$HOME/111somescript.sh"
+    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
+    bash "$HOME/$scriptname.sh"
+    exit 1' > "$HOME/111$scriptname.sh"
+    bash "$HOME/111$scriptname.sh"
     exit 1
 fi
-if ! diff -q "$HOME/000somescript.sh" "$HOME/bin/somescript" > /dev/null 2>&1
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO "$HOME/somescript.sh" "'"$scripturl"'"
-    wget -qO "$HOME/bin/somescript" "'"$scripturl"'"
-    bash "$HOME/somescript.sh"
-    exit 1' > "$HOME/222somescript.sh"
-    bash "$HOME/222somescript.sh"
+    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
+    bash "$HOME/$scriptname.sh"
+    exit 1' > "$HOME/222$scriptname.sh"
+    bash "$HOME/222$scriptname.sh"
     exit 1
 fi
 #
@@ -73,8 +73,8 @@ echo
 echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
 echo
 #
-cd && rm -f {000,111,222}somescript.sh
-chmod -f 700 "$HOME/bin/somescript"
+cd && rm -f {000,111,222}"$scriptname.sh"
+chmod -f 700 "$HOME/bin/$scriptname"
 #
 ############################
 ##### Self Updater End #####
