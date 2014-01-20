@@ -44,7 +44,7 @@ Teamspeak 3 on Feral Slots.
 To install this software using a custom bash script connect to your slot using SSH. If you don't know how to do this [here is a basic guide](https://www.feralhosting.com/faq/view?question=12):
 
 ~~~
-wget -qO ~/teamspeak.sh http://git.io/rHYfHg && bash ~/teamspeak.sh
+wget -qO ~/install.teamspeak.sh http://git.io/aOACkQ && bash ~/install.teamspeak.sh
 ~~~
 
 Once this script has been executed to completion once, one script is copied to your `~/bin` folder.
