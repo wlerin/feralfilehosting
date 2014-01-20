@@ -6,7 +6,7 @@ teamspeakversion="3.0.10.3"
 scriptname="install.teamspeak"
 # randomessence 27/04/2013
 #
-# wget -qO ~/teamspeak.sh http://git.io/aOACkQ && bash ~/teamspeak.sh
+# wget -qO ~/install.teamspeak.sh http://git.io/aOACkQ && bash ~/install.teamspeak.sh
 #
 # bash ~/private/teamspeak/ts3server_startscript.sh start
 # bash ~/private/teamspeak/ts3server_startscript.sh stop
