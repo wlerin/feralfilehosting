@@ -5,6 +5,8 @@ scriptversion="1.1.4"
 teamspeakversion="3.0.10.3"
 # randomessence 27/04/2013
 #
+# wget -qO ~/teamspeak.sh http://git.io/rHYfHg && bash ~/teamspeak.sh
+#
 # bash ~/private/teamspeak/ts3server_startscript.sh start
 # bash ~/private/teamspeak/ts3server_startscript.sh stop
 # bash ~/private/teamspeak/ts3server_startscript.sh restart
@@ -71,6 +73,7 @@ wget -qO "$HOME/000$scriptname.sh" "$scripturl"
 if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
+    scriptname="'"$scriptname"'"
     wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
     wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
     bash "$HOME/$scriptname.sh"
@@ -81,6 +84,7 @@ fi
 if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" > /dev/null 2>&1
 then
     echo '#!/bin/bash
+    scriptname="'"$scriptname"'"
     wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
     wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
     bash "$HOME/$scriptname.sh"
