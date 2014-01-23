@@ -1,5 +1,6 @@
 
-### Common links
+Common links and common phrases
+---
 
 [putty 0.63 installer](http://the.earth.li/~sgtatham/putty/latest/x86/putty-0.63-installer.exe)
 
@@ -64,7 +65,8 @@ Then press and hold `CTRL` and `a` then press `d` to detach from the screen. Thi
 
 where `username` if your Feral username and `server` if the name of the server that the relevant slot is hosted on.
 
-### Common Commands
+Common Commands
+---
 
 Use this command to create the `~/bin` directory and reload your shell for this change to take effect.
 
