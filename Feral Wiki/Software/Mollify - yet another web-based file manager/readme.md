@@ -1,4 +1,5 @@
 
+**Important note:** Apache only
 
 What is Mollify?
 ---
@@ -9,7 +10,6 @@ User interface is simple and intuitive, and it is totally customizable. See Feat
 
 Mollify is published with GPLv2 license. For details and commercial license, see license.
 
-
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Mollify%20-%20yet%20another%20web-based%20file%20manager/example.png)
 
 Features
@@ -18,7 +18,7 @@ Features
 [http://www.mollify.org/features.php](http://www.mollify.org/features.php)
 
 Installation
-----
+---
 
 2.1: Move to the WWW root using this command via SSH
 
@@ -30,13 +30,12 @@ cd ~/www/$(whoami).$(hostname)/public_html/
 
 ~~~
 wget -qO mollify.zip http://www.mollify.org/download/latest.php
-unzip -qo mollify.zip
+unzip -qo mollify.zip && rm -f mollify.zip
 ~~~
 
 2.3: Create and open a file called `configuration.php` using this command: 
 
 ~~~
-echo -n > mollify/backend/configuration.php
 nano -w mollify/backend/configuration.php
 ~~~
 
@@ -81,6 +80,10 @@ Installation options.
 
 Once you have done both of these steps you can continue to install Mollify using MySQL
 
+1: You will need to change the `SOCKETPATH` with the path to your MySQL socket found on the Slot details page for the relevant slot.
+2: You will need to use a valid MySQL username and replace `USERNAME` with your username.
+3: You will need to use this users' password and replace `PASSWORD` with this users password.
+
 ~~~
 <?php
     $CONFIGURATION = array(
@@ -97,166 +100,6 @@ Once you have done both of these steps you can continue to install Mollify using
 ?> 
 ~~~
 
-### Using PDO
-
-**Sqlite:**
-
-1: Create a username and replace `username` with this new username.
-2: Generate a good password and replace `password` with this new password.
-
-~~~
-<?php
-    $CONFIGURATION = array(
-        "db" => array(
-            "type" => "pdo",
-            "str" => "sqlite:mollify.db",
-            "user" => "username",
-            "password" => "password",
-            "table_prefix" => "mollify_"
-        )
-    );
-?>
-~~~
-
-For example:
-
-~~~
-<?php
-    $CONFIGURATION = array(
-        "db" => array(
-            "type" => "pdo",
-            "str" => "sqlite:mollify.db",
-            "user" => "testuser",
-            "password" => "qwas124145cv35",
-            "table_prefix" => "mollify_"
-        )
-    );
-?>
-~~~
-
-Then it is ready to use.
-
-**MySQL:**
-
-1: You will need to change the `SOCKETPATH` with the path to your MySQL socket found on the Slot details page for the relevant slot.
-2: You will need to use a valid MySQL username and replace `username` with your username.
-3: You will need to use this users' password and replace `password` with this users password.
-
-~~~
-<?php
-    $CONFIGURATION = array(
-        "db" => array(
-            "type" => "pdo",
-            "str" => "mysql:unix_socket=SOCKETPATH;dbname=mollify",
-            "user" => "username",
-            "password" => "password",
-            "table_prefix" => "mollify_"
-        )
-    );
-?> 
-~~~
-
-For example:
-
-~~~
-<?php
-    $CONFIGURATION = array(
-        "db" => array(
-            "type" => "pdo",
-            "str" => "mysql:unix_socket=/media/DiskID/home/username/private/mysql/socket;dbname=mollify",
-            "user" => "testuser",
-            "password" => "214kolvnmds813",
-            "table_prefix" => "mollify_"
-        )
-    );
-?>
-~~~
-
-Then it is ready to use.
-
-3: Post-Installation
-----
-
-In order to make the most out of Mollify, you'll need to create *Published Folders*, Users and Groups.  These can all be managed from within the Admin Pane and it is very straight forward.  You can link to anywhere within your Feral slot and the files will become accessible, even private folders. *Once created, make sure directories, groups and users are checked.*
-
-Mollify also supports a plugin architecture.  You can get the plugins from their [download page](http://code.google.com/p/mollify/downloads/list).  
-
-Download the plugins you want to install, extract them then upload to the following directories:
-
-Plugins that start with `plugin` go in the  folder:
-
-~~~
-~/www/user.server.feralhosting.com/public_html/mollify/backend/plugin/
-~~~
-
-Plugins that begin with `viewer` go in the folder:
-
-~~~
-~/www/user.server.feralhosting.com/public_html/mollify/backend/plugin/FileViewerEditor/viewers/
-~~~
-
-NOTE: Using the Flowplayer plugin as an example, the downloaded file will be `viewer_flowplayer_1.0.zip`. Do not upload this extracted folder, but go inside and find the `Flowplayer` folder. That is the folder to be uploaded to the `viewer` directory.
-
-~~~
-cd ~/www/$(whoami).$(hostname)/public_html/mollify/backend/plugin/FileViewerEditor/viewers/
-wget -qN http://mollify.googlecode.com/files/viewer_flowplayer_1.0.zip
-unzip -qo viewer_flowplayer_1.0.zip && rm -f viewer_flowplayer_1.0.zip
-~~~
-
-Once plugins are installed into their appropriate folders, [reference my pastebin configuration](http://pastebin.com/twzZae9t). 
-
-Add the new information to your `configuration.php` file and save. Some changes require you to check for an update to the mysql database.  You can check for updates by going to:
-
-~~~
-http(s)://user.server.feralhosting.com/mollify/update
-~~~
-
-Your configuration.php file should now look like this:
-
-~~~
-<?php
-    $CONFIGURATION_TYPE = "mysql";
-    $DB_HOST = "";
-    $DB_PORT = "";
-    $DB_DATABASE = "DATABASE";
-    $DB_USER = "root";
-    $DB_PASSWORD = "xxxxx";
-    $DB_SOCKET = "/media/xxx/home/xxx/private/mysql/socket";
-    $DB_TABLE_PREFIX = "mollify_";
- 
-        $PLUGINS = array(
-                "FileViewerEditor" => array(
-                        "viewers" => array(
-                                "Image" => array("gif", "png", "jpg"),
-                                "TextFile" => array("txt", "php", "html"),
-                                "JPlayer" => array("mp3"),
-                                "Divx" => array("avi", "mkv"),
-                            //  "VLC" => array("mp4", "mkv", "avi")
-                                "FlowPlayer" => array("f4v", "flv", "mp4")
-                        ),
-                        "previewers" => array(
-                                "Image" => array("gif", "png", "jpg")
-                        ),
-                        "editors" => array(
-                                "TextFile" => array("txt")
-                        ),
-                )
-        );
-?>
-~~~
-
-NOTE: The commenting out `//` in front of VLC under `$PLUGINS = array` is necessary.  When removing the `//` it will not load the Mollify page. Not sure why this is, but you may have different experiences with it.
-
-After updating the configuration file and completing the settings in the Admin Pane, you can access Mollify by going to: `http(s)://server.feralhosting.com/user/mollify/`
-
-4: Notes
-----
-
-1: Where you see `username` in directories/url's, insert your Feral username and where you see `server`, insert your server name.
-
-2: Playing video files may require add-ons or plug-ins to be present in your browser, such as divx+, quicktime or java.
-
-3: Under the Installation section, the $ are not necessary.
 
 
 

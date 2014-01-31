@@ -1,11 +1,11 @@
 
 ~~~
-wget -qO ~/plex.deb http://downloads.plexapp.com/plex-media-server/0.9.8.6.175-88ffbb2/plexmediaserver_0.9.8.6.175-88ffbb2_amd64.deb
+wget -qO ~/plex.deb http://downloads.plexapp.com/plex-media-server/0.9.8.18.290-11b7fdd/plexmediaserver_0.9.8.18.290-11b7fdd_amd64.deb
 dpkg-deb -x ~/plex.deb ~/plex
 cp -rf ~/plex/usr/. ~/plex && cp -rf ~/plex/etc/default ~/plex
 sed -i 's|/usr/lib/plexmediaserver|'$HOME'/plex/lib/plexmediaserver|g' ~/plex/sbin/start_pms
 sed -i 's|/etc/default/plexmediaserver|'$HOME'/plex/default/plexmediaserver|g' ~/plex/sbin/start_pms
-rm -rf ~/plex/etc ~/plex/usr/
+cd && rm -rf plex/{etc,usr}
 ~~~
 
 What we are doing with the `sed` commands:
