@@ -1,8 +1,8 @@
 #!/bin/bash
 # Install Subsonic
-scriptversion="1.6.4"
+scriptversion="1.6.5"
 scriptname="install.subsonic"
-subsonicversion="4.8"
+subsonicversion="4.9"
 javaversion="1.7 Update 51"
 jvdecimal="1.7.0_51"
 #
@@ -38,8 +38,8 @@ installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 # Java URL
 javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=83374"
 # Subsonic Standalone files
-subsonicfv="https://sourceforge.net/projects/subsonic/files/subsonic/4.8/subsonic-4.8-standalone.tar.gz"
-subsonicfvs="subsonic-4.8-standalone.tar.gz"
+subsonicfv="https://sourceforge.net/projects/subsonic/files/subsonic/4.9/subsonic-4.9-standalone.tar.gz"
+subsonicfvs="subsonic-4.9-standalone.tar.gz"
 # ffmpeg files
 sffmpegfv="https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.30.11.2013.zip"
 sffmpegfvs="ffmpeg.30.11.2013.zip"
@@ -448,7 +448,7 @@ then
                 then
                     bash ~/install.subsonic.sh
                 else
-                    wget -qO ~/install.subsonic https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/subsonic/install.subsonic.sh
+                    wget -qO ~/install.subsonic "$scripturl"
                     bash ~/install.subsonic.sh
                 fi
             else

@@ -454,7 +454,7 @@ then
                 then
                     bash ~/install.madsonic.sh
                 else
-                    wget -qO ~/install.madsonic.sh https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/madsonic/install.madsonic.sh
+                    wget -qO ~/install.madsonic.sh "$scripturl"
                     bash ~/install.madsonic.sh
                 fi
             else
