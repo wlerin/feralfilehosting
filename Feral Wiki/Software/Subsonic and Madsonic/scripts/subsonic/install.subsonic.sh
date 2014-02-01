@@ -36,7 +36,7 @@ submemory="2048"
 # Gets the Java version from the last time this scrip installed Java
 installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 # Java URL
-javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=83374"
+javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=83376"
 # Subsonic Standalone files
 subsonicfv="https://sourceforge.net/projects/subsonic/files/subsonic/4.9/subsonic-4.9-standalone.tar.gz"
 subsonicfvs="subsonic-4.9-standalone.tar.gz"
