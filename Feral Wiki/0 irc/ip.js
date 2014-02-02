@@ -1,9 +1,5 @@
 /*
  * Node.js IRC Server IP Bot for feralhosting
- * 
- * Author: Ben Harris <ben@harrisuk.com>
- * Please email me using the email above if
- * you use this script. Thanks!
  */
 
 // Create the configuration
