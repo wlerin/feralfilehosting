@@ -1,4 +1,3 @@
-
 **Important note:** Apache only
 
 What is Mollify?
@@ -43,18 +42,23 @@ For a very simple and fast setup just copy and paste this:
 
 ~~~
 <?php
-    $CONFIGURATION = array(
-        "db" => array(
-            "type" => "sqlite3",
-            "file" => "my.db"
-        )
-    );
+$CONFIGURATION = array(
+    "db" => array(
+        "type" => "sqlite3",
+        "file" => "my.db"
+    )
+);
 ?> 
 ~~~
 
 Then press and hold `CTRL` and then press `x` to save. Press `y` to confirm.
 
-You are now ready to create an admin account and start using mollify:
+You are now ready to create an admin account and start using mollify. The wizard can be accessed from the following link:
+
+~~~
+http://server.feralhosting.com/user/mollify/backend/install/
+~~~
+
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Mollify%20-%20yet%20another%20web-based%20file%20manager/2.png)
 
@@ -65,10 +69,10 @@ Installation options.
 
 ~~~
 "db" => array(
-    "type" => "",
-    "user" => "",
-    "password" => "",
-    "table_prefix" => ""
+"type" => "",
+"user" => "",
+"password" => "",
+"table_prefix" => ""
 )
 ~~~
 
@@ -86,17 +90,17 @@ Once you have done both of these steps you can continue to install Mollify using
 
 ~~~
 <?php
-    $CONFIGURATION = array(
-        "db" => array(
-            "type" => "mysql",
-            "user" => "USERNAME",
-            "password" => "PASSWORD",
-            "socket" => "/media/DiskID/home/username/private/mysql/socket",
-            "database" => "mollify",
-            "table_prefix" => "mollify_",
-            "charset" => "utf8"
-        )
-    );
+$CONFIGURATION = array(
+    "db" => array(
+        "type" => "mysql",
+        "user" => "USERNAME",
+        "password" => "PASSWORD",
+        "socket" => "/media/DiskID/home/username/private/mysql/socket",
+        "database" => "mollify",
+        "table_prefix" => "mollify_",
+        "charset" => "utf8"
+    )
+);
 ?> 
 ~~~
 
