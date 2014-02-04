@@ -17,9 +17,9 @@ Redis installation
 Redis is meant to be set an run from within the extracted folder.
 
 ~~~
-wget -qO ~/redis-2.8.0.tar.gz http://download.redis.io/releases/redis-2.8.0.tar.gz
-tar xf ~/redis-2.8.0.tar.gz
-mv -f ~/redis-2.8.0 ~/redis
+wget -qO ~/redis-2.8.5.tar.gz http://download.redis.io/releases/redis-2.8.5.tar.gz
+tar xf ~/redis-2.8.5.tar.gz
+mv -f ~/redis-2.8.5 ~/redis
 cd ~/redis && make
 ~~~
 
