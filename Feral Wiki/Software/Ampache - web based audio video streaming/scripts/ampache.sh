@@ -107,7 +107,7 @@ then
 	chmod 644 $HOME/www/$(whoami).$(hostname)/public_html/ampache/.htaccess
 	#
 	# edit the template to that the user's default socket it inserted in teh installer.
-	sed -i 's|<td><input type="text" name="local_host" value="localhost" /></td>|<td><input type="text" name="local_host" value="<?php echo getenv('\''PWD'\'') . '\''/private/mysql/socket'\''; ?>" /></td>|g' $HOME/www/$(whoami).$(hostname)/public_html/ampache/templates/show_install.inc.php
+	sed -i 's|<td><input type="text" name="local_host" value="localhost" /></td>|<td><input type="text" name="local_host" value="<?php echo getenv('\''HOME'\'') . '\''/private/mysql/socket'\''; ?>" /></td>|g' $HOME/www/$(whoami).$(hostname)/public_html/ampache/templates/show_install.inc.php
 	#
 	# Change some default settings.
 	sed -i 's/catalog_video_pattern = "avi|mpg|flv|m4v"/catalog_video_pattern = "avi|mpg|flv|m4v|mkv"/g' $HOME/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
