@@ -82,7 +82,7 @@ Editing the `~/whatfreegrab/wfg.cfg`. You must delete the `~/whatfreegrab/wfg.da
 
 ~~~
 rm -f ~/whatfreegrab/wfg.cfg ~/whatfreegrab/wfg.dat
-cd ~/whatfreegrab && git pull origin
+wget -qO ~/whatfreegrab/WFG.py https://whatfreegrab.googlecode.com/git/WFG.py
 ~~~
 
 
