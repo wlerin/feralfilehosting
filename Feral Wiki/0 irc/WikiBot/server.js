@@ -820,7 +820,21 @@ WikiBot.addListener('message', function(from, to, message) {
         WikiBot.say(to, result + "ffmpeg - Basic Setup -- https://www.feralhosting.com/faq/view?question=268");            
         return;
     }
-    
+	
+    if ( message == '%ghost' || message == '%ghost' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        WikiBot.say(to, result + "Ghost Blogging Platform -- https://www.feralhosting.com/faq/view?question=276");            
+        return;
+    }
+	
+    if ( message == '%etherpad' || message == '%etherpad' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        WikiBot.say(to, result + "etherpad-lite -- https://www.feralhosting.com/faq/view?question=277");            
+        return;
+    }
+	
     // Linux
 
     if ( message == '%rsync' || message == '%rsync' + result ) {
@@ -930,6 +944,13 @@ WikiBot.addListener('message', function(from, to, message) {
         WikiBot.say(to, result + c.green('1: ') + 'Purchase the slot from our website. ' + c.green('2: ') + 'Wait until you receive the slot. ' + c.green('3: ') + 'Then open a ticket requesting a data transfer ' + c.olive('(optional) ') + c.green('4: ') + 'Request a refund on your current slot ' + c.olive('(optional) '));
         return;
     }
+	
+    if ( message == '%status' || message == '%status' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        WikiBot.say(to, result + "http://status.feral.io/");
+        return;
+    }
 }); 
 
 // End of triggers
@@ -981,7 +1002,7 @@ WikiBot.addListener('message', function(from, to, message) {
         }
         
         if ( message.indexOf('software') >= 0 ) {
-          WikiBot.say(to, "%multirtorrent %multideluge %subsonic %ampache %icecast %proftpd %autodl %autodlinstall %autodlfix %autodlport %java %dropbox %p7zip %btsync %software %yoink! %whatfreegrab %weechat %node %spideroak %aerofs %duplicity %cmake %curl %imagemagick %mosh %ruby %znc %ffmpeg");
+          WikiBot.say(to, "%multirtorrent %multideluge %subsonic %ampache %icecast %proftpd %autodl %autodlinstall %autodlfix %autodlport %java %dropbox %p7zip %btsync %software %yoink! %whatfreegrab %weechat %node %spideroak %aerofs %duplicity %cmake %curl %imagemagick %mosh %ruby %znc %ffmpeg %ghost %etherpad");
           return;
         }
         
@@ -991,7 +1012,7 @@ WikiBot.addListener('message', function(from, to, message) {
         }
         
         if ( message.indexOf('generic') >= 0 ) {
-          WikiBot.say(to, "%email %twitter %ticket %contact %abuse '%moveslot");
+          WikiBot.say(to, "%email %twitter %ticket %contact %abuse '%moveslot %status");
           return;
         }
     }
