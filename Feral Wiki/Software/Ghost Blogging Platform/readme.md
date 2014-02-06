@@ -123,7 +123,7 @@ npm start
 
 Now once it has loaded  you will see somethng like this:
 
-![](1.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Ghost%20Blogging%20Platform/1.png)
 
 Then press and hold `CTRL` and `a` then press `d` to detach from the screen. This leaves it running in the background.
 

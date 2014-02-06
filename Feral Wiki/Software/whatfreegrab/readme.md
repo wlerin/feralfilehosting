@@ -14,25 +14,15 @@ Now you will see something like this:
 
 1: Enter your what.cd username and password when prompted.
 
-![](1.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/whatfreegrab/1.png)
 
 2: use `~/whatfreegrab/torrents` as the directory for downloading `.torrent` files.
 
-![](2.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/whatfreegrab/2.png)
 
 Press enter to begin the script.
 
-![](3.png)
-
-**Important note:** When using a directory path it will be relative to the command used to execute the script:
-
-For example `myfolder` is the same as `~/myfolder` in this example since we are running the script like this `python ~/whatfreegrab/WFG.py` You could also do `myfolder/12345` and the result will be `~/myfolder/12345`.
-
-If you did `cd ~/whatfreegrab` and then `python WFG.py` the folder path would be relative to this location and you will end up with `~/whatfreegrab/myfolder` after executing the script.
-
-### Save your changes
-
-Then press and hold `CTRL` and then press `x` to save. Press `y` to confirm.
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/whatfreegrab/3.png)
 
 ### Copy files with cron
 
@@ -41,13 +31,13 @@ I recommend that you use a static folder location and not a watch folder for the
 Then use a cron job to copy the file to where you need. Where `myfolder` is the path that you used in the `wfg.cfg`
 
 ~~~
-* * * * * cp -rf ~/myfolder/. ~/private/deluge/watch
+* * * * * cp -rf ~/whatfreegrab/torrents/. ~/private/deluge/watch
 ~~~
 ~~~
-* * * * * cp -rf ~/myfolder/. ~/private/rtorrent/watch
+* * * * * cp -rf ~/whatfreegrab/torrents/. ~/private/rtorrent/watch
 ~~~
 ~~~
-* * * * * cp -rf ~/myfolder/. ~/private/transmission/watch
+* * * * * cp -rf ~/whatfreegrab/torrents/. ~/private/transmission/watch
 ~~~
 
 To add a cron do this command in SSH:
