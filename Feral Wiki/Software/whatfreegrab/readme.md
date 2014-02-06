@@ -5,43 +5,24 @@ Approved by what.cd staff. [The Original thread on what.cd](https://what.cd/foru
 
 ~~~
 easy_install --user requests HTMLParser
-git clone https://code.google.com/p/whatfreegrab/ ~/whatfreegrab
-nano ~/whatfreegrab/wfg.cfg
+mkdir -p ~/whatfreegrab/torrents
+wget -qO ~/whatfreegrab/WFG.py https://whatfreegrab.googlecode.com/git/WFG.py
+python ~/whatfreegrab/WFG.py
 ~~~
 
 Now you will see something like this:
 
-~~~
-[login]
-username = 
-password = 
+1: Enter your what.cd username and password when prompted.
 
-[download]
-target = 
-template_music = ${torrentId}. ${artist} - ${groupName} - ${groupYear} (${media} - ${format} - ${encoding})
-template_other = ${torrentId}. ${groupName}
-~~~
+![](1.png)
 
-Enter your what.cd username and pass:
+2: use `~/whatfreegrab/torrents` as the directory for downloading `.torrent` files.
 
-~~~
-[login]
-username = username
-password = PASSWORD
-~~~
+![](2.png)
 
-In this section enter the relative path to the download directory from, your root, you have selected.
+Press enter to begin the script.
 
-**Important note:** Please use a static folder location and not a watch folder. See below for how to use cron jobs with this folder to copy file.
-
-The script will create the required directories for you if they do not exist.
-
-~~~
-[download]
-target = myfolder
-template_music = ${torrentId}. ${artist} - ${groupName} - ${groupYear} (${media} - ${format} - ${encoding})
-template_other = ${torrentId}. ${groupName}
-~~~
+![](3.png)
 
 **Important note:** When using a directory path it will be relative to the command used to execute the script:
 

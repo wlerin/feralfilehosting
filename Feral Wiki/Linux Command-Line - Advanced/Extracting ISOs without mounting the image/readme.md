@@ -5,7 +5,7 @@ To simplify this process, there's an easy way of extracting the ISO-file into a 
 
 ~~~
 wget -qO ~/poweriso.tar.gz http://www.poweriso.com/poweriso-1.3.tar.gz
-tar xzf ~/poweriso.tar.gz && chmod 700 ~/poweriso
+tar xf ~/poweriso.tar.gz && chmod 700 ~/poweriso
 ~~~
 
 Poweriso will create the directory you tell it use when it outputs the files.
