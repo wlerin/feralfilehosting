@@ -114,6 +114,7 @@ then
 ####### Script Start #######
 ############################
 #
+    mkdir -p ~/private
     wget -qO ~/teamspeak.tar.gz "$teamspeakfv"
     tar xf ~/teamspeak.tar.gz
     rm -f ~/teamspeak.tar.gz 2> /dev/null
