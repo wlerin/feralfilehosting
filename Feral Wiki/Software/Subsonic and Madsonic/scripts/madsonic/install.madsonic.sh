@@ -262,6 +262,29 @@ fi' > ~/bin/madsonicron
 ##### madsonicron ends  #####
 #############################
 #
+#############################
+##### proxypass starts  #####
+#############################
+# Apache proxypass
+if [[ -f ~/private/madsonic/madsonic.sh ]]
+then
+    echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\nInclude /etc/apache2/mods-available/ssl.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\nSSLProxyEngine on\n\nProxyPass /madsonic http://10.0.0.1:'$(sed -n -e 's/MADSONIC_PORT=\([0-9]\+\)/\1/p' ~/private/madsonic/madsonic.sh 2> /dev/null)'/${USER}/madsonic\nProxyPassReverse /madsonic http://10.0.0.1:'$(sed -n -e 's/MADSONIC_PORT=\([0-9]\+\)/\1/p' ~/private/madsonic/madsonic.sh 2> /dev/null)'/${USER}/madsonic\nRedirect /${USER}/madsonic https://${APACHE_HOSTNAME}/${USER}/madsonic' > "$HOME/.apache2/conf.d/madsonic.conf"
+    /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
+    # Nginx proxypass
+    if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+    then
+        echo -e 'location /madsonic {\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /madsonic/(.*) /'$(whoami)'/madsonic/$1 break;\nproxy_pass http://10.0.0.1:'$(sed -n -e 's/MADSONIC_PORT=\([0-9]\+\)/\1/p' ~/private/madsonic/madsonic.sh 2> /dev/null)'/'$(whoami)'/madsonic/;\nproxy_redirect http:// https://;\n}' > ~/.nginx/conf.d/000-default-server.d/madsonic.conf
+        /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
+    fi
+    echo -e "The" "\033[36m""nginx/apache proxypass""\e[0m" "has been installed."
+    echo
+    echo -e "Madsonic is accessible at:" "\033[32m""https://$(hostname)/$(whoami)/madsonic""\e[0m"
+    echo
+fi
+#############################
+###### proxypass ends  ######
+#############################
+#
 # Make the ~/bin/madsonicrsk and ~/bin/madsonicron files we created executable
 chmod -f 700 ~/bin/madsonicrsk
 chmod -f 700 ~/bin/madsonicron
