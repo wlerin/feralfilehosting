@@ -95,13 +95,16 @@ then
 ############################
 #
 echo "Downloading and configuring some files..."
-kill $(cat ~/.couchpotato/couchpotato.pid)
+if [[ -f ~/.couchpotato/couchpotato.pid ]]
+then
+    kill $(cat ~/.couchpotato/couchpotato.pid)
+fi
 rm -rf ~/CouchPotatoServer
 git clone -q https://github.com/RuudBurger/CouchPotatoServer.git
 cp -rf ~/CouchPotatoServer/. ~/.couchpotato
 rm -rf ~/CouchPotatoServer
 echo -e "[core]\nhost = 0.0.0.0\nport = $mainport\nlaunch_browser = 0\nurl_base = /$(whoami)/couchpotato" > ~/.couchpotato/settings.conf
-echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\nInclude /etc/apache2/mods-available/ssl.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\nSSLProxyEngine on\n\nProxyPass /couchpotato http://10.0.0.1:'"$mainport"'/${USER}/couchpotato\nProxyPassReverse /couchpotato http://10.0.0.1:'"$mainport"'/${USER}/couchpotato' > ~/.apache2/conf.d/couchpototo.conf
+echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\n\nProxyPass /couchpotato http://10.0.0.1:'"$mainport"'/${USER}/couchpotato\nProxyPassReverse /couchpotato http://10.0.0.1:'"$mainport"'/${USER}/couchpotato' > ~/.apache2/conf.d/couchpototo.conf
 /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
 python ~/.couchpotato/CouchPotato.py --daemon
 echo "Visit this URL to finish the set up wizard"
