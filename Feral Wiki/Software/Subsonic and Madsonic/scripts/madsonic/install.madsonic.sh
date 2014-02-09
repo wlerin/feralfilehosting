@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Madsonic
-scriptversion="1.6.6"
+scriptversion="1.6.7"
 scriptname="install.madsonic"
 madsonicversion="5.0 Build 3840"
 javaversion="1.7 Update 51"
@@ -88,6 +88,10 @@ then
     exit 1
 fi
 #
+############################
+##### Self Updater End #####
+############################
+#
 echo
 echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
 echo
@@ -102,10 +106,6 @@ echo
 #
 rm -f "$HOME/000install.madsonic.sh" "$HOME/111install.madsonic.sh" "$HOME/222install.madsonic.sh"
 chmod -f 700 "$HOME/bin/install.madsonic"
-#
-############################
-##### Self Updater End #####
-############################
 #
 #############################
 #### madsonicrsk starts  ####
@@ -374,7 +374,7 @@ then
         # Nginx proxypass
         if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
         then
-            echo -e 'location /madsonic {\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /madsonic/(.*) /'$(whoami)'/madsonic/$1 break;\nproxy_pass https://10.0.0.1:'$(sed -n -e 's/MADSONIC_HTTPS_PORT=\([0-9]\+\)/\1/p' ~/private/madsonic/madsonic.sh 2> /dev/null)/''$(whoami)'/madsonic/;\n}' > ~/.nginx/conf.d/000-default-server.d/madsonic.conf
+            echo -e 'location /madsonic {\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /madsonic/(.*) /'$(whoami)'/madsonic/$1 break;\nproxy_pass https://10.0.0.1:'"$http"'/'$(whoami)'/madsonic/;\n}' > ~/.nginx/conf.d/000-default-server.d/madsonic.conf
             /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
         fi
         echo -e "\033[31m""Start-up script successfully configured.""\e[0m"
@@ -417,6 +417,7 @@ then
             rm -f ~/.nginx/conf.d/000-default-server.d/madsonic.conf
             rm -f ~/.apache2/conf.d/madsonic.conf
             /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
+            /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
             echo -e "\033[31m" "Done""\e[0m"
             sleep 1
             echo "Finalising removal."
@@ -461,7 +462,7 @@ then
             # Nginx proxypass
             if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
             then
-                echo -e 'location /madsonic {\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /madsonic/(.*) /'$(whoami)'/madsonic/$1 break;\nproxy_pass https://10.0.0.1:'$(sed -n -e 's/MADSONIC_HTTPS_PORT=\([0-9]\+\)/\1/p' ~/private/madsonic/madsonic.sh 2> /dev/null)/''$(whoami)'/madsonic/;\n}' > ~/.nginx/conf.d/000-default-server.d/madsonic.conf
+                echo -e 'location /madsonic {\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /madsonic/(.*) /'$(whoami)'/madsonic/$1 break;\nproxy_pass https://10.0.0.1:'$(sed -n -e 's/MADSONIC_PORT=\([0-9]\+\)/\1/p' ~/private/madsonic/madsonic.sh 2> /dev/null)'/'$(whoami)'/madsonic/;\n}' > ~/.nginx/conf.d/000-default-server.d/madsonic.conf
                 /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
             fi
             bash ~/private/madsonic/madsonic.sh

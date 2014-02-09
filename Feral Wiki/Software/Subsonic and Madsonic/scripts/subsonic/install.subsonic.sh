@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Subsonic
-scriptversion="1.6.6"
+scriptversion="1.6.7"
 scriptname="install.subsonic"
 subsonicversion="4.9"
 javaversion="1.7 Update 51"
@@ -87,6 +87,10 @@ then
     exit 1
 fi
 #
+############################
+##### Self Updater End #####
+############################
+#
 echo
 echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
 echo
@@ -101,10 +105,6 @@ echo
 #
 rm -f "$HOME/000install.subsonic.sh" "$HOME/111install.subsonic.sh" "$HOME/222install.subsonic.sh"
 chmod -f 700 "$HOME/bin/install.subsonic"
-#
-############################
-##### Self Updater End #####
-############################
 #
 #############################
 #### subsonicrsk starts  ####
@@ -367,7 +367,7 @@ then
         # Nginx proxypass
         if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
         then
-            echo -e 'location /subsonic {\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /subsonic/(.*) /'$(whoami)'/subsonic/$1 break;\nproxy_pass https://10.0.0.1:'$(sed -n -e 's/SUBSONIC_HTTPS_PORT=\([0-9]\+\)/\1/p' ~/private/subsonic/subsonic.sh 2> /dev/null)/''$(whoami)'/subsonic/;\n}' > ~/.nginx/conf.d/000-default-server.d/subsonic.conf
+            echo -e 'location /subsonic {\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /subsonic/(.*) /'$(whoami)'/subsonic/$1 break;\nproxy_pass https://10.0.0.1:'"$http"'/'$(whoami)'/subsonic/;\n}' > ~/.nginx/conf.d/000-default-server.d/subsonic.conf
             /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
         fi
         echo -e "\033[31m""Start-up script successfully configured.""\e[0m"
@@ -411,6 +411,7 @@ then
             rm -f ~/.nginx/conf.d/000-default-server.d/subsonic.conf
             rm -f ~/.apache2/conf.d/subsonic.conf
             /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
+            /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
             echo -e "\033[31m" "Done""\e[0m"
             sleep 1
             echo "Finalising removal."
@@ -449,13 +450,13 @@ then
             rm -rf ~/subsonic.tar.gz ~/ffmpeg.zip ~/sonictmp
             sed -i "s|^SUBSONIC_CONTEXT_PATH=/$|SUBSONIC_CONTEXT_PATH=/$(whoami)/subsonic|g" ~/private/subsonic/subsonic.sh
             # Apache proxypass
-            echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\nInclude /etc/apache2/mods-available/ssl.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\nSSLProxyEngine on\n\nProxyPass /subsonic http://10.0.0.1:'"$http"'/${USER}/subsonic\nProxyPassReverse /subsonic http://10.0.0.1:'"$http"'/${USER}/subsonic\nRedirect /${USER}/subsonic https://${APACHE_HOSTNAME}/${USER}/subsonic' > "$HOME/.apache2/conf.d/subsonic.conf"
+            echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\nInclude /etc/apache2/mods-available/ssl.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\nSSLProxyEngine on\n\nProxyPass /subsonic http://10.0.0.1:'$(sed -n -e 's/SUBSONIC_PORT=\([0-9]\+\)/\1/p' ~/private/subsonic/subsonic.sh 2> /dev/null)'/${USER}/subsonic\nProxyPassReverse /subsonic http://10.0.0.1:'$(sed -n -e 's/SUBSONIC_PORT=\([0-9]\+\)/\1/p' ~/private/subsonic/subsonic.sh 2> /dev/null)'/${USER}/subsonic\nRedirect /${USER}/subsonic https://${APACHE_HOSTNAME}/${USER}/subsonic' > "$HOME/.apache2/conf.d/subsonic.conf"
             /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
             echo
             # nginx proxypass
             if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
             then
-                echo -e 'location /subsonic {\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /subsonic/(.*) /'$(whoami)'/subsonic/$1 break;\nproxy_pass https://10.0.0.1:'$(sed -n -e 's/SUBSONIC_HTTPS_PORT=\([0-9]\+\)/\1/p' ~/private/subsonic/subsonic.sh 2> /dev/null)/''$(whoami)'/subsonic/;\n}' > ~/.nginx/conf.d/000-default-server.d/subsonic.conf
+                echo -e 'location /subsonic {\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /subsonic/(.*) /'$(whoami)'/subsonic/$1 break;\nproxy_pass https://10.0.0.1:'$(sed -n -e 's/SUBSONIC_PORT=\([0-9]\+\)/\1/p' ~/private/subsonic/subsonic.sh 2> /dev/null)'/'$(whoami)'/subsonic/;\n}' > ~/.nginx/conf.d/000-default-server.d/subsonic.conf
                 /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
             fi
             bash ~/private/subsonic/subsonic.sh

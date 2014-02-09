@@ -52,15 +52,15 @@ then
     exit 1
 fi
 #
+############################
+##### Self Updater End #####
+############################
+#
 echo
 echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
 echo
 #
 cd && rm -f {000,111}"$scriptname.sh"
-#
-############################
-##### Self Updater End #####
-############################
 #
 read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " updatestatus
 echo
