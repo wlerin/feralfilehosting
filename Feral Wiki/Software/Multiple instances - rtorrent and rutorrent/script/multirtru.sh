@@ -100,7 +100,16 @@ then
         if [[ -f ~/.rtorrent-"$suffix".rc && -d ~/private/rtorrent-"$suffix" && -d ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix" ]]
         then
             screen -S rtorrent-"$suffix" -X quit > /dev/null 2>&1
-            rm -rf ~/.rtorrent-"$suffix".rc ~/private/rtorrent-"$suffix" ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"
+            rm -f ~/.rtorrent-"$suffix".rc 
+            rm -rf ~/private/rtorrent-"$suffix" 
+            rm -rf ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"
+            if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+            then
+                rm -f ~/.nginx/conf.d/000-default-server.d/scgi-"$suffix"-htpasswd
+                rm -f ~/.nginx/conf.d/000-default-server.d/rtorrent-qwer
+                rm -f ~/.nginx/conf.d/000-default-server.d/rtorrent-qwer-rpc.conf
+                /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
+            fi
             sed -i '/screen -fa -dmS rtorrent-'"$suffix"' rtorrent -n -o import=~\/.rtorrent-'"$suffix"'.rc/d' ~/multirtru.restart.txt
             sed -i '/^$/d' ~/multirtru.restart.txt
             echo "Done"
