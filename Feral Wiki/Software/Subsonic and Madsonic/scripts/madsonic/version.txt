@@ -6,3 +6,4 @@
 # v 1.6.3 Updater tweaked
 # v 1.6.4 Updater fixed
 # v 1.6.5 fixed url for java to be x64
+# v 1.6.6 Apache proxy pass fix and some script tweaks.
