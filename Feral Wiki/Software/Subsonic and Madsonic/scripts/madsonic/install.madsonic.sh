@@ -393,7 +393,7 @@ then
     else
         echo -e "\033[31m""Madsonic appears to already be installed.""\e[0m" "Please kill the PID:" "\033[33m""$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null)""\e[0m" "if it is running and delete the" "\033[36m""~/private/madsonic directory""\e[0m"
         echo
-        read -ep "Would you like me to kill Java (all Java processes) and remove the directories for you? [y] or update your installation [u] quit now [q]: "  confirm
+        read -ep "Would you like me to kill the process and remove the directories for you? [y] or update your installation [u] quit now [q]: "  confirm
         echo
         if [[ "$confirm" =~ ^[Yy]$ ]]
         then
