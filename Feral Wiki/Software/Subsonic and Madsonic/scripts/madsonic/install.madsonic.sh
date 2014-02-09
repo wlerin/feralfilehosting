@@ -408,6 +408,7 @@ then
         sleep 1
         echo
         echo -e "Madsonic is accessible at:" "\033[32m""https://$(hostname)/$(whoami)/madsonic""\e[0m"
+        echo -e "It may take a minute or two to load properly."
         echo
         echo -e "Madsonic started at PID:" "\033[31m""$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null)""\e[0m"
         echo

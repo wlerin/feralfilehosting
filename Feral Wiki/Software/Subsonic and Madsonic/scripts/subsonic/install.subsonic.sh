@@ -29,6 +29,7 @@ jvdecimal="1.7.0_51"
 # Sets a random port between 6000-50000 for http
 http=$(shuf -i 6000-49000 -n 1)
 # Defines the memory variable
+# buffer
 submemory="2048"
 # Gets the Java version from the last time this script installed Java
 installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
@@ -335,6 +336,9 @@ then
         mkdir -p ~/private/subsonic/transcode
         mkdir -p ~/private/subsonic/playlists
         mkdir -p ~/private/subsonic/Podcasts
+        # buffer
+        # buffer
+        # buffer
         echo -n "$subsonicfvs" > ~/private/subsonic/.version
         echo
         echo -e "\033[32m""$subsonicfvs""\e[0m" "Is downloading now."
@@ -373,12 +377,15 @@ then
         sed -i 's|SUBSONIC_HOME=/var/subsonic|SUBSONIC_HOME=~/private/subsonic|g' ~/private/subsonic/subsonic.sh
         sed -i "s/SUBSONIC_PORT=4040/SUBSONIC_PORT=$http/g" ~/private/subsonic/subsonic.sh
         sed -i 's|SUBSONIC_CONTEXT_PATH=/|SUBSONIC_CONTEXT_PATH=/$(whoami)/subsonic|g' ~/private/subsonic/subsonic.sh
+        # buffer
         sed -i "s/SUBSONIC_MAX_MEMORY=150/SUBSONIC_MAX_MEMORY=$submemory/g" ~/private/subsonic/subsonic.sh
         sed -i '0,/SUBSONIC_PIDFILE=/s|SUBSONIC_PIDFILE=|SUBSONIC_PIDFILE=~/private/subsonic/subsonic.sh.PID|g' ~/private/subsonic/subsonic.sh
         read -ep "Enter the path to your media or leave blank and press enter to skip: " path
         sed -i "s|SUBSONIC_DEFAULT_MUSIC_FOLDER=/var/music|SUBSONIC_DEFAULT_MUSIC_FOLDER=$path|g" ~/private/subsonic/subsonic.sh
+        # buffer
         sed -i 's|SUBSONIC_DEFAULT_PODCAST_FOLDER=/var/music/Podcast|SUBSONIC_DEFAULT_PODCAST_FOLDER=~/private/subsonic/Podcast|g' ~/private/subsonic/subsonic.sh
         sed -i 's|SUBSONIC_DEFAULT_PLAYLIST_FOLDER=/var/playlist|SUBSONIC_DEFAULT_PLAYLIST_FOLDER=~/private/subsonic/playlists|g' ~/private/subsonic/subsonic.sh
+        # buffer
         sed -i 's/quiet=0/quiet=1/g' ~/private/subsonic/subsonic.sh
         sed -i "22 i export LC_ALL=en_GB.UTF-8\n" ~/private/subsonic/subsonic.sh
         sed -i '22 i export LANG=en_GB.UTF-8' ~/private/subsonic/subsonic.sh
