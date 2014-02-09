@@ -367,7 +367,7 @@ then
         # Nginx proxypass
         if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
         then
-            echo -e 'location /subsonic {\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /subsonic/(.*) /'$(whoami)'/subsonic/$1 break;\nproxy_pass https://10.0.0.1:'"$http"'/'$(whoami)'/subsonic/;\n}' > ~/.nginx/conf.d/000-default-server.d/subsonic.conf
+            echo -e 'location /subsonic {\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /subsonic/(.*) /'$(whoami)'/subsonic/$1 break;\nproxy_pass http://10.0.0.1:'"$http"'/'$(whoami)'/subsonic/;\nproxy_redirect http:// https://;\n}' > ~/.nginx/conf.d/000-default-server.d/subsonic.conf
             /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
         fi
         echo -e "\033[31m""Start-up script successfully configured.""\e[0m"
@@ -456,7 +456,7 @@ then
             # nginx proxypass
             if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
             then
-                echo -e 'location /subsonic {\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /subsonic/(.*) /'$(whoami)'/subsonic/$1 break;\nproxy_pass https://10.0.0.1:'$(sed -n -e 's/SUBSONIC_PORT=\([0-9]\+\)/\1/p' ~/private/subsonic/subsonic.sh 2> /dev/null)'/'$(whoami)'/subsonic/;\n}' > ~/.nginx/conf.d/000-default-server.d/subsonic.conf
+                echo -e 'location /subsonic {\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /subsonic/(.*) /'$(whoami)'/subsonic/$1 break;\nproxy_pass http://10.0.0.1:'$(sed -n -e 's/SUBSONIC_PORT=\([0-9]\+\)/\1/p' ~/private/subsonic/subsonic.sh 2> /dev/null)'/'$(whoami)'/subsonic/;\nproxy_redirect http:// https://;\n}' > ~/.nginx/conf.d/000-default-server.d/subsonic.conf
                 /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
             fi
             bash ~/private/subsonic/subsonic.sh
