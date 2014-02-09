@@ -357,9 +357,9 @@ then
         sed -i 's|SUBSONIC_DEFAULT_PODCAST_FOLDER=/var/music/Podcast|SUBSONIC_DEFAULT_PODCAST_FOLDER=~/private/subsonic/Podcast|g' ~/private/subsonic/subsonic.sh
         sed -i 's|SUBSONIC_DEFAULT_PLAYLIST_FOLDER=/var/playlist|SUBSONIC_DEFAULT_PLAYLIST_FOLDER=~/private/subsonic/playlists|g' ~/private/subsonic/subsonic.sh
         sed -i 's/quiet=0/quiet=1/g' ~/private/subsonic/subsonic.sh
-        sed -i "23 i export LC_ALL=en_GB.UTF-8\n" ~/private/subsonic/subsonic.sh
-        sed -i '23 i export LANG=en_GB.UTF-8' ~/private/subsonic/subsonic.sh
-        sed -i '23 i export LANGUAGE=en_GB.UTF-8' ~/private/subsonic/subsonic.sh
+        sed -i "22 i export LC_ALL=en_GB.UTF-8\n" ~/private/subsonic/subsonic.sh
+        sed -i '22 i export LANG=en_GB.UTF-8' ~/private/subsonic/subsonic.sh
+        sed -i '22 i export LANGUAGE=en_GB.UTF-8' ~/private/subsonic/subsonic.sh
         # Apache proxypass
         echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\nInclude /etc/apache2/mods-available/ssl.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\nSSLProxyEngine on\n\nProxyPass /subsonic http://10.0.0.1:'"$http"'/${USER}/subsonic\nProxyPassReverse /subsonic http://10.0.0.1:'"$http"'/${USER}/subsonic\nRedirect /${USER}/subsonic https://${APACHE_HOSTNAME}/${USER}/subsonic' > "$HOME/.apache2/conf.d/subsonic.conf"
         /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
