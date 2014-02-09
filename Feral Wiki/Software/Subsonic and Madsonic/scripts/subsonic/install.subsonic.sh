@@ -391,8 +391,8 @@ then
         echo
         if [[ "$confirm" =~ ^[Yy]$ ]]
         then
-            echo "Killing all Java processes."
-            killall -9 -u $(whoami) java 2> /dev/null
+            echo "Killing process and removing files."
+            kill -9 $(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null) 2> /dev/null
             echo -e "\033[31m" "Done""\e[0m"
             sleep 1
             echo "Removing ~/private/subsonic"
@@ -400,7 +400,6 @@ then
             echo -e "\033[31m" "Done""\e[0m"
             sleep 1
             echo "Removing RSK scripts if present."
-            rm -f ~/.nginx/conf.d/000-default-server.d/subsonic.conf
             rm -f ~/bin/subsonic.4.8
             rm -f ~/subsonic.4.8.sh
             rm -f ~/subsonicstart.sh
@@ -409,6 +408,9 @@ then
             rm -f ~/subsonicrsk.sh
             rm -f ~/bin/subsonicrsk
             rm -f ~/bin/subsonicron
+            rm -f ~/.nginx/conf.d/000-default-server.d/subsonic.conf
+            rm -f ~/.apache2/conf.d/subsonic.conf
+            /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
             echo -e "\033[31m" "Done""\e[0m"
             sleep 1
             echo "Finalising removal."

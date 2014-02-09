@@ -397,8 +397,8 @@ then
         echo
         if [[ "$confirm" =~ ^[Yy]$ ]]
         then
-            echo "Killing all Java processes."
-            killall -9 -u $(whoami) java 2> /dev/null
+            echo "Killing process and removing files."
+            kill -9 $(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null) 2> /dev/null
             echo -e "\033[31m" "Done""\e[0m"
             sleep 1
             echo "Removing ~/private/madsonic"
@@ -415,6 +415,8 @@ then
             rm -f ~/bin/madsonicrsk
             rm -f ~/bin/madsonicron
             rm -f ~/.nginx/conf.d/000-default-server.d/madsonic.conf
+            rm -f ~/.apache2/conf.d/madsonic.conf
+            /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
             echo -e "\033[31m" "Done""\e[0m"
             sleep 1
             echo "Finalising removal."
