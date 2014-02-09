@@ -99,12 +99,13 @@ git clone -q https://github.com/RuudBurger/CouchPotatoServer.git
 cp -rf ~/CouchPotatoServer/. ~/.couchpotato
 rm -rf ~/CouchPotatoServer
 echo -e "[core]\nhost = 0.0.0.0\nport = $mainport\nlaunch_browser = 0\nurl_base = /$(whoami)/couchpotato" > ~/.couchpotato/settings.conf
-echo -n 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\n\nProxyPass /couchpotato http://10.0.0.1:'"$mainport"'/${USER}/couchpotato\nProxyPassReverse /couchpotato http://10.0.0.1:'"$mainport"'/${USER}/couchpotato' > ~/.apache2/conf.d/couchpototo.conf
+echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\n\nProxyPass /couchpotato http://10.0.0.1:'"$mainport"'/${USER}/couchpotato\nProxyPassReverse /couchpotato http://10.0.0.1:'"$mainport"'/${USER}/couchpotato' > ~/.apache2/conf.d/couchpototo.conf
 /usr/sbin/apache2ctl -k graceful
 python ~/.couchpotato/CouchPotato.py --daemon
 echo "Visit this URL to finish the set up wizard"
 echo
 echo "https://$(hostname)/$(whoami)/couchpotato"
+echo
 #
 ############################
 ####### Script Ends  #######
