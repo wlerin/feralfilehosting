@@ -31,14 +31,14 @@ http=$(shuf -i 6000-49000 -n 1)
 # Defines the memory variable
 initmemory="2048"
 maxmemory="2048"
-# Gets the Java version from the last time this scrip installed Java
+# Gets the Java version from the last time this script installed Java
 installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 # Java URL
 javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=83376"
 # Madsonic Standalone files
 madsonicfv="https://bitbucket.org/feralhosting/feralfiles/downloads/5.0.3840-standalone.zip"
 madsonicfvs="5.0.3840-standalone.zip"
-# Madsonic custom ffmpeg with Audioffmpeg
+# ffmpeg files
 mffmpegfvc="https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.30.11.2013.zip"
 mffmpegfvcs="ffmpeg.30.11.2013.zip"
 #
