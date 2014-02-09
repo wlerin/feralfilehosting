@@ -13,12 +13,14 @@ Important notes:
 ---
 
 - Default mp3 bitrate is set in `Settings/Players/Max bitrate` per selected player
-- Subsonic will ask for a license key after 30 days, that you can get by donating to the creator of the program. After 30 days, video streaming and mobile application support are deactivated. You can use the bash script to install Madsonic instead, that has no such restrictions.
+- Subsonic will ask for a license key after 30 days, that you can get by donating to the creator of the program. After 30 days, video streaming and mobile application support are deactivated. You can use the bash script to install Madsonic instead, that has no such restrictions but you have to pay for the Madsonic mobile app.
 - HTML5 - [Minisub Chrome App](https://chrome.google.com/webstore/detail/minisub/jccdpflnecheidefpofmlblgebobbloc) (if you use https you must visit the subsonic server URL and accept the cert first
 - Works with the IOS and Android apps. Madsonic may behave differently with some apps that were designed to support Subsonic.
 
 [Subsonic Device options](http://www.subsonic.org/pages/apps.jsp)
+
 [Madsonic Android Play Store](https://play.google.com/store/apps/details?id=github.madmarty.madsonic)
+
 [Madsonic Android Amazon Store](http://www.amazon.com/Madsonic-Media-Streamer/dp/B00COJ4G1O)
 
 Subsonic or Madsonic automatic installation using a bash script:
@@ -128,14 +130,16 @@ Avconv: A static build found here can also be used.
 
 [http://johnvansickle.com/libav/](http://johnvansickle.com/libav/)
 
-[libav.31.10.2103.zip](https://bitbucket.org/feralhosting/feralfiles/downloads/libav.31.10.2103.zip)
+[libav.09.02.2014.zip](https://bitbucket.org/feralhosting/feralfiles/downloads/libav.09.02.2014.zip)
 
 Use these commands to download and extract a static build 06.14.2013 ready for use:
 
 ~~~
-wget -qO ~/avconv.tar.gz https://bitbucket.org/feralhosting/feralfiles/downloads/libav.31.10.2103.zip
-tar xf ~/avconv.tar.gz -C ~/private/subsonic/transcode/
-rm -f ~/avconv.tar.gz
+wget -qO ~/avconv.zip https://bitbucket.org/feralhosting/feralfiles/downloads/libav.09.02.2014.zip
+mkdir -p ~/private/subsonic/transcode
+unzip -qo ~/avconv.zip -d ~/private/subsonic/transcode
+chmod 700 ~/private/subsonic/transcode/{avconv,avconv-10bit,avprobe,qt-faststart}
+rm -f ~/avconv.zip
 ~~~
 
 The you need to add a new `Settings/Transcoding/Add transcoding` in Subsonic or Madsonic:
