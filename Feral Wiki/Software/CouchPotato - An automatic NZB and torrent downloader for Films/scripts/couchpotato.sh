@@ -4,6 +4,8 @@ scriptversion="1.0.0"
 scriptname="couchpotato"
 # randomessence
 #
+# wget -qO ~/couchpotato.sh http://git.io/NWQA2Q && bash ~/couchpotato.sh
+#
 ############################
 ## Version History Starts ##
 ############################
@@ -25,8 +27,8 @@ scriptname="couchpotato"
 ###### Variable Start ######
 ############################
 #
-mainport=$(shuf -i 6000-60000 -n 1)
-scripturl="https://raw.github.com/feralhosting"
+mainport=$(shuf -i 6001-49000 -n 1)
+scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/CouchPotato%20-%20An%20automatic%20NZB%20and%20torrent%20downloader%20for%20Films/scripts/couchpotato.sh"
 #
 ############################
 ####### Variable End #######
