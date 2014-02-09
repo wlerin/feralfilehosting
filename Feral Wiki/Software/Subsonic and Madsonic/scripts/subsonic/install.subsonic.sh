@@ -391,7 +391,7 @@ then
         echo
         if [[ "$confirm" =~ ^[Yy]$ ]]
         then
-            echo "Killing process and removing files."
+            echo "Killing the process and removing files."
             kill -9 $(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null) 2> /dev/null
             echo -e "\033[31m" "Done""\e[0m"
             sleep 1
@@ -435,51 +435,43 @@ then
             fi
         elif [[ "$confirm" =~ ^[Uu]$ ]]
         then
-            read -ep "Would you like to update Subsonic [y]es or [n]o: "  confirmupdate
+            echo -e "Subsonic is being updated. This will only take a moment."
+            kill -9 $(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null) 2> /dev/null
+            mkdir -p ~/sonictmp
+            wget -qO ~/subsonic.tar.gz "$subsonicfv"
+            tar xf ~/subsonic.tar.gz -C ~/sonictmp
+            rm -f ~/sonictmp/subsonic.sh
+            cp -rf ~/sonictmp/. ~/private/subsonic/
+            wget -qO ~/ffmpeg.zip "$sffmpegfv"
+            unzip -qo ~/ffmpeg.zip -d ~/private/subsonic/transcode
+            chmod -f 700 ~/private/subsonic/transcode/{Audioffmpeg,ffmpeg,lame,xmp}
+            echo -n "$subsonicfvs" > ~/private/subsonic/.version
+            rm -rf ~/subsonic.tar.gz ~/ffmpeg.zip ~/sonictmp
+            sed -i "s|^SUBSONIC_CONTEXT_PATH=/$|SUBSONIC_CONTEXT_PATH=/$(whoami)/subsonic|g" ~/private/subsonic/subsonic.sh
+            # Apache proxypass
+            echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\nInclude /etc/apache2/mods-available/ssl.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\nSSLProxyEngine on\n\nProxyPass /subsonic http://10.0.0.1:'"$http"'/${USER}/subsonic\nProxyPassReverse /subsonic http://10.0.0.1:'"$http"'/${USER}/subsonic\nRedirect /${USER}/subsonic https://${APACHE_HOSTNAME}/${USER}/subsonic' > "$HOME/.apache2/conf.d/subsonic.conf"
+            /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
             echo
-            if [[ "$confirmupdate" =~ ^[Yy$ ]]
+            # nginx proxypass
+            if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
             then
-                echo -e "Subsonic is being updated. This will only take a moment."
-                kill -9 $(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null) 2> /dev/null
-                mkdir -p ~/sonictmp
-                wget -qO ~/subsonic.tar.gz "$subsonicfv"
-                tar xf ~/subsonic.tar.gz -C ~/sonictmp
-                rm -f ~/sonictmp/subsonic.sh
-                cp -rf ~/sonictmp/. ~/private/subsonic/
-                wget -qO ~/ffmpeg.zip "$sffmpegfv"
-                unzip -qo ~/ffmpeg.zip -d ~/private/subsonic/transcode
-                chmod -f 700 ~/private/subsonic/transcode/{Audioffmpeg,ffmpeg,lame,xmp}
-                echo -n "$subsonicfvs" > ~/private/subsonic/.version
-                rm -rf ~/subsonic.tar.gz ~/ffmpeg.zip ~/sonictmp
-                sed -i "s|^SUBSONIC_CONTEXT_PATH=/$|SUBSONIC_CONTEXT_PATH=/$(whoami)/subsonic|g" ~/private/subsonic/subsonic.sh
-                # Apache proxypass
-                echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\nInclude /etc/apache2/mods-available/ssl.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\nSSLProxyEngine on\n\nProxyPass /subsonic http://10.0.0.1:'"$http"'/${USER}/subsonic\nProxyPassReverse /subsonic http://10.0.0.1:'"$http"'/${USER}/subsonic\nRedirect /${USER}/subsonic https://${APACHE_HOSTNAME}/${USER}/subsonic' > "$HOME/.apache2/conf.d/subsonic.conf"
-                /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
-                echo
-                # nginx proxypass
-                if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
-                then
-                    echo -e 'location /subsonic {\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /subsonic/(.*) /'$(whoami)'/subsonic/$1 break;\nproxy_pass https://10.0.0.1:'$(sed -n -e 's/SUBSONIC_HTTPS_PORT=\([0-9]\+\)/\1/p' ~/private/subsonic/subsonic.sh 2> /dev/null)/''$(whoami)'/subsonic/;\n}' > ~/.nginx/conf.d/000-default-server.d/subsonic.conf
-                    /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
-                fi
-                bash ~/private/subsonic/subsonic.sh
-                echo -e "A restart/start/kill script has been created at:" "\033[35m""~/bin/subsonicrsk""\e[0m"
-                echo -e "\033[32m""Subsonic is now started, use the links below to access it. Don't forget to set path to FULL path to you music folder in the gui.""\e[0m"
-                sleep 1
-                echo
-                echo -e "Subsonic is accessible at:" "\033[32m""https://$(hostname)/$(whoami)/subsonic""\e[0m"
-                echo -e "It may take a minute or two to load properly."
-                echo
-                echo -e "Subsonic started at PID:" "\033[31m""$(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null)""\e[0m"
-                echo
-                bash
-                exit 1
-            else
-                echo "You chose no, the script will exit"
-                echo
-                exit 1
+                echo -e 'location /subsonic {\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /subsonic/(.*) /'$(whoami)'/subsonic/$1 break;\nproxy_pass https://10.0.0.1:'$(sed -n -e 's/SUBSONIC_HTTPS_PORT=\([0-9]\+\)/\1/p' ~/private/subsonic/subsonic.sh 2> /dev/null)/''$(whoami)'/subsonic/;\n}' > ~/.nginx/conf.d/000-default-server.d/subsonic.conf
+                /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
             fi
+            bash ~/private/subsonic/subsonic.sh
+            echo -e "A restart/start/kill script has been created at:" "\033[35m""~/bin/subsonicrsk""\e[0m"
+            echo -e "\033[32m""Subsonic is now started, use the links below to access it. Don't forget to set path to FULL path to you music folder in the gui.""\e[0m"
+            sleep 1
+            echo
+            echo -e "Subsonic is accessible at:" "\033[32m""https://$(hostname)/$(whoami)/subsonic""\e[0m"
+            echo -e "It may take a minute or two to load properly."
+            echo
+            echo -e "Subsonic started at PID:" "\033[31m""$(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null)""\e[0m"
+            echo
+            bash
+            exit 1
         else
+            echo "You chose to quit and exit the script"
             echo
             exit 1
         fi

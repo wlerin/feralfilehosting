@@ -397,7 +397,7 @@ then
         echo
         if [[ "$confirm" =~ ^[Yy]$ ]]
         then
-            echo "Killing process and removing files."
+            echo "Killing the process and removing files."
             kill -9 $(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null) 2> /dev/null
             echo -e "\033[31m" "Done""\e[0m"
             sleep 1
@@ -477,7 +477,7 @@ then
             bash
             exit 1
         else
-            echo "You chose no, the script will exit"
+            echo "You chose to quit and exit the script"
             echo
             exit 1
         fi
