@@ -7,3 +7,4 @@
 # v 1.6.4 Updater fixed
 # v 1.6.5 fixed url for java to be x64
 # v 1.6.6 Apache proxy pass fix and some script tweaks.
+# v 1.7.0 Proxypass fixes and tweaks. Easy to change between apache and nginx now with full https
