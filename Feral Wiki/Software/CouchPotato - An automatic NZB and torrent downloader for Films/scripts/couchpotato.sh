@@ -1,6 +1,6 @@
 #!/bin/bash
 # couchpotato
-scriptversion="1.0.0"
+scriptversion="1.0.1"
 scriptname="couchpotato"
 # randomessence
 #
