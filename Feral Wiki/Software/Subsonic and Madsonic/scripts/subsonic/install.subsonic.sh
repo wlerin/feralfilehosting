@@ -484,7 +484,7 @@ then
             fi
             bash ~/private/subsonic/subsonic.sh
             echo -e "A restart/start/kill script has been created at:" "\033[35m""~/bin/subsonicrsk""\e[0m"
-            echo -e "\033[32m""Subsonic is now started, use the links below to access it. Don't forget to set path to FULL path to you music folder in the gui.""\e[0m"
+            echo -e "\033[32m""Subsonic is now started, use the link below to access it. Don't forget to set path to FULL path to you music folder in the gui.""\e[0m"
             sleep 1
             echo
             echo -e "Subsonic is accessible at:" "\033[32m""https://$(hostname)/$(whoami)/subsonic""\e[0m"
