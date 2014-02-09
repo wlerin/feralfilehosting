@@ -106,8 +106,8 @@ then
             if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
             then
                 rm -f ~/.nginx/conf.d/000-default-server.d/scgi-"$suffix"-htpasswd
-                rm -f ~/.nginx/conf.d/000-default-server.d/rtorrent-qwer
-                rm -f ~/.nginx/conf.d/000-default-server.d/rtorrent-qwer-rpc.conf
+                rm -f ~/.nginx/conf.d/000-default-server.d/rtorrent-"$suffix".conf
+                rm -f ~/.nginx/conf.d/000-default-server.d/rtorrent-"$suffix"-rpc.conf
                 /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
             fi
             sed -i '/screen -fa -dmS rtorrent-'"$suffix"' rtorrent -n -o import=~\/.rtorrent-'"$suffix"'.rc/d' ~/multirtru.restart.txt
