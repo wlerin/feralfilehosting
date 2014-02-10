@@ -100,7 +100,7 @@ then
         echo
         #
         screen -S rtorrent-"$suffix" -X quit > /dev/null 2>&1
-        echo "Custom instance has been shutdown: if it was running"
+        echo -e "\033[32m""Custom instance has been shutdown: if it was running""\e[0m"
         echo
         if [[ -f ~/.rtorrent-"$suffix".rc ]]
         then
@@ -143,7 +143,7 @@ then
         fi
         sed -i '/screen -fa -dmS rtorrent-'"$suffix"' rtorrent -n -o import=~\/.rtorrent-'"$suffix"'.rc/d' ~/multirtru.restart.txt
         sed -i '/^$/d' ~/multirtru.restart.txt
-        echo "Done"
+        echo -e "\033[31m""Done""\e[0m"
         # reload script to use removal options again or skip to installation
         bash ~/multirtru.sh
     fi
