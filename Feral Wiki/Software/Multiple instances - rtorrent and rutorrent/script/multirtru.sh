@@ -1,6 +1,6 @@
 #!/bin/bash
 # multirtru
-scriptversion="1.1.0"
+scriptversion="1.1.1"
 scriptname="multirtru"
 # randomessence
 #
@@ -91,34 +91,64 @@ then
 ####### Script Start #######
 ############################
 #
+    # Removal options start
     read -ep "Would you like to delete an existing custom instance and all related files and folders? [y]es or choose [n]o to skip: " removal
     echo
     if [[ "$removal" =~ ^[Yy]$ ]]
     then
         read -ep "Please tell me the suffix to use for removal of the rtorrent and rutorrent instances: " suffix
         echo
-        if [[ -f ~/.rtorrent-"$suffix".rc && -d ~/private/rtorrent-"$suffix" && -d ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix" ]]
+        #
+        screen -S rtorrent-"$suffix" -X quit > /dev/null 2>&1
+        echo "Custom instance has been shutdown: if it was running"
+        echo
+        if [[ -f ~/.rtorrent-"$suffix".rc ]]
         then
-            screen -S rtorrent-"$suffix" -X quit > /dev/null 2>&1
-            rm -f ~/.rtorrent-"$suffix".rc 
-            rm -rf ~/private/rtorrent-"$suffix" 
-            rm -rf ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"
-            if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
-            then
-                rm -f ~/.nginx/conf.d/000-default-server.d/scgi-"$suffix"-htpasswd
-                rm -f ~/.nginx/conf.d/000-default-server.d/rtorrent-"$suffix".conf
-                rm -f ~/.nginx/conf.d/000-default-server.d/rtorrent-"$suffix"-rpc.conf
-                /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
-            fi
-            sed -i '/screen -fa -dmS rtorrent-'"$suffix"' rtorrent -n -o import=~\/.rtorrent-'"$suffix"'.rc/d' ~/multirtru.restart.txt
-            sed -i '/^$/d' ~/multirtru.restart.txt
-            echo "Done"
-            bash ~/multirtru.sh
+            rm -f ~/.rtorrent-"$suffix".rc
+            echo "~/.rtorrent-$suffix.rc has been removed"
+            echo
         else
-            echo "The suffix is incorrect and the related files and folders do not exist"
-            bash ~/multirtru.sh
+            echo "~/.rtorrent-$suffix.rc file not found, skipping"
+            echo
         fi
+        #
+        if [[ -d ~/private/rtorrent-"$suffix" ]]
+        then
+            rm -rf ~/private/rtorrent-"$suffix"
+            echo "~/private/rtorrent-$suffix has been removed"
+            echo
+        else
+            echo "~/private/rtorrent-$suffix not found, skipping"
+            echo
+        fi
+        #
+        if [[ -d ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix" ]]
+        then
+            rm -rf ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"
+            echo "~/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix has been removed"
+            echo
+        else
+            echo "~/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix not found, skipping"
+            echo
+        fi
+        #
+        if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+        then
+            rm -f ~/.nginx/conf.d/000-default-server.d/scgi-"$suffix"-htpasswd
+            rm -f ~/.nginx/conf.d/000-default-server.d/rtorrent-"$suffix".conf
+            rm -f ~/.nginx/conf.d/000-default-server.d/rtorrent-"$suffix"-rpc.conf
+            /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
+            echo "Nginx related files have been removed and nginx has been reloaded"
+            echo
+        fi
+        sed -i '/screen -fa -dmS rtorrent-'"$suffix"' rtorrent -n -o import=~\/.rtorrent-'"$suffix"'.rc/d' ~/multirtru.restart.txt
+        sed -i '/^$/d' ~/multirtru.restart.txt
+        echo "Done"
+        # reload script to use removal options again or skip to installation
+        bash ~/multirtru.sh
     fi
+    # Removal options ends
+    # Installtation start
     echo -e "\033[31m""This script will create a new rutorrent and rtorrent instance using a suffix, for example:""\e[0m"
     echo
     echo -e "\033[32m""/public_html/rutorrent-1""\e[0m""," "\033[33m""~/.rtorrent-1.rc""\e[0m" "and" "\033[36m""~/private/rtorrent-1""\e[0m"
