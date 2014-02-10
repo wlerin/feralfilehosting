@@ -1,7 +1,8 @@
 
 **Important notice:** These custom installations are **NOT** restarted automatically. If you need to restart the process look for this file: `~/multirtru.restart.txt` in your slot root. This file has the custom restart commands for any custom installation you have created using the bash script. Copy and paste the command you need into your SSH window.
 
-### Bash script
+Bash script
+---
 
 This script will:
 
@@ -12,6 +13,7 @@ This script will:
 **5:** Start rtorrent in a screen using the unique `rtorrent.rc` for this instance.
 **6:** Create a file called `~/multirtru.restart.txt` in your slot root that contains the restart command for any custom installation you have created.
 **7:** If you are using nginx it will also create the `rpc` info required to use transdroid with this custom installation.
+**8:** Lets you delete a custom installation and all associated files and folders and reloads Apache/Nginx
 
 It will **NOT** damage your existing installation or overwrite custom instances if the same suffix is used.
 
