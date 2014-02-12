@@ -1,6 +1,6 @@
 #!/bin/bash
 # couchpotato
-scriptversion="1.0.1"
+scriptversion="1.0.2"
 scriptname="couchpotato"
 # randomessence
 #
@@ -29,6 +29,7 @@ scriptname="couchpotato"
 #
 mainport=$(shuf -i 6001-49000 -n 1)
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/CouchPotato%20-%20An%20automatic%20NZB%20and%20torrent%20downloader%20for%20Films/scripts/couchpotato.sh"
+giturl="https://github.com/RuudBurger/CouchPotatoServer.git"
 #
 ############################
 ####### Variable End #######
@@ -95,12 +96,13 @@ then
 ############################
 #
 echo "Downloading and configuring some files..."
+echo
 if [[ -f ~/.couchpotato/couchpotato.pid ]]
 then
     kill $(cat ~/.couchpotato/couchpotato.pid)
 fi
 rm -rf ~/CouchPotatoServer
-git clone -q https://github.com/RuudBurger/CouchPotatoServer.git
+git clone -q "$giturl"
 cp -rf ~/CouchPotatoServer/. ~/.couchpotato
 rm -rf ~/CouchPotatoServer
 echo -e "[core]\nhost = 0.0.0.0\nport = $mainport\nlaunch_browser = 0\nurl_base = /$(whoami)/couchpotato" > ~/.couchpotato/settings.conf
@@ -116,7 +118,7 @@ echo "Visit this URL to finish the set up wizard"
 echo
 echo "https://$(hostname)/$(whoami)/couchpotato"
 echo
-echo "It may take a few minutes for the program to load properly in the URL"
+echo -e "\033[31m""It may take a few minutes for the program to load properly in the URL." "\033[32m""Pressing F5 in your browser can help.""\e[0m"
 echo
 #
 ############################
