@@ -1,6 +1,6 @@
 #!/bin/bash
 # multirtru
-scriptversion="1.1.1"
+scriptversion="1.1.2"
 scriptname="multirtru"
 # randomessence
 #
@@ -172,6 +172,8 @@ then
             mkdir -p ~/private/rtorrent-"$suffix"/data ~/private/rtorrent-"$suffix"/watch ~/private/rtorrent-"$suffix"/work
             # Copy the Feral rutorrent template
             cp -rf /opt/rutorrent/current/. ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"
+            # Make sure rtorrent adder will work with nginx by creating this folder.
+            mkdir -p ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/share/torrents
             # Download and install the Feral stats plugin
             wget -qO ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/plugins/feralstats.zip http://git.io/nB1WyA
             unzip -qo ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/plugins/feralstats.zip -d ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/plugins/
