@@ -1,9 +1,10 @@
 #!/bin/bash
 # weechat installation
-# wget -qO ~/weechat.sh http://git.io/L6oalA && bash ~/weechat.sh
-scriptversion="1.0.1"
-scriptname="weechat"
+scriptversion="1.0.2"
+scriptname="install.weechat"
 # randomessence
+#
+# wget -qO ~/weechat.sh http://git.io/L6oalA && bash ~/weechat.sh
 #
 ############################
 ## Version History Starts ##
@@ -11,24 +12,23 @@ scriptname="weechat"
 #
 # How do I customise this updater? 
 # 1: scriptversion="0.0.0" replace "0.0.0" with your script version. This will be shown to the user at the current version.
-# 2: scriptname="weechat" replace "weechat" with your script name. this will be shown to the user when they first run the script.
-# 3: Search and replace all instances of "weechat", 29 including this one, with the name of your script, do not include the .sh aside from doing step 2.
-# 4: Then replace ALL "https://raw.github.com/feralhosting" with the URL to the RAW script URL.
-# 5: Insert you script in the "Script goes here" labelled section 
+# 2: scriptname="somescript" replace "somescript" with your script name. Make it unique to this script.
+# 3: Set the scripturl variable in the variable section to the RAW github URl of the script for updating.
+# 4: Insert your script in the "Script goes here" labelled section 
 #
-# This updater deals with updating two files at the same time, the  "~/weechat.sh" and the "~/bin/weechat" . You can remove one part of the updater, if you wish, to focus on a single file instance.
+# This updater deals with updating two files at the same time, the  "~/somescript.sh" and the "~/bin/somescript".
+# This updater deals with updating two files at the same time, the  "~/somescript.sh" and the "~/bin/somescript".
 #
 ############################
 ### Version History Ends ###
 ############################
 #
-#
 ############################
 ###### Variable Start ######
 ############################
 #
-weechat="http://www.weechat.org/files/src/weechat-0.4.2.tar.gz"
-weechatfv="0.4.2"
+weechat="http://www.weechat.org/files/src/weechat-0.4.3.tar.gz"
+weechatfv="0.4.3"
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Weechat%20-%20IRC%20client%20basic%20setup/scripts/weechat.sh"
 #
 ############################
@@ -41,77 +41,72 @@ scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20W
 #
 mkdir -p "$HOME/bin"
 #
-if [[ ! -f "$HOME/weechat.sh" ]]
+if [[ ! -f "$HOME/$scriptname.sh" ]]
 then
-    wget -qO "$HOME/weechat.sh" "$scripturl"
+    wget -qO "$HOME/$scriptname.sh" "$scripturl"
 fi
-if [[ ! -f "$HOME/bin/weechat" ]]
+if [[ ! -f "$HOME/bin/$scriptname" ]]
 then
-    wget -qO "$HOME/bin/weechat" "$scripturl"
+    wget -qO "$HOME/bin/$scriptname" "$scripturl"
 fi
 #
-wget -qO "$HOME/000weechat.sh" "$scripturl"
+wget -qO "$HOME/000$scriptname.sh" "$scripturl"
 #
-if ! diff -q "$HOME/000weechat.sh" "$HOME/weechat.sh" > /dev/null 2>&1
-then
-    echo '#!/bin/bash
-    wget -qO "$HOME/weechat.sh" "'$scripturl'"
-    wget -qO "$HOME/bin/weechat" "'$scripturl'"
-    bash "$HOME/weechat.sh"
-    exit 1' > "$HOME/111weechat.sh"
-    bash "$HOME/111weechat.sh"
-    exit 1
-fi
-if ! diff -q "$HOME/000weechat.sh" "$HOME/bin/weechat" > /dev/null 2>&1
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO "$HOME/weechat.sh" "'$scripturl'"
-    wget -qO "$HOME/bin/weechat" "'$scripturl'"
-    bash "$HOME/weechat.sh"
-    exit 1' > "$HOME/222weechat.sh"
-    bash "$HOME/222weechat.sh"
+    scriptname="'"$scriptname"'"
+    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
+    bash "$HOME/$scriptname.sh"
+    exit 1' > "$HOME/111$scriptname.sh"
+    bash "$HOME/111$scriptname.sh"
     exit 1
 fi
-#
-echo
-echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
-echo
-#
-rm -f "$HOME/000weechat.sh" "$HOME/111weechat.sh" "$HOME/222weechat.sh"
-chmod -f 700 "$HOME/bin/weechat"
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" > /dev/null 2>&1
+then
+    echo '#!/bin/bash
+    scriptname="'"$scriptname"'"
+    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
+    bash "$HOME/$scriptname.sh"
+    exit 1' > "$HOME/222$scriptname.sh"
+    bash "$HOME/222$scriptname.sh"
+    exit 1
+fi
 #
 ############################
 ##### Self Updater End #####
 ############################
 #
+echo
+echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
+echo
+#
+cd && rm -f {000,111,222}"$scriptname.sh"
+chmod -f 700 "$HOME/bin/$scriptname"
+#
 read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " updatestatus
 echo
-if [[ $updatestatus =~ ^[Yy]$ ]]
+if [[ "$updatestatus" =~ ^[Yy]$ ]]
 then
 #
 ############################
 ####### Script Start #######
 ############################
 #
-# 1
-#
-mkdir -p ~/programs
-[[ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'export PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
-#
-# 2
-#
-wget -qO ~/weechat.tar.gz $weechat
-tar xf ~/weechat.tar.gz
-cd ~/weechat-$weechatfv
-sed -i 's/SET(CMAKE_SKIP_RPATH ON)//g' ~/weechat-$weechatfv/CMakeLists.txt
-cmake -DCMAKE_INSTALL_RPATH=/opt/curl/current/lib -DPREFIX=$HOME/programs -DCURL_LIBRARY=/opt/curl/current/lib/libcurl.so -DCURL_INCLUDE_DIR=/opt/curl/current/include
-make
-make install
-cd
-rm -rf ~/weechat.tar.gz ~/weechat-$weechatfv
-echo
-echo "Done. Continue with the rest of the FAQ to configure weechat"
-echo
+	wget -qO ~/weechat.tar.gz "$weechat"
+	tar xf ~/weechat.tar.gz
+	cd ~/weechat-"$weechatfv"
+	sed -i 's/SET(CMAKE_SKIP_RPATH ON)//g' ~/weechat-"$weechatfv"/CMakeLists.txt
+	cmake -DCMAKE_INSTALL_RPATH=/opt/curl/current/lib -DPREFIX="$HOME" -DCURL_LIBRARY=/opt/curl/current/lib/libcurl.so -DCURL_INCLUDE_DIR=/opt/curl/current/include
+	make
+	make install
+	cd
+	rm -rf ~/weechat.tar.gz ~/weechat-"$weechatfv"
+	echo
+	echo "Done. Continue with the rest of the FAQ to configure weechat"
+	echo
 #
 ############################
 ####### Script Ends  #######
@@ -119,6 +114,7 @@ echo
 #
 else
     echo -e "You chose to exit after updating the scripts."
-    exit 1
+    echo
     cd && bash
+    exit 1
 fi
