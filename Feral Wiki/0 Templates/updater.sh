@@ -4,6 +4,8 @@ scriptversion="0.0.0"
 scriptname="somescript"
 # Author name
 #
+# Bash Command
+#
 ############################
 ## Version History Starts ##
 ############################
