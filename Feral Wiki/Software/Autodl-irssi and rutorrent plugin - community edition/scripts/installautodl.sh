@@ -1,19 +1,16 @@
 #!/bin/bash
 # installautodl.sh
-scriptversion="1.2.9"
+scriptversion="1.3.0"
 scriptname="installautodl"
 # Bobtentpeg, randomessence
 #
 # wget -qO ~/installautodl.sh http://git.io/Ch0LqA && bash ~/installautodl.sh
 #
-# Install and configure Autodl-irssi and its rutorrent plugin
-# FeralHosting  || www.feralhosting.com
-# Feral Hosting is a small team of individuals working towards managed solutions for a variety of problems focusing on minimal systems that can do more.
-#
 ############################
 ## Version History Starts ##
 ############################
 #
+# v1.3.0 - URLs updated as google code is being phased out.
 # v1.2.9 - modernised
 # v1.2.8 - removes autodl files before installing. Clean install. No longer overwrites existing autodl.cfg if present when reinstalling
 # v1.2.7 - also gets and installs most current tracker list
@@ -32,17 +29,23 @@ scriptname="installautodl"
 ### Version History Ends ###
 ############################
 #
-#
 ############################
 ###### Variable Start ######
 ############################
 #
+# Bitbucket URLs for the core files.
+autodlirssicommunity="https://bitbucket.org/autodl-community/autodl-irssi/downloads/autodl-irssi-community.zip"
+autodltrackers="https://bitbucket.org/autodl-community/autodl-irssi/downloads/autodl-trackers.zip"
+# URL for autodl-rutorrent
+autodlrutorrent="https://github.com/autodl-community/autodl-rutorrent/archive/master.zip"
 # Uses shuf to pick a random port between 6000 and 50000
 port=$(shuf -i 6000-50000 -n 1)
 # sets of two new variables to make things easier in the echo
 autodlPort='$autodlPort'
 autodlPassword='$autodlPassword'
+# Random password generation
 pass=$(< /dev/urandom tr -dc '12345!@#ANCDEFGHIJKLMNOPabcdefghijklmnop' | head -c${1:-20};echo;)
+# Raw script URL for self updating
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/installautodl.sh"
 #
 ############################
@@ -158,8 +161,8 @@ then
                 rm -rf ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi
                 echo "Downloading autodl-irssi"
                 # Downloads the newest  RELEASE version  of the autodl community edition and saves it as a zip file
-                wget -qO ~/autodl-irssi.zip https://autodl-irssi-community.googlecode.com/files/autodl-irssi-community.zip
-                wget -qO ~/autodl-trackers.zip https://autodl-irssi-community.googlecode.com/files/autodl-trackers.zip
+                wget -qO ~/autodl-irssi.zip "$autodlirssicommunity"
+                wget -qO ~/autodl-trackers.zip "$autodltrackers"
                 echo "autodl-irssi download finished"
                 # Unzips the files downloaded above
                 echo "Unzipping"
@@ -171,7 +174,7 @@ then
                 echo "Moving files around"
                 cp -f ~/.irssi/scripts/autodl-irssi.pl ~/.irssi/scripts/autorun/ 
                 rm -f ~/autodl-irssi.zip ~/.irssi/scripts/README* ~/autodl-irssi.zip ~/.irssi/scripts/CONTRIBUTING.md ~/.irssi/scripts/autodl-irssi.pl ~/autodl-trackers.zip
-                # Uses echo to make our autodl.cfg config file.  Takes the two previously made variables, $port and $pass to  populate per user
+                # Uses echo to make our autodl.cfg config file. Takes the two previously made variables, $port and $pass to populate per user
                 echo "Writing configuration files"
                 if [[ -f ~/.autodl/autodl.cfg ]]
                 then
@@ -190,7 +193,7 @@ then
                 cd ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/
                 # Downloads the latest version of the autodl-irssi plugin
                 echo "Downloading autodl-irssi Rutorrent plugin"
-                wget -qO autodl-rutorrent.zip https://github.com/autodl-community/autodl-rutorrent/archive/master.zip
+                wget -qO autodl-rutorrent.zip "$autodlrutorrent"
                 echo "Plugin download finished"
                 unzip -qo autodl-rutorrent.zip
                 cp -rf autodl-rutorrent-master/. autodl-irssi
