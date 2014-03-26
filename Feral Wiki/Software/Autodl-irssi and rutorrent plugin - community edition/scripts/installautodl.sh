@@ -254,6 +254,7 @@ then
     killall -9 -u $(whoami) irssi 2> /dev/null 
     screen -wipe > /dev/null 2>&1
     screen -dmS autodl irssi
+	screen -S autodl -p 0 -X stuff '/autodl update^M'
     echo -e "\033[32m""Checking we have started irssi or if there are multiple screens/processes""\e[0m"
     echo -e "\033[31m"
     screen -ls | grep autodl
