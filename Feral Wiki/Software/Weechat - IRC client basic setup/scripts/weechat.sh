@@ -111,6 +111,7 @@ then
 		echo
 	else
 		echo "Cmake is not installed. Please Complete Step 1 of the FAQ before running this script"
+		echo
 	fi
 #
 ############################
