@@ -55,7 +55,7 @@ We highly recommend that you perform a clean install when switching from the off
 killall -9 irssi -u $(whoami); screen -wipe
 cp -f ~/.autodl/autodl.cfg ~/.autodl/autodl.cfg.bak
 cd && rm -rf .irssi/scripts/AutodlIrssi .irssi/scripts/autorun/autodl-irssi.pl
-cd && www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi
+cd && rm -rf www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi
 ~~~
 
 Automated installation
@@ -77,7 +77,7 @@ Manual installation
 ~~~
 mkdir -p ~/.irssi/scripts/autorun ~/.autodl
 echo -e "[options]\ngui-server-port = 0\ngui-server-password = PASS" > ~/.autodl/autodl.cfg
-wget -qO ~/autodl-irssi.zip https://autodl-irssi-community.googlecode.com/files/autodl-irssi-community.zip
+wget -qO ~/autodl-irssi.zip https://bitbucket.org/autodl-community/autodl-irssi/downloads/autodl-irssi-community.zip
 unzip -qo ~/autodl-irssi.zip -d ~/.irssi/scripts/
 cp -f ~/.irssi/scripts/autodl-irssi.pl ~/.irssi/scripts/autorun/
 cd && rm -f autodl-irssi.zip .irssi/scripts/{README*,autodl-irssi.pl,CONTRIBUTING.md}
