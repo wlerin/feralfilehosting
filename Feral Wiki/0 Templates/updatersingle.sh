@@ -4,6 +4,8 @@ scriptversion="0.0.0"
 scriptname="somescript"
 # Author name
 #
+# Bash Command
+#
 ############################
 ## Version History Starts ##
 ############################
@@ -14,7 +16,7 @@ scriptname="somescript"
 # 3: Set the scripturl variable in the variable section to the RAW github URl of the script for updating.
 # 4: Insert your script in the "Script goes here" labelled section
 #
-# This updater deals with updating a single file, the  "~/somescript.sh".
+# This updater deals with updating a single file, the "~/somescript.sh".
 #
 ############################
 ### Version History Ends ###

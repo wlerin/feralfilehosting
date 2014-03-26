@@ -14,7 +14,7 @@ scriptname="somescript"
 # 1: scriptversion="0.0.0" replace "0.0.0" with your script version. This will be shown to the user at the current version.
 # 2: scriptname="somescript" replace "somescript" with your script name. Make it unique to this script.
 # 3: Set the scripturl variable in the variable section to the RAW github URl of the script for updating.
-# 4: Insert your script in the "Script goes here" labelled section 
+# 4: Insert your script in the "Script goes here" labelled section
 #
 # This updater deals with updating two files at the same time, the  "~/somescript.sh" and the "~/bin/somescript".
 # This updater deals with updating two files at the same time, the  "~/somescript.sh" and the "~/bin/somescript".
