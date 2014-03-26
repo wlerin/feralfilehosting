@@ -99,6 +99,7 @@ then
 		killall -u $(whoami) irssi
 		echo "Restarting Irssi for the changes to take effect"
 		screen -dmS autodl irssi
+		screen -S autodl -p 0 -X stuff '/autodl update^M'
 		echo "done"
 		echo
 		screen -ls | grep autodl
