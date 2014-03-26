@@ -1,6 +1,6 @@
 #!/bin/bash
 # installautodl.sh
-scriptversion="1.3.0"
+scriptversion="1.3.1"
 scriptname="installautodl"
 # Bobtentpeg, randomessence
 #
@@ -10,6 +10,7 @@ scriptname="installautodl"
 ## Version History Starts ##
 ############################
 #
+# v1.3.1 - updater template merged
 # v1.3.0 - URLs updated as google code is being phased out.
 # v1.2.9 - modernised
 # v1.2.8 - removes autodl files before installing. Clean install. No longer overwrites existing autodl.cfg if present when reinstalling

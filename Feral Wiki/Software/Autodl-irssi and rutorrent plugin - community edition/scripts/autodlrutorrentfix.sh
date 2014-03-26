@@ -1,6 +1,6 @@
 #!/bin/bash
 # autodlrutorrentfix.sh
-scriptversion="1.0.5"
+scriptversion="1.0.6"
 scriptname="autodlrutorrentfix"
 # randomessence
 #
@@ -10,12 +10,11 @@ scriptname="autodlrutorrentfix"
 ## Version History Starts ##
 ############################
 #
-# 1.0.4 modernised.
+# v1.0.6 updater template merged
 #
 ############################
 ### Version History Ends ###
 ############################
-#
 #
 ############################
 ###### Variable Start ######
@@ -33,58 +32,61 @@ scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20W
 #
 mkdir -p "$HOME/bin"
 #
-if [[ ! -f "$HOME/autodlrutorrentfix.sh" ]]
+if [[ ! -f "$HOME/$scriptname.sh" ]]
 then
-    wget -qO "$HOME/autodlrutorrentfix.sh" "$scripturl"
+    wget -qO "$HOME/$scriptname.sh" "$scripturl"
 fi
-if [[ ! -f "$HOME/bin/autodlrutorrentfix" ]]
+if [[ ! -f "$HOME/bin/$scriptname" ]]
 then
-    wget -qO "$HOME/bin/autodlrutorrentfix" "$scripturl"
+    wget -qO "$HOME/bin/$scriptname" "$scripturl"
 fi
 #
-wget -qO "$HOME/000autodlrutorrentfix.sh" "$scripturl"
+wget -qO "$HOME/000$scriptname.sh" "$scripturl"
 #
-if ! diff -q "$HOME/000autodlrutorrentfix.sh" "$HOME/autodlrutorrentfix.sh" > /dev/null 2>&1
-then
-    echo '#!/bin/bash
-    wget -qO "$HOME/autodlrutorrentfix.sh" "'"$scripturl"'"
-    wget -qO "$HOME/bin/autodlrutorrentfix" "'"$scripturl"'"
-    bash "$HOME/autodlrutorrentfix.sh"
-    exit 1' > "$HOME/111autodlrutorrentfix.sh"
-    bash "$HOME/111autodlrutorrentfix.sh"
-    exit 1
-fi
-if ! diff -q "$HOME/000autodlrutorrentfix.sh" "$HOME/bin/autodlrutorrentfix" > /dev/null 2>&1
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO "$HOME/autodlrutorrentfix.sh" "'"$scripturl"'"
-    wget -qO "$HOME/bin/autodlrutorrentfix" "'"$scripturl"'"
-    bash "$HOME/autodlrutorrentfix.sh"
-    exit 1' > "$HOME/222autodlrutorrentfix.sh"
-    bash "$HOME/222autodlrutorrentfix.sh"
+    scriptname="'"$scriptname"'"
+    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
+    bash "$HOME/$scriptname.sh"
+    exit 1' > "$HOME/111$scriptname.sh"
+    bash "$HOME/111$scriptname.sh"
     exit 1
 fi
-#
-echo
-echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
-echo
-#
-cd && rm -f {000,111,222}autodlrutorrentfix.sh
-chmod -f 700 "$HOME/bin/autodlrutorrentfix"
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" > /dev/null 2>&1
+then
+    echo '#!/bin/bash
+    scriptname="'"$scriptname"'"
+    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
+    bash "$HOME/$scriptname.sh"
+    exit 1' > "$HOME/222$scriptname.sh"
+    bash "$HOME/222$scriptname.sh"
+    exit 1
+fi
+cd && rm -f {000,111,222}"$scriptname.sh"
+chmod -f 700 "$HOME/bin/$scriptname"
 #
 ############################
 ##### Self Updater End #####
 ############################
 #
-read -ep "The script has been updated, do you wish to continue [y] or exit now [q] : " updatestatus
+############################
+#### Core Script Starts ####
+############################
+echo
+echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
+echo
+read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " updatestatus
 echo
 if [[ "$updatestatus" =~ ^[Yy]$ ]]
 then
 #
 ############################
-####### Script Start #######
+#### User Script Starts ####
 ############################
-    #
+#
     if [[ -d "$HOME/.irssi/scripts/AutodlIrssi" ]]
     then
         echo -e "\033[33m""Autodl Before""\e[0m"
@@ -140,13 +142,17 @@ then
     echo -e "This fix might have to be run each time you update/overwrite the autodl or autodl-rutorrent files."
     echo
     exit 1
-    #
+#
 ############################
-####### Script Ends  #######
+##### User Script End  #####
 ############################
 #
 else
     echo -e "You chose to exit after updating the scripts."
+    echo
     cd && bash
     exit 1
 fi
+############################
+##### Core Script Ends #####
+############################
