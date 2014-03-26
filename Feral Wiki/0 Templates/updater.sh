@@ -72,31 +72,32 @@ then
     bash "$HOME/222$scriptname.sh"
     exit 1
 fi
+cd && rm -f {000,111,222}"$scriptname.sh"
+chmod -f 700 "$HOME/bin/$scriptname"
 #
 ############################
 ##### Self Updater End #####
 ############################
 #
+############################
+#### Core Script Starts ####
+############################
 echo
 echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
 echo
-#
-cd && rm -f {000,111,222}"$scriptname.sh"
-chmod -f 700 "$HOME/bin/$scriptname"
-#
 read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " updatestatus
 echo
 if [[ "$updatestatus" =~ ^[Yy]$ ]]
 then
 #
 ############################
-####### Script Start #######
+#### User Script Starts ####
 ############################
 #
 #
 #
 ############################
-####### Script Ends  #######
+##### User Script End  #####
 ############################
 #
 else
@@ -105,3 +106,6 @@ else
     cd && bash
     exit 1
 fi
+############################
+##### Core Script Ends #####
+############################
