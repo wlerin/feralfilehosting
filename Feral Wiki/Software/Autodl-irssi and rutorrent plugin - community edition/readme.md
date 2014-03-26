@@ -147,13 +147,17 @@ screen -r autodl
 
 **Using rutorrent autodl-irssi plugin:**
 
-[http://code.google.com/p/rutorrent/wiki/PluginAutodlirssi#Usage](http://code.google.com/p/rutorrent/wiki/PluginAutodlirssi#Usage)
+Check out the Wiki Page.
+
+[https://github.com/autodl-community/autodl-irssi/wiki/_pages](https://github.com/autodl-community/autodl-irssi/wiki/_pages)
 
 ** Updating **
 
 If you are running the autodl-irssi-community version (installed here) and `NOT` the autodl-irssi version from months ago, you can update to the latest plugin version by re-running these steps, or running the following command in irssi:
 
-**Important note:** If you update the program you will have to apply the fix at the top of this FAQ again.
+**Important note:** If you update the core program files (not just not the trackers) you will have to run the fix script at the top of this FAQ again.
+
+Inside the screen you would type this into `irssi`:
 
 ~~~
 /autodl update
