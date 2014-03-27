@@ -1,3 +1,4 @@
+
 Tired of seeing everything in the wrong timezone? irssi in particular annoyed me, so here's a fix for everyone.
 
 To set your personal timezone on your slot for your user, use the following command.
@@ -31,7 +32,7 @@ echo 'export TZ="/usr/share/zoneinfo/Europe/London"' >> ~/.bashrc
 Then type this and press enter to reload your shell:
 
 ~~~
-source ~/.bashrc
+bash
 ~~~
 
 Restart bash/screen/session and your timezone will be updated. 

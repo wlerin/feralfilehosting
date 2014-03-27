@@ -18,7 +18,7 @@ This script basically does 3 things.
 
 If anything, you can just do stage one to get a working command. Remember, you run this script on your **NEW** slot. It copies files from your old slot to the new. The process is started and runs on the new slot.
 
-rysnc Intro
+Manual steps: rysnc Intro
 ---
 
 Let us say that you have just purchased an upgraded slot and would like to move files over from the old slot over to your newer slot. This can be done through a ticket and usually is, but here I will explain how to do this partially or completely by yourself in SSH with very reliable results using a program called screen with another program called rsync.
@@ -175,26 +175,26 @@ Here is the command broken down.
 -avhPS
 ~~~
 
--a, --archive       archive mode; equals -rlptgoD (no -H,-A,-X)
+`-a`, `--archive`   archive mode; equals `-rlptgoD` (no `-H`,`-A`,`-X`)
 
--r, --recursive     recurse into directories
--l, --links         copy symlinks as symlinks
--p, --perms         preserve permissions
--t, --times         preserve modification times
--g, --group         preserve group
--o, --owner         preserve owner (super-user only)
--D                  same as --devices --specials
+`-r`, `--recursive` recurse into directories
+`-l`, `--links`     copy symlinks as symlinks
+`-p`, `--perms`     preserve permissions
+`-t`, `--times`     preserve modification times
+`-g`, `--group`    preserve group
+`-o`, `--owner`     preserve owner (super-user only)
+`-D`, same as `--devices --specials`
 
--v, --verbose       increase verbosity
--h, --human-readableoutput numbers in a human-readable format
--P                  same as --partial --progress
--S, --sparse        handle sparse files efficiently
+`-v`, `--verbose`   increase verbosity
+`-h`, `--human-readableoutput` numbers in a human-readable format
+`-P`, same as `--partial --progress`
+`-S`, `--sparse`   handle sparse files efficiently
 
 **Optional arguments**
 
--n, --dry-run       perform a trial run with no changes made
--c, --checksum      skip based on checksum, not mod-time & size
--z, --compress      compress file data during the transfer
+`-n`, `--dry-run`   perform a trial run with no changes made
+`-c`, `--checksum`  skip based on checksum, not mod-time & size
+`-z`, `--compress`  compress file data during the transfer
 
 ~~~
 -anczvhPS

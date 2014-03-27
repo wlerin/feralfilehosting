@@ -1,4 +1,3 @@
-
 This is a bash script that uses the Linux `dd` command to split files into several smaller files and then merge them together using the cat command.
 
 First off, to be able to use the script from any directory you might be in, the catalog where the script is in should be included in the PATH environment variable. The easiest way to make that happen is actually to create a bin folder in your home catalog and then put the script there. 
@@ -99,7 +98,7 @@ To add the command to WinSCP Custom Commands, add this line:
 ~~~
 fsplit "!" "!?File -S:?50000!"
 ~~~
- 
+
 It will give you a pop-box where you can change the split size. 
 For more WinSCP Custom Commands, please see [this FAQ](https://www.feralhosting.com/faq/view?question=27).
 

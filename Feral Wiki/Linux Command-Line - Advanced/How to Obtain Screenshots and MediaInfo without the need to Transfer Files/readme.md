@@ -16,36 +16,34 @@ Don't type the whole name, just the first few letters and press tab. Let autocom
 **1: To prepare mediainfo:** 
  
 ~~~
-mediainfo filename.mkv/avi > mediainfo.txt
+mediainfo filename.avi > filename.txt
 ~~~
 
-You'll find mediainfo.txt in the folder you ran the command in. Remember, autocomplete is your friend. 
+You'll find filename.txt in the folder you ran the command in. Remember, autocomplete is your friend. 
 
 **2: To prepare Screenshots:** 
 
-**Important note:**  You can use[http://ffmpeg.gusari.org/static/64bit/]Static ffmpeg builds if needed.](http://ffmpeg.gusari.org/static/64bit/]Static ffmpeg builds if needed.)
+**Important note:**  You can use [Static ffmpeg builds](https://www.feralhosting.com/faq/view?question=268) if needed.)
 
 ~~~
-ffmpeg -ss 00:05:00 -vframes 1 -i "Filename.avi/mkv" -y -f image2 "screenshot1.png"
-ffmpeg -ss 00:10:00 -vframes 1 -i "Filename.avi/mkv" -y -f image2 "screenshot2.png"
-ffmpeg -ss 00:15:00 -vframes 1 -i "Filename.avi/mkv" -y -f image2 "screenshot3.png"
+ffmpeg -ss 00:05:00 -vframes 1 -i "Filename.avi" -y -f image2 "screenshot1.png"
+ffmpeg -ss 00:10:00 -vframes 1 -i "Filename.avi" -y -f image2 "screenshot2.png"
+ffmpeg -ss 00:15:00 -vframes 1 -i "Filename.avi" -y -f image2 "screenshot3.png"
 ~~~
 
 or
 
-**Important note:** If mplayer shows "command not found" you will need to open a ticket and ask staff to install it.
+**Important note:** If `mplayer` shows `command not found` you will need to open a ticket and ask staff to install it.
 
 ~~~
-mplayer "Filename.avi/mkv" -nosound -vo png:z=0 -ss 360 -frames 1
-mplayer "Filename.avi/mkv" -nosound -vo png:z=0 -ss 600 -frames 1
-mplayer "Filename.avi/mkv" -nosound -vo png:z=0 -ss 900 -frames 1
+mplayer "Filename.avi" -nosound -vo png:z=0 -ss 360 -frames 1
+mplayer "Filename.avi" -nosound -vo png:z=0 -ss 600 -frames 1
+mplayer "Filename.avi" -nosound -vo png:z=0 -ss 900 -frames 1
 ~~~
 
 (You will need a FTP Client to download the screens and mediainfo.txt)
 
-
-NOTE: Filenames with spaces in linux must have surrounding quotes for the filename parameter to be interpreted as a single parameter.
-
+**Important note:** Folder names with spaces will require that your wrap them in quotes, for example `"folder name"`
 
 
 

@@ -1,7 +1,8 @@
 
 This FAQ will explain, how you can sync specific folders to a raspberry pi, using cron and rsync. Furthermore, this guide stands out, when we come to the cron part. In most setups, you will not be able to see the ETA / download speed, if it’s a cronjob running it. This was made possible, from the help of **konichiwa** and **ozymandias**. In addition, we will be running the crontab in sudo, as this can come in handy, if you want to add different jobs, like restarting the pi. However, this is optional. 
 
-### Step 1: SSH into your pi
+Step 1: SSH into your pi
+---
 
 I strongly recommend to SSH into your pi, so you can just copy and paste the code, directly to the pi.
 
@@ -43,7 +44,8 @@ Go ahead, and unplug the pi form you monitor, as well as your keyboard.
 
 To do that, follow this guide: [SSH](https://www.feralhosting.com/faq/view?question=12). Just replace `server.feralhosting.com`, with the IP of your raspberry pi.
 
-### Step 2: Installing rsync
+Step 2: Installing rsync
+---
 
 Since I want to make this using `sudo`, i will do this:
 
@@ -81,7 +83,8 @@ sudo apt-get install rsync
 
 We will leave that for now, since we will make the SSH-keys first.
 
-### Step 3: Install SSH-keys
+Step 3: Install SSH-keys
+---
 
 We want SSH-keys with no passphrase, since it is supposed to do the sync by its own, automatically.
 
@@ -124,7 +127,8 @@ sudo ssh-copy-id -i /root/.ssh/id_rsa.pub user@server.feralhosting.com
 
 Done with the SSH-keys.
 
-### Step 4: Making the rsync script
+Step 4: Making the rsync script
+---
 
 We want to make many of these commands, and we want them to be run every 5 min. But if we simply put this into cron, cron will run it every 5 min. Since it’s unlikely that the first will be done in 5 min, multiple rsync’s will begin, downloading the same file. Then finally crash the pi. We would very much wan, to avoid this:
 
@@ -176,7 +180,8 @@ What this basically does `--chmod=a+rwx`, is setting the permissions on the down
 What the –delete parameter does, is to delete the files on the pi, if they are deleted from the seedbox. If you don’t want this, you can simply remove the `–delete` parameter, and the pi won’t delete anything, only download.
 What is the `2>&1 >` for? That I will explain later. But it’s related to our little cron trick. 
 
-### Step 5: The cron trick
+Step 5: The cron trick
+---
 
 I will first explain what exactly it does. The `2>&1 >` is a part of a log writing progress. If you write the rsync directly in the terminal, you would see the download speed, / size / ETA. We still want to be able to do this, even though it is being run automatically. `2>&1 >` will write a log, to `/home/pi/SB_sync_logs/1.name.of.folder.log`, containing the same info, as if it was being run manually in the terminal. So we will be able to see, how long the individual download is. Since the `.log` is being kept writing to, just close the log, and open it again, and it will be updated. The > at the end, means that it will overwrite the .log file, when it is being run again. That way we wont get a super long log file. IF you want a super long log file, just add an extra `>`. So it would be  `2>&1 >>`. I strongly recommend, not doing this though.
 
@@ -243,7 +248,8 @@ Please notice, that ONLY the first `echo "Syncing my folder" > /home/pi/SB_sync.
 
 Then press and hold `CTRL` and then press `x` to save. Press `y` to confirm.
 
-### Step 6: Check the script
+Step 6: Check the script
+---
 
 Okay, so now we want to see if the script actually works. The first time it is used, you will have to accept feralhosting’s fingerprint. Else cron won’t be able to run it. The smart thing with our cron logs, is that it does not only show progress, it also shows errors. This can come in very handy.
 
@@ -257,7 +263,8 @@ $HOME/scripts/SB_sync
 
 Then accept feralhosting’s fingerprint. When the sync then starts, just cancel it again. Hold `CTRL` and then press `c` to do that. 
 
-### Step 7: flock
+Step 7: flock
+---
 
 As said earlier, we only want this script run, if it aint already running. To do that, we need to modify our cron job, in the cron tab. 
 
@@ -282,7 +289,8 @@ Credit to konichiwa, and ozymandias, for helping out with the technical stuff.
 
 -by Zeroz
 
-### Helpful pictures
+Helpful pictures
+---
 
 **How the overall log file looks**
 
@@ -298,7 +306,8 @@ The file will grow longer, the longer the script goes, and eventually say `Synci
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Linux%20Command-Line%20-%20Advanced/Raspberry%20Pi%20-%20Sync%20with%20rysnc/4.4.png)
 
-### Troubleshooting 
+Troubleshooting
+---
 
 **Are you having problems with permissions?**
 
