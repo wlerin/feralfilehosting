@@ -38,6 +38,8 @@ where `user-name` is your Feral user-name and `server` is the name of the Feral 
 
 Now we enter the SSH command to connect to the slot, where `username` is your Feral username and `server` is the name of the server you wish to SSH into:
 
+**Important note:** Folder names with spaces will require that your wrap them in quotes, for example `"folder name"`.
+
 ~~~
 peterpan@aphrodite.feralhosting.com
 ~~~
