@@ -25,7 +25,7 @@ screen -dmS rtorrent rtorrent
 **Step 4.** Install the necessary Python library
 
 ~~~
- easy_install --user gntp
+easy_install --user gntp
 ~~~
 
 **Step 5.**. Edit growltorrent.py to include the appropriate information.
@@ -34,8 +34,8 @@ Replace hostname with your IP address. The password field is optional (remove th
 
 ~~~
 CONFIG = {
-        "hostname": "123.45.67.89",
-        "password": "test"
+    "hostname": "123.45.67.89",
+    "password": "test"
 }
 ~~~
 
@@ -55,3 +55,6 @@ You can test your setup with the following commands
 ./growltorrent.py --finished "OMG A TORRENT FINISHED"
 ./growltorrent.py --inserted-new "OMG A TORRENT WAS ADDED"
 ~~~
+
+
+
