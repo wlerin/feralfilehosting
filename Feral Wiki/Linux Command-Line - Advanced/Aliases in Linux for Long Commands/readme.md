@@ -1,5 +1,6 @@
 
-###  Aliases Overview
+Aliases Overview
+---
 
 One of the great conveniences in Linux is the ability to set-up aliases for commands. When you have a command that you find yourself typing in frequently, it is a perfect candidate for an alias.
 
@@ -11,7 +12,8 @@ du ~/ -s --si
 
  While some people have really good memories and can remember all the switches easily, I do not. So I created an alias for it, called `space`. Now all I have to type is the word `space` in the shell and it executes the long command for me.
 
-### How to setup an Alias
+How to setup an Alias
+---
 
 To create an alias, you need to edit or create a file in your home directory, called `~/.bash_aliases`. Notice that this file starts with a dot. You may already have some aliases there that were automatically created by the system or the administrator. In this file, you will enter your alias definition, one per line: 
 
@@ -47,7 +49,8 @@ Once you have some aliases created a really quick way to review them is to just 
 
 **Important note:** Alias names should not have spaces in them. You can use an underscore to make multi-word aliases, for example: `alias some_alias`
 
-### Some More Examples
+Some More Examples
+---
 
 Here is some of my `~/.bash_aliases` file as an example. I will try to explain what each one does.
 
