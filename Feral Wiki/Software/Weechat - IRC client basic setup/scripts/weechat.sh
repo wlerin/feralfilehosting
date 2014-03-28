@@ -27,7 +27,9 @@ scriptname="install.weechat"
 ###### Variable Start ######
 ############################
 #
-scripturl="https://raw.github.com/feralhosting"
+weechat="http://www.weechat.org/files/src/weechat-0.4.3.tar.gz"
+weechatfv="0.4.3"
+scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Weechat%20-%20IRC%20client%20basic%20setup/scripts/weechat.sh"
 #
 ############################
 ####### Variable End #######
@@ -101,7 +103,7 @@ then
 		tar xf ~/weechat.tar.gz
 		cd ~/weechat-"$weechatfv"
 		sed -i 's/SET(CMAKE_SKIP_RPATH ON)//g' ~/weechat-"$weechatfv"/CMakeLists.txt
-		~/bin/cmake -DCMAKE_INSTALL_RPATH=/opt/curl/current/lib -DPREFIX="$HOME" -DCURL_LIBRARY=/opt/curl/current/lib/libcurl.so -DCURL_INCLUDE_DIR=/opt/curl/current/include
+		"$HOME"/bin/cmake -DCMAKE_INSTALL_RPATH=/opt/curl/current/lib -DPREFIX="$HOME" -DCURL_LIBRARY=/opt/curl/current/lib/libcurl.so -DCURL_INCLUDE_DIR=/opt/curl/current/include
 		make
 		make install
 		cd
