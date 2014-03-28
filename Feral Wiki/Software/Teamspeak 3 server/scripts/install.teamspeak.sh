@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Install Teamspeak 3
-scriptversion="1.1.4"
+scriptversion="1.1.5"
 teamspeakversion="3.0.10.3"
 scriptname="install.teamspeak"
 # randomessence 27/04/2013
@@ -29,6 +29,7 @@ scriptname="install.teamspeak"
 # v 1.1.2 3.0.10.2
 # v 1.1.3 3.0.10.3
 # v 1.1.4 updater tweaked
+# v 1.1.5 template updated
 #
 ############################
 ### Version History Ends ###
@@ -53,10 +54,8 @@ scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20W
 ############################
 #
 ############################
-####### Script Start #######
+#### Self Updater Start ####
 ############################
-#
-###### Self Updater Starts
 #
 mkdir -p "$HOME/bin"
 #
@@ -93,11 +92,6 @@ then
     bash "$HOME/222$scriptname.sh"
     exit 1
 fi
-#
-echo
-echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
-echo
-#
 cd && rm -f {000,111,222}"$scriptname.sh"
 chmod -f 700 "$HOME/bin/$scriptname"
 #
@@ -105,13 +99,20 @@ chmod -f 700 "$HOME/bin/$scriptname"
 ##### Self Updater End #####
 ############################
 #
+############################
+#### Core Script Starts ####
+############################
+#
+echo
+echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
+echo
 read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " updatestatus
 echo
 if [[ "$updatestatus" =~ ^[Yy]$ ]]
 then
 #
 ############################
-####### Script Start #######
+#### User Script Starts ####
 ############################
 #
     mkdir -p ~/private
@@ -239,12 +240,17 @@ query_skipbruteforcecheck=0
     exit 1
 #
 ############################
-####### Script Ends  #######
+##### User Script End  #####
 ############################
 #
 else
     echo -e "You chose to exit after updating the scripts."
     echo
-    exit 1
     cd && bash
+    exit 1
 fi
+#
+############################
+##### Core Script Ends #####
+############################
+#
