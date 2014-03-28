@@ -92,7 +92,7 @@ then
 #
     if [[ -d "$HOME/proftpd" ]]
     then
-        if [[ -f "$HOME/proftpd/.proftpdversion" ]]
+        if [[ -f "$HOME"/proftpd/.proftpdversion ]]
         then
             echo -e "\033[32m""proftpd update. No settings, jails or users will be lost by updating.""\e[0m"
             read -ep "Would you like to update your version $installedproftpdversion of proftpd with this one $proftpdversion? [y]es or [e]xit or full [r]einstall: " agree2update
@@ -112,7 +112,7 @@ then
             rm -f "$HOME/proftpd.tar.gz"
             cd "$HOME/$proftpdversion"
             echo "Starting to 1: configure, 2: make, 3 make install"
-            install_user=$(whoami) install_group=$(whoami) ./configure --prefix="$HOME/proftpd" --enable-openssl --enable-dso --enable-nls --enable-ctrls --with-shared=mod_ratio:mod_readme:mod_sftp:mod_tls:mod_ban > "$HOME/proftpd/install_logs/configure.log" 2>&1
+            install_user=$(whoami) install_group=$(whoami) ./configure --prefix="$HOME"/proftpd --enable-openssl --enable-dso --enable-nls --enable-ctrls --with-shared=mod_ratio:mod_readme:mod_sftp:mod_tls:mod_ban > "$HOME"/proftpd/install_logs/configure.log 2>&1
             echo "1: configure complete, moving to 2 of 3"
             make > "$HOME/proftpd/install_logs/make.log" 2>&1
             echo "2: make complete, moving to 3 of 3"
@@ -121,8 +121,8 @@ then
             echo
             # Some tidy up
             cd && rm -rf "$HOME/$proftpdversion"
-            "$HOME/proftpd/sbin/proftpd" -c "$HOME/proftpd/etc/sftp.conf" > /dev/null 2>&1
-            "$HOME/proftpd/sbin/proftpd" -c "$HOME/proftpd/etc/ftps.conf" > /dev/null 2>&1
+            "$HOME"/proftpd/sbin/proftpd -c "$HOME"/proftpd/etc/sftp.conf > /dev/null 2>&1
+            "$HOME"/proftpd/sbin/proftpd -c "$HOME"/proftpd/etc/ftps.conf > /dev/null 2>&1
             echo -e "proftpd sftp and ftps servers were started."
             exit 1
         elif [[ "$agree2update" =~ ^[Ee]$ ]]
@@ -156,7 +156,7 @@ then
     echo
     # configure and install
     echo "Starting to 1: configure, 2: make, 3 make install"
-    install_user=$(whoami) install_group=$(whoami) ./configure --prefix="$HOME/proftpd" --enable-openssl --enable-dso --enable-nls --enable-ctrls --with-shared=mod_ratio:mod_readme:mod_sftp:mod_tls:mod_ban > "$HOME/proftpd/install_logs/configure.log" 2>&1
+    install_user=$(whoami) install_group=$(whoami) ./configure --prefix="$HOME"/proftpd --enable-openssl --enable-dso --enable-nls --enable-ctrls --with-shared=mod_ratio:mod_readme:mod_sftp:mod_tls:mod_ban > "$HOME"/proftpd/install_logs/configure.log 2>&1
     echo "1: configure complete, moving to 2 of 3"
     make > "$HOME/proftpd/install_logs/make.log" 2>&1
     echo "2: make complete, moving to 3 of 3"
@@ -166,9 +166,9 @@ then
     # Some tidy up
     cd && rm -rf "$HOME/$proftpdversion"
     # Generate our keyfiles
-    ssh-keygen -q -t rsa -f ~/proftpd/etc/keys/sftp_rsa -N '' && ssh-keygen -q -t dsa -f ~/proftpd/etc/keys/sftp_dsa -N ''
+    ssh-keygen -q -t rsa -f "$HOME"/proftpd/etc/keys/sftp_rsa -N '' && ssh-keygen -q -t dsa -f "$HOME"/proftpd/etc/keys/sftp_dsa -N ''
     echo "rsa keys generated with no passphrase"
-    openssl req -new -x509 -nodes -days 365 -subj '/C=GB/ST=none/L=none/CN=none' -newkey rsa:2048 -keyout ~/proftpd/ssl/proftpd.key.pem -out ~/proftpd/ssl/proftpd.cert.pem > /dev/null 2>&1
+    openssl req -new -x509 -nodes -days 365 -subj '/C=GB/ST=none/L=none/CN=none' -newkey rsa:2048 -keyout "$HOME"/proftpd/ssl/proftpd.key.pem -out "$HOME"/proftpd/ssl/proftpd.cert.pem > /dev/null 2>&1
     echo "ssl keys generated"
     echo
     # Get the conf files from github and configure them for this user
@@ -194,7 +194,7 @@ then
     echo
     echo -e "The basic setup and cofiguration has been completed." "\033[31m""Please now enter a password for your main, unlimited user""\e[0m"
     echo
-    "$HOME/proftpd/bin/ftpasswd" --passwd --name $(whoami) --file "$HOME/proftpd/etc/ftpd.passwd" --uid $(id -u $(whoami)) --gid $(id -g $(whoami)) --home "$HOME/ --shell /bin/false"
+    "$HOME"/proftpd/bin/ftpasswd --passwd --name $(whoami) --file "$HOME"/proftpd/etc/ftpd.passwd --uid $(id -u $(whoami)) --gid $(id -g $(whoami)) --home "$HOME"/ --shell /bin/false
     echo
     echo -e "\033[31m""If for some reason the user creation failed, see Step 6 of the FAQ to do this again""\e[0m"
     echo
