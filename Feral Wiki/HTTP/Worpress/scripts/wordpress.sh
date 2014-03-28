@@ -1,12 +1,16 @@
 #!/bin/bash
-# Wordpress
-# Current Version: 1.0.1
+# Install Wordpress
+scriptversion="1.0.0"
+scriptname="install.wordpress"
 # randomessence
+#
+# wget -qO ~/wordpress.sh http://git.io/sBXgog && bash ~/wordpress.sh
+#
 ############################
 ## Version History Starts ##
 ############################
 #
-# 1.0.0 not much to it really.
+# v1.0.0 template updated and basic script tweaked.
 #
 ############################
 ### Version History Ends ###
@@ -16,63 +20,118 @@
 ###### Variable Start ######
 ############################
 #
-#
+wordpressurl="http://wordpress.org/latest.tar.gz"
+scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Worpress/scripts/wordpress.sh"
 #
 ############################
 ####### Variable End #######
 ############################
 #
 ############################
-####### Script Start #######
+#### Self Updater Start ####
 ############################
 #
-echo -e "Copying to ~/bin and making excutable"
-mkdir -p $HOME/bin
-wget -qNO $HOME/bin/wordpress https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Worpress/scripts/wordpress.sh
-chmod -f 700 $HOME/bin/wordpress
-echo -e "Done"
-echo
+mkdir -p "$HOME/bin"
 #
-if [ ! -d $HOME/www/$(whoami).$(hostname)/public_html/wordpress ]
+if [[ ! -f "$HOME/$scriptname.sh" ]]
 then
-    echo -e "Downloading and extracting latest version to: $(whoami).$(hostname)/wordpress"
-    echo
-    echo "and (they are the same physical location):"
-    echo
-    echo -e "$(hostname)/$(whoami)/wordpress"
-    echo
-    wget -qNO $HOME/latest.tar.gz http://wordpress.org/latest.tar.gz
-    tar -xzf $HOME/latest.tar.gz -C $HOME/www/$(whoami).$(hostname)/public_html
-    rm -f $HOME/latest.tar.gz
-    echo -e "Done: Visit your WWW/wordpress to complete the installaion."
-else
-    echo -e "The wordpress directory already exists."
-    read -ep "Do you want to overwrite it anyway? [y] yes or [n] no : " confirm
-    echo
-    if [[ $confirm =~ ^[Yy]$ ]]
-    then
-        echo -e "Downloading and extracting latest version to:"
-        echo
-        echo -e "\033[32m""$(whoami).$(hostname)/wordpress""\e[0m"
-        echo "and (they are the same physical location)"
-        echo -e "\033[33m""$(hostname)/$(whoami)/wordpress""\e[0m"
-        wget -qNO $HOME/latest.tar.gz http://wordpress.org/latest.tar.gz
-        tar -xzf $HOME/latest.tar.gz -C $HOME/www/$(whoami).$(hostname)/public_html
-        rm -f $HOME/latest.tar.gz
-        echo -e "Done: Visit your WWW/wordpress to complete the installaion."
-        echo
-    fi
+    wget -qO "$HOME/$scriptname.sh" "$scripturl"
 fi
-cd && bash
+if [[ ! -f "$HOME/bin/$scriptname" ]]
+then
+    wget -qO "$HOME/bin/$scriptname" "$scripturl"
+fi
+#
+wget -qO "$HOME/000$scriptname.sh" "$scripturl"
+#
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" > /dev/null 2>&1
+then
+    echo '#!/bin/bash
+    scriptname="'"$scriptname"'"
+    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
+    bash "$HOME/$scriptname.sh"
+    exit 1' > "$HOME/111$scriptname.sh"
+    bash "$HOME/111$scriptname.sh"
+    exit 1
+fi
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" > /dev/null 2>&1
+then
+    echo '#!/bin/bash
+    scriptname="'"$scriptname"'"
+    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
+    bash "$HOME/$scriptname.sh"
+    exit 1' > "$HOME/222$scriptname.sh"
+    bash "$HOME/222$scriptname.sh"
+    exit 1
+fi
+cd && rm -f {000,111,222}"$scriptname.sh"
+chmod -f 700 "$HOME/bin/$scriptname"
 #
 ############################
-####### Script Ends  #######
+##### Self Updater End #####
 ############################
 #
 ############################
-########## Credit ##########
+#### Core Script Starts ####
 ############################
 #
-#
+echo
+echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
+echo
+read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " updatestatus
+echo
+if [[ "$updatestatus" =~ ^[Yy]$ ]]
+then
 #
 ############################
+#### User Script Starts ####
+############################
+#
+    if [ ! -d "$HOME/www/$(whoami).$(hostname)/public_html/wordpress" ]
+    then
+        echo -e "Downloading and extracting latest version to: $(whoami).$(hostname)/wordpress"
+        echo
+        echo "and (they are the same physical location):"
+        echo
+        echo -e "$(hostname)/$(whoami)/wordpress"
+        echo
+        wget -qO "$HOME/latest.tar.gz" "$wordpressurl"
+        tar xf "$HOME/latest.tar.gz" -C "$HOME/www/$(whoami).$(hostname)/public_html"
+        rm -f "$HOME/latest.tar.gz"
+        echo -e "Done: Visit your WWW/wordpress to complete the installaion."
+    else
+        echo -e "The wordpress directory already exists."
+        read -ep "Do you want to overwrite it anyway? [y] yes or [n] no : " confirm
+        echo
+        if [[ "$confirm" =~ ^[Yy]$ ]]
+        then
+            echo -e "Downloading and extracting latest version to:"
+            echo
+            echo -e "\033[32m""$(whoami).$(hostname)/wordpress""\e[0m"
+            echo "and (they are the same physical location)"
+            echo -e "\033[33m""$(hostname)/$(whoami)/wordpress""\e[0m"
+            wget -qO "$HOME/latest.tar.gz" "$wordpressurl"
+            tar xf "$HOME/latest.tar.gz" -C "$HOME/www/$(whoami).$(hostname)/public_html"
+            rm -f "$HOME/latest.tar.gz"
+            echo -e "Done: Visit your WWW/wordpress to complete the installaion."
+            echo
+        fi
+    fi
+#
+############################
+##### User Script End  #####
+############################
+#
+else
+    echo -e "You chose to exit after updating the scripts."
+    echo
+    cd && bash
+    exit 1
+fi
+#
+############################
+##### Core Script Ends #####
+############################
+#
