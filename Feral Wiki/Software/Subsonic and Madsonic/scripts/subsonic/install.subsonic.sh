@@ -87,9 +87,15 @@ then
     bash "$HOME/222$scriptname.sh"
     exit 1
 fi
+cd && rm -f {000,111,222}"$scriptname.sh"
+chmod -f 700 "$HOME/bin/$scriptname"
 #
 ############################
 ##### Self Updater End #####
+############################
+#
+############################
+#### Core Script Starts ####
 ############################
 #
 echo
@@ -97,15 +103,12 @@ echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$script
 echo
 echo -e "The version of the" "\033[33m""Subsonic""\e[0m" "server being used in this script is:" "\033[31m""$subsonicversion""\e[0m"
 echo -e "The version of the" "\033[33m""Java""\e[0m" "being used in this script is:" "\033[31m""$javaversion""\e[0m"
+echo
 if [[ -f "$HOME/private/subsonic/.version" ]]
 then
-    echo
     echo -e "Your currently installed version is:" "\033[32m""$(sed -n '1p' $HOME/private/subsonic/.version)""\e[0m"
+    echo
 fi    
-echo
-#
-rm -f "$HOME/000install.subsonic.sh" "$HOME/111install.subsonic.sh" "$HOME/222install.subsonic.sh"
-chmod -f 700 "$HOME/bin/install.subsonic"
 #
 #############################
 #### subsonicrsk starts  ####
@@ -262,6 +265,10 @@ fi' > ~/bin/subsonicron
 ##### subsonicron ends  #####
 #############################
 #
+# Make the ~/bin/subsonicrsk and ~/bin/subsonicron files we created executable
+chmod -f 700 ~/bin/subsonicrsk
+chmod -f 700 ~/bin/subsonicron
+#
 #############################
 ##### proxypass starts  #####
 #############################
@@ -285,10 +292,6 @@ fi
 ###### proxypass ends  ######
 #############################
 #
-# Make the ~/bin/subsonicrsk and ~/bin/subsonicron files we created executable
-chmod -f 700 ~/bin/subsonicrsk
-chmod -f 700 ~/bin/subsonicron
-#
 echo -e "The" "\033[36m""~/bin/subsonicrsk""\e[0m" "has been updated."
 echo
 read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " updatestatus
@@ -297,7 +300,7 @@ if [[ "$updatestatus" =~ ^[Yy]$ ]]
 then
 #
 ############################
-####### Script Start #######
+#### User Script Starts ####
 ############################
 #
     mkdir -p ~/private
@@ -507,8 +510,9 @@ then
             exit 1
         fi
     fi
+#
 ############################
-####### Script Ends  #######
+##### User Script End  #####
 ############################
 #
 else
@@ -517,3 +521,8 @@ else
     exit 1
     cd && bash
 fi
+#
+############################
+##### Core Script Ends #####
+############################
+#
