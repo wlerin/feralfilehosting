@@ -79,6 +79,7 @@ chmod -f 700 "$HOME/bin/$scriptname"
 ############################
 #### Core Script Starts ####
 ############################
+#
 echo
 echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
 echo
@@ -142,6 +143,8 @@ else
     cd && bash
     exit 1
 fi
+#
 ############################
 ##### Core Script Ends #####
 ############################
+#
