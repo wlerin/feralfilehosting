@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script name
 scriptversion="1.0.0"
-scriptname="delugethin.sh"
+scriptname="delugethin"
 # randomessence
 #
 # wget -qO ~/delugethin.sh http://git.io/obe0mA && bash ~/delugethin.sh
