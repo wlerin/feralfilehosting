@@ -81,14 +81,14 @@ none
 
     multirtru.sh
 
+### mumble/murmur
+
+    murmur.sh
+
 ### proftpd - Installing an FTP daemon for extra accounts
 
     proftpd.sh
     proftpdadduser.sh
-
-### mumble/murmur
-
-    murmur.sh
 
 ### WeeChat
 
