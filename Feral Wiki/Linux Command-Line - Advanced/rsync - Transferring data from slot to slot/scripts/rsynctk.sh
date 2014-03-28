@@ -105,7 +105,7 @@ then
 #
     read -ep "Do you want to Copy from another Feral server [f] or import from whatbox.ca [w] : " feral
     echo
-    if [[ $feral =~ ^[Ff]$ ]]
+    if [[ "$feral" =~ ^[Ff]$ ]]
     then
         mkdir -p "$HOME/rsync"
         echo -e "\033[32m""Give the username of the feral account that controls the slot""\e[0m"
@@ -125,13 +125,13 @@ then
         echo
         read -ep "Are you sure you have understood [y] or do you want to double check [n] : " confirm
         echo
-        if [[ $confirm =~ ^[Yy]$ ]]
+        if [[ "$confirm" =~ ^[Yy]$ ]]
         then
             read -ep "Please enter the relative path to the folder you wish to copy: \$HOME/" remotepath
             echo
             read -ep "Would you like to select a custom destination for your files? [y]es or [n]o: " customdest
             echo
-            if [[ $customdest =~ ^[Yy]$ ]]
+            if [[ "$customdest" =~ ^[Yy]$ ]]
             then
                 read -ep "Please enter the relative path to the custom destination folder: \$HOME/" defaultpath
                 mkdir -p "$HOME/$defaultpath"
@@ -146,7 +146,7 @@ then
         echo
         read -ep "Would you like to try and run this command in a screen [y] or exit now [e]: " confirmscreen1
         echo
-        if [[ $confirmscreen1 =~ ^[Yy]$ ]]
+        if [[ "$confirmscreen1" =~ ^[Yy]$ ]]
         then
             if [[ ! -f "$HOME/.ssh/rsynctk_rsa" ]]
             then
@@ -158,13 +158,13 @@ then
             echo
             read -ep "Would you like to do this now via SSH, your OLD slot's SSH password is required [y] or skip [n] : " sshcopy
             echo
-            if [[ $sshcopy =~ ^[Yy]$ ]]
+            if [[ "$sshcopy" =~ ^[Yy]$ ]]
             then
                 ssh-copy-id -i ~/.ssh/rsynctk_rsa.pub "$username@$servername.feralhosting.com"
             fi
             read -ep "Have you copied the ~/.ssh/rsynctk_rsa.pub contents to your old slot's ~/.ssh/authorized_keys file [y] or [n] " confirmscreen2
             echo
-            if [[ $confirmscreen2 =~ ^[Yy]$ ]]
+            if [[ "$confirmscreen2" =~ ^[Yy]$ ]]
             then
                 echo -e "\033[32m""I will now attempt to create a screen and start the proccess." "\033[31m""If you have not copied you public key it won't work.""\e[0m"
                 #
@@ -191,7 +191,7 @@ then
                 echo
             fi
         fi
-    elif [[ $feral =~ ^[Ww]$ ]]
+    elif [[ "$feral" =~ ^[Ww]$ ]]
     then
         mkdir -p "$HOME/rsync"
         echo -e "\033[32m""Give the username of the whatbox account that controls the slot""\e[0m"
@@ -211,13 +211,13 @@ then
         echo
         read -ep "Are you sure you have understood [y] or do you want to double check [n] : " confirm
         echo
-        if [[ $confirm =~ ^[Yy]$ ]]
+        if [[ "$confirm" =~ ^[Yy]$ ]]
         then
             read -ep "Please enter the relative path to the folder you wish to copy: \$HOME/" remotepath
             echo
             read -ep "Would you like to select a custom destination for your files? [y]es or [n]o: " customdest
             echo
-            if [[ $customdest =~ ^[Yy]$ ]]
+            if [[ "$customdest" =~ ^[Yy]$ ]]
             then
                 read -ep "Please enter the relative path to the custom destination folder: \$HOME/" defaultpath
                 mkdir -p "$HOME/$defaultpath"
@@ -232,7 +232,7 @@ then
         echo
         read -ep "Would you like to try and run this command in a screen [y] or exit now [e]: " confirmscreen1
         echo
-        if [[ $confirmscreen1 =~ ^[Yy]$ ]]
+        if [[ "$confirmscreen1" =~ ^[Yy]$ ]]
         then
             if [[ ! -f "$HOME/.ssh/rsynctk_rsa" ]]
             then
@@ -244,13 +244,13 @@ then
             echo
             read -ep "Would you like to do this now via SSH, your OLD slot's SSH password is required [y] or skip [n] : " sshcopy
             echo
-            if [[ $sshcopy =~ ^[Yy]$ ]]
+            if [[ "$sshcopy" =~ ^[Yy]$ ]]
             then
                 ssh-copy-id -i ~/.ssh/rsynctk_rsa.pub "$username@$servername.whatbox.ca"
             fi
             read -ep "Have you copied the ~/.ssh/rsynctk_rsa.pub contents to your old slot's ~/.ssh/authorized_keys file [y] " confirmscreen2
             echo
-            if [[ $confirmscreen2 =~ ^[Yy]$ ]]
+            if [[ "$confirmscreen2" =~ ^[Yy]$ ]]
             then
                 echo -e "\033[32m""I will now attempt to create a screen and start the proccess." "\033[31m""If you have not copied you public key it won't work.""\e[0m"
                 #
