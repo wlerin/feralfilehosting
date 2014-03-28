@@ -1,8 +1,10 @@
 #!/bin/bash
 # htpasswd user and password toolkit
-scriptversion="1.1.1"
+scriptversion="1.1.2"
 scriptname="htpasswdtk"
 # randomessence
+#
+# wget -qO ~/htpasswdtk.sh http://git.io/eJySww && bash ~/htpasswdtk.sh
 #
 ############################
 ## Version History Starts ##
@@ -20,11 +22,11 @@ scriptname="htpasswdtk"
 # 1.0.5 multi rtorrent/rutorrent options
 # 1.1.0 Changes to Authname generation to avoid conflict or allow single login
 # 1.1.1 nginx rcp specific options for default and multple instances. tweaked the way option 18 works.
+# 1.1.2 template updated
 #
 ############################
 ### Version History Ends ###
 ############################
-#
 #
 ############################
 ###### Variable Start ######
@@ -42,56 +44,60 @@ scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20W
 #
 mkdir -p "$HOME/bin"
 #
-if [[ ! -f "$HOME/htpasswdtk.sh" ]]
+if [[ ! -f "$HOME/$scriptname.sh" ]]
 then
-    wget -qO "$HOME/htpasswdtk.sh" "$scripturl"
+    wget -qO "$HOME/$scriptname.sh" "$scripturl"
 fi
-if [[ ! -f "$HOME/bin/htpasswdtk" ]]
+if [[ ! -f "$HOME/bin/$scriptname" ]]
 then
-    wget -qO "$HOME/bin/htpasswdtk" "$scripturl"
+    wget -qO "$HOME/bin/$scriptname" "$scripturl"
 fi
 #
-wget -qO "$HOME/000htpasswdtk.sh" "$scripturl"
+wget -qO "$HOME/000$scriptname.sh" "$scripturl"
 #
-if ! diff -q "$HOME/000htpasswdtk.sh" "$HOME/htpasswdtk.sh" > /dev/null 2>&1
-then
-    echo '#!/bin/bash
-    wget -qO "$HOME/htpasswdtk.sh" "'"$scripturl"'"
-    wget -qO "$HOME/bin/htpasswdtk" "'"$scripturl"'"
-    bash "$HOME/htpasswdtk.sh"
-    exit 1' > "$HOME/111htpasswdtk.sh"
-    bash "$HOME/111htpasswdtk.sh"
-    exit 1
-fi
-if ! diff -q "$HOME/000htpasswdtk.sh" "$HOME/bin/htpasswdtk" > /dev/null 2>&1
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" > /dev/null 2>&1
 then
     echo '#!/bin/bash
-    wget -qO "$HOME/htpasswdtk.sh" "'"$scripturl"'"
-    wget -qO "$HOME/bin/htpasswdtk" "'"$scripturl"'"
-    bash "$HOME/htpasswdtk.sh"
-    exit 1' > "$HOME/222htpasswdtk.sh"
-    bash "$HOME/222htpasswdtk.sh"
+    scriptname="'"$scriptname"'"
+    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
+    bash "$HOME/$scriptname.sh"
+    exit 1' > "$HOME/111$scriptname.sh"
+    bash "$HOME/111$scriptname.sh"
     exit 1
 fi
-#
-echo
-echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
-echo
-#
-rm -f "$HOME/000htpasswdtk.sh" "$HOME/111htpasswdtk.sh" "$HOME/222htpasswdtk.sh"
-chmod -f 700 "$HOME/bin/htpasswdtk"
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" > /dev/null 2>&1
+then
+    echo '#!/bin/bash
+    scriptname="'"$scriptname"'"
+    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
+    bash "$HOME/$scriptname.sh"
+    exit 1' > "$HOME/222$scriptname.sh"
+    bash "$HOME/222$scriptname.sh"
+    exit 1
+fi
+cd && rm -f {000,111,222}"$scriptname.sh"
+chmod -f 700 "$HOME/bin/$scriptname"
 #
 ############################
 ##### Self Updater End #####
 ############################
 #
+############################
+#### Core Script Starts ####
+############################
+#
+echo
+echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
+echo
 read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " updatestatus
 echo
 if [[ "$updatestatus" =~ ^[Yy]$ ]]
 then
 #
 ############################
-####### Script Start #######
+#### User Script Starts ####
 ############################
 #
     echo -e "\033[32m""Hello $(whoami).""\e[0m" "This is the htpasswd user and password toolkit." "\e[0m"
@@ -781,14 +787,19 @@ then
     ##########
         esac
     done
-    #
+#
 ############################
-####### Script Ends  #######
+##### User Script End  #####
 ############################
 #
 else
     echo -e "You chose to exit after updating the scripts."
     echo
-    exit 1
     cd && bash
+    exit 1
 fi
+#
+############################
+##### Core Script Ends #####
+############################
+#
