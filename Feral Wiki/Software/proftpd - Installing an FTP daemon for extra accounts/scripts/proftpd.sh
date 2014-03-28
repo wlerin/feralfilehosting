@@ -1,7 +1,7 @@
 #!/bin/bash
 # proftpd basic setup script
 scriptversion="1.1.1"
-scriptname="proftpd Steps 1-6"
+scriptname="proftpd"
 proftpdversion="proftpd-1.3.4d"
 installedproftpdversion=$(cat $HOME/proftpd/.proftpdversion 2> /dev/null)
 # randomessence
