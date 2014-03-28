@@ -1,21 +1,16 @@
 #!/bin/bash
-# multirtru
+# Install multiple instances of rtorrent and rutorrent
 scriptversion="1.1.2"
-scriptname="multirtru"
+scriptname="install.multirtru"
 # randomessence
+#
+# wget -qO ~/multirtru.sh http://git.io/m_dugQ && bash ~/multirtru.sh
 #
 ############################
 ## Version History Starts ##
 ############################
 #
-# How do I customise this updater? 
-# 1: scriptversion="0.0.0" replace "0.0.0" with your script version. This will be shown to the user at the current version.
-# 2: scriptname="somescript" replace "somescript" with your script name. Make it unique to this script.
-# 3: Set the scripturl variable in the variable section to the RAW github URl of the script for updating.
-# 4: Insert your script in the "Script goes here" labelled section 
-#
-# This updater deals with updating two files at the same time, the  "~/somescript.sh" and the "~/bin/somescript".
-# This updater deals with updating two files at the same time, the  "~/somescript.sh" and the "~/bin/somescript".
+# v1.1.2 template updated
 #
 ############################
 ### Version History Ends ###
@@ -70,25 +65,26 @@ then
     bash "$HOME/222$scriptname.sh"
     exit 1
 fi
+cd && rm -f {000,111,222}"$scriptname.sh"
+chmod -f 700 "$HOME/bin/$scriptname"
 #
 ############################
 ##### Self Updater End #####
 ############################
 #
+############################
+#### Core Script Starts ####
+############################
+#
 echo
 echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
 echo
-#
-cd && rm -f {000,111,222}"$scriptname.sh"
-chmod -f 700 "$HOME/bin/$scriptname"
-#
 read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " updatestatus
 echo
 if [[ "$updatestatus" =~ ^[Yy]$ ]]
 then
-#
 ############################
-####### Script Start #######
+#### User Script Starts ####
 ############################
 #
     # Removal options start
@@ -308,7 +304,7 @@ then
     fi
 #
 ############################
-####### Script Ends  #######
+##### User Script End  #####
 ############################
 #
 else
@@ -317,3 +313,8 @@ else
     cd && bash
     exit 1
 fi
+#
+############################
+##### Core Script Ends #####
+############################
+#
