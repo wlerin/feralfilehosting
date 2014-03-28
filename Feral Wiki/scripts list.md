@@ -1,50 +1,117 @@
 
-### General
+28.03.2014
+---
 
-### Installable Software
+1: General
+---
 
-[ruTorrent - troubleshooting](https://www.feralhosting.com/faq/view?question=100) - `rutnginx.sh`
+none
 
-[Restarting - rtorrent - Deluge - Transmission - MySQL](https://www.feralhosting.com/faq/view?question=158) - `restart.sh`
+2: Installable Software
+---
 
-[Deluge Daemon - Remote control with the local Thin client](https://www.feralhosting.com/faq/view?question=76) - `delugethin.sh`
+### Restarting - rtorrent - Deluge - Transmission - MySQL]
 
-### SSH
+    restart.sh
 
-[Check your disk quota in SSH](https://www.feralhosting.com/faq/view?question=221) - `quota`
+### Deluge Daemon - Remote control with the local Thin client]
 
-### SFTP and FTP
+    delugethin.sh
 
-### HTTP
+3: SSH
+---
 
-[Password protect your WWW folder](https://www.feralhosting.com/faq/view?question=22)
+### Check your disk quota in SSH
 
-[Redirecting HTTP to HTTPS](https://www.feralhosting.com/faq/view?question=161)
+    quota
 
-[Updating Apache to nginx](https://www.feralhosting.com/faq/view?question=231) - Linked in the 
+4: SFTP and FTP
+---
 
-[Wordpress - Basic setup](https://www.feralhosting.com/faq/view?question=211)
+none
 
-### Other Software
+5: HTTP
+---
 
-### Slot Plans
+### Password protect your WWW folder
 
-### Software
+    htpasswdtk.sh
 
-Ampache - web based audio video streaming
+### Redirecting HTTP to HTTPS
 
-[Autodl-irssi and rutorrent plugin - community edition](https://www.feralhosting.com/faq/view?question=142) - `autodlport.sh` and `autodlrutorrentfix.sh` and `installautodl.sh`
+    nginxhttps.sh
 
-[proftpd - Installing an FTP daemon for extra accounts](https://www.feralhosting.com/faq/view?question=193) - `proftpd.sh` proftpd add user
+### Updating Apache to nginx- Linked in the rutorrent troubleshooting FAQ - Installable Software
 
-mumble /murmur
+    rutorrentnginx.sh
 
-[WeeChat - an IRC Client - Basic Setup](https://www.feralhosting.com/faq/view?question=250) - `weechat.sh`
+### Wordpress - Basic setup
 
-[Subsonic 4.8 or Madsonic 5.0](https://www.feralhosting.com/faq/view?question=159) - `install.madsonic.sh` and `install.subsonic.sh`
+    wordpress.sh
 
-Teamspeak 3 server - `teamspeak.sh`
+6: Other Software
+---
 
-### Linux Command-Line - Advanced
+### aria2c - Windows only vbs scripts
 
-rsync - Transferring data from slot to slot
+7: Slot Plans
+---
+
+none
+
+8: Software
+---
+
+### Ampache - web based audio video streaming
+
+    ampache.sh
+
+### Autodl-irssi and rutorrent plugin - community edition
+
+    autodlport.sh
+    autodlrutorrentfix.sh
+    installautodl.sh
+    trackerlist.sh
+
+### couchpotato
+
+    couchpotato.sh
+
+### multiple instances of rtorrent and rutorrent
+
+    multirtru.sh
+
+### proftpd - Installing an FTP daemon for extra accounts
+
+    proftpd.sh
+    proftpdadduser.sh
+
+### mumble/murmur
+
+    murmur.sh
+
+### WeeChat
+
+    weechat.sh
+
+### Subsonic
+
+    install.subsonic.sh
+
+### Madsonic 
+
+    install.madsonic.sh
+
+### Teamspeak 3 server
+
+    teamspeak.sh
+
+9: Linux Command-Line - Advanced
+---
+
+### rsync - Transferring data from slot to slot
+
+    rsynctk.sh
+
+10: Dedicated servers:
+---
