@@ -1,12 +1,12 @@
 #!/bin/bash
 # proftpd basic setup script
 scriptversion="1.1.1"
-scriptname="proftpd"
+scriptname="install.proftpd"
 proftpdversion="proftpd-1.3.4d"
 installedproftpdversion=$(cat $HOME/proftpd/.proftpdversion 2> /dev/null)
 # randomessence
 #
-# Bash Command
+# wget -qO ~/install.proftpd http://git.io/nMVKJA && bash ~/install.proftpd
 #
 ############################
 ## Version History Starts ##
@@ -22,6 +22,9 @@ installedproftpdversion=$(cat $HOME/proftpd/.proftpdversion 2> /dev/null)
 ###### Variable Start ######
 ############################
 #
+proftpdconf="http://git.io/CbaIJQ"
+sftpconf="http://git.io/SFHs5g"
+ftpsconf="http://git.io/ee86Hw"
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/scripts/proftpd.sh"
 #
 ############################
@@ -105,18 +108,18 @@ then
         if [[ "$agree2update" =~ ^[Yy]$ ]]
         then
             killall -9 proftpd -u $(whoami) > /dev/null 2>&1
-            mkdir -p "$HOME/proftpd/install_logs"
-            wget -qO "$HOME/proftpd.tar.gz" "ftp://ftp.proftpd.org/distrib/source/$proftpdversion.tar.gz"
-            tar xf "$HOME/proftpd.tar.gz" -C "$HOME/"
-            echo -n "$proftpdversion" > "$HOME/proftpd/.proftpdversion"
-            rm -f "$HOME/proftpd.tar.gz"
+            mkdir -p "$HOME"/proftpd/install_logs
+            wget -qO "$HOME"/proftpd.tar.gz ftp://ftp.proftpd.org/distrib/source/"$proftpdversion".tar.gz
+            tar xf "$HOME"/proftpd.tar.gz -C "$HOME"/
+            echo -n "$proftpdversion" > "$HOME"/proftpd/.proftpdversion
+            rm -f "$HOME"/proftpd.tar.gz
             cd "$HOME/$proftpdversion"
             echo "Starting to 1: configure, 2: make, 3 make install"
             install_user=$(whoami) install_group=$(whoami) ./configure --prefix="$HOME"/proftpd --enable-openssl --enable-dso --enable-nls --enable-ctrls --with-shared=mod_ratio:mod_readme:mod_sftp:mod_tls:mod_ban > "$HOME"/proftpd/install_logs/configure.log 2>&1
             echo "1: configure complete, moving to 2 of 3"
-            make > "$HOME/proftpd/install_logs/make.log" 2>&1
+            make > "$HOME"/proftpd/install_logs/make.log 2>&1
             echo "2: make complete, moving to 3 of 3"
-            make install > "$HOME/proftpd/install_logs/make_install.log" 2>&1
+            make install > "$HOME"/proftpd/install_logs/make_install.log 2>&1
             echo "3: make install complete, moving to post installation configuration"
             echo
             # Some tidy up
@@ -143,14 +146,13 @@ then
         fi
     fi
     #
-    mkdir -p "$HOME/proftpd/etc/sftp/authorized_keys"
-    mkdir -p "$HOME/proftpd/etc/keys"
-    mkdir -p "$HOME/proftpd/ssl"
-    mkdir -p "$HOME/proftpd/install_logs"
-    wget -qO "$HOME/proftpd.tar.gz" "ftp://ftp.proftpd.org/distrib/source/$proftpdversion.tar.gz"
-    tar xf "$HOME/proftpd.tar.gz" -C "$HOME/"
-    echo -n "$proftpdversion" > "$HOME/proftpd/.proftpdversion"
-    rm -f "$HOME/proftpd.tar.gz"
+    mkdir -p "$HOME"/proftpd/etc/sftp/authorized_keys
+    mkdir -p "$HOME"/proftpd/etc/keys
+    mkdir -p "$HOME"/proftpd/{ssl,install_logs}
+    wget -qO "$HOME"/proftpd.tar.gz ftp://ftp.proftpd.org/distrib/source/"$proftpdversion".tar.gz
+    tar xf "$HOME"/proftpd.tar.gz -C "$HOME"/
+    echo -n "$proftpdversion" > "$HOME"/proftpd/.proftpdversion
+    rm -f "$HOME"/proftpd.tar.gz
     cd "$HOME/$proftpdversion"
     echo -e "\033[32m""About to configure, make and install proftpd. This could take some time to comlplete. Be patient.""\e[0m"
     echo
@@ -158,9 +160,9 @@ then
     echo "Starting to 1: configure, 2: make, 3 make install"
     install_user=$(whoami) install_group=$(whoami) ./configure --prefix="$HOME"/proftpd --enable-openssl --enable-dso --enable-nls --enable-ctrls --with-shared=mod_ratio:mod_readme:mod_sftp:mod_tls:mod_ban > "$HOME"/proftpd/install_logs/configure.log 2>&1
     echo "1: configure complete, moving to 2 of 3"
-    make > "$HOME/proftpd/install_logs/make.log" 2>&1
+    make > "$HOME"/proftpd/install_logs/make.log 2>&1
     echo "2: make complete, moving to 3 of 3"
-    make install > "$HOME/proftpd/install_logs/make_install.log" 2>&1
+    make install > "$HOME"/proftpd/install_logs/make_install.log 2>&1
     echo "3: make install complete, moving to post installation configuration"
     echo
     # Some tidy up
@@ -174,9 +176,9 @@ then
     # Get the conf files from github and configure them for this user
     echo "Downloading and configuring the .conf files."
     echo
-    wget -qO "$HOME/proftpd/etc/proftpd.conf" http://git.io/CbaIJQ
-    wget -qO "$HOME/proftpd/etc/sftp.conf" http://git.io/SFHs5g
-    wget -qO "$HOME/proftpd/etc/ftps.conf" http://git.io/ee86Hw
+    wget -qO "$HOME"/proftpd/etc/proftpd.conf "$proftpdconf"
+    wget -qO "$HOME"/proftpd/etc/sftp.conf "$sftpconf"
+    wget -qO "$HOME"/proftpd/etc/ftps.conf "$ftpsconf"
     # proftpd.conf
     sed -i 's|/media/DiskID/home/my_username|'"$HOME"'|g' "$HOME/proftpd/etc/proftpd.conf"
     sed -i 's|User my_username|User '$(whoami)'|g' "$HOME/proftpd/etc/proftpd.conf"
@@ -199,6 +201,7 @@ then
     echo -e "\033[31m""If for some reason the user creation failed, see Step 6 of the FAQ to do this again""\e[0m"
     echo
     echo -e "You have completed Steps 1 through 6. Please continue with the FAQ from Step 7 onwards."
+    echo
     echo -e "proftpd was NOT started to allow you to edit the jails as required first, shown in the FAQ."
     echo
 #
