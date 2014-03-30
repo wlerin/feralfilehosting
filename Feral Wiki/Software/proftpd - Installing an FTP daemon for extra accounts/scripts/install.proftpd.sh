@@ -6,7 +6,7 @@ proftpdversion="proftpd-1.3.4d"
 installedproftpdversion=$(cat $HOME/proftpd/.proftpdversion 2> /dev/null)
 # randomessence
 #
-# wget -qO ~/install.proftpd http://git.io/nQJBxw && bash ~/install.proftpd
+# wget -qO ~/install.proftpd.sh http://git.io/nQJBxw && bash ~/install.proftpd.sh
 #
 ############################
 ## Version History Starts ##
