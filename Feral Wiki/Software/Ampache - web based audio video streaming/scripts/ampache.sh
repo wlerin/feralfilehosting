@@ -1,10 +1,10 @@
 #!/bin/bash
 # install ampache
-scriptversion="1.2.2"
+scriptversion="1.2.3"
 scriptname="install.ampache"
 # randomessence
 #
-# Bash Command
+# wget -qO ~/install.ampache.sh http://git.io/wESU5A && bash ~/install.ampache.sh
 #
 ############################
 ## Version History Starts ##
@@ -98,7 +98,7 @@ then
 	unzip -qo "$HOME"/ffmpeg.zip -d "$HOME"/ampache/ffmpeg
 	chmod 700 "$HOME"/ampache/ffmpeg/{ffmpeg,ffmpeg-10bit,ffprobe,qt-faststart}
 	cd && rm -rf {ampache,ffmpeg}.zip ampache-master
-	echo "done downloading and unpacking."
+	echo "Done downloading and unpacking."
 	echo
 	# set htaccess memory limit and chmod it to 644
 	echo "php_value memory_limit 512M" >> "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/.htaccess
