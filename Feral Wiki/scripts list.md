@@ -28,7 +28,7 @@ None
 4: SFTP and FTP
 ---
 
-none
+None
 
 5: HTTP
 ---
