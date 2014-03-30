@@ -21,7 +21,7 @@ scriptname="install.wordpress"
 ############################
 #
 wordpressurl="http://wordpress.org/latest.tar.gz"
-scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Worpress/scripts/wordpress.sh"
+scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Worpress/scripts/install.wordpress.sh"
 #
 ############################
 ####### Variable End #######

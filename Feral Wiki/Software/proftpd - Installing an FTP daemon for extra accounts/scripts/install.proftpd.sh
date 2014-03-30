@@ -25,7 +25,7 @@ installedproftpdversion=$(cat $HOME/proftpd/.proftpdversion 2> /dev/null)
 proftpdconf="http://git.io/CbaIJQ"
 sftpconf="http://git.io/SFHs5g"
 ftpsconf="http://git.io/ee86Hw"
-scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/scripts/proftpd.sh"
+scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/scripts/install.proftpd.sh"
 #
 ############################
 ####### Variable End #######

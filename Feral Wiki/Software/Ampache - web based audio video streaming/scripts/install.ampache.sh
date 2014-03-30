@@ -20,7 +20,7 @@ scriptname="install.ampache"
 ###### Variable Start ######
 ############################
 #
-scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Ampache%20-%20web%20based%20audio%20video%20streaming/scripts/ampache.sh"
+scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Ampache%20-%20web%20based%20audio%20video%20streaming/scripts/install.ampache.sh"
 ffmpegfv="https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg-2.1.3-64bit-static.zip"
 ampacheurl="https://github.com/ampache/ampache/archive/master.zip"
 #
