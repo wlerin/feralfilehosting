@@ -4,7 +4,7 @@ scriptversion="1.0.0"
 scriptname="install.wordpress"
 # randomessence
 #
-# wget -qO ~/wordpress.sh http://git.io/sBXgog && bash ~/wordpress.sh
+# wget -qO ~/install.wordpress.sh http://git.io/sBXgog && bash ~/install.wordpress.sh
 #
 ############################
 ## Version History Starts ##
@@ -95,12 +95,13 @@ then
         echo
         echo "and (they are the same physical location):"
         echo
-        echo -e "$(hostname)/$(whoami)/wordpress"
+        echo -e "https://$(hostname)/$(whoami)/wordpress/"
         echo
-        wget -qO "$HOME/latest.tar.gz" "$wordpressurl"
-        tar xf "$HOME/latest.tar.gz" -C "$HOME/www/$(whoami).$(hostname)/public_html"
-        rm -f "$HOME/latest.tar.gz"
+        wget -qO "$HOME"/latest.tar.gz "$wordpressurl"
+        tar xf "$HOME"/latest.tar.gz -C "$HOME"/www/$(whoami).$(hostname)/public_html
+        rm -f "$HOME"/latest.tar.gz
         echo -e "Done: Visit your WWW/wordpress to complete the installaion."
+        echo
     else
         echo -e "The wordpress directory already exists."
         read -ep "Do you want to overwrite it anyway? [y] yes or [n] no : " confirm
@@ -112,9 +113,9 @@ then
             echo -e "\033[32m""$(whoami).$(hostname)/wordpress""\e[0m"
             echo "and (they are the same physical location)"
             echo -e "\033[33m""$(hostname)/$(whoami)/wordpress""\e[0m"
-            wget -qO "$HOME/latest.tar.gz" "$wordpressurl"
-            tar xf "$HOME/latest.tar.gz" -C "$HOME/www/$(whoami).$(hostname)/public_html"
-            rm -f "$HOME/latest.tar.gz"
+            wget -qO "$HOME"/latest.tar.gz "$wordpressurl"
+            tar xf "$HOME"/latest.tar.gz -C "$HOME"/www/$(whoami).$(hostname)/public_html
+            rm -f "$HOME"/latest.tar.gz
             echo -e "Done: Visit your WWW/wordpress to complete the installaion."
             echo
         fi
