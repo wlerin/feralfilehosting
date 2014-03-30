@@ -4,7 +4,7 @@ scriptversion="1.2.3"
 scriptname="install.ampache"
 # randomessence
 #
-# wget -qO ~/install.ampache.sh http://git.io/wESU5A && bash ~/install.ampache.sh
+# wget -qO ~/install.ampache.sh http://git.io/ED3FAQ && bash ~/install.ampache.sh
 #
 ############################
 ## Version History Starts ##

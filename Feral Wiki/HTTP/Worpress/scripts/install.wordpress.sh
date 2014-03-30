@@ -4,7 +4,7 @@ scriptversion="1.0.0"
 scriptname="install.wordpress"
 # randomessence
 #
-# wget -qO ~/install.wordpress.sh http://git.io/sBXgog && bash ~/install.wordpress.sh
+# wget -qO ~/install.wordpress.sh http://git.io/2JBQlg && bash ~/install.wordpress.sh
 #
 ############################
 ## Version History Starts ##
