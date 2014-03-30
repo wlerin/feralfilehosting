@@ -4,7 +4,7 @@ scriptversion="1.0.1"
 scriptname="install.murmur"
 # randomessence
 #
-# wget -qO ~/murmur.sh http://git.io/t3fmNQ && bash ~/murmur.sh
+# wget -qO ~/murmur.sh http://git.io/-mVd3g && bash ~/murmur.sh
 #
 ############################
 ## Version History Starts ##
