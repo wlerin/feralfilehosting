@@ -91,11 +91,11 @@ then
 #
     if [ ! -d "$HOME/www/$(whoami).$(hostname)/public_html/wordpress" ]
     then
-        echo -e "Downloading and extracting latest version to: $(whoami).$(hostname)/wordpress"
+        echo -e "Downloading and extracting latest version to:"
         echo
-        echo "and (they are the same physical location):"
+        echo -e "\033[32m""$(whoami).$(hostname)/wordpress""\e[0m"
         echo
-        echo -e "https://$(hostname)/$(whoami)/wordpress/"
+        echo "and (they are the same physical location)"
         echo
         wget -qO "$HOME"/latest.tar.gz "$wordpressurl"
         tar xf "$HOME"/latest.tar.gz -C "$HOME"/www/$(whoami).$(hostname)/public_html
@@ -111,8 +111,10 @@ then
             echo -e "Downloading and extracting latest version to:"
             echo
             echo -e "\033[32m""$(whoami).$(hostname)/wordpress""\e[0m"
+            echo
             echo "and (they are the same physical location)"
-            echo -e "\033[33m""$(hostname)/$(whoami)/wordpress""\e[0m"
+            echo
+            echo -e "\033[33m""https://$(hostname)/$(whoami)/wordpress/""\e[0m"
             wget -qO "$HOME"/latest.tar.gz "$wordpressurl"
             tar xf "$HOME"/latest.tar.gz -C "$HOME"/www/$(whoami).$(hostname)/public_html
             rm -f "$HOME"/latest.tar.gz
