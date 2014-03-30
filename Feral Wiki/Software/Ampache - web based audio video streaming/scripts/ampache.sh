@@ -21,7 +21,7 @@ scriptname="install.ampache"
 ############################
 #
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Ampache%20-%20web%20based%20audio%20video%20streaming/scripts/ampache.sh"
-ffmpegfv="https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg-2.0.1-64bit-static.zip"
+ffmpegfv="https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg-2.1.3-64bit-static.zip"
 ampacheurl="https://github.com/ampache/ampache/archive/master.zip"
 #
 ############################
@@ -90,44 +90,44 @@ then
 #### User Script Starts ####
 ############################
 #
-	mkdir -p "$HOME/ampache/ffmpeg $HOME/ampache/log"
-	wget -qO "$HOME/ampache.zip" "$ampacheurl"
-	unzip -qo "$HOME/ampache.zip"
-	cp -rf "$HOME/ampache-master/." "$HOME/www/$(whoami).$(hostname)/public_html/ampache"
-	wget -qO "$HOME/ffmpeg.zip $ffmpegfv"
-	unzip -qo "$HOME/ffmpeg.zip -d $HOME/ampache/ffmpeg"
-	chmod 700 "$HOME/ampache/ffmpeg/{ffmpeg,ffmpeg-10bit,ffprobe,qt-faststart}"
-	rm -rf "$HOME/ampache.zip" "$HOME/ffmpeg.zip" "$HOME/ampache-master"
+	mkdir -p "$HOME"/ampache/{ffmpeg,log}
+	wget -qO "$HOME"/ampache.zip "$ampacheurl"
+	unzip -qo "$HOME"/ampache.zip
+	cp -rf "$HOME"/ampache-master/. "$HOME"/www/$(whoami).$(hostname)/public_html/ampache
+	wget -qO "$HOME"/ffmpeg.zip "$ffmpegfv"
+	unzip -qo "$HOME"/ffmpeg.zip -d "$HOME"/ampache/ffmpeg
+	chmod 700 "$HOME"/ampache/ffmpeg/{ffmpeg,ffmpeg-10bit,ffprobe,qt-faststart}
+	cd && rm -rf {ampache,ffmpeg}.zip ampache-master
 	echo "done downloading and unpacking."
 	echo
 	# set htaccess memory limit and chmod it to 644
-	echo "php_value memory_limit 512M" >> "$HOME/www/$(whoami).$(hostname)/public_html/ampache/.htaccess"
-	chmod 644 "$HOME/www/$(whoami).$(hostname)/public_html/ampache/.htaccess"
+	echo "php_value memory_limit 512M" >> "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/.htaccess
+	chmod 644 "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/.htaccess
 	#
 	# edit the template to that the user's default socket it inserted in the installer.
-	sed -i 's|<td><input type="text" name="local_host" value="localhost" /></td>|<td><input type="text" name="local_host" value="<?php echo getenv('\''HOME'\'') . '\''/private/mysql/socket'\''; ?>" /></td>|g' "$HOME/www/$(whoami).$(hostname)/public_html/ampache/templates/show_install.inc.php"
+	sed -i 's|<td><input type="text" name="local_host" value="localhost" /></td>|<td><input type="text" name="local_host" value="<?php echo getenv('\''HOME'\'') . '\''/private/mysql/socket'\''; ?>" /></td>|g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/templates/show_install.inc.php
 	#
 	# Change some default settings.
-	sed -i 's/catalog_video_pattern = "avi|mpg|flv|m4v"/catalog_video_pattern = "avi|mpg|flv|m4v|mkv"/g' "$HOME/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist"
-	sed -i 's/;memory_limit = 32/memory_limit = 2048/g' "$HOME/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist"
-	sed -i 's/;debug = "false"/debug = "true"/g' "$HOME/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist"
-	sed -i 's|;log_path = "/var/log/ampache"|log_path = "'"$HOME"'/ampache/log"|g' "$HOME/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist"
-	sed -i 's/;min_bit_rate = 48/min_bit_rate = 192/g' "$HOME/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist"
+	sed -i 's/catalog_video_pattern = "avi|mpg|flv|m4v"/catalog_video_pattern = "avi|mpg|flv|m4v|mkv"/g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
+	sed -i 's/;memory_limit = 32/memory_limit = 2048/g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
+	sed -i 's/;debug = "false"/debug = "true"/g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
+	sed -i 's|;log_path = "/var/log/ampache"|log_path = "'"$HOME"'/ampache/log"|g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
+	sed -i 's/;min_bit_rate = 48/min_bit_rate = 192/g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
 	echo "Changed some default settings done"
 	echo
 	#
 	# Change the transcode_cmd to use our custom ffmpeg build.
-	sed -i 's|;transcode_cmd = "ffmpeg -i %FILE%"|transcode_cmd = "'"$HOME"'/ampache/ffmpeg/ffmpeg -i %FILE%\"|g' "$HOME/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist"
+	sed -i 's|;transcode_cmd = "ffmpeg -i %FILE%"|transcode_cmd = "'"$HOME"'/ampache/ffmpeg/ffmpeg -i %FILE%\"|g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
 	echo "Changed the transcode_cmd to use our custom ffmpeg build done"
 	echo
 	#
 	# Change some default transcoding settings
-	sed -i 's/;transcode_m4a      = allowed/transcode_m4a = allowed/g' "$HOME/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist"
-	sed -i 's/;transcode_flac     = required/transcode_flac = required/g' "$HOME/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist"
-	sed -i 's/;transcode_mp3      = allowed/transcode_mp3 = allowed/g' "$HOME/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist"
-	sed -i 's/;encode_target = mp3/encode_target = mp3/g' "$HOME/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist"
-	sed -i 's/;encode_args_mp3 = "-vn -b:a %SAMPLE%K -c:a libmp3lame -f mp3 pipe:1"/encode_args_mp3 = "-vn -b:a %SAMPLE%K -c:a libmp3lame -f mp3 pipe:1"/g' "$HOME/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist"
-	sed -i 's/;encode_args_ogg = "-vn -b:a %SAMPLE%K -c:a libvorbis -f ogg pipe:1"/encode_args_ogg = "-vn -b:a %SAMPLE%K -c:a libvorbis -f ogg pipe:1"/g' "$HOME/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist"
+	sed -i 's/;transcode_m4a      = allowed/transcode_m4a = allowed/g' "$HOME/"www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
+	sed -i 's/;transcode_flac     = required/transcode_flac = required/g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
+	sed -i 's/;transcode_mp3      = allowed/transcode_mp3 = allowed/g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
+	sed -i 's/;encode_target = mp3/encode_target = mp3/g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
+	sed -i 's/;encode_args_mp3 = "-vn -b:a %SAMPLE%K -c:a libmp3lame -f mp3 pipe:1"/encode_args_mp3 = "-vn -b:a %SAMPLE%K -c:a libmp3lame -f mp3 pipe:1"/g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
+	sed -i 's/;encode_args_ogg = "-vn -b:a %SAMPLE%K -c:a libvorbis -f ogg pipe:1"/encode_args_ogg = "-vn -b:a %SAMPLE%K -c:a libvorbis -f ogg pipe:1"/g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
 	echo "Enabled transcoding done"
 	echo
 #
