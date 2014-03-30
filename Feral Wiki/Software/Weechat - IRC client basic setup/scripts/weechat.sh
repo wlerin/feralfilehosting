@@ -4,7 +4,7 @@ scriptversion="1.0.3"
 scriptname="install.weechat"
 # randomessence
 #
-# wget -qO ~/weechat.sh http://git.io/L6oalA && bash ~/weechat.sh
+# wget -qO ~/install.weechat.sh http://git.io/L6oalA && bash ~/install.weechat.sh
 #
 ############################
 ## Version History Starts ##

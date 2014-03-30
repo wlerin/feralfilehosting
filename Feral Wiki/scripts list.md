@@ -87,12 +87,12 @@ none
 
 ### proftpd - Installing an FTP daemon for extra accounts
 
-    proftpd.sh
+    install.proftpd.sh
     proftpdadduser.sh
 
 ### WeeChat
 
-    weechat.sh
+    install.weechat.sh
 
 ### Subsonic
 
