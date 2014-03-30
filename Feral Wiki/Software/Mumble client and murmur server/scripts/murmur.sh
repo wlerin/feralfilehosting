@@ -1,7 +1,7 @@
 #!/bin/bash
 # murmur server installation
-scriptversion="1.0.0"
-scriptname="murmur"
+scriptversion="1.0.1"
+scriptname="install.murmur"
 # randomessence
 #
 # wget -qO ~/murmur.sh http://git.io/t3fmNQ && bash ~/murmur.sh
@@ -18,8 +18,8 @@ scriptname="murmur"
 ###### Variable Start ######
 ############################
 #
-murmururl="http://downloads.sourceforge.net/project/mumble/Mumble/1.2.4/murmur-static_x86-1.2.4.tar.bz2"
-scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Mumble%20client%20and%20murmur%20server/scripts/murmur.sh"
+murmururl="http://downloads.sourceforge.net/project/mumble/Mumble/1.2.5/murmur-static_x86-1.2.5.tar.bz2"
+scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Mumble%20client%20and%20murmur%20server/scripts/install.murmur.sh"
 #
 ############################
 ####### Variable End #######
@@ -90,9 +90,9 @@ then
     echo -e "Downloading and configuring murmur"
     echo
     wget -qO ~/server.tar.bz2 "$murmururl"
-    tar -xjf ~/server.tar.bz2
-    cp -rf ~/murmur-static_x86-1.2.4/. ~/private/murmur
-    rm -rf ~/murmur-static_x86-1.2.4 ~/server.tar.bz2
+    tar xf ~/server.tar.bz2
+    cp -rf ~/murmur-static_x86-1.2.5/. ~/private/murmur
+    cd && rm -rf {murmur-static_x86-1.2.5,server.tar.bz2}
     sed -i 's|port=64738|port='$(shuf -i 6000-50000 -n 1)'|g' ~/private/murmur/murmur.ini
     echo -e "Here is your murmur server:" "\033[33m""$(hostname)""\e[0m"":""\033[32m""$(sed -n -e 's/port=\(.*\)/\1/p' ~/private/murmur/murmur.ini)""\e[0m"
     echo

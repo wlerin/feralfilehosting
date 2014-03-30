@@ -47,7 +47,7 @@ none
 
 ### Wordpress - Basic setup
 
-    wordpress.sh
+    install.wordpress.sh
 
 6: Other Software
 ---
@@ -83,7 +83,7 @@ none
 
 ### mumble/murmur
 
-    murmur.sh
+    install.murmur.sh
 
 ### proftpd - Installing an FTP daemon for extra accounts
 
