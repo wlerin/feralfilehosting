@@ -4,7 +4,7 @@ scriptversion="1.1.2"
 scriptname="install.multirtru"
 # randomessence
 #
-# wget -qO ~/multirtru.sh http://git.io/m_dugQ && bash ~/multirtru.sh
+# wget -qO ~/install.multirtru.sh http://git.io/m_dugQ && bash ~/install.multirtru.sh
 #
 ############################
 ## Version History Starts ##
@@ -20,7 +20,8 @@ scriptname="install.multirtru"
 ###### Variable Start ######
 ############################
 #
-scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Multiple%20instances%20-%20rtorrent%20and%20rutorrent/script/multirtru.sh"
+confurl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Multiple%20instances%20-%20rtorrent%20and%20rutorrent/conf/.rtorrent.rc"
+scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Multiple%20instances%20-%20rtorrent%20and%20rutorrent/script/install.multirtru.sh"
 #
 ############################
 ####### Variable End #######
@@ -179,7 +180,7 @@ then
             unzip -qo ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/plugins/ratiocolor.zip -d ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/plugins/
             rm -f ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/ratiocolor.zip
             # Download and configure the custom .rtorrent.rc
-            wget -qO ~/.rtorrent-"$suffix".rc http://git.io/oJ5P9w
+            wget -qO ~/.rtorrent-"$suffix".rc "$confurl"
             #
             # sed custom ~/.rtorrent.rc
             echo -e "\033[31m""2:""\e[0m" "\033[32m""Part 1""\e[0m" "Editing the files: rtorrent"
