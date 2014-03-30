@@ -4,7 +4,7 @@ scriptversion="1.1.2"
 scriptname="install.multirtru"
 # randomessence
 #
-# wget -qO ~/install.multirtru.sh http://git.io/m_dugQ && bash ~/install.multirtru.sh
+# wget -qO ~/install.multirtru.sh http://git.io/_zVu0A && bash ~/install.multirtru.sh
 #
 ############################
 ## Version History Starts ##
