@@ -64,7 +64,7 @@ none
 
 ### Ampache - web based audio video streaming
 
-    ampache.sh
+    install.ampache.sh
 
 ### Autodl-irssi and rutorrent plugin - community edition
 
@@ -79,7 +79,7 @@ none
 
 ### multiple instances of rtorrent and rutorrent
 
-    multirtru.sh
+    install.multirtru.sh
 
 ### mumble/murmur
 
@@ -104,7 +104,7 @@ none
 
 ### Teamspeak 3 server
 
-    teamspeak.sh
+    install.teamspeak.sh
 
 9: Linux Command-Line - Advanced
 ---

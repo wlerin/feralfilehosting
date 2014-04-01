@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install multiple instances of rtorrent and rutorrent
-scriptversion="1.1.2"
+scriptversion="1.1.3"
 scriptname="install.multirtru"
 # randomessence
 #
@@ -10,6 +10,7 @@ scriptname="install.multirtru"
 ## Version History Starts ##
 ############################
 #
+# v1.1.3 small tweaks to instalaltion script
 # v1.1.2 template updated
 #
 ############################
@@ -20,6 +21,8 @@ scriptname="install.multirtru"
 ###### Variable Start ######
 ############################
 #
+feralstats="http://git.io/nB1WyA"
+ratiocolor="http://git.io/71cumA"
 confurl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Multiple%20instances%20-%20rtorrent%20and%20rutorrent/conf/.rtorrent.rc"
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Multiple%20instances%20-%20rtorrent%20and%20rutorrent/script/install.multirtru.sh"
 #
@@ -141,12 +144,14 @@ then
         sed -i '/screen -fa -dmS rtorrent-'"$suffix"' rtorrent -n -o import=~\/.rtorrent-'"$suffix"'.rc/d' ~/multirtru.restart.txt
         sed -i '/^$/d' ~/multirtru.restart.txt
         echo -e "\033[31m""Done""\e[0m"
+        echo
+        sleep 2
         # reload script to use removal options again or skip to installation
-        bash ~/multirtru.sh
+        bash ~/"$scriptname.sh"
     fi
     # Removal options ends
     # Installtation start
-    echo -e "\033[31m""This script will create a new rutorrent and rtorrent instance using a suffix, for example:""\e[0m"
+    echo -e "This script will create a new rutorrent and rtorrent instance using a suffix, for example:"
     echo
     echo -e "\033[32m""/public_html/rutorrent-1""\e[0m""," "\033[33m""~/.rtorrent-1.rc""\e[0m" "and" "\033[36m""~/private/rtorrent-1""\e[0m"
     echo
@@ -157,7 +162,7 @@ then
     if [[ -z "$suffix" ]]
     then
         echo -e "\033[31m""You did not give a suffix to use. Please enter one. The script will restart""\e[0m"
-        bash ~/multirtru.sh
+        bash ~/"$scriptname.sh"
         exit 1
     else
         if [[ ! -f ~/.rtorrent-"$suffix".rc && ! -d ~/private/rtorrent-"$suffix" && ! -d ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix" ]]
@@ -172,11 +177,11 @@ then
             # Make sure rtorrent adder will work with nginx by creating this folder.
             mkdir -p ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/share/torrents
             # Download and install the Feral stats plugin
-            wget -qO ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/plugins/feralstats.zip http://git.io/nB1WyA
+            wget -qO ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/plugins/feralstats.zip "$feralstats"
             unzip -qo ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/plugins/feralstats.zip -d ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/plugins/
             rm -f ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/feralstats.zip
             # Download and install the ratio colour plugin
-            wget -qO ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/plugins/ratiocolor.zip http://git.io/71cumA
+            wget -qO ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/plugins/ratiocolor.zip "$ratiocolor"
             unzip -qo ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/plugins/ratiocolor.zip -d ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/plugins/
             rm -f ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/ratiocolor.zip
             # Download and configure the custom .rtorrent.rc
@@ -299,7 +304,7 @@ then
             exit 1
         else
             echo -e "\033[31m""This particular suffix already exists, try another. The script will restart.""\e[0m"
-            bash ~/multirtru.sh
+            bash ~/"$scriptname.sh"
             exit 1
         fi
     fi
