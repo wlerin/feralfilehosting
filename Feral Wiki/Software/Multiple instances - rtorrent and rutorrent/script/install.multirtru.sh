@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install multiple instances of rtorrent and rutorrent
-scriptversion="1.1.3"
+scriptversion="1.1.4"
 scriptname="install.multirtru"
 # randomessence
 #
@@ -147,7 +147,6 @@ then
             sed -i '/^$/d' ~/multirtru.restart.txt
         fi
         echo -e "\033[31m""Done""\e[0m"
-        echo
         sleep 2
         # reload script to use removal options again or skip to installation
         bash ~/"$scriptname.sh"
@@ -242,14 +241,15 @@ then
             echo 'screen -fa -dmS rtorrent-'"$suffix"' rtorrent -n -o import=~/.rtorrent-'"$suffix"'.rc' >> ~/multirtru.restart.txt
             echo
             echo -e "\033[32m""This command was added to""\e[0m" "\033[36m""~/multirtru.restart.txt""\e[0m" "\033[32m""so you can easily restart this instance""\e[0m"
+            echo
             echo "To reattach to this screen type:"
             echo
-            echo -e "\033[33m""screen -r rtorrent-$suffix""\e[0m"
+            echo -e "\033[33m""        screen -r rtorrent-$suffix""\e[0m"
             echo
             echo "Is it running?"
-            echo
+            echo -e "\033[33m"
             screen -ls | grep rtorrent-"$suffix"
-            echo
+            echo -e "\e[0m"
             if [[ -n "$username" ]]
             then
                 echo -e "The username for this instance is:" "\033[32m""$username""\e[0m"
@@ -264,6 +264,7 @@ then
             then
                 echo -e "\033[33m""Don't forget, you can manage your passwords with this FAQ:""\e[0m" "\033[36m""https://www.feralhosting.com/faq/view?question=22""\e[0m"
                 echo
+                exit 1
             else
                 echo -e "\033[31m""There was a problem. The rutorrent-$suffix .htpasswd is empty.""\e[0m"
                 if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
