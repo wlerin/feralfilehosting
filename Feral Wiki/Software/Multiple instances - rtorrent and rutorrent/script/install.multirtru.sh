@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install multiple instances of rtorrent and rutorrent
-scriptversion="1.1.4"
+scriptversion="1.1.5"
 scriptname="install.multirtru"
 # randomessence
 #
@@ -91,11 +91,17 @@ then
 #### User Script Starts ####
 ############################
 #
-    # Removal options start
     read -ep "Would you like to delete an existing custom instance and all related files and folders? [y]es or choose [n]o to skip: " removal
     echo
     if [[ "$removal" =~ ^[Yy]$ ]]
     then
+        if [[ -f ~/multirtru.restart.txt && -s ~/multirtru.restart.txt ]]
+        then
+            echo -e "\033[32m""Existing custom installations read from the ~/multirtru.restart.txt""\e[0m"
+            echo
+            sed -rn "s/screen -fa -dmS rtorrent-(.*) rtorrent -n -o import=\~\/.rtorrent-(.*).rc/\2/p" ~/multirtru.restart.txt
+            echo
+        fi
         read -ep "Please tell me the suffix to use for removal of the rtorrent and rutorrent instances: " suffix
         echo
         #
@@ -148,11 +154,9 @@ then
         fi
         echo -e "\033[31m""Done""\e[0m"
         sleep 2
-        # reload script to use removal options again or skip to installation
         bash ~/"$scriptname.sh"
-    fi
-    # Removal options ends
-    # Installtation start
+    elif [[ "$removal" =~ ^[Nn]$ ]]
+    then
     echo -e "This script will create a new rutorrent and rtorrent instance using a suffix, for example:"
     echo
     echo -e "\033[32m""/public_html/rutorrent-1""\e[0m""," "\033[33m""~/.rtorrent-1.rc""\e[0m" "and" "\033[36m""~/private/rtorrent-1""\e[0m"
@@ -165,7 +169,6 @@ then
     then
         echo -e "\033[31m""You did not give a suffix to use. Please enter one. The script will restart""\e[0m"
         bash ~/"$scriptname.sh"
-        exit 1
     else
         if [[ ! -f ~/.rtorrent-"$suffix".rc && ! -d ~/private/rtorrent-"$suffix" && ! -d ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix" ]]
         then
@@ -264,7 +267,6 @@ then
             then
                 echo -e "\033[33m""Don't forget, you can manage your passwords with this FAQ:""\e[0m" "\033[36m""https://www.feralhosting.com/faq/view?question=22""\e[0m"
                 echo
-                exit 1
             else
                 echo -e "\033[31m""There was a problem. The rutorrent-$suffix .htpasswd is empty.""\e[0m"
                 if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
@@ -311,6 +313,11 @@ then
             bash ~/"$scriptname.sh"
             exit 1
         fi
+    fi
+    else
+        echo -e "\033[31m""You did not select a valid option. Please select either [y]es or [n]o.""\e[0m"
+        sleep 2
+        bash ~/"$scriptname.sh"
     fi
 #
 ############################
