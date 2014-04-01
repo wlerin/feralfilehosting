@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install multiple instances of rtorrent and rutorrent
-scriptversion="1.1.5"
+scriptversion="1.1.6"
 scriptname="install.multirtru"
 # randomessence
 #
@@ -10,6 +10,8 @@ scriptname="install.multirtru"
 ## Version History Starts ##
 ############################
 #
+# v1.1.6 random password option.
+# v1.1.5 more tweaks and fixed loop.
 # v1.1.3 small tweaks to instalaltion script
 # v1.1.2 template updated
 #
@@ -21,6 +23,7 @@ scriptname="install.multirtru"
 ###### Variable Start ######
 ############################
 #
+randompass=$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)
 feralstats="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Feralstats%20plugin%20for%20ruTorrent/files/feralstats.zip"
 ratiocolor="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Rutorrent%20-%20Colored%20Ratio%20Column%20Plugin/ratiocolor-1/ratiocolor.zip"
 confurl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Multiple%20instances%20-%20rtorrent%20and%20rutorrent/conf/.rtorrent.rc"
@@ -213,17 +216,25 @@ then
             echo -e 'AuthType Basic\nAuthName "rtorrent-'"$suffix"'"\nAuthUserFile "'"$HOME"'/www/'$(whoami)'.'$(hostname)'/public_html/rutorrent-'"$suffix"'/.htpasswd"\nRequire valid-user' > ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/.htaccess
             read -ep "Please give me a username for the user we are creating: " username
             echo
-            if [[ -n "$username" ]]
+            read -ep "Would you like me to generate you a random 20 chararcter password [y]es or use your own [n]o: " makeitso
+            if [[ "$makeitso" =~ ^[Yy]$ ]]
             then
-                echo -e "You entered" "\033[32m""$username""\e[0m" "as the choice of username"
+                htpasswd -cbm ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/.htpasswd "$username" "$randompass"
                 echo
-                htpasswd -cm ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/.htpasswd "$username"
-                echo
+                echo -n 'If you are reading this you can delete this file, it is a tmp file from the multirtru script that was supposed to be removed.' > ~/.randompasstmp
             else
-                echo -e "No username was give so i am using a generic username which is:" "\033[32m""rutorrent-$suffix""\e[0m"
-                echo
-                htpasswd -cm ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/.htpasswd rutorrent-"$suffix"
-                echo
+                if [[ -n "$username" ]]
+                then
+                    echo -e "You entered" "\033[32m""$username""\e[0m" "as the choice of username"
+                    echo
+                    htpasswd -cm ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/.htpasswd "$username"
+                    echo
+                else
+                    echo -e "No username was give so i am using a generic username which is:" "\033[32m""rutorrent-$suffix""\e[0m"
+                    echo
+                    htpasswd -cm ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/.htpasswd rutorrent-"$suffix"
+                    echo
+                fi
             fi
             # nginx copy rutorrent-suffix htpassd to create the rpc htpassd file.
             if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
@@ -267,6 +278,13 @@ then
             then
                 echo -e "\033[33m""Don't forget, you can manage your passwords with this FAQ:""\e[0m" "\033[36m""https://www.feralhosting.com/faq/view?question=22""\e[0m"
                 echo
+                if [[ -f ~/.randompasstmp ]]
+                then
+                    echo -e "Your password for rutorrent-$suffix is" "\033[32m""$randompass""\e[0m" "Please make a note of this password now."
+                    echo -e "If you forget the pass you will have to use the script in this FAQ - https://www.feralhosting.com/faq/view?question=22"
+                    cd && rm -rf ~/.randompasstmp
+                    echo
+                fi
             else
                 echo -e "\033[31m""There was a problem. The rutorrent-$suffix .htpasswd is empty.""\e[0m"
                 if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
