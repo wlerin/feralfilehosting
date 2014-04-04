@@ -1,6 +1,6 @@
 #!/bin/bash
-# installautodl.sh
-scriptversion="1.3.2"
+# install autodl
+scriptversion="1.3.3"
 scriptname="install.autodl"
 # Bobtentpeg, randomessence
 #
@@ -10,6 +10,7 @@ scriptname="install.autodl"
 ## Version History Starts ##
 ############################
 #
+# v1.3.3 - small tweaks
 # v1.3.2 - confusion = automation + comments
 # v1.3.1 - updater template merged
 # v1.3.0 - URLs updated as google code is being phased out.
@@ -68,7 +69,7 @@ fi
 #
 wget -qO "$HOME/000$scriptname.sh" "$scripturl"
 #
-if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" > /dev/null 2>&1
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" >/dev/null 2>&1
 then
     echo '#!/bin/bash
     scriptname="'"$scriptname"'"
@@ -79,7 +80,7 @@ then
     bash "$HOME/111$scriptname.sh"
     exit 1
 fi
-if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" > /dev/null 2>&1
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" >/dev/null 2>&1
 then
     echo '#!/bin/bash
     scriptname="'"$scriptname"'"
@@ -131,9 +132,9 @@ then
         echo -e "\033[31m""A randomly generated 20 character password has been set for you by this script""\e[0m"
         echo
         # Kill any existing irssi processes to make sure the installation can be finalised later.
-        killall -9 -u $(whoami) irssi 2> /dev/null
+        killall -9 -u $(whoami) irssi >/dev/null 2>&1
         # Wipe any dead screens left behind
-        screen -wipe > /dev/null 2>&1
+        screen -wipe >/dev/null 2>&1
         # Make a backup of the ~/.autodl/autodl.cfg just incase
         if [[ -f ~/.autodl/autodl.cfg ]]
         then
@@ -173,11 +174,11 @@ then
         if [[ -f ~/.autodl/autodl.cfg ]]
         then
             # Sed command to enter the port variable
-            sed -ri 's/(.*)gui-server-port =(.*)/gui-server-port = '"$port"'/g' ~/.autodl/autodl.cfg
+            sed -ri 's|(.*)gui-server-port =(.*)|gui-server-port = '"$port"'|g' ~/.autodl/autodl.cfg
             # Sed command to enter the password variable
-            sed -ri 's/(.*)gui-server-password =(.*)/gui-server-password = '"$pass"'/g' ~/.autodl/autodl.cfg
+            sed -ri 's|(.*)gui-server-password =(.*)|gui-server-password = '"$pass"'|g' ~/.autodl/autodl.cfg
         else 
-            echo -ne "[options]\ngui-server-port = $port\ngui-server-password = $pass" > ~/.autodl/autodl.cfg
+            echo -e "[options]\ngui-server-port = $port\ngui-server-password = $pass" > ~/.autodl/autodl.cfg
         fi
         echo
         sleep 1
@@ -208,7 +209,7 @@ then
         echo
         sleep 1
         # Uses echo to make the config file for the rutorrent plugun to work with autodl uinsg the variables port and pass
-        echo -e '<?php\n$autodlPort = '"$port"';\n$autodlPassword = "'"$pass"'";\n?>' > ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/conf.php
+        echo -ne '<?php\n$autodlPort = '"$port"';\n$autodlPassword = "'"$pass"'";\n?>' > ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/conf.php
         sleep 1
         #
         ############################
@@ -262,9 +263,9 @@ then
     ############################
     #
     # Kill all irssi instances before starting
-    killall -9 -u $(whoami) irssi 2> /dev/null 
+    killall -9 -u $(whoami) irssi >/dev/null 2>&1
     # Clear dead screens
-    screen -wipe > /dev/null 2>&1
+    screen -wipe >/dev/null 2>&1
     # Start autodl irssi in a screen in the background.
     screen -dmS autodl irssi
     # Send a command to the new screen telling Autodl to update itself. This basically generates the ~/.autodl/AutodlState.xml files with updated info.
