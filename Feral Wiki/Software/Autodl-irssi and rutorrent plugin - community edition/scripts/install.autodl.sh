@@ -4,7 +4,7 @@ scriptversion="1.3.2"
 scriptname="install.autodl"
 # Bobtentpeg, randomessence
 #
-# wget -qO ~/install.autodl.sh http://git.io/Ch0LqA && bash ~/install.autodl.sh
+# wget -qO ~/install.autodl.sh http://git.io/oTUCMg && bash ~/install.autodl.sh
 #
 ############################
 ## Version History Starts ##
