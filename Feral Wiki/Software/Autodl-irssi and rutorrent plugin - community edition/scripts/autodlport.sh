@@ -1,6 +1,6 @@
 #!/bin/bash
 # autodlport.sh
-scriptversion="1.0.4"
+scriptversion="1.0.5"
 scriptname="autodlport"
 # randomessence
 #
@@ -10,6 +10,7 @@ scriptname="autodlport"
 ## Version History Starts ##
 ############################
 #
+# 1.0.5 updater template merged
 # 1.0.4 updater template merged
 # 1.0.3 general formatting
 # 1.0.2 generates optional password for the user like the install script.
@@ -23,7 +24,7 @@ scriptname="autodlport"
 ############################
 #
 port=$(shuf -i 6000-50000 -n 1)
-pass=$(< /dev/urandom tr -dc '12345!@#ANCDEFGHIJKLMNOPabcdefghijklmnop' | head -c${1:-20};echo;)
+pass=$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/autodlport.sh"
 #
 ############################
@@ -47,7 +48,7 @@ fi
 #
 wget -qO "$HOME/000$scriptname.sh" "$scripturl"
 #
-if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" > /dev/null 2>&1
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" >/dev/null 2>&1
 then
     echo '#!/bin/bash
     scriptname="'"$scriptname"'"
@@ -58,7 +59,7 @@ then
     bash "$HOME/111$scriptname.sh"
     exit 1
 fi
-if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" > /dev/null 2>&1
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" >/dev/null 2>&1
 then
     echo '#!/bin/bash
     scriptname="'"$scriptname"'"
@@ -92,33 +93,28 @@ then
 #### User Script Starts ####
 ############################
 #
-    if [[ -f "$HOME/.autodl/autodl.cfg" && -f "$HOME/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/conf.php" ]]
+    if [[ -f ~/.autodl/autodl.cfg && -f ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/conf.php ]]
     then
         echo "This script will change your password and port for autodl and the rutorrent plugin, then restart irssi."
         echo
-        echo -e "\033[31m""A randomly generated password has been set for you, you can just press enter""\e[0m"
+        echo -e "\033[31m""A randomly generated 20 character password has been set for you by this script""\e[0m"
         echo
-        read -ep "Enter Password (No spaces please!): " -i "$pass" pass
+        # Sed command to enter the port variable
+        sed -ri 's|(.*)gui-server-port =(.*)|gui-server-port = '"$port"'|g' ~/.autodl/autodl.cfg
+        # Sed command to enter the password variable
+        sed -ri 's|(.*)gui-server-password =(.*)|gui-server-password = '"$pass"'|g' ~/.autodl/autodl.cfg
+        # Uses echo to make the config file for the rutorrent plugun to work with autodl uinsg the variables port and pass
+        echo -ne '<?php\n$autodlPort = '"$port"';\n$autodlPassword = "'"$pass"'";\n?>' > ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/conf.php
+        # Kill all irssi instances before starting
+        killall -9 -u $(whoami) irssi >/dev/null 2>&1
+        # Clear dead screens
+        screen -wipe >/dev/null 2>&1
+        # Start autodl irssi in a screen in the background.
+        screen -dmS autodl irssi
+        echo "The port and password have been updated. Attach to the running screen using this command:"
         echo
-        echo -e "You entered" "\033[32m""$pass""\e[0m" "as your password."
+        echo -e "\033[32m""screen -r autodl""\e[0m"
         echo
-        read -ep "Please confirm this is the password you wish to use [y/n]: " confirm
-        echo
-        if [[ "$confirm" =~ ^[Yy]$ ]]
-        then
-            sed -ri 's/(.*)gui-server-port =(.*)/gui-server-port = '"$port"'/g' "$HOME/.autodl/autodl.cfg"
-            sed -ri 's/(.*)gui-server-password =(.*)/gui-server-password = '"$pass"'/g' "$HOME/.autodl/autodl.cfg"
-            echo -e "<?php\n\$autodlPort = $port;\n\$autodlPassword = \"$pass\";\n?>" > "$HOME/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/conf.php"
-            killall -9 irssi -u $(whoami) 2> /dev/null 
-            screen -wipe > /dev/null 2>&1
-            screen -dmS autodl irssi
-            echo "The port and password have been updated. Attach to the running screen using this command:"
-            echo
-            echo -e "\033[32m""screen -r autodl""\e[0m"
-            echo
-        else
-            bash "$HOME/autodlport.sh"
-        fi        
     else
         echo
         echo -e "The required files do not exist, please install autodl irssi using the bash script first."
@@ -131,7 +127,7 @@ then
         then
             echo -e "\033[36m""/rutorrent/plugins/autodl-irssi/conf.php""\e[0m"" is missing"
         fi
-        e
+    fi
 #
 ############################
 ##### User Script End  #####
