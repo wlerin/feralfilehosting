@@ -50,7 +50,7 @@ fi
 #
 wget -qO "$HOME/000$scriptname.sh" "$scripturl"
 #
-if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" > /dev/null 2>&1
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" >/dev/null 2>&1
 then
     echo '#!/bin/bash
     scriptname="'"$scriptname"'"
@@ -61,7 +61,7 @@ then
     bash "$HOME/111$scriptname.sh"
     exit 1
 fi
-if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" > /dev/null 2>&1
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" >/dev/null 2>&1
 then
     echo '#!/bin/bash
     scriptname="'"$scriptname"'"
