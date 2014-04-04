@@ -90,7 +90,7 @@ then
     bash "$HOME/222$scriptname.sh"
     exit 1
 fi
-cd && rm -f {000,111,222}"$scriptname.sh"
+cd && rm -f {000,111,222}"$scriptname.sh" installautodl.sh bin/installautodl
 chmod -f 700 "$HOME/bin/$scriptname"
 #
 ############################
@@ -280,6 +280,10 @@ then
     echo -e "\033[32m""screen -r autodl""\e[0m"
     echo
     echo -e "The fix script in the Autodl FAQ will have to be run each time you update/overwrite the autodl or autodl-rutorrent files."
+    echo
+    echo "Visit your updated rutorrent installation here:"
+    echo
+    echo -e "\033[32m""https://$(hostname)/$(whoami)/rutorrent/""\e[0m"
     echo
     exit 1
 #
