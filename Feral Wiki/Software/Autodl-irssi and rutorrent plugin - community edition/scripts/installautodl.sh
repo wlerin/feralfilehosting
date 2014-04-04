@@ -1,15 +1,16 @@
 #!/bin/bash
 # installautodl.sh
-scriptversion="1.3.1"
-scriptname="installautodl"
+scriptversion="1.3.2"
+scriptname="install.autodl"
 # Bobtentpeg, randomessence
 #
-# wget -qO ~/installautodl.sh http://git.io/Ch0LqA && bash ~/installautodl.sh
+# wget -qO ~/install.autodl.sh http://git.io/Ch0LqA && bash ~/install.autodl.sh
 #
 ############################
 ## Version History Starts ##
 ############################
 #
+# v1.3.2 - confusion = automation + comments
 # v1.3.1 - updater template merged
 # v1.3.0 - URLs updated as google code is being phased out.
 # v1.2.9 - modernised
@@ -41,13 +42,10 @@ autodltrackers="https://bitbucket.org/autodl-community/autodl-irssi/downloads/au
 autodlrutorrent="https://github.com/autodl-community/autodl-rutorrent/archive/master.zip"
 # Uses shuf to pick a random port between 6000 and 50000
 port=$(shuf -i 6000-50000 -n 1)
-# sets of two new variables to make things easier in the echo
-autodlPort='$autodlPort'
-autodlPassword='$autodlPassword'
 # Random password generation
 pass=$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)
 # Raw script URL for self updating
-scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/installautodl.sh"
+scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/install.autodl.sh"
 #
 ############################
 ####### Variable End #######
@@ -115,124 +113,128 @@ then
 #### User Script Starts ####
 ############################
 #
-    #
-    echo -e "    ######################################""\033[33m""DISCLAIMER""\e[0m""#############################################
-    #############################################################################################
-    #############################################################################################
-    ### This script is supplied as is, neither I nor FeralHosting take any responsibility for ###
-    ### any problems arising due to usage of this script.  There is no implied or explicit    ###
-    ### warranty and FeralHosting will provide no support for autodl-irssi. If updates and or ###
-    ### revisions to either autodl or its plugin cause this script to break, this script will ###
-    ### be updated at the authors convenience if at all.                                      ###
-    #############################################################################################
-    #############################################################################################
-    #############################################################################################"
-    echo
-    read -ep "If you understand the above disclaimer, enter 'yes' to continue: " license
-    echo
-    if [[ "$license" = yes ]]
+# Please note, the sleep lines are there to artificially slow down the process at some steps and to allow ample time to give user feedback
+# Echos are not commneted since they are informative notcies that are self explanatory
+#
+    # Checks for rutorrent. If the folder does not exist in the required location the script moves to the else statement.
+    if [[ -d ~/www/$(whoami).$(hostname)/public_html/rutorrent ]]
     then
-        # checks for rutorrent...see bottom else statement for negative return
-        if [[ -d ~/www/$(whoami).$(hostname)/public_html/rutorrent ]]
-        then
-            echo -e "\033[32m""Installing autodl-irssi and its rutorrent plugin""\e[0m"
-            echo
-            # Makes the directories for irssi and autodl, as well as make the autodl config file
-            mkdir -p ~/.irssi/scripts/autorun ~/.autodl
-            # Ask for user to enter their password. 
-            # Saves password as $sedpass variable for usage later
-            echo -e "\033[31m""A randomly generated password has been set for you, you can just press enter""\e[0m"
-            echo
-            read -ep "Enter Password (No spaces please!): " -i "$pass" pass
-            echo
-            # Shows uers the password they entered
-            echo -e "You entered" "\033[32m""$pass""\e[0m" "as your password."
-            echo
-            # Confirms user password before they start
-            read -p "Please confirm this is the password you wish to use [y/n]: " confirm
-            echo
-            # If they like their chosen password, the script installs autodl. =~ ^[Yy] is matching for Y or y
-            if [[ "$confirm" =~ ^[Yy]$ ]]
-            then
-                # autodl irssi begins
-                #
-                # Please note, the sleep lines are there to artificially slow down the process at some steps and to allow ample time to give user feedback
-                # Kill any existing processes
-                killall -9 -u $(whoami) irssi 2> /dev/null 
-                screen -wipe > /dev/null 2>&1
-                # Clean install
-                rm -rf ~/.irssi/scripts/AutodlIrssi
-                rm -f ~/.irssi/scripts/autorun/autodl-irssi.pl
-                rm -rf ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi
-                echo "Downloading autodl-irssi"
-                # Downloads the newest  RELEASE version  of the autodl community edition and saves it as a zip file
-                wget -qO ~/autodl-irssi.zip "$autodlirssicommunity"
-                wget -qO ~/autodl-trackers.zip "$autodltrackers"
-                echo "autodl-irssi download finished"
-                # Unzips the files downloaded above
-                echo "Unzipping"
-                unzip -qo ~/autodl-irssi.zip -d ~/.irssi/scripts/
-                unzip -qo ~/autodl-trackers.zip -d ~/.irssi/scripts/AutodlIrssi/trackers/
-                echo "Unzipping complete"
-                # Moves the files around to their proper homes.  The .pl file is moved to autorun so that autodl starts automatically when we open irssi
-                # the AutodlIrssi folder is moved to scripts  (inside the perl path) so that  its contents can be loaded by irssi when it starts
-                echo "Moving files around"
-                cp -f ~/.irssi/scripts/autodl-irssi.pl ~/.irssi/scripts/autorun/ 
-                rm -f ~/autodl-irssi.zip ~/.irssi/scripts/README* ~/autodl-irssi.zip ~/.irssi/scripts/CONTRIBUTING.md ~/.irssi/scripts/autodl-irssi.pl ~/autodl-trackers.zip
-                # Uses echo to make our autodl.cfg config file. Takes the two previously made variables, $port and $pass to populate per user
-                echo "Writing configuration files"
-                if [[ -f ~/.autodl/autodl.cfg ]]
-                then
-                    sed -ri 's/(.*)gui-server-port =(.*)/gui-server-port = '"$port"'/g' ~/.autodl/autodl.cfg
-                    sed -ri 's/(.*)gui-server-password =(.*)/gui-server-password = '"$pass"'/g' ~/.autodl/autodl.cfg
-                else 
-                    echo -e "[options]\ngui-server-port = $port\ngui-server-password = $pass" > ~/.autodl/autodl.cfg
-                fi
-                echo
-                sleep 2
-                #
-                # autodl irssiends
-                # rutorrent plugin begins
-                #
-                # cd into your www/.../rutorrent/plugins folder to make paths nicer
-                cd ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/
-                # Downloads the latest version of the autodl-irssi plugin
-                echo "Downloading autodl-irssi Rutorrent plugin"
-                wget -qO autodl-rutorrent.zip "$autodlrutorrent"
-                echo "Plugin download finished"
-                unzip -qo autodl-rutorrent.zip
-                cp -rf autodl-rutorrent-master/. autodl-irssi
-                rm -rf autodl-rutorrent.zip autodl-rutorrent-master
-                echo "Creating configuration file"
-                # Uses echo to make the config file for the rutorrent plugun. Uses previously set vars to populate
-                echo -e "<?php\n$autodlPort = $port;\n$autodlPassword = \"$pass\";\n?>" > ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/conf.php
-                # If they dont like it, it restarts the script because Im lazy and I dont feel like writing this properly
-                echo
-                sleep 2
-                #
-                # rutorrent plugin ends
-            else
-                bash ~/installautodl.sh
-            fi
-        else
-            echo -e "\033[31m Install rtorrent/rutorrent first" "\e[0m"
-            echo
-        fi
-    else
-        echo "This installer will now exit"
+        #
+        ############################
+        ####### Autodl Start #######
+        ############################
+        #
+        echo -e "\033[32m""Installing autodl-irssi and the rutorrent plugin""\e[0m"
         echo
-        sleep 2
-        exit 1
+        # Makes the directories we require for the irssi and autodl installation.
+        mkdir -p ~/{.autodl,.irssi/scripts/autorun}
+        echo -e "\033[31m""A randomly generated 20 character password has been set for you by this script""\e[0m"
+        echo
+        # Kill any existing irssi processes to make sure the installation can be finalised later.
+        killall -9 -u $(whoami) irssi 2> /dev/null
+        # Wipe any dead screens left behind
+        screen -wipe > /dev/null 2>&1
+        # Make a backup of the ~/.autodl/autodl.cfg just incase
+        if [[ -f ~/.autodl/autodl.cfg ]]
+        then
+            cp -f ~/.autodl/autodl.cfg ~/.autodl/autodl.cfg.bak
+        fi
+        # Clean install by removing the related irssi folder and files and the rutorrent plugin folder
+        rm -rf ~/.irssi/scripts/AutodlIrssi
+        rm -f ~/.irssi/scripts/autorun/autodl-irssi.pl
+        rm -rf ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi
+        echo "Downloading autodl-irssi"
+        echo
+        sleep 1
+        # Downloads the newest RELEASE version of the autodl community edition and saves it as a zip file.
+        wget -qO ~/autodl-irssi.zip "$autodlirssicommunity"
+        # Downloads the newest  RELEASE version  of the autodl community trackers file and saves it as a zip file.
+        wget -qO ~/autodl-trackers.zip "$autodltrackers"
+        echo "autodl-irssi download finished"
+        echo
+        sleep 1
+        echo "Unzipping files"
+        echo
+        sleep 1
+        # Unpack core autodl files to the desired location for further processing
+        unzip -qo ~/autodl-irssi.zip -d ~/.irssi/scripts/
+        # Unpack the latest trackers file just to make sure we are they are current.
+        unzip -qo ~/autodl-trackers.zip -d ~/.irssi/scripts/AutodlIrssi/trackers/
+        echo "Moving files around"
+        echo
+        sleep 1
+        # Moves the files around to their proper homes. The .pl file is moved to autorun so that autodl starts automatically when we open irssi
+        cp -f ~/.irssi/scripts/autodl-irssi.pl ~/.irssi/scripts/autorun/
+        # Delete files we no longer need.
+        rm -f ~/autodl-{irssi,trackers}.zip ~/.irssi/scripts/{README*,CONTRIBUTING.md,autodl-irssi.pl}
+        echo "Writing configuration files"
+        # If the autodl.cfg exists we use sed to update the existing username and pass with the ones the script has generated.
+        # else we use and echo to create our autodl.cfg file. Takes the two previously made variables, $port and $pass to update/create the required info.
+        if [[ -f ~/.autodl/autodl.cfg ]]
+        then
+            # Sed command to enter the port variable
+            sed -ri 's/(.*)gui-server-port =(.*)/gui-server-port = '"$port"'/g' ~/.autodl/autodl.cfg
+            # Sed command to enter the password variable
+            sed -ri 's/(.*)gui-server-password =(.*)/gui-server-password = '"$pass"'/g' ~/.autodl/autodl.cfg
+        else 
+            echo -ne "[options]\ngui-server-port = $port\ngui-server-password = $pass" > ~/.autodl/autodl.cfg
+        fi
+        echo
+        sleep 1
+        #
+        ############################
+        ######## Autodl End ########
+        ############################
+        #
+        ############################
+        ##### RuTorrent Starts #####
+        ############################
+        #
+        echo "Downloading autodl-irssi Rutorrent plugin"
+        echo
+        sleep 1
+        # Downloads the latest version of the autodl-irssi plugin
+        wget -qO ~/autodl-rutorrent.zip "$autodlrutorrent"
+        echo "Plugin download finished"
+        echo
+        sleep 1
+        # Unpacks the autodl rutorrent plugin here
+        unzip -qo ~/autodl-rutorrent.zip
+        # Copy the contents from autodl-rutorrent-master to a folder called autodl-irssi in the rutorrent plugins directory, creating it if absent
+        cp -rf ~/autodl-rutorrent-master/. ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi
+        # Delete the downloaded zip and the unpacked folder we no longer require.
+        cd && rm -rf autodl-rutorrent{-master,.zip}
+        echo "Creating configuration file"
+        echo
+        sleep 1
+        # Uses echo to make the config file for the rutorrent plugun to work with autodl uinsg the variables port and pass
+        echo -e '<?php\n$autodlPort = '"$port"';\n$autodlPassword = "'"$pass"'";\n?>' > ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/conf.php
+        sleep 1
+        #
+        ############################
+        ###### RuTorrent Ends ######
+        ############################
+        #
+    else
+        # If the ~/www/$(whoami).$(hostname)/public_html/rutorrent does not exist say this.
+        echo -e "\033[31m Install rtorrent/rutorrent first via the Account Manager at feralhosting.com" "\e[0m"
+        echo
     fi
-    # Now we fix the installation
+    #
+    ############################
+    ##### Fix script Start #####
+    ############################
+    #
     echo "Applying the fix script as part of the installation:"
-    sleep 2
     echo
-    if [ -d ~/.irssi/scripts/AutodlIrssi/ ]
+    sleep 1
+    # If the ~/.irssi/scripts/AutodlIrssi folder exists then apply the fix or esle warn the user the directory is missing.
+    if [ -d ~/.irssi/scripts/AutodlIrssi ]
     then
-        sed -i "s/use constant LISTEN_ADDRESS => '127.0.0.1';/use constant LISTEN_ADDRESS => '10.0.0.1';/g" ~/.irssi/scripts/AutodlIrssi/GuiServer.pm
+        # Fix the core Autodl files by changing 127.0.0.1 to 10.0.0.1 using sed in 3 places in 2 files.
+        sed -i "s|use constant LISTEN_ADDRESS => '127.0.0.1';|use constant LISTEN_ADDRESS => '10.0.0.1';|g" ~/.irssi/scripts/AutodlIrssi/GuiServer.pm
         sed -i 's|$rtAddress = "127.0.0.1$rtAddress"|$rtAddress = "10.0.0.1$rtAddress"|g' ~/.irssi/scripts/AutodlIrssi/MatchedRelease.pm
-        sed -i 's/my $scgi = new AutodlIrssi::Scgi($rtAddress, {REMOTE_ADDR => "127.0.0.1"});/my $scgi = new AutodlIrssi::Scgi($rtAddress, {REMOTE_ADDR => "10.0.0.1"});/g' ~/.irssi/scripts/AutodlIrssi/MatchedRelease.pm
+        sed -i 's|my $scgi = new AutodlIrssi::Scgi($rtAddress, {REMOTE_ADDR => "127.0.0.1"});|my $scgi = new AutodlIrssi::Scgi($rtAddress, {REMOTE_ADDR => "10.0.0.1"});|g' ~/.irssi/scripts/AutodlIrssi/MatchedRelease.pm
         #
         echo -e "\033[33m""Autodl fix has been applied""\e[0m"
     else
@@ -242,9 +244,11 @@ then
         exit
     fi
     #
+    # If the ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/ apply the fix else warn teh user the directory is missing.
     if [ -d ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/ ]
     then
-        sed -i 's/if (!socket_connect($socket, "127.0.0.1", $autodlPort))/if (!socket_connect($socket, "10.0.0.1", $autodlPort))/g' ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/getConf.php
+        # Fix the relevent rutorrent plugin file by changing 127.0.0.1 to 10.0.0.1 using sed
+        sed -i 's|if (!socket_connect($socket, "127.0.0.1", $autodlPort))|if (!socket_connect($socket, "10.0.0.1", $autodlPort))|g' ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/getConf.php
         echo -e "\033[33m""Autodl-rutorrent fix has been applied""\e[0m"
         echo
     else
@@ -252,12 +256,22 @@ then
         echo
         exit 1
     fi
+    #
+    ############################
+    ###### Fix script End ######
+    ############################
+    #
+    # Kill all irssi instances before starting
     killall -9 -u $(whoami) irssi 2> /dev/null 
+    # Clear dead screens
     screen -wipe > /dev/null 2>&1
+    # Start autodl irssi in a screen in the background.
     screen -dmS autodl irssi
+    # Send a command to the new screen telling Autodl to update itself. This basically generates the ~/.autodl/AutodlState.xml files with updated info.
 	screen -S autodl -p 0 -X stuff '/autodl update^M'
     echo -e "\033[32m""Checking we have started irssi or if there are multiple screens/processes""\e[0m"
     echo -e "\033[31m"
+    # Check if the screen is running for the user
     screen -ls | grep autodl
     echo -e "\e[0m"
     echo -e "Done. Please refresh/reload rutorrent using CTRL + F5 and start using autodl"
@@ -268,7 +282,6 @@ then
     echo -e "The fix script in the Autodl FAQ will have to be run each time you update/overwrite the autodl or autodl-rutorrent files."
     echo
     exit 1
-    #
 #
 ############################
 ##### User Script End  #####
