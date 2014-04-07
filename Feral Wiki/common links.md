@@ -32,6 +32,8 @@ You can do this from the Install Software link in your [Account Manager](https:/
 
 You will need to have MySQL already installed. You can do this from the [**Install Software** link in your Manager](https://www.feralhosting.com/manager/)
 
+[Installing Proftpd for extra FTP/SFTP/FTPS accounts](https://www.feralhosting.com/faq/view?question=193)
+
 Where username is your Feral username and server is the name of the server that is hosting rutorrent.
 
 where `user-name` is your Feral user-name and `server` is the name of the Feral server your slot is hosted on:
