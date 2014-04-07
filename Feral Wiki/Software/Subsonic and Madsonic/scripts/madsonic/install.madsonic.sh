@@ -457,12 +457,12 @@ then
             then
                 echo
                 echo -e "\033[32m" "Relaunching the installer.""\e[0m"
-                if [[ -f ~/install.madsonic.sh ]] 
+                if [[ -f ~/"$scriptname".sh ]] 
                 then
-                    bash ~/install.madsonic.sh
+                    bash ~/"$scriptname".sh
                 else
-                    wget -qO ~/install.madsonic.sh "$scripturl"
-                    bash ~/install.madsonic.sh
+                    wget -qO ~/"$scriptname".sh "$scripturl"
+                    bash ~/"$scriptname".sh
                 fi
             else
                 exit 1
