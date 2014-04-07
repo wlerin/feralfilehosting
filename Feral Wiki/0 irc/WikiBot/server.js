@@ -191,13 +191,6 @@ WikiBot.addListener('message', function(from, to, message) {
         WikiBot.say(to, result + "rTorrent - troubleshooting common errors -- https://www.feralhosting.com/faq/view?question=2");
         return;
     }
-
-    if ( message == '%wtorrent' || message == '%wtorrent' + result ) {
-        if ( result !== '' ) { var result = result + ': '; }
-
-        WikiBot.say(to, result + "wTorrent - Usage and Troubleshooting -- https://www.feralhosting.com/faq/view?question=3");
-        return;
-    }
     
     if ( message == '%vpn' || message == '%vpn' + result || message == '%openvpn' || message == '%openvpn' + result || message == '%OpenVPN' || message == '%OpenVPN' + result) {
         if ( result !== '' ) { var result = result + ': '; }
@@ -883,6 +876,7 @@ WikiBot.addListener('message', function(from, to, message) {
         if ( result !== '' ) { var result = result + ': '; }
 
         WikiBot.say(to, result + "Using rar and unrar in Command Line - with examples -- https://www.feralhosting.com/faq/view?question=36");
+        WikiBot.say(to, result + "Unrar - How to Install a Newer Version -- https://www.feralhosting.com/faq/view?question=280");
         return;
     }
     
@@ -972,7 +966,7 @@ WikiBot.addListener('message', function(from, to, message) {
         }
         
         if ( message.indexOf('installable') >= 0 ) {
-          WikiBot.say(to, "%install %rtorrentv %uninstall %restart %rutorrent %deluge %transmission %delugethin %rtorrent %wtorrent %vpn %rssfeeds %pausing %feralstats %mysql %changeclient %delugeplugins");
+          WikiBot.say(to, "%install %rtorrentv %uninstall %restart %rutorrent %deluge %transmission %delugethin %rtorrent %vpn %rssfeeds %pausing %feralstats %mysql %changeclient %delugeplugins");
           return;
         }
         
@@ -1007,7 +1001,7 @@ WikiBot.addListener('message', function(from, to, message) {
         }
         
         if ( message.indexOf('linux') >= 0 ) {
-          WikiBot.say(to, "%rsync %irssi %ip timezone %screen %poweriso %rar %sfv");
+          WikiBot.say(to, "%rsync %irssi %ip timezone %screen %poweriso %unrar %sfv");
           return;
         }
         
