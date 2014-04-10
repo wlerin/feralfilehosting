@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Madsonic
-scriptversion="1.7.1"
+scriptversion="1.7.2"
 scriptname="install.madsonic"
 madsonicversion="5.0 Build 3860"
 javaversion="1.7 Update 51"
@@ -317,6 +317,7 @@ then
     if [[ ! -f ~/bin/java && -f ~/.javaversion ]]
     then
         cd && rm -f ~/.javaversion
+        export installedjavaversion=""
     fi
     if [[ "$installedjavaversion" != "$javaversion" ]]
     then

@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Subsonic
-scriptversion="1.7.1"
+scriptversion="1.7.2"
 scriptname="install.subsonic"
 subsonicversion="4.9"
 javaversion="1.7 Update 51"
@@ -317,6 +317,7 @@ then
     if [[ ! -f ~/bin/java && -f ~/.javaversion ]]
     then
         cd && rm -f ~/.javaversion
+        export installedjavaversion=""
     fi
     if [[ "$installedjavaversion" != "$javaversion" ]]
     then

@@ -57,3 +57,4 @@
 # v 1.6.5 Subsonic 4.9 and fixed url for java to be x64
 # v 1.6.6 Apache proxy pass fix and some script tweaks.
 # v 1.7.0 Proxypass fixes and tweaks. Easy to change between apache and nginx now with full https
+# v 1.7.2 if no java binary in ~/bin but the ~/.javaversion files still exists, assume the user removed the java files bit left the version file and install java.
