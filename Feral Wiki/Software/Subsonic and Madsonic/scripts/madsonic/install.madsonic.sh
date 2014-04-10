@@ -114,7 +114,7 @@ fi
 #### madsonicrsk starts  ####
 #############################
 #
-# This section MUST be escaped properly using backslash when adding to it.
+# This section MUST be escaped properly using backslash when adding to it. If you need to see it uncommented, run this script in SSH. It will create the working, uncommented version at ~/bin/madsonicrsk
 echo -e "#!/bin/bash
 if [[ -d ~/private/madsonic ]]
 then
@@ -272,6 +272,7 @@ chmod -f 700 ~/bin/madsonicron
 #############################
 ##### proxypass starts  #####
 #############################
+#
 # Apache proxypass
 if [[ -f ~/private/madsonic/madsonic.sh ]]
 then
@@ -288,6 +289,7 @@ then
     echo -e "Madsonic is accessible at:" "\033[32m""https://$(hostname)/$(whoami)/madsonic""\e[0m"
     echo
 fi
+#
 #############################
 ###### proxypass ends  ######
 #############################
@@ -307,7 +309,15 @@ then
     echo -e "\033[31m""User Notice:""\e[0m" "\033[33m""This is a user supported script. Please don't expect or ask staff to support this directly.\nTo get support you can jump on IRC and ask other users for help.\nAll critical bugs should be reported and bug fixes or improvements are welcomed and encouraged.""\e[0m"
     echo
     sleep 2
-    ###### Install Java 1.7 Start
+    #
+    #############################
+    #### Install Java Start  ####
+    #############################
+    #
+    if [[ ! -f ~/bin/java && -f ~/.javaversion ]]
+    then
+        cd && rm -f ~/.javaversion
+    fi
     if [[ "$installedjavaversion" != "$javaversion" ]]
     then
         echo "Please wait a moment while java is installed"
@@ -328,7 +338,11 @@ then
         bash
         exit 1
     fi
-    ### Install Java 1.7 end
+    #
+    #############################
+    ##### Install Java End  #####
+    #############################
+    #
     if [[ ! -d ~/private/madsonic ]]
     then
         echo -e "Congratulations," "\033[31m""Java is installed""\e[0m"". Continuing with the installation."
