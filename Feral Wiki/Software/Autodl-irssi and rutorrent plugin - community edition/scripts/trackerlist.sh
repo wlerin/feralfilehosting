@@ -20,7 +20,7 @@ scriptname="trackerlist"
 ###### Variable Start ######
 ############################
 #
-autodltrackers="https://bitbucket.org/autodl-community/autodl-irssi/downloads/autodl-trackers.zip"
+autodltrackers="http://update.autodl-community.com/autodl-trackers.zip"
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/trackerlist.sh"
 #
 ############################
@@ -108,7 +108,7 @@ then
 	else
 		echo -e "\033[31m""Make sure you have installed autodl first before using this trackerlist script:""\e[0m"
 		echo
-		echo -e "\033[32m""wget -qO ~/installautodl.sh http://git.io/Ch0LqA && bash ~/installautodl.sh""\e[0m"
+		echo -e "\033[32m""wget -qO ~/install.autodl.sh http://git.io/oTUCMg && bash ~/install.autodl.sh""\e[0m"
 		echo
 		exit 1
 	fi

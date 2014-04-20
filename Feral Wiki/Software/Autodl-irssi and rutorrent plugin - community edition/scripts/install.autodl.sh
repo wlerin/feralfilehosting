@@ -1,6 +1,6 @@
 #!/bin/bash
 # install autodl
-scriptversion="1.3.3"
+scriptversion="1.3.4"
 scriptname="install.autodl"
 # Bobtentpeg, randomessence
 #
@@ -10,6 +10,7 @@ scriptname="install.autodl"
 ## Version History Starts ##
 ############################
 #
+# v1.3.4 - update URLs changed to http://update.autodl-community.com
 # v1.3.3 - small tweaks
 # v1.3.2 - confusion = automation + comments
 # v1.3.1 - updater template merged
@@ -37,8 +38,8 @@ scriptname="install.autodl"
 ############################
 #
 # Bitbucket URLs for the core files.
-autodlirssicommunity="https://bitbucket.org/autodl-community/autodl-irssi/downloads/autodl-irssi-community.zip"
-autodltrackers="https://bitbucket.org/autodl-community/autodl-irssi/downloads/autodl-trackers.zip"
+autodlirssicommunity="http://update.autodl-community.com/autodl-irssi-community.zip"
+autodltrackers="http://update.autodl-community.com/autodl-trackers.zip"
 # URL for autodl-rutorrent
 autodlrutorrent="https://github.com/autodl-community/autodl-rutorrent/archive/master.zip"
 # Uses shuf to pick a random port between 6000 and 50000
