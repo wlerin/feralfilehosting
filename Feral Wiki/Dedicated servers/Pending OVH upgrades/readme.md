@@ -21,76 +21,76 @@ Server list
 
 ~~~
 Name                / OVH hostname          /   Renewal date (same day each month)
---------------------------------------------------------------------
-Auburn              / ns62091.ovh.net       /   1st   *
-Azure               / ns62052.ovh.net       /   1st   *
-Feldspar            / ns62036.ovh.net       /   1st ! *
-Onyx                / ns61906.ovh.net       /   1st ! *
-Beryl               / ns62028.ovh.net       /   1st ! *
-Bazaar              / ns224163.ovh.net      /   1st ! *
-Beaver              / ns62082.ovh.net       /   1st   *
-Canary-yellow       / ns238469.ovh.net      /   2nd  *
-Capri               / ns223655.ovh.net      /   3rd ! *
-Byzantium           / ns623087.ovh.net      /   3rd ! *
-Pyrite              / ns61912.ovh.net       /   3rd ! *
-Fawn                / ns227101.ovh.net      /   6th ! *
-Moonstone           / ns62037.ovh.net       /   6th ! *
-Amber               / ns61913.ovh.net       /   6th ! *
-Bisque              / ns61929.ovh.net       /   6th ! *
-Garnet              / ns62061.ovh.net       /   9th   *
-Bone                / ns61948.ovh.net       /   10th ! *
-Cobalt              / ns623269.ovh.net      /   10th ! *
-Bistre              / ns62138.ovh.net       /   12th   *
-Isis                / ns60895.ovh.net       /   12th ! *
-Jade                / ns61809.ovh.net       /   13th ! *
-Coral               / ns61949.ovh.net       /   14th ! *
-Charcoal            / ns623216.ovh.net      /   15th   *
-Spinel              / ns62093.ovh.net       /   15th   *
-Byzantine           / ns62295.ovh.net       /   16th ! *
-Jet                 / ns61950.ovh.net       /   16th ! *
-Aureolin            / ns224738.ovh.net      /   17th !
-Diamond             / ns61818.ovh.net       /   17th ! *
-Cadet               / ns623126.ovh.net      /   17th ! *
-Bittersweet         / ns62158.ovh.net       /   17th   *
-Zircon              / ns62074.ovh.net       /   18th
-Black               / ns62157.ovh.net       /   19th
-Blond               / ns62169.ovh.net       /   20th
-Blue                / ns62168.ovh.net       /   20th
-Emerald             / ns61776.ovh.net       /   20th
-Chestnut            / ns623215.ovh.net      /   20th !
-Cherry              / ns623219.ovh.net      /   20th
-Chocolate           / ns623218.ovh.net      /   20th !
-Boysenberry         / ns62176.ovh.net       /   21st   +
-Blush               / ns62177.ovh.net       /   21st
-Brass               / ns62175.ovh.net       /   21st
-Nacre               / ns61979.ovh.net       /   21st
-Camel               / ns623137.ovh.net      /   22nd !
-Cardinal            / ns623128.ovh.net      /   22nd !
-Carmine             / ns623129.ovh.net      /   22nd !
-Carnelian           / ns623135.ovh.net      /   22nd !
-Ceil                / ns623136.ovh.net      /   22nd !
-Cinereous           / ns623222.ovh.net      /   22nd
-Silver              / ks359908.kimsufi.com  /   23rd ! *
-Cinnabar            / ns623223.ovh.net      /   23rd !
-Jasper              / ns61538.ovh.net       /   23rd
-Celadon             / ns62286.ovh.net       /   23rd
-Almond              / ns226073.ovh.net      /   24th !
-Opal                / ns61907.ovh.net       /   24th !
-Glass               / ns62078.ovh.net       /   24th   +
-Horus               / ns60970.ovh.net       /   24th   *
-Cerise              / ns623158.ovh.net      /   25th !
-Cerulean            / ns623159.ovh.net      /   25th !
-Citrine             / ns623236.ovh.net      /   25th ! *
-Pearl               / ns62026.ovh.net       /   25th !
-Bubbles             / ns62251.ovh.net       /   25th   *
-R                   / ns623160.ovh.net      /   26th   *
-Amethyst            / ns226195.ovh.net      /   26th ! *
-Claret              / ns623235.ovh.net      /   27th ! *
-Topaz               / ns62030.ovh.net       /   27th !
-Apricot             / ns62089.ovh.net       /   28th   *
-Asparagus           / ns62090.ovh.net       /   28th   *
-Beige               / ns62092.ovh.net       /   28th   *
-Sapphire            / ns61909.ovh.net       /   28th ! *
+----------------------------------------------------------------------------------
+Auburn              / ns62091.ovh.net       /   1st             *
+Azure               / ns62052.ovh.net       /   1st             *
+Feldspar            / ns62036.ovh.net       /   1st     !       *
+Onyx                / ns61906.ovh.net       /   1st     !       *
+Beryl               / ns62028.ovh.net       /   1st     !       *
+Bazaar              / ns224163.ovh.net      /   1st     !       *
+Beaver              / ns62082.ovh.net       /   1st             *
+Canary-yellow       / ns238469.ovh.net      /   2nd             *
+Capri               / ns223655.ovh.net      /   3rd     !       *
+Byzantium           / ns623087.ovh.net      /   3rd     !       *
+Pyrite              / ns61912.ovh.net       /   3rd     !       *
+Fawn                / ns227101.ovh.net      /   6th     !       *
+Moonstone           / ns62037.ovh.net       /   6th     !       *
+Amber               / ns61913.ovh.net       /   6th     !       *
+Bisque              / ns61929.ovh.net       /   6th     !       *
+Garnet              / ns62061.ovh.net       /   9th             *
+Bone                / ns61948.ovh.net       /   10th    !       *
+Cobalt              / ns623269.ovh.net      /   10th    !       *
+Bistre              / ns62138.ovh.net       /   12th            *
+Isis                / ns60895.ovh.net       /   12th    !       *
+Jade                / ns61809.ovh.net       /   13th    !       *
+Coral               / ns61949.ovh.net       /   14th    !       *
+Charcoal            / ns623216.ovh.net      /   15th            *
+Spinel              / ns62093.ovh.net       /   15th            *
+Byzantine           / ns62295.ovh.net       /   16th    !       *
+Jet                 / ns61950.ovh.net       /   16th    !       *
+Aureolin            / ns224738.ovh.net      /   17th    !       
+Diamond             / ns61818.ovh.net       /   17th    !       *
+Cadet               / ns623126.ovh.net      /   17th    !       *
+Bittersweet         / ns62158.ovh.net       /   17th            *
+Zircon              / ns62074.ovh.net       /   18th            
+Black               / ns62157.ovh.net       /   19th            
+Blond               / ns62169.ovh.net       /   20th            
+Blue                / ns62168.ovh.net       /   20th            
+Emerald             / ns61776.ovh.net       /   20th            
+Chestnut            / ns623215.ovh.net      /   20th    !       
+Cherry              / ns623219.ovh.net      /   20th            
+Chocolate           / ns623218.ovh.net      /   20th    !       
+Boysenberry         / ns62176.ovh.net       /   21st        +   
+Blush               / ns62177.ovh.net       /   21st            
+Brass               / ns62175.ovh.net       /   21st            
+Nacre               / ns61979.ovh.net       /   21st            
+Camel               / ns623137.ovh.net      /   22nd    !       
+Cardinal            / ns623128.ovh.net      /   22nd    !       
+Carmine             / ns623129.ovh.net      /   22nd    !       
+Carnelian           / ns623135.ovh.net      /   22nd    !       
+Ceil                / ns623136.ovh.net      /   22nd    !       
+Cinereous           / ns623222.ovh.net      /   22nd            
+Silver              / ks359908.kimsufi.com  /   23rd    !       *
+Cinnabar            / ns623223.ovh.net      /   23rd    !       
+Jasper              / ns61538.ovh.net       /   23rd            
+Celadon             / ns62286.ovh.net       /   23rd            
+Almond              / ns226073.ovh.net      /   24th    !       
+Opal                / ns61907.ovh.net       /   24th    !       
+Glass               / ns62078.ovh.net       /   24th        +   
+Horus               / ns60970.ovh.net       /   24th            *   
+Cerise              / ns623158.ovh.net      /   25th    !       
+Cerulean            / ns623159.ovh.net      /   25th    !       
+Citrine             / ns623236.ovh.net      /   25th    !       *
+Pearl               / ns62026.ovh.net       /   25th    !       
+Bubbles             / ns62251.ovh.net       /   25th            *   
+R                   / ns623160.ovh.net      /   26th            *   
+Amethyst            / ns226195.ovh.net      /   26th    !       *
+Claret              / ns623235.ovh.net      /   27th    !       *
+Topaz               / ns62030.ovh.net       /   27th    !       
+Apricot             / ns62089.ovh.net       /   28th            *
+Asparagus           / ns62090.ovh.net       /   28th            *
+Beige               / ns62092.ovh.net       /   28th            *
+Sapphire            / ns61909.ovh.net       /   28th    !       *
 ~~~
 
 Legend:
