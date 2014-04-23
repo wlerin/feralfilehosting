@@ -21,7 +21,7 @@ Server list
 `During the upgrade we may disable processes using a lot of bandwidth to help speed up the transfers.`
 
 ~~~
-Name            / OVH hostname          /   Renewal date (same day each month)
+Name                / OVH hostname          /   Renewal date (same day each month)
 --------------------------------------------------------------------
 Auburn              / ns62091.ovh.net       /   1st   *
 Azure               / ns62052.ovh.net       /   1st   *
