@@ -143,7 +143,7 @@ Now download a preconfigured conf file to use in conjunction with this edit:
 wget -qO ~/.nginx/conf.d/000-default-server.d/owncloud.conf http://git.io/nVy4Cg
 ~~~
 
-No edits are required to this file, but you must have installed Owncloud into the WWW subdirectoy `/owncloud` for it to have any effect.
+No edits are required to this file, but you must have installed Owncloud into the WWW subdirectory `/owncloud` for it to have any effect.
 
 Now reload nginx:
 
@@ -151,9 +151,9 @@ Now reload nginx:
 /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf
 ~~~
 
-Owncloud shoudl now work as intended with nginx.
+Owncloud should now work as intended with nginx.
 
-**Inportant note:** These modifications should not interfere with the working of other php based applications.
+**Important note:** These modifications should not interfere with the working of other php based applications.
 
 
 
