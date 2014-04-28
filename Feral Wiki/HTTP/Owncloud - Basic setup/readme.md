@@ -1,22 +1,26 @@
 
-**Important note:** Owncloud does not work with nginx.
+**Important note:** For using Owncloud With nginx please see the nginx section of this guide.
 
 Owncloud Manual installation
+---
 
 In [SSH](https://www.feralhosting.com/faq/view?question=12) run this command. It will download the `setup.php` to the root of your `WWW`
 
 ~~~
-wget -qP ~/www/$(whoami).$(hostname)/public_html/ https://download.owncloud.com/download/community/setup-owncloud.php
+wget -P ~/www/$(whoami).$(hostname)/public_html/ https://download.owncloud.com/download/community/setup-owncloud.php
 ~~~
 
-Now visit the URL in your browser, it will look something like this:
+Now visit the URL in this format, in your browser, it will look something like this:
+
+**Important note:** If you use or force https you may need to unblock the remote content of the installer in Firefox.
+
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Owncloud%20-%20Basic%20setup/https.png)
 
 ~~~
-http://server.feralhosting.com/username/setup-owncloud.php
 http://username.server.feralhosting.com/setup-owncloud.php
 ~~~
 
-You should be able to just click on this file from your apache/h5ai index.
+You should be able to just click on this file from your apache/nginx/h5ai index.
 
 **1:** Just click next
 
@@ -32,7 +36,7 @@ You should be able to just click on this file from your apache/h5ai index.
 
 The easiest way to install Owncloud is to use the sqlite database option (default). Using MySQL can be done but requires a lot of extra steps that we are not going to cover in this basic set-up.
 
-Once you have visited the URl in a browser you will see this:
+Once you have visited the URL in a browser you will see this:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Owncloud%20-%20Basic%20setup/1.png)
 
@@ -47,6 +51,12 @@ So the relative path to to this file from your server root will be:
 
 ~~~
 owncloud/config/config.php
+~~~
+
+To edit this file using nano:
+
+~~~
+nano -w ~/www/$(whoami).$(hostname)/public_html/owncloud/config/config.php
 ~~~
 
 Open this file with a text editor and add these new options:
