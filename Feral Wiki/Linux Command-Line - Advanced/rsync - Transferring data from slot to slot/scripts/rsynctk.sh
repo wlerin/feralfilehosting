@@ -1,7 +1,7 @@
 #!/bin/bash
 # rsynctk
-scriptversion="1.1.4"
-scriptname="rsync"
+scriptversion="1.1.5"
+scriptname="rsynctk"
 # randomessence
 #
 # wget -qO ~/rsynctk.sh http://git.io/ikae7Q && bash ~/rsynctk.sh
@@ -24,6 +24,7 @@ scriptname="rsync"
 # 1.1.2 Option to select custom destination. Default is ~/rsync
 # 1.1.3 custom destination is created incase it is a nested location and other small tweaks
 # 1.1.4 allows the use of paths with spaces in the custom and screen command
+# 1.1.5 scriptname typo fixed. Removal of ~/bin/rysnc if it is matches certain tests. Credits: Thanks to ozymandias for pointing this out.
 #
 ############################
 ### Version History Ends ###
@@ -83,6 +84,11 @@ fi
 cd && rm -f {000,111,222}"$scriptname.sh"
 chmod -f 700 "$HOME/bin/$scriptname"
 #
+# Remove broken filename/conflict in ~/bin
+if [[ $(sed -n 1p ~/bin/rsync) == '#!/bin/bash' && $(sed -n 2p ~/bin/rsync) == '# rsynctk'  ]]
+then
+    rm -f ~/bin/rsync
+fi
 ############################
 ##### Self Updater End #####
 ############################
