@@ -85,7 +85,7 @@ cd && rm -f {000,111,222}"$scriptname.sh"
 chmod -f 700 "$HOME/bin/$scriptname"
 #
 # Remove broken filename/conflict in ~/bin
-if [[ $(sed -n 1p ~/bin/rsync) == '#!/bin/bash' && $(sed -n 2p ~/bin/rsync) == '# rsynctk'  ]]
+if [[ $(sed -n 1p ~/bin/rsync > /dev/null 2>&1) == '#!/bin/bash' && $(sed -n 2p ~/bin/rsync > /dev/null 2>&1) == '# rsynctk'  ]]
 then
     rm -f ~/bin/rsync
 fi
