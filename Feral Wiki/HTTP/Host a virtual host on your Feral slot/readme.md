@@ -116,27 +116,49 @@ If you have followed this FAQ - [Updating Apache to nginx](https://www.feralhost
 Change example.com to your domain name in these examples:
 
 ~~~
-mkdir -p ~/www/example.com/public_html
-echo 'www root' > ~/www/example.com/public_html/index.html
+mkdir -p ~/www/example.co.uk/public_html
+mkdir -p ~/.nginx/proxy
+echo 'www root' > ~/www/example.co.uk/public_html/index.html
 ~~~
 
 Show full path to the root:
 
 ~~~
-ls -d ~/www/example.com/public_html
+ls -d ~/www/example.co.uk/public_html
 ~~~
 
-Add this to the end of the  `~/.nginx/conf.d/000-default-server.conf `
+Add this to a new file on the  `~/.nginx/conf.d/` directory. For example: `example.conf`
 
-**1:** example.com to your custom domain 
-**2:** root to the result of the ls command above
+**1:** `example.co.uk` to your custom domain 
+**2:** `root` to the result of the ls command above
+**3:** `proxy_temp_path` with your path info
+**4:** `fastcgi_pass` with your path info
 
 ~~~
 server {
     listen      8080;
-    server_name example.com
-    root        /media/DiskID/home/username/www/example.com/public_html;
+    server_name example.co.uk;
+    root        /media/DiskID/home/username/www/example.co.uk/public_html;
     index       index.html index.php;
+
+    port_in_redirect off;
+    proxy_temp_path  /media/DiskID/home/username/.nginx/proxy;
+
+    autoindex            on;
+    autoindex_exact_size off;
+    autoindex_localtime  on;
+
+    # Pass files that end in .php to PHP
+    location ~ \.php$ {
+        fastcgi_read_timeout 1h;
+        fastcgi_send_timeout 10m;
+
+        include      /etc/nginx/fastcgi_params;
+        fastcgi_pass unix:/media/DiskID/home/username/.nginx/php/socket;
+    }
+
+    location / {
+    }
 }
 ~~~
 
@@ -147,6 +169,22 @@ Reload your nginx:
 ~~~
 
 You should now be able to visit your domain in the browser and see the changes.
+
+proxy_pass on a  custom domain:
+---
+
+~~~
+    location / {    
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-NginX-Proxy true;
+
+    rewrite /(.*) /$1 break;
+    proxy_pass http://10.0.0.1:PORT/;
+    proxy_redirect off;
+    }
+~~~
 
 
 
