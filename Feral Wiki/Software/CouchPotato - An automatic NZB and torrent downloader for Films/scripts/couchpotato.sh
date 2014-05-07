@@ -97,6 +97,7 @@ then
 #### User Script Starts ####
 ############################
 #
+    mkdir -p ~/blackhole
     echo "Downloading and configuring some files..."
     echo
     if [[ -f ~/.couchpotato/couchpotato.pid ]]
@@ -118,7 +119,7 @@ then
     python ~/.couchpotato/CouchPotato.py --daemon
     echo "Visit this URL to finish the set up wizard"
     echo
-    echo "https://$(hostname)/$(whoami)/couchpotato"
+    echo "https://$(hostname)/$(whoami)/couchpotato/"
     echo
     echo -e "\033[31m""It may take a few minutes for the program to load properly in the URL." "\033[32m""Pressing F5 in your browser can help.""\e[0m"
     echo
