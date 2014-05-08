@@ -128,7 +128,7 @@ then
     echo
     echo -e \"\\\033[33m2:\\\e[0m This is the URL Subsonic is configured to use:\"
     echo
-    echo -e \"\\\033[31mSubsonic\\\e[0m last accessible at \\\033[31mhttps://\$(hostname)/\$(whoami)/subsonic\\\e[0m\"
+    echo -e \"\\\033[31mSubsonic\\\e[0m last accessible at \\\033[31mhttps://\$(hostname)/\$(whoami)/subsonic/\\\e[0m\"
     echo
     echo -e \"\\\033[33m3:\\\e[0m Running instances checks:\"
     echo
@@ -202,7 +202,7 @@ then
                 bash ~/private/subsonic/subsonic.sh
                 echo -e \"Started Subsonic at PID:\\\033[31m\$(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null)\\\e[0m\"
                 echo
-                echo -e \"\\\033[31mSubsonic\\\e[0m last accessible at \\\033[31mhttps://\$(hostname)/\$(whoami)/subsonic\\\e[0m\"
+                echo -e \"\\\033[31mSubsonic\\\e[0m last accessible at \\\033[31mhttps://\$(hostname)/\$(whoami)/subsonic/\\\e[0m\"
                 echo -e \"\\\033[32m\"
                 if [[ -z \"\$(ps -p \$(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null) --no-headers 2> /dev/null)\" ]]
                 then
@@ -286,7 +286,7 @@ then
     fi
     echo -e "The" "\033[36m""nginx/apache proxypass""\e[0m" "has been installed."
     echo
-    echo -e "Subsonic is accessible at:" "\033[32m""https://$(hostname)/$(whoami)/subsonic""\e[0m"
+    echo -e "Subsonic is accessible at:" "\033[32m""https://$(hostname)/$(whoami)/subsonic/""\e[0m"
     echo
 fi
 #
@@ -425,7 +425,7 @@ then
         echo -e "\033[32m""Subsonic is now started, use the links below to access it. Don't forget to set path to FULL path to you music folder in the gui.""\e[0m"
         sleep 1
         echo
-        echo -e "Subsonic is accessible at:" "\033[32m""https://$(hostname)/$(whoami)/subsonic""\e[0m"
+        echo -e "Subsonic is accessible at:" "\033[32m""https://$(hostname)/$(whoami)/subsonic/""\e[0m"
         echo -e "It may take a minute or two to load properly."
         echo
         echo -e "Subsonic started at PID:" "\033[31m""$(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null)""\e[0m"
@@ -512,7 +512,7 @@ then
             echo -e "\033[32m""Subsonic is now started, use the link below to access it. Don't forget to set path to FULL path to you music folder in the gui.""\e[0m"
             sleep 1
             echo
-            echo -e "Subsonic is accessible at:" "\033[32m""https://$(hostname)/$(whoami)/subsonic""\e[0m"
+            echo -e "Subsonic is accessible at:" "\033[32m""https://$(hostname)/$(whoami)/subsonic/""\e[0m"
             echo -e "It may take a minute or two to load properly."
             echo
             echo -e "Subsonic started at PID:" "\033[31m""$(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null)""\e[0m"
