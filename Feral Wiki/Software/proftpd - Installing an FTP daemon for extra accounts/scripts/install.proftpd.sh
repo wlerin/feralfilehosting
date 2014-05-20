@@ -1,8 +1,9 @@
 #!/bin/bash
 # proftpd basic setup script
-scriptversion="1.1.1"
+scriptversion="1.1.2"
+# Don't foregt to change the conf file size if the configurations are modified.
 scriptname="install.proftpd"
-proftpdversion="proftpd-1.3.4d"
+proftpdversion="proftpd-1.3.5"
 installedproftpdversion=$(cat $HOME/proftpd/.proftpdversion 2> /dev/null)
 # randomessence
 #
@@ -22,10 +23,13 @@ installedproftpdversion=$(cat $HOME/proftpd/.proftpdversion 2> /dev/null)
 ###### Variable Start ######
 ############################
 #
-proftpdconf="http://git.io/CbaIJQ"
-sftpconf="http://git.io/SFHs5g"
-ftpsconf="http://git.io/ee86Hw"
-scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/scripts/install.proftpd.sh"
+proftpdconf="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/conf/proftpd.conf"
+proftpdconfsize="2977"
+sftpconf="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/conf/sftp.conf"
+sftpconfsize="881"
+ftpsconf="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/conf/ftps.conf"
+ftpsconfsize="936"
+scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/scripts/install.proftpd.sh"
 #
 ############################
 ####### Variable End #######
@@ -48,7 +52,7 @@ fi
 #
 wget -qO "$HOME/000$scriptname.sh" "$scripturl"
 #
-if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" > /dev/null 2>&1
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" >/dev/null 2>&1
 then
     echo '#!/bin/bash
     scriptname="'"$scriptname"'"
@@ -59,7 +63,7 @@ then
     bash "$HOME/111$scriptname.sh"
     exit 1
 fi
-if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" > /dev/null 2>&1
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" >/dev/null 2>&1
 then
     echo '#!/bin/bash
     scriptname="'"$scriptname"'"
@@ -107,7 +111,7 @@ then
         fi
         if [[ "$agree2update" =~ ^[Yy]$ ]]
         then
-            killall -9 proftpd -u $(whoami) > /dev/null 2>&1
+            killall -9 proftpd -u $(whoami) >/dev/null 2>&1
             mkdir -p "$HOME"/proftpd/install_logs
             wget -qO "$HOME"/proftpd.tar.gz ftp://ftp.proftpd.org/distrib/source/"$proftpdversion".tar.gz
             tar xf "$HOME"/proftpd.tar.gz -C "$HOME"/
@@ -122,10 +126,11 @@ then
             make install > "$HOME"/proftpd/install_logs/make_install.log 2>&1
             echo "3: make install complete, moving to post installation configuration"
             echo
+            "$HOME"/proftpd/bin/ftpasswd --group --name $(whoami) --file "$HOME"/proftpd/etc/ftpd.group --gid $(id -g $(whoami)) --member $(whoami) >/dev/null 2>&1
             # Some tidy up
             cd && rm -rf "$HOME/$proftpdversion"
-            "$HOME"/proftpd/sbin/proftpd -c "$HOME"/proftpd/etc/sftp.conf > /dev/null 2>&1
-            "$HOME"/proftpd/sbin/proftpd -c "$HOME"/proftpd/etc/ftps.conf > /dev/null 2>&1
+            "$HOME"/proftpd/sbin/proftpd -c "$HOME"/proftpd/etc/sftp.conf >/dev/null 2>&1
+            "$HOME"/proftpd/sbin/proftpd -c "$HOME"/proftpd/etc/ftps.conf >/dev/null 2>&1
             echo -e "proftpd sftp and ftps servers were started."
             exit 1
         elif [[ "$agree2update" =~ ^[Ee]$ ]]
@@ -137,7 +142,7 @@ then
             read -ep "Are you sure you want to do a full reinstall, all settings, jails and users will be lost? [y]es i am sure or [e]xit: " areyousure
             if [[ "$areyousure" =~ ^[Yy]$ ]]
             then
-                killall -9 proftpd -u $(whoami) > /dev/null 2>&1
+                killall -9 proftpd -u $(whoami) >/dev/null 2>&1
             else
                 echo "You chose to exit"
                 echo
@@ -170,15 +175,24 @@ then
     # Generate our keyfiles
     ssh-keygen -q -t rsa -f "$HOME"/proftpd/etc/keys/sftp_rsa -N '' && ssh-keygen -q -t dsa -f "$HOME"/proftpd/etc/keys/sftp_dsa -N ''
     echo "rsa keys generated with no passphrase"
-    openssl req -new -x509 -nodes -days 365 -subj '/C=GB/ST=none/L=none/CN=none' -newkey rsa:2048 -keyout "$HOME"/proftpd/ssl/proftpd.key.pem -out "$HOME"/proftpd/ssl/proftpd.cert.pem > /dev/null 2>&1
+    openssl req -new -x509 -nodes -days 365 -subj '/C=GB/ST=none/L=none/CN=none' -newkey rsa:2048 -keyout "$HOME"/proftpd/ssl/proftpd.key.pem -out "$HOME"/proftpd/ssl/proftpd.cert.pem >/dev/null 2>&1
     echo "ssl keys generated"
     echo
     # Get the conf files from github and configure them for this user
     echo "Downloading and configuring the .conf files."
     echo
-    wget -qO "$HOME"/proftpd/etc/proftpd.conf "$proftpdconf"
-    wget -qO "$HOME"/proftpd/etc/sftp.conf "$sftpconf"
-    wget -qO "$HOME"/proftpd/etc/ftps.conf "$ftpsconf"
+    until [[ $(stat -c %s ~/proftpd/etc/proftpd.conf 2> /dev/null) -eq "$proftpdconfsize" ]]
+    do
+        wget -qO "$HOME"/proftpd/etc/proftpd.conf "$proftpdconf"
+    done
+    until [[ $(stat -c %s ~/proftpd/etc/sftp.conf 2> /dev/null) -eq "$sftpconfsize" ]]
+    do
+        wget -qO "$HOME"/proftpd/etc/sftp.conf "$sftpconf"
+    done
+    until [[ $(stat -c %s ~/proftpd/etc/ftps.conf 2> /dev/null) -eq "$ftpsconfsize" ]]
+    do
+        wget -qO "$HOME"/proftpd/etc/ftps.conf "$ftpsconf"
+    done
     # proftpd.conf
     sed -i 's|/media/DiskID/home/my_username|'"$HOME"'|g' "$HOME/proftpd/etc/proftpd.conf"
     sed -i 's|User my_username|User '$(whoami)'|g' "$HOME/proftpd/etc/proftpd.conf"
@@ -197,6 +211,7 @@ then
     echo -e "The basic setup and cofiguration has been completed." "\033[31m""Please now enter a password for your main, unlimited user""\e[0m"
     echo
     "$HOME"/proftpd/bin/ftpasswd --passwd --name $(whoami) --file "$HOME"/proftpd/etc/ftpd.passwd --uid $(id -u $(whoami)) --gid $(id -g $(whoami)) --home "$HOME"/ --shell /bin/false
+    "$HOME"/proftpd/bin/ftpasswd --group --name $(whoami) --file "$HOME"/proftpd/etc/ftpd.group --gid $(id -g $(whoami)) --member $(whoami) >/dev/null 2>&1
     echo
     echo -e "\033[31m""If for some reason the user creation failed, see Step 6 of the FAQ to do this again""\e[0m"
     echo
