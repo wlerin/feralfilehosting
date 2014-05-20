@@ -119,6 +119,7 @@ then
             rm -f "$HOME"/proftpd.tar.gz
             cd "$HOME/$proftpdversion"
             echo "Starting to 1: configure, 2: make, 3 make install"
+            echo
             install_user=$(whoami) install_group=$(whoami) ./configure --prefix="$HOME"/proftpd --enable-openssl --enable-dso --enable-nls --enable-ctrls --with-shared=mod_ratio:mod_readme:mod_sftp:mod_tls:mod_ban > "$HOME"/proftpd/install_logs/configure.log 2>&1
             echo "1: configure complete, moving to 2 of 3"
             make > "$HOME"/proftpd/install_logs/make.log 2>&1
@@ -129,9 +130,11 @@ then
             "$HOME"/proftpd/bin/ftpasswd --group --name $(whoami) --file "$HOME"/proftpd/etc/ftpd.group --gid $(id -g $(whoami)) --member $(whoami) >/dev/null 2>&1
             # Some tidy up
             cd && rm -rf "$HOME/$proftpdversion"
+            chmod 440 ~/proftpd/etc/ftpd{.passwd,.group}
             "$HOME"/proftpd/sbin/proftpd -c "$HOME"/proftpd/etc/sftp.conf >/dev/null 2>&1
             "$HOME"/proftpd/sbin/proftpd -c "$HOME"/proftpd/etc/ftps.conf >/dev/null 2>&1
             echo -e "proftpd sftp and ftps servers were started."
+            echo
             exit 1
         elif [[ "$agree2update" =~ ^[Ee]$ ]]
         then
