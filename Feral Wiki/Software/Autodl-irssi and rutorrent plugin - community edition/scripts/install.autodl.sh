@@ -10,6 +10,7 @@ scriptname="install.autodl"
 ## Version History Starts ##
 ############################
 #
+# v1.3.6 - $(hostname -f) *points fingers*
 # v1.3.5 - does not force rutorrent and will install and configure autodl without it.
 # v1.3.4 - update URLs changed to http://update.autodl-community.com
 # v1.3.3 - small tweaks
