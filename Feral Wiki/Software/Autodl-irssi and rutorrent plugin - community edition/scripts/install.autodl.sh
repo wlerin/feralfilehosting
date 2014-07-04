@@ -142,7 +142,7 @@ then
     # Clean install by removing the related irssi folder and files and the rutorrent plug in folder
     rm -rf ~/.irssi/scripts/AutodlIrssi
     rm -f ~/.irssi/scripts/autorun/autodl-irssi.pl
-    rm -rf ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi
+    rm -rf ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi
     echo "Downloading autodl-irssi"
     echo
     sleep 1
@@ -191,7 +191,7 @@ then
     ############################
     #
     # Checks for rutorrent. If the folder does not exist in the required location the script moves to the else statement.
-    if [[ -d ~/www/$(whoami).$(hostname)/public_html/rutorrent ]]
+    if [[ -d ~/www/$(whoami).$(hostname -f)/public_html/rutorrent ]]
     then
         echo "Downloading autodl-irssi Rutorrent plugin"
         echo
@@ -204,15 +204,15 @@ then
         # Unpacks the autodl rutorrent plugin here
         unzip -qo ~/autodl-rutorrent.zip
         # Copy the contents from autodl-rutorrent-master to a folder called autodl-irssi in the rutorrent plug-in directory, creating it if absent
-        mkdir -p ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins
-        cp -rf ~/autodl-rutorrent-master/. ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi
+        mkdir -p ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins
+        cp -rf ~/autodl-rutorrent-master/. ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi
         # Delete the downloaded zip and the unpacked folder we no longer require.
         cd && rm -rf autodl-rutorrent{-master,.zip}
         echo "Creating configuration file"
         echo
         sleep 1
         # Uses echo to make the config file for the rutorrent plugun to work with autodl using the variables port and pass
-        echo -ne '<?php\n$autodlPort = '"$port"';\n$autodlPassword = "'"$pass"'";\n?>' > ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/conf.php
+        echo -ne '<?php\n$autodlPort = '"$port"';\n$autodlPassword = "'"$pass"'";\n?>' > ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi/conf.php
         sleep 1
         #
         ############################
@@ -220,7 +220,7 @@ then
         ############################
         #
     else
-        # If the ~/www/$(whoami).$(hostname)/public_html/rutorrent does not exist say this.
+        # If the ~/www/$(whoami).$(hostname -f)/public_html/rutorrent does not exist say this.
         echo -e "\033[31m""If you wish to use the rutorrent plug-in then please install rutorrent and then run this script again""\e[0m"
         echo
     fi
@@ -249,15 +249,15 @@ then
         exit 1
     fi
     #
-    # If the ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/ apply the fix else warn the user the directory is missing.
-    if [[ -d ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/ ]]
+    # If the ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi/ apply the fix else warn the user the directory is missing.
+    if [[ -d ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi/ ]]
     then
         # Fix the relevent rutorrent plugin file by changing 127.0.0.1 to 10.0.0.1 using sed
-        sed -i 's|if (!socket_connect($socket, "127.0.0.1", $autodlPort))|if (!socket_connect($socket, "10.0.0.1", $autodlPort))|g' ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/getConf.php
+        sed -i 's|if (!socket_connect($socket, "127.0.0.1", $autodlPort))|if (!socket_connect($socket, "10.0.0.1", $autodlPort))|g' ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi/getConf.php
         echo -e "\033[33m""Autodl-rutorrent fix has been applied""\e[0m"
         echo
     else
-        echo -e "\033[36m""~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/""\e[0m" "does not exist. Skipped."
+        echo -e "\033[36m""~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi/""\e[0m" "does not exist. Skipped."
         echo
     fi
     #
@@ -283,13 +283,13 @@ then
     echo
     echo -e "\033[32m""screen -r autodl""\e[0m"
     echo
-    if [[ -d ~/www/$(whoami).$(hostname)/public_html/rutorrent/ ]]
+    if [[ -d ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/ ]]
     then
         echo -e "This script will have to be run each time you update/overwrite the autodl or autodl-rutorrent files to apply the fix."
         echo
         echo "Visit your updated rutorrent installation here:"
         echo
-        echo -e "\033[32m""https://$(hostname)/$(whoami)/rutorrent/""\e[0m"
+        echo -e "\033[32m""https://$(hostname -f)/$(whoami)/rutorrent/""\e[0m"
         echo
     else
         echo -e "\033[31m""This script will have to be run each time you update/overwrite the autodl files to apply the fix.""\e[0m"
