@@ -91,7 +91,7 @@ then
     if [ -f ~/.config/deluge/core.conf ]
     then
         # Get hostname
-        echo -e "Your" "\033[36m""hostname""\e[0m" "is:" "\033[36m""$(hostname)""\e[0m"
+        echo -e "Your" "\033[36m""hostname""\e[0m" "is:" "\033[36m""$(hostname -f)""\e[0m"
         # Get port
         echo -e "Your" "\033[31m""daemon port""\e[0m" "for the thin client is:" "\033[31m""$(sed -n -e 's/  "daemon_port": \(.*\),/\1/p' ~/.config/deluge/core.conf)""\e[0m"
         # Get username

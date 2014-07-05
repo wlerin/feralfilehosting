@@ -3,7 +3,7 @@
 # wget -qO ~/rutnginx.sh http://git.io/9vlcyw && bash ~/rutnginx.sh
 echo 'location /rutorrent {
     auth_basic '$(whoami)';
-    auth_basic_user_file '$HOME'/www/'$(whoami)'.'$(hostname)'/public_html/rutorrent/.htpasswd;
+    auth_basic_user_file '$HOME'/www/'$(whoami)'.'$(hostname -f)'/public_html/rutorrent/.htpasswd;
 }
 
 location /rutorrent/conf { deny all; }
