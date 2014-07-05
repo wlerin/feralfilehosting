@@ -1,6 +1,6 @@
 #!/bin/bash
 # install ampache
-scriptversion="1.2.3"
+scriptversion="1.2.4"
 scriptname="install.ampache"
 # randomessence
 #
@@ -93,7 +93,7 @@ then
 	mkdir -p "$HOME"/ampache/{ffmpeg,log}
 	wget -qO "$HOME"/ampache.zip "$ampacheurl"
 	unzip -qo "$HOME"/ampache.zip
-	cp -rf "$HOME"/ampache-master/. "$HOME"/www/$(whoami).$(hostname)/public_html/ampache
+	cp -rf "$HOME"/ampache-master/. "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache
 	wget -qO "$HOME"/ffmpeg.zip "$ffmpegfv"
 	unzip -qo "$HOME"/ffmpeg.zip -d "$HOME"/ampache/ffmpeg
 	chmod 700 "$HOME"/ampache/ffmpeg/{ffmpeg,ffmpeg-10bit,ffprobe,qt-faststart}
@@ -101,33 +101,33 @@ then
 	echo "Done downloading and unpacking."
 	echo
 	# set htaccess memory limit and chmod it to 644
-	echo "php_value memory_limit 512M" >> "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/.htaccess
-	chmod 644 "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/.htaccess
+	echo "php_value memory_limit 512M" >> "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/.htaccess
+	chmod 644 "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/.htaccess
 	#
 	# edit the template to that the user's default socket it inserted in the installer.
-	sed -i 's|<td><input type="text" name="local_host" value="localhost" /></td>|<td><input type="text" name="local_host" value="<?php echo getenv('\''HOME'\'') . '\''/private/mysql/socket'\''; ?>" /></td>|g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/templates/show_install.inc.php
+	sed -i 's|<td><input type="text" name="local_host" value="localhost" /></td>|<td><input type="text" name="local_host" value="<?php echo getenv('\''HOME'\'') . '\''/private/mysql/socket'\''; ?>" /></td>|g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/templates/show_install.inc.php
 	#
 	# Change some default settings.
-	sed -i 's/catalog_video_pattern = "avi|mpg|flv|m4v"/catalog_video_pattern = "avi|mpg|flv|m4v|mkv"/g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
-	sed -i 's/;memory_limit = 32/memory_limit = 2048/g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
-	sed -i 's/;debug = "false"/debug = "true"/g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
-	sed -i 's|;log_path = "/var/log/ampache"|log_path = "'"$HOME"'/ampache/log"|g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
-	sed -i 's/;min_bit_rate = 48/min_bit_rate = 192/g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
+	sed -i 's/catalog_video_pattern = "avi|mpg|flv|m4v"/catalog_video_pattern = "avi|mpg|flv|m4v|mkv"/g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/config/ampache.cfg.php.dist
+	sed -i 's/;memory_limit = 32/memory_limit = 2048/g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/config/ampache.cfg.php.dist
+	sed -i 's/;debug = "false"/debug = "true"/g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/config/ampache.cfg.php.dist
+	sed -i 's|;log_path = "/var/log/ampache"|log_path = "'"$HOME"'/ampache/log"|g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/config/ampache.cfg.php.dist
+	sed -i 's/;min_bit_rate = 48/min_bit_rate = 192/g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/config/ampache.cfg.php.dist
 	echo "Changed some default settings done"
 	echo
 	#
 	# Change the transcode_cmd to use our custom ffmpeg build.
-	sed -i 's|;transcode_cmd = "ffmpeg -i %FILE%"|transcode_cmd = "'"$HOME"'/ampache/ffmpeg/ffmpeg -i %FILE%\"|g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
+	sed -i 's|;transcode_cmd = "ffmpeg -i %FILE%"|transcode_cmd = "'"$HOME"'/ampache/ffmpeg/ffmpeg -i %FILE%\"|g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/config/ampache.cfg.php.dist
 	echo "Changed the transcode_cmd to use our custom ffmpeg build done"
 	echo
 	#
 	# Change some default transcoding settings
-	sed -i 's/;transcode_m4a      = allowed/transcode_m4a = allowed/g' "$HOME/"www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
-	sed -i 's/;transcode_flac     = required/transcode_flac = required/g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
-	sed -i 's/;transcode_mp3      = allowed/transcode_mp3 = allowed/g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
-	sed -i 's/;encode_target = mp3/encode_target = mp3/g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
-	sed -i 's/;encode_args_mp3 = "-vn -b:a %SAMPLE%K -c:a libmp3lame -f mp3 pipe:1"/encode_args_mp3 = "-vn -b:a %SAMPLE%K -c:a libmp3lame -f mp3 pipe:1"/g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
-	sed -i 's/;encode_args_ogg = "-vn -b:a %SAMPLE%K -c:a libvorbis -f ogg pipe:1"/encode_args_ogg = "-vn -b:a %SAMPLE%K -c:a libvorbis -f ogg pipe:1"/g' "$HOME"/www/$(whoami).$(hostname)/public_html/ampache/config/ampache.cfg.php.dist
+	sed -i 's/;transcode_m4a      = allowed/transcode_m4a = allowed/g' "$HOME/"www/$(whoami).$(hostname -f)/public_html/ampache/config/ampache.cfg.php.dist
+	sed -i 's/;transcode_flac     = required/transcode_flac = required/g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/config/ampache.cfg.php.dist
+	sed -i 's/;transcode_mp3      = allowed/transcode_mp3 = allowed/g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/config/ampache.cfg.php.dist
+	sed -i 's/;encode_target = mp3/encode_target = mp3/g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/config/ampache.cfg.php.dist
+	sed -i 's/;encode_args_mp3 = "-vn -b:a %SAMPLE%K -c:a libmp3lame -f mp3 pipe:1"/encode_args_mp3 = "-vn -b:a %SAMPLE%K -c:a libmp3lame -f mp3 pipe:1"/g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/config/ampache.cfg.php.dist
+	sed -i 's/;encode_args_ogg = "-vn -b:a %SAMPLE%K -c:a libvorbis -f ogg pipe:1"/encode_args_ogg = "-vn -b:a %SAMPLE%K -c:a libvorbis -f ogg pipe:1"/g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/config/ampache.cfg.php.dist
 	echo "Enabled transcoding done"
 	echo
 #
