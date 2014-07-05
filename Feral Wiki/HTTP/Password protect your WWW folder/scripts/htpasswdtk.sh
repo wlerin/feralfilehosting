@@ -1,6 +1,6 @@
 #!/bin/bash
 # htpasswd user and password toolkit
-scriptversion="1.1.2"
+scriptversion="1.1.3"
 scriptname="htpasswdtk"
 # randomessence
 #
@@ -215,14 +215,14 @@ then
                     echo -e "\033[32m""This path is relative to your WWW root. For links you would enter this path:""\e[0m" "\033[36m""/links""\e[0m"
                     read -ep "Give the name of the folder you with to create the .htaccess in: /" specificlocpath
                     echo
-                    if [[ -d $HOME/www/$(whoami).$(hostname)/public_html/$specificlocpath ]]
+                    if [[ -d $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath ]]
                     then
-                        if [[ -f $HOME/www/$(whoami).$(hostname)/public_html/$specificlocpath/.htaccess ]]
+                        if [[ -f $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess ]]
                         then
-                            if [[ -z "$(sed -n '/AuthName "Please Login"/p' $HOME/www/$(whoami).$(hostname)/public_html/$specificlocpath/.htaccess)" ]]
+                            if [[ -z "$(sed -n '/AuthName "Please Login"/p' $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess)" ]]
                             then
-                                echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname)/public_html/$specificlocpath/.htaccess
-                                find $HOME/www/$(whoami).$(hostname)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
+                                echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess
+                                find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                                 echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in" "\033[36m""/$specificlocpath""\e[0m"
                                 echo
                                 echo -e "\033[32m""To make a directory user specific: Change:""\e[0m" "\033[33m""Require valid-user""\e[0m" "\033[32m""to""\e[0m" "\033[33m""Require user $username""\e[0m"
@@ -234,8 +234,8 @@ then
                                 echo
                             fi
                         else
-                            echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname)/public_html/$specificlocpath/.htaccess
-                            find $HOME/www/$(whoami).$(hostname)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
+                            echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess
+                            find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                             echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in" "\033[36m""/$specificlocpath""\e[0m"
                             echo
                                 echo -e "\033[32m""To make a directory user specific: Change:""\e[0m" "\033[33m""Require valid-user""\e[0m" "\033[32m""to""\e[0m" "\033[33m""Require user $username""\e[0m"
@@ -248,12 +248,12 @@ then
                         sleep 2
                     fi
                 else
-                    if [[ -f $HOME/www/$(whoami).$(hostname)/public_html/.htaccess ]]
+                    if [[ -f $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess ]]
                     then
-                        if [[ -z "$(sed -n '/AuthName "Please Login"/p' $HOME/www/$(whoami).$(hostname)/public_html/.htaccess)" ]]
+                        if [[ -z "$(sed -n '/AuthName "Please Login"/p' $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess)" ]]
                         then
-                            echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname)/public_html/.htaccess
-                            find $HOME/www/$(whoami).$(hostname)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
+                            echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess
+                            find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                             echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in the" "\033[36m""WWW""\e[0m" "root"
                             echo
                             echo -e "\033[32m""To make a directory user specific: Change:""\e[0m" "\033[33m""Require valid-user""\e[0m" "\033[32m""to""\e[0m" "\033[33m""Require user $username""\e[0m"
@@ -265,8 +265,8 @@ then
                             echo
                         fi
                     else
-                        echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname)/public_html/.htaccess
-                        find $HOME/www/$(whoami).$(hostname)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
+                        echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess
+                        find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                         echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in the" "\033[36m""WWW""\e[0m" "root"
                         echo
                         echo -e "\033[32m""To make a directory user specific: Copy the .htaccess there, change:""\e[0m" "\033[33m""Require valid-user""\e[0m" "\033[32m""to""\e[0m" "\033[33m""Require user $username""\e[0m"
@@ -297,14 +297,14 @@ then
                     echo -e "\033[32m""This path is relative to your WWW root. For links you would enter this path:""\e[0m" "\033[36m""/links""\e[0m"
                     read -ep "Give the name of the folder you with to create the .htaccess in: /" specificlocpath
                     echo
-                    if [[ -d $HOME/www/$(whoami).$(hostname)/public_html/$specificlocpath ]]
+                    if [[ -d $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath ]]
                     then
-                        if [[ -f $HOME/www/$(whoami).$(hostname)/public_html/$specificlocpath/.htaccess ]]
+                        if [[ -f $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess ]]
                         then
-                            if [[ -z "$(sed -n '/AuthName "Please Login"/p' $HOME/www/$(whoami).$(hostname)/public_html/$specificlocpath/.htaccess)" ]]
+                            if [[ -z "$(sed -n '/AuthName "Please Login"/p' $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess)" ]]
                             then
-                                echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname)/public_html/$specificlocpath/.htaccess
-                                find $HOME/www/$(whoami).$(hostname)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
+                                echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess
+                                find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                                 echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in" "\033[36m""/$specificlocpath""\e[0m"
                                 echo
                                 echo -e "\033[32m""To make a directory user specific: Change:""\e[0m" "\033[33m""Require valid-user""\e[0m" "\033[32m""to""\e[0m" "\033[33m""Require user $username""\e[0m"
@@ -316,8 +316,8 @@ then
                                 echo
                             fi
                         else
-                            echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname)/public_html/$specificlocpath/.htaccess
-                            find $HOME/www/$(whoami).$(hostname)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
+                            echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess
+                            find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                             echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in" "\033[36m""/$specificlocpath""\e[0m"
                             echo
                                 echo -e "\033[32m""To make a directory user specific: Change:""\e[0m" "\033[33m""Require valid-user""\e[0m" "\033[32m""to""\e[0m" "\033[33m""Require user $username""\e[0m"
@@ -330,12 +330,12 @@ then
                         sleep 2
                     fi
                 else
-                    if [[ -f $HOME/www/$(whoami).$(hostname)/public_html/.htaccess ]]
+                    if [[ -f $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess ]]
                     then
-                        if [[ -z "$(sed -n '/AuthName "Please Login"/p' $HOME/www/$(whoami).$(hostname)/public_html/.htaccess)" ]]
+                        if [[ -z "$(sed -n '/AuthName "Please Login"/p' $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess)" ]]
                         then
-                            echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname)/public_html/.htaccess
-                            find $HOME/www/$(whoami).$(hostname)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
+                            echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess
+                            find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                             echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in the" "\033[36m""WWW""\e[0m" "root"
                             echo
                             echo -e "\033[32m""To make a directory user specific: Change:""\e[0m" "\033[33m""Require valid-user""\e[0m" "\033[32m""to""\e[0m" "\033[33m""Require user $username""\e[0m"
@@ -347,8 +347,8 @@ then
                             echo
                         fi
                     else
-                        echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname)/public_html/.htaccess
-                        find $HOME/www/$(whoami).$(hostname)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
+                        echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess
+                        find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                         echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in the" "\033[36m""WWW""\e[0m" "root"
                         echo
                         echo -e "\033[32m""To make a directory user specific: Copy the .htaccess there, change:""\e[0m" "\033[33m""Require valid-user""\e[0m" "\033[32m""to""\e[0m" "\033[33m""Require user $username""\e[0m"
@@ -370,14 +370,14 @@ then
                             echo -e "\033[32m""This path is relative to your WWW root. For links you would enter this path:""\e[0m" "\033[36m""/links""\e[0m"
                             read -ep "Give the name of the folder you with to create the .htaccess in: /" specificlocpath
                             echo
-                            if [[ -d $HOME/www/$(whoami).$(hostname)/public_html/$specificlocpath ]]
+                            if [[ -d $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath ]]
                             then
-                                if [[ -f $HOME/www/$(whoami).$(hostname)/public_html/$specificlocpath/.htaccess ]]
+                                if [[ -f $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess ]]
                                 then
-                                    if [[ -z "$(sed -n '/AuthName "Please Login"/p' $HOME/www/$(whoami).$(hostname)/public_html/$specificlocpath/.htaccess)" ]]
+                                    if [[ -z "$(sed -n '/AuthName "Please Login"/p' $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess)" ]]
                                     then
-                                        echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname)/public_html/$specificlocpath/.htaccess
-                                        find $HOME/www/$(whoami).$(hostname)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
+                                        echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess
+                                        find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                                         echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in" "\033[36m""/$specificlocpath""\e[0m"
                                         echo
                                         echo -e "\033[32m""To make a directory user specific: Change:""\e[0m" "\033[33m""Require valid-user""\e[0m" "\033[32m""to""\e[0m" "\033[33m""Require user $username""\e[0m"
@@ -389,8 +389,8 @@ then
                                         echo
                                     fi
                                 else
-                                    echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname)/public_html/$specificlocpath/.htaccess
-                                    find $HOME/www/$(whoami).$(hostname)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
+                                    echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess
+                                    find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                                     echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in" "\033[36m""/$specificlocpath""\e[0m"
                                     echo
                                         echo -e "\033[32m""To make a directory user specific: Change:""\e[0m" "\033[33m""Require valid-user""\e[0m" "\033[32m""to""\e[0m" "\033[33m""Require user $username""\e[0m"
@@ -403,12 +403,12 @@ then
                                 sleep 2
                             fi
                         else
-                            if [[ -f $HOME/www/$(whoami).$(hostname)/public_html/.htaccess ]]
+                            if [[ -f $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess ]]
                             then
-                                if [[ -z "$(sed -n '/AuthName "Please Login"/p' $HOME/www/$(whoami).$(hostname)/public_html/.htaccess)" ]]
+                                if [[ -z "$(sed -n '/AuthName "Please Login"/p' $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess)" ]]
                                 then
-                                    echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname)/public_html/.htaccess
-                                    find $HOME/www/$(whoami).$(hostname)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
+                                    echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess
+                                    find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                                     echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in the" "\033[36m""WWW""\e[0m" "root"
                                     echo
                                     echo -e "\033[32m""To make a directory user specific: Change:""\e[0m" "\033[33m""Require valid-user""\e[0m" "\033[32m""to""\e[0m" "\033[33m""Require user $username""\e[0m"
@@ -420,8 +420,8 @@ then
                                     echo
                                 fi
                             else
-                                echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname)/public_html/.htaccess
-                                find $HOME/www/$(whoami).$(hostname)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
+                                echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess
+                                find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                                 echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in the" "\033[36m""WWW""\e[0m" "root"
                                 echo
                                 echo -e "\033[32m""To make a directory user specific: Copy the .htaccess there, change:""\e[0m" "\033[33m""Require valid-user""\e[0m" "\033[32m""to""\e[0m" "\033[33m""Require user $username""\e[0m"
@@ -464,7 +464,7 @@ then
                 echo -e "Enter username from the list to delete them."
                 read -ep "What is the username you wish to remove?: " username
                 htpasswd -D $HOME/private/.htpasswd $username
-                find $HOME/www/$(whoami).$(hostname)/public_html -type f -name ".htaccess" -exec sed -i "/user $username/d" {} \; -exec chmod 644 {} \;
+                find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec sed -i "/user $username/d" {} \; -exec chmod 644 {} \;
                 echo
                 echo -e "The user:""\033[31m""$username""\e[0m" "was deleted from all .htaccess files, if present"
                 sleep 3
@@ -476,12 +476,12 @@ then
             ;;
     ##########
             "5") # Protect the /links directory using ~/private/.htpasswd
-            if [[ -d $HOME/www/$(whoami).$(hostname)/public_html/links ]]
+            if [[ -d $HOME/www/$(whoami).$(hostname -f)/public_html/links ]]
             then
-                echo -e "######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" > $HOME/www/$(whoami).$(hostname)/public_html/links/.htaccess
+                echo -e "######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" > $HOME/www/$(whoami).$(hostname -f)/public_html/links/.htaccess
                 echo -e "The" "\033[36m""/links""\e[0m" "directory has been protected using the" "\033[36m""~/private/.htpasswd""\e[0m"
             else
-                echo -e "The" "\033[36m""$HOME/www/$(whoami).$(hostname)/public_html/links""\e[0m" "does not exist"
+                echo -e "The" "\033[36m""$HOME/www/$(whoami).$(hostname -f)/public_html/links""\e[0m" "does not exist"
             fi
             sleep 2
             ;;
@@ -501,13 +501,13 @@ then
             ;;
     ##########
             "7") # RuTorrent: Change the existing Rutorrent .htaccess to use ~/private/.htpasswd
-            if [[ -f $HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htaccess ]]
+            if [[ -f $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent/.htaccess ]]
             then
                 echo -e "\033[32m""This will change where the rutorrent htaccess looks for the htpasswd file""\e[0m"
                 read -ep "Are you sure you want to change this [y] or quit back to the menu [q] : " confirm
                 if [[ $confirm =~ ^[Yy]$ ]]; then
-                    sed -i "s|AuthUserFile .*|AuthUserFile \"$HOME/private/.htpasswd\"|g" $HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htaccess
-                    sed -i "s|AuthName .*|AuthName \"Please Login\"|g" $HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htaccess
+                    sed -i "s|AuthUserFile .*|AuthUserFile \"$HOME/private/.htpasswd\"|g" $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent/.htaccess
+                    sed -i "s|AuthName .*|AuthName \"Please Login\"|g" $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent/.htaccess
                     echo -e "The path has been changed to:" "\033[36m""$HOME/private/.htpasswd""\e[0m"
                     sleep 2
                 fi
@@ -518,16 +518,16 @@ then
             ;;
     ##########
             "8") # RuTorrent: Add or edit a user in the existing Rutorrent .htpasswd
-            if [[ -f $HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd ]]
+            if [[ -f $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent/.htpasswd ]]
             then
                 echo -e "\033[1;32m""Note: Use a good password manager like keepass so you can easily manage good passwords.""\e[0m"
                 echo -e "\033[32m""Here is a list of the usernames and their order in your" "\033[36m""/rutorrent/.htpasswd""\e[0m"
                 echo -e "\033[1;31m"
-                cat $HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd | cut -d: -f1
+                cat $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent/.htpasswd | cut -d: -f1
                 echo -e "\e[0m"
                 echo -e "\033[33m""Enter an existing username to update or a new one to create an entry.""\e[0m"
                 read -ep "What is the username you wish to create, if they are not listed above, or edit if they exist?: " username
-                htpasswd -m $HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd $username
+                htpasswd -m $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent/.htpasswd $username
                 sleep 2
             else
                 echo -e "\033[31m" "The file does not exist." "\033[32m""Is RuTorrent installed?""\e[0m"
@@ -536,15 +536,15 @@ then
             ;;
     ##########
             "9") # RuTorrent: Delete a user in the existing Rutorrent .htpasswd
-            if [[ -f $HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd ]]
+            if [[ -f $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent/.htpasswd ]]
             then
                 echo -e "\033[32m""Here is a list of the usernames and their order in your" "\033[36m""/rutorrent/.htpasswd""\e[0m"
                 echo -e "\033[1;31m"
-                cat $HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd | cut -d: -f1
+                cat $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent/.htpasswd | cut -d: -f1
                 echo -e "\e[0m"
                 echo -e "\033[33m""Enter username from the list to delete them.""\e[0m"
                 read -ep "What is the username you wish to remove?: " username
-                htpasswd -D $HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd $username
+                htpasswd -D $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent/.htpasswd $username
                 sleep 2
             else
                 echo -e "\033[31m" "The file does not exist." "\033[32m""Is RuTorrent installed?""\e[0m"
@@ -553,22 +553,22 @@ then
             ;;
     ##########
             "10") #RuTorrent: Protect the /links directory using /rutorrent/.htpasswd
-            if [[ -d $HOME/www/$(whoami).$(hostname)/public_html/links ]]
+            if [[ -d $HOME/www/$(whoami).$(hostname -f)/public_html/links ]]
             then
-                echo -e "######\nAuthUserFile \"$HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"$(whoami)\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" > $HOME/www/$(whoami).$(hostname)/public_html/links/.htaccess
+                echo -e "######\nAuthUserFile \"$HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"$(whoami)\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" > $HOME/www/$(whoami).$(hostname -f)/public_html/links/.htaccess
                 echo -e "The" "\033[36m""/links""\e[0m" "directory has been protected using the" "\033[36m""/rutorrent/.htpasswd""\e[0m"
             else
-                echo -e "The" "\033[36m""$HOME/www/$(whoami).$(hostname)/public_html/links""\e[0m" "does not exist"
+                echo -e "The" "\033[36m""$HOME/www/$(whoami).$(hostname -f)/public_html/links""\e[0m" "does not exist"
             fi
             sleep 2
             ;;
     ##########
             "11") # RuTorrent: List .htpasswd users and their order
-            if [[ -f $HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd ]]
+            if [[ -f $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent/.htpasswd ]]
             then
                 echo -e "\033[32m""Here is a list of the usernames and their order in your" "\033[36m""/rutorrent/.htpasswd""\e[0m"
                 echo -e "\033[1;31m"
-                cat $HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd | cut -d: -f1
+                cat $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent/.htpasswd | cut -d: -f1
                 echo -e "\e[0m"
                 sleep 4
             else
@@ -586,8 +586,8 @@ then
                 then
                     if [[ -f $HOME/private/.htpasswd ]]
                     then
-                        find $HOME/www/$(whoami).$(hostname)/public_html -type f -name ".htaccess" -exec sed -i "s|AuthUserFile .*|AuthUserFile \"$HOME/private/.htpasswd\"|g" {} \; -exec chmod 644 {} \;
-                        find $HOME/www/$(whoami).$(hostname)/public_html -type f -name ".htaccess" -exec sed -i "s|AuthName .*|AuthName \"Please Login\"|g" {} \; -exec chmod 644 {} \;
+                        find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec sed -i "s|AuthUserFile .*|AuthUserFile \"$HOME/private/.htpasswd\"|g" {} \; -exec chmod 644 {} \;
+                        find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec sed -i "s|AuthName .*|AuthName \"Please Login\"|g" {} \; -exec chmod 644 {} \;
                         echo "Job done."
                         sleep 2
                     else
@@ -604,10 +604,10 @@ then
                 echo
                 if [[ $confirm =~ ^[Yy]$ ]]
                 then
-                    if [[ -f $HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd ]]
+                    if [[ -f $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent/.htpasswd ]]
                     then
-                        find $HOME/www/$(whoami).$(hostname)/public_html -type f -name ".htaccess" -exec sed -i "s|AuthUserFile .*|AuthUserFile \"$HOME/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd\"|g" {} \; -exec chmod 644 {} \;
-                        find $HOME/www/$(whoami).$(hostname)/public_html -type f -name ".htaccess" -exec sed -i "s|AuthName .*|AuthName \"$(whoami)\"|g" {} \; -exec chmod 644 {} \;
+                        find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec sed -i "s|AuthUserFile .*|AuthUserFile \"$HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent/.htpasswd\"|g" {} \; -exec chmod 644 {} \;
+                        find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec sed -i "s|AuthName .*|AuthName \"$(whoami)\"|g" {} \; -exec chmod 644 {} \;
                         echo "Job done."
                         sleep 2
                     else
@@ -625,8 +625,8 @@ then
                 echo
                 if [[ -f $HOME/$path ]]
                 then
-                    find $HOME/www/$(whoami).$(hostname)/public_html -type f -name ".htaccess" -exec sed -i "s|AuthUserFile .*|AuthUserFile \"$HOME/$path\"|g" {} \; -exec chmod 644 {} \;
-                    find $HOME/www/$(whoami).$(hostname)/public_html -type f -name ".htaccess" -exec sed -i "s|AuthName .*|AuthName \"Please Login\"|g" {} \; -exec chmod 644 {} \;
+                    find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec sed -i "s|AuthUserFile .*|AuthUserFile \"$HOME/$path\"|g" {} \; -exec chmod 644 {} \;
+                    find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec sed -i "s|AuthName .*|AuthName \"Please Login\"|g" {} \; -exec chmod 644 {} \;
                     echo "Job done."
                     sleep 2
                 else
@@ -651,9 +651,9 @@ then
             ;;
     ##########
             "16") # Protect the /links directory using the /rutorrent/.htpasswd
-            if [[ -f ~/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd && -d ~/.nginx/conf.d ]]
+            if [[ -f ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/.htpasswd && -d ~/.nginx/conf.d ]]
             then
-            echo -e 'location /links {\n    auth_basic "'$(whoami)'";\n    auth_basic_user_file '$HOME'/www/'$(whoami)'.'$(hostname)'/public_html/rutorrent/.htpasswd;\n}' > ~/.nginx/conf.d/000-default-server.d/links.conf
+            echo -e 'location /links {\n    auth_basic "'$(whoami)'";\n    auth_basic_user_file '$HOME'/www/'$(whoami)'.'$(hostname -f)'/public_html/rutorrent/.htpasswd;\n}' > ~/.nginx/conf.d/000-default-server.d/links.conf
             /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
             echo "Done. You may need to clear your browser cache to see the changes"
             echo
@@ -685,25 +685,25 @@ then
             echo -e "Where you have" "\033[32m""rutorrent-4""\e[0m" "then" "\033[31m""4""\e[0m" "is the suffix."
             read -ep "Please state the suffix of the instance you wish to modify: " suffix
             echo
-            if [[ -f $HOME/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd ]]
+            if [[ -f $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent-$suffix/.htpasswd ]]
             then
                 echo -e "\033[1;32m""Note: Use a good password manager like keepass so you can easily manage good passwords.""\e[0m"
                 echo -e "\033[32m""Here is a list of the usernames and their order in your" "\033[36m""/rutorrent-$suffix/.htpasswd""\e[0m"
                 echo -e "\033[1;31m"
-                cat $HOME/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd | cut -d: -f1
+                cat $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent-$suffix/.htpasswd | cut -d: -f1
                 echo -e "\e[0m"
                 echo -e "\033[33m""Enter an existing username to update or a new one to create an entry.""\e[0m"
                 read -ep "What is the username you wish to create, if they are not listed above, or edit if they exist?: " username
-                htpasswd -m $HOME/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd $username
+                htpasswd -m $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent-$suffix/.htpasswd $username
                 echo
                 read -ep "Do you want to use this user's password for the rpc: [y]es or [n]o ?" rpcchoice
                 if [[ $rpcchoice =~ ^[Yy]$ ]]
                 then
                     if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
                     then
-                        if [[ -s $HOME/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd ]]
+                        if [[ -s $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent-$suffix/.htpasswd ]]
                         then
-                            cp -f ~/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd ~/.nginx/conf.d/000-default-server.d/scgi-$suffix-htpasswd
+                            cp -f ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-$suffix/.htpasswd ~/.nginx/conf.d/000-default-server.d/scgi-$suffix-htpasswd
                             sed -ri "s/$username:(.*)/rutorrent:\1/g" ~/.nginx/conf.d/000-default-server.d/scgi-$suffix-htpasswd
                             sed -ri '/^rutorrent:(.*)/! s/(.*)//g' ~/.nginx/conf.d/000-default-server.d/scgi-$suffix-htpasswd
                             sed -ri '/^$/d' ~/.nginx/conf.d/000-default-server.d/scgi-$suffix-htpasswd
@@ -730,15 +730,15 @@ then
             echo -e "Where you have" "\033[32m""rutorrent-4""\e[0m" "then" "\033[31m""4""\e[0m" "is the suffix."
             read -ep "Please state the suffix of the instance you wish to modify: " suffix
             echo
-            if [[ -f $HOME/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd ]]
+            if [[ -f $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent-$suffix/.htpasswd ]]
             then
                 echo -e "\033[32m""Here is a list of the usernames and their order in your" "\033[36m""/rutorrent-$suffix/.htpasswd""\e[0m"
                 echo -e "\033[1;31m"
-                cat $HOME/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd | cut -d: -f1
+                cat $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent-$suffix/.htpasswd | cut -d: -f1
                 echo -e "\e[0m"
                 echo -e "\033[33m""Enter username from the list to delete them.""\e[0m"
                 read -ep "What is the username you wish to remove?: " username
-                htpasswd -D $HOME/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd $username
+                htpasswd -D $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent-$suffix/.htpasswd $username
                 sleep 2
             else
                 echo -e "\033[31m" "The file does not exist at rutorrent-$suffix." "\033[32m""Is RuTorrent installed?""\e[0m"
@@ -750,11 +750,11 @@ then
             echo -e "Where you have" "\033[32m""rutorrent-4""\e[0m" "then" "\033[31m""4""\e[0m" "is the suffix."
             read -ep "Please state the suffix of the instance you wish to modify: " suffix
             echo
-            if [[ -f $HOME/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd ]]
+            if [[ -f $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent-$suffix/.htpasswd ]]
             then
                 echo -e "\033[32m""Here is a list of the usernames and their order in your" "\033[36m""/rtorrent-$suffix/.htpasswd""\e[0m"
                 echo -e "\033[1;31m"
-                cat $HOME/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix/.htpasswd | cut -d: -f1
+                cat $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent-$suffix/.htpasswd | cut -d: -f1
                 echo -e "\e[0m"
                 sleep 4
             else
