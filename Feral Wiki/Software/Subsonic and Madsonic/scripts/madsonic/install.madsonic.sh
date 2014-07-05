@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Madsonic
-scriptversion="1.7.2"
+scriptversion="1.7.3"
 scriptname="install.madsonic"
 madsonicversion="5.0 Build 3860"
 javaversion="1.7 Update 55"
@@ -36,11 +36,11 @@ installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 # Java URL
 javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=87437"
 # Madsonic Standalone files
-madsonicfv="https://bitbucket.org/feralhosting/feralfiles/downloads/5.0.3860-standalone.zip"
-madsonicfvs="5.0.3860-standalone.zip"
+madsonicfv="https://bitbucket.org/feralhosting/feralfiles/downloads/5.0.3880-standalone.zip"
+madsonicfvs="5.0.3880-standalone.zip"
 # ffmpeg files
-mffmpegfvc="https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.20.03.2014.zip"
-mffmpegfvcs="ffmpeg.20.03.2014.zip"
+mffmpegfvc="https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.02.07.2014.zip"
+mffmpegfvcs="ffmpeg.02.07.2014.zip"
 #
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/madsonic/install.madsonic.sh"
 #
@@ -128,7 +128,7 @@ then
     echo
     echo -e \"\\\033[33m2:\\\e[0m This is the URL that Madsonic is configured to use:\"
     echo
-    echo -e \"\\\033[31mMadsonic\\\e[0m last accessible at \\\033[31mhttps://\$(hostname)/\$(whoami)/madsonic/\\\e[0m\"
+    echo -e \"\\\033[31mMadsonic\\\e[0m last accessible at \\\033[31mhttps://\$(hostname -f)/\$(whoami)/madsonic/\\\e[0m\"
     echo
     echo -e \"\\\033[33m3:\\\e[0m Running instances checks:\"
     echo
@@ -202,7 +202,7 @@ then
                 bash ~/private/madsonic/madsonic.sh
                 echo -e \"Started Madsonic at PID:\\\033[31m\$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null)\\\e[0m\"
                 echo
-                echo -e \"\\\033[31mMadsonic\\\e[0m last accessible at \\\033[31mhttps://\$(hostname)/\$(whoami)/madsonic/\\\e[0m\"
+                echo -e \"\\\033[31mMadsonic\\\e[0m last accessible at \\\033[31mhttps://\$(hostname -f)/\$(whoami)/madsonic/\\\e[0m\"
                 echo -e \"\\\033[32m\"
                 if [[ -z \"\$(ps -p \$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null) --no-headers 2> /dev/null)\" ]]
                 then
@@ -286,7 +286,7 @@ then
     fi
     echo -e "The" "\033[36m""nginx/apache proxypass""\e[0m" "has been installed."
     echo
-    echo -e "Madsonic is accessible at:" "\033[32m""https://$(hostname)/$(whoami)/madsonic/""\e[0m"
+    echo -e "Madsonic is accessible at:" "\033[32m""https://$(hostname -f)/$(whoami)/madsonic/""\e[0m"
     echo
 fi
 #
@@ -425,7 +425,7 @@ then
         echo -e "\033[32m""Madsonic is now started, use the links below to access it. Don't forget to set path to FULL path to you music folder in the gui.""\e[0m"
         sleep 1
         echo
-        echo -e "Madsonic is accessible at:" "\033[32m""https://$(hostname)/$(whoami)/madsonic/""\e[0m"
+        echo -e "Madsonic is accessible at:" "\033[32m""https://$(hostname -f)/$(whoami)/madsonic/""\e[0m"
         echo -e "It may take a minute or two to load properly."
         echo
         echo -e "Madsonic started at PID:" "\033[31m""$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null)""\e[0m"
@@ -512,7 +512,7 @@ then
             echo -e "\033[32m""Madsonic is now started, use the link below to access it. Don't forget to set path to FULL path to you music folder in the gui.""\e[0m"
             sleep 1
             echo
-            echo -e "Madsonic is accessible at:" "\033[32m""https://$(hostname)/$(whoami)/madsonic/""\e[0m"
+            echo -e "Madsonic is accessible at:" "\033[32m""https://$(hostname -f)/$(whoami)/madsonic/""\e[0m"
             echo -e "It may take a minute or two to load properly."
             echo
             echo -e "Madsonic started at PID:" "\033[31m""$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null)""\e[0m"
