@@ -1,6 +1,6 @@
 #!/bin/bash
 # autodlport.sh
-scriptversion="1.0.5"
+scriptversion="1.0.6"
 scriptname="autodlport"
 # randomessence
 #
@@ -93,7 +93,7 @@ then
 #### User Script Starts ####
 ############################
 #
-    if [[ -f ~/.autodl/autodl.cfg && -f ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/conf.php ]]
+    if [[ -f ~/.autodl/autodl.cfg && -f ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi/conf.php ]]
     then
         echo "This script will change your password and port for autodl and the rutorrent plugin, then restart irssi."
         echo
@@ -104,7 +104,7 @@ then
         # Sed command to enter the password variable
         sed -ri 's|(.*)gui-server-password =(.*)|gui-server-password = '"$pass"'|g' ~/.autodl/autodl.cfg
         # Uses echo to make the config file for the rutorrent plugun to work with autodl uinsg the variables port and pass
-        echo -ne '<?php\n$autodlPort = '"$port"';\n$autodlPassword = "'"$pass"'";\n?>' > ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/conf.php
+        echo -ne '<?php\n$autodlPort = '"$port"';\n$autodlPassword = "'"$pass"'";\n?>' > ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi/conf.php
         # Kill all irssi instances before starting
         killall -9 -u $(whoami) irssi >/dev/null 2>&1
         # Clear dead screens
@@ -123,7 +123,7 @@ then
         then
             echo -e "\033[36m""~/.autodl/autodl.cfg""\e[0m"" is missing"
         fi
-        if [[ ! -f "$HOME/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/conf.php" ]]
+        if [[ ! -f "$HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi/conf.php" ]]
         then
             echo -e "\033[36m""/rutorrent/plugins/autodl-irssi/conf.php""\e[0m"" is missing"
         fi

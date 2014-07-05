@@ -1,6 +1,6 @@
 #!/bin/bash
 # autodlrutorrentfix.sh
-scriptversion="1.0.6"
+scriptversion="1.0.7"
 scriptname="autodlrutorrentfix"
 # randomessence
 #
@@ -114,20 +114,20 @@ then
         exit
     fi
     #
-    if [[ -d "$HOME/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi" ]]
+    if [[ -d "$HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi" ]]
     then
         echo -e "\033[33m""Autodl-rutorrent Before""\e[0m"
-        echo -e "\033[32m""/rutorrent/plugins/autodl-irssi/getConf.php =" "\033[31m""$(sed -n 's/\(.*\)if (\!socket_connect($socket, "\(.*\)", $autodlPort))/\2/p' $HOME/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/getConf.php 2> /dev/null)""\e[0m"
+        echo -e "\033[32m""/rutorrent/plugins/autodl-irssi/getConf.php =" "\033[31m""$(sed -n 's/\(.*\)if (\!socket_connect($socket, "\(.*\)", $autodlPort))/\2/p' $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi/getConf.php 2> /dev/null)""\e[0m"
         echo
         #
         echo -e "\033[31m""Applying some fixes to autodl rutorrent plugin if needed.""\e[0m"
         echo
-        sed -i 's/if (!socket_connect($socket, "127.0.0.1", $autodlPort))/if (!socket_connect($socket, "10.0.0.1", $autodlPort))/g' "$HOME/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/getConf.php"
+        sed -i 's/if (!socket_connect($socket, "127.0.0.1", $autodlPort))/if (!socket_connect($socket, "10.0.0.1", $autodlPort))/g' "$HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi/getConf.php"
         echo -e "\033[33m""Autodl-rutorrent After""\e[0m"
-        echo -e "\033[32m""/rutorrent/plugins/autodl-irssi/getConf.php =" "\033[31m""$(sed -n 's/\(.*\)if (\!socket_connect($socket, "\(.*\)", $autodlPort))/\2/p' $HOME/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/getConf.php 2> /dev/null)""\e[0m"
+        echo -e "\033[32m""/rutorrent/plugins/autodl-irssi/getConf.php =" "\033[31m""$(sed -n 's/\(.*\)if (\!socket_connect($socket, "\(.*\)", $autodlPort))/\2/p' $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi/getConf.php 2> /dev/null)""\e[0m"
         echo
     else
-        echo -e "\033[36m""$HOME/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi/""\e[0m" "does not exist"
+        echo -e "\033[36m""$HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi/""\e[0m" "does not exist"
         echo
         exit 1
     fi
