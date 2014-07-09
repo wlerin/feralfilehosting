@@ -1,7 +1,15 @@
 Debian package:
 
+Visit here to see the current version to use in the below command:
+
 ~~~
-wget -qO ~/plex.deb http://shell.ninthgate.se/packages/debian/pool/main/p/plexmediaserver/plexmediaserver_0.9.9.10.458-008ea34-debian_amd64.deb
+http://shell.ninthgate.se/packages/debian/pool/main/p/plexmediaserver/
+~~~
+
+Then modify and use this if required:
+
+~~~
+wget -qO ~/plex.deb http://shell.ninthgate.se/packages/debian/pool/main/p/plexmediaserver/plexmediaserver_0.9.9.12.504-3e7f93c-debian_amd64.deb
 dpkg-deb -x ~/plex.deb ~/plex
 screen -S plex 
 cd ~/plex/usr/lib/plexmediaserver/ && bash start.sh
