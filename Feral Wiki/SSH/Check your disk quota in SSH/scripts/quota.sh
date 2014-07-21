@@ -4,7 +4,10 @@
 # requirements: a file called .quotaspace in home directory
 # which contains the available diskspace in MB's, for example: 750000 for 750 GB
 #
-# written by: mcviruss
+# Credits:
+# Written by: mcviruss
+# Contributions:
+# https://github.com/feralhosting/feralfilehosting/pull/5
 
 # Pad a string so that it is the specified number of characters long
 # adds padding to the left, default path string is a space " "
