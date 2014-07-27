@@ -4,7 +4,7 @@ scriptversion="1.7.5"
 scriptname="install.madsonic"
 madsonicversion="5.0 Build 3880"
 javaversion="1.7 Update 65"
-jvdecimal="1.7.0_60"
+jvdecimal="1.7.0_65"
 #
 # randomessence
 #

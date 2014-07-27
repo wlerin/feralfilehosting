@@ -4,7 +4,7 @@ scriptversion="1.7.5"
 scriptname="install.subsonic"
 subsonicversion="4.9"
 javaversion="1.7 Update 65"
-jvdecimal="1.7.0_60"
+jvdecimal="1.7.0_65"
 #
 # Bobtentpeg 01/30/2013 & randomessence 04/24/2013
 #
