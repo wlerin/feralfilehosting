@@ -827,6 +827,13 @@ WikiBot.addListener('message', function(from, to, message) {
         WikiBot.say(to, result + "etherpad-lite -- https://www.feralhosting.com/faq/view?question=277");            
         return;
     }
+    
+    if ( message == '%couchpotato' || message == '%couchpotato' + result || message == '%Couchpotato' || message == '%Couchpotato' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        WikiBot.say(to, result + "CouchPotato - An automatic NZB and torrent downloader for Films -- https://www.feralhosting.com/faq/view?question=218");
+        return;
+    }
 	
     // Linux
 
