@@ -60,3 +60,4 @@
 # v 1.7.2 if no java binary in ~/bin but the ~/.javaversion files still exists, assume the user removed the java files bit left the version file and install java.
 # v 1.7.4 hostanme -f and ffmpeg version
 # v 1.7.5 java update 7_60
+# v 1.7.6 java update 7_65 and typo
