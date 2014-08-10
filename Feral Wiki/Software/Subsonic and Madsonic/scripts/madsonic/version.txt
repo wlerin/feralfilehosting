@@ -14,3 +14,4 @@
 # v 1.7.4 versions
 # v 1.7.5 java update 7_60
 # v 1.7.6 java update 7_65 and typo
+# v 1.7.7 java update 7_67
