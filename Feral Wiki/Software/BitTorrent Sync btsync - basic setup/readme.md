@@ -36,7 +36,7 @@ Now run this command to set a few variables we need:
 
 ~~~
 sed -i 's|MYHOME|'"$HOME"'|g' ~/btsync/sync.conf
-btport="$(shuf -i 6000-49000 -n 1)" && sed -i 's|####|'"$btport"'|g' ~/btsync/sync.conf
+sed -i 's|####|'$(shuf -i 6000-49000 -n 1)'|g' ~/btsync/sync.conf
 ~~~
 
 You must now configure your `~/btsync/sync.conf` Web interface credentials and port before you run the program.
