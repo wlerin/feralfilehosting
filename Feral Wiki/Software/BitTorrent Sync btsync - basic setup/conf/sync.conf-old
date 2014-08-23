@@ -31,7 +31,7 @@
 /* directory_root path defines where the WebUI Folder browser starts
    (linux only)
 */
-   "directory_root" : "/media/DiskID/home/user/",
+// "directory_root" : "/media/DiskID/home/user/",
 //  Make sure to pick a PORT by changing #### then Change USERNAME and PASSWORD. Leave the host as 0.0.0.0
     "listen" : "0.0.0.0:####",
     "login" : "USERNAME",

@@ -20,7 +20,7 @@ You will need to execute these commands in [SSH](https://www.feralhosting.com/fa
 
 ~~~
 mkdir -p ~/btsync
-wget -qO ~/btsync/btsync.tar.gz http://download.getsyncapp.com/endpoint/btsync/os/linux-glibc23-x64/track/stable
+wget -qO ~/btsync/btsync.tar.gz http://download.getsyncapp.com/endpoint/btsync/os/linux-x64/track/stable
 tar xf ~/btsync/btsync.tar.gz -C ~/btsync && rm -f ~/btsync/btsync.tar.gz
 ~~~
 
