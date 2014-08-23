@@ -32,7 +32,13 @@ Use this command to get it. It will be downloaded to the right location.
 wget -qO ~/btsync/sync.conf http://git.io/tnT60g
 ~~~
 
-You must now configure your `~/btsync/sync.conf` before you run the program.
+Now run this command to set a few variables we need:
+
+~~~
+sed -i 's|MYHOME|'"$HOME"'|g' ~/btsync/sync.conf
+~~~
+
+You must now configure your `~/btsync/sync.conf` Web interface credentials and port before you run the program.
 
 You can edit this file over ftp. Please see this FAQ for how to do this properly [Text editing - Over FTP or SFTP](https://www.feralhosting.com/faq/view?question=219)
 
@@ -56,7 +62,7 @@ Something like this:
 
 **Important note:** The `USERNAME` and `PASSWORD` you create here is unique, just for the btsync Web Gui. It is not related to any Feral provided passwords.
 
-**Important note:** Pick a port between `6000` to `50000`
+**Important note:** Pick a port between `6000` to `50000` and replace `####` with this port number.
 
 ~~~
 //  Make sure to pick a PORT by changing #### then Change USERNAME and PASSWORD. Leave the host as 0.0.0.0
