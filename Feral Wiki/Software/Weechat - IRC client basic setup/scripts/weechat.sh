@@ -1,6 +1,6 @@
 #!/bin/bash
 # weechat installation
-scriptversion="1.0.3"
+scriptversion="1.1.0"
 scriptname="install.weechat"
 # randomessence
 #
@@ -10,14 +10,6 @@ scriptname="install.weechat"
 ## Version History Starts ##
 ############################
 #
-# How do I customise this updater? 
-# 1: scriptversion="0.0.0" replace "0.0.0" with your script version. This will be shown to the user at the current version.
-# 2: scriptname="somescript" replace "somescript" with your script name. Make it unique to this script.
-# 3: Set the scripturl variable in the variable section to the RAW github URl of the script for updating.
-# 4: Insert your script in the "Script goes here" labelled section
-#
-# This updater deals with updating two files at the same time, the  "~/somescript.sh" and the "~/bin/somescript".
-# This updater deals with updating two files at the same time, the  "~/somescript.sh" and the "~/bin/somescript".
 #
 ############################
 ### Version History Ends ###
@@ -102,7 +94,7 @@ then
 		wget -qO ~/weechat.tar.gz "$weechat"
 		tar xf ~/weechat.tar.gz
 		cd ~/weechat-"$weechatfv"
-		sed -i 's/SET(CMAKE_SKIP_RPATH ON)//g' ~/weechat-"$weechatfv"/CMakeLists.txt
+		sed -i 's/set(CMAKE_SKIP_RPATH ON)//g' ~/weechat-"$weechatfv"/CMakeLists.txt
 		"$HOME"/bin/cmake -DCMAKE_INSTALL_RPATH=/opt/curl/current/lib -DPREFIX="$HOME" -DCURL_LIBRARY=/opt/curl/current/lib/libcurl.so -DCURL_INCLUDE_DIR=/opt/curl/current/include
 		make
 		make install
