@@ -36,6 +36,7 @@ Now run this command to set a few variables we need:
 
 ~~~
 sed -i 's|MYHOME|'"$HOME"'|g' ~/btsync/sync.conf
+btport="$(shuf -i 6000-49000 -n 1)" && sed -i 's|####|'"$btport"'|g' ~/btsync/sync.conf
 ~~~
 
 You must now configure your `~/btsync/sync.conf` Web interface credentials and port before you run the program.
@@ -51,25 +52,17 @@ nano -w ~/btsync/sync.conf
 This is the part you must edit.
 
 ~~~
-//  Make sure to pick a PORT by changing #### then Change USERNAME and PASSWORD. Leave the host as 0.0.0.0
-"listen" : "0.0.0.0:####",
 "login" : "USERNAME",
 "password" : "PASSWORD"
-  }
 ~~~
 
 Something like this:
 
 **Important note:** The `USERNAME` and `PASSWORD` you create here is unique, just for the btsync Web Gui. It is not related to any Feral provided passwords.
 
-**Important note:** Pick a port between `6000` to `50000` and replace `####` with this port number.
-
 ~~~
-//  Make sure to pick a PORT by changing #### then Change USERNAME and PASSWORD. Leave the host as 0.0.0.0
-"listen" : "0.0.0.0:34567",
 "login" : "superman",
 "password" : "drowssap"
-  }
 ~~~
 
 Once you have done this edit, execute this command. It will send itself to the background.
@@ -81,6 +74,14 @@ Once you have done this edit, execute this command. It will send itself to the b
 To access the Web Gui you must use a browser and visit the URL, where `username` is your Feral username and `server` is the name of your Feral server that hosts the slot btsync is installed on:
 
 **Important note:** `https` is not supported by bysync. You must only use `http`
+
+Use this command  to see the generated WebUi port via SSH:
+
+~~~
+sed -rn 's|\s*"listen" : "0.0.0.0:(.*)",|\1|p' ~/btsync/sync.conf
+~~~
+
+Then modify the example Url below with yoru server information and WebUi port listed by the previous command:
 
 ~~~
 server.feralhosting.com:PORT
