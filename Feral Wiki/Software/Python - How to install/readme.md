@@ -19,35 +19,34 @@ Type to show the current version:
 python -V
 ~~~
 
-To install python mods using the Feral python uses these steps:
-
-**1:** Add the `~/.local/bin` location to your `PATH` using this command:
+To install modules locally you can do this
 
 ~~~
-[ ! "$(grep '~/.local/bin' ~/.bashrc)" ] && echo 'export PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
+wget https://bootstrap.pypa.io/ez_setup.py -O - | python - --user
 ~~~
 
-**2:** Now install `virtualenv` like this:
+Now you can use `easy_install` to install modules locally using the `--user` argument, for example:
 
 ~~~
-easy_install --user virtualenv
+~/.local/bin/easy_install --user somemodule
 ~~~
 
-Other mods can be installed using the `--user` argument, for example:
+For example let's install `pip` and then use pip to install some modules:
 
 ~~~
-easy_install --user somemodule
+~/.local/bin/easy_install --user pip
+~/.local/bin/pip install --user requests
+~/.local/bin/pip install --user HTMLParser
+~/.local/bin/pip install --user virtualenv
+~/.local/bin/pip install --user flexget
 ~~~
 
-For example:
+An example of installing and upgrading a module:
 
 ~~~
-easy_install --user pip
-pip install --user requests
-pip install --user HTMLParser
+ ~/.local/bin/pip install --user distribute
+ ~/.local/bin/pip install --upgrade --user distribute
 ~~~
-
-Now you can use VirtualENV with programs.
 
 Installing Python locally:
 ---
@@ -61,9 +60,9 @@ This is a basic guide to installing Python to your home directory . You will als
 Includes lots of things such as VirtualENV, distribute, PIP and more. Super simple to install.
 
 ~~~
-wget -qO ~/ActivePython.tar.gz http://downloads.activestate.com/ActivePython/releases/2.7.6.9/ActivePython-2.7.6.9-linux-x86_64.tar.gz
+wget -qO ~/ActivePython.tar.gz http://downloads.activestate.com/ActivePython/releases/2.7.8.10/ActivePython-2.7.8.10-linux-x86.tar.gz
 tar xf ActivePython.tar.gz
-bash ~/ActivePython-2.7.6.9-linux-x86_64/install.sh
+bash ~/ActivePython-2.7.8.10-linux-x86_64/install.sh
 ~~~
 
 Select a path to install to. This will create the path if it does not exist.
@@ -81,7 +80,7 @@ Read the information displayed, it will tell you what `PATH` to add and where.
 Optional: To remove the installation files.
 
 ~~~
-cd && rm -f ActivePython{-2.7.6.9-linux-x86_64.tar.gz,-2.7.6.9-linux-x86_64}
+cd && rm -f ActivePython{-2.7.8.10-linux-x86_64.tar.gz,-2.7.8.10-linux-x86_64}
 ~~~
 
 Type this command to reload the shell:
@@ -98,7 +97,7 @@ To use `easy_install` with this installation use the full path to your installat
 
 Done.
 
-Installing Python 2.7.6 from source:
+Installing Python 2.7 from source:
 --
 
 In SSH do these commands. Use this FAQ if you do not know how to SSH into your slot: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
@@ -111,8 +110,8 @@ In SSH do these commands. Use this FAQ if you do not know how to SSH into your s
 
 ~~~
 mkdir -p ~/python/python.2.7
-wget -qO ~/Python-2.7.6.tgz http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tgz
-tar xf ~/Python-2.7.6.tgz && cd ~/Python-2.7.6
+wget -qO ~/Python-2.7.8.tgz https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz
+tar xf ~/Python-2.7.8.tgz && cd ~/Python-2.7.8
 ./configure --prefix=$HOME/python/python.2.7 && make && make install
 ~~~
 
@@ -121,7 +120,7 @@ The configuration and installation can take some time to be patient.
 When it is finished installing, do some clean up with this command.
 
 ~~~
-cd && rm -rf ~/Python{-2.7.6,-2.7.6.tgz}
+cd && rm -rf ~/Python{-2.7.8,-2.7.8.tgz}
 ~~~
 
 Python has been installed. Now check which version is in use:
@@ -129,28 +128,6 @@ Python has been installed. Now check which version is in use:
 ~~~
 ~/python/python.2.7/bin/python -V
 ~~~
-
-Installing distribute
----
-
-~~~
-wget -qO ~/distribute_setup.py http://python-distribute.org/distribute_setup.py
-~/python/python.2.7/bin/python ~/distribute_setup.py
-cd && rm -f distribute_setup.py
-~~~
-
-Distribute is replacing setuptools.
-
-Installing setuptools:
----
-
-~~~
-wget -qO ~/setuptools.egg https://pypi.python.org/packages/2.7/s/setuptools/setuptools-0.6c11-py2.7.egg
-~/python/python.2.7/bin/python ~/setuptools.egg
-cd && rm -f setuptools.egg
-~~~
-
-That is done. Python and set-up tools are now installed and added to your paths. There should be no need to prefix when installing mods.
 
 Using `easy_install` from the command line to install mods:
 
