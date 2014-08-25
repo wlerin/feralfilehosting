@@ -27,8 +27,7 @@ Increase this number to `50` connections (default is `5` connections, you can ex
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SFTP%20and%20FTP/What%20to%20do%20if%20FTP%20speeds%20are%20slow/bit-5.png)
 
-Another option that can massivly increase the download speed on very high bandwidth connections is increasing the minimum part size for multi part downloads. In the connection properties under Transfer set the minumum part size up to a maximum of 32767 and see if your speeds are increased!
-
+Another option that can massively increase the download speed on very high bandwidth connections is increasing the minimum part size for multi part downloads. In the connection properties under Transfer set the minimum part size up to a maximum of `32767` and see if your speeds are increased!
 
 ### In CuteFTP Pro
 
