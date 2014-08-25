@@ -47,7 +47,7 @@ You will be asked to provide a directory for your download torrents. This can be
 
 1: A full path or using the `~` will be the best option to make sure the correct location is used. For example the FAQ uses `~/torrents`. This will create a new folder in your slot root called `torrents` regardless of other conditions.
 
-2: Using a relative path such as `some/path/to/torrents/` the directory structure will be created based on where you are located in and how you run the script. For example, `python ~/whatfreegrab/wfg.py` will create the directory structure from the slot root down, so you would have `~/some/path/to/torrents/`. `cd ~/whatfreegrab` then doing `python wfg.py` will create the directory structure relative to this location, giving us `~/whatfreegrab/some/path/to/torrents/`
+2: Using a relative path such as `some/path/to/torrents/` the directory structure will be created based on where you are located in SSH and how you execute the script. For example, `python ~/whatfreegrab/wfg.py` will create the directory structure from the slot root down, so you would have `~/some/path/to/torrents/` while `cd ~/whatfreegrab` then doing `python wfg.py` will create the directory structure relative to this location, giving us `~/whatfreegrab/some/path/to/torrents/`
 
 **Recommended:** Use one of the default watch folders for torrent clients:
 
