@@ -80,7 +80,7 @@ The setup script will then provide us with some useful information:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/whatfreegrab/final-2.png)
 
-**3:** A cronjob for use with the script. Take note of this for user after the setup script has finished.
+**3:** A cronjob for use with the script. Take note of this for after the setup script has finished.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/whatfreegrab/final-3.png)
 
@@ -132,9 +132,11 @@ If you use the blackhole option you will need to copy your torrent files to the 
 ~~~
 * * * * * cp -f ~/torrents/. ~/private/deluge/watch/
 ~~~
+
 ~~~
 * * * * * cp -f ~/torrents/. ~/private/rtorrent/watch/
 ~~~
+
 ~~~
 * * * * * cp -f ~/torrents/. ~/private/transmission/watch/
 ~~~
