@@ -1,6 +1,6 @@
 #!/bin/bash
 # install ampache
-scriptversion="1.2.4"
+scriptversion="1.2.5"
 scriptname="install.ampache"
 # randomessence
 #
@@ -21,7 +21,7 @@ scriptname="install.ampache"
 ############################
 #
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Ampache%20-%20web%20based%20audio%20video%20streaming/scripts/install.ampache.sh"
-ffmpegfv="https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg-2.1.3-64bit-static.zip"
+ffmpegfv="https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg-2.3.2-64bit-static.zip"
 ampacheurl="https://github.com/ampache/ampache/archive/master.zip"
 #
 ############################
@@ -90,13 +90,13 @@ then
 #### User Script Starts ####
 ############################
 #
-	mkdir -p "$HOME"/ampache/{ffmpeg,log}
-	wget -qO "$HOME"/ampache.zip "$ampacheurl"
-	unzip -qo "$HOME"/ampache.zip
-	cp -rf "$HOME"/ampache-master/. "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache
-	wget -qO "$HOME"/ffmpeg.zip "$ffmpegfv"
-	unzip -qo "$HOME"/ffmpeg.zip -d "$HOME"/ampache/ffmpeg
-	chmod 700 "$HOME"/ampache/ffmpeg/{ffmpeg,ffmpeg-10bit,ffprobe,qt-faststart}
+	mkdir -p ~/ampache/{ffmpeg,log}
+	wget -qO ~/ampache.zip "$ampacheurl"
+	unzip -qo ~/ampache.zip
+	cp -rf ~/ampache-master/. ~/www/$(whoami).$(hostname -f)/public_html/ampache
+	wget -qO ~/ffmpeg.zip "$ffmpegfv"
+	unzip -qo ~/ffmpeg.zip -d "$HOME"/ampache/ffmpeg
+	chmod 700 ~/ampache/ffmpeg/{ffmpeg,ffmpeg-10bit,ffprobe,qt-faststart}
 	cd && rm -rf {ampache,ffmpeg}.zip ampache-master
 	echo "Done downloading and unpacking."
 	echo
@@ -105,7 +105,7 @@ then
 	chmod 644 "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/.htaccess
 	#
 	# edit the template to that the user's default socket it inserted in the installer.
-	sed -i 's|<td><input type="text" name="local_host" value="localhost" /></td>|<td><input type="text" name="local_host" value="<?php echo getenv('\''HOME'\'') . '\''/private/mysql/socket'\''; ?>" /></td>|g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/templates/show_install.inc.php
+	sed -i 's|<input type="text" class="form-control" id="local_host" name="local_host" value="localhost">|<input type="text" class="form-control" id="local_host" name="local_host" value="<?php echo getenv('\''HOME'\'') . '\''/private/mysql/socket'\''; ?>">|g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/templates/show_install.inc.php
 	#
 	# Change some default settings.
 	sed -i 's/catalog_video_pattern = "avi|mpg|flv|m4v"/catalog_video_pattern = "avi|mpg|flv|m4v|mkv"/g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/config/ampache.cfg.php.dist
