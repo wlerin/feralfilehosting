@@ -11,6 +11,7 @@ scriptname="install.ampache"
 ############################
 #
 # v1.2.2 template updated and script tweaks
+# v1.2.5 3.7.0 template socket fix for installer and configuration tweaks tested and working.
 #
 ############################
 ### Version History Ends ###
