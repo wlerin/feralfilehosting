@@ -108,7 +108,7 @@ then
 	sed -i 's|<input type="text" class="form-control" id="local_host" name="local_host" value="localhost">|<input type="text" class="form-control" id="local_host" name="local_host" value="<?php echo getenv('\''HOME'\'') . '\''/private/mysql/socket'\''; ?>">|g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/templates/show_install.inc.php
 	#
 	# Change some default settings.
-	sed -i 's/catalog_video_pattern = "avi|mpg|flv|m4v"/catalog_video_pattern = "avi|mpg|flv|m4v|mkv"/g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/config/ampache.cfg.php.dist
+	sed -i 's/catalog_video_pattern = "avi|mpg|flv|m4v|webm"/catalog_video_pattern = "avi|mpg|flv|m4v|webm|mkv"/g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/config/ampache.cfg.php.dist
 	sed -i 's/;memory_limit = 32/memory_limit = 2048/g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/config/ampache.cfg.php.dist
 	sed -i 's/;debug = "false"/debug = "true"/g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/config/ampache.cfg.php.dist
 	sed -i 's|;log_path = "/var/log/ampache"|log_path = "'"$HOME"'/ampache/log"|g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/config/ampache.cfg.php.dist
