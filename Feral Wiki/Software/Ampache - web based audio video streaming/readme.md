@@ -9,6 +9,14 @@ You login information for the relevant slot will be shown here:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_ssh.png)
 
+Important - Transcoding issue:
+
+Run this command after you have installed and set up Ampache if your transcoding is not working ( no sound or seek times in the web player)
+
+~~~
+sed -i 's|transcode_cmd = "ffmpeg -i %FILE%"|transcode_cmd = "'"$HOME"'/ampache/ffmpeg/ffmpeg -i %FILE%\"|g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/config/ampache.cfg.php
+~~~
+
 Streaming
 ---
 

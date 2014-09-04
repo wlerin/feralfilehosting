@@ -1,6 +1,6 @@
 #!/bin/bash
 # install ampache
-scriptversion="1.2.5"
+scriptversion="1.2.6"
 scriptname="install.ampache"
 # randomessence
 #
@@ -12,6 +12,7 @@ scriptname="install.ampache"
 #
 # v1.2.2 template updated and script tweaks
 # v1.2.5 3.7.0 template socket fix for installer and configuration tweaks tested and working.
+# v1.2.6 modified transcode template to include path to static ffmpeg so as not to break the script tweaks.
 #
 ############################
 ### Version History Ends ###
@@ -119,6 +120,7 @@ then
 	#
 	# Change the transcode_cmd to use our custom ffmpeg build.
 	sed -i 's|;transcode_cmd = "ffmpeg -i %FILE%"|transcode_cmd = "'"$HOME"'/ampache/ffmpeg/ffmpeg -i %FILE%\"|g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/config/ampache.cfg.php.dist
+    sed -i 's|        $trconfig\['\''transcode_cmd'\''\] = $mode . '\'' -i %FILE%'\'';|        $trconfig\['\''transcode_cmd'\''\] = '\'''"$HOME"'/ampache/ffmpeg/'\'' . $mode . '\'' -i %FILE%'\'';|g' ~/www/$(whoami).$(hostname -f)/public_html/ampache/lib/install.lib.php
 	echo "Changed the transcode_cmd to use our custom ffmpeg build done"
 	echo
 	#
