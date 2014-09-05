@@ -65,6 +65,12 @@ Now start btsync using this command:
 ~/btsync/./btsync --config ~/btsync/sync.conf
 ~~~
 
+The result will look like this:
+
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/BitTorrent%20Sync%20btsync%20-%20basic%20setup/btsyncstarted.png)
+
+It is now running in the background ready for us to use.
+
 Accessing the WebUi
 ---
 
@@ -108,6 +114,8 @@ Using the WebUi
 ---
 
 Once you are at the WebUI you will be prompted to create a user account. This is only for accessing and using the WebUI.
+
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/BitTorrent%20Sync%20btsync%20-%20basic%20setup/webuipass.png)
 
 Kill btsync
 ---
