@@ -9,7 +9,7 @@ You login information for the relevant slot will be shown here:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_ssh.png)
 
-btysnc installation
+btsync installation
 ---
 
 Here are some basic set-up steps for btsync.
@@ -73,15 +73,15 @@ Once you have done this edit, execute this command. It will send itself to the b
 
 To access the Web Gui you must use a browser and visit the URL, where `username` is your Feral username and `server` is the name of your Feral server that hosts the slot btsync is installed on:
 
-**Important note:** `https` is not supported by bysync. You must only use `http`
+**Important note:** `https` is not supported by btsync. You must only use `http`
 
 Use this command  to see the generated WebUi port via SSH:
 
 ~~~
-sed -rn 's|\s*"listen" : "0.0.0.0:(.*)",|\1|p' ~/btsync/sync.conf
+sed -rn 's|.*"listen" : "0.0.0.0:(.*)".*|\1|p' ~/btsync/sync.conf
 ~~~
 
-Then modify the example Url below with yoru server information and WebUi port listed by the previous command:
+Then modify the example URL below with your server information and WebUi port listed by the previous command:
 
 ~~~
 server.feralhosting.com:PORT
