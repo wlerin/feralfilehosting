@@ -1,4 +1,18 @@
 
+**Important Note:** There is a conflict between the new version of btsync released `1.4.75` and the previously configured conf file used in this FAQ. You will need to do these three things:
+
+**1:** Download the conf file again and follow the steps below this notice to configure it. You do not need to set a username or password this time. You will be prompted to create this when you visits the WebUi.
+
+**2:** restart btsync using this command in SSH:
+
+~~~
+killall -u $(whoami) btsync && ~/btsync/./btsync --config ~/btsync/sync.conf
+~~~
+
+**3:** Clear your browser history and cache completely and then reload the WebUi
+
+**End of Notice**
+
 In SSH do the commands described in this FAQ. If you do not know how to SSH into your slot use this FAQ: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
 
 Your FTP / SFTP / SSH login information can be found on the Slot Details page for the relevant slot. Use this link in your Account Manager to access the relevant slot:
@@ -32,6 +46,9 @@ Use this command to get it. It will be downloaded to the right location.
 wget -qO ~/btsync/sync.conf http://git.io/tnT60g
 ~~~
 
+Configure the conf file:
+---
+
 Now run this command to set a few variables we need:
 
 ~~~
@@ -39,37 +56,17 @@ sed -i 's|MYHOME|'"$HOME"'|g' ~/btsync/sync.conf
 sed -i 's|####|'$(shuf -i 6000-49000 -n 1)'|g' ~/btsync/sync.conf
 ~~~
 
-You must now configure your `~/btsync/sync.conf` Web interface credentials and port before you run the program.
+Start Btsync:
+---
 
-You can edit this file over ftp. Please see this FAQ for how to do this properly [Text editing - Over FTP or SFTP](https://www.feralhosting.com/faq/view?question=219)
-
-Or in SSH:
-
-~~~
-nano -w ~/btsync/sync.conf
-~~~
-
-This is the part you must edit.
-
-~~~
-"login" : "USERNAME",
-"password" : "PASSWORD"
-~~~
-
-Something like this:
-
-**Important note:** The `USERNAME` and `PASSWORD` you create here is unique, just for the btsync Web Gui. It is not related to any Feral provided passwords.
-
-~~~
-"login" : "superman",
-"password" : "drowssap"
-~~~
-
-Once you have done this edit, execute this command. It will send itself to the background.
+Now start btsync using this command:
 
 ~~~
 ~/btsync/./btsync --config ~/btsync/sync.conf
 ~~~
+
+Accessing the WebUi
+---
 
 To access the Web Gui you must use a browser and visit the URL, where `username` is your Feral username and `server` is the name of your Feral server that hosts the slot btsync is installed on:
 
@@ -106,6 +103,11 @@ superman.chronos.feralhosting.com:34567
 ~~~
 
 Either will work.
+
+Using the WebUi
+---
+
+Once you are at the WebUI you will be prompted to create a user account. This is only for accessing and using the WebUI.
 
 Kill btsync
 ---
