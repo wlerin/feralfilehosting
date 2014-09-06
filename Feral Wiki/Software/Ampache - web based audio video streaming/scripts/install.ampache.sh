@@ -112,7 +112,7 @@ then
 	#
     # Changed the inserted sample bitrate
     sed -i "s|'sample_rate','32',|'sample_rate','320',|g" "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/sql/ampache.sql
-    sed -i "s|\(-1,19,'32'\)|\(-1,19,'320'\)|g" "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/sql/ampache.sql
+    sed -i "s|(-1,19,'32')|(-1,19,'320')|g" "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/sql/ampache.sql
     #
 	# Change some default settings.
 	sed -i 's/catalog_video_pattern = "avi|mpg|flv|m4v|webm"/catalog_video_pattern = "avi|mpg|flv|m4v|webm|mkv"/g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/ampache/config/ampache.cfg.php.dist
