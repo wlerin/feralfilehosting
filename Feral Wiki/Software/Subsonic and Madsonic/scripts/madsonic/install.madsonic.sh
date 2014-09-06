@@ -39,8 +39,8 @@ javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=95116"
 madsonicfv="https://bitbucket.org/feralhosting/feralfiles/downloads/5.0.3880-standalone.zip"
 madsonicfvs="5.0.3880-standalone.zip"
 # ffmpeg files
-mffmpegfvc="https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.02.07.2014.zip"
-mffmpegfvcs="ffmpeg.02.07.2014.zip"
+mffmpegfvc="https://bitbucket.org/feralhosting/feralfiles/downloads/sonic.ffmpeg.19.08.2014.zip"
+mffmpegfvcs="sonic.ffmpeg.19.08.2014.zip"
 #
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/madsonic/install.madsonic.sh"
 #

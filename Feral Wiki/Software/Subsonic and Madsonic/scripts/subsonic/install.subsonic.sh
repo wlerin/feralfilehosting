@@ -39,8 +39,8 @@ javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=95116"
 subsonicfv="https://sourceforge.net/projects/subsonic/files/subsonic/4.9/subsonic-4.9-standalone.tar.gz"
 subsonicfvs="subsonic-4.9-standalone.tar.gz"
 # ffmpeg files
-sffmpegfv="https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg.02.07.2014.zip"
-sffmpegfvs="ffmpeg.02.07.2014.zip"
+sffmpegfv="https://bitbucket.org/feralhosting/feralfiles/downloads/sonic.ffmpeg.19.08.2014.zip"
+sffmpegfvs="sonic.ffmpeg.19.08.2014.zip"
 #
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/subsonic/install.subsonic.sh"
 #
