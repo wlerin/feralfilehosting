@@ -1,6 +1,6 @@
 #!/bin/bash
 # install ampache
-scriptversion="1.2.7"
+scriptversion="1.2.8"
 scriptname="install.ampache"
 # randomessence
 #
@@ -14,6 +14,7 @@ scriptname="install.ampache"
 # v1.2.5 3.7.0 template socket fix for installer and configuration tweaks tested and working.
 # v1.2.6 modified transcode template to include path to static ffmpeg so as not to break the script tweaks.
 # v1.2.7 changed the default mysql sample bitrate inserted to 320 from 32
+# v1.2.8 and user preferences
 #
 ############################
 ### Version History Ends ###
