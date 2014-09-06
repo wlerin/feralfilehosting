@@ -33,7 +33,7 @@ Info: Automatically sync files via secure, distributed technology. [btsync homep
 You will need to execute these commands in [SSH](https://www.feralhosting.com/faq/view?question=12)
 
 ~~~
-mkdir -p ~/btsync
+mkdir -p ~/btsync/sync_test
 wget -qO ~/btsync/btsync.tar.gz http://download.getsyncapp.com/endpoint/btsync/os/linux-x64/track/stable
 tar xf ~/btsync/btsync.tar.gz -C ~/btsync && cd && rm -f btsync/btsync.tar.gz
 ~~~
