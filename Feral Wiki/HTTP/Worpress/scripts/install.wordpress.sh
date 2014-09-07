@@ -99,7 +99,10 @@ then
         echo
         wget -qO "$HOME"/latest.tar.gz "$wordpressurl"
         tar xf "$HOME"/latest.tar.gz -C "$HOME"/www/$(whoami).$(hostname -f)/public_html
-        rm -f "$HOME"/latest.tar.gz
+        # insert user socket path instead of localhost
+        sed -i 's|<td><input name="dbhost" id="dbhost" type="text" size="25" value="localhost" /></td>|<td><input name="dbhost" id="dbhost" type="text" size="25" value="<?php echo  '\'':'\'' . getenv('\''HOME'\'') . '\''/private/mysql/socket'\''; ?>" /></td>|g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/wordpress/wp-admin/setup-config.php
+        #
+        cd && rm -f "$HOME"/latest.tar.gz
         echo -e "Done: Visit your WWW/wordpress to complete the installation."
         echo
     else
@@ -117,7 +120,10 @@ then
             echo -e "\033[33m""https://$(hostname -f)/$(whoami)/wordpress/""\e[0m"
             wget -qO "$HOME"/latest.tar.gz "$wordpressurl"
             tar xf "$HOME"/latest.tar.gz -C "$HOME"/www/$(whoami).$(hostname -f)/public_html
-            rm -f "$HOME"/latest.tar.gz
+            # insert user socket path instead of localhost
+            sed -i 's|<td><input name="dbhost" id="dbhost" type="text" size="25" value="localhost" /></td>|<td><input name="dbhost" id="dbhost" type="text" size="25" value="<?php echo  '\'':'\'' . getenv('\''HOME'\'') . '\''/private/mysql/socket'\''; ?>" /></td>|g' "$HOME"/www/$(whoami).$(hostname -f)/public_html/wordpress/wp-admin/setup-config.php
+            #
+            cd && rm -f "$HOME"/latest.tar.gz
             echo -e "Done: Visit your WWW/wordpress to complete the installation."
             echo
         fi
