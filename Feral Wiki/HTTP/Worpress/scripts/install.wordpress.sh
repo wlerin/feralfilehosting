@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Wordpress
-scriptversion="1.0.0"
+scriptversion="1.0.1"
 scriptname="install.wordpress"
 # randomessence
 #
@@ -89,18 +89,18 @@ then
 #### User Script Starts ####
 ############################
 #
-    if [ ! -d "$HOME/www/$(whoami).$(hostname)/public_html/wordpress" ]
+    if [ ! -d "$HOME/www/$(whoami).$(hostname -f)/public_html/wordpress" ]
     then
         echo -e "Downloading and extracting latest version to:"
         echo
-        echo -e "\033[32m""$(whoami).$(hostname)/wordpress""\e[0m"
+        echo -e "\033[32m""$(whoami).$(hostname -f)/wordpress""\e[0m"
         echo
         echo "and (they are the same physical location)"
         echo
         wget -qO "$HOME"/latest.tar.gz "$wordpressurl"
-        tar xf "$HOME"/latest.tar.gz -C "$HOME"/www/$(whoami).$(hostname)/public_html
+        tar xf "$HOME"/latest.tar.gz -C "$HOME"/www/$(whoami).$(hostname -f)/public_html
         rm -f "$HOME"/latest.tar.gz
-        echo -e "Done: Visit your WWW/wordpress to complete the installaion."
+        echo -e "Done: Visit your WWW/wordpress to complete the installation."
         echo
     else
         echo -e "The wordpress directory already exists."
@@ -110,15 +110,15 @@ then
         then
             echo -e "Downloading and extracting latest version to:"
             echo
-            echo -e "\033[32m""$(whoami).$(hostname)/wordpress""\e[0m"
+            echo -e "\033[32m""$(whoami).$(hostname -f)/wordpress""\e[0m"
             echo
             echo "and (they are the same physical location)"
             echo
-            echo -e "\033[33m""https://$(hostname)/$(whoami)/wordpress/""\e[0m"
+            echo -e "\033[33m""https://$(hostname -f)/$(whoami)/wordpress/""\e[0m"
             wget -qO "$HOME"/latest.tar.gz "$wordpressurl"
-            tar xf "$HOME"/latest.tar.gz -C "$HOME"/www/$(whoami).$(hostname)/public_html
+            tar xf "$HOME"/latest.tar.gz -C "$HOME"/www/$(whoami).$(hostname -f)/public_html
             rm -f "$HOME"/latest.tar.gz
-            echo -e "Done: Visit your WWW/wordpress to complete the installaion."
+            echo -e "Done: Visit your WWW/wordpress to complete the installation."
             echo
         fi
     fi
