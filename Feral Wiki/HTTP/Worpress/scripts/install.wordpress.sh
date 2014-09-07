@@ -95,8 +95,6 @@ then
         echo
         echo -e "\033[32m""$(whoami).$(hostname -f)/wordpress""\e[0m"
         echo
-        echo "and (they are the same physical location)"
-        echo
         wget -qO "$HOME"/latest.tar.gz "$wordpressurl"
         tar xf "$HOME"/latest.tar.gz -C "$HOME"/www/$(whoami).$(hostname -f)/public_html
         # insert user socket path instead of localhost
@@ -115,9 +113,6 @@ then
             echo
             echo -e "\033[32m""$(whoami).$(hostname -f)/wordpress""\e[0m"
             echo
-            echo "and (they are the same physical location)"
-            echo
-            echo -e "\033[33m""https://$(hostname -f)/$(whoami)/wordpress/""\e[0m"
             wget -qO "$HOME"/latest.tar.gz "$wordpressurl"
             tar xf "$HOME"/latest.tar.gz -C "$HOME"/www/$(whoami).$(hostname -f)/public_html
             # insert user socket path instead of localhost
