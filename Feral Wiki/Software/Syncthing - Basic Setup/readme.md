@@ -177,5 +177,10 @@ You will need to install and configure other syncthing instances on your local o
 
 Once you have this you can add nodes to your server instance to sync files.
 
+Help and further reading:
+---
+
+https://discourse.syncthing.net/category/documentation
+
 
 
