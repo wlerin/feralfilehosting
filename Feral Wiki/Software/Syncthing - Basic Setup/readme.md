@@ -2,7 +2,7 @@
 [Syncthing - Secure & Private](http://syncthing.net/)
 ---
 
-![](1.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Syncthing%20-%20Basic%20Setup/1.png)
 
 Install syncthing:
 ---
@@ -28,13 +28,13 @@ syncthing
 
 Wait until it has fully loaded and created the required files then exit the process pressing  and holding `CTRL` then pressing `c`. It will look like this:
 
-![](2.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Syncthing%20-%20Basic%20Setup/2.png)
 
 1: We run the binary
 2: We wait until the process has fully loaded and configured itself.
 3: we exit the process using `CTRL` + `c`
 
-Editing the` config.xml`
+Editing the `config.xml`
 ---
 
 Do this command in SSH:
@@ -131,29 +131,51 @@ syncthing
 
 Now the WebUi should load on the port we configured earlier.
 
+~~~
+http://server.feralhosting.com:PORT
+~~~
+
+**Important note:** You can use https if you accept the invalid cert
+
 This is what you will see when the syncthing WebUi loads, the first thin we need to do it click on the Options icon in the top right:
 
-![](3.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Syncthing%20-%20Basic%20Setup/3.png)
 
 Now click on `Settings`:
 
-![](4.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Syncthing%20-%20Basic%20Setup/4.png)
 
 Inside the settings you can set a usertname and password for the WebUi. Do this now:
 
-![](5.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Syncthing%20-%20Basic%20Setup/5.png)
 
 You will need to restart the syncthing server for this to take effect:
 
-![](6.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Syncthing%20-%20Basic%20Setup/6.png)
 
 Repository settings:
 ---
 
 Each repository can be configured via the `Edit` button:
 
-![](7.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Syncthing%20-%20Basic%20Setup/7.png)
 
 This is the options window for a repository:
 
-![](8.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Syncthing%20-%20Basic%20Setup/8.png)
+
+Adding nodes:
+---
+
+[Syncthing Downloads](https://github.com/syncthing/syncthing/releases)
+
+You will need to install and configure other syncthing instances on your local or mobile devices then use the `Show ID` in the Options to see your node ID.
+
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Syncthing%20-%20Basic%20Setup/9.png)
+
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Syncthing%20-%20Basic%20Setup/10.png)
+
+Once you have this you can add nodes to your server instance to sync files.
+
+
+
