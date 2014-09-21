@@ -834,6 +834,13 @@ WikiBot.addListener('message', function(from, to, message) {
         WikiBot.say(to, result + "CouchPotato - An automatic NZB and torrent downloader for Films -- https://www.feralhosting.com/faq/view?question=218");
         return;
     }
+    
+    if ( message == '%syncthing' || message == '%syncthing' + result ) {
+        if ( result !== '' ) { var result = result + ': '; }
+
+        WikiBot.say(to, result + "Syncthing - Basic Setup -- https://www.feralhosting.com/faq/view?question=285");            
+        return;
+    }
 	
     // Linux
 
@@ -1003,7 +1010,7 @@ WikiBot.addListener('message', function(from, to, message) {
         }
         
         if ( message.indexOf('software') >= 0 ) {
-          WikiBot.say(to, "%multirtorrent %multideluge %subsonic %ampache %icecast %proftpd %autodl %autodlinstall %autodlfix %autodlport %java %dropbox %p7zip %btsync %software %yoink! %whatfreegrab %weechat %node %spideroak %aerofs %duplicity %cmake %curl %imagemagick %mosh %ruby %znc %ffmpeg %ghost %etherpad");
+          WikiBot.say(to, "%multirtorrent %multideluge %subsonic %ampache %icecast %proftpd %autodl %autodlinstall %autodlfix %autodlport %java %dropbox %p7zip %btsync %software %yoink! %whatfreegrab %weechat %node %spideroak %aerofs %duplicity %cmake %curl %imagemagick %mosh %ruby %znc %ffmpeg %ghost %etherpad %syncthing");
           return;
         }
         
