@@ -31,7 +31,46 @@ For example:
 pip install --user requests
 ~~~
 
-Optional: To install `pip`  locally then use it for modules you can do also this:
+Installing Modules locally and/or overriding installed modules
+---
+
+You may see this for a module you require a newer or local version of.
+
+~~~
+Requirement already satisfied (use --upgrade to upgrade): distribute in /usr/lib/python2.7/dist-packages
+~~~
+
+In this case you will need to use certain commands in order to override this and install the required module locally:
+
+**Important note:** To override a system module you will need to either:
+
+1: Use` easy_install` with a the arguments `-U --prefix=$HOME/.local` providing you have created the `~/.local/lib/python2.7/site-packages` directory prior to using the command or you will get an error.
+
+2: Use a locally installed `~/.local/bin/easy_install` with `-U --prefix=$HOME/.local` and/or a locally installed `~/.local/bin/pip` with the arguments `--user --ignore-installed`
+
+See below for in depth usage and examples of this:
+
+### easy_install
+
+**Important note:** The Debian `easy_install` does not work with `--user`.  You must install it locally to use this, see the next section.
+
+~~~
+mkdir -p ~/.local/lib/python2.7/site-packages
+~~~
+
+**Important note:** The `-U` is required to get a full module installation in some cases where a system wide module was already installed.
+
+~~~
+easy_install -U --prefix=$HOME/.local somemodule
+~~~
+
+For example:
+
+~~~
+easy_install -U --prefix=$HOME/.local pip
+~~~
+
+### easy_install locally
 
 ~~~
 wget https://bootstrap.pypa.io/ez_setup.py -O - | python - --user
@@ -40,14 +79,24 @@ wget https://bootstrap.pypa.io/ez_setup.py -O - | python - --user
 Now you can use `easy_install` to install modules locally using the `--user` argument, for example:
 
 ~~~
-~/.local/bin/easy_install --user somemodule
+~/.local/bin/easy_install -U --user somemodule
 ~~~
 
 For example let's install `pip` and then use pip to install some modules:
 
 ~~~
-~/.local/bin/easy_install --user pip
-~/.local/bin/pip install --user requests
+~/.local/bin/easy_install -U --user pip
+~~~
+
+Here we install locally and override a very common module installed system wide.
+
+~~~
+~/.local/bin/pip install --user --ignore-installed requests
+~~~
+
+Now we install a few other modules, less likely to be installed system wide, so we can skip the `--ignore-installed`:
+
+~~~
 ~/.local/bin/pip install --user HTMLParser
 ~/.local/bin/pip install --user virtualenv
 ~/.local/bin/pip install --user flexget
@@ -57,7 +106,7 @@ An example of installing and upgrading a module:
 
 ~~~
  ~/.local/bin/pip install --user distribute
- ~/.local/bin/pip install --upgrade --user distribute
+ ~/.local/bin/pip install -U --user distribute
 ~~~
 
 Installing Python locally:
