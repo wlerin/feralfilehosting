@@ -19,7 +19,19 @@ Type to show the current version:
 python -V
 ~~~
 
-To install modules locally you can do this
+`pip` is installed on all servers ready to be used. You do no need to install `pip` locally first. To use it do this:
+
+~~~
+pip install --user modulename
+~~~
+
+For example:
+
+~~~
+pip install --user requests
+~~~
+
+Optional: To install `pip`  locally then use it for modules you can do also this:
 
 ~~~
 wget https://bootstrap.pypa.io/ez_setup.py -O - | python - --user

@@ -17,14 +17,9 @@ Sqlite installation
 A very basic guide to manual installation of sqlite 3.
 
 ~~~
-mkdir -p ~/programs
-[[][/[][ ! "$(grep '~/programs/bin' ~/.bashrc)" ]] && echo 'export PATH=~/programs/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
-~~~
-
-~~~
-wget -qO ~/sqlite3.tar.gz http://www.sqlite.org/2013/sqlite-autoconf-3080002.tar.gz
+wget -qO ~/sqlite3.tar.gz http://www.sqlite.org/2014/sqlite-autoconf-3080600.tar.gz
 tar xf ~/sqlite3.tar.gz && cd ~/sqlite-*/
-./configure --prefix=$HOME/programs && make && make install
+./configure --prefix=$HOME && make && make install
 cd && rm -rf ~/sqlite-*/ ~/sqlite3.tar.gz
 ~~~
 
