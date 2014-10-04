@@ -34,9 +34,9 @@ You will need to have MySQL already installed. You can do this from the [**Insta
 
 [Installing Proftpd for extra FTP/SFTP/FTPS accounts](https://www.feralhosting.com/faq/view?question=193)
 
-Where username is your Feral username and server is the name of the server that is hosting rutorrent.
+Where `username` is your Feral username and `server` is the name of the server that is hosting rutorrent.
 
-where `user-name` is your Feral user-name and `server` is the name of the Feral server your slot is hosted on:
+Where `username` is your Feral username and `server` is the name of the Feral server your slot is hosted on:
 
 Now we enter the SSH command to connect to the slot, where `username` is your Feral username and `server` is the name of the server you wish to SSH into:
 
