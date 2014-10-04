@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install multiple instances of rtorrent and rutorrent
-scriptversion="1.1.6"
+scriptversion="1.2.0"
 scriptname="install.multirtru"
 # randomessence
 #
@@ -14,6 +14,7 @@ scriptname="install.multirtru"
 # v1.1.5 more tweaks and fixed loop.
 # v1.1.3 small tweaks to instalaltion script
 # v1.1.2 template updated
+# v1.2.0 autodl custom installation included
 #
 ############################
 ### Version History Ends ###
@@ -29,6 +30,14 @@ ratiocolor="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20
 confurl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Multiple%20instances%20-%20rtorrent%20and%20rutorrent/conf/.rtorrent.rc"
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Multiple%20instances%20-%20rtorrent%20and%20rutorrent/script/install.multirtru.sh"
 #
+autodlirssicommunity="http://update.autodl-community.com/autodl-irssi-community.zip"
+autodltrackers="http://update.autodl-community.com/autodl-trackers.zip"
+# URL for autodl-rutorrent
+autodlrutorrent="https://github.com/autodl-community/autodl-rutorrent/archive/master.zip"
+# Uses shuf to pick a random port between 6000 and 50000
+port=$(shuf -i 10000-50000 -n 1)
+# Random password generation
+pass=$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)
 ############################
 ####### Variable End #######
 ############################
@@ -94,7 +103,7 @@ then
 #### User Script Starts ####
 ############################
 #
-    read -ep "Would you like to delete an existing custom instance and all related files and folders? [y]es or choose [n]o to skip: " removal
+    read -ep "Would you like to delete an existing custom instance and all related files and folders? [y]es or choose [n]o to skip: " -i "n" removal
     echo
     if [[ "$removal" =~ ^[Yy]$ ]]
     then
@@ -109,6 +118,8 @@ then
         echo
         #
         screen -S rtorrent-"$suffix" -X quit > /dev/null 2>&1
+        screen -S autodl-"$suffix" -X quit > /dev/null 2>&1
+        #
         echo -e "\033[32m""Custom instance has been shutdown: if it was running""\e[0m"
         echo
         if [[ -f ~/.rtorrent-"$suffix".rc ]]
@@ -140,6 +151,24 @@ then
             echo "~/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix not found, skipping"
             echo
         fi
+        if [[ -d ~/.irssi-"$suffix" ]]
+        then
+            rm -rf ~/.irssi-"$suffix"
+            echo "~/.irssi-"$suffix" has been removed"
+            echo
+        else
+            echo "~/.irssi-"$suffix" not found, skipping"
+            echo
+        fi
+        if [[ -d ~/.autodl-"$suffix" ]]
+        then
+            rm -rf ~/.autodl-"$suffix"
+            echo "~/.autodl-"$suffix" has been removed"
+            echo
+        else
+            echo "~/.autodl-"$suffix" not found, skipping"
+            echo
+        fi
         #
         if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
         then
@@ -153,6 +182,7 @@ then
         if [[ -f ~/multirtru.restart.txt ]]
         then
             sed -i '/screen -fa -dmS rtorrent-'"$suffix"' rtorrent -n -o import=~\/.rtorrent-'"$suffix"'.rc/d' ~/multirtru.restart.txt
+            sed -i '/screen -dmS autodl-'"$suffix"' irssi --home=$HOME\/.irssi-'"$suffix"'\//d' ~/multirtru.restart.txt
             sed -i '/^$/d' ~/multirtru.restart.txt
         fi
         echo -e "\033[31m""Done""\e[0m"
@@ -204,6 +234,95 @@ then
             echo -e "\033[31m""2:""\e[0m" "\033[33m""Part 2""\e[0m" "Editing the files: rutorrent"
             echo
             sed -i 's|/private/rtorrent/.socket|/private/rtorrent-'"$suffix"'/.socket|g' ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/conf/config.php
+            #
+            echo 'screen -fa -dmS rtorrent-'"$suffix"' rtorrent -n -o import=~/.rtorrent-'"$suffix"'.rc' >> ~/multirtru.restart.txt
+            ############################
+            ############################
+            ############################
+            read -ep "Would you like this script to install and configure Autodl-irssi for this instance to? [y]es or [n]o: " -i "y" autodlinstall
+            echo
+            if [[ "$autodlinstall" =~ ^[Yy]$ ]]
+            then
+                ############################
+                ####### Autodl Start #######
+                ############################
+                #
+                echo -e "\033[32m""Installing autodl-irssi and the rutorrent plugin for your custom instance""\e[0m"
+                # Makes the directories we require for the irssi and autodl installation.
+                mkdir -p ~/{.autodl-"$suffix",.irssi-"$suffix"/scripts/autorun}
+                echo -e "\033[31m""A randomly generated 20 character password has been set for you by this script""\e[0m"
+                echo "Downloading autodl-irssi"
+                # Downloads the newest RELEASE version of the autodl community edition and saves it as a zip file.
+                wget -qO ~/autodl-irssi.zip "$autodlirssicommunity"
+                # Downloads the newest  RELEASE version  of the autodl community trackers file and saves it as a zip file.
+                wget -qO ~/autodl-trackers.zip "$autodltrackers"
+                # Unpack core autodl files to the desired location for further processing
+                unzip -qo ~/autodl-irssi.zip -d ~/.irssi-"$suffix"/scripts/
+                # Unpack the latest trackers file just to make sure we are they are current.
+                unzip -qo ~/autodl-trackers.zip -d ~/.irssi-"$suffix"/scripts/AutodlIrssi/trackers/
+                # Moves the files around to their proper homes. The .pl file is moved to autorun so that autodl starts automatically when we open irssi
+                cp -f ~/.irssi-"$suffix"/scripts/autodl-irssi.pl ~/.irssi-"$suffix"/scripts/autorun/
+                # Delete files we no longer need.
+                rm -f ~/autodl-{irssi,trackers}.zip ~/.irssi-"$suffix"/scripts/{README*,CONTRIBUTING.md,autodl-irssi.pl}
+                echo "Writing configuration files"
+                echo -e "[options]\ngui-server-port = $port\ngui-server-password = $pass" > ~/.autodl-"$suffix"/autodl.cfg
+                #
+                ############################
+                ######## Autodl End ########
+                ############################
+                #
+                ############################
+                ##### RuTorrent Starts #####
+                ############################
+                #
+                # Downloads the latest version of the autodl-irssi plugin
+                wget -qO ~/autodl-rutorrent.zip "$autodlrutorrent"
+                # Unpacks the autodl rutorrent plugin here
+                unzip -qo ~/autodl-rutorrent.zip
+                # Copy the contents from autodl-rutorrent-master to a folder called autodl-irssi in the rutorrent plug-in directory, creating it if absent
+                mkdir -p ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins
+                cp -rf ~/autodl-rutorrent-master/. ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/autodl-irssi
+                # Delete the downloaded zip and the unpacked folder we no longer require.
+                cd && rm -rf autodl-rutorrent{-master,.zip}
+                # Uses echo to make the config file for the rutorrent plugun to work with autodl using the variables port and pass
+                echo -ne '<?php\n$autodlPort = '"$port"';\n$autodlPassword = "'"$pass"'";\n?>' > ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/autodl-irssi/conf.php
+                #
+                ############################
+                ###### RuTorrent Ends ######
+                ############################
+                ############################
+                ##### Fix script Start #####
+                ############################
+                #
+                echo "Applying the fix script as part of the installation:"
+                # Set a custom home dir for autodl to ~/.autodl-$suffix
+                sed -i 's|return File::Spec->catfile(getHomeDir(), ".autodl");|return File::Spec->catfile(getHomeDir(), ".autodl-'"$suffix"'");|g' ~/.irssi-"$suffix"/scripts/AutodlIrssi/Dirs.pm
+                # Fix the core Autodl files by changing 127.0.0.1 to 10.0.0.1 using sed in 3 places in 2 files.
+                sed -i "s|use constant LISTEN_ADDRESS => '127.0.0.1';|use constant LISTEN_ADDRESS => '10.0.0.1';|g" ~/.irssi-"$suffix"/scripts/AutodlIrssi/GuiServer.pm
+                sed -i 's|$rtAddress = "127.0.0.1$rtAddress"|$rtAddress = "10.0.0.1$rtAddress"|g' ~/.irssi-"$suffix"/scripts/AutodlIrssi/MatchedRelease.pm
+                sed -i 's|my $scgi = new AutodlIrssi::Scgi($rtAddress, {REMOTE_ADDR => "127.0.0.1"});|my $scgi = new AutodlIrssi::Scgi($rtAddress, {REMOTE_ADDR => "10.0.0.1"});|g' ~/.irssi-"$suffix"/scripts/AutodlIrssi/MatchedRelease.pm
+                #
+                echo -e "\033[33m""Autodl fix has been applied""\e[0m"
+                # Fix the relevent rutorrent plugin file by changing 127.0.0.1 to 10.0.0.1 using sed
+                sed -i 's|if (!socket_connect($socket, "127.0.0.1", $autodlPort))|if (!socket_connect($socket, "10.0.0.1", $autodlPort))|g' ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/autodl-irssi/getConf.php
+                echo -e "\033[33m""Autodl-rutorrent fix has been applied""\e[0m"
+                echo
+                #
+                ############################
+                ###### Fix script End ######
+                ############################
+                #
+                screen -dmS autodl-"$suffix" irssi --home=$HOME/.irssi-"$suffix"/
+                echo 'screen -dmS autodl-'"$suffix"' irssi --home=$HOME/.irssi-'"$suffix"'/' >> ~/multirtru.restart.txt
+                # Send a command to the new screen telling Autodl to update itself. This basically generates the ~/.autodl/AutodlState.xml files with updated info.
+                screen -S autodl-"$suffix" -p 0 -X stuff '/autodl update^M'
+                ############################
+                ############################
+                ############################
+            else
+                echo "This instance has been installed without autodl-irssi"
+                echo
+            fi
             # Password protect the setup
             echo -e "\033[31m""3:""\e[0m" "Password Protect the Installation"
             echo
@@ -216,7 +335,8 @@ then
             echo -e 'AuthType Basic\nAuthName "rtorrent-'"$suffix"'"\nAuthUserFile "'"$HOME"'/www/'$(whoami)'.'$(hostname)'/public_html/rutorrent-'"$suffix"'/.htpasswd"\nRequire valid-user' > ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/.htaccess
             read -ep "Please give me a username for the user we are creating: " username
             echo
-            read -ep "Would you like me to generate you a random 20 chararcter password [y]es or use your own [n]o: " makeitso
+            read -ep "Would you like me to generate you a random 20 chararcter password [y]es or use your own [n]o: " -i "y" makeitso
+            echo
             if [[ "$makeitso" =~ ^[Yy]$ ]]
             then
                 htpasswd -cbm ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/.htpasswd "$username" "$randompass"
@@ -250,9 +370,20 @@ then
             chmod 644 ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/.htaccess ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/.htpasswd
             echo
             # create the screen
+            if [[ -d ~/.autodl-"$suffix" && ~/.irssi-"$suffix" ]]
+                then
+                echo -e "\033[32m""Checking we have started irssi or if there are multiple screens/processes""\e[0m"
+                echo -e "\033[31m"
+                # Check if the screen is running for the user
+                screen -ls | grep autodl-"$suffix"
+                echo -e "\e[0m"
+                echo -e "You can attach to the screen using this command:"
+                echo
+                echo -e "\033[32m""screen -r autodl-"$suffix"""\e[0m"
+                echo
+            fi
             echo -e "\033[32m""4:""\e[0m" "Creating the screen process"
             screen -fa -dmS rtorrent-"$suffix" rtorrent -n -o import=~/.rtorrent-"$suffix".rc
-            echo 'screen -fa -dmS rtorrent-'"$suffix"' rtorrent -n -o import=~/.rtorrent-'"$suffix"'.rc' >> ~/multirtru.restart.txt
             echo
             echo -e "\033[32m""This command was added to""\e[0m" "\033[36m""~/multirtru.restart.txt""\e[0m" "\033[32m""so you can easily restart this instance""\e[0m"
             echo
