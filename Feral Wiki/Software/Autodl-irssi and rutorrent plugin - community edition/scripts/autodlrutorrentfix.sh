@@ -11,6 +11,7 @@ scriptname="autodlrutorrentfix"
 ############################
 #
 # v1.0.6 updater template merged
+# v1.1.0 autodl multi instances
 #
 ############################
 ### Version History Ends ###
@@ -138,12 +139,12 @@ then
         echo
         exit 1
     fi
-    screen -S autodl-$suffix -X quit
+    screen -S autodl-"$suffix" -X quit > /dev/null 2>&1
     screen -wipe > /dev/null 2>&1
-    screen -dmS autodl-$suffix irssi --home=$HOME/.irssi-$suffix/
+    screen -dmS autodl-"$suffix" irssi --home="$HOME"/.irssi-"$suffix"/
     echo -e "\033[33m""Checking we restarted irssi or if there are multiple screens/processes""\e[0m"
     echo
-    screen -ls | grep autodl-$suffix
+    screen -ls | grep autodl-"$suffix"
     echo
     echo -e "Done. Please refresh/reload rutorrent using CTRL + F5"
     echo
@@ -195,7 +196,7 @@ else
         echo
         exit 1
     fi
-    screen -S autodl -X quit
+    screen -S autodl -X quit > /dev/null 2>&1
     screen -wipe > /dev/null 2>&1
     screen -dmS autodl irssi
     echo -e "\033[33m""Checking we restarted irssi or if there are multiple screens/processes""\e[0m"

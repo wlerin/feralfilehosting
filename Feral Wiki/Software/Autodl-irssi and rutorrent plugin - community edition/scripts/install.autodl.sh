@@ -117,9 +117,6 @@ then
 #### User Script Starts ####
 ############################
 #
-# Please note, the sleep lines are there to artificially slow down the process at some steps and to allow ample time to give user feedback
-# Echoes are not commented since they are informative notices that are self explanatory
-#
     #
     ############################
     ####### Autodl Start #######
@@ -132,7 +129,7 @@ then
     echo -e "\033[31m""A randomly generated 20 character password has been set for you by this script""\e[0m"
     echo
     # Kill any existing irssi processes to make sure the installation can be finalised later.
-    killall -9 -u $(whoami) irssi >/dev/null 2>&1
+    screen -S autodl -X quit > /dev/null 2>&1
     # Wipe any dead screens left behind
     screen -wipe >/dev/null 2>&1
     # Make a backup of the ~/.autodl/autodl.cfg just in case
@@ -267,7 +264,7 @@ then
     ############################
     #
     # Kill all irssi instances before starting
-    killall -9 -u $(whoami) irssi >/dev/null 2>&1
+    screen -S autodl -X quit > /dev/null 2>&1
     # Clear dead screens
     screen -wipe >/dev/null 2>&1
     # Start autodl irssi in a screen in the background.
