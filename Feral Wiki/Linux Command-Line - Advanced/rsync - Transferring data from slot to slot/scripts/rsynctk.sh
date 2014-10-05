@@ -1,6 +1,6 @@
 #!/bin/bash
 # rsynctk
-scriptversion="1.1.6"
+scriptversion="1.1.7"
 scriptname="rsynctk"
 # randomessence
 #
@@ -26,7 +26,7 @@ scriptname="rsynctk"
 # 1.1.4 allows the use of paths with spaces in the custom and screen command
 # 1.1.5 scriptname typo fixed. Removal of ~/bin/rysnc if it is matches certain tests. Credits: Thanks to ozymandias for pointing this out.
 # 1.1.6 Feral interanal connection tweaks
-#
+# 1.1.7 commands echoed to text file.
 ############################
 ### Version History Ends ###
 ############################
@@ -186,15 +186,21 @@ then
                 echo -e "\033[31m""Useful Notes:""\e[0m"
                 echo
                 echo -e "The normal command, requires you create a screen an enter your old slot's SSH password"
-                echo -e "\033[31m""rsync" "\033[32m"'-avhPSe "ssh -T -c arcfour -o Compression=no"' "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".feralhosting.com:""\033[36m""'\"\$HOME/$remotepath\"'"  "\"\$HOME/$defaultpath\"""\e[0m"
+                echo -e "\033[31m""rsync" "\033[32m"'-avhPSe "ssh -T -c arcfour -o Compression=no"' "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".feralhosting.com:""\033[36m""'\"\$HOME/$remotepath\"'" "\"\$HOME/$defaultpath\"""\e[0m"
+                echo -e 'rsync -avhPSe "ssh -T -c arcfour -o Compression=no" '"$username"'@'"$servername"'.feralhosting.com:'\''"$HOME/'"$remotepath"'"'\'' "$HOME/'"$defaultpath"'"' >> rysnc"$mish".txt
                 echo
                 echo -e "The command that uses our public/private key file pair."
-                echo -e "\033[31m""rsync" "\033[32m"'-avhPSe "ssh -T -c arcfour -o Compression=no -i $HOME/.ssh/rsynctk_rsa"' "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".feralhosting.com:""\033[36m""'\"\$HOME/$remotepath\"'"  "\"\$HOME/$defaultpath\"""\e[0m"
+                echo -e "\033[31m""rsync" "\033[32m"'-avhPSe "ssh -T -c arcfour -o Compression=no -i $HOME/.ssh/rsynctk_rsa"' "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".feralhosting.com:""\033[36m""'\"\$HOME/$remotepath\"'" "\"\$HOME/$defaultpath\"""\e[0m"
+                echo -e 'rsync -avhPSe "ssh -T -c arcfour -o Compression=no -i $HOME/.ssh/rsynctk_rsa" '"$username"'@'"$servername"'.feralhosting.com:'\''"$HOME/'"$remotepath"'"'\'' "$HOME/'"$defaultpath"'"' >> rysnc"$mish".txt
                 echo
                 echo -e "\033[33m""The command to copy our public key to the old slot's" "\033[36m""~/.ssh/authorized_keys""\e[0m" "\033[33m""file.""\e[0m"
                 echo -e "ssh-copy-id -i ~/.ssh/rsynctk_rsa.pub $username@$servername.feralhosting.com"
+                echo -e "ssh-copy-id -i ~/.ssh/rsynctk_rsa.pub $username@$servername.feralhosting.com" >> rysnc"$mish".txt
                 echo
                 echo -e "Type:" "\033[33m""screen -r rsynctk$mish""\e[0m" "To attach to the screen"
+                echo "screen -r rsynctk$mish" >> rysnc"$mish".txt
+                echo
+                echo -e 'Please see \033[33m~/rysnc-'"$mish"'.txt\e[0m for list of these custom commands.'
                 echo
             fi
         fi
@@ -272,15 +278,21 @@ then
                 echo -e "\033[31m""Useful Notes:""\e[0m"
                 echo
                 echo -e "The normal command, requires you create a screen an enter your old slot's SSH password"
-                echo -e "\033[31m""rsync" "\033[32m""-avhPSe ssh" "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".whatbox.ca:""\033[36m""'\"\$HOME/$remotepath\"'"  "\"\$HOME/$defaultpath\"""\e[0m"
+                echo -e "\033[31m""rsync" "\033[32m""-avhPS" "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".whatbox.ca:""\033[36m""'\"\$HOME/$remotepath\"'" "\"\$HOME/$defaultpath\"""\e[0m"
+                echo -e 'rsync -avhPS '"$username"'@'"$servername"'.feralhosting.com:'\''"$HOME/'"$remotepath"'"'\'' "$HOME/'"$defaultpath"'"' >> rysnc"$mish".txt
                 echo
                 echo -e "The command that uses our public/private key file pair."
-                echo -e "\033[31m""rsync" "\033[32m""-avhPSe" "\e[0m""\033[37m""\"ssh -i $HOME/.ssh/rsynctk_rsa\"" "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".whatbox.ca:""\033[36m""'\"\$HOME/$remotepath\"'"  "\"\$HOME/$defaultpath\"""\e[0m"
+                echo -e "\033[31m""rsync" "\033[32m""-avhPSe" "\e[0m""\033[37m""\"ssh -i $HOME/.ssh/rsynctk_rsa\"" "\033[35m""$username""\e[0m""@""\033[35m""$servername""\e[0m""\033[37m"".whatbox.ca:""\033[36m""'\"\$HOME/$remotepath\"'" "\"\$HOME/$defaultpath\"""\e[0m"
+                echo -e 'rsync -avhPSe "ssh -i $HOME/.ssh/rsynctk_rsa" '"$username"'@'"$servername"'.feralhosting.com:'\''"$HOME/'"$remotepath"'"'\'' "$HOME/'"$defaultpath"'"' >> rysnc"$mish".txt
                 echo
                 echo -e "\033[33m""The command to copy our public key to the old slot's" "\033[36m""~/.ssh/authorized_keys""\e[0m" "\033[33m""file.""\e[0m"
                 echo -e "ssh-copy-id -i ~/.ssh/rsynctk_rsa.pub $username@$servername.whatbox.ca"
+                echo -e "ssh-copy-id -i ~/.ssh/rsynctk_rsa.pub $username@$servername.whatbox.ca" >> ~/rysnctransfer.txt
                 echo
                 echo -e "Type:" "\033[33m""screen -r rsynctk$mish""\e[0m" "To attach to the screen"
+                echo "screen -r rsynctk$mish" >> rysnc"$mish".txt
+                echo
+                echo -e 'Please see \033[33m~/rysnc-'"$mish"'.txt\e[0m for list of these custom commands.'
                 echo
             fi
         fi
