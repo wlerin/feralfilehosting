@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install multiple instances of rtorrent and rutorrent
-scriptversion="1.2.0"
+scriptversion="1.2.1"
 scriptname="install.multirtru"
 # randomessence
 #
@@ -15,6 +15,7 @@ scriptname="install.multirtru"
 # v1.1.3 small tweaks to instalaltion script
 # v1.1.2 template updated
 # v1.2.0 autodl custom installation included
+# v1.2.1 hostname -f
 #
 ############################
 ### Version History Ends ###
