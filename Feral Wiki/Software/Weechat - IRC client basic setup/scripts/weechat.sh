@@ -19,8 +19,8 @@ scriptname="install.weechat"
 ###### Variable Start ######
 ############################
 #
-weechat="http://weechat.org/files/src/weechat-1.0.tar.gz"
-weechatfv="1.0"
+weechat="http://weechat.org/files/src/weechat-1.0.1.tar.gz"
+weechatfv="1.0.1"
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Weechat%20-%20IRC%20client%20basic%20setup/scripts/weechat.sh"
 #
 ############################
