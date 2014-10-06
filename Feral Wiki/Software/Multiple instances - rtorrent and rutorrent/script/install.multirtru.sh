@@ -142,13 +142,13 @@ then
             echo
         fi
         #
-        if [[ -d ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix" ]]
+        if [[ -d ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix" ]]
         then
-            rm -rf ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"
-            echo "~/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix has been removed"
+            rm -rf ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"
+            echo "~/www/$(whoami).$(hostname -f)/public_html/rutorrent-$suffix has been removed"
             echo
         else
-            echo "~/www/$(whoami).$(hostname)/public_html/rutorrent-$suffix not found, skipping"
+            echo "~/www/$(whoami).$(hostname -f)/public_html/rutorrent-$suffix not found, skipping"
             echo
         fi
         if [[ -d ~/.irssi-"$suffix" ]]
@@ -203,7 +203,7 @@ then
         echo -e "\033[31m""You did not give a suffix to use. Please enter one. The script will restart""\e[0m"
         bash ~/"$scriptname.sh"
     else
-        if [[ ! -f ~/.rtorrent-"$suffix".rc && ! -d ~/private/rtorrent-"$suffix" && ! -d ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix" ]]
+        if [[ ! -f ~/.rtorrent-"$suffix".rc && ! -d ~/private/rtorrent-"$suffix" && ! -d ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix" ]]
         then
             # clone the installation
             echo -e "\033[31m""1:""\e[0m" "Creating the installation"
@@ -211,17 +211,17 @@ then
             # Create some folders we need
             mkdir -p ~/private/rtorrent-"$suffix"/data ~/private/rtorrent-"$suffix"/watch ~/private/rtorrent-"$suffix"/work
             # Copy the Feral rutorrent template
-            cp -rf /opt/rutorrent/current/. ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"
+            cp -rf /opt/rutorrent/current/. ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"
             # Make sure rtorrent adder will work with nginx by creating this folder.
-            mkdir -p ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/share/torrents
+            mkdir -p ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/share/torrents
             # Download and install the Feral stats plugin
-            wget -qO ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/plugins/feralstats.zip "$feralstats"
-            unzip -qo ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/plugins/feralstats.zip -d ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/plugins/
-            rm -f ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/feralstats.zip
+            wget -qO ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/feralstats.zip "$feralstats"
+            unzip -qo ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/feralstats.zip -d ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/
+            rm -f ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/feralstats.zip
             # Download and install the ratio colour plugin
-            wget -qO ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/plugins/ratiocolor.zip "$ratiocolor"
-            unzip -qo ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/plugins/ratiocolor.zip -d ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/plugins/
-            rm -f ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/ratiocolor.zip
+            wget -qO ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/ratiocolor.zip "$ratiocolor"
+            unzip -qo ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/ratiocolor.zip -d ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/
+            rm -f ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/ratiocolor.zip
             # Download and configure the custom .rtorrent.rc
             wget -qO ~/.rtorrent-"$suffix".rc "$confurl"
             #
@@ -229,11 +229,11 @@ then
             echo -e "\033[31m""2:""\e[0m" "\033[32m""Part 1""\e[0m" "Editing the files: rtorrent"
             echo
             sed -i 's|/media/DiskID/home/username/private/rtorrent/|'"$HOME"'/private/rtorrent-'"$suffix"'/|g' ~/.rtorrent-"$suffix".rc
-            sed -i 's|/media/DiskID/home/username/www/username.server.feralhosting.com/public_html/rutorrent/php/initplugins.php username|'"$HOME"'/www/'$(whoami)'.'$(hostname)'/public_html/rutorrent-'"$suffix"'/php/initplugins.php '$(whoami)'|g' ~/.rtorrent-"$suffix".rc
+            sed -i 's|/media/DiskID/home/username/www/username.server.feralhosting.com/public_html/rutorrent/php/initplugins.php username|'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/rutorrent-'"$suffix"'/php/initplugins.php '$(whoami)'|g' ~/.rtorrent-"$suffix".rc
             # sed /rutorrent/
             echo -e "\033[31m""2:""\e[0m" "\033[33m""Part 2""\e[0m" "Editing the files: rutorrent"
             echo
-            sed -i 's|/private/rtorrent/.socket|/private/rtorrent-'"$suffix"'/.socket|g' ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/conf/config.php
+            sed -i 's|/private/rtorrent/.socket|/private/rtorrent-'"$suffix"'/.socket|g' ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/conf/config.php
             #
             echo 'screen -fa -dmS rtorrent-'"$suffix"' rtorrent -n -o import=~/.rtorrent-'"$suffix"'.rc' >> ~/multirtru.restart.txt
             ############################
@@ -328,18 +328,18 @@ then
             echo
             if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
             then
-                echo -e 'location /rutorrent-'"$suffix"' {\n    auth_basic "rutorrent-'"$suffix"'";\n    auth_basic_user_file '"$HOME"'/www/'$(whoami)'.'$(hostname)'/public_html/rutorrent-'"$suffix"'/.htpasswd;\n}\n\nlocation /rutorrent-'"$suffix"'/conf { deny all; }\nlocation /rutorrent-'"$suffix"'/share { deny all; }' > ~/.nginx/conf.d/000-default-server.d/rtorrent-"$suffix".conf
+                echo -e 'location /rutorrent-'"$suffix"' {\n    auth_basic "rutorrent-'"$suffix"'";\n    auth_basic_user_file '"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/rutorrent-'"$suffix"'/.htpasswd;\n}\n\nlocation /rutorrent-'"$suffix"'/conf { deny all; }\nlocation /rutorrent-'"$suffix"'/share { deny all; }' > ~/.nginx/conf.d/000-default-server.d/rtorrent-"$suffix".conf
                 echo -e 'location /rtorrent-'"$suffix"'/rpc {\n    include   /etc/nginx/scgi_params;\n    scgi_pass unix://'"$HOME"'/private/rtorrent-'"$suffix"'/.socket;\n\n    auth_basic '\''rtorrent SCGI for rutorrent-'"$suffix"''\'';\n    auth_basic_user_file conf.d/000-default-server.d/scgi-'"$suffix"'-htpasswd;\n}' > ~/.nginx/conf.d/000-default-server.d/rtorrent-"$suffix"-rpc.conf
                 /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
             fi
-            echo -e 'AuthType Basic\nAuthName "rtorrent-'"$suffix"'"\nAuthUserFile "'"$HOME"'/www/'$(whoami)'.'$(hostname)'/public_html/rutorrent-'"$suffix"'/.htpasswd"\nRequire valid-user' > ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/.htaccess
+            echo -e 'AuthType Basic\nAuthName "rtorrent-'"$suffix"'"\nAuthUserFile "'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/rutorrent-'"$suffix"'/.htpasswd"\nRequire valid-user' > ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htaccess
             read -ep "Please give me a username for the user we are creating: " username
             echo
             read -ep "Would you like me to generate you a random 20 chararcter password [y]es or use your own [n]o: " -i "y" makeitso
             echo
             if [[ "$makeitso" =~ ^[Yy]$ ]]
             then
-                htpasswd -cbm ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/.htpasswd "$username" "$randompass"
+                htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htpasswd "$username" "$randompass"
                 echo
                 echo -n 'If you are reading this you can delete this file, it is a tmp file from the multirtru script that was supposed to be removed.' > ~/.randompasstmp
             else
@@ -347,27 +347,27 @@ then
                 then
                     echo -e "You entered" "\033[32m""$username""\e[0m" "as the choice of username"
                     echo
-                    htpasswd -cm ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/.htpasswd "$username"
+                    htpasswd -cm ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htpasswd "$username"
                     echo
                 else
                     echo -e "No username was give so i am using a generic username which is:" "\033[32m""rutorrent-$suffix""\e[0m"
                     echo
-                    htpasswd -cm ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/.htpasswd rutorrent-"$suffix"
+                    htpasswd -cm ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htpasswd rutorrent-"$suffix"
                     echo
                 fi
             fi
             # nginx copy rutorrent-suffix htpassd to create the rpc htpassd file.
             if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
             then
-                if [[ -s "$HOME"/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/.htpasswd ]]
+                if [[ -s "$HOME"/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htpasswd ]]
                 then
-                    cp -f ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/.htpasswd ~/.nginx/conf.d/000-default-server.d/scgi-"$suffix"-htpasswd
+                    cp -f ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htpasswd ~/.nginx/conf.d/000-default-server.d/scgi-"$suffix"-htpasswd
                     sed -i 's/\(.*\):\(.*\)/rutorrent:\2/g' ~/.nginx/conf.d/000-default-server.d/scgi-"$suffix"-htpasswd
                 fi
             fi
             #
             echo -e "\033[31m""You can use the htpasswdtk script to manage these installations.""\e[0m"
-            chmod 644 ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/.htaccess ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/.htpasswd
+            chmod 644 ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htaccess ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htpasswd
             echo
             # create the screen
             if [[ -d ~/.autodl-"$suffix" && ~/.irssi-"$suffix" ]]
@@ -403,9 +403,9 @@ then
                 echo -e "The username for this instance is:" "\033[32m""rutorrent-$suffix""\e[0m"
                 echo
             fi
-            echo -e "Visit this URL to see your new instance:" "\033[32m""https://$(hostname)/$(whoami)/rutorrent-$suffix/""\e[0m"
+            echo -e "Visit this URL to see your new instance:" "\033[32m""https://$(hostname -f)/$(whoami)/rutorrent-$suffix/""\e[0m"
             echo
-            if [[ -s ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/.htpasswd ]]
+            if [[ -s ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htpasswd ]]
             then
                 echo -e "\033[33m""Don't forget, you can manage your passwords with this FAQ:""\e[0m" "\033[36m""https://www.feralhosting.com/faq/view?question=22""\e[0m"
                 echo
@@ -432,20 +432,20 @@ then
                 then
                     echo -e "You entered" "\033[32m""$username""\e[0m" "as the choice of username"
                     echo
-                    htpasswd -cm ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/.htpasswd "$username"
+                    htpasswd -cm ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htpasswd "$username"
                     echo
                 else
                     echo -e "No username was give so i am using a generic username which is:" "\033[32m""rutorrent-$suffix""\e[0m"
                     echo
-                    htpasswd -cm ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/.htpasswd rutorrent-"$suffix"
+                    htpasswd -cm ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htpasswd rutorrent-"$suffix"
                     echo
                 fi
                 #
                 if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
                 then
-                    if [[ -s "$HOME"/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/.htpasswd ]]
+                    if [[ -s "$HOME"/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htpasswd ]]
                     then
-                        cp -f ~/www/$(whoami).$(hostname)/public_html/rutorrent-"$suffix"/.htpasswd ~/.nginx/conf.d/000-default-server.d/scgi-"$suffix"-htpasswd
+                        cp -f ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htpasswd ~/.nginx/conf.d/000-default-server.d/scgi-"$suffix"-htpasswd
                         sed -i 's/\(.*\):\(.*\)/rutorrent:\2/g' ~/.nginx/conf.d/000-default-server.d/scgi-"$suffix"-htpasswd
                     else
                         echo -e "\033[31m""There was a problem. The rutorrent-$suffix .htpasswd is empty.""\e[0m"
