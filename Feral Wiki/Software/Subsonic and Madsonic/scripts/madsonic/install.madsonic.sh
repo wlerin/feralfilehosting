@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Madsonic
-scriptversion="1.7.7"
+scriptversion="1.7.8"
 scriptname="install.madsonic"
 madsonicversion="5.0 Build 3880"
 javaversion="1.7 Update 67"
@@ -276,6 +276,7 @@ chmod -f 700 ~/bin/madsonicron
 # Apache proxypass
 if [[ -f ~/private/madsonic/madsonic.sh ]]
 then
+    mkdir -p ~/.apache2/conf.d
     echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\nInclude /etc/apache2/mods-available/ssl.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\nSSLProxyEngine on\n\nProxyPass /madsonic http://10.0.0.1:'$(sed -n -e 's/MADSONIC_PORT=\([0-9]\+\)/\1/p' ~/private/madsonic/madsonic.sh 2> /dev/null)'/${USER}/madsonic\nProxyPassReverse /madsonic http://10.0.0.1:'$(sed -n -e 's/MADSONIC_PORT=\([0-9]\+\)/\1/p' ~/private/madsonic/madsonic.sh 2> /dev/null)'/${USER}/madsonic\nRedirect /${USER}/madsonic https://${APACHE_HOSTNAME}/${USER}/madsonic' > "$HOME/.apache2/conf.d/madsonic.conf"
     /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
     # Nginx proxypass
@@ -409,6 +410,7 @@ then
         sed -i '23 i export LANG=en_GB.UTF-8' ~/private/madsonic/madsonic.sh
         sed -i '23 i export LANGUAGE=en_GB.UTF-8' ~/private/madsonic/madsonic.sh
         # Apache proxypass
+        mkdir -p ~/.apache2/conf.d
         echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\nInclude /etc/apache2/mods-available/ssl.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\nSSLProxyEngine on\n\nProxyPass /madsonic http://10.0.0.1:'"$http"'/${USER}/madsonic\nProxyPassReverse /madsonic http://10.0.0.1:'"$http"'/${USER}/madsonic\nRedirect /${USER}/madsonic https://${APACHE_HOSTNAME}/${USER}/madsonic' > "$HOME/.apache2/conf.d/madsonic.conf"
         /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
         echo
@@ -498,6 +500,7 @@ then
             rm -rf ~/madsonic.zip ~/ffmpeg.zip ~/sonictmp
             sed -i 's|^MADSONIC_CONTEXT_PATH=/$|MADSONIC_CONTEXT_PATH=/$(whoami)/madsonic|g' ~/private/madsonic/madsonic.sh
             # Apache proxypass
+            mkdir -p ~/.apache2/conf.d
             echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\nInclude /etc/apache2/mods-available/ssl.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\nSSLProxyEngine on\n\nProxyPass /madsonic http://10.0.0.1:'$(sed -n -e 's/MADSONIC_PORT=\([0-9]\+\)/\1/p' ~/private/madsonic/madsonic.sh 2> /dev/null)'/${USER}/madsonic\nProxyPassReverse /madsonic http://10.0.0.1:'$(sed -n -e 's/MADSONIC_PORT=\([0-9]\+\)/\1/p' ~/private/madsonic/madsonic.sh 2> /dev/null)'/${USER}/madsonic\nRedirect /${USER}/madsonic https://${APACHE_HOSTNAME}/${USER}/madsonic' > "$HOME/.apache2/conf.d/madsonic.conf"
             /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
             echo
