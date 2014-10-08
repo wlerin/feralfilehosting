@@ -39,19 +39,19 @@ giturlsickrage="https://github.com/echel0n/SickRage.git"
 #### Self Updater Start ####
 ############################
 #
-#wget -qO "$HOME/000$scriptname" "$scripturl"
+wget -qO "$HOME/000$scriptname" "$scripturl"
 #
-#if ! diff -q "$HOME/000$scriptname" "$HOME/bin/$scriptname" >/dev/null 2>&1
-#then
-#    echo '#!/bin/bash
-#    scriptname="'"$scriptname"'"
-#    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
-#    bash "$HOME/bin/$scriptname"
-#    exit 1' > "$HOME/111$scriptname"
-#    bash "$HOME/111$scriptname"
-#    exit 1
-#fi
-#cd && rm -f {000,111}"$scriptname"
+if ! diff -q "$HOME/000$scriptname" "$HOME/bin/$scriptname" >/dev/null 2>&1
+then
+    echo '#!/bin/bash
+    scriptname="'"$scriptname"'"
+    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
+    bash "$HOME/bin/$scriptname"
+    exit 1' > "$HOME/111$scriptname"
+    bash "$HOME/111$scriptname"
+    exit 1
+fi
+cd && rm -f {000,111}"$scriptname"
 #
 ############################
 ##### Self Updater End #####
