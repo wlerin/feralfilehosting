@@ -1,10 +1,10 @@
 #!/bin/bash
 # Script name
-scriptversion="1.0.0"
+scriptversion="1.0.1"
 scriptname="sickbeard"
 # Author name
 #
-# Bash Command
+# wget -qP ~/bin -O sickbeard http://git.io/bPrsUg && bash ~/bin/sickbeard
 #
 ############################
 ## Version History Starts ##
@@ -90,7 +90,7 @@ then
                     "1")
                             showMenu () 
                             {
-                                    echo "1) Install Sickbeard"
+                                    echo "1) Install or update Sickbeard"
                                     echo "2) Install just the proxypass for Apache or Nginx"
                                     echo "3) Quit the script"
                                     echo
@@ -105,15 +105,21 @@ then
                                                     echo
                                                     if [[ -d ~/.sickbeard ]]
                                                     then
+                                                        kill $(ps x | grep "python $HOME/.sickbeard/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') > /dev/null 2>&1
+                                                        echo "I need to wait 10 seconds for SickBeard to shutdown."
+                                                        echo
+                                                        sleep 10
                                                         cd ~/.sickbeard
-                                                        git config user.email "$(whoami)@$(hostname -f)"
-                                                        git config user.name "$(whoami)"
-                                                        git pull origin master
+                                                        git pull origin
+                                                        python ~/.sickbeard/SickBeard.py -d
+                                                        echo "Sickbeard has been updated and restarted"
+                                                        echo
+                                                        exit
                                                         cd
                                                     else
                                                         git clone "$giturlsickbeard" ~/.sickbeard
                                                     fi
-                                                    echo -e "[General]\nweb_port = $mainport\nweb_root = \"/$(whoami)/sickbeard\"\nlaunch_browser = 0\n" > ~/.sickbeard/config.ini
+                                                    echo -e "[General]\nweb_port = $mainport\nweb_root = \"/$(whoami)/sickbeard\"\nlaunch_browser = 0" > ~/.sickbeard/config.ini
                                                     # Apache proxypass
                                                     if [[ -d ~/.apache2/conf.d ]]
                                                     then
@@ -144,12 +150,12 @@ then
                                                     echo
                                                     if [[ -f "$HOME"/.sickbeard/config.ini ]]
                                                     then
-                                                    kill $(ps x | grep "python $HOME/.sickbeard/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}')
-                                                    echo "I need to wait 10 seconds for SickBeard to shutdown."
-                                                    sleep 10
-                                                    sed -ri 's|web_port = (.*)|web_port = '"$mainport"'|g' ~/.sickbeard/config.ini
-                                                    sed -ri 's|web_root = "(.*)"|web_root = "'$(whoami)'/sickbeard"|g' ~/.sickbeard/config.ini
-                                                    sed -i 's|launch_browser = 1|launch_browser = 0|g' ~/.sickbeard/config.ini
+                                                        kill $(ps x | grep "python $HOME/.sickbeard/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') > /dev/null 2>&1
+                                                        echo "I need to wait 10 seconds for SickBeard to shutdown."
+                                                        sleep 10
+                                                        sed -ri 's|web_port = (.*)|web_port = '"$mainport"'|g' ~/.sickbeard/config.ini
+                                                        sed -ri 's|web_root = "(.*)"|web_root = "'$(whoami)'/sickbeard"|g' ~/.sickbeard/config.ini
+                                                        sed -i 's|launch_browser = 1|launch_browser = 0|g' ~/.sickbeard/config.ini
                                                     else
                                                         echo "Sickbeard is not Installed to ~/.sickbeard."
                                                         echo
@@ -191,7 +197,7 @@ then
                     "2")
                             showMenu () 
                             {
-                                    echo "1) Install SickRage"
+                                    echo "1) Install or update SickRage"
                                     echo "2) Install just the proxypass for Apache or Nginx"
                                     echo "3) Quit the script"
                                     echo
@@ -206,22 +212,26 @@ then
                                                     echo
                                                     if [[ -d ~/.sickrage ]]
                                                     then
+                                                        kill $(ps x | grep "python $HOME/.sickrage/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') > /dev/null 2>&1
+                                                        echo "I need to wait 10 seconds for SickRage to shutdown."
+                                                        sleep 10
                                                         cd ~/.sickrage
-                                                        git config user.email "$(whoami)@$(hostname -f)"
-                                                        git config user.name "$(whoami)"
-                                                        git pull origin master
+                                                        python ~/.sickrage/SickBeard.py -d
+                                                        echo "SickRage has been updated and restarted"
+                                                        echo
+                                                        exit
                                                         cd
                                                     else
                                                         git clone "$giturlsickrage" ~/.sickrage
                                                     fi
-                                                    echo -e "[General]\nweb_port = $mainport\nweb_root = \"/$(whoami)/sickrage\"\nlaunch_browser = 0\n" > ~/.sickrage/config.ini
+                                                    echo -e "[General]\nweb_port = $mainport\nweb_root = \"/$(whoami)/sickrage\"\nlaunch_browser = 0" > ~/.sickrage/config.ini
                                                     # Apache proxypass
                                                     if [[ -d ~/.apache2/conf.d ]]
                                                     then
                                                         echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\n\nProxyPass /sickrage http://10.0.0.1:'"$mainport"'/${USER}/sickrage\nProxyPassReverse /sickrage http://10.0.0.1:'"$mainport"'/${USER}/sickrage' > ~/.apache2/conf.d/sickrage.conf
                                                         /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
                                                     else 
-                                                        echo "Apache is not installed. The nginx proxypass was not installed."
+                                                        echo "Apache is not installed. The Apache proxypass was not installed."
                                                         echo
                                                     fi
                                                     # Nginx Proxypass
@@ -233,22 +243,24 @@ then
                                                         echo "Nginx is not installed. The nginx proxypass was not installed."
                                                         echo
                                                     fi
-                                                    python ~/.sickrage/SickBeard.py -d
+                                                    python "$HOME"/.sickrage/SickBeard.py -d
+                                                    echo
                                                     echo "Done"
                                                     echo
                                                     echo "Visit https://$(hostname -f)/$(whoami)/sickrage/home/"
+                                                    echo
                                                     exit
                                                     ;;
                                             "2")
                                                     echo
                                                     if [[ -f "$HOME"/.sickrage/config.ini ]]
                                                     then
-                                                    kill $(ps x | grep "python $HOME/.sickrage/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}')
-                                                    echo "I need to wait 10 seconds for SickRage to shutdown."
-                                                    sleep 10
-                                                    sed -ri 's|web_port = (.*)|web_port = '"$mainport"'|g' ~/.sickrage/config.ini
-                                                    sed -ri 's|web_root = "(.*)"|web_root = "'$(whoami)'/sickrage"|g' ~/.sickrage/config.ini
-                                                    sed -i 's|launch_browser = 1|launch_browser = 0|g' ~/.sickrage/config.ini
+                                                        kill $(ps x | grep "python $HOME/.sickrage/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') > /dev/null 2>&1
+                                                        echo "I need to wait 10 seconds for SickRage to shutdown."
+                                                        sleep 10
+                                                        sed -ri 's|web_port = (.*)|web_port = '"$mainport"'|g' ~/.sickrage/config.ini
+                                                        sed -ri 's|web_root = "(.*)"|web_root = "'$(whoami)'/sickrage"|g' ~/.sickrage/config.ini
+                                                        sed -i 's|launch_browser = 1|launch_browser = 0|g' ~/.sickrage/config.ini
                                                     else
                                                         echo "SickRage is not Installed to ~/.sickrage."
                                                         echo
@@ -260,7 +272,7 @@ then
                                                         echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\n\nProxyPass /sickrage http://10.0.0.1:'"$mainport"'/${USER}/sickrage\nProxyPassReverse /sickrage http://10.0.0.1:'"$mainport"'/${USER}/sickrage' > ~/.apache2/conf.d/sickrage.conf
                                                         /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
                                                     else
-                                                        echo "Apache is not installed. The nginx proxypass was not installed."
+                                                        echo "Apache is not installed. The Apache proxypass was not installed."
                                                         echo
                                                     fi
                                                     # Nginx Proxypass
