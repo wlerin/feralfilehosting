@@ -36,6 +36,7 @@ scripturl="https://raw.github.com/feralhosting"
 #### Self Updater Start ####
 ############################
 #
+mkdir -p "$HOME"/bin
 wget -qO "$HOME/000$scriptname" "$scripturl"
 #
 if ! diff -q "$HOME/000$scriptname" "$HOME/bin/$scriptname" >/dev/null 2>&1
