@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script name
-scriptversion="1.0.1"
+scriptversion="1.0.2"
 scriptname="sickbeard"
 # Author name
 #
