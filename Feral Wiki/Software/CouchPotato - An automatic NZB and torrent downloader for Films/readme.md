@@ -81,5 +81,40 @@ Login to couchpotato and enjoy!
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/CouchPotato%20-%20An%20automatic%20NZB%20and%20torrent%20downloader%20for%20Films/9.png)
 
+Rtorrent RPC:
+---
+
+**Important note:** You must have updated to nginx for this to work. Please see this FAQ: [Updating Apache to nginx](https://www.feralhosting.com/faq/view?question=231)
+
+### Prerequisites:
+
+1: You have installed rTorrent/Rutorrent via your Feralhosting Manager for the relevant slot.
+
+2: You have updated to nginx
+
+### Configuring the rTorrent rpc:
+
+If you done both of these then you cna proceed to use the rTorrent option for the Downloaders.
+
+Navigate to Settings/Downloaders. Once there un-check the Blackhole option:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/CouchPotato%20-%20An%20automatic%20NZB%20and%20torrent%20downloader%20for%20Films/rpc1.png)
+
+Now select the `rTorrent` checkbox:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/CouchPotato%20-%20An%20automatic%20NZB%20and%20torrent%20downloader%20for%20Films/rpc2.png)
+
+Fill in the information like this:
+
+Where `username` is your Feral username and `server` is the name of the Feral server your slot is hosted on:
+
+**Host:** `https://server.feralhosting.com/username/rtorrent/rpc`
+**username:** `rutorrent`
+**password:** Is you Rutorrent WebUi password visiable in the Slot Details page for the relevant slot in your Feral Manager
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/CouchPotato%20-%20An%20automatic%20NZB%20and%20torrent%20downloader%20for%20Films/rpc3.png)
+
+The click on Test and you should get a successful connection.
+
 
 
