@@ -53,6 +53,7 @@ then
     exit 1
 fi
 cd && rm -f {000,111}"$scriptname"
+chmod -f 700 "$HOME/bin/$scriptname"
 #
 ############################
 ##### Self Updater End #####
