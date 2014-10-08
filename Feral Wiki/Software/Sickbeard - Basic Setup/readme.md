@@ -44,6 +44,8 @@ python ~/Sick-Beard/SickBeard.py -d -p XXXXX
 Proxypass Sickbeard or SickRage:
 ---
 
+**Important note:** You will need to shutdown Sickbeard/Rage to modify the `config.ini` as it saves loaded settings every time the app shuts down, overwriting any changes you may have made.
+
 You will need to first set the `web_root` in the Sickbeard/rage `config.ini` located in the root of the directory cloned from github.
 
 By default this should be:
