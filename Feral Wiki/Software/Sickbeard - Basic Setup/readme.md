@@ -1,4 +1,18 @@
 
+Bash Script:
+---
+
+1: Installs Sickbeard or Sickrage from Github
+2: Configures proxypass with the valid SSL URL format.
+3: Can update Sickbeard or Sickrage and/or only configure the proxypass.
+
+~~~
+wget -qO ~/install.sickbeard.sh http://git.io/bPrsUg && bash ~/install.sickbeard.sh
+~~~
+
+Manual Installation:
+---
+
 Installing Sick-Beard on a Feral slot should be quick and easy with some basic command-line know how.
 
 SSH to your slot and pull Sickbeard:

@@ -4,7 +4,7 @@ scriptversion="1.0.3"
 scriptname="install.sickbeard"
 # Author name
 #
-# wget -qO ~/sickbeard.sh http://git.io/bPrsUg && bash ~/sickbeard.sh
+# wget -qO ~/install.sickbeard.sh http://git.io/bPrsUg && bash ~/install.sickbeard.sh
 #
 ############################
 ## Version History Starts ##
