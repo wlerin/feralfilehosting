@@ -27,7 +27,7 @@ scriptname="couchpotato"
 ###### Variable Start ######
 ############################
 #
-mainport=$(shuf -i 6001-49000 -n 1)
+mainport=$(shuf -i 10001-49000 -n 1)
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/CouchPotato%20-%20An%20automatic%20NZB%20and%20torrent%20downloader%20for%20Films/scripts/couchpotato.sh"
 giturl="https://github.com/RuudBurger/CouchPotatoServer.git"
 #
