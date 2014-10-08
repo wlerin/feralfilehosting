@@ -4,7 +4,7 @@ scriptversion="1.0.1"
 scriptname="sickbeard"
 # Author name
 #
-# wget -qP ~/bin -O sickbeard http://git.io/bPrsUg && bash ~/bin/sickbeard
+# wget -qO ~/sickbeard.sh http://git.io/bPrsUg && bash ~/sickbeard.sh
 #
 ############################
 ## Version History Starts ##
@@ -39,6 +39,7 @@ giturlsickrage="https://github.com/echel0n/SickRage.git"
 #### Self Updater Start ####
 ############################
 #
+mkdir -p ~/bin
 wget -qO "$HOME/000$scriptname" "$scripturl"
 #
 if ! diff -q "$HOME/000$scriptname" "$HOME/bin/$scriptname" >/dev/null 2>&1
