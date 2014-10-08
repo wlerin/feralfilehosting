@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script name
 scriptversion="1.0.2"
-scriptname="sickbeard"
+scriptname="install.sickbeard"
 # Author name
 #
 # wget -qO ~/sickbeard.sh http://git.io/bPrsUg && bash ~/sickbeard.sh
