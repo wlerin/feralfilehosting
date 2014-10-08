@@ -68,7 +68,7 @@ web_root = "/username/mypath"
 
 Take note of the `web_port` while you are here and then save the changes.
 
-![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Sickbeard%20-%20Basic%20Setup/webroot.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Sickbeard%20-%20Basic%20Setup/webroot.png)
 
 ### Apache
 
