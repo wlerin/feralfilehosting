@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Madsonic
-scriptversion="1.8.0"
+scriptversion="1.8.1"
 scriptname="install.madsonic"
 madsonicversion="5.1 Build 5150"
 javaversion="1.7 Update 67"
