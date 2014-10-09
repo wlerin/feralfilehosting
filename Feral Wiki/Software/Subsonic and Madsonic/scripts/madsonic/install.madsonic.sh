@@ -27,7 +27,7 @@ jvdecimal="1.7.0_67"
 ############################
 #
 # Sets a random port between 6000-50000 for http
-http=$(shuf -i 6000-49000 -n 1)
+http=$(shuf -i 10001-49000 -n 1)
 # Defines the memory variable
 initmemory="2048"
 maxmemory="2048"
@@ -350,7 +350,6 @@ then
         echo -e "Path" "\033[36m""~/private/madsonic/""\e[0m" "created. Moving to next step."
         mkdir -p ~/sonictmp
         mkdir -p ~/private/madsonic/transcode
-        mkdir -p ~/private/madsonic/playlists
         mkdir -p ~/private/madsonic/Incoming
         mkdir -p ~/private/madsonic/Podcast
         mkdir -p ~/private/madsonic/playlist/{import,export,backup}
