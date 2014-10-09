@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Madsonic
-scriptversion="1.7.9"
+scriptversion="1.8.0"
 scriptname="install.madsonic"
 madsonicversion="5.1 Build 5150"
 javaversion="1.7 Update 67"
@@ -61,6 +61,7 @@ then
     scriptname="'"$scriptname"'"
     wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
     bash "$HOME/bin/$scriptname"
+    rm -f "$HOME/scriptname"
     exit 1' > "$HOME/111$scriptname"
     bash "$HOME/111$scriptname"
     exit 1
@@ -310,7 +311,7 @@ then
         echo
         echo -e "This Script needs to exit for the Java changes to take effect. Please restart the Script using this command:"
         echo
-        echo 'bash ~/install.madsonic.sh'
+        echo 'bash ~/bin/install.madsonic'
         echo
         bash
         exit 1
@@ -449,12 +450,12 @@ then
             then
                 echo
                 echo -e "\033[32m" "Relaunching the installer.""\e[0m"
-                if [[ -f ~/"$scriptname".sh ]] 
+                if [[ -f ~/bin/"$scriptname" ]] 
                 then
-                    bash ~/"$scriptname".sh
+                    bash ~/bin/"$scriptname"
                 else
-                    wget -qO ~/"$scriptname".sh "$scripturl"
-                    bash ~/"$scriptname".sh
+                    wget -qO ~/bin/"$scriptname" "$scripturl"
+                    bash ~/bin/"$scriptname"
                 fi
             else
                 exit 1
