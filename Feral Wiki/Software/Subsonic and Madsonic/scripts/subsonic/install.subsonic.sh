@@ -52,43 +52,26 @@ scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20W
 #### Self Updater Start ####
 ############################
 #
-mkdir -p "$HOME/bin"
+[[ ! -d ~/bin ]] && mkdir -p ~/bin
+[[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
 #
-if [[ ! -f "$HOME/$scriptname.sh" ]]
-then
-    wget -qO "$HOME/$scriptname.sh" "$scripturl"
-fi
-if [[ ! -f "$HOME/bin/$scriptname" ]]
-then
-    wget -qO "$HOME/bin/$scriptname" "$scripturl"
-fi
+wget -qO ~/.000"$scriptname" "$scripturl"
 #
-wget -qO "$HOME/000$scriptname.sh" "$scripturl"
-#
-if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" >/dev/null 2>&1
+if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
 then
-    echo '#!/bin/bash
-    scriptname="'"$scriptname"'"
-    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
-    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
-    bash "$HOME/$scriptname.sh"
-    exit 1' > "$HOME/111$scriptname.sh"
-    bash "$HOME/111$scriptname.sh"
+    echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
+    bash ~/.111"$scriptname"
     exit
+else
+    if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne $$ ]]
+    then
+        echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
+        bash ~/.222"$scriptname"
+        exit
+    fi
 fi
-if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" >/dev/null 2>&1
-then
-    echo '#!/bin/bash
-    scriptname="'"$scriptname"'"
-    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
-    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
-    bash "$HOME/$scriptname.sh"
-    exit 1' > "$HOME/222$scriptname.sh"
-    bash "$HOME/222$scriptname.sh"
-    exit
-fi
-cd && rm -f {000,111,222}"$scriptname.sh"
-chmod -f 700 "$HOME/bin/$scriptname"
+cd && rm -f .{000,111,222}"$scriptname"
+chmod -f 700 ~/bin/"$scriptname"
 #
 ############################
 ##### Self Updater End #####
@@ -276,6 +259,7 @@ chmod -f 700 ~/bin/subsonicron
 # Apache proxypass
 if [[ -f ~/private/subsonic/subsonic.sh ]]
 then
+    mkdir -p ~/.apache2/conf.d
     echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\nInclude /etc/apache2/mods-available/ssl.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\nSSLProxyEngine on\n\nProxyPass /subsonic http://10.0.0.1:'$(sed -n -e 's/SUBSONIC_PORT=\([0-9]\+\)/\1/p' ~/private/subsonic/subsonic.sh 2> /dev/null)'/${USER}/subsonic\nProxyPassReverse /subsonic http://10.0.0.1:'$(sed -n -e 's/SUBSONIC_PORT=\([0-9]\+\)/\1/p' ~/private/subsonic/subsonic.sh 2> /dev/null)'/${USER}/subsonic\nRedirect /${USER}/subsonic https://${APACHE_HOSTNAME}/${USER}/subsonic' > "$HOME/.apache2/conf.d/subsonic.conf"
     /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
     # Nginx proxypass
@@ -351,8 +335,6 @@ then
         mkdir -p ~/private/subsonic/playlists
         mkdir -p ~/private/subsonic/Podcasts
         # buffer
-        # buffer
-        # buffer
         echo -n "$subsonicfvs" > ~/private/subsonic/.version
         echo
         echo -e "\033[32m""$subsonicfvs""\e[0m" "Is downloading now."
@@ -384,17 +366,21 @@ then
         echo -e "\033[31m""Configuring the start-up script.""\e[0m"
         echo -e "\033[35m""User input is required for this next step:""\e[0m"
         echo -e "\033[33m""Note on user input:""\e[0m" "It is OK to use a relative path like:" "\033[33m""~/private/rtorrent/data""\e[0m"
+        #
         sed -i 's|SUBSONIC_HOME=/var/subsonic|SUBSONIC_HOME=~/private/subsonic|g' ~/private/subsonic/subsonic.sh
         sed -i "s/SUBSONIC_PORT=4040/SUBSONIC_PORT=$http/g" ~/private/subsonic/subsonic.sh
         sed -i 's|SUBSONIC_CONTEXT_PATH=/|SUBSONIC_CONTEXT_PATH=/$(whoami)/subsonic|g' ~/private/subsonic/subsonic.sh
         # buffer
         sed -i "s/SUBSONIC_MAX_MEMORY=150/SUBSONIC_MAX_MEMORY=$submemory/g" ~/private/subsonic/subsonic.sh
         sed -i '0,/SUBSONIC_PIDFILE=/s|SUBSONIC_PIDFILE=|SUBSONIC_PIDFILE=~/private/subsonic/subsonic.sh.PID|g' ~/private/subsonic/subsonic.sh
+        #
         read -ep "Enter the path to your media or leave blank and press enter to skip: " -i '~/' path
+        #
         sed -i "s|SUBSONIC_DEFAULT_MUSIC_FOLDER=/var/music|SUBSONIC_DEFAULT_MUSIC_FOLDER=$path|g" ~/private/subsonic/subsonic.sh
         # buffer
         sed -i 's|SUBSONIC_DEFAULT_PODCAST_FOLDER=/var/music/Podcast|SUBSONIC_DEFAULT_PODCAST_FOLDER=~/private/subsonic/Podcast|g' ~/private/subsonic/subsonic.sh
         sed -i 's|SUBSONIC_DEFAULT_PLAYLIST_FOLDER=/var/playlists|SUBSONIC_DEFAULT_PLAYLIST_FOLDER=~/private/subsonic/playlists|g' ~/private/subsonic/subsonic.sh
+        # buffer
         # buffer
         sed -i 's/quiet=0/quiet=1/g' ~/private/subsonic/subsonic.sh
         sed -i "22 i export LC_ALL=en_GB.UTF-8\n" ~/private/subsonic/subsonic.sh
