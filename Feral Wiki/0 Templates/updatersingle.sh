@@ -36,21 +36,26 @@ scripturl="https://raw.github.com/feralhosting"
 #### Self Updater Start ####
 ############################
 #
-mkdir -p "$HOME"/bin
-wget -qO "$HOME/000$scriptname" "$scripturl"
+[[ ! -d ~/bin ]] && mkdir -p ~/bin
+[[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
 #
-if ! diff -q "$HOME/000$scriptname" "$HOME/bin/$scriptname" >/dev/null 2>&1
+wget -qO ~/.000"$scriptname" "$scripturl"
+#
+if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
 then
-    echo '#!/bin/bash
-    scriptname="'"$scriptname"'"
-    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
-    bash "$HOME/bin/$scriptname"
-    exit 1' > "$HOME/111$scriptname"
-    bash "$HOME/111$scriptname"
-    exit 1
+    echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
+    bash ~/.111"$scriptname"
+    exit
+else
+    if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne $$ ]]
+    then
+        echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
+        bash ~/.222"$scriptname"
+        exit
+    fi
 fi
-cd && rm -f {000,111}"$scriptname"
-chmod -f 700 "$HOME/bin/$scriptname"
+cd && rm -f .{000,111,222}"$scriptname"
+chmod -f 700 ~/bin/"$scriptname"
 #
 ############################
 ##### Self Updater End #####
