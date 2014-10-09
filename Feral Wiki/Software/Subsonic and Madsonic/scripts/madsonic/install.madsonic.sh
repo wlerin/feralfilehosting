@@ -66,8 +66,15 @@ then
     echo '#!/bin/bash
     scriptname="'"$scriptname"'"
     wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
-    bash "$HOME/bin/$scriptname"
     rm -f "$HOME/$scriptname"{,.sh}
+    bash "$HOME/bin/$scriptname"
+    exit 1' > "$HOME/111$scriptname"
+    bash "$HOME/111$scriptname"
+    exit 1
+else
+    echo '#!/bin/bash
+    rm -f "$HOME/$scriptname"{,.sh}
+    bash "$HOME/bin/$scriptname"
     exit 1' > "$HOME/111$scriptname"
     bash "$HOME/111$scriptname"
     exit 1
