@@ -72,9 +72,9 @@ then
     wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
     wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
     bash "$HOME/$scriptname.sh"
-    exit 1' > "$HOME/111$scriptname.sh"
+    exit' > "$HOME/111$scriptname.sh"
     bash "$HOME/111$scriptname.sh"
-    exit 1
+    exit
 fi
 if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" >/dev/null 2>&1
 then
@@ -83,9 +83,9 @@ then
     wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
     wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
     bash "$HOME/$scriptname.sh"
-    exit 1' > "$HOME/222$scriptname.sh"
+    exit' > "$HOME/222$scriptname.sh"
     bash "$HOME/222$scriptname.sh"
-    exit 1
+    exit
 fi
 cd && rm -f {000,111,222}"$scriptname.sh"
 chmod -f 700 "$HOME/bin/$scriptname"
@@ -212,7 +212,7 @@ then
                     ps -p \$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null) --no-headers 2> /dev/null
                     echo -e \"\\\e[0m\"
                 fi
-                exit 1
+                exit
             else
                 echo -e \"Madsonic with the PID:\\\033[32m\$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null)\\\e[0m is already running. Kill it first then restart\"
                 echo
@@ -222,7 +222,7 @@ then
                 then
                     bash ~/bin/madsonicrsk
                 fi
-                exit 1
+                exit
             fi
         elif [[ \$confirm =~ ^[Ll]\$ ]]
         then
@@ -232,13 +232,13 @@ then
         else
             echo This script has done its job and will now exit.
             echo
-            exit 1
+            exit
         fi
     else
         echo
         echo -e \"The \\\033[31m~/private/madsonic/madsonic.sh\\\e[0m does not exist.\"
         echo -e \"please run the \\\033[31m~/install.madsonic\\\e[0m to install and configure madsonic\"
-        exit 1
+        exit
     fi
 else
     echo -e \"Madsonic is not installed\"
@@ -258,7 +258,7 @@ if [[ -z "$(ps -p $(cat ~/private/madsonic/madsonic.sh.PID) --no-headers)" ]]
 then
     bash ~/private/madsonic/madsonic.sh
 else
-    exit 1
+    exit
 fi' > ~/bin/madsonicron
 #
 #############################
@@ -524,7 +524,7 @@ then
 else
     echo -e "You chose to exit after updating the scripts."
     echo
-    exit 1
+    exit
     cd && bash
 fi
 #

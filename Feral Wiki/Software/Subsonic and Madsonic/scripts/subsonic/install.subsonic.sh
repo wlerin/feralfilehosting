@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Subsonic
-scriptversion="1.8.2"
+scriptversion="1.8.3"
 scriptname="install.subsonic"
 subsonicversion="5.0"
 javaversion="1.7 Update 67"
@@ -74,7 +74,7 @@ then
     bash "$HOME/$scriptname.sh"
     exit 1' > "$HOME/111$scriptname.sh"
     bash "$HOME/111$scriptname.sh"
-    exit 1
+    exit
 fi
 if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" >/dev/null 2>&1
 then
@@ -85,7 +85,7 @@ then
     bash "$HOME/$scriptname.sh"
     exit 1' > "$HOME/222$scriptname.sh"
     bash "$HOME/222$scriptname.sh"
-    exit 1
+    exit
 fi
 cd && rm -f {000,111,222}"$scriptname.sh"
 chmod -f 700 "$HOME/bin/$scriptname"
@@ -334,7 +334,7 @@ then
         echo 'bash ~/bin/install.subsonic'
         echo
         bash
-        exit 1
+        exit
     fi
     #
     #############################
@@ -344,7 +344,6 @@ then
     if [[ ! -d ~/private/subsonic ]]
     then
         echo -e "Congratulations," "\033[31m""Java is installed""\e[0m"". Continuing with the installation."
-        sleep 1
         echo
         echo -e "Path" "\033[36m""~/private/subsonic/""\e[0m" "created. Moving to next step."
         mkdir -p ~/sonictmp
@@ -362,7 +361,6 @@ then
         echo -e "\033[36m""subsonic.tar.gz""\e[0m" "Is unpacking now."
         tar xf ~/sonictmp/subsonic.tar.gz -C ~/private/subsonic/
         echo -e "\033[36m""subsonic.tar.gz""\e[0m" "Has been unpacked to" "\033[36m""~/private/subsonic/\e[0m"
-        sleep 1
         echo
         echo -e "\033[32m""$sffmpegfvs""\e[0m" "Is downloading now."
         wget -qO ~/sonictmp/ffmpeg.zip "$sffmpegfv"
@@ -372,19 +370,16 @@ then
         chmod -f 700 ~/private/subsonic/transcode/{Audioffmpeg,ffmpeg,lame,xmp}
         echo -e "\033[36m""$sffmpegfvs""\e[0m" "Has been unpacked to" "\033[36m~/private/subsonic/transcode/\e[0m"
         rm -rf ~/sonictmp
-        sleep 1
         echo
         echo -e "\033[32m""Copying over a local version of lame.""\e[0m"
         # cp -f /usr/local/bin/lame ~/private/subsonic/transcode/ 2> /dev/null
         chmod -f 700 ~/private/subsonic/transcode/lame
         echo -e "Lame copied to" "\033[36m""~/private/subsonic/transcode/\e[0m"
-        sleep 1
         echo
         echo -e "\033[32m""Copying over a local version of flac.""\e[0m"
         cp -f /usr/bin/flac ~/private/subsonic/transcode/ 2> /dev/null
         chmod -f 700 ~/private/subsonic/transcode/flac
         echo -e "Flac copied to" "\033[36m""~/private/subsonic/transcode/""\e[0m"
-        sleep 1
         echo
         echo -e "\033[31m""Configuring the start-up script.""\e[0m"
         echo -e "\033[35m""User input is required for this next step:""\e[0m"
@@ -395,7 +390,7 @@ then
         # buffer
         sed -i "s/SUBSONIC_MAX_MEMORY=150/SUBSONIC_MAX_MEMORY=$submemory/g" ~/private/subsonic/subsonic.sh
         sed -i '0,/SUBSONIC_PIDFILE=/s|SUBSONIC_PIDFILE=|SUBSONIC_PIDFILE=~/private/subsonic/subsonic.sh.PID|g' ~/private/subsonic/subsonic.sh
-        read -ep "Enter the path to your media or leave blank and press enter to skip: " path
+        read -ep "Enter the path to your media or leave blank and press enter to skip: " -i '~/' path
         sed -i "s|SUBSONIC_DEFAULT_MUSIC_FOLDER=/var/music|SUBSONIC_DEFAULT_MUSIC_FOLDER=$path|g" ~/private/subsonic/subsonic.sh
         # buffer
         sed -i 's|SUBSONIC_DEFAULT_PODCAST_FOLDER=/var/music/Podcast|SUBSONIC_DEFAULT_PODCAST_FOLDER=~/private/subsonic/Podcast|g' ~/private/subsonic/subsonic.sh
@@ -420,7 +415,7 @@ then
         bash ~/private/subsonic/subsonic.sh
         echo -e "A restart/start/kill script has been created at:" "\033[35m""~/bin/subsonicrsk""\e[0m"
         echo -e "\033[32m""Subsonic is now started, use the links below to access it. Don't forget to set path to FULL path to you music folder in the gui.""\e[0m"
-        sleep 1
+        sleep
         echo
         echo -e "Subsonic is accessible at:" "\033[32m""https://$(hostname -f)/$(whoami)/subsonic/""\e[0m"
         echo -e "It may take a minute or two to load properly."
@@ -428,7 +423,7 @@ then
         echo -e "Subsonic started at PID:" "\033[31m""$(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null)""\e[0m"
         echo
         bash
-        exit 1
+        exit
     else
         echo -e "\033[31m""Subsonic appears to already be installed.""\e[0m" "Please kill the PID:" "\033[33m""$(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null)""\e[0m" "if it is running and delete the" "\033[36m""~/private/subsonic directory""\e[0m"
         echo
@@ -439,11 +434,9 @@ then
             echo "Killing the process and removing files."
             kill -9 $(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null) 2> /dev/null
             echo -e "\033[31m" "Done""\e[0m"
-            sleep 1
             echo "Removing ~/private/subsonic"
             rm -rf ~/private/subsonic
             echo -e "\033[31m" "Done""\e[0m"
-            sleep 1
             echo "Removing RSK scripts if present."
             rm -f ~/bin/subsonic.4.8
             rm -f ~/subsonic.4.8.sh
@@ -458,13 +451,11 @@ then
             /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
             /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
             echo -e "\033[31m" "Done""\e[0m"
-            sleep 1
             echo "Finalising removal."
             rm -rf ~/private/subsonic
             echo -e "\033[31m" "Done and Done""\e[0m"
             echo
-            sleep 1
-            read -ep "Would you like you relaunch the installer [y] or quit [q]: "  confirm
+            read -ep "Would you like you relaunch the installer [y] or quit [q]: " -i "y"  confirm
             if [[ "$confirm" =~ ^[Yy]$ ]]
             then
                 echo
@@ -477,7 +468,7 @@ then
                     bash ~/bin/"$scriptname"
                 fi
             else
-                exit 1
+                exit
             fi
         elif [[ "$confirm" =~ ^[Uu]$ ]]
         then
@@ -507,7 +498,6 @@ then
             bash ~/private/subsonic/subsonic.sh
             echo -e "A restart/start/kill script has been created at:" "\033[35m""~/bin/subsonicrsk""\e[0m"
             echo -e "\033[32m""Subsonic is now started, use the link below to access it. Don't forget to set path to FULL path to you music folder in the gui.""\e[0m"
-            sleep 1
             echo
             echo -e "Subsonic is accessible at:" "\033[32m""https://$(hostname -f)/$(whoami)/subsonic/""\e[0m"
             echo -e "It may take a minute or two to load properly."
@@ -515,11 +505,11 @@ then
             echo -e "Subsonic started at PID:" "\033[31m""$(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null)""\e[0m"
             echo
             bash
-            exit 1
+            exit
         else
             echo "You chose to quit and exit the script"
             echo
-            exit 1
+            exit
         fi
     fi
 #
@@ -530,7 +520,7 @@ then
 else
     echo -e "You chose to exit after updating the scripts."
     echo
-    exit 1
+    exit
     cd && bash
 fi
 #
