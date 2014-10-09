@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script name
-scriptversion="1.0.3"
+scriptversion="1.0.4"
 scriptname="install.sickbeard"
 # Author name
 #
@@ -121,7 +121,17 @@ then
                                                     else
                                                         git clone "$giturlsickbeard" ~/.sickbeard
                                                     fi
-                                                    echo -e "[General]\nweb_port = $mainport\nweb_root = \"/$(whoami)/sickbeard\"\nlaunch_browser = 0" > ~/.sickbeard/config.ini
+                                                    if [[ ! -f ~/.sickbeard/config.ini ]]
+                                                    then
+                                                        echo -e "[General]\nweb_port = $mainport\nweb_root = \"/$(whoami)/sickbeard\"\nlaunch_browser = 0" > ~/.sickbeard/config.ini
+                                                    else
+                                                        kill $(ps x | grep "python $HOME/.sickbeard/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') > /dev/null 2>&1
+                                                        echo "I need to wait 10 seconds for SickBeard to shutdown."
+                                                        sleep 10
+                                                        sed -ri 's|web_port = (.*)|web_port = '"$mainport"'|g' ~/.sickbeard/config.ini
+                                                        sed -ri 's|web_root = "(.*)"|web_root = "'$(whoami)'/sickbeard"|g' ~/.sickbeard/config.ini
+                                                        sed -i 's|launch_browser = 1|launch_browser = 0|g' ~/.sickbeard/config.ini
+                                                    fi
                                                     # Apache proxypass
                                                     if [[ -d ~/.apache2/conf.d ]]
                                                     then
@@ -144,7 +154,7 @@ then
                                                     echo
                                                     echo "Done"
                                                     echo
-                                                    echo "Visit https://$(hostname -f)/$(whoami)/sickbeard/home/"
+                                                    echo "Visit: https://$(hostname -f)/$(whoami)/sickbeard/home/"
                                                     echo
                                                     exit
                                                     ;;
@@ -185,7 +195,7 @@ then
                                                     echo
                                                     echo "Done"
                                                     echo
-                                                    echo "Visit https://$(hostname -f)/$(whoami)/sickbeard/home/"
+                                                    echo "Visit: https://$(hostname -f)/$(whoami)/sickbeard/home/"
                                                     echo
                                                     exit
                                                     ;;
@@ -212,21 +222,48 @@ then
                                     case "$CHOICE" in
                                             "1")
                                                     echo
+                                                    #
                                                     if [[ -d ~/.sickrage ]]
                                                     then
-                                                        kill $(ps x | grep "python $HOME/.sickrage/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') > /dev/null 2>&1
-                                                        echo "I need to wait 10 seconds for SickRage to shutdown."
-                                                        sleep 10
+                                                        if [[ -z $(ps x | grep "python $HOME/.sickrage/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') ]]
+                                                        then
+                                                            :
+                                                        else
+                                                            kill $(ps x | grep "python $HOME/.sickrage/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') > /dev/null 2>&1
+                                                            echo "I need to wait 10 seconds for SickRage to shutdown."
+                                                            sleep 10
+                                                        fi
                                                         cd ~/.sickrage
-                                                        python ~/.sickrage/SickBeard.py -d
-                                                        echo "SickRage has been updated and restarted"
+                                                        git pull origin
                                                         echo
-                                                        exit
-                                                        cd
                                                     else
                                                         git clone "$giturlsickrage" ~/.sickrage
                                                     fi
-                                                    echo -e "[General]\nweb_port = $mainport\nweb_root = \"/$(whoami)/sickrage\"\nlaunch_browser = 0" > ~/.sickrage/config.ini
+                                                    #
+                                                    if [[ ! -f ~/.sickrage/config.ini ]]
+                                                    then
+                                                        mkdir -p ~/.sickrage.tv.shows
+                                                        echo -e "[General]\nweb_port = $mainport\nweb_root = \"/$(whoami)/sickrage\"\nlaunch_browser = 0\nroot_dirs = 0|$HOME/.sickrage.tv.shows\n\n[TORRENT]\ntorrent_username = rutorrent\ntorrent_host = https://$(hostname -f)/$(whoami)/rtorrent/rpc/\ntorrent_path = $HOME/private/rtorrent/data" > ~/.sickrage/config.ini
+                                                    else
+                                                        #
+                                                        if [[ -z $(ps x | grep "python $HOME/.sickrage/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') ]]
+                                                        then
+                                                            :
+                                                        else
+                                                            kill $(ps x | grep "python $HOME/.sickrage/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') > /dev/null 2>&1
+                                                            echo "I need to wait 10 seconds for SickRage to shutdown."
+                                                            sleep 10
+                                                        fi
+                                                        #
+                                                        mkdir -p ~/.sickrage.tv.shows
+                                                        sed -ri 's|web_port = (.*)|web_port = '"$mainport"'|g' ~/.sickrage/config.ini
+                                                        sed -ri 's|web_root = "(.*)"|web_root = "'$(whoami)'/sickrage"|g' ~/.sickrage/config.ini
+                                                        sed -i 's|launch_browser = 1|launch_browser = 0|g' ~/.sickrage/config.ini
+                                                        sed -i 's#root_dirs = ""#root_dirs = 0|'$HOME'/.sickrage.tv.shows#g' ~/.sickrage/config.ini
+                                                        sed -i 's|torrent_username = ""|torrent_username = rutorrent|g' ~/.sickrage/config.ini
+                                                        sed -i 's|torrent_host = ""|torrent_host = https://'$(hostname -f)'/'$(whoami)'/rtorrent/rpc/|g' ~/.sickrage/config.ini
+                                                        sed -i 's|torrent_path = ""|torrent_path = '"$HOME"'/private/rtorrent/data|g' ~/.sickrage/config.ini
+                                                    fi
                                                     # Apache proxypass
                                                     if [[ -d ~/.apache2/conf.d ]]
                                                     then
@@ -246,7 +283,6 @@ then
                                                         echo
                                                     fi
                                                     python "$HOME"/.sickrage/SickBeard.py -d
-                                                    echo
                                                     echo "Done"
                                                     echo
                                                     echo "Visit https://$(hostname -f)/$(whoami)/sickrage/home/"
@@ -255,11 +291,17 @@ then
                                                     ;;
                                             "2")
                                                     echo
-                                                    if [[ -f "$HOME"/.sickrage/config.ini ]]
+                                                    if [[ -f ~/.sickrage/config.ini ]]
                                                     then
-                                                        kill $(ps x | grep "python $HOME/.sickrage/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') > /dev/null 2>&1
-                                                        echo "I need to wait 10 seconds for SickRage to shutdown."
-                                                        sleep 10
+                                                         if [[ -z $(ps x | grep "python $HOME/.sickrage/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') ]]
+                                                        then
+                                                            :
+                                                        else
+                                                            kill $(ps x | grep "python $HOME/.sickrage/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') > /dev/null 2>&1
+                                                            echo "I need to wait 10 seconds for SickRage to shutdown."
+                                                            sleep 10
+                                                        fi
+                                                        mkdir -p ~/.sickrage.tv.shows
                                                         sed -ri 's|web_port = (.*)|web_port = '"$mainport"'|g' ~/.sickrage/config.ini
                                                         sed -ri 's|web_root = "(.*)"|web_root = "'$(whoami)'/sickrage"|g' ~/.sickrage/config.ini
                                                         sed -i 's|launch_browser = 1|launch_browser = 0|g' ~/.sickrage/config.ini
@@ -287,7 +329,6 @@ then
                                                         echo
                                                     fi
                                                     python "$HOME"/.sickrage/SickBeard.py -d
-                                                    echo
                                                     echo "Done"
                                                     echo
                                                     echo "Visit https://$(hostname -f)/$(whoami)/sickrage/home/"
@@ -302,7 +343,6 @@ then
                             done
                             ;;
                     "3")
-                            echo
                             exit
                             ;;
             esac
