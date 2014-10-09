@@ -1,8 +1,8 @@
 #!/bin/bash
 # Install Subsonic
-scriptversion="1.7.7"
+scriptversion="1.7.8"
 scriptname="install.subsonic"
-subsonicversion="4.9"
+subsonicversion="5.0"
 javaversion="1.7 Update 67"
 jvdecimal="1.7.0_67"
 #
@@ -36,11 +36,11 @@ installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 # Java URL
 javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=95116"
 # Subsonic Standalone files
-subsonicfv="https://sourceforge.net/projects/subsonic/files/subsonic/4.9/subsonic-4.9-standalone.tar.gz"
-subsonicfvs="subsonic-4.9-standalone.tar.gz"
+subsonicfv="http://downloads.sourceforge.net/project/subsonic/subsonic/5.0/subsonic-5.0-standalone.tar.gz"
+subsonicfvs="subsonic-5.0-standalone.tar.gz"
 # ffmpeg files
-sffmpegfv="https://bitbucket.org/feralhosting/feralfiles/downloads/sonic.ffmpeg.19.08.2014.zip"
-sffmpegfvs="sonic.ffmpeg.19.08.2014.zip"
+sffmpegfv="https://bitbucket.org/feralhosting/feralfiles/downloads/sonic.ffpmeg.27.09.2014.zip"
+sffmpegfvs="sonic.ffpmeg.27.09.2014.zip"
 #
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/subsonic/install.subsonic.sh"
 #
@@ -52,42 +52,20 @@ scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20W
 #### Self Updater Start ####
 ############################
 #
-mkdir -p "$HOME/bin"
+mkdir -p ~/bin
+wget -qO "$HOME/000$scriptname" "$scripturl"
 #
-if [[ ! -f "$HOME/$scriptname.sh" ]]
-then
-    wget -qO "$HOME/$scriptname.sh" "$scripturl"
-fi
-if [[ ! -f "$HOME/bin/$scriptname" ]]
-then
-    wget -qO "$HOME/bin/$scriptname" "$scripturl"
-fi
-#
-wget -qO "$HOME/000$scriptname.sh" "$scripturl"
-#
-if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" > /dev/null 2>&1
+if ! diff -q "$HOME/000$scriptname" "$HOME/bin/$scriptname" >/dev/null 2>&1
 then
     echo '#!/bin/bash
     scriptname="'"$scriptname"'"
-    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
     wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
-    bash "$HOME/$scriptname.sh"
-    exit 1' > "$HOME/111$scriptname.sh"
-    bash "$HOME/111$scriptname.sh"
+    bash "$HOME/bin/$scriptname"
+    exit 1' > "$HOME/111$scriptname"
+    bash "$HOME/111$scriptname"
     exit 1
 fi
-if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" > /dev/null 2>&1
-then
-    echo '#!/bin/bash
-    scriptname="'"$scriptname"'"
-    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
-    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
-    bash "$HOME/$scriptname.sh"
-    exit 1' > "$HOME/222$scriptname.sh"
-    bash "$HOME/222$scriptname.sh"
-    exit 1
-fi
-cd && rm -f {000,111,222}"$scriptname.sh"
+cd && rm -f {000,111}"$scriptname"
 chmod -f 700 "$HOME/bin/$scriptname"
 #
 ############################
@@ -296,7 +274,7 @@ fi
 #
 echo -e "The" "\033[36m""~/bin/subsonicrsk""\e[0m" "has been updated."
 echo
-read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " updatestatus
+read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " -i "y" updatestatus
 echo
 if [[ "$updatestatus" =~ ^[Yy]$ ]]
 then
@@ -306,9 +284,6 @@ then
 ############################
 #
     mkdir -p ~/private
-    echo -e "\033[31m""User Notice:""\e[0m" "\033[33m""This is a user supported script. Please don't expect or ask staff to support this directly.\nTo get support you can jump on IRC and ask other users for help.\nAll critical bugs should be reported and bug fixes or improvements are welcomed and encouraged.""\e[0m"
-    echo
-    sleep 2
     #
     #############################
     #### Install Java Start  ####
