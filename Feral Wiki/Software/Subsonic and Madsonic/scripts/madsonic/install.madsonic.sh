@@ -1,8 +1,8 @@
 #!/bin/bash
 # Install Madsonic
-scriptversion="1.7.8"
+scriptversion="1.8.1"
 scriptname="install.madsonic"
-madsonicversion="5.0 Build 3880"
+madsonicversion="5.1 Build 5150"
 javaversion="1.7 Update 67"
 jvdecimal="1.7.0_67"
 #
@@ -10,7 +10,7 @@ jvdecimal="1.7.0_67"
 #
 # * * * * * bash -l ~/bin/madsonicron
 #
-# wget -qO ~/install.madsonic.sh http://git.io/Eq97bg && bash ~/install.madsonic.sh
+# wget -qO ~/install.madsonic http://git.io/Eq97bg && bash ~/install.madsonic
 #
 ############################
 ## Version History Starts ##
@@ -36,13 +36,13 @@ installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 # Java URL
 javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=95116"
 # Madsonic Standalone files
-madsonicfv="https://bitbucket.org/feralhosting/feralfiles/downloads/5.0.3880-standalone.zip"
-madsonicfvs="5.0.3880-standalone.zip"
+madsonicfv="https://bitbucket.org/feralhosting/feralfiles/downloads/5.1.5150-standalone.zip"
+madsonicfvs="5.1.5150-standalone.zip"
 # ffmpeg files
-mffmpegfvc="https://bitbucket.org/feralhosting/feralfiles/downloads/sonic.ffmpeg.19.08.2014.zip"
-mffmpegfvcs="sonic.ffmpeg.19.08.2014.zip"
+mffmpegfvc="https://bitbucket.org/feralhosting/feralfiles/downloads/sonic.ffpmeg.27.09.2014.zip"
+mffmpegfvcs="sonic.ffpmeg.27.09.2014.zip"
 #
-scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/madsonic/install.madsonic.sh"
+scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/madsonic/install.madsonic.sh"
 #
 ############################
 ####### Variable End #######
@@ -65,7 +65,7 @@ fi
 #
 wget -qO "$HOME/000$scriptname.sh" "$scripturl"
 #
-if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" > /dev/null 2>&1
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" >/dev/null 2>&1
 then
     echo '#!/bin/bash
     scriptname="'"$scriptname"'"
@@ -76,7 +76,7 @@ then
     bash "$HOME/111$scriptname.sh"
     exit 1
 fi
-if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" > /dev/null 2>&1
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" >/dev/null 2>&1
 then
     echo '#!/bin/bash
     scriptname="'"$scriptname"'"
@@ -297,7 +297,7 @@ fi
 #
 echo -e "The" "\033[36m""~/bin/madsonicrsk""\e[0m" "has been updated."
 echo
-read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " updatestatus
+read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " -i "y" updatestatus
 echo
 if [[ "$updatestatus" =~ ^[Yy]$ ]]
 then
@@ -307,9 +307,6 @@ then
 ############################
 #
     mkdir -p ~/private
-    echo -e "\033[31m""User Notice:""\e[0m" "\033[33m""This is a user supported script. Please don't expect or ask staff to support this directly.\nTo get support you can jump on IRC and ask other users for help.\nAll critical bugs should be reported and bug fixes or improvements are welcomed and encouraged.""\e[0m"
-    echo
-    sleep 2
     #
     #############################
     #### Install Java Start  ####
@@ -335,7 +332,7 @@ then
         echo
         echo -e "This Script needs to exit for the Java changes to take effect. Please restart the Script using this command:"
         echo
-        echo 'bash ~/install.madsonic.sh'
+        echo 'bash ~/bin/install.madsonic'
         echo
         bash
         exit 1
@@ -356,8 +353,7 @@ then
         mkdir -p ~/private/madsonic/playlists
         mkdir -p ~/private/madsonic/Incoming
         mkdir -p ~/private/madsonic/Podcast
-        mkdir -p ~/private/madsonic/playlist-import
-        mkdir -p ~/private/madsonic/playlist-export
+        mkdir -p ~/private/madsonic/playlist/{import,export,backup}
         echo -n "$madsonicfvs" > ~/private/madsonic/.version
         echo
         echo -e "\033[32m""$madsonicfvs""\e[0m" "Is downloading now."
@@ -393,22 +389,26 @@ then
         echo -e "\033[31m""Configuring the start-up script.""\e[0m"
         echo -e "\033[35m""User input is required for this next step:""\e[0m"
         echo -e "\033[33m""Note on user input:""\e[0m" "It is OK to use a relative path like:" "\033[33m""~/private/rtorrent/data""\e[0m"
-        sed -i 's|MADSONIC_HOME=/var/madsonic|MADSONIC_HOME=~/private/madsonic|g' ~/private/madsonic/madsonic.sh
-        sed -i "s/MADSONIC_PORT=4040/MADSONIC_PORT=$http/g" ~/private/madsonic/madsonic.sh
-        sed -i 's|MADSONIC_CONTEXT_PATH=/|MADSONIC_CONTEXT_PATH=/$(whoami)/madsonic|g' ~/private/madsonic/madsonic.sh
-        sed -i "s/MADSONIC_INIT_MEMORY=256/MADSONIC_INIT_MEMORY=$initmemory/g" ~/private/madsonic/madsonic.sh
-        sed -i "s/MADSONIC_MAX_MEMORY=350/MADSONIC_MAX_MEMORY=$maxmemory/g" ~/private/madsonic/madsonic.sh
-        sed -i '0,/MADSONIC_PIDFILE=/s|MADSONIC_PIDFILE=|MADSONIC_PIDFILE=~/private/madsonic/madsonic.sh.PID|g' ~/private/madsonic/madsonic.sh
+        #
+        sed -i 's|MADSONIC_HOME=/var/madsonic|MADSONIC_HOME=~/private/madsonic|g' ~/private/madsonic/madsonic.sh > /dev/null 2>&1
+        sed -i "s/MADSONIC_PORT=4040/MADSONIC_PORT=$http/g" ~/private/madsonic/madsonic.sh > /dev/null 2>&1
+        sed -i 's|MADSONIC_CONTEXT_PATH=/|MADSONIC_CONTEXT_PATH=/$(whoami)/madsonic|g' ~/private/madsonic/madsonic.sh > /dev/null 2>&1
+        sed -i "s/MADSONIC_INIT_MEMORY=192/MADSONIC_INIT_MEMORY=$initmemory/g" ~/private/madsonic/madsonic.sh > /dev/null 2>&1
+        sed -i "s/MADSONIC_MAX_MEMORY=384/MADSONIC_MAX_MEMORY=$maxmemory/g" ~/private/madsonic/madsonic.sh > /dev/null 2>&1
+        sed -i '0,/MADSONIC_PIDFILE=/s|MADSONIC_PIDFILE=|MADSONIC_PIDFILE=~/private/madsonic/madsonic.sh.PID|g' ~/private/madsonic/madsonic.sh > /dev/null 2>&1
+        #
         read -ep "Enter the path to your media or leave blank and press enter to skip: " path
-        sed -i "s|MADSONIC_DEFAULT_MUSIC_FOLDER=/var/media|MADSONIC_DEFAULT_MUSIC_FOLDER=$path|g" ~/private/madsonic/madsonic.sh
-        sed -i 's|MADSONIC_DEFAULT_UPLOAD_FOLDER=/var/media/Incoming|MADSONIC_DEFAULT_UPLOAD_FOLDER=~/private/madsonic/Incoming|g' ~/private/madsonic/madsonic.sh
-        sed -i 's|MADSONIC_DEFAULT_PODCAST_FOLDER=/var/media/Podcast|MADSONIC_DEFAULT_PODCAST_FOLDER=~/private/madsonic/Podcast|g' ~/private/madsonic/madsonic.sh
-        sed -i 's|MADSONIC_DEFAULT_PLAYLIST_IMPORT_FOLDER=/var/media/playlist-import|MADSONIC_DEFAULT_PLAYLIST_IMPORT_FOLDER=~/private/madsonic/playlist-import|g' ~/private/madsonic/madsonic.sh
-        sed -i 's|MADSONIC_DEFAULT_PLAYLIST_EXPORT_FOLDER=/var/media/playlist-export|MADSONIC_DEFAULT_PLAYLIST_EXPORT_FOLDER=~/private/madsonic/playlist-export|g' ~/private/madsonic/madsonic.sh
-        sed -i 's/quiet=0/quiet=1/g' ~/private/madsonic/madsonic.sh
-        sed -i "23 i export LC_ALL=en_GB.UTF-8\n" ~/private/madsonic/madsonic.sh
-        sed -i '23 i export LANG=en_GB.UTF-8' ~/private/madsonic/madsonic.sh
-        sed -i '23 i export LANGUAGE=en_GB.UTF-8' ~/private/madsonic/madsonic.sh
+        #
+        sed -ri "s|MADSONIC_DEFAULT_MUSIC_FOLDER=(.*)|MADSONIC_DEFAULT_MUSIC_FOLDER=$path|g" ~/private/madsonic/madsonic.sh > /dev/null 2>&1
+        sed -ri 's|MADSONIC_DEFAULT_UPLOAD_FOLDER=(.*)|MADSONIC_DEFAULT_UPLOAD_FOLDER=~/private/madsonic/Incoming|g' ~/private/madsonic/madsonic.sh > /dev/null 2>&1
+        sed -ri 's|MADSONIC_DEFAULT_PODCAST_FOLDER=(.*)|MADSONIC_DEFAULT_PODCAST_FOLDER=~/private/madsonic/Podcast|g' ~/private/madsonic/madsonic.sh > /dev/null 2>&1
+        sed -ri 's|MADSONIC_DEFAULT_PLAYLIST_IMPORT_FOLDER=(.*)|MADSONIC_DEFAULT_PLAYLIST_IMPORT_FOLDER=~/private/madsonic/playlist/import|g' ~/private/madsonic/madsonic.sh > /dev/null 2>&1
+        sed -ri 's|MADSONIC_DEFAULT_PLAYLIST_EXPORT_FOLDER=(.*)|MADSONIC_DEFAULT_PLAYLIST_EXPORT_FOLDER=~/private/madsonic/playlist/export|g' ~/private/madsonic/madsonic.sh > /dev/null 2>&1
+        sed -ri 's|MADSONIC_DEFAULT_PLAYLIST_BACKUP_FOLDER=(.*)|MADSONIC_DEFAULT_PLAYLIST_BACKUP_FOLDER=~/private/madsonic/playlist/backup|g' ~/private/madsonic/madsonic.sh > /dev/null 2>&1
+        sed -i 's/quiet=0/quiet=1/g' ~/private/madsonic/madsonic.sh > /dev/null 2>&1
+        sed -i "23 i export LC_ALL=en_GB.UTF-8\n" ~/private/madsonic/madsonic.sh > /dev/null 2>&1
+        sed -i '23 i export LANG=en_GB.UTF-8' ~/private/madsonic/madsonic.sh > /dev/null 2>&1
+        sed -i '23 i export LANGUAGE=en_GB.UTF-8' ~/private/madsonic/madsonic.sh > /dev/null 2>&1
         # Apache proxypass
         mkdir -p ~/.apache2/conf.d
         echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\nInclude /etc/apache2/mods-available/ssl.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\nSSLProxyEngine on\n\nProxyPass /madsonic http://10.0.0.1:'"$http"'/${USER}/madsonic\nProxyPassReverse /madsonic http://10.0.0.1:'"$http"'/${USER}/madsonic\nRedirect /${USER}/madsonic https://${APACHE_HOSTNAME}/${USER}/madsonic' > "$HOME/.apache2/conf.d/madsonic.conf"
@@ -474,12 +474,12 @@ then
             then
                 echo
                 echo -e "\033[32m" "Relaunching the installer.""\e[0m"
-                if [[ -f ~/"$scriptname".sh ]] 
+                if [[ -f ~/bin/"$scriptname" ]] 
                 then
-                    bash ~/"$scriptname".sh
+                    bash ~/bin/"$scriptname"
                 else
-                    wget -qO ~/"$scriptname".sh "$scripturl"
-                    bash ~/"$scriptname".sh
+                    wget -qO ~/bin/"$scriptname" "$scripturl"
+                    bash ~/bin/"$scriptname"
                 fi
             else
                 exit 1
