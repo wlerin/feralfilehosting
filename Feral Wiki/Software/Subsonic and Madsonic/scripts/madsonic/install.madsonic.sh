@@ -10,7 +10,7 @@ jvdecimal="1.7.0_67"
 #
 # * * * * * bash -l ~/bin/madsonicron
 #
-# wget -qO ~/install.madsonic.sh http://git.io/Eq97bg && bash ~/install.madsonic.sh
+# wget -qO ~/install.madsonic http://git.io/Eq97bg && bash ~/install.madsonic
 #
 ############################
 ## Version History Starts ##
@@ -52,7 +52,13 @@ scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20W
 #### Self Updater Start ####
 ############################
 #
-mkdir -p ~/bin
+mkdir -p "$HOME"/bin
+#
+if [[ ! -f "$HOME/bin/$scriptname" ]]
+then
+    wget -qO "$HOME/bin/$scriptname" "$scripturl"
+fi
+#
 wget -qO "$HOME/000$scriptname" "$scripturl"
 #
 if ! diff -q "$HOME/000$scriptname" "$HOME/bin/$scriptname" >/dev/null 2>&1
@@ -61,7 +67,7 @@ then
     scriptname="'"$scriptname"'"
     wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
     bash "$HOME/bin/$scriptname"
-    rm -f "$HOME/scriptname"
+    rm -f "$HOME/$scriptname"{,.sh}
     exit 1' > "$HOME/111$scriptname"
     bash "$HOME/111$scriptname"
     exit 1
