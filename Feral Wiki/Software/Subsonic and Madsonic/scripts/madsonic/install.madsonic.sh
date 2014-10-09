@@ -52,36 +52,36 @@ scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/maste
 #### Self Updater Start ####
 ############################
 #
-mkdir -p "$HOME"/bin
+mkdir -p ~/bin
 #
-if [[ ! -f "$HOME/bin/$scriptname" ]]
+if [[ ! -f ~/bin/"$scriptname" ]]
 then
-    wget -qO "$HOME/bin/$scriptname" "$scripturl"
+    wget -qO ~/bin/"$scriptname" "$scripturl"
 fi
 #
-wget -qO "$HOME/000$scriptname" "$scripturl"
+wget -qO ~/000"$scriptname" "$scripturl"
 #
-if ! diff -q "$HOME/000$scriptname" "$HOME/bin/$scriptname" >/dev/null 2>&1
+if ! diff -q ~/000"$scriptname" ~/bin/"$scriptname" >/dev/null 2>&1
 then
     echo '#!/bin/bash
     scriptname="'"$scriptname"'"
-    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
-    rm -f "$HOME/$scriptname"{,.sh}
-    bash "$HOME/bin/$scriptname"
-    exit 1' > "$HOME/111$scriptname"
-    bash "$HOME/111$scriptname"
+    wget -qO ~/bin/"$scriptname" "'"$scripturl"'"
+    rm -f ~/"$scriptname"{,.sh}
+    bash ~/bin/"$scriptname"
+    exit 1' > ~/111"$scriptname"
+    bash ~/111"$scriptname"
     exit 1
 else
     echo '#!/bin/bash
     scriptname="'"$scriptname"'"
-    rm -f "$HOME/$scriptname"{,.sh}
-    bash "$HOME/bin/$scriptname"
-    exit 1' > "$HOME/111$scriptname"
-    bash "$HOME/111$scriptname"
+    rm -f ~/"$scriptname"{,.sh}
+    bash ~/bin/"$scriptname"
+    exit 1' > ~/111"$scriptname"
+    bash ~/111"$scriptname"
     exit 1
 fi
 cd && rm -f {000,111}"$scriptname"
-chmod -f 700 "$HOME/bin/$scriptname"
+chmod -f 700 ~/bin/"$scriptname"
 #
 ############################
 ##### Self Updater End #####
