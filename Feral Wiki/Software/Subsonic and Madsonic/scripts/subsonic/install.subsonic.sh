@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Subsonic
-scriptversion="1.7.8"
+scriptversion="1.8.2"
 scriptname="install.subsonic"
 subsonicversion="5.0"
 javaversion="1.7 Update 67"
@@ -52,20 +52,42 @@ scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20W
 #### Self Updater Start ####
 ############################
 #
-mkdir -p ~/bin
-wget -qO "$HOME/000$scriptname" "$scripturl"
+mkdir -p "$HOME/bin"
 #
-if ! diff -q "$HOME/000$scriptname" "$HOME/bin/$scriptname" >/dev/null 2>&1
+if [[ ! -f "$HOME/$scriptname.sh" ]]
+then
+    wget -qO "$HOME/$scriptname.sh" "$scripturl"
+fi
+if [[ ! -f "$HOME/bin/$scriptname" ]]
+then
+    wget -qO "$HOME/bin/$scriptname" "$scripturl"
+fi
+#
+wget -qO "$HOME/000$scriptname.sh" "$scripturl"
+#
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" >/dev/null 2>&1
 then
     echo '#!/bin/bash
     scriptname="'"$scriptname"'"
+    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
     wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
-    bash "$HOME/bin/$scriptname"
-    exit 1' > "$HOME/111$scriptname"
-    bash "$HOME/111$scriptname"
+    bash "$HOME/$scriptname.sh"
+    exit 1' > "$HOME/111$scriptname.sh"
+    bash "$HOME/111$scriptname.sh"
     exit 1
 fi
-cd && rm -f {000,111}"$scriptname"
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" >/dev/null 2>&1
+then
+    echo '#!/bin/bash
+    scriptname="'"$scriptname"'"
+    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
+    bash "$HOME/$scriptname.sh"
+    exit 1' > "$HOME/222$scriptname.sh"
+    bash "$HOME/222$scriptname.sh"
+    exit 1
+fi
+cd && rm -f {000,111,222}"$scriptname.sh"
 chmod -f 700 "$HOME/bin/$scriptname"
 #
 ############################
@@ -309,7 +331,7 @@ then
         echo
         echo -e "This Script needs to exit for the Java changes to take effect. Please restart the Script using this command:"
         echo
-        echo 'bash ~/install.subsonic.sh'
+        echo 'bash ~/bin/install.subsonic'
         echo
         bash
         exit 1
@@ -447,12 +469,12 @@ then
             then
                 echo
                 echo -e "\033[32m" "Relaunching the installer.""\e[0m"
-                if [[ -f ~/"$scriptname".sh ]]
+                if [[ -f ~/bin/"$scriptname" ]]
                 then
-                    bash ~/"$scriptname".sh
+                    bash ~/bin/"$scriptname"
                 else
-                    wget -qO ~/"$scriptname".sh "$scripturl"
-                    bash ~/"$scriptname".sh
+                    wget -qO ~/bin/"$scriptname" "$scripturl"
+                    bash ~/bin/"$scriptname"
                 fi
             else
                 exit 1
