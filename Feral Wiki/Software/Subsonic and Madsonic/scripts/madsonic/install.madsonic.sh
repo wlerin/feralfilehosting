@@ -52,37 +52,6 @@ scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/maste
 #### Self Updater Start ####
 ############################
 #
-mkdir -p ~/bin
-#
-if [[ ! -f ~/bin/"$scriptname" ]]
-then
-    wget -qO ~/bin/"$scriptname" "$scripturl"
-fi
-#
-wget -qO ~/000"$scriptname" "$scripturl"
-#
-if ! diff -q ~/000"$scriptname" ~/bin/"$scriptname" >/dev/null 2>&1
-then
-    echo '#!/bin/bash
-    scriptname="'"$scriptname"'"
-    wget -qO ~/bin/"$scriptname" "'"$scripturl"'"
-    rm -f ~/"$scriptname"{,.sh}
-    bash ~/bin/"$scriptname"
-    exit 1' > ~/111"$scriptname"
-    bash ~/111"$scriptname"
-    exit 1
-else
-    echo '#!/bin/bash
-    scriptname="'"$scriptname"'"
-    rm -f ~/"$scriptname"{,.sh}
-    bash ~/bin/"$scriptname"
-    exit 1' > ~/111"$scriptname"
-    bash ~/111"$scriptname"
-    exit 1
-fi
-cd && rm -f {000,111}"$scriptname"
-chmod -f 700 ~/bin/"$scriptname"
-#
 ############################
 ##### Self Updater End #####
 ############################
