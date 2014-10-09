@@ -10,7 +10,7 @@ jvdecimal="1.7.0_67"
 #
 # * * * * * bash -l ~/bin/madsonicron
 #
-# wget -qO ~/install.madsonic http://git.io/Eq97bg && bash ~/install.madsonic
+# wget -qO ~/install.madsonic.sh http://git.io/Eq97bg && bash ~/install.madsonic.sh
 #
 ############################
 ## Version History Starts ##
