@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Madsonic
-scriptversion="1.8.2"
+scriptversion="1.8.3"
 scriptname="install.madsonic"
 madsonicversion="5.1 Build 5150"
 javaversion="1.7 Update 67"
@@ -335,7 +335,7 @@ then
         echo 'bash ~/bin/install.madsonic'
         echo
         bash
-        exit 1
+        exit
     fi
     #
     #############################
@@ -345,7 +345,6 @@ then
     if [[ ! -d ~/private/madsonic ]]
     then
         echo -e "Congratulations," "\033[31m""Java is installed""\e[0m"". Continuing with the installation."
-        sleep 1
         echo
         echo -e "Path" "\033[36m""~/private/madsonic/""\e[0m" "created. Moving to next step."
         mkdir -p ~/sonictmp
@@ -361,7 +360,6 @@ then
         echo -e "\033[36m""madsonic.zip""\e[0m" "Is unpacking now."
         unzip -qo ~/sonictmp/madsonic.zip -d ~/private/madsonic
         echo -e "\033[36m""madsonic.zip""\e[0m" "Has been unpacked to" "\033[36m""~/private/madsonic/\e[0m"
-        sleep 1
         echo
         echo -e "\033[32m""$mffmpegfvcs""\e[0m" "Is downloading now."
         wget -qO ~/sonictmp/ffmpeg.zip "$mffmpegfvc"
@@ -371,19 +369,16 @@ then
         chmod -f 700 ~/private/madsonic/transcode/{Audioffmpeg,ffmpeg,lame,xmp}
         echo -e "\033[36m""$mffmpegfvcs""\e[0m" "Has been unpacked to" "\033[36m~/private/madsonic/transcode/\e[0m"
         rm -rf ~/sonictmp
-        sleep 1
         echo
         echo -e "\033[32m""Copying over a local version of lame.""\e[0m"
         # cp -f /usr/local/bin/lame ~/private/madsonic/transcode/ 2> /dev/null
         chmod -f 700 ~/private/madsonic/transcode/lame
         echo -e "Lame copied to" "\033[36m""~/private/madsonic/transcode/\e[0m"
-        sleep 1
         echo
         echo -e "\033[32m""Copying over a local version of Flac.""\e[0m"
         cp -f /usr/bin/flac ~/private/madsonic/transcode/ 2> /dev/null
         chmod -f 700 ~/private/madsonic/transcode/flac
         echo -e "Flac copied to" "\033[36m""~/private/madsonic/transcode/""\e[0m"
-        sleep 1
         echo
         echo -e "\033[31m""Configuring the start-up script.""\e[0m"
         echo -e "\033[35m""User input is required for this next step:""\e[0m"
@@ -396,9 +391,9 @@ then
         sed -i "s/MADSONIC_MAX_MEMORY=384/MADSONIC_MAX_MEMORY=$maxmemory/g" ~/private/madsonic/madsonic.sh > /dev/null 2>&1
         sed -i '0,/MADSONIC_PIDFILE=/s|MADSONIC_PIDFILE=|MADSONIC_PIDFILE=~/private/madsonic/madsonic.sh.PID|g' ~/private/madsonic/madsonic.sh > /dev/null 2>&1
         #
-        read -ep "Enter the path to your media or leave blank and press enter to skip: " path
+        read -ep "Enter the path to your media or leave blank and press enter to skip: " -i '~/' path
         #
-        sed -ri "s|MADSONIC_DEFAULT_MUSIC_FOLDER=(.*)|MADSONIC_DEFAULT_MUSIC_FOLDER=$path|g" ~/private/madsonic/madsonic.sh > /dev/null 2>&1
+        sed -ri "s@MADSONIC_DEFAULT_MUSIC_FOLDER=(.*)@MADSONIC_DEFAULT_MUSIC_FOLDER=$(echo $path | sed -e 's#/$##')@g" ~/private/madsonic/madsonic.sh > /dev/null 2>&1
         sed -ri 's|MADSONIC_DEFAULT_UPLOAD_FOLDER=(.*)|MADSONIC_DEFAULT_UPLOAD_FOLDER=~/private/madsonic/Incoming|g' ~/private/madsonic/madsonic.sh > /dev/null 2>&1
         sed -ri 's|MADSONIC_DEFAULT_PODCAST_FOLDER=(.*)|MADSONIC_DEFAULT_PODCAST_FOLDER=~/private/madsonic/Podcast|g' ~/private/madsonic/madsonic.sh > /dev/null 2>&1
         sed -ri 's|MADSONIC_DEFAULT_PLAYLIST_IMPORT_FOLDER=(.*)|MADSONIC_DEFAULT_PLAYLIST_IMPORT_FOLDER=~/private/madsonic/playlist/import|g' ~/private/madsonic/madsonic.sh > /dev/null 2>&1
@@ -424,7 +419,6 @@ then
         bash ~/private/madsonic/madsonic.sh
         echo -e "A restart/start/kill script has been created at:" "\033[35m""~/bin/madsonicrsk""\e[0m"
         echo -e "\033[32m""Madsonic is now started, use the links below to access it. Don't forget to set path to FULL path to you music folder in the gui.""\e[0m"
-        sleep 1
         echo
         echo -e "Madsonic is accessible at:" "\033[32m""https://$(hostname -f)/$(whoami)/madsonic/""\e[0m"
         echo -e "It may take a minute or two to load properly."
@@ -432,7 +426,7 @@ then
         echo -e "Madsonic started at PID:" "\033[31m""$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null)""\e[0m"
         echo
         bash
-        exit 1
+        exit
     else
         echo -e "\033[31m""Madsonic appears to already be installed.""\e[0m" "Please kill the PID:" "\033[33m""$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null)""\e[0m" "if it is running and delete the" "\033[36m""~/private/madsonic directory""\e[0m"
         echo
@@ -443,11 +437,9 @@ then
             echo "Killing the process and removing files."
             kill -9 $(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null) 2> /dev/null
             echo -e "\033[31m" "Done""\e[0m"
-            sleep 1
             echo "Removing ~/private/madsonic"
             rm -rf ~/private/madsonic
             echo -e "\033[31m" "Done""\e[0m"
-            sleep 1
             echo "Removing RSK scripts if present."
             rm -f ~/bin/madsonic.4.8
             rm -f ~/madsonic.4.8.sh
@@ -462,13 +454,11 @@ then
             /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
             /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
             echo -e "\033[31m" "Done""\e[0m"
-            sleep 1
             echo "Finalising removal."
             rm -rf ~/private/madsonic
             echo -e "\033[31m" "Done and Done""\e[0m"
             echo
-            sleep 1
-            read -ep "Would you like you relaunch the installer [y] or quit [q]: "  confirm
+            read -ep "Would you like you relaunch the installer [y] or quit [q]: " -i "y" confirm
             if [[ "$confirm" =~ ^[Yy]$ ]]
             then
                 echo
@@ -481,7 +471,7 @@ then
                     bash ~/bin/"$scriptname"
                 fi
             else
-                exit 1
+                exit
             fi
         elif [[ "$confirm" =~ ^[Uu]$ ]]
         then
@@ -512,7 +502,6 @@ then
             bash ~/private/madsonic/madsonic.sh
             echo -e "A restart/start/kill script has been created at:" "\033[35m""~/bin/madsonicrsk""\e[0m"
             echo -e "\033[32m""Madsonic is now started, use the link below to access it. Don't forget to set path to FULL path to you music folder in the gui.""\e[0m"
-            sleep 1
             echo
             echo -e "Madsonic is accessible at:" "\033[32m""https://$(hostname -f)/$(whoami)/madsonic/""\e[0m"
             echo -e "It may take a minute or two to load properly."
@@ -520,11 +509,11 @@ then
             echo -e "Madsonic started at PID:" "\033[31m""$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null)""\e[0m"
             echo
             bash
-            exit 1
+            exit
         else
             echo "You chose to quit and exit the script"
             echo
-            exit 1
+            exit
         fi
     fi
 #
