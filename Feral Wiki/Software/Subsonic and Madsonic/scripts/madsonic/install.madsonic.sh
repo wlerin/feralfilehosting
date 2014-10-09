@@ -73,6 +73,7 @@ then
     exit 1
 else
     echo '#!/bin/bash
+    scriptname="'"$scriptname"'"
     rm -f "$HOME/$scriptname"{,.sh}
     bash "$HOME/bin/$scriptname"
     exit 1' > "$HOME/111$scriptname"
