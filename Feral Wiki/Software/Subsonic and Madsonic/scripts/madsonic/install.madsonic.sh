@@ -42,7 +42,7 @@ madsonicfvs="5.1.5150-standalone.zip"
 mffmpegfvc="https://bitbucket.org/feralhosting/feralfiles/downloads/sonic.ffpmeg.27.09.2014.zip"
 mffmpegfvcs="sonic.ffpmeg.27.09.2014.zip"
 #
-scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/madsonic/install.madsonic.sh"
+scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/madsonic/install.madsonic.sh"
 #
 ############################
 ####### Variable End #######
