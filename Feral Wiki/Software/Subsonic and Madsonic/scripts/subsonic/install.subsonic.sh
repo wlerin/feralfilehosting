@@ -326,7 +326,7 @@ then
         rm -f ~/java.tar.gz
         rm -rf ~/jre"$jvdecimal"
         echo -n "$javaversion" > ~/.javaversion
-        # we create a custom Java version file for comparison so the installer only runs once
+        cd && rm -f {Welcome.html,THIRDPARTYLICENSEREADME-JAVAFX.txt,THIRDPARTYLICENSEREADME.txt,release,README,LICENSE,COPYRIGHT}
         echo -e "\033[31m""Important:""\e[0m" "Java" "\033[32m""$javaversion""\e[0m" "has been installed to" "\033[36m""$HOME/""\e[0m"
         echo
         echo -e "This Script needs to exit for the Java changes to take effect. Please restart the Script using this command:"
