@@ -1,8 +1,8 @@
 #!/bin/bash
 # Install Madsonic
-scriptversion="1.8.1"
+scriptversion="1.7.8"
 scriptname="install.madsonic"
-madsonicversion="5.1 Build 5150"
+madsonicversion="5.0 Build 3880"
 javaversion="1.7 Update 67"
 jvdecimal="1.7.0_67"
 #
@@ -10,7 +10,7 @@ jvdecimal="1.7.0_67"
 #
 # * * * * * bash -l ~/bin/madsonicron
 #
-# wget -qO ~/install.madsonic http://git.io/Eq97bg && bash ~/install.madsonic
+# wget -qO ~/install.madsonic.sh http://git.io/Eq97bg && bash ~/install.madsonic.sh
 #
 ############################
 ## Version History Starts ##
@@ -36,13 +36,13 @@ installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 # Java URL
 javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=95116"
 # Madsonic Standalone files
-madsonicfv="https://bitbucket.org/feralhosting/feralfiles/downloads/5.1.5150-standalone.zip"
-madsonicfvs="5.1.5150-standalone.zip"
+madsonicfv="https://bitbucket.org/feralhosting/feralfiles/downloads/5.0.3880-standalone.zip"
+madsonicfvs="5.0.3880-standalone.zip"
 # ffmpeg files
-mffmpegfvc="https://bitbucket.org/feralhosting/feralfiles/downloads/sonic.ffpmeg.27.09.2014.zip"
-mffmpegfvcs="sonic.ffpmeg.27.09.2014.zip"
+mffmpegfvc="https://bitbucket.org/feralhosting/feralfiles/downloads/sonic.ffmpeg.19.08.2014.zip"
+mffmpegfvcs="sonic.ffmpeg.19.08.2014.zip"
 #
-scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/madsonic/install.madsonic.sh"
+scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/madsonic/install.madsonic.sh"
 #
 ############################
 ####### Variable End #######
@@ -51,6 +51,44 @@ scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/maste
 ############################
 #### Self Updater Start ####
 ############################
+#
+mkdir -p "$HOME/bin"
+#
+if [[ ! -f "$HOME/$scriptname.sh" ]]
+then
+    wget -qO "$HOME/$scriptname.sh" "$scripturl"
+fi
+if [[ ! -f "$HOME/bin/$scriptname" ]]
+then
+    wget -qO "$HOME/bin/$scriptname" "$scripturl"
+fi
+#
+wget -qO "$HOME/000$scriptname.sh" "$scripturl"
+#
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" > /dev/null 2>&1
+then
+    echo '#!/bin/bash
+    scriptname="'"$scriptname"'"
+    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
+    bash "$HOME/$scriptname.sh"
+    exit 1' > "$HOME/111$scriptname.sh"
+    bash "$HOME/111$scriptname.sh"
+    exit 1
+fi
+if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" > /dev/null 2>&1
+then
+    echo '#!/bin/bash
+    scriptname="'"$scriptname"'"
+    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
+    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
+    bash "$HOME/$scriptname.sh"
+    exit 1' > "$HOME/222$scriptname.sh"
+    bash "$HOME/222$scriptname.sh"
+    exit 1
+fi
+cd && rm -f {000,111,222}"$scriptname.sh"
+chmod -f 700 "$HOME/bin/$scriptname"
 #
 ############################
 ##### Self Updater End #####
@@ -259,7 +297,7 @@ fi
 #
 echo -e "The" "\033[36m""~/bin/madsonicrsk""\e[0m" "has been updated."
 echo
-read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " -i "y" updatestatus
+read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " updatestatus
 echo
 if [[ "$updatestatus" =~ ^[Yy]$ ]]
 then
@@ -269,6 +307,9 @@ then
 ############################
 #
     mkdir -p ~/private
+    echo -e "\033[31m""User Notice:""\e[0m" "\033[33m""This is a user supported script. Please don't expect or ask staff to support this directly.\nTo get support you can jump on IRC and ask other users for help.\nAll critical bugs should be reported and bug fixes or improvements are welcomed and encouraged.""\e[0m"
+    echo
+    sleep 2
     #
     #############################
     #### Install Java Start  ####
@@ -294,7 +335,7 @@ then
         echo
         echo -e "This Script needs to exit for the Java changes to take effect. Please restart the Script using this command:"
         echo
-        echo 'bash ~/bin/install.madsonic'
+        echo 'bash ~/install.madsonic.sh'
         echo
         bash
         exit 1
@@ -433,12 +474,12 @@ then
             then
                 echo
                 echo -e "\033[32m" "Relaunching the installer.""\e[0m"
-                if [[ -f ~/bin/"$scriptname" ]] 
+                if [[ -f ~/"$scriptname".sh ]] 
                 then
-                    bash ~/bin/"$scriptname"
+                    bash ~/"$scriptname".sh
                 else
-                    wget -qO ~/bin/"$scriptname" "$scripturl"
-                    bash ~/bin/"$scriptname"
+                    wget -qO ~/"$scriptname".sh "$scripturl"
+                    bash ~/"$scriptname".sh
                 fi
             else
                 exit 1
