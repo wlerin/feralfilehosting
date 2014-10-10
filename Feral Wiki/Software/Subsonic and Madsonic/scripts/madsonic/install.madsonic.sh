@@ -10,7 +10,7 @@ jvdecimal="1.7.0_67"
 #
 # * * * * * bash -l ~/bin/madsonicron
 #
-# wget -qO ~/install.madsonic.sh http://git.io/Eq97bg && bash ~/install.madsonic.sh
+# wget -qO ~/install.madsonic http://git.io/Eq97bg && bash ~/install.madsonic
 #
 ############################
 ## Version History Starts ##
@@ -63,7 +63,7 @@ then
     bash ~/.111"$scriptname"
     exit
 else
-    if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne $$ ]]
+    if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
     then
         echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
         bash ~/.222"$scriptname"

@@ -34,6 +34,6 @@ echo -e "\033[36m""private/rtorrent/data""\e[0m"
 echo
 echo -e "\033[33m""Use TAB to auto complete the path.""\e[0m"
 echo
-read -ep "Please specify a relative path to the users home/jail directory: " jailpath
+read -ep "Please specify a relative path to the users home/jail directory: ~/" -i "private/rtorrent/data" jailpath
 echo
 $binarycmd --passwd --name $name --file $passwdfile --uid $idcount --gid $idcount --home $HOME/$jailpath --shell /bin/false

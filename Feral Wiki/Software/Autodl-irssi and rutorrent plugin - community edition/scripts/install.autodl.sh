@@ -59,43 +59,26 @@ scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20W
 #### Self Updater Start ####
 ############################
 #
-mkdir -p "$HOME/bin"
+[[ ! -d ~/bin ]] && mkdir -p ~/bin
+[[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
 #
-if [[ ! -f "$HOME/$scriptname.sh" ]]
-then
-    wget -qO "$HOME/$scriptname.sh" "$scripturl"
-fi
-if [[ ! -f "$HOME/bin/$scriptname" ]]
-then
-    wget -qO "$HOME/bin/$scriptname" "$scripturl"
-fi
+wget -qO ~/.000"$scriptname" "$scripturl"
 #
-wget -qO "$HOME/000$scriptname.sh" "$scripturl"
-#
-if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" >/dev/null 2>&1
+if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
 then
-    echo '#!/bin/bash
-    scriptname="'"$scriptname"'"
-    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
-    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
-    bash "$HOME/$scriptname.sh"
-    exit 1' > "$HOME/111$scriptname.sh"
-    bash "$HOME/111$scriptname.sh"
-    exit 1
+    echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
+    bash ~/.111"$scriptname"
+    exit
+else
+    if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
+    then
+        echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
+        bash ~/.222"$scriptname"
+        exit
+    fi
 fi
-if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" >/dev/null 2>&1
-then
-    echo '#!/bin/bash
-    scriptname="'"$scriptname"'"
-    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
-    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
-    bash "$HOME/$scriptname.sh"
-    exit 1' > "$HOME/222$scriptname.sh"
-    bash "$HOME/222$scriptname.sh"
-    exit 1
-fi
-cd && rm -f {000,111,222}"$scriptname.sh" installautodl.sh bin/installautodl
-chmod -f 700 "$HOME/bin/$scriptname"
+cd && rm -f .{000,111,222}"$scriptname"
+chmod -f 700 ~/bin/"$scriptname"
 #
 ############################
 ##### Self Updater End #####
