@@ -1,10 +1,10 @@
 #!/bin/bash
-# couchpotato
-scriptversion="1.0.3"
-scriptname="couchpotato"
+# install.couchpotato
+scriptversion="1.0.6"
+scriptname="install.couchpotato"
 # randomessence
 #
-# wget -qO ~/couchpotato.sh http://git.io/NWQA2Q && bash ~/couchpotato.sh
+# wget -qO ~/couchpotato http://git.io/NWQA2Q && bash ~/couchpotato
 #
 ############################
 ## Version History Starts ##
@@ -16,13 +16,16 @@ scriptname="couchpotato"
 # 3: Set the scripturl variable in the variable section to the RAW github URl of the script for updating.
 # 4: Insert your script in the "Script goes here" labelled section
 #
-# This updater deals with updating two files at the same time, the  "~/somescript.sh" and the "~/bin/somescript".
-# This updater deals with updating two files at the same time, the  "~/somescript.sh" and the "~/bin/somescript".
+# This updater deals with updating a single file, the "~/bin/somescript", by updating and switching to this script.
+#
+# http://grover.open2space.com/content/bash-script-menus-and-functions
 #
 ############################
 ### Version History Ends ###
 ############################
-#
+option1="Install Program"
+option2="Update Program"
+option3="Quit the Script"
 ############################
 ###### Variable Start ######
 ############################
@@ -71,7 +74,7 @@ chmod -f 700 ~/bin/"$scriptname"
 echo
 echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
 echo
-read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " updatestatus
+read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " -i "y" updatestatus
 echo
 if [[ "$updatestatus" =~ ^[Yy]$ ]]
 then
@@ -80,32 +83,72 @@ then
 #### User Script Starts ####
 ############################
 #
-    mkdir -p ~/blackhole
-    echo "Downloading and configuring some files..."
-    echo
-    if [[ -f ~/.couchpotato/couchpotato.pid ]]
-    then
-        kill $(cat ~/.couchpotato/couchpotato.pid)
-    fi
-    rm -rf ~/CouchPotatoServer
-    git clone -q "$giturl"
-    cp -rf ~/CouchPotatoServer/. ~/.couchpotato
-    rm -rf ~/CouchPotatoServer
-    echo -e "[core]\nhost = 0.0.0.0\nport = $mainport\nlaunch_browser = 0\nurl_base = /$(whoami)/couchpotato" > ~/.couchpotato/settings.conf
-    echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\n\nProxyPass /couchpotato http://10.0.0.1:'"$mainport"'/${USER}/couchpotato\nProxyPassReverse /couchpotato http://10.0.0.1:'"$mainport"'/${USER}/couchpotato' > ~/.apache2/conf.d/couchpototo.conf
-    /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
-    if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
-    then
-        echo -en 'location ^~ /couchpotato {\nproxy_set_header X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\nproxy_set_header Host $http_x_host;\nproxy_set_header X-NginX-Proxy true;\n\nrewrite /(.*) /'$(whoami)'/$1 break;\nproxy_pass http://10.0.0.1:'"$mainport"'/;\nproxy_redirect off;\n}' >  ~/.nginx/conf.d/000-default-server.d/couchpotato.conf
-        /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
-    fi
-    python ~/.couchpotato/CouchPotato.py --daemon
-    echo "Visit this URL to finish the set up wizard"
-    echo
-    echo "https://$(hostname -f)/$(whoami)/couchpotato/"
-    echo
-    echo -e "\033[31m""It may take a few minutes for the program to load properly in the URL." "\033[32m""Pressing F5 in your browser can help.""\e[0m"
-    echo
+    showMenu () 
+    {
+            echo "1) $option1"
+            echo "2) $option2"
+            echo "3) $option3"
+            echo
+    }
+
+    while [ 1 ]
+    do
+            showMenu
+            read -e CHOICE
+            echo
+            case "$CHOICE" in
+                    "1")
+                            if [[ ! -d ~/.couchpotato ]]
+                            then
+                                mkdir -p ~/.blackhole
+                                echo "Downloading and configuring some files..."
+                                echo
+                                git clone "$giturl" ~/.couchpotato
+                                echo -e "[core]\nhost = 0.0.0.0\nport = $mainport\nlaunch_browser = 0\nurl_base = /$(whoami)/couchpotato\nusername = $(whoami)\n\n[blackhole]\ndirectory = $HOME/.blackhole\n\n[rtorrent]\nusername = rutorrent\nenabled = 1\nhost = https://$(hostname -f)/$(whoami)/rtorrent/rpc\ndirectory = $HOME/private/rtorrent/data/" > ~/.couchpotato/settings.conf
+                                # proxypass start
+                                mkdir -p ~/.apache2/conf.d
+                                echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\n\nProxyPass /couchpotato http://10.0.0.1:'"$mainport"'/${USER}/couchpotato\nProxyPassReverse /couchpotato http://10.0.0.1:'"$mainport"'/${USER}/couchpotato' > ~/.apache2/conf.d/couchpototo.conf
+                                /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
+                                if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+                                then
+                                    echo -en 'location ^~ /couchpotato {\nproxy_set_header X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\nproxy_set_header Host $http_x_host;\nproxy_set_header X-NginX-Proxy true;\n\nrewrite /(.*) /'$(whoami)'/$1 break;\nproxy_pass http://10.0.0.1:'"$mainport"'/;\nproxy_redirect off;\n}' >  ~/.nginx/conf.d/000-default-server.d/couchpotato.conf
+                                    /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
+                                fi
+                                # proxypass end
+                                python ~/.couchpotato/CouchPotato.py --daemon
+                                echo "Visit this URL to finish the set up wizard"
+                                echo
+                                echo "https://$(hostname -f)/$(whoami)/couchpotato/"
+                                echo
+                                echo -e "\033[31m""It may take a few minutes for the program to load properly in the URL." "\033[32m""Pressing F5 in your browser can help.""\e[0m"
+                                echo
+                            else
+                                echo 'The folder ~/.couchpotato already exists. User Option 2 or remove it first'
+                            fi
+                            ;;
+                    "2")    
+                            if [[ -d ~/.couchpotato ]]
+                            then
+                                if [[ -f ~/.couchpotato/couchpotato.pid ]]
+                                then
+                                    kill $(cat ~/.couchpotato/couchpotato.pid)
+                                    sleep 10
+                                    echo "I need to wait 10 seconds for Couchpotato to shut down."                                                                  
+                                fi
+                                cd ~/.couchpotato
+                                git pull origin
+                                echo
+                            else
+                                echo 'Couchpotato is not installed to ~/.couchpotato'
+                            fi
+                            ;;
+                    "3")
+                            echo "You chose to quit the script."
+                            echo
+                            exit
+                            ;;
+            esac
+    done
 #
 ############################
 ##### User Script End  #####
