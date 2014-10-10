@@ -4,7 +4,7 @@ scriptversion="1.0.6"
 scriptname="install.couchpotato"
 # randomessence
 #
-# wget -qO ~/couchpotato http://git.io/NWQA2Q && bash ~/couchpotato
+# wget -qO ~/couchpotato http://git.io/3_iozg && bash ~/couchpotato
 #
 ############################
 ## Version History Starts ##
@@ -31,7 +31,7 @@ option3="Quit the Script"
 ############################
 #
 mainport=$(shuf -i 10001-49000 -n 1)
-scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/CouchPotato%20-%20An%20automatic%20NZB%20and%20torrent%20downloader%20for%20Films/scripts/couchpotato.sh"
+scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/CouchPotato%20-%20An%20automatic%20NZB%20and%20torrent%20downloader%20for%20Films/scripts/install.couchpotato.sh"
 giturl="https://github.com/RuudBurger/CouchPotatoServer.git"
 #
 ############################
