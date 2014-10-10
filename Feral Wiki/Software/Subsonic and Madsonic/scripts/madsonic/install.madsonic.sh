@@ -375,7 +375,7 @@ then
         sed -i "s/MADSONIC_MAX_MEMORY=384/MADSONIC_MAX_MEMORY=$maxmemory/g" ~/private/madsonic/madsonic.sh > /dev/null 2>&1
         sed -i '0,/MADSONIC_PIDFILE=/s|MADSONIC_PIDFILE=|MADSONIC_PIDFILE=~/private/madsonic/madsonic.sh.PID|g' ~/private/madsonic/madsonic.sh > /dev/null 2>&1
         #
-        read -ep "Enter the path to your media or leave blank and press enter to skip: " -i '~/' path
+        read -ep "Enter the path to your media or leave blank and press enter to skip: " path
         #
         sed -ri "s@MADSONIC_DEFAULT_MUSIC_FOLDER=(.*)@MADSONIC_DEFAULT_MUSIC_FOLDER=$(echo $path | sed -e 's#/$##')@g" ~/private/madsonic/madsonic.sh > /dev/null 2>&1
         sed -ri 's|MADSONIC_DEFAULT_UPLOAD_FOLDER=(.*)|MADSONIC_DEFAULT_UPLOAD_FOLDER=~/private/madsonic/Incoming|g' ~/private/madsonic/madsonic.sh > /dev/null 2>&1
