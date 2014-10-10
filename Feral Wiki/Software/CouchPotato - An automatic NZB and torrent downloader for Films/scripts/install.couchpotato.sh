@@ -133,8 +133,8 @@ then
                                 if [[ -f ~/.couchpotato/couchpotato.pid ]]
                                 then
                                     kill $(cat ~/.couchpotato/couchpotato.pid)
-                                    sleep 10
                                     echo "I need to wait 10 seconds for Couchpotato to shut down."
+                                    sleep 10
                                     echo
                                 fi
                                 cd ~/.couchpotato
