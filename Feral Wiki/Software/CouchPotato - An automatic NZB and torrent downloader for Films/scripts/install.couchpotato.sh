@@ -4,7 +4,7 @@ scriptversion="1.0.6"
 scriptname="install.couchpotato"
 # randomessence
 #
-# wget -qO ~/couchpotato http://git.io/3_iozg && bash ~/couchpotato
+# wget -qO ~/install.couchpotato http://git.io/3_iozg && bash ~/install.couchpotato
 #
 ############################
 ## Version History Starts ##
@@ -124,6 +124,7 @@ then
                                 echo
                             else
                                 echo 'The folder ~/.couchpotato already exists. User Option 2 or remove it first'
+                                echo
                             fi
                             ;;
                     "2")    
@@ -133,13 +134,16 @@ then
                                 then
                                     kill $(cat ~/.couchpotato/couchpotato.pid)
                                     sleep 10
-                                    echo "I need to wait 10 seconds for Couchpotato to shut down."                                                                  
+                                    echo "I need to wait 10 seconds for Couchpotato to shut down."
+                                    echo
                                 fi
                                 cd ~/.couchpotato
                                 git pull origin
                                 echo
+                                python ~/.couchpotato/CouchPotato.py --daemon
                             else
                                 echo 'Couchpotato is not installed to ~/.couchpotato'
+                                echo
                             fi
                             ;;
                     "3")
