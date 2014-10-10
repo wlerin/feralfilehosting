@@ -164,5 +164,26 @@ Now stop and restart Sickbeard/Rage then visit the new URL.
 https://server.feralhosting.com/username/mypath
 ~~~
 
+SickRage rTorrent rpc:
+---
+
+These are your `rpc` settings:
+
+Where `username` is your Feral username and `server` is the name of the server that is hosting rutorrent.
+
+`rpc` url
+
+~~~
+https://server.feralhosting.com/username/rtorrent/rpc
+~~~
+
+Username:
+
+~~~
+rutorrent
+~~~
+
+Password is the password provided by Feral for your Rutorrent WebUi in your Manager.
+
 
 

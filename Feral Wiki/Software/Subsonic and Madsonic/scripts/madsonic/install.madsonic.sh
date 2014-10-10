@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Madsonic
-scriptversion="1.8.3"
+scriptversion="1.8.4"
 scriptname="install.madsonic"
 madsonicversion="5.1 Build 5150"
 javaversion="1.7 Update 67"
@@ -51,7 +51,6 @@ scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/maste
 ############################
 #### Self Updater Start ####
 ############################
-#
 #
 [[ ! -d ~/bin ]] && mkdir -p ~/bin
 [[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"

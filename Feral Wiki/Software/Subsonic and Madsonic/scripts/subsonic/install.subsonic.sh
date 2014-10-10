@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Subsonic
-scriptversion="1.8.3"
+scriptversion="1.8.4"
 scriptname="install.subsonic"
 subsonicversion="5.0"
 javaversion="1.7 Update 67"
