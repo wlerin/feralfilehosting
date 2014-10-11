@@ -5,6 +5,7 @@ Bash Script:
 1: Installs Sickbeard or Sickrage from Github
 2: Configures proxypass with the valid SSL URL format.
 3: Can update Sickbeard or Sickrage and/or only configure the proxypass.
+4: SickRage only: Presets rTorrent/Rutorrent rpc settings. Only password is required
 
 ~~~
 wget -qO ~/install.sickbeard.sh http://git.io/bPrsUg && bash ~/install.sickbeard.sh
@@ -13,15 +14,7 @@ wget -qO ~/install.sickbeard.sh http://git.io/bPrsUg && bash ~/install.sickbeard
 Manual Installation:
 ---
 
-Installing Sick-Beard on a Feral slot should be quick and easy with some basic command-line know how.
-
-SSH to your slot and pull Sickbeard:
-
-~~~
-git clone https://github.com/midgetspy/Sick-Beard ~/Sick-Beard
-~~~
-
-Alternatively:
+### SickRage - Recommended:
 
 SickRage - [https://github.com/echel0n/SickRage](https://github.com/echel0n/SickRage)
 
@@ -29,7 +22,20 @@ SickRage - [https://github.com/echel0n/SickRage](https://github.com/echel0n/Sick
 git clone https://github.com/echel0n/SickRage ~/SickRage
 ~~~
 
-Pick a port between `10000` and `50000`.  Remember this port!  Then let's start up the Sickbeard daemon on that port.
+### SickBeard:
+
+SSH to your slot and pull SickBeard:
+
+~~~
+git clone https://github.com/midgetspy/Sick-Beard ~/Sick-Beard
+~~~
+
+### Configuration
+
+**Important note:** To properly configure the proxypass below you will need to edit the config files while the programs is shut-down or set them from within the program and then save and restart. The command below is just a quick start.
+
+
+Pick a port between `10000` and `50000`.  Remember this port!  Then let's start up the SickBeard daemon on that port.
 
 ~~~
 python ~/Sick-Beard/SickBeard.py -d -p XXXXX
@@ -58,6 +64,8 @@ python ~/Sick-Beard/SickBeard.py -d -p XXXXX
 Proxypass Sickbeard or SickRage:
 ---
 
+This template info applies to both SickBeard and SickRage.
+
 **Important note:** You will need to shutdown Sickbeard/Rage to modify the `config.ini` as it saves loaded settings every time the app shuts down, overwriting any changes you may have made.
 
 You will need to first set the `web_root` in the Sickbeard/rage `config.ini` located in the root of the directory cloned from github.
@@ -68,10 +76,22 @@ By default this should be:
 ~/Sick-Beard/config.ini
 ~~~
 
+or
+
+~~~
+~/SickRage/config.ini
+~~~
+
 So this command should work if the path has not been modified.
 
 ~~~
 nano ~/Sick-Beard/config.ini
+~~~
+
+or
+
+~~~
+nano ~/SickRage/config.ini
 ~~~
 
 You will need to enter the `web_root` in the format shown in the image where `username` is your Feral username.

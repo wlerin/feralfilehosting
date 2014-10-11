@@ -15,7 +15,7 @@ Installation
 This script will set-up couchpotato and automatically proxypass it for you on Apache and/or nginx, if it is installed and then run it in the background.
 
 ~~~
-wget -qO ~/couchpotato.sh http://git.io/NWQA2Q && bash ~/couchpotato.sh
+wget -qO ~/install.couchpotato http://git.io/3_iozg && bash ~/install.couchpotato
 ~~~
 
 **Important notes:** 

@@ -4,7 +4,7 @@ scriptversion="1.0.2"
 scriptname="restart"
 # randomessence
 #
-# wget -qO ~/restart.sh http://git.io/5Uw8Gw && bash ~/restart.sh
+# wget -qO ~/restart http://git.io/5Uw8Gw && bash ~/restart
 #
 ############################
 ## Version History Starts ##
