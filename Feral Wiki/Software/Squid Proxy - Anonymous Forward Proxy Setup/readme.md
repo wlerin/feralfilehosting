@@ -97,11 +97,15 @@ Connecting to your proxy
 
 You connect to your proxy via the proxy settings of your application.
 
-host: server.feralhosting.com
+**host:** `server.feralhosting.com`
 
-Port: What ever you set on the conf file.
+**Port:** What ever port you set on the conf file. This command will show it to you in SSH:
 
-Use for all connections.
+~~~
+cat ~/etc/squid.conf | grep http_port
+~~~
+
+**Proxy options:** Use this proxy for all connections (if available).
 
 [Firefox Foxy Proxy](https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/)
 
