@@ -2,7 +2,7 @@
 Squid - A forward proxy
 ---
 
-Use this article to download and configure Squid as an anonymous with basic_auth authentication
+Use this article to download and configure Squid as an anonymous web proxy with `basic_auth` authentication
 
 **1:**  Create an auth file that we will use to authenticate the proxy users.
 
