@@ -29,7 +29,7 @@ rm -rf squid{-3.4.8,.tar.gz}
 **3:** Get the preconfigured conf file that we will have to modify a little.
 
 ~~~
-wget ~/etc/squid.conf 
+wget -qO ~/etc/squid.conf http://git.io/yavZuw
 ~~~
 
 **Recommended:** Make some required changes to the conf file with these commands.
