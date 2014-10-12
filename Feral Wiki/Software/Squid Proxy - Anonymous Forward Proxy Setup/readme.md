@@ -110,3 +110,28 @@ cat ~/etc/squid.conf | grep http_port
 [Firefox Foxy Proxy](https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/)
 
 [Chrome Proxy SwitchySharp](https://chrome.google.com/webstore/detail/proxy-switchysharp/dpplabbmogkhghncfbfdeeokoefdjegm)
+
+
+htdigest auth:
+---
+
+Here is the format for using digest auth instead of basic.
+
+1: Create the password file:
+
+~~~
+htdigest -c ~/.squiddigest MyRealm username
+~~~
+
+Now add these to the `~/etc/squid.cong` replacing the `basic_auth` version.
+
+~~~
+auth_param digest program /media/DiskID/username/libexec/digest_file_auth -c /media/DiskID/username/.squiddigest
+auth_param digest children 5
+auth_param digest realm MyRealm
+~~~
+
+Then restart the Squid server.
+
+
+
