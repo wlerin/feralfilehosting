@@ -2,7 +2,7 @@
 Squid - A forward proxy
 ---
 
-Use this download and configure it as an anonymous with the provided conf.
+Use this article to download and configure Squid as an anonymous with basic_auth authentication
 
 **1:**  Create an auth file that we will use to authenticate the proxy users.
 
@@ -52,6 +52,8 @@ Modify this section only:
 **1: **`username` needs to be changed to atch the user you created in step 1 in the `~/.squidauth` file.
 **2:** Full paths should already match your slots if you ran the `sed` command. Othewise edit them to mact your slots full path.
 **3:** The port should have been randomised for you  if you ran the `sed` commands so just take not of it. Otherwise change the port to something between `10000` and `50000`
+
+**Important note:**  The helpers required for authentication are located in `~/libexec`. For example `basic_ncsa_auth`
 
 ~~~
 # And finally deny all other access to this proxy
