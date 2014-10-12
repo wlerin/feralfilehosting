@@ -17,16 +17,16 @@ Redis installation
 Redis is meant to be set an run from within the extracted folder.
 
 ~~~
-wget -qO ~/redis-2.8.5.tar.gz http://download.redis.io/releases/redis-2.8.5.tar.gz
-tar xf ~/redis-2.8.5.tar.gz
-mv -f ~/redis-2.8.5 ~/redis
-cd ~/redis && make
+wget -qO ~/redis.tar.gz http://download.redis.io/releases/redis-2.8.17.tar.gz
+tar xf ~/redis.tar.gz
+mv -f ~/redis-2.8.17 ~/.redis
+cd ~/.redis && make
 ~~~
 
 Then edit the conf to your needs, located here:
 
 ~~~
-~/redis/redis.conf
+~/.redis/redis.conf
 ~~~
 
 Then start redis using this command, inside a screen for easier management:
@@ -38,15 +38,12 @@ screen -S redis
 Then run using this command:
 
 ~~~
-~/redis/src/./redis-server ~/redis/redis.conf
+~/.redis/src/./redis-server ~/redis/redis.conf
 ~~~
 
 Then press and hold `CTRL` and `a` then press `d` to detach from the screen. This leaves it running in the background.
 
 Your programs should be able to connect to the local `redis-server` using the settings you configured in the `redis.conf`
-
-
-
 
 
 
