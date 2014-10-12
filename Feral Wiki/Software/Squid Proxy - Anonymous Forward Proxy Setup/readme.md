@@ -1,19 +1,29 @@
 
-Squid - A forward proxy
+Squid Proxy - Anonymous Forward Proxy Set-up
 ---
 
 Use this article to download and configure Squid as an anonymous web proxy with `basic_auth` authentication
 
-**1:**  Create an auth file that we will use to authenticate the proxy users.
+**1:**  Create an Auth file that we will use to authenticate the proxy users.
+
+**Important note:** Using the `-c` flag will overwrite any existing files with the same name in the specified location. To update use the second command without the `-c` flag.
+
+You can change the `MyRealm` and `username` arguments to meet your needs:
 
 ~~~
-htpasswd -cm ~/.squidauth username
+htdigest -c ~/.squidauth MyRealm username
 ~~~
 
-If the file already exists then just use:
+If the file does exists then use this command instead to update or add users:
 
 ~~~
-htpasswd -m ~/.squidauth username
+htdigest ~/.squidauth MyRealm username
+~~~
+
+So for example:
+
+~~~
+htdigest -c ~/.squidauth NoOrcs bilbobaggins
 ~~~
 
 **2:** Install and compile Squid.
@@ -49,15 +59,23 @@ nano ~/etc/squid.conf
 
 Modify this section only:
 
-**1:** `username` needs to be changed to atch the user you created in step 1 in the `~/.squidauth` file.
-**2:** Full paths should already match your slots if you ran the `sed` command. Othewise edit them to mact your slots full path.
-**3:** The port should have been randomised for you  if you ran the `sed` commands so just take not of it. Otherwise change the port to something between `10000` and `50000`
+**1:** `username` needs to be changed to match the user you created in Step 1 in the `~/.squidauth` file.
+**2:** Change `MyRealm` to the what was set with the `htdigest` command in Step 1.
+**3:** Full paths should already match your slots if you ran the `sed` command. Otherwise edit them to match your slots full path.
+**4:** The port should have been randomised for you  if you ran the `sed` commands so just take not of it. Otherwise change the port to something between `10000` and `50000`
 
 **Important note:**  The helpers required for authentication are located in `~/libexec`. For example `basic_ncsa_auth`
 
 ~~~
 # And finally deny all other access to this proxy
-auth_param basic program /media/DiskID/username/libexec/basic_ncsa_auth /media/DiskID/username/.squidauth
+# Basic Auth Start
+# auth_param basic program /media/DiskID/username/libexec/basic_ncsa_auth /media/DiskID/username/.squidbasic
+# Basic Auth End
+# Digest Auth Start
+auth_param digest program /media/DiskID/username/libexec/digest_file_auth -c /media/DiskID/username/.squidauth
+auth_param digest children 10
+auth_param digest realm MyRealm
+# Digest Auth End
 acl username proxy_auth REQUIRED
 http_access allow username
 http_access deny all
@@ -112,26 +130,30 @@ cat ~/etc/squid.conf | grep http_port
 [Chrome Proxy SwitchySharp](https://chrome.google.com/webstore/detail/proxy-switchysharp/dpplabbmogkhghncfbfdeeokoefdjegm)
 
 
-htdigest auth:
+Basic Auth instead of Digest:
 ---
 
-Here is the format for using digest auth instead of basic.
+Here is the format for using digest Auth instead of basic.
 
-1: Create the password file:
-
-~~~
-htdigest -c ~/.squiddigest MyRealm username
-~~~
-
-Now add these to the `~/etc/squid.cong` replacing the `basic_auth` version.
+**1:** Create the password file:
 
 ~~~
-auth_param digest program /media/DiskID/username/libexec/digest_file_auth -c /media/DiskID/username/.squiddigest
-auth_param digest children 5
-auth_param digest realm MyRealm
+htpasswd -cm ~/.squidbasic username
 ~~~
 
-Then restart the Squid server.
+If the file already exists then just use:
+
+~~~
+htpasswd -m ~/.squidbasic username
+~~~
+
+**2:** Now uncomment this in these `~/etc/squid.conf`  then comment out or remove the Digest Section
+
+~~~
+# auth_param basic program /media/DiskID/username/libexec/basic_ncsa_auth /media/DiskID/username/.squidbasic
+~~~
+
+**3:** Then restart the Squid server.
 
 
 
