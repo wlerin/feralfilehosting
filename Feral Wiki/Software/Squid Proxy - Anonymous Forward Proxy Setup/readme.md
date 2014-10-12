@@ -49,7 +49,7 @@ nano ~/etc/squid.conf
 
 Modify this section only:
 
-**1: **`username` needs to be changed to atch the user you created in step 1 in the `~/.squidauth` file.
+**1:** `username` needs to be changed to atch the user you created in step 1 in the `~/.squidauth` file.
 **2:** Full paths should already match your slots if you ran the `sed` command. Othewise edit them to mact your slots full path.
 **3:** The port should have been randomised for you  if you ran the `sed` commands so just take not of it. Otherwise change the port to something between `10000` and `50000`
 
@@ -71,6 +71,8 @@ http_port 3128
 # Leave coredumps in the first cache dir
 coredump_dir /media/DiskID/username/var/cache/squid
 ~~~
+
+Then press and hold `CTRL` and then press `x` to save. Press `y` to confirm.
 
 Starting Squid:
 ---
