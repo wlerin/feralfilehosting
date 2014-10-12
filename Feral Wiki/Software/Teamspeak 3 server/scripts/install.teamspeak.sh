@@ -1,12 +1,12 @@
 #!/bin/bash
 #
 # Install Teamspeak 3
-scriptversion="1.1.6"
+scriptversion="1.1.7"
 teamspeakversion="3.0.11"
 scriptname="install.teamspeak"
 # randomessence 27/04/2013
 #
-# wget -qO ~/install.teamspeak.sh http://git.io/aOACkQ && bash ~/install.teamspeak.sh
+# wget -qO ~/install.teamspeak http://git.io/aOACkQ && bash ~/install.teamspeak
 #
 # bash ~/private/teamspeak/ts3server_startscript.sh start
 # bash ~/private/teamspeak/ts3server_startscript.sh stop
@@ -39,11 +39,11 @@ scriptname="install.teamspeak"
 ###### Variable Start ######
 ############################
 #
-vport=$(shuf -i 6000-20000 -n 1)
+vport=$(shuf -i 10001-20000 -n 1)
 # vport the voice port: random port between 6000-50000 used in the sed commands
-fport=$(shuf -i 20001-40000 -n 1)
+fport=$(shuf -i 20001-35000 -n 1)
 # fport is file transfer port: vport + 1 used in the sed commands
-qport=$(shuf -i 40001-50000 -n 1)
+qport=$(shuf -i 35001-50000 -n 1)
 # qport is the query port: vport + 2 used in the sed commands
 teamspeakfv="http://dl.4players.de/ts/releases/3.0.11/teamspeak3-server_linux-amd64-3.0.11.tar.gz"
 #
@@ -106,7 +106,7 @@ then
     if [[ ! -d ~/private/teamspeak ]]
     then
         # killall ts3server_linux_amd64 incase they deleted the folder but left the process running.
-        killall -9 -qe ts3server_linux_amd64 2> /dev/null
+        killall -qe ts3server_linux_amd64 2> /dev/null
         # ts3 licensing states for free use only one instance can be run and this is checked in shared memory. Need to give the application time to close fully.
         sleep 2
         # renames the extracted folder to teamspeak
@@ -142,7 +142,7 @@ then
             echo -e "\033[31mYou chose:\e[0m \033[36mRemove it\e[0m"
             echo
             # kills last known PID
-            kill -9 $(cat ~/private/teamspeak/ts3server.pid 2> /dev/null) 2> /dev/null
+            kill $(cat ~/private/teamspeak/ts3server.pid 2> /dev/null) 2> /dev/null
             sleep 2
             # removes the ~/private/teamspeak/ directory
             rm -rf ~/private/teamspeak/
@@ -158,7 +158,7 @@ then
             echo -e "\033[31mYou chose:\e[0m \033[36mUpgrade/Overwrite\e[0m"
             echo
             # kills last known PID
-            kill -9 $(cat ~/private/teamspeak/ts3server.pid 2> /dev/null) 2> /dev/null
+            kill $(cat ~/private/teamspeak/ts3server.pid 2> /dev/null) 2> /dev/null
             sleep 2
             # Copies the contents of the unpacked tar and overwrites the destination.
             cp -rf ~/teamspeak3-server_linux-amd64/. ~/private/teamspeak/
@@ -170,18 +170,16 @@ then
             bash ~/private/teamspeak/ts3server_startscript.sh start
             echo
             # These show the user the IP and the Port from the ts3server.ini
-            echo -e "\033[32mCurrent\e[0m \033[31mHOST\e[0m:\033[36mPORT\e[0m =\e[0m \033[31m"$(hostname)"\e[0m:\033[36m"$(sed -n -e 's/default_voice_port=\(.*\)/\1/p' ~/private/teamspeak/ts3server.ini)"\e[0m"
+            echo -e "\033[32mCurrent\e[0m \033[31mHOST\e[0m:\033[36mPORT\e[0m =\e[0m \033[31m"$(hostname -f)"\e[0m:\033[36m"$(sed -n -e 's/default_voice_port=\(.*\)/\1/p' ~/private/teamspeak/ts3server.ini)"\e[0m"
             echo
             echo -e "\033[33mThis script updated the teamspeak files and will now exit\e[0m"
             echo
-            cd && bash
-            exit 1
+            exit
         else
             rm -rf ~/teamspeak3-server_linux-amd64/
             echo -e "\033[31mYou must delete or upgrade this directory to continue then restart the script.\e[0m \033[32mYou might want to backup your ts3server.ini file first.\e[0m"
             echo
-            cd && bash
-            exit 1
+            exit
         fi
     fi
 echo "machine_id=
@@ -215,12 +213,11 @@ query_skipbruteforcecheck=0
     sleep 2
     bash ~/private/teamspeak/ts3server_startscript.sh start
     #
-    echo -e "\033[32mHere is the connection info:\e[0m \033[31m"$(hostname)"\e[0m:\033[33m"$vport"\e[0m"
+    echo -e "\033[32mHere is the connection info:\e[0m \033[31m$(hostname -f)\e[0m:\033[33m$vport\e[0m"
     echo -e "\033[32mPress \033[36mCTRL + C\e[0m \033[32mto get your prompt back in the next section\e[0m"
     echo -e "\033[31mThis script has done its job and will now exit\e[0m"
     echo
-    cd && bash
-    exit 1
+    exit
 #
 ############################
 ##### User Script End  #####
@@ -229,8 +226,7 @@ query_skipbruteforcecheck=0
 else
     echo -e "You chose to exit after updating the scripts."
     echo
-    cd && bash
-    exit 1
+    exit
 fi
 #
 ############################
