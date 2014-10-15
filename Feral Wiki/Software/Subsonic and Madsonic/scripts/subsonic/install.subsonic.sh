@@ -1,10 +1,10 @@
 #!/bin/bash
 # Install Subsonic
-scriptversion="1.8.4"
+scriptversion="1.8.5"
 scriptname="install.subsonic"
 subsonicversion="5.0"
-javaversion="1.7 Update 67"
-jvdecimal="1.7.0_67"
+javaversion="1.8 Update 25"
+jvdecimal="1.8.0_25"
 #
 # Bobtentpeg 01/30/2013 & randomessence 04/24/2013
 #
@@ -34,7 +34,7 @@ submemory="2048"
 # Gets the Java version from the last time this script installed Java
 installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 # Java URL
-javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=95116"
+javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=97360"
 # Subsonic Standalone files
 subsonicfv="http://downloads.sourceforge.net/project/subsonic/subsonic/5.0/subsonic-5.0-standalone.tar.gz"
 subsonicfvs="subsonic-5.0-standalone.tar.gz"
