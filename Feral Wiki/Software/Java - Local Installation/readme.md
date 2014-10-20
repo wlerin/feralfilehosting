@@ -15,7 +15,7 @@ If you need java 1.6 it's likely already installed by request of another user. I
 
 If you need a newer version of Java, such as 1.7, follow these directions. These directions can be adapted to support any version of Java.
     
-Installing Java into a user directory, and setting paths.
+Installing Java locally
 ---
 
 Use this command to create the `~/bin` directory and reload your shell for this change to take effect.
@@ -26,19 +26,34 @@ mkdir -p ~/bin && bash
 
 Files found via [http://www.java.com/en/download/manual.jsp?locale=en](http://www.java.com/en/download/manual.jsp?locale=en). You want the `.tar.gz` file, not the `.deb` or `.rpm` -- those are used when you are installing with root privileges.
      
-This method will download  and install/update the 64 bit java files for Linux
+This method will download and install/update the 64 bit Java files for Linux
 
-Download v7 update 67:
+### Java 1.7 U71
+
+Download v7:
 
 ~~~
-wget -qO ~/java.tar.gz http://javadl.sun.com/webapps/download/AutoDL?BundleId=95116
+wget -O ~/java.tar.gz http://javadl.sun.com/webapps/download/AutoDL?BundleId=97800
 ~~~
 
 Unpack the files:
----
 
 ~~~
-tar xf ~/java.tar.gz && cp -rf ~/jre1.7.0_67/. ~/ && cd && rm -rf java.tar.gz jre1.7.0_67
+tar xf ~/java.tar.gz && cp -rf ~/jre1.7.0_71/. ~/ && cd && rm -rf java.tar.gz jre1.7.0_71
+~~~
+
+### Java 1.8 U25
+
+Download v8:
+
+~~~
+wget -O ~/java.tar.gz http://javadl.sun.com/webapps/download/AutoDL?BundleId=97360
+~~~
+
+Unpack the files:
+
+~~~
+tar xf ~/java.tar.gz && cp -rf ~/jre1.8.0_25/. ~/ && cd && rm -rf java.tar.gz jre1.8.0_25
 ~~~
 
 This command also removes the folders and archives we don't need after we are done with them.
@@ -52,9 +67,17 @@ Manually call `java` it like this:
 You will see this:
 
 ~~~
-java version "1.7.0_67"
-Java(TM) SE Runtime Environment (build 1.7.0_67-b01)
-Java HotSpot(TM) 64-Bit Server VM (build 24.65-b04, mixed mode)
+java version "1.7.0_71"
+Java(TM) SE Runtime Environment (build 1.7.0_71-b14)
+Java HotSpot(TM) 64-Bit Server VM (build 24.71-b01, mixed mode)
+~~~
+
+Or
+
+~~~
+java version "1.8.0_25"
+Java(TM) SE Runtime Environment (build 1.8.0_25-b17)
+Java HotSpot(TM) 64-Bit Server VM (build 25.25-b02, mixed mode)
 ~~~
 
 Unless you used the `-version` command before installing the update can just do this command below, otherwise log into a new SSH session for the changes to take effect and then check your version again.
