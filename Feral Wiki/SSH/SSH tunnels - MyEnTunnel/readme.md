@@ -14,11 +14,29 @@ MyEnTunnel is a tiny, portable piece of software that will allow you to easily s
 
 It's easier to set up and configure than the [PuTTY method](https://www.feralhosting.com/faq/view?question=37). Another advantage of this set-up is that MyEnTunnel runs quietly in your system tray not clattering your desktop as PuTTY would. MyEnTunnel will also re-establish the tunnel automatically if connection to the server was dropped.
 
-**Step 1:**
+**Step 1 Downloads:**
 
-Direct download all required files using this: [MyEnTunnel with plink](https://github.com/feralhosting/feralfilehosting/raw/master/Feral%20Wiki/SSH/SSH%20tunnels%20-%20MyEnTunnel/myentunnel-unicode.3.5.2.plink.0.62.zip) This is a prezipped version that includes plink 0.62 for convenience.
+All downloads are from this site, go here if you want the installer.
 
-**Important note:** Myentunnel 3.5.2 only works with plink.exe 0.62 and not 0.63, for the moment.
+[http://nemesis2.qx.net/pages/MyEnTunnel](http://nemesis2.qx.net/pages/MyEnTunnel)
+
+**Important note:** MyEnTunnel Version `3.6.1` use plink `0.63`
+
+A direct link to the installer [3.6.1 installer Unicode x86 and x64](https://github.com/feralhosting/feralfilehosting/raw/master/Feral%20Wiki/SSH/SSH%20tunnels%20-%20MyEnTunnel/myentunnel_setup-3.6.1.exe)
+
+Custom downloads:
+
+What are these? The installer contains both the x86 and x64 Unicode installers and will automatically detect and install the correct version for you. You can install it anywhere and use the files portably. This had been done for you and you have the extracted and portable files ready to use.
+
+[MyEnTunnel x86 3.6.1 Unicode](https://github.com/feralhosting/feralfilehosting/raw/master/Feral%20Wiki/SSH/SSH%20tunnels%20-%20MyEnTunnel/MyEnTunnelx86.zip)
+
+[MyEnTunnel x64 3.6.1 Unicode](https://github.com/feralhosting/feralfilehosting/raw/master/Feral%20Wiki/SSH/SSH%20tunnels%20-%20MyEnTunnel/MyEnTunnelx64.zip)
+
+Older version:
+
+ [MyEnTunnel 3.5.2 and plink 0.62](https://github.com/feralhosting/feralfilehosting/raw/master/Feral%20Wiki/SSH/SSH%20tunnels%20-%20MyEnTunnel/myentunnel-unicode.3.5.2.plink.0.62.zip) This is a prezipped version that includes plink `0.62` for convenience.
+
+**Important note:** Myentunnel `3.5.2` only works with plink.exe `0.62` and not `0.63`. Use version `3.6.1` for plink `0.63`
 
 **Step 2 Optional:**
 
