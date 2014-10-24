@@ -1,6 +1,6 @@
 #!/bin/bash
 # restart.sh
-scriptversion="1.0.3"
+scriptversion="1.0.4"
 scriptname="restart"
 # randomessence
 #
