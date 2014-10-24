@@ -1,6 +1,6 @@
 #!/bin/bash
 # restart.sh
-scriptversion="1.0.2"
+scriptversion="1.0.3"
 scriptname="restart"
 # randomessence
 #
@@ -87,6 +87,8 @@ then
             read -ep "Enter the number of the action you wish to complete: " CHOICE
             case "$CHOICE" in
                     "1")
+                        if [[ -d ~/private/rtorrent ]]
+                        then
                             echo
                             echo -e "\033[31m""Killing all instances of rtorrent""\e[0m"
                             echo
@@ -109,8 +111,13 @@ then
                             echo -e "To restart other instances of rtorrent/rutorrent installed by the script check this file:" "\033[36m""~/multirtru.restart.txt""\e[0m"
                             echo
                             sleep 2
+                        else
+                            echo "rTorrent is not installed. Nothing to do"
+                        fi
                             ;;
                     "2")
+                        if [[ -d ~/private/deluge ]]
+                        then
                             echo
                             echo -e "\033[31m""Stopping Deluge and Deluge Web""\e[0m"
                             killall -9 -u $(whoami) deluged deluge-web
@@ -126,8 +133,13 @@ then
                             echo -e "\033[32m""For troubleshooting refer to the FAQ:""\e[0m" "\033[36m""https://www.feralhosting.com/faq/view?question=158""\e[0m"
                             echo
                             sleep 2
+                        else
+                            echo "Deluge is not installed. Nothing to do"
+                        fi
                             ;;
                     "3")
+                        if [[ -d ~/private/transmission ]]
+                        else
                             echo
                             echo -e "\033[31m""Restarting Transmission""\e[0m"
                             killall -9 -u $(whoami) transmission-daemon
@@ -140,6 +152,9 @@ then
                             echo -e "\033[32m""For troubleshooting refer to the FAQ:""\e[0m" "\033[36m""https://www.feralhosting.com/faq/view?question=158""\e[0m"
                             echo
                             sleep 2
+                        else
+                            echo "Transmission is not installed. Nothing to do"
+                        fi
                             ;;
                     "4")
                             echo
