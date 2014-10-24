@@ -11,6 +11,8 @@ scriptname="restart"
 ############################
 #
 # v1.0.2 templated updated
+# v1.0.3 templated updated
+# v1.0.4 directory exists checks
 #
 ############################
 ### Version History Ends ###
@@ -87,9 +89,9 @@ then
             read -ep "Enter the number of the action you wish to complete: " CHOICE
             case "$CHOICE" in
                     "1")
+                        echo
                         if [[ -d ~/private/rtorrent ]]
                         then
-                            echo
                             echo -e "\033[31m""Killing all instances of rtorrent""\e[0m"
                             echo
                             killall -9 -u $(whoami) rtorrent
@@ -112,13 +114,14 @@ then
                             echo
                             sleep 2
                         else
-                            echo "rTorrent is not installed. Nothing to do"
+                            echo -e "\033[31m""rTorrent is not installed. Nothing to do""\e[0m"
+                            echo
                         fi
                             ;;
                     "2")
+                        echo
                         if [[ -d ~/private/deluge ]]
                         then
-                            echo
                             echo -e "\033[31m""Stopping Deluge and Deluge Web""\e[0m"
                             killall -9 -u $(whoami) deluged deluge-web
                             echo "Restarting Deluge"
@@ -134,13 +137,14 @@ then
                             echo
                             sleep 2
                         else
-                            echo "Deluge is not installed. Nothing to do"
+                            echo -e "\033[31m""Deluge is not installed. Nothing to do""\e[0m"
+                            echo
                         fi
                             ;;
                     "3")
+                        echo
                         if [[ -d ~/private/transmission ]]
                         then
-                            echo
                             echo -e "\033[31m""Restarting Transmission""\e[0m"
                             killall -9 -u $(whoami) transmission-daemon
                             echo "It can take up to 5 minutes for transmission to restart."
@@ -153,7 +157,8 @@ then
                             echo
                             sleep 2
                         else
-                            echo "Transmission is not installed. Nothing to do"
+                            echo -e "\033[31m""Transmission is not installed. Nothing to do""\e[0m"
+                            echo
                         fi
                             ;;
                     "4")
