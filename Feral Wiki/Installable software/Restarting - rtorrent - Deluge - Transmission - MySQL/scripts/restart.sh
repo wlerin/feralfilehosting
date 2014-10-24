@@ -139,7 +139,7 @@ then
                             ;;
                     "3")
                         if [[ -d ~/private/transmission ]]
-                        else
+                        then
                             echo
                             echo -e "\033[31m""Restarting Transmission""\e[0m"
                             killall -9 -u $(whoami) transmission-daemon
