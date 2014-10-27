@@ -9,7 +9,7 @@ Install syncthing:
 
 ~~~
 mkdir -p ~/bin && source ~/.{profile,bashrc}
-wget -qO ~/syncthing.tar.gz https://github.com/syncthing/syncthing/releases/download/v0.9.17/syncthing-linux-amd64-v0.9.17.tar.gz
+wget -qO ~/syncthing.tar.gz https://github.com/syncthing/syncthing/releases/download/v0.10.3/syncthing-linux-amd64-v0.10.3.tar.gz
 tar xf ~/syncthing.tar.gz
 mv ~/syncthing-linux-amd64-v*/syncthing ~/bin/
 cd && rm -rf syncthing{-linux-amd64-v*,.tar.gz}

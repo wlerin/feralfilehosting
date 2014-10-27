@@ -7,7 +7,7 @@ Formerly AjaXplorer, file sharing platform for the enterprise
 In SSH do these commands. Use this FAQ if you do not know how to SSH into your slot: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
 
 ~~~
-wget -qO ~/pydio.zip http://downloads.sourceforge.net/project/ajaxplorer/pydio/stable-channel/5.2.4/pydio-core-5.2.4.zip
+wget -qO ~/pydio.zip http://downloads.sourceforge.net/project/ajaxplorer/pydio/stable-channel/5.2.5/pydio-core-5.2.5.zip
 unzip -qo ~/pydio.zip
 cp -rf ~/pydio-core-5.2.4/. ~/www/$(whoami).$(hostname)/public_html/pydio
 sed -i 's|//define("AJXP_LOCALE", "en_EN.UTF-8");|define("AJXP_LOCALE", "en_GB.UTF-8");|g' ~/www/$(whoami).$(hostname)/public_html/pydio/conf/bootstrap_conf.php
@@ -120,5 +120,6 @@ Now you can configure some basics of your new workspace. In this example I have 
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Pydio%20-%20Basic%20setup/workspace3.png)
 
-
+Valid https for share URLs and plugins
+---
 
