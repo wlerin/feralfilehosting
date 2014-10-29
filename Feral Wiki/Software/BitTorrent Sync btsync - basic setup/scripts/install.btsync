@@ -1,10 +1,10 @@
 #!/bin/bash
-# Script name
+# Install btsync
 scriptversion="1.0.0"
 scriptname="install.btsync"
-# adamaze 
+# adamaze
 #
-# Bash Command
+# wget -qO ~/install.btsync http://git.io/zHDQGA && bash ~/install.btsync
 #
 ############################
 ## Version History Starts ##
@@ -26,7 +26,7 @@ scriptname="install.btsync"
 ###### Variable Start ######
 ############################
 #
-scripturl="https://raw.github.com/feralhosting"
+scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/BitTorrent%20Sync%20btsync%20-%20basic%20setup/scripts/install.btsync"
 #
 ############################
 ####### Variable End #######
