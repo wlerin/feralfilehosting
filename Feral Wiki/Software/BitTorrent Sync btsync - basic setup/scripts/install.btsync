@@ -77,20 +77,32 @@ then
 #### User Script Starts ####
 ############################
 #
-    mkdir -p ~/btsync
-    wget -qO ~/btsync/btsync.tar.gz http://download.getsyncapp.com/endpoint/btsync/os/linux-x64/track/stable
-    tar xf ~/btsync/btsync.tar.gz -C ~/btsync
-    rm -f ~/btsync/btsync.tar.gz
-    wget -qO ~/btsync/sync.conf http://git.io/tnT60g
-    sed -i 's|MYHOME|'"$HOME"'|g' ~/btsync/sync.conf
-    sed -i 's|####|'$(shuf -i 6000-49000 -n 1)'|g' ~/btsync/sync.conf
-    echo
-    ~/btsync/./btsync --config ~/btsync/sync.conf
-    echo
-    echo You may access the WebUi here: http://$(hostname -f):$(sed -rn 's|.*"listen" : "0.0.0.0:(.*)".*|\1|p' ~/btsync/sync.conf)
-    echo
-    echo Note: You need to accept the invalid certificate to access the GUI if you use https. Otherwise use http.
-    echo
+    if [[ ! -d ~/btsync ]]
+    then
+        mkdir -p ~/btsync
+        wget -qO ~/btsync/btsync.tar.gz http://download.getsyncapp.com/endpoint/btsync/os/linux-x64/track/stable
+        tar xf ~/btsync/btsync.tar.gz -C ~/btsync
+        rm -f ~/btsync/btsync.tar.gz
+        wget -qO ~/btsync/sync.conf http://git.io/tnT60g
+        sed -i 's|MYHOME|'"$HOME"'|g' ~/btsync/sync.conf
+        sed -i 's|####|'$(shuf -i 10000-49000 -n 1)'|g' ~/btsync/sync.conf
+        ~/btsync/btsync --config ~/btsync/sync.conf
+        echo
+        echo You may access the WebUi here: http://$(hostname -f):$(sed -rn 's|.*"listen" : "0.0.0.0:(.*)".*|\1|p' ~/btsync/sync.conf)
+        echo
+        echo Note: You need to accept the invalid certificate to access the GUI if you use https. Otherwise use http.
+        echo
+    else
+        echo The folder exists and the process may be running already.
+        echo
+        echo $(ps x | grep '/btsync' | grep -v grep)
+        echo
+        echo This is just a simple installation script. Please remove the folder to continue.
+        echo
+        echo 'killall -u $(whoami) btsync && rm -rf ~/btsync'
+        echo
+        exit
+    fi
 #
 ############################
 ##### User Script End  #####
