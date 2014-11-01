@@ -10,17 +10,17 @@ Optionally, you can edit it over FTP, please read and understand this FAQ first 
 
 In SSH do the commands described in this FAQ. If you do not know how to SSH into your slot use this FAQ: [SSH guide basics - PuTTy](https://www.feralhosting.com/faq/view?question=12) or [SSH guide basics - OS X](https://www.feralhosting.com/faq/view?question=217)
 
+ [SSH guide basics - PuTTy](https://www.feralhosting.com/faq/view?question=12) or [SSH guide basics - OS X](https://www.feralhosting.com/faq/view?question=217)
+
 How to [SSH](https://www.feralhosting.com/faq/view?question=12) into your slot.
 
 [SSH](https://www.feralhosting.com/faq/view?question=12)
 
 [text editor](https://www.feralhosting.com/faq/view?question=219)
 
-You can do this from the [Install Software](https://www.feralhosting.com/manager/slot/install?) page for that slot.
+You can do this from the `Install Software` link in your [Account Manager](https://www.feralhosting.com/manager/)
 
-You can do this from the Install Software link in your [Account Manager](https://www.feralhosting.com/manager/)
-
-[**Install Software** link in your Manager](https://www.feralhosting.com/manager/)
+`Install Software` link in your [Account Manager](https://www.feralhosting.com/manager/)
 
 [Slot Detail](https://www.feralhosting.com/manager/) page for the relevant slot
 
@@ -30,7 +30,7 @@ You can do this from the Install Software link in your [Account Manager](https:/
 
 [IRC](https://www.feralhosting.com/chat)
 
-You will need to have MySQL already installed. You can do this from the [**Install Software** link in your Manager](https://www.feralhosting.com/manager/)
+You will need to have MySQL already installed. You can do this from the `Install Software` link in your [Account Manager](https://www.feralhosting.com/manager/)
 
 [Installing Proftpd for extra FTP/SFTP/FTPS accounts](https://www.feralhosting.com/faq/view?question=193)
 
