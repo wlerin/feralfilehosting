@@ -2,7 +2,7 @@
 #
 # Install Teamspeak 3
 scriptversion="1.1.7"
-teamspeakversion="3.0.11"
+teamspeakversion="3.0.11.1"
 scriptname="install.teamspeak"
 # randomessence 27/04/2013
 #
@@ -30,6 +30,7 @@ scriptname="install.teamspeak"
 # v 1.1.3 3.0.10.3
 # v 1.1.4 updater tweaked
 # v 1.1.5 template updated
+# v 1.1.7 template updated
 #
 ############################
 ### Version History Ends ###
@@ -45,7 +46,7 @@ fport=$(shuf -i 20001-35000 -n 1)
 # fport is file transfer port: vport + 1 used in the sed commands
 qport=$(shuf -i 35001-50000 -n 1)
 # qport is the query port: vport + 2 used in the sed commands
-teamspeakfv="http://dl.4players.de/ts/releases/3.0.11/teamspeak3-server_linux-amd64-3.0.11.tar.gz"
+teamspeakfv="http://dl.4players.de/ts/releases/3.0.11.1/teamspeak3-server_linux-amd64-3.0.11.1.tar.gz"
 #
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Teamspeak%203%20server/scripts/install.teamspeak.sh"
 #
