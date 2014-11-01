@@ -31,8 +31,6 @@ You can use Markdown to edit or create a FAQ if you wish. You will have to conve
 
 Here are some good on-line Markdown editors.
 
-[url=https://stackedit.io/]stackedit.io[/url]
-
 [url=http://markable.in/editor/]markable.in[/url] 
 
 [url=http://dillinger.io/]dillinger.io[/url]
