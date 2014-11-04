@@ -2,7 +2,9 @@
 Account Manager
 ---
 
-> **Important note:** To prevent emails going into your spam folder you can white-list the domain `@feralhosting.com` to be safe before asking for a password reset. [How to whitelist an email address with Gmail, Outlook.com or Yahoo! Mail](http://onlinegroups.net/blog/2014/02/25/how-to-whitelist-an-email-address/)
+> **Important note:** To prevent emails going into your spam folder you can white-list the domain `@feralhosting.com` to be safe before asking for a password reset. 
+
+[How to whitelist an email address with Gmail, Outlook.com or Yahoo! Mail](http://onlinegroups.net/blog/2014/02/25/how-to-whitelist-an-email-address/)
 
 To change your password for the `www.feralhosting.com` website and Account Manager, please use this method:
 
