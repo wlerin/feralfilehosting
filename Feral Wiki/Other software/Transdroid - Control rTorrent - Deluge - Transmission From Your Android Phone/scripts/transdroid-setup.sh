@@ -1,10 +1,10 @@
 #!/bin/bash
 # Transdroid Setup
-scriptversion="1.0.1"
+scriptversion="1.0.3"
 scriptname="transdroid.setup"
 # adamaze, randomessence
 #
-# wget -qO ~/transdroid.setup http://git.io/pKBcwg && bash ~/transdroid.setup
+# wget -qO ~/transdroid.setup http://git.io/lU_B9w && bash ~/transdroid.setup
 #
 ############################
 ## Version History Starts ##
@@ -30,9 +30,9 @@ scriptname="transdroid.setup"
 #
 scripturl="https://raw.githubusercontent.com/frankthetank7254/feral/master/transdroid-setup"
 #
-rtorrentjson="https://raw.githubusercontent.com/frankthetank7254/feral/master/rtorrent-settings.json"
-delugejson="https://raw.githubusercontent.com/frankthetank7254/feral/master/deluge-settings.json"
-transmissionjson="https://raw.githubusercontent.com/frankthetank7254/feral/master/transmission-settings.json"
+rtorrentjson="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Transdroid%20-%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/json/rtorrent-settings.json"
+delugejson="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Transdroid%20-%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/json/deluge-settings.json"
+transmissionjson="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Transdroid%20-%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/json/transmission-settings.json"
 #
 option1="ruTorrent"
 option2="Deluge"
