@@ -28,7 +28,7 @@ scriptname="transdroid.setup"
 ###### Variable Start ######
 ############################
 #
-scripturl="https://raw.githubusercontent.com/frankthetank7254/feral/master/transdroid-setup"
+scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Transdroid%20-%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/scripts/transdroid-setup.sh"
 #
 rtorrentjson="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Transdroid%20-%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/json/rtorrent-settings.json"
 delugejson="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Transdroid%20-%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/json/deluge-settings.json"
