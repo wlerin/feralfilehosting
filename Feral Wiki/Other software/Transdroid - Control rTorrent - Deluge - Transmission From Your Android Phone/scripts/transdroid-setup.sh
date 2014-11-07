@@ -1,24 +1,15 @@
 #!/bin/bash
 # Transdroid Setup
-scriptversion="1.0.3"
+scriptversion="1.0.4"
 scriptname="transdroid.setup"
-# adamaze, randomessence
+# Author: adamaze (frankthetank7254)
+# Contributors: randomessence
 #
 # wget -qO ~/transdroid.setup http://git.io/lU_B9w && bash ~/transdroid.setup
 #
 ############################
 ## Version History Starts ##
 ############################
-#
-# How do I customise this updater? 
-# 1: scriptversion="0.0.0" replace "0.0.0" with your script version. This will be shown to the user at the current version.
-# 2: scriptname="somescript" replace "somescript" with your script name. Make it unique to this script.
-# 3: Set the scripturl variable in the variable section to the RAW github URl of the script for updating.
-# 4: Insert your script in the "Script goes here" labelled section
-#
-# This updater deals with updating a single file, the "~/bin/somescript", by updating and switching to this script.
-#
-# http://grover.open2space.com/content/bash-script-menus-and-functions
 #
 ############################
 ### Version History Ends ###
@@ -152,11 +143,15 @@ then
                             echo
                             echo -e "\033[32m""$URL""\e[0m"
                             echo
-                            echo -e "2: Open Transdroid/Transdrone and Go to:" "\033[36m""Settings > System > Export settings""\e[0ms so that the appropriate folder is created."
+                            echo -e "2: Open Transdrone and go to:" "\033[36m""Settings > System > Export settings""\e[0m"
                             echo
-                            echo -e "3: Open Transdroid/Transdrone and Go to:" "\033[36m""Settings > System > Import settings""\e[0m"
+                            echo -e "3: Take note of the location the file is being exported to then click" "\033[36m""OK""\e[0m"
                             echo
-                            echo "4: You will be told which directory the file is required to be in for import. Copy it there then import it."
+                            echo -e "4: Copy/move the" "\033[32m""settings.json""\e[0m" "to this directory. Overwrite any if asked"
+                            echo
+                            echo -e "5: Open Transdrone and Go to:" "\033[36m""Settings > System > Import settings""\e[0m"
+                            echo
+                            echo -e "Note: Imported connections will be merged with existing ones. Nothing will be lost."
                             echo
                             read -ep "After you have downloaded the config file, press ENTER to clean up." useless
                             echo
@@ -212,11 +207,15 @@ then
                             echo
                             echo -e "\033[32m""$URL""\e[0m"
                             echo
-                            echo -e "2: Open Transdroid/Transdrone and Go to:" "\033[36m""Settings > System > Export settings""\e[0ms so that the appropriate folder is created."
+                            echo -e "2: Open Transdrone and go to:" "\033[36m""Settings > System > Export settings""\e[0m"
                             echo
-                            echo -e "3: Open Transdroid/Transdrone and Go to:" "\033[36m""Settings > System > Import settings""\e[0m"
+                            echo -e "3: Take note of the location the file is being exported to then click" "\033[36m""OK""\e[0m"
                             echo
-                            echo "4: You will be told which directory the file is required to be in for import. Copy it there then import it."
+                            echo -e "4: Copy/move the" "\033[32m""settings.json""\e[0m" "to this directory. Overwrite any if asked"
+                            echo
+                            echo -e "5: Open Transdrone and Go to:" "\033[36m""Settings > System > Import settings""\e[0m"
+                            echo
+                            echo -e "Note: Imported connections will be merged with existing ones. Nothing will be lost."
                             echo
                             read -ep "After you have downloaded the config file, press ENTER to clean up." useless
                             echo
@@ -272,11 +271,15 @@ then
                             echo
                             echo -e "\033[32m""$URL""\e[0m"
                             echo
-                            echo -e "2: Open Transdroid/Transdrone and Go to:" "\033[36m""Settings > System > Export settings""\e[0ms so that the appropriate folder is created."
+                            echo -e "2: Open Transdrone and go to:" "\033[36m""Settings > System > Export settings""\e[0m"
                             echo
-                            echo -e "3: Open Transdroid/Transdrone and Go to:" "\033[36m""Settings > System > Import settings""\e[0m"
+                            echo -e "3: Take note of the location the file is being exported to then click" "\033[36m""OK""\e[0m"
                             echo
-                            echo "4: You will be told which directory the file is required to be in for import. Copy it there then import it."
+                            echo -e "4: Copy/move the" "\033[32m""settings.json""\e[0m" "to this directory. Overwrite any if asked"
+                            echo
+                            echo -e "5: Open Transdrone and Go to:" "\033[36m""Settings > System > Import settings""\e[0m"
+                            echo
+                            echo -e "Note: Imported connections will be merged with existing ones. Nothing will be lost."
                             echo
                             read -ep "After you have downloaded the config file, press ENTER to clean up." useless
                             echo
