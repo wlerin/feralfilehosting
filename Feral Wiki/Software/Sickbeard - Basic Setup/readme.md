@@ -2,10 +2,10 @@
 Bash Script:
 ---
 
-1: Installs Sickbeard or Sickrage from Github
-2: Configures proxypass with the valid SSL URL format.
-3: Can update Sickbeard or Sickrage and/or only configure the proxypass.
-4: SickRage only: Presets rTorrent/Rutorrent rpc settings. Only password is required
+**1:** Installs Sickbeard or Sickrage from Github
+**2:** Configures proxypass with the valid SSL URL format.
+**3:** Can update Sickbeard or Sickrage and/or only configure the proxypass.
+**4:** SickRage only (nginx required) - Presets rTorrent/Rutorrent rpc settings. Only password is required
 
 ~~~
 wget -qO ~/install.sickbeard.sh http://git.io/bPrsUg && bash ~/install.sickbeard.sh
@@ -30,10 +30,10 @@ SSH to your slot and pull SickBeard:
 git clone https://github.com/midgetspy/Sick-Beard ~/Sick-Beard
 ~~~
 
-### Configuration
+Configuration
+---
 
-**Important note:** To properly configure the proxypass below you will need to edit the config files while the programs is shut-down or set them from within the program and then save and restart. The command below is just a quick start.
-
+> **Important note:** To properly configure the proxypass below you will need to edit the config files while the programs is shut-down or set them from within the program and then save and restart. The command below is just a quick start.
 
 Pick a port between `10000` and `50000`.  Remember this port!  Then let's start up the SickBeard daemon on that port.
 
@@ -186,6 +186,8 @@ https://server.feralhosting.com/username/mypath
 
 SickRage rTorrent rpc:
 ---
+
+> **Important note:** You must update Apache to nginx to use the rtorrent rpc - [Update Apache to Nginx](https://www.feralhosting.com/faq/view?question=231).
 
 These are your `rpc` settings:
 

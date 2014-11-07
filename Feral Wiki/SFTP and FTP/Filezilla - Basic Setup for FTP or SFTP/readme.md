@@ -52,19 +52,25 @@ If you wish to use encrypted SFTP to connect use this information scheme:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SFTP%20and%20FTP/Filezilla%20-%20Basic%20Setup%20for%20FTP%20or%20SFTP/8.png)
 
+
+Set UTF-8 to on (Required on Windows)
+---
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SFTP%20and%20FTP/Filezilla%20-%20Basic%20Setup%20for%20FTP%20or%20SFTP/utf.png)
+
 Connecting to your slot using this profile:
 ---
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SFTP%20and%20FTP/Filezilla%20-%20Basic%20Setup%20for%20FTP%20or%20SFTP/9.png)
 
-**Important note:** After clicking Connect or OK this site will now be saved to the Site Manager for future use or using quick connects as shown in image 3.
+> **Important note:** After clicking Connect or OK this site will now be saved to the Site Manager for future use or using quick connects as shown in image 3.
 
 You have now completed the basic steps for creating a profiles and connecting to your slot using Filezilla. You can stop here.
 
 Optional Step - Using a public/private key pair:
 ---
 
-**Important note:** This step is OPTIONAL and does not need to be completed to access your slot.
+> **Important note:** This step is OPTIONAL and does not need to be completed to access your slot.
 
 If you need to use a keyfile for connecting please follow the steps in these images below for adding your key to Filezilla according to these rules:
 
