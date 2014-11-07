@@ -9,10 +9,15 @@ Some formal stuff.
 Here are the golden rules.
 
 **1:** The offering, selling, trading, and giving away of invites to this or any other site on our IRC network is strictly forbidden.
+
 **2:** No prejudice, especially related to race, religion, politics, ethnic background, etc. It is highly suggested to avoid this entirely.
+
 **3:** Spamming is strictly forbidden. This includes, but is not limited to, personal sites, online auctions, and torrent uploads.
+
 **4:** Do not PM, DCC, or Query anyone you don't know or have never talked to without asking first; this applies specifically to staff.
+
 **5:** Communicate with other people in a respectable manner, regardless of your importance of your issue.
+
 **6:** Please ask your question clearly and with as much detail as you can provide so that other users and staff may better help you. Don't be vague or ask to ask questions.
 
 Please read the channel topic before asking your questions as it usually contains relative information to any known issues.
