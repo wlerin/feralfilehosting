@@ -145,9 +145,9 @@ then
                             echo
                             echo -e "2: Open Transdrone and go to:" "\033[36m""Settings > System > Export settings""\e[0m"
                             echo
-                            echo -e "3: Take note of the location the file is being exported to then click" "\033[36m""OK""\e[0m"
+                            echo -e "3: Take note of the location the file is being exported to and then click" "\033[36m""OK""\e[0m"
                             echo
-                            echo -e "4: Copy/move the" "\033[32m""settings.json""\e[0m" "to this directory. Overwrite any if asked"
+                            echo -e "4: Copy/move the" "\033[32m""settings.json""\e[0m" "to this directory. Overwrite if asked"
                             echo
                             echo -e "5: Open Transdrone and Go to:" "\033[36m""Settings > System > Import settings""\e[0m"
                             echo
@@ -211,7 +211,7 @@ then
                             echo
                             echo -e "3: Take note of the location the file is being exported to then click" "\033[36m""OK""\e[0m"
                             echo
-                            echo -e "4: Copy/move the" "\033[32m""settings.json""\e[0m" "to this directory. Overwrite any if asked"
+                            echo -e "4: Copy/move the" "\033[32m""settings.json""\e[0m" "to this directory. Overwrite if asked"
                             echo
                             echo -e "5: Open Transdrone and Go to:" "\033[36m""Settings > System > Import settings""\e[0m"
                             echo
@@ -275,7 +275,7 @@ then
                             echo
                             echo -e "3: Take note of the location the file is being exported to then click" "\033[36m""OK""\e[0m"
                             echo
-                            echo -e "4: Copy/move the" "\033[32m""settings.json""\e[0m" "to this directory. Overwrite any if asked"
+                            echo -e "4: Copy/move the" "\033[32m""settings.json""\e[0m" "to this directory. Overwrite if asked"
                             echo
                             echo -e "5: Open Transdrone and Go to:" "\033[36m""Settings > System > Import settings""\e[0m"
                             echo
