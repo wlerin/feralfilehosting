@@ -40,11 +40,13 @@ Where `username` is your Feral username and `server` is the name of the Feral se
 
 Now we enter the SSH command to connect to the slot, where `username` is your Feral username and `server` is the name of the server you wish to SSH into:
 
-**Important note:** Folder names with spaces will require that your wrap them in quotes, for example `"folder name"`.
+**Important note:** Folder names with spaces will require that your wrap them in quotes, for example `folder name`.
 
 ~~~
 peterpan@aphrodite.feralhosting.com
 ~~~
+
+
 
 ~~~
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/install_mysql.png)
@@ -69,6 +71,11 @@ Then press and hold `CTRL` and `a` then press `d` to detach from the screen. Thi
 
 where `username` if your Feral username and `server` if the name of the server that the relevant slot is hosted on.
 
+nginx
+---
+
+**Important note:** You must update Apache to nginx to use the rtorrent rpc - [Update Apache to Nginx](https://www.feralhosting.com/faq/view?question=231).
+
 Common Commands
 ---
 
@@ -77,6 +84,9 @@ Use this command to create the `~/bin` directory and reload your shell for this 
 ~~~
 mkdir -p ~/bin && bash
 ~~~
+
+PATH
+---
 
 Add `PATHS` to the `~/.bashrc`#
 
