@@ -1,6 +1,6 @@
 #!/bin/bash
 # install ampache
-scriptversion="1.3.0"
+scriptversion="1.3.1"
 scriptname="install.ampache"
 # randomessence
 #
@@ -27,6 +27,7 @@ scriptname="install.ampache"
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Ampache%20-%20web%20based%20audio%20video%20streaming/scripts/install.ampache.sh"
 ffmpegfv="https://bitbucket.org/feralhosting/feralfiles/downloads/ffmpeg-2.4.2-64bit-static.zip"
 ampacheurl="https://github.com/ampache/ampache/archive/3.7.0.zip"
+ampacheversion="3.7.0"
 #
 ############################
 ####### Variable End #######
