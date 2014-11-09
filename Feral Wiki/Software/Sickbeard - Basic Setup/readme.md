@@ -16,10 +16,10 @@ Manual Installation:
 
 ### SickRage - Recommended:
 
-SickRage - [https://github.com/echel0n/SickRage](https://github.com/echel0n/SickRage)
+SickRage - [https://github.com/SickragePVR/SickRage](https://github.com/SickragePVR/SickRage)
 
 ~~~
-git clone https://github.com/echel0n/SickRage ~/SickRage
+git clone https://github.com/SickragePVR/SickRage ~/SickRage
 ~~~
 
 ### SickBeard:

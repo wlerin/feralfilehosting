@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script name
-scriptversion="1.0.4"
+scriptversion="1.0.5"
 scriptname="install.sickbeard"
 # Author name
 #
@@ -9,14 +9,6 @@ scriptname="install.sickbeard"
 ############################
 ## Version History Starts ##
 ############################
-#
-# How do I customise this updater? 
-# 1: scriptversion="0.0.0" replace "0.0.0" with your script version. This will be shown to the user at the current version.
-# 2: scriptname="somescript" replace "somescript" with your script name. Make it unique to this script.
-# 3: Set the scripturl variable in the variable section to the RAW github URl of the script for updating.
-# 4: Insert your script in the "Script goes here" labelled section
-#
-# This updater deals with updating a single file, the "~/somescript.sh".
 #
 ############################
 ### Version History Ends ###
@@ -29,7 +21,7 @@ scriptname="install.sickbeard"
 mainport=$(shuf -i 10001-49000 -n 1)
 scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Sickbeard%20-%20Basic%20Setup/scripts/sickbeard.sh"
 giturlsickbeard="https://github.com/midgetspy/Sick-Beard.git"
-giturlsickrage="https://github.com/echel0n/SickRage.git"
+giturlsickrage="https://github.com/SickragePVR/SickRage.git"
 #
 ############################
 ####### Variable End #######
