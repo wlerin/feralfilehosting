@@ -93,7 +93,6 @@ If you enable the Web Admin module and configure it while setting up `znc` using
 
 > **Important note:** In both examples you will need to accept the invalid SSL certificate.
 
-
 Where `PORT` is the port you configured `znc` to use.
 
 ~~~
