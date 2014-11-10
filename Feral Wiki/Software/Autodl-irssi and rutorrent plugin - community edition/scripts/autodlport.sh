@@ -1,6 +1,6 @@
 #!/bin/bash
 # autodlport.sh
-scriptversion="1.0.6"
+scriptversion="1.0.7"
 scriptname="autodlport"
 # randomessence
 #
@@ -89,8 +89,8 @@ then
         # Uses echo to make the config file for the rutorrent plugun to work with autodl uinsg the variables port and pass
         echo -ne '<?php\n$autodlPort = '"$port"';\n$autodlPassword = "'"$pass"'";\n?>' > ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi/conf.php
         # Kill all irssi instances before starting
-        killall -9 -u $(whoami) irssi >/dev/null 2>&1
-        # Clear dead screens
+        screen -S autodl -X quit > /dev/null 2>&1
+        # Wipe any dead screens left behind
         screen -wipe >/dev/null 2>&1
         # Start autodl irssi in a screen in the background.
         screen -dmS autodl irssi
