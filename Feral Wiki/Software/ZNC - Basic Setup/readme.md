@@ -86,6 +86,26 @@ To make sure `znc` is restarted after a reboot use cronjob.
 @reboot ~/bin/znc
 ~~~
 
+Web Admin
+---
+
+If you enable the Web Admin module and configure it while setting up `znc` using the `--makeconf` command you can access it via these URLS:
+
+> **Important note:** In both examples you will need to accept the invalid SSL certificate.
+
+
+Where `PORT` is the port you configured `znc` to use.
+
+~~~
+https://server.feralhosting.com:PORT
+~~~
+
+Or
+
+~~~
+https://username.server.feralhosting.com:PORT
+~~~
+
 Notifications:
 ---
 
