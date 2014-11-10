@@ -1,6 +1,6 @@
 #!/bin/bash
 # trackerlist.sh
-scriptversion="1.0.2"
+scriptversion="1.0.3"
 scriptname="trackerlist"
 # randomessence
 #
@@ -79,8 +79,11 @@ then
 		wget -qO ~/autodl-trackers.zip "$autodltrackers"
 		unzip -qo ~/autodl-trackers.zip -d ~/.irssi/scripts/AutodlIrssi/trackers/
 		rm -f ~/autodl-trackers.zip
-		echo "Killing all Irssi processes"
-		killall -u $(whoami) irssi
+		echo "Closing some required stuff"
+        # Kill all irssi instances before starting
+        screen -S autodl -X quit > /dev/null 2>&1
+        # Wipe any dead screens left behind
+        screen -wipe >/dev/null 2>&1
 		echo "Restarting Irssi for the changes to take effect"
 		screen -dmS autodl irssi
 		screen -S autodl -p 0 -X stuff '/autodl update^M'
