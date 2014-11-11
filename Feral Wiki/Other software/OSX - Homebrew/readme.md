@@ -20,7 +20,7 @@ Installing homebrew
 In your terminal you need yo paste this command and then press enter:
 
 ~~~
-ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ~~~
 
 This will begin the homebrew installation procedure:
@@ -43,7 +43,7 @@ After you click "Install" you will see the software will be downloaded and insta
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/OSX%20-%20Homebrew/homebrew5.png)
 
-Click "Done" whe it has finished to continue with the homebrew installation:
+Click "Done" when it has finished to continue with the homebrew installation:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/OSX%20-%20Homebrew/homebrew6.png)
 
