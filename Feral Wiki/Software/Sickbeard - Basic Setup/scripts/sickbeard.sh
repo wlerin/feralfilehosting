@@ -21,7 +21,7 @@ scriptname="install.sickbeard"
 mainport=$(shuf -i 10001-49000 -n 1)
 scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Sickbeard%20-%20Basic%20Setup/scripts/sickbeard.sh"
 giturlsickbeard="https://github.com/midgetspy/Sick-Beard.git"
-giturlsickrage="https://github.com/SickragePVR/SickRage.git"
+giturlsickrage="https://github.com/SiCKRAGETV/SickRage.git"
 #
 ############################
 ####### Variable End #######
