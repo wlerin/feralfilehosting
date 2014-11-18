@@ -12,7 +12,7 @@ You login information for the relevant slot will be shown here:
 Curl installation
 ---
 
-**Important note:** `curl`  is already installed on your slot though it is located here instead:
+> **Important note:** `curl`  is already installed on your slot though it is located here instead:
 
 ~~~
 /opt/curl/current
@@ -30,11 +30,11 @@ mkdir -p ~/bin && bash
 Install the program using these commands:
 
 ~~~
-wget -qO ~/curl.tar.gz http://curl.haxx.se/download/curl-7.38.0.tar.gz
-tar xf ~/curl.tar.gz && cd ~/curl-7.38.0
+wget -qO ~/curl.tar.gz http://curl.haxx.se/download/curl-7.39.0.tar.gz
+tar xf ~/curl.tar.gz && cd ~/curl-7.39.0
 ./configure --prefix=$HOME
 make && make install
-cd && rm -rf curl{-7.38.0,.tar.gz}
+cd && rm -rf curl{-7.39.0,.tar.gz}
 ~~~
 
 Check your version:
