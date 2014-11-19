@@ -1,6 +1,6 @@
 #!/bin/bash
 # Transdroid/Transdrone Setup
-scriptversion="1.0.6"
+scriptversion="1.0.7"
 scriptname="transdroid.setup"
 # Author: adamaze (frankthetank7254)
 # Contributors: randomessence
@@ -28,7 +28,8 @@ transmissionjson="https://raw.githubusercontent.com/feralhosting/feralfilehostin
 option1="ruTorrent"
 option2="Deluge"
 option3="Transmission"
-option4="Quit"
+option4="Custom Rutorrent instance"
+option5="Quit"
 #
 tmpdir1=".transdroid_import"
 tmpdir2="transdroid_import"
@@ -95,6 +96,7 @@ then
             echo "2) $option2"
             echo "3) $option3"
             echo "4) $option4"
+            echo "5) $option5"
             echo
     }
 
@@ -105,189 +107,287 @@ then
             echo
             case "$CHOICE" in
                     "1")
-                            mkdir -p ~/$tmpdir1
-                            #
-                            wget -qO ~/$tmpdir1/qrencode_3.3.0-2_amd64.deb http://ftp.uk.debian.org/debian/pool/main/q/qrencode/qrencode_3.3.0-2_amd64.deb
-                            wget -qO ~/$tmpdir1/libqrencode3_3.3.0-2_amd64.deb http://ftp.uk.debian.org/debian/pool/main/q/qrencode/libqrencode3_3.3.0-2_amd64.deb
-                            #
-                            dpkg-deb -x ~/$tmpdir1/qrencode_3.3.0-2_amd64.deb ~/$tmpdir1
-                            dpkg-deb -x ~/$tmpdir1/libqrencode3_3.3.0-2_amd64.deb ~/$tmpdir1
-                            #
-                            wget -qO ~/$tmpdir1/settings.json "$rtorrentjson"
-                            read -ep "Please enter the ruTorrent password from your Account overview page: " pass
-                            echo
-                            #
-                            sed -i 's/rutorrent main/rutorrent '$(hostname | grep -oE "^([a-z]+)")' main/' ~/$tmpdir1/settings.json
-                            sed -i 's/USERNAME-CHANGEME/'$(whoami)'/' ~/$tmpdir1/settings.json
-                            sed -i 's/HOSTNAME_CHANGEME/'$(hostname -f)'/' ~/$tmpdir1/settings.json
-                            sed -i 's/PASSWORD-CHANGEME/'$pass'/' ~/$tmpdir1/settings.json
-                            #
-                            mkdir -p ~/www/$(whoami).$(hostname)/public_html/$tmpdir2
-                            #
-                            # cp -f ~/$tmpdir1/settings.json ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/settings.json
-                            htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/.htpasswd "$(whoami)" "$randompass" > /dev/null 2>&1
-                            #
-                            if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+                            if [[ -d ~/.nginx ]]
                             then
-                                echo -e 'location /'"$tmpdir2"' {\n    auth_basic "'"$tmpdir2"'";\n    auth_basic_user_file "'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/'"$tmpdir2"'/.htpasswd";\n}' > ~/.nginx/conf.d/000-default-server.d/transdroid_import.conf
-                                /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
-                            fi
-                            #
-                            echo -e 'AuthType Basic\nAuthName "'"$tmpdir2"'"\nAuthUserFile "'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/'"$tmpdir2"'/.htpasswd"\nRequire "'$(whoami)'"' > ~/www/$(whoami).$(hostname -f)/public_html/"$tmpdir2"/.htaccess
-                            #
-                            # LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 1 -t ANSI256 -o - "$URL"
-                            LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 10 -t PNG "$(cat ~/.transdroid_import/settings.json)" -o ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/rtorrent.png
-                            #
-                            echo -e "1: Open Transdroid/Transdrone and go to:" "\033[36m""Settings > System > Import settings""\e[0m"
-                            echo
-                            echo -e "2: Click" "\033[36m""Use QR code""\e[0m"
-                            echo
-                            echo -e "3: Open this URL in a browser:"
-                            echo
-                            echo -e "\033[32m""$URL/rtorrent.png""\e[0m"
-                            echo
-                            echo -e "4: Now scan with Transdroid/Transdrone to import""\e[0m"
-                            echo
-                            echo -e "Note: Imported connections will be merged with existing ones. Nothing will be lost."
-                            echo
-                            read -ep "After you have scanned the qrcode, press ENTER to clean up." useless
-                            echo
-                            #
-                            if [[ ! -z "$tmpdir1" && ! -z "$tmpdir2" ]]
-                            then
-                                cd && rm -rf $tmpdir1 ~/www/$(whoami).$(hostname)/public_html/$tmpdir2
+                                mkdir -p ~/$tmpdir1
+                                #
+                                wget -qO ~/$tmpdir1/qrencode_3.3.0-2_amd64.deb http://ftp.uk.debian.org/debian/pool/main/q/qrencode/qrencode_3.3.0-2_amd64.deb
+                                wget -qO ~/$tmpdir1/libqrencode3_3.3.0-2_amd64.deb http://ftp.uk.debian.org/debian/pool/main/q/qrencode/libqrencode3_3.3.0-2_amd64.deb
+                                #
+                                dpkg-deb -x ~/$tmpdir1/qrencode_3.3.0-2_amd64.deb ~/$tmpdir1
+                                dpkg-deb -x ~/$tmpdir1/libqrencode3_3.3.0-2_amd64.deb ~/$tmpdir1
+                                #
+                                wget -qO ~/$tmpdir1/settings.json "$rtorrentjson"
+                                read -ep "Please enter the ruTorrent password from your Account overview page: " pass
+                                echo
+                                #
+                                sed -i 's/rutorrent main/rutorrent '$(hostname | grep -oE "^([a-z]+)")' main/' ~/$tmpdir1/settings.json
+                                sed -i 's/USERNAME-CHANGEME/'$(whoami)'/' ~/$tmpdir1/settings.json
+                                sed -i 's/HOSTNAME_CHANGEME/'$(hostname -f)'/' ~/$tmpdir1/settings.json
+                                sed -i 's/PASSWORD-CHANGEME/'$pass'/' ~/$tmpdir1/settings.json
+                                #
+                                mkdir -p ~/www/$(whoami).$(hostname)/public_html/$tmpdir2
+                                #
+                                # cp -f ~/$tmpdir1/settings.json ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/settings.json
+                                htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/.htpasswd "$(whoami)" "$randompass" > /dev/null 2>&1
+                                #
                                 if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
                                 then
-                                    rm -f ~/.nginx/conf.d/000-default-server.d/transdroid_import.conf
+                                    echo -e 'location /'"$tmpdir2"' {\n    auth_basic "'"$tmpdir2"'";\n    auth_basic_user_file "'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/'"$tmpdir2"'/.htpasswd";\n}' > ~/.nginx/conf.d/000-default-server.d/transdroid_import.conf
                                     /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
                                 fi
+                                #
+                                echo -e 'AuthType Basic\nAuthName "'"$tmpdir2"'"\nAuthUserFile "'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/'"$tmpdir2"'/.htpasswd"\nRequire "'$(whoami)'"' > ~/www/$(whoami).$(hostname -f)/public_html/"$tmpdir2"/.htaccess
+                                #
+                                # LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 1 -t ANSI256 -o - "$URL"
+                                LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 10 -t PNG "$(cat ~/.transdroid_import/settings.json)" -o ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/rtorrent.png
+                                #
+                                echo -e "1: Open Transdroid/Transdrone and go to:" "\033[36m""Settings > System > Import settings""\e[0m"
+                                echo
+                                echo -e "2: Click" "\033[36m""Use QR code""\e[0m"
+                                echo
+                                echo -e "3: Open this URL in a browser:"
+                                echo
+                                echo -e "\033[32m""$URL/rtorrent.png""\e[0m"
+                                echo
+                                echo -e "4: Now scan with Transdroid/Transdrone to import""\e[0m"
+                                echo
+                                echo -e "Note: Imported connections will be merged with existing ones. Nothing will be lost."
+                                echo
+                                read -ep "After you have scanned the qrcode, press ENTER to clean up." useless
+                                echo
+                                #
+                                if [[ ! -z "$tmpdir1" && ! -z "$tmpdir2" ]]
+                                then
+                                    cd && rm -rf $tmpdir1 ~/www/$(whoami).$(hostname)/public_html/$tmpdir2
+                                    if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+                                    then
+                                        rm -f ~/.nginx/conf.d/000-default-server.d/transdroid_import.conf
+                                        /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
+                                    fi
+                                else
+                                    echo "Nothing was removed. Please check manually."
+                                fi
                             else
-                                echo "Nothing was removed. Please check manually."
+                                echo "Nginx is not installed and is a prerequisite for using Transdroid/Transdrone"
+                                echo
+                                echo "Please see this FAQ -- https://www.feralhosting.com/faq/view?question=231"
+                                echo
                             fi
                             ;;
                     "2")
-                            mkdir -p ~/$tmpdir1
-                            #
-                            wget -qO ~/$tmpdir1/qrencode_3.3.0-2_amd64.deb http://ftp.uk.debian.org/debian/pool/main/q/qrencode/qrencode_3.3.0-2_amd64.deb
-                            wget -qO ~/$tmpdir1/libqrencode3_3.3.0-2_amd64.deb http://ftp.uk.debian.org/debian/pool/main/q/qrencode/libqrencode3_3.3.0-2_amd64.deb
-                            #
-                            dpkg-deb -x ~/$tmpdir1/qrencode_3.3.0-2_amd64.deb ~/$tmpdir1
-                            dpkg-deb -x ~/$tmpdir1/libqrencode3_3.3.0-2_amd64.deb ~/$tmpdir1
-                            #
-                            wget -qO ~/$tmpdir1/settings.json "$delugejson"
-                            read -ep "Please enter the Deluge password from your Account overview page: " pass
-                            echo
-                            #
-                            sed -i 's/deluge main/deluge '$(hostname | grep -oE "^([a-z]+)")' main/' ~/$tmpdir1/settings.json
-                            sed -i 's/USERNAME-CHANGEME/'$(whoami)'/g' ~/$tmpdir1/settings.json
-                            sed -i 's/HOSTNAME_CHANGEME/'$(hostname -f)'/' ~/$tmpdir1/settings.json
-                            sed -i 's/PASSWORD-CHANGEME/'$pass'/' ~/$tmpdir1/settings.json
-                            #
-                            mkdir -p ~/www/$(whoami).$(hostname)/public_html/$tmpdir2
-                            #
-                            # cp -f ~/$tmpdir1/settings.json ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/settings.json
-                            htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/.htpasswd "$(whoami)" "$randompass" > /dev/null 2>&1
-                            #
-                            if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+                            if [[ -d ~/.nginx ]]
                             then
-                                echo -e 'location /'"$tmpdir2"' {\n    auth_basic "'"$tmpdir2"'";\n    auth_basic_user_file "'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/'"$tmpdir2"'/.htpasswd";\n}' > ~/.nginx/conf.d/000-default-server.d/transdroid_import.conf
-                                /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
-                            fi
-                            #
-                            echo -e 'AuthType Basic\nAuthName "'"$tmpdir2"'"\nAuthUserFile "'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/'"$tmpdir2"'/.htpasswd"\nRequire "'$(whoami)'"' > ~/www/$(whoami).$(hostname -f)/public_html/"$tmpdir2"/.htaccess
-                            #
-                            # LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 1 -t ANSI256 -o - "$URL"
-                            LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 10 -t PNG "$(cat ~/.transdroid_import/settings.json)" -o ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/deluge.png
-                            #
-                            echo -e "1: Open Transdroid/Transdrone and go to:" "\033[36m""Settings > System > Import settings""\e[0m"
-                            echo
-                            echo -e "2: Click" "\033[36m""Use QR code""\e[0m"
-                            echo
-                            echo -e "3: Open this URL in a browser:"
-                            echo
-                            echo -e "\033[32m""$URL/deluge.png""\e[0m"
-                            echo
-                            echo -e "4: Now scan with Transdroid/Transdrone to import""\e[0m"
-                            echo
-                            echo -e "Note: Imported connections will be merged with existing ones. Nothing will be lost."
-                            echo
-                            read -ep "After you have scanned the qrcode, press ENTER to clean up." useless
-                            echo
-                            #
-                            if [[ ! -z "$tmpdir1" && ! -z "$tmpdir2" ]]
-                            then
-                                cd && rm -rf $tmpdir1 ~/www/$(whoami).$(hostname)/public_html/$tmpdir2
+                                mkdir -p ~/$tmpdir1
+                                #
+                                wget -qO ~/$tmpdir1/qrencode_3.3.0-2_amd64.deb http://ftp.uk.debian.org/debian/pool/main/q/qrencode/qrencode_3.3.0-2_amd64.deb
+                                wget -qO ~/$tmpdir1/libqrencode3_3.3.0-2_amd64.deb http://ftp.uk.debian.org/debian/pool/main/q/qrencode/libqrencode3_3.3.0-2_amd64.deb
+                                #
+                                dpkg-deb -x ~/$tmpdir1/qrencode_3.3.0-2_amd64.deb ~/$tmpdir1
+                                dpkg-deb -x ~/$tmpdir1/libqrencode3_3.3.0-2_amd64.deb ~/$tmpdir1
+                                #
+                                wget -qO ~/$tmpdir1/settings.json "$delugejson"
+                                read -ep "Please enter the Deluge password from your Account overview page: " pass
+                                echo
+                                #
+                                sed -i 's/deluge main/deluge '$(hostname | grep -oE "^([a-z]+)")' main/' ~/$tmpdir1/settings.json
+                                sed -i 's/USERNAME-CHANGEME/'$(whoami)'/g' ~/$tmpdir1/settings.json
+                                sed -i 's/HOSTNAME_CHANGEME/'$(hostname -f)'/' ~/$tmpdir1/settings.json
+                                sed -i 's/PASSWORD-CHANGEME/'$pass'/' ~/$tmpdir1/settings.json
+                                #
+                                mkdir -p ~/www/$(whoami).$(hostname)/public_html/$tmpdir2
+                                #
+                                # cp -f ~/$tmpdir1/settings.json ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/settings.json
+                                htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/.htpasswd "$(whoami)" "$randompass" > /dev/null 2>&1
+                                #
                                 if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
                                 then
-                                    rm -f ~/.nginx/conf.d/000-default-server.d/transdroid_import.conf
+                                    echo -e 'location /'"$tmpdir2"' {\n    auth_basic "'"$tmpdir2"'";\n    auth_basic_user_file "'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/'"$tmpdir2"'/.htpasswd";\n}' > ~/.nginx/conf.d/000-default-server.d/transdroid_import.conf
                                     /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
                                 fi
+                                #
+                                echo -e 'AuthType Basic\nAuthName "'"$tmpdir2"'"\nAuthUserFile "'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/'"$tmpdir2"'/.htpasswd"\nRequire "'$(whoami)'"' > ~/www/$(whoami).$(hostname -f)/public_html/"$tmpdir2"/.htaccess
+                                #
+                                # LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 1 -t ANSI256 -o - "$URL"
+                                LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 10 -t PNG "$(cat ~/.transdroid_import/settings.json)" -o ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/deluge.png
+                                #
+                                echo -e "1: Open Transdroid/Transdrone and go to:" "\033[36m""Settings > System > Import settings""\e[0m"
+                                echo
+                                echo -e "2: Click" "\033[36m""Use QR code""\e[0m"
+                                echo
+                                echo -e "3: Open this URL in a browser:"
+                                echo
+                                echo -e "\033[32m""$URL/deluge.png""\e[0m"
+                                echo
+                                echo -e "4: Now scan with Transdroid/Transdrone to import""\e[0m"
+                                echo
+                                echo -e "Note: Imported connections will be merged with existing ones. Nothing will be lost."
+                                echo
+                                read -ep "After you have scanned the qrcode, press ENTER to clean up." useless
+                                echo
+                                #
+                                if [[ ! -z "$tmpdir1" && ! -z "$tmpdir2" ]]
+                                then
+                                    cd && rm -rf $tmpdir1 ~/www/$(whoami).$(hostname)/public_html/$tmpdir2
+                                    if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+                                    then
+                                        rm -f ~/.nginx/conf.d/000-default-server.d/transdroid_import.conf
+                                        /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
+                                    fi
+                                else
+                                    echo "Nothing was removed. Please check manually."
+                                fi
                             else
-                                echo "Nothing was removed. Please check manually."
+                                echo "Nginx is not installed and is a prerequisite for using Transdroid/Transdrone"
+                                echo
+                                echo "Please see this FAQ -- https://www.feralhosting.com/faq/view?question=231"
+                                echo
                             fi
                             ;;
                     "3")
-                            mkdir -p ~/$tmpdir1
-                            #
-                            wget -qO ~/$tmpdir1/qrencode_3.3.0-2_amd64.deb http://ftp.uk.debian.org/debian/pool/main/q/qrencode/qrencode_3.3.0-2_amd64.deb
-                            wget -qO ~/$tmpdir1/libqrencode3_3.3.0-2_amd64.deb http://ftp.uk.debian.org/debian/pool/main/q/qrencode/libqrencode3_3.3.0-2_amd64.deb
-                            #
-                            dpkg-deb -x ~/$tmpdir1/qrencode_3.3.0-2_amd64.deb ~/$tmpdir1
-                            dpkg-deb -x ~/$tmpdir1/libqrencode3_3.3.0-2_amd64.deb ~/$tmpdir1
-                            #
-                            wget -qO ~/$tmpdir1/settings.json "$transmissionjson"
-                            read -ep "Please enter the Transmission password from your Account overview page: " pass
-                            echo
-                            #
-                            sed -i 's/transmission main/transmission '$(hostname | grep -oE "^([a-z]+)")' main/' ~/$tmpdir1/settings.json
-                            sed -i 's/USERNAME-CHANGEME/'$(whoami)'/' ~/$tmpdir1/settings.json
-                            sed -i 's/HOSTNAME_CHANGEME/'$(hostname -f)'/' ~/$tmpdir1/settings.json
-                            sed -i 's/PASSWORD-CHANGEME/'$pass'/' ~/$tmpdir1/settings.json
-                            #
-                            mkdir -p ~/www/$(whoami).$(hostname)/public_html/$tmpdir2
-                            #
-                            # cp -f ~/$tmpdir1/settings.json ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/settings.json
-                            htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/.htpasswd "$(whoami)" "$randompass" > /dev/null 2>&1
-                            #
-                            if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+                            if [[ -d ~/.nginx ]]
                             then
-                                echo -e 'location /'"$tmpdir2"' {\n    auth_basic "'"$tmpdir2"'";\n    auth_basic_user_file "'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/'"$tmpdir2"'/.htpasswd";\n}' > ~/.nginx/conf.d/000-default-server.d/transdroid_import.conf
-                                /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
-                            fi
-                            #
-                            echo -e 'AuthType Basic\nAuthName "'"$tmpdir2"'"\nAuthUserFile "'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/'"$tmpdir2"'/.htpasswd"\nRequire "'$(whoami)'"' > ~/www/$(whoami).$(hostname -f)/public_html/"$tmpdir2"/.htaccess
-                            #
-                            # LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 1 -t ANSI256 -o - "$URL"
-                            LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 10 -t PNG "$(cat ~/.transdroid_import/settings.json)" -o ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/transmission.png
-                            #
-                            echo -e "1: Open Transdroid/Transdrone and go to:" "\033[36m""Settings > System > Import settings""\e[0m"
-                            echo
-                            echo -e "2: Click" "\033[36m""Use QR code""\e[0m"
-                            echo
-                            echo -e "3: Open this URL in a browser:"
-                            echo
-                            echo -e "\033[32m""$URL/transmission.png""\e[0m"
-                            echo
-                            echo -e "4: Now scan with Transdroid/Transdrone to import""\e[0m"
-                            echo
-                            echo -e "Note: Imported connections will be merged with existing ones. Nothing will be lost."
-                            echo
-                            read -ep "After you have scanned the qrcode, press ENTER to clean up." useless
-                            echo
-                            #
-                            if [[ ! -z "$tmpdir1" && ! -z "$tmpdir2" ]]
-                            then
-                                cd && rm -rf $tmpdir1 ~/www/$(whoami).$(hostname)/public_html/$tmpdir2
+                                mkdir -p ~/$tmpdir1
+                                #
+                                wget -qO ~/$tmpdir1/qrencode_3.3.0-2_amd64.deb http://ftp.uk.debian.org/debian/pool/main/q/qrencode/qrencode_3.3.0-2_amd64.deb
+                                wget -qO ~/$tmpdir1/libqrencode3_3.3.0-2_amd64.deb http://ftp.uk.debian.org/debian/pool/main/q/qrencode/libqrencode3_3.3.0-2_amd64.deb
+                                #
+                                dpkg-deb -x ~/$tmpdir1/qrencode_3.3.0-2_amd64.deb ~/$tmpdir1
+                                dpkg-deb -x ~/$tmpdir1/libqrencode3_3.3.0-2_amd64.deb ~/$tmpdir1
+                                #
+                                wget -qO ~/$tmpdir1/settings.json "$transmissionjson"
+                                read -ep "Please enter the Transmission password from your Account overview page: " pass
+                                echo
+                                #
+                                sed -i 's/transmission main/transmission '$(hostname | grep -oE "^([a-z]+)")' main/' ~/$tmpdir1/settings.json
+                                sed -i 's/USERNAME-CHANGEME/'$(whoami)'/' ~/$tmpdir1/settings.json
+                                sed -i 's/HOSTNAME_CHANGEME/'$(hostname -f)'/' ~/$tmpdir1/settings.json
+                                sed -i 's/PASSWORD-CHANGEME/'$pass'/' ~/$tmpdir1/settings.json
+                                #
+                                mkdir -p ~/www/$(whoami).$(hostname)/public_html/$tmpdir2
+                                #
+                                # cp -f ~/$tmpdir1/settings.json ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/settings.json
+                                htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/.htpasswd "$(whoami)" "$randompass" > /dev/null 2>&1
+                                #
                                 if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
                                 then
-                                    rm -f ~/.nginx/conf.d/000-default-server.d/transdroid_import.conf
+                                    echo -e 'location /'"$tmpdir2"' {\n    auth_basic "'"$tmpdir2"'";\n    auth_basic_user_file "'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/'"$tmpdir2"'/.htpasswd";\n}' > ~/.nginx/conf.d/000-default-server.d/transdroid_import.conf
                                     /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
                                 fi
+                                #
+                                echo -e 'AuthType Basic\nAuthName "'"$tmpdir2"'"\nAuthUserFile "'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/'"$tmpdir2"'/.htpasswd"\nRequire "'$(whoami)'"' > ~/www/$(whoami).$(hostname -f)/public_html/"$tmpdir2"/.htaccess
+                                #
+                                # LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 1 -t ANSI256 -o - "$URL"
+                                LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 10 -t PNG "$(cat ~/.transdroid_import/settings.json)" -o ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/transmission.png
+                                #
+                                echo -e "1: Open Transdroid/Transdrone and go to:" "\033[36m""Settings > System > Import settings""\e[0m"
+                                echo
+                                echo -e "2: Click" "\033[36m""Use QR code""\e[0m"
+                                echo
+                                echo -e "3: Open this URL in a browser:"
+                                echo
+                                echo -e "\033[32m""$URL/transmission.png""\e[0m"
+                                echo
+                                echo -e "4: Now scan with Transdroid/Transdrone to import""\e[0m"
+                                echo
+                                echo -e "Note: Imported connections will be merged with existing ones. Nothing will be lost."
+                                echo
+                                read -ep "After you have scanned the qrcode, press ENTER to clean up." useless
+                                echo
+                                #
+                                if [[ ! -z "$tmpdir1" && ! -z "$tmpdir2" ]]
+                                then
+                                    cd && rm -rf $tmpdir1 ~/www/$(whoami).$(hostname)/public_html/$tmpdir2
+                                    if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+                                    then
+                                        rm -f ~/.nginx/conf.d/000-default-server.d/transdroid_import.conf
+                                        /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
+                                    fi
+                                else
+                                    echo "Nothing was removed. Please check manually."
+                                fi
                             else
-                                echo "Nothing was removed. Please check manually."
+                                echo "Nginx is not installed and is a prerequisite for using Transdroid/Transdrone"
+                                echo
+                                echo "Please see this FAQ -- https://www.feralhosting.com/faq/view?question=231"
+                                echo
                             fi
                             ;;
                     "4")
+                            if [[ -d ~/.nginx ]]
+                            then
+                                mkdir -p ~/$tmpdir1
+                                #
+                                wget -qO ~/$tmpdir1/qrencode_3.3.0-2_amd64.deb http://ftp.uk.debian.org/debian/pool/main/q/qrencode/qrencode_3.3.0-2_amd64.deb
+                                wget -qO ~/$tmpdir1/libqrencode3_3.3.0-2_amd64.deb http://ftp.uk.debian.org/debian/pool/main/q/qrencode/libqrencode3_3.3.0-2_amd64.deb
+                                #
+                                dpkg-deb -x ~/$tmpdir1/qrencode_3.3.0-2_amd64.deb ~/$tmpdir1
+                                dpkg-deb -x ~/$tmpdir1/libqrencode3_3.3.0-2_amd64.deb ~/$tmpdir1
+                                #
+                                wget -qO ~/$tmpdir1/settings.json "$rtorrentjson"
+                                until [[ -d ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-$suffix ]]
+                                do
+                                    read -ep "What is the suffix of the instance you wish to connect to: rutorrent-" suffix
+                                done
+                                read -ep "Please enter the ruTorrent password from your Account overview page: " pass
+                                echo
+                                #
+                                sed -i 's|\\\/rtorrent\\\/rpc|\\\/rtorrent-'$suffix'\\\/rpc|' ~/.transdroid_import/settings.json
+                                sed -i 's/rutorrent main/rutorrent-'$suffix' '$(hostname | grep -oE "^([a-z]+)")'/' ~/$tmpdir1/settings.json
+                                sed -i 's/USERNAME-CHANGEME/'$(whoami)'/' ~/$tmpdir1/settings.json
+                                sed -i 's/HOSTNAME_CHANGEME/'$(hostname -f)'/' ~/$tmpdir1/settings.json
+                                sed -i 's/PASSWORD-CHANGEME/'$pass'/' ~/$tmpdir1/settings.json
+                                #
+                                mkdir -p ~/www/$(whoami).$(hostname)/public_html/$tmpdir2
+                                #
+                                # cp -f ~/$tmpdir1/settings.json ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/settings.json
+                                htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/.htpasswd "$(whoami)" "$randompass" > /dev/null 2>&1
+                                #
+                                if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+                                then
+                                    echo -e 'location /'"$tmpdir2"' {\n    auth_basic "'"$tmpdir2"'";\n    auth_basic_user_file "'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/'"$tmpdir2"'/.htpasswd";\n}' > ~/.nginx/conf.d/000-default-server.d/transdroid_import.conf
+                                    /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
+                                fi
+                                #
+                                echo -e 'AuthType Basic\nAuthName "'"$tmpdir2"'"\nAuthUserFile "'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/'"$tmpdir2"'/.htpasswd"\nRequire "'$(whoami)'"' > ~/www/$(whoami).$(hostname -f)/public_html/"$tmpdir2"/.htaccess
+                                #
+                                # LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 1 -t ANSI256 -o - "$URL"
+                                LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 10 -t PNG "$(cat ~/.transdroid_import/settings.json)" -o ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/rtorrent.png
+                                #
+                                echo -e "1: Open Transdroid/Transdrone and go to:" "\033[36m""Settings > System > Import settings""\e[0m"
+                                echo
+                                echo -e "2: Click" "\033[36m""Use QR code""\e[0m"
+                                echo
+                                echo -e "3: Open this URL in a browser:"
+                                echo
+                                echo -e "\033[32m""$URL/rtorrent.png""\e[0m"
+                                echo
+                                echo -e "4: Now scan with Transdroid/Transdrone to import""\e[0m"
+                                echo
+                                echo -e "Note: Imported connections will be merged with existing ones. Nothing will be lost."
+                                echo
+                                read -ep "After you have scanned the qrcode, press ENTER to clean up." useless
+                                echo
+                                #
+                                if [[ ! -z "$tmpdir1" && ! -z "$tmpdir2" ]]
+                                then
+                                    cd && rm -rf $tmpdir1 ~/www/$(whoami).$(hostname)/public_html/$tmpdir2
+                                    if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+                                    then
+                                        rm -f ~/.nginx/conf.d/000-default-server.d/transdroid_import.conf
+                                        /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
+                                    fi
+                                else
+                                    echo "Nothing was removed. Please check manually."
+                                fi
+                            else
+                                echo "Nginx is not installed and is a prerequisite for using Transdroid/Transdrone"
+                                echo
+                                echo "Please see this FAQ -- https://www.feralhosting.com/faq/view?question=231"
+                                echo
+                            fi
+                            ;;
+                    "5")
                             echo "You chose to quit the script."
                             echo
                             exit
