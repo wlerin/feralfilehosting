@@ -1,6 +1,6 @@
 #!/bin/bash
 # Transdroid/Transdrone Setup
-scriptversion="1.0.5"
+scriptversion="1.0.6"
 scriptname="transdroid.setup"
 # Author: adamaze (frankthetank7254)
 # Contributors: randomessence
@@ -117,6 +117,7 @@ then
                             read -ep "Please enter the ruTorrent password from your Account overview page: " pass
                             echo
                             #
+                            sed -i 's/rutorrent main/rutorrent '$(hostname | grep -oE "^([a-z]+)")' main/' ~/$tmpdir1/settings.json
                             sed -i 's/USERNAME-CHANGEME/'$(whoami)'/' ~/$tmpdir1/settings.json
                             sed -i 's/HOSTNAME_CHANGEME/'$(hostname -f)'/' ~/$tmpdir1/settings.json
                             sed -i 's/PASSWORD-CHANGEME/'$pass'/' ~/$tmpdir1/settings.json
@@ -177,6 +178,7 @@ then
                             read -ep "Please enter the Deluge password from your Account overview page: " pass
                             echo
                             #
+                            sed -i 's/deluge main/deluge '$(hostname | grep -oE "^([a-z]+)")' main/' ~/$tmpdir1/settings.json
                             sed -i 's/USERNAME-CHANGEME/'$(whoami)'/g' ~/$tmpdir1/settings.json
                             sed -i 's/HOSTNAME_CHANGEME/'$(hostname -f)'/' ~/$tmpdir1/settings.json
                             sed -i 's/PASSWORD-CHANGEME/'$pass'/' ~/$tmpdir1/settings.json
@@ -237,6 +239,7 @@ then
                             read -ep "Please enter the Transmission password from your Account overview page: " pass
                             echo
                             #
+                            sed -i 's/transmission main/transmission '$(hostname | grep -oE "^([a-z]+)")' main/' ~/$tmpdir1/settings.json
                             sed -i 's/USERNAME-CHANGEME/'$(whoami)'/' ~/$tmpdir1/settings.json
                             sed -i 's/HOSTNAME_CHANGEME/'$(hostname -f)'/' ~/$tmpdir1/settings.json
                             sed -i 's/PASSWORD-CHANGEME/'$pass'/' ~/$tmpdir1/settings.json
