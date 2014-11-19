@@ -10,6 +10,24 @@ Required prerequisites
 
 **2:** You must then [update to nginx using this FAQ](https://www.feralhosting.com/faq/view?question=231). Once you have done that, use this information below to use transdroid to connect to rutorrent.
 
+Automated Setup
+---
+
+> **Important note:** Requires Transdrone/Transdroid 2.3.0 or newer.
+
+Use this script to generate a qrcode of a fully configured server that you can import directly into Transdrone/Transdroid.
+
+**1:** Rutorrent
+**2:** Deluge
+**3:** Transmission
+
+~~~
+wget -qO ~/transdroid.setup http://git.io/lU_B9w && bash ~/transdroid.setup
+~~~
+
+Manual Setup
+---
+
 Open Transdroid 2 on your device. Click on the menu button and then click on `settings`.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Transdroid%20-%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/main/settings.png)
@@ -77,7 +95,7 @@ Click on `Optional Settings` now.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Transdroid%20-%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/main/serveros.png)
 
-**Important note:**
+> **Important note:**
 
 You may need to close and restart Transdroid for it to actually connect. It can fail with an error until you force a restart.
 
@@ -138,7 +156,7 @@ Click on `Optional Settings` now.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Transdroid%20-%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/main/serveros.png)
 
-**Important note:**
+> **Important note:**
 
 You may need to close and restart Transdroid for it to actually connect. It can fail with an error until you force a restart.
 
@@ -197,15 +215,11 @@ Click on `Optional Settings` now.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Transdroid%20-%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/main/serveros.png)
 
-**Important note:**
-
-You may need to close and restart Transdroid for it to actually connect. It can fail with an error until you force a restart.
+> **Important note:** You may need to close and restart Transdroid for it to actually connect. It can fail with an error until you force a restart.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Transdroid%20-%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/main/forceend.png)
 
 If all settings were correctly entered you should now be able to connect:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Transdroid%20-%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/transmission/transmissionfinal.png)
-
-
 
