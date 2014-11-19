@@ -1,5 +1,5 @@
 #!/bin/bash
-# Transdroid Setup
+# Transdroid/Transdrone Setup
 scriptversion="1.0.5"
 scriptname="transdroid.setup"
 # Author: adamaze (frankthetank7254)
@@ -137,7 +137,7 @@ then
                             # LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 1 -t ANSI256 -o - "$URL"
                             LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 10 -t PNG "$(cat ~/.transdroid_import/settings.json)" -o ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/rtorrent.png
                             #
-                            echo -e "1: Open Transdroid and go to:" "\033[36m""Settings > System > Import settings""\e[0m"
+                            echo -e "1: Open Transdroid/Transdrone and go to:" "\033[36m""Settings > System > Import settings""\e[0m"
                             echo
                             echo -e "2: Click" "\033[36m""Use QR code""\e[0m"
                             echo
@@ -145,11 +145,11 @@ then
                             echo
                             echo -e "\033[32m""$URL/rtorrent.png""\e[0m"
                             echo
-                            echo -e "4: Now scan with Transdroid to import""\e[0m"
+                            echo -e "4: Now scan with Transdroid/Transdrone to import""\e[0m"
                             echo
                             echo -e "Note: Imported connections will be merged with existing ones. Nothing will be lost."
                             echo
-                            read -ep "After you have downloaded the config file, press ENTER to clean up." useless
+                            read -ep "After you have scanned the qrcode, press ENTER to clean up." useless
                             echo
                             #
                             if [[ ! -z "$tmpdir1" && ! -z "$tmpdir2" ]]
@@ -197,7 +197,7 @@ then
                             # LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 1 -t ANSI256 -o - "$URL"
                             LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 10 -t PNG "$(cat ~/.transdroid_import/settings.json)" -o ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/deluge.png
                             #
-                            echo -e "1: Open Transdroid and go to:" "\033[36m""Settings > System > Import settings""\e[0m"
+                            echo -e "1: Open Transdroid/Transdrone and go to:" "\033[36m""Settings > System > Import settings""\e[0m"
                             echo
                             echo -e "2: Click" "\033[36m""Use QR code""\e[0m"
                             echo
@@ -205,11 +205,11 @@ then
                             echo
                             echo -e "\033[32m""$URL/deluge.png""\e[0m"
                             echo
-                            echo -e "4: Now scan with Transdroid to import""\e[0m"
+                            echo -e "4: Now scan with Transdroid/Transdrone to import""\e[0m"
                             echo
                             echo -e "Note: Imported connections will be merged with existing ones. Nothing will be lost."
                             echo
-                            read -ep "After you have downloaded the config file, press ENTER to clean up." useless
+                            read -ep "After you have scanned the qrcode, press ENTER to clean up." useless
                             echo
                             #
                             if [[ ! -z "$tmpdir1" && ! -z "$tmpdir2" ]]
@@ -257,7 +257,7 @@ then
                             # LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 1 -t ANSI256 -o - "$URL"
                             LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 10 -t PNG "$(cat ~/.transdroid_import/settings.json)" -o ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/transmission.png
                             #
-                            echo -e "1: Open Transdroid and go to:" "\033[36m""Settings > System > Import settings""\e[0m"
+                            echo -e "1: Open Transdroid/Transdrone and go to:" "\033[36m""Settings > System > Import settings""\e[0m"
                             echo
                             echo -e "2: Click" "\033[36m""Use QR code""\e[0m"
                             echo
@@ -265,11 +265,11 @@ then
                             echo
                             echo -e "\033[32m""$URL/transmission.png""\e[0m"
                             echo
-                            echo -e "4: Now scan with Transdroid to import""\e[0m"
+                            echo -e "4: Now scan with Transdroid/Transdrone to import""\e[0m"
                             echo
                             echo -e "Note: Imported connections will be merged with existing ones. Nothing will be lost."
                             echo
-                            read -ep "After you have downloaded the config file, press ENTER to clean up." useless
+                            read -ep "After you have scanned the qrcode, press ENTER to clean up." useless
                             echo
                             #
                             if [[ ! -z "$tmpdir1" && ! -z "$tmpdir2" ]]
