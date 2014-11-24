@@ -25,30 +25,27 @@ Install AeroFS:
 Please go to [https://aerofs.com/](https://aerofs.com/ "aerofs.com") and create an account.
 
 ~~~
-wget -qO ~/aerofs.tgz https://dsy5cjk52fz4a.cloudfront.net/aerofs-installer.tgz
+wget -qO ~/aerofs.tgz https://dsy5cjk52fz4a.cloudfront.net/aerofs-installer-0.8.77.tgz
 tar xf ~/aerofs.tgz
-wget -qO ~/sharutils.deb http://ftp.uk.debian.org/debian/pool/main/s/sharutils/sharutils_4.11.1-1_amd64.deb
-dpkg-deb -x ~/sharutils.deb ~/aerofs
-cp -rf ~/aerofs/usr/bin/. ~/aerofs && rm -rf ~/aerofs/usr
-rm -f ~/sharutils.deb && rm -f ~/aerofs.tgz
 ~~~
 
-Add the path of the binary to your `PATH` for easy execution in your terminal using this command:
+### Teamserver example (Optional - Just for demonstration):
+
+> **Important note:** The teamserver installation is pretty much exactly the same. Centralised files storage vs peer to peer clients.
 
 ~~~
-[[][/[][ ! "$(grep '~/aerofs' ~/.bashrc)" ]] && echo 'export PATH=~/aerofs:$PATH' >> ~/.bashrc ; source ~/.bashrc
+wget -qO ~/aerofsts.tgz https://dsy5cjk52fz4a.cloudfront.net/aerofsts-installer-0.8.77.tgz
+tar xf ~/aerofsts.tgz
+screen -S aerofs ~/aerofs/aerofsts-cli
 ~~~
+
+Running Aerofs
+---
 
 At first run we need set up the app and it work better in a screen, so type this command:
 
 ~~~
-screen -S aerofs
-~~~
-
-Inside the screen type:
-
-~~~
-aerofs-cli
+screen -S aerofs ~/aerofs/aerofs-cli
 ~~~
 
 This will start the set-up process.
@@ -66,13 +63,13 @@ Press and hold `CTRL` and `A` then press  `D`
 Once you have setup up Aerofs you can start it easily using this command:
 
 ~~~
-screen -dmS aerofs aerofs-cli
+screen -dmS aerofs ~/aerofs/aerofs-cli &
 ~~~
 
 To use the process interactively use this command:
 
 ~~~
-aerofs-sh
+~/aerofs/aerofs-sh
 ~~~
 
 Here is the result:

@@ -223,3 +223,5 @@ If all settings were correctly entered you should now be able to connect:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Transdroid%20-%20Control%20rTorrent%20-%20Deluge%20-%20Transmission%20From%20Your%20Android%20Phone/transmission/transmissionfinal.png)
 
+
+
