@@ -21,10 +21,10 @@ Installation Step 1: Install Protobuf (required dependency)
 This is a required dependency that is not included with your slot.
 
 ~~~
-wget -qO ~/protobuf-2.5.0.tar.gz http://protobuf.googlecode.com/files/protobuf-2.5.0.tar.gz
-tar xf ~/protobuf-2.5.0.tar.gz && cd ~/protobuf-2.5.0
+wget -qO ~/protobuf.tar.gz https://github.com/google/protobuf/releases/download/2.6.1/protobuf-2.6.1.tar.gz
+tar xf ~/protobuf.tar.gz && cd ~/protobuf-2.6.1
 ./configure --prefix=$HOME && make && make install
-cd && rm -rf  protobuf{-2.5.0.tar.gz,-2.5.0}
+cd && rm -rf  protobuf{.tar.gz,-2.6.1}
 ~~~
 
 Installation Step 2: Install Mosh

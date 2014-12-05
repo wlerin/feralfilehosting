@@ -93,11 +93,9 @@ The screen shot below illustrates the result:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Putting%20your%20WWW%20folder%20to%20use/h5ai.png)
 
-Version 0.24 has a problem. This is a problem with the two URL formats available at Feral. It will work with one
-and not the other. To fix this you will need to use this custom version of 0.24 that works for both URL types at 
-the same time.
+To download _h5ai 0.26.1 (custom with dual URL format fix) use these commands in SSH.
 
-To download _h5ai 0.24 (custom with dual url format fix) use these commands in SSH.
+> **Important note:** This is a very [lightly modified](https://github.com/feralhosting/_h5ai_custom/commit/5a9629e91612259b23e42ca723a7417b6aa2f7ad) version to allow it work with both URL formats you are provided at Feral.
 
 ~~~
 wget -qO ~/h5ai.zip http://git.io/dEazsw
@@ -184,7 +182,7 @@ Contribute:
 
 The repo for this custom file can be found here for users to check or to contribute to.
 
-[https://github.com/feralhosting/h5ai_custom](https://github.com/feralhosting/h5ai_custom)
+[https://github.com/feralhosting/_h5ai_custom](https://github.com/feralhosting/_h5ai_custom)
 
 
 
