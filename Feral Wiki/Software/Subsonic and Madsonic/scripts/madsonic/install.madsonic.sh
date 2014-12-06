@@ -36,10 +36,10 @@ installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 # Java URL
 javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=97360"
 # Madsonic Standalone files
-madsonicfv="https://bitbucket.org/feralhosting/feralfiles/downloads/5.1.5150-standalone.zip"
+madsonicfv="https://bitbucket.org/feralhosting/feralfiles/downloads/5.1.5200-standalone.zip"
 madsonicfvs="5.1.5150-standalone.zip"
 # ffmpeg files
-mffmpegfvc="https://bitbucket.org/feralhosting/feralfiles/downloads/sonic.ffpmeg.27.09.2014.zip"
+mffmpegfvc="https://bitbucket.org/feralhosting/feralfiles/downloads/sonic.ffmpeg.17.10.2014.zip"
 mffmpegfvcs="sonic.ffpmeg.27.09.2014.zip"
 #
 scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/madsonic/install.madsonic.sh"
