@@ -2,7 +2,7 @@
 # Install Madsonic
 scriptversion="1.8.5"
 scriptname="install.madsonic"
-madsonicversion="5.1 Build 5150"
+madsonicversion="5.1 Build 5200"
 javaversion="1.8 Update 25"
 jvdecimal="1.8.0_25"
 #
