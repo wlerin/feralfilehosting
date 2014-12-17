@@ -27,7 +27,7 @@ jvdecimal="1.8.0_25"
 ############################
 #
 # Sets a random port between 6000-50000 for http
-http=$(shuf -i 6000-49000 -n 1)
+http=$(shuf -i 10000-49000 -n 1)
 # Defines the memory variable
 # buffer
 submemory="2048"
@@ -394,7 +394,8 @@ then
         # Nginx proxypass
         if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
         then
-            echo -e 'location /subsonic {\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /subsonic/(.*) /'$(whoami)'/subsonic/$1 break;\nproxy_pass http://10.0.0.1:'"$http"'/'$(whoami)'/subsonic/;\nproxy_redirect http:// https://;\n}' > ~/.nginx/conf.d/000-default-server.d/subsonic.conf
+        mkdir -p ~/.nginx/proxy
+        echo -e 'location /subsonic {\n\nproxy_temp_path '"$HOME"'/.nginx/proxy;\n\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /subsonic/(.*) /'$(whoami)'/subsonic/$1 break;\nproxy_pass http://10.0.0.1:'"$http"'/'$(whoami)'/subsonic/;\nproxy_redirect http:// https://;\n}' > ~/.nginx/conf.d/000-default-server.d/subsonic.conf
             /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
         fi
         echo -e "\033[31m""Start-up script successfully configured.""\e[0m"
