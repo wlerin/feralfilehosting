@@ -388,6 +388,7 @@ then
         sed -i '22 i export LANG=en_GB.UTF-8' ~/private/subsonic/subsonic.sh
         sed -i '22 i export LANGUAGE=en_GB.UTF-8' ~/private/subsonic/subsonic.sh
         # Apache proxypass
+        mkdir -p ~/.apache2/conf.d
         echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\nInclude /etc/apache2/mods-available/ssl.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\nSSLProxyEngine on\n\nProxyPass /subsonic http://10.0.0.1:'"$http"'/${USER}/subsonic\nProxyPassReverse /subsonic http://10.0.0.1:'"$http"'/${USER}/subsonic\nRedirect /${USER}/subsonic https://${APACHE_HOSTNAME}/${USER}/subsonic' > "$HOME/.apache2/conf.d/subsonic.conf"
         /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
         echo
@@ -473,6 +474,7 @@ then
             rm -rf ~/subsonic.tar.gz ~/ffmpeg.zip ~/sonictmp
             sed -i "s|^SUBSONIC_CONTEXT_PATH=/$|SUBSONIC_CONTEXT_PATH=/$(whoami)/subsonic|g" ~/private/subsonic/subsonic.sh
             # Apache proxypass
+            mkdir -p ~/.apache2/conf.d
             echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\nInclude /etc/apache2/mods-available/ssl.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\nSSLProxyEngine on\n\nProxyPass /subsonic http://10.0.0.1:'$(sed -n -e 's/SUBSONIC_PORT=\([0-9]\+\)/\1/p' ~/private/subsonic/subsonic.sh 2> /dev/null)'/${USER}/subsonic\nProxyPassReverse /subsonic http://10.0.0.1:'$(sed -n -e 's/SUBSONIC_PORT=\([0-9]\+\)/\1/p' ~/private/subsonic/subsonic.sh 2> /dev/null)'/${USER}/subsonic\nRedirect /${USER}/subsonic https://${APACHE_HOSTNAME}/${USER}/subsonic' > "$HOME/.apache2/conf.d/subsonic.conf"
             /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
             echo
