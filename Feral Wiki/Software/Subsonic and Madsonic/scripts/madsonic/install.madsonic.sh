@@ -26,7 +26,7 @@ jvdecimal="1.8.0_25"
 ###### Variable Start ######
 ############################
 #
-# Sets a random port between 6000-50000 for http
+# Sets a random port between 10000-50000 for http
 http=$(shuf -i 10001-49000 -n 1)
 # Defines the memory variable
 initmemory="2048"
@@ -37,7 +37,7 @@ installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=97360"
 # Madsonic Standalone files
 madsonicfv="https://bitbucket.org/feralhosting/feralfiles/downloads/5.1.5200-standalone.zip"
-madsonicfvs="5.1.5150-standalone.zip"
+madsonicfvs="5.1.5200-standalone.zip"
 # ffmpeg files
 mffmpegfvc="https://bitbucket.org/feralhosting/feralfiles/downloads/sonic.ffmpeg.17.10.2014.zip"
 mffmpegfvcs="sonic.ffmpeg.17.10.2014.zip"

@@ -26,7 +26,7 @@ jvdecimal="1.8.0_25"
 ###### Variable Start ######
 ############################
 #
-# Sets a random port between 6000-50000 for http
+# Sets a random port between 10000-50000 for http
 http=$(shuf -i 10001-49000 -n 1)
 # Defines the memory variable
 # buffer
@@ -403,7 +403,6 @@ then
         bash ~/private/subsonic/subsonic.sh
         echo -e "A restart/start/kill script has been created at:" "\033[35m""~/bin/subsonicrsk""\e[0m"
         echo -e "\033[32m""Subsonic is now started, use the links below to access it. Don't forget to set path to FULL path to you music folder in the gui.""\e[0m"
-        sleep
         echo
         echo -e "Subsonic is accessible at:" "\033[32m""https://$(hostname -f)/$(whoami)/subsonic/""\e[0m"
         echo -e "It may take a minute or two to load properly."
