@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Subsonic
-scriptversion="1.8.5"
+scriptversion="1.8.6"
 scriptname="install.subsonic"
 subsonicversion="5.0"
 javaversion="1.8 Update 25"
@@ -40,7 +40,7 @@ subsonicfv="http://downloads.sourceforge.net/project/subsonic/subsonic/5.0/subso
 subsonicfvs="subsonic-5.0-standalone.tar.gz"
 # ffmpeg files
 sffmpegfv="https://bitbucket.org/feralhosting/feralfiles/downloads/sonic.ffmpeg.17.10.2014.zip"
-sffmpegfvs="sonic.ffpmeg.27.09.2014.zip"
+sffmpegfvs="sonic.ffmpeg.17.10.2014.zip"
 #
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/subsonic/install.subsonic.sh"
 #
@@ -265,7 +265,8 @@ then
     # Nginx proxypass
     if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
     then
-        echo -e 'location /subsonic {\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /subsonic/(.*) /'$(whoami)'/subsonic/$1 break;\nproxy_pass http://10.0.0.1:'$(sed -n -e 's/SUBSONIC_PORT=\([0-9]\+\)/\1/p' ~/private/subsonic/subsonic.sh 2> /dev/null)'/'$(whoami)'/subsonic/;\nproxy_redirect http:// https://;\n}' > ~/.nginx/conf.d/000-default-server.d/subsonic.conf
+        mkdir -p ~/.nginx/proxy
+        echo -e 'location /subsonic {\n\nproxy_temp_path '"$HOME"'/.nginx/proxy;\n\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /subsonic/(.*) /'$(whoami)'/subsonic/$1 break;\nproxy_pass http://10.0.0.1:'$(sed -n -e 's/SUBSONIC_PORT=\([0-9]\+\)/\1/p' ~/private/subsonic/subsonic.sh 2> /dev/null)'/'$(whoami)'/subsonic/;\nproxy_redirect http:// https://;\n}' > ~/.nginx/conf.d/000-default-server.d/subsonic.conf
         /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
     fi
     echo -e "The" "\033[36m""nginx/apache proxypass""\e[0m" "has been installed."
