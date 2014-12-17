@@ -27,7 +27,7 @@ jvdecimal="1.8.0_25"
 ############################
 #
 # Sets a random port between 6000-50000 for http
-http=$(shuf -i 10000-49000 -n 1)
+http=$(shuf -i 10001-49000 -n 1)
 # Defines the memory variable
 # buffer
 submemory="2048"
