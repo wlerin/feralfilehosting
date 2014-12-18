@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Syncthing
-scriptversion="1.0.0"
+scriptversion="1.0.1"
 scriptname="install.syncthing"
 syncthingversion="0.10.12"
 # randomessence
@@ -95,6 +95,7 @@ then
         wget -qO ~/.nginx/conf.d/000-default-server.d/syncthing.conf "$nginxconf"
         sed -i -r 's#USERNAME#'"$(whoami)"'#g' ~/.nginx/conf.d/000-default-server.d/syncthing.conf
         sed -i -r 's#PORT#'"$guiport"'#g' ~/.nginx/conf.d/000-default-server.d/syncthing.conf
+        /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
     fi
     screen -dmS syncthing ~/bin/syncthing
     echo
