@@ -1,23 +1,15 @@
 #!/bin/bash
-# Script name
+# Install Syncthing
 scriptversion="1.0.0"
 scriptname="install.syncthing"
 syncthingversion="0.10.12"
-# Author name
+# randomessence
 #
-# Bash Command
+# wget -qO ~/install.syncthing http://git.io/-MNlxQ && bash ~/install.syncthing
 #
 ############################
 ## Version History Starts ##
 ############################
-#
-# How do I customise this updater? 
-# 1: scriptversion="0.0.0" replace "0.0.0" with your script version. This will be shown to the user at the current version.
-# 2: scriptname="somescript" replace "somescript" with your script name. Make it unique to this script.
-# 3: Set the scripturl variable in the variable section to the RAW github URl of the script for updating.
-# 4: Insert your script in the "Script goes here" labelled section
-#
-# This updater deals with updating a single file, the "~/bin/somescript", by updating and switching to this script.
 #
 ############################
 ### Version History Ends ###
@@ -27,7 +19,7 @@ syncthingversion="0.10.12"
 ###### Variable Start ######
 ############################
 #
-scripturl="https://raw.github.com/feralhosting"
+scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Syncthing%20-%20Basic%20Setup/scripts/install.syncthing.sh"
 #
 ############################
 ####### Variable End #######

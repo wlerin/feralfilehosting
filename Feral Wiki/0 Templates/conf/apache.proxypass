@@ -1,0 +1,13 @@
+Include /etc/apache2/mods-available/proxy.load
+Include /etc/apache2/mods-available/proxy_http.load
+Include /etc/apache2/mods-available/headers.load
+Include /etc/apache2/mods-available/ssl.load
+
+ProxyRequests Off
+ProxyPreserveHost On
+ProxyVia On
+SSLProxyEngine on
+
+ProxyPass /application http://10.0.0.1:PORT/${USER}/application
+ProxyPassReverse /application http://10.0.0.1:PORT/${USER}/application
+Redirect /${USER}/application https://${APACHE_HOSTNAME}/${USER}/application
