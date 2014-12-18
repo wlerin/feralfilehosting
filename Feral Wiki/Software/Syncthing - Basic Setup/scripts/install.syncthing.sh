@@ -25,6 +25,12 @@ scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/maste
 ####### Variable End #######
 ############################
 #
+guiport=$(shuf -i 10001-49000 -n 1)
+syncport=$(expr 1 + $guiport)
+#
+apacheconf="http://git.io/WqUqBQ"
+nginxconf="http://git.io/TnhqpA"
+#
 ############################
 #### Self Updater Start ####
 ############################
@@ -71,10 +77,29 @@ then
 ############################
 #
     read -ep "What is the current version of syncthing, for example 0.10.12 ?: " -i "$syncthingversion" mainversion
-	wget "https://github.com/syncthing/syncthing/releases/download/v$mainversion/syncthing-linux-amd64-v$mainversion.tar.gz"
+	wget -qO ~/syncthing.tar.gz "https://github.com/syncthing/syncthing/releases/download/v$mainversion/syncthing-linux-amd64-v$mainversion.tar.gz"
     tar xf ~/syncthing.tar.gz
     mv ~/syncthing-linux-amd64-v"$syncthingversion"/syncthing ~/bin/
     cd && rm -rf syncthing{-linux-amd64-v"$syncthingversion",.tar.gz}
+    #
+    ~/bin/syncthing -generate="~/.config/syncthing"
+    sed -i -r 's#<address>127.0.0.1:(.*)</address>#<address>10.0.0.1:'"$guiport"'</address>#g' ~/.config/syncthing/config.xml
+    sed -i 's#<listenAddress>0.0.0.0:22000</listenAddress>#<listenAddress>0.0.0.0:'"$syncport"'</listenAddress>#g' ~/.config/syncthing/config.xml
+    # Apache proxypass
+    wget -qO ~/.apache2/conf.d/syncthing.conf "$apacheconf"
+    sed -i -r 's#PORT#'"$guiport"'#g' ~/.apache2/conf.d/syncthing.conf
+    /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
+    # nginx proxypass
+    if [[ -d ~/.nginx ]]
+    then
+        wget -qO ~/.nginx/conf.d/000-default-server.d/syncthing.conf "$nginxconf"
+        sed -i -r 's#USERNAME#'"$(whoami)"'#g' ~/.nginx/conf.d/000-default-server.d/syncthing.conf
+        sed -i -r 's#PORT#'"$guiport"'#g' ~/.nginx/conf.d/000-default-server.d/syncthing.conf
+    fi
+    screen -dmS syncthing ~/bin/syncthing
+    echo
+    echo "https://$(hostname -f)/$(whoami)/syncthing/"
+    echo
 #
 ############################
 ##### User Script End  #####
