@@ -2,7 +2,7 @@
 # Install Syncthing
 scriptversion="1.0.1"
 scriptname="install.syncthing"
-syncthingversion="0.10.12"
+syncthingversion="0.10.13"
 # randomessence
 #
 # wget -qO ~/install.syncthing http://git.io/-MNlxQ && bash ~/install.syncthing
@@ -76,7 +76,10 @@ then
 #### User Script Starts ####
 ############################
 #
-    read -ep "What is the current version of syncthing, for example 0.10.12 ?: " -i "$syncthingversion" mainversion
+    echo "https://github.com/syncthing/syncthing/releases/latest"
+    echo
+    read -ep "What is the version of syncthing you want to install?: " -i "$syncthingversion" mainversion
+    echo
 	wget -qO ~/syncthing.tar.gz "https://github.com/syncthing/syncthing/releases/download/v$mainversion/syncthing-linux-amd64-v$mainversion.tar.gz"
     tar xf ~/syncthing.tar.gz
     mv ~/syncthing-linux-amd64-v"$syncthingversion"/syncthing ~/bin/
