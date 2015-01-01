@@ -21,6 +21,8 @@ Use this script to generate a qrcode of a fully configured server that you can i
 **2:** Deluge
 **3:** Transmission
 
+> **Important note:** If you get an error and the program crashes when trying to scan a qrcode make sure you have installed the qrcode scanner: [Barcode Scanner](https://play.google.com/store/apps/details?id=com.google.zxing.client.android&hl=en_GB)
+
 ~~~
 wget -qO ~/transdroid.setup http://git.io/lU_B9w && bash ~/transdroid.setup
 ~~~

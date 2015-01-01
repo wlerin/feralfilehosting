@@ -11,9 +11,25 @@ Install syncthing:
 >
 > [https://github.com/syncthing/syncthing/releases](https://github.com/syncthing/syncthing/releases)
 
+### Bash Script:
+
+Will install a selected version along with a proxypass for Apache or Nginx.
+
+~~~
+wget -qO ~/install.syncthing http://git.io/-MNlxQ && bash ~/install.syncthing
+~~~
+
+The URL will be in this format:
+
+~~~
+https://server.feralhosting.com/username/syncthing/
+~~~
+
+### Manual Installation.
+
 ~~~
 mkdir -p ~/bin && source ~/.{profile,bashrc}
-wget -qO ~/syncthing.tar.gz https://github.com/syncthing/syncthing/releases/download/v0.10.5/syncthing-linux-amd64-v0.10.5.tar.gz
+wget -qO ~/syncthing.tar.gz https://github.com/syncthing/syncthing/releases/download/v0.10.12/syncthing-linux-amd64-v0.10.12.tar.gz
 tar xf ~/syncthing.tar.gz
 mv ~/syncthing-linux-amd64-v*/syncthing ~/bin/
 cd && rm -rf syncthing{-linux-amd64-v*,.tar.gz}

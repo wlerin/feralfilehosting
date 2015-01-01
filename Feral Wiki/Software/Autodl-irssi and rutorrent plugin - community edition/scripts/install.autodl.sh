@@ -118,7 +118,7 @@ then
     # Make a backup of the ~/.autodl/autodl.cfg just in case
     if [[ -f ~/.autodl/autodl.cfg ]]
     then
-        cp -f ~/.autodl/autodl.cfg ~/.autodl/autodl.cfg.bak-$(date +"%m.%d.%y@%H:%M:%S")
+        cp -f ~/.autodl/autodl.cfg ~/.autodl/autodl.cfg.bak-$(date +"%d.%m.%y@%H:%M:%S")
     fi
     # Clean install by removing the related irssi folder and files and the rutorrent plug in folder
     rm -rf ~/.irssi/scripts/AutodlIrssi
