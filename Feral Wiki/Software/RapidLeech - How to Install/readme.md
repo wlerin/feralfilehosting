@@ -3,11 +3,11 @@ RapidLeech allows you to download files from file-hosting services such as Rapid
 
 Installation is exceptionally easy — run these two command in [SSH](https://www.feralhosting.com/faq/view?question=12):
 
-The URL is using Rapidleech `rl23_v43_SVN422.zip` dated 3nd February 2013.
+The URL is using Rapidleech `rl23_v43_SVN430.zip` from here [Rapid Share Source Code](https://drive.google.com/folderview?id=0B2TOwN5xkUeIQ3RxT3c1allQZkE#list)
 
 ```
-wget -qNO ~/rapid.zip http://git.io/PwldRA
-unzip -qn ~/rapid.zip -d ~/www/$(whoami).$(hostname)/public_html/
+wget -qO ~/rapid.zip http://git.io/3nr6fw
+unzip -qn ~/rapid.zip -d ~/www/$(whoami).$(hostname -f)/public_html/
 ```
 
 Then visit your Feral URL in a web browser, for example:
