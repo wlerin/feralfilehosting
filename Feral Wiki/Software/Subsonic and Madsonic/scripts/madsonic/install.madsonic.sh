@@ -3,8 +3,8 @@
 scriptversion="1.8.6"
 scriptname="install.madsonic"
 madsonicversion="5.1 Build 5200"
-javaversion="1.8 Update 25"
-jvdecimal="1.8.0_25"
+javaversion="1.8 Update 31"
+jvdecimal="1.8.0_31"
 #
 # randomessence
 #
@@ -34,7 +34,7 @@ maxmemory="2048"
 # Gets the Java version from the last time this script installed Java
 installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 # Java URL
-javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=97360"
+javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=101400"
 # Madsonic Standalone files
 madsonicfv="https://bitbucket.org/feralhosting/feralfiles/downloads/5.1.5200-standalone.zip"
 madsonicfvs="5.1.5200-standalone.zip"
