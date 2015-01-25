@@ -1,8 +1,8 @@
 #!/bin/bash
 # Install Subsonic
-scriptversion="1.8.6"
+scriptversion="1.8.7"
 scriptname="install.subsonic"
-subsonicversion="5.0"
+subsonicversion="5.1"
 javaversion="1.8 Update 31"
 jvdecimal="1.8.0_31"
 #
@@ -36,8 +36,8 @@ installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 # Java URL
 javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=101400"
 # Subsonic Standalone files
-subsonicfv="http://downloads.sourceforge.net/project/subsonic/subsonic/5.0/subsonic-5.0-standalone.tar.gz"
-subsonicfvs="subsonic-5.0-standalone.tar.gz"
+subsonicfv="http://downloads.sourceforge.net/project/subsonic/subsonic/5.1/subsonic-5.1-standalone.tar.gz"
+subsonicfvs="subsonic-5.1-standalone.tar.gz"
 # ffmpeg files
 sffmpegfv="https://bitbucket.org/feralhosting/feralfiles/downloads/sonic.ffmpeg.17.10.2014.zip"
 sffmpegfvs="sonic.ffmpeg.17.10.2014.zip"
