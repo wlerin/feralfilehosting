@@ -1,6 +1,6 @@
 #!/bin/bash
 # Transdroid/Transdrone Setup
-scriptversion="1.0.7"
+scriptversion="1.0.8"
 scriptname="transdroid.setup"
 # Author: adamaze (frankthetank7254)
 # Contributors: randomessence
@@ -121,14 +121,14 @@ then
                                 read -ep "Please enter the ruTorrent password from your Account overview page: " pass
                                 echo
                                 #
-                                sed -i 's/rutorrent main/rutorrent '$(hostname | grep -oE "^([a-z]+)")' main/' ~/$tmpdir1/settings.json
+                                sed -i 's/rutorrent main/rutorrent '$(hostname -f | grep -oE "^([a-z]+)")' main/' ~/$tmpdir1/settings.json
                                 sed -i 's/USERNAME-CHANGEME/'$(whoami)'/' ~/$tmpdir1/settings.json
                                 sed -i 's/HOSTNAME_CHANGEME/'$(hostname -f)'/' ~/$tmpdir1/settings.json
                                 sed -i 's/PASSWORD-CHANGEME/'$pass'/' ~/$tmpdir1/settings.json
                                 #
-                                mkdir -p ~/www/$(whoami).$(hostname)/public_html/$tmpdir2
+                                mkdir -p ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2
                                 #
-                                # cp -f ~/$tmpdir1/settings.json ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/settings.json
+                                # cp -f ~/$tmpdir1/settings.json ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/settings.json
                                 htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/.htpasswd "$(whoami)" "$randompass" > /dev/null 2>&1
                                 #
                                 if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
@@ -140,7 +140,7 @@ then
                                 echo -e 'AuthType Basic\nAuthName "'"$tmpdir2"'"\nAuthUserFile "'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/'"$tmpdir2"'/.htpasswd"\nRequire "'$(whoami)'"' > ~/www/$(whoami).$(hostname -f)/public_html/"$tmpdir2"/.htaccess
                                 #
                                 # LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 1 -t ANSI256 -o - "$URL"
-                                LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 10 -t PNG "$(cat ~/.transdroid_import/settings.json)" -o ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/rtorrent.png
+                                LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 10 -t PNG "$(cat ~/.transdroid_import/settings.json)" -o ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/rtorrent.png
                                 #
                                 echo -e "1: Open Transdroid/Transdrone and go to:" "\033[36m""Settings > System > Import settings""\e[0m"
                                 echo
@@ -159,7 +159,7 @@ then
                                 #
                                 if [[ ! -z "$tmpdir1" && ! -z "$tmpdir2" ]]
                                 then
-                                    cd && rm -rf $tmpdir1 ~/www/$(whoami).$(hostname)/public_html/$tmpdir2
+                                    cd && rm -rf $tmpdir1 ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2
                                     if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
                                     then
                                         rm -f ~/.nginx/conf.d/000-default-server.d/transdroid_import.conf
@@ -190,14 +190,14 @@ then
                                 read -ep "Please enter the Deluge password from your Account overview page: " pass
                                 echo
                                 #
-                                sed -i 's/deluge main/deluge '$(hostname | grep -oE "^([a-z]+)")' main/' ~/$tmpdir1/settings.json
+                                sed -i 's/deluge main/deluge '$(hostname -f | grep -oE "^([a-z]+)")' main/' ~/$tmpdir1/settings.json
                                 sed -i 's/USERNAME-CHANGEME/'$(whoami)'/g' ~/$tmpdir1/settings.json
                                 sed -i 's/HOSTNAME_CHANGEME/'$(hostname -f)'/' ~/$tmpdir1/settings.json
                                 sed -i 's/PASSWORD-CHANGEME/'$pass'/' ~/$tmpdir1/settings.json
                                 #
-                                mkdir -p ~/www/$(whoami).$(hostname)/public_html/$tmpdir2
+                                mkdir -p ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2
                                 #
-                                # cp -f ~/$tmpdir1/settings.json ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/settings.json
+                                # cp -f ~/$tmpdir1/settings.json ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/settings.json
                                 htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/.htpasswd "$(whoami)" "$randompass" > /dev/null 2>&1
                                 #
                                 if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
@@ -209,7 +209,7 @@ then
                                 echo -e 'AuthType Basic\nAuthName "'"$tmpdir2"'"\nAuthUserFile "'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/'"$tmpdir2"'/.htpasswd"\nRequire "'$(whoami)'"' > ~/www/$(whoami).$(hostname -f)/public_html/"$tmpdir2"/.htaccess
                                 #
                                 # LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 1 -t ANSI256 -o - "$URL"
-                                LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 10 -t PNG "$(cat ~/.transdroid_import/settings.json)" -o ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/deluge.png
+                                LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 10 -t PNG "$(cat ~/.transdroid_import/settings.json)" -o ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/deluge.png
                                 #
                                 echo -e "1: Open Transdroid/Transdrone and go to:" "\033[36m""Settings > System > Import settings""\e[0m"
                                 echo
@@ -228,7 +228,7 @@ then
                                 #
                                 if [[ ! -z "$tmpdir1" && ! -z "$tmpdir2" ]]
                                 then
-                                    cd && rm -rf $tmpdir1 ~/www/$(whoami).$(hostname)/public_html/$tmpdir2
+                                    cd && rm -rf $tmpdir1 ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2
                                     if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
                                     then
                                         rm -f ~/.nginx/conf.d/000-default-server.d/transdroid_import.conf
@@ -259,14 +259,14 @@ then
                                 read -ep "Please enter the Transmission password from your Account overview page: " pass
                                 echo
                                 #
-                                sed -i 's/transmission main/transmission '$(hostname | grep -oE "^([a-z]+)")' main/' ~/$tmpdir1/settings.json
+                                sed -i 's/transmission main/transmission '$(hostname -f | grep -oE "^([a-z]+)")' main/' ~/$tmpdir1/settings.json
                                 sed -i 's/USERNAME-CHANGEME/'$(whoami)'/' ~/$tmpdir1/settings.json
                                 sed -i 's/HOSTNAME_CHANGEME/'$(hostname -f)'/' ~/$tmpdir1/settings.json
                                 sed -i 's/PASSWORD-CHANGEME/'$pass'/' ~/$tmpdir1/settings.json
                                 #
-                                mkdir -p ~/www/$(whoami).$(hostname)/public_html/$tmpdir2
+                                mkdir -p ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2
                                 #
-                                # cp -f ~/$tmpdir1/settings.json ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/settings.json
+                                # cp -f ~/$tmpdir1/settings.json ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/settings.json
                                 htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/.htpasswd "$(whoami)" "$randompass" > /dev/null 2>&1
                                 #
                                 if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
@@ -278,7 +278,7 @@ then
                                 echo -e 'AuthType Basic\nAuthName "'"$tmpdir2"'"\nAuthUserFile "'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/'"$tmpdir2"'/.htpasswd"\nRequire "'$(whoami)'"' > ~/www/$(whoami).$(hostname -f)/public_html/"$tmpdir2"/.htaccess
                                 #
                                 # LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 1 -t ANSI256 -o - "$URL"
-                                LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 10 -t PNG "$(cat ~/.transdroid_import/settings.json)" -o ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/transmission.png
+                                LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 10 -t PNG "$(cat ~/.transdroid_import/settings.json)" -o ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/transmission.png
                                 #
                                 echo -e "1: Open Transdroid/Transdrone and go to:" "\033[36m""Settings > System > Import settings""\e[0m"
                                 echo
@@ -297,7 +297,7 @@ then
                                 #
                                 if [[ ! -z "$tmpdir1" && ! -z "$tmpdir2" ]]
                                 then
-                                    cd && rm -rf $tmpdir1 ~/www/$(whoami).$(hostname)/public_html/$tmpdir2
+                                    cd && rm -rf $tmpdir1 ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2
                                     if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
                                     then
                                         rm -f ~/.nginx/conf.d/000-default-server.d/transdroid_import.conf
@@ -333,14 +333,14 @@ then
                                 echo
                                 #
                                 sed -i 's|\\\/rtorrent\\\/rpc|\\\/rtorrent-'$suffix'\\\/rpc|' ~/.transdroid_import/settings.json
-                                sed -i 's/rutorrent main/rutorrent-'$suffix' '$(hostname | grep -oE "^([a-z]+)")'/' ~/$tmpdir1/settings.json
+                                sed -i 's/rutorrent main/rutorrent-'$suffix' '$(hostname -f | grep -oE "^([a-z]+)")'/' ~/$tmpdir1/settings.json
                                 sed -i 's/USERNAME-CHANGEME/'$(whoami)'/' ~/$tmpdir1/settings.json
                                 sed -i 's/HOSTNAME_CHANGEME/'$(hostname -f)'/' ~/$tmpdir1/settings.json
                                 sed -i 's/PASSWORD-CHANGEME/'$pass'/' ~/$tmpdir1/settings.json
                                 #
-                                mkdir -p ~/www/$(whoami).$(hostname)/public_html/$tmpdir2
+                                mkdir -p ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2
                                 #
-                                # cp -f ~/$tmpdir1/settings.json ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/settings.json
+                                # cp -f ~/$tmpdir1/settings.json ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/settings.json
                                 htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/.htpasswd "$(whoami)" "$randompass" > /dev/null 2>&1
                                 #
                                 if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
@@ -352,7 +352,7 @@ then
                                 echo -e 'AuthType Basic\nAuthName "'"$tmpdir2"'"\nAuthUserFile "'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/'"$tmpdir2"'/.htpasswd"\nRequire "'$(whoami)'"' > ~/www/$(whoami).$(hostname -f)/public_html/"$tmpdir2"/.htaccess
                                 #
                                 # LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 1 -t ANSI256 -o - "$URL"
-                                LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 10 -t PNG "$(cat ~/.transdroid_import/settings.json)" -o ~/www/$(whoami).$(hostname)/public_html/$tmpdir2/rtorrent.png
+                                LD_LIBRARY_PATH=~/.transdroid_import/usr/lib/x86_64-linux-gnu ~/.transdroid_import/usr/bin/qrencode -m 10 -t PNG "$(cat ~/.transdroid_import/settings.json)" -o ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/rtorrent.png
                                 #
                                 echo -e "1: Open Transdroid/Transdrone and go to:" "\033[36m""Settings > System > Import settings""\e[0m"
                                 echo
@@ -371,7 +371,7 @@ then
                                 #
                                 if [[ ! -z "$tmpdir1" && ! -z "$tmpdir2" ]]
                                 then
-                                    cd && rm -rf $tmpdir1 ~/www/$(whoami).$(hostname)/public_html/$tmpdir2
+                                    cd && rm -rf $tmpdir1 ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2
                                     if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
                                     then
                                         rm -f ~/.nginx/conf.d/000-default-server.d/transdroid_import.conf
