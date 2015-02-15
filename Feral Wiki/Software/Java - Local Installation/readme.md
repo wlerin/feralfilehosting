@@ -28,18 +28,18 @@ Files found via [http://www.java.com/en/download/manual.jsp?locale=en](http://ww
      
 This method will download and install/update the 64 bit Java files for Linux
 
-### Java 1.7 U71
+### Java 1.7 U75
 
 Download v7:
 
 ~~~
-wget -O ~/java.tar.gz http://javadl.sun.com/webapps/download/AutoDL?BundleId=97800
+wget -O ~/java.tar.gz http://javadl.sun.com/webapps/download/AutoDL?BundleId=101460
 ~~~
 
 Unpack the files:
 
 ~~~
-tar xf ~/java.tar.gz && cp -rf ~/jre1.7.0_71/. ~/ && cd && rm -rf java.tar.gz jre1.7.0_71
+tar xf ~/java.tar.gz && cp -rf ~/jre1.7.0_75/. ~/ && cd && rm -rf java.tar.gz jre1.7.0_75
 ~~~
 
 ### Java 1.8 U31
@@ -67,9 +67,9 @@ Manually call `java` it like this:
 You will see this:
 
 ~~~
-java version "1.7.0_71"
-Java(TM) SE Runtime Environment (build 1.7.0_71-b14)
-Java HotSpot(TM) 64-Bit Server VM (build 24.71-b01, mixed mode)
+java version "1.7.0_75"
+Java(TM) SE Runtime Environment (build 1.7.0_75-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 24.75-b04, mixed mode)
 ~~~
 
 Or

@@ -84,6 +84,25 @@ There are two rules we need to force `https://server.feralhosting.com`
 
 `http://username.server.feralhosting.com/` to `https://server.feralhosting.com/username`
 
+### Fix password protected folders
+
+Now after applying the above steps, you'll be asked twice for your credentials when accessing an authentication-requiring folder like ruTorrent via HTTP.
+
+You can fix this easily by enclosing the authentication by a `<FilesMatch ".">` block.
+
+For example, this is how your .htaccess file in your ruTorrent folder should look like:
+
+~~~
+<FilesMatch ".">
+AuthType Basic
+AuthName "username"
+AuthUserFile "path to .htpasswd"
+Require valid-user
+</FilesMatch>
+~~~
+
+That's it. This will also improve security, as the credentials won't be sent in plaintext via HTTP.
+
 ### nginx
 
 This will force HTTPS usage on your default domains, independent of one another, at the same time.
