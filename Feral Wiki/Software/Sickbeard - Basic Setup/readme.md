@@ -11,6 +11,53 @@ Bash Script:
 wget -qO ~/install.sickbeard.sh http://git.io/bPrsUg && bash ~/install.sickbeard.sh
 ~~~
 
+Restarting:
+---
+
+### SickBeard:
+
+See if any instances of SickBeard are running. Searches for FAQ or script specific instances only.
+
+~~~
+ps x | grep "$HOME/.sickbeard/SickBeard.py" | grep -v grep
+~~~
+
+Use these commands to shut down all instances from `~/.sickbeard`:
+
+> **Important note:** Give the program at least 10 seconds to shut down before restarting.
+
+~~~
+kill $(ps x | grep -v grep | grep "python $HOME/.sickbeard/SickBeard.py" | grep -oE '([0-9]{3,5})')
+~~~
+
+Use this command to restart the default instance:
+
+~~~
+python $HOME/.sickbeard/SickBeard.py -d
+~~~
+
+### SickRage:
+
+See if any instances of SickRage are running. Searches for FAQ or script specific instances only.
+
+~~~
+ps x | grep "$HOME/.sickrage/SickBeard.py" | grep -v grep
+~~~
+
+Use these commands to shut down all instances from `~/.sickrage`:
+
+> **Important note:** Give the program at least 10 seconds to shut down before restarting.
+
+~~~
+kill $(ps x | grep -v grep | grep "python $HOME/.sickrage/SickBeard.py" | grep -oE '([0-9]{3,5})')
+~~~
+
+Use this command to restart the default instance:
+
+~~~
+python $HOME/.sickrage/SickBeard.py -d
+~~~
+
 Manual Installation:
 ---
 
@@ -19,15 +66,17 @@ Manual Installation:
 SickRage - [https://github.com/SiCKRAGETV/SickRage](https://github.com/SiCKRAGETV/SickRage)
 
 ~~~
-git clonehttps://github.com/SiCKRAGETV/SickRage ~/SickRage
+git clonehttps://github.com/SiCKRAGETV/SickRage ~/.sickrage
 ~~~
 
 ### SickBeard:
 
+SickBeard - [https://github.com/midgetspy/Sick-Beard](https://github.com/midgetspy/Sick-Beard)
+
 SSH to your slot and pull SickBeard:
 
 ~~~
-git clone https://github.com/midgetspy/Sick-Beard ~/Sick-Beard
+git clone https://github.com/midgetspy/Sick-Beard ~/.sickbeard
 ~~~
 
 Configuration
@@ -73,25 +122,25 @@ You will need to first set the `web_root` in the Sickbeard/rage `config.ini` loc
 By default this should be:
 
 ~~~
-~/Sick-Beard/config.ini
+~/.sickbeard/config.ini
 ~~~
 
 or
 
 ~~~
-~/SickRage/config.ini
+~/.sickrage/config.ini
 ~~~
 
 So this command should work if the path has not been modified.
 
 ~~~
-nano ~/Sick-Beard/config.ini
+nano ~/.sickbeard/config.ini
 ~~~
 
 or
 
 ~~~
-nano ~/SickRage/config.ini
+nano ~/.sickrage/config.ini
 ~~~
 
 You will need to enter the `web_root` in the format shown in the image where `username` is your Feral username.

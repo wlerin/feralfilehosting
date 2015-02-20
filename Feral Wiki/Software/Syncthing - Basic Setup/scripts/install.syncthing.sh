@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Syncthing
-scriptversion="1.0.2"
+scriptversion="1.0.1"
 scriptname="install.syncthing"
 syncthingversion="0.10.23"
 # randomessence
@@ -43,8 +43,6 @@ wget -qO ~/.000"$scriptname" "$scripturl"
 if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
 then
     echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
-    echo
-    echo -e "The version of the" "\033[33m""Syncthing""\e[0m" "being used in this script is:" "\033[31m""$syncthingversion""\e[0m"
     bash ~/.111"$scriptname"
     exit
 else
@@ -68,6 +66,8 @@ chmod -f 700 ~/bin/"$scriptname"
 #
 echo
 echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
+echo
+echo -e "The version of the" "\033[33m""Syncthing""\e[0m" "being used in this script is:" "\033[31m""$syncthingversion""\e[0m"
 echo
 read -ep "The script has been updated, enter [y] to continue or [q] to exit: " -i "y" updatestatus
 echo
