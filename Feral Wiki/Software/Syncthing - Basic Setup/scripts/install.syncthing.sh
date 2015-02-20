@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Syncthing
-scriptversion="1.0.3"
+scriptversion="1.0.4"
 scriptname="install.syncthing"
 syncthingversion="0.10.23"
 # randomessence
@@ -91,7 +91,7 @@ then
     sed -i -r 's#<address>127.0.0.1:(.*)</address>#<address>10.0.0.1:'"$guiport"'</address>#g' ~/.config/syncthing/config.xml
     sed -i 's#<listenAddress>0.0.0.0:22000</listenAddress>#<listenAddress>0.0.0.0:'"$syncport"'</listenAddress>#g' ~/.config/syncthing/config.xml
     # Apache proxypass
-    if [[ ! -f ~/.apache2/conf.d/syncthing.conf "$apacheconf" ]]
+    if [[ ! -f ~/.apache2/conf.d/syncthing.conf ]]
     then
         wget -qO ~/.apache2/conf.d/syncthing.conf "$apacheconf"
         sed -i -r 's#PORT#'"$guiport"'#g' ~/.apache2/conf.d/syncthing.conf
