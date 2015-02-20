@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Syncthing
-scriptversion="1.0.2"
+scriptversion="1.0.3"
 scriptname="install.syncthing"
 syncthingversion="0.10.23"
 # randomessence
@@ -91,16 +91,33 @@ then
     sed -i -r 's#<address>127.0.0.1:(.*)</address>#<address>10.0.0.1:'"$guiport"'</address>#g' ~/.config/syncthing/config.xml
     sed -i 's#<listenAddress>0.0.0.0:22000</listenAddress>#<listenAddress>0.0.0.0:'"$syncport"'</listenAddress>#g' ~/.config/syncthing/config.xml
     # Apache proxypass
-    wget -qO ~/.apache2/conf.d/syncthing.conf "$apacheconf"
-    sed -i -r 's#PORT#'"$guiport"'#g' ~/.apache2/conf.d/syncthing.conf
-    /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
+    if [[ ! -f ~/.apache2/conf.d/syncthing.conf "$apacheconf" ]]
+    then
+        wget -qO ~/.apache2/conf.d/syncthing.conf "$apacheconf"
+        sed -i -r 's#PORT#'"$guiport"'#g' ~/.apache2/conf.d/syncthing.conf
+        /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
+    else
+        configport=$(sed -nr 's#\s*<address>10.0.0.1:(.*)</address>#\1#p' ~/.config/syncthing/config.xml)
+        wget -qO ~/.apache2/conf.d/syncthing.conf "$apacheconf"
+        sed -i -r 's#PORT#'"$configport"'#g' ~/.apache2/conf.d/syncthing.conf
+        /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
+    fi
     # nginx proxypass
     if [[ -d ~/.nginx ]]
     then
-        wget -qO ~/.nginx/conf.d/000-default-server.d/syncthing.conf "$nginxconf"
-        sed -i -r 's#USERNAME#'"$(whoami)"'#g' ~/.nginx/conf.d/000-default-server.d/syncthing.conf
-        sed -i -r 's#PORT#'"$guiport"'#g' ~/.nginx/conf.d/000-default-server.d/syncthing.conf
-        /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
+        if [[ ! -f ~/.nginx/conf.d/000-default-server.d/syncthing.conf ]]
+        then
+            wget -qO ~/.nginx/conf.d/000-default-server.d/syncthing.conf "$nginxconf"
+            sed -i -r 's#USERNAME#'"$(whoami)"'#g' ~/.nginx/conf.d/000-default-server.d/syncthing.conf
+            sed -i -r 's#PORT#'"$guiport"'#g' ~/.nginx/conf.d/000-default-server.d/syncthing.conf
+            /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
+        else
+            configport=$(sed -nr 's#\s*<address>10.0.0.1:(.*)</address>#\1#p' ~/.config/syncthing/config.xml)
+            wget -qO ~/.nginx/conf.d/000-default-server.d/syncthing.conf "$nginxconf"
+            sed -i -r 's#USERNAME#'"$(whoami)"'#g' ~/.nginx/conf.d/000-default-server.d/syncthing.conf
+            sed -i -r 's#PORT#'"$configport"'#g' ~/.nginx/conf.d/000-default-server.d/syncthing.conf
+            /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
+        fi
     fi
     screen -dmS syncthing ~/bin/syncthing
     echo
