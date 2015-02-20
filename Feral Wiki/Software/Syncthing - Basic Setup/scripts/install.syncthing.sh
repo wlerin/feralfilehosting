@@ -1,8 +1,8 @@
 #!/bin/bash
 # Install Syncthing
-scriptversion="1.0.1"
+scriptversion="1.0.2"
 scriptname="install.syncthing"
-syncthingversion="0.10.13"
+syncthingversion="0.10.23"
 # randomessence
 #
 # wget -qO ~/install.syncthing http://git.io/-MNlxQ && bash ~/install.syncthing
@@ -43,6 +43,8 @@ wget -qO ~/.000"$scriptname" "$scripturl"
 if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
 then
     echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
+    echo
+    echo -e "The version of the" "\033[33m""Syncthing""\e[0m" "being used in this script is:" "\033[31m""$syncthingversion""\e[0m"
     bash ~/.111"$scriptname"
     exit
 else
