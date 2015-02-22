@@ -1,5 +1,5 @@
 
-Current latest stable version of ZNC is: `1.4`
+Current latest stable version of ZNC is: `1.6`
 
 In SSH do the commands described in this FAQ. If you do not know how to SSH into your slot use this FAQ: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
 
@@ -22,13 +22,39 @@ Use this command to create the `~/bin` directory and reload your shell for this 
 mkdir -p ~/bin && bash
 ~~~
 
-Install the `znc` using these commands:
+### Download and configure
+
+Download and configure `znc` using these commands:
 
 ~~~
 wget -qO ~/znc.tar.gz http://znc.in/releases/znc-latest.tar.gz
-tar xf ~/znc.tar.gz && cd ~/znc-1.4
-./configure --prefix=$HOME && make && make install
-cd && rm -rf znc{-1.4,.tar.gz}
+tar xf ~/znc.tar.gz && cd ~/znc-1.*
+./configure --prefix=$HOME
+~~~
+
+Now we need to check something before we continue. If you require extended charset support you will need to have a dependency installed. After running the configure command and it has completed you can check to see if there is charset support.
+
+> **Important note:** This dependency is not required to successfully build and use ZNC 1.6. It just means that without it certain charset specific option in the webadmin will be greyed out and unavailable to the admin/user when configuring networks.
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/ZNC%20-%20Basic%20Setup/config.png)
+
+If you require this optional dependency please [open a ticket](https://www.feralhosting.com/manager/tickets/new) and ask for the dependency by copy and pasting this into a ticket:
+
+~~~
+Please can you install the ZNC 1.6 dependancy for charset
+
+https://packages.debian.org/wheezy/libicu-dev
+
+apt-get install libicu-dev
+
+Thank you.
+~~~
+
+### Build ZNC:
+
+~~~
+make && make install
+cd && rm -rf znc{-1.*,.tar.gz}
 ~~~
 
 Once it is installed and ready we can start to configure `znc` using this command:
@@ -172,11 +198,10 @@ Please see here for more options and services:
 
 [https://github.com/jreese/znc-push](https://github.com/jreese/znc-push)
 
-If you see this error from znc you can ignore it.
+If you see this error from znc you read why here [https://github.com/jreese/znc-push/issues/127](https://github.com/jreese/znc-push/issues/127)
 
 ~~~
 *push> Error: service type not selected
 ~~~
-
 
 
