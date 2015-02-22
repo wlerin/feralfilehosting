@@ -1,6 +1,6 @@
 #!/bin/bash
 # install autodl
-scriptversion="1.3.6"
+scriptversion="1.3.7"
 scriptname="install.autodl"
 # Bobtentpeg, randomessence
 #
@@ -111,8 +111,8 @@ then
     mkdir -p ~/{.autodl,.irssi/scripts/autorun}
     echo -e "\033[31m""A randomly generated 20 character password has been set for you by this script""\e[0m"
     echo
-    # Kill any existing irssi processes to make sure the installation can be finalised later.
-    screen -S autodl -X quit > /dev/null 2>&1
+    # Kill any existing autodl screen processes to make sure the installation can be finalised later.
+    kill $(screen -ls autodl | grep -oE '([0-9]{2,5})') > /dev/null 2>&1
     # Wipe any dead screens left behind
     screen -wipe >/dev/null 2>&1
     # Make a backup of the ~/.autodl/autodl.cfg just in case
@@ -246,8 +246,8 @@ then
     ###### Fix script End ######
     ############################
     #
-    # Kill all irssi instances before starting
-    screen -S autodl -X quit > /dev/null 2>&1
+    # Kill any existing autodl screen processes before starting
+    kill $(screen -ls autodl | grep -oE '([0-9]{2,5})') > /dev/null 2>&1
     # Clear dead screens
     screen -wipe >/dev/null 2>&1
     # Start autodl irssi in a screen in the background.
