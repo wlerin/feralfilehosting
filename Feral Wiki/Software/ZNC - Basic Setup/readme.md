@@ -13,6 +13,28 @@ You login information for the relevant slot will be shown here:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_ssh.png)
 
+### Upgrading:
+
+When upgrading from a previous version of `znc` you do this:
+
+Shutdown the `znc` server properly using the server command (see below for details):
+
+~~~
+/znc shutdown
+~~~
+
+Once the server is shutdown simply follow the installation steps in the installation section below to update the core server.
+
+When the core server has finished building and is installed then update and install any extra modules like the `znc push` you may be using so they are compiled for this new version of `znc`
+
+Now start the new server in SSH using the command:
+
+~~~
+znc
+~~~
+
+You previous configuration file will be backed up and it will create a new version and merge the old data with the new configuration file.
+
 ZNC installation
 ---
 
@@ -92,7 +114,7 @@ The binary is located in the `~/bin` directory so it should be in the `PATH`. If
 
 ### Restart or Shutdown znc
 
-To properly restart or stop `znc` you connect to your server using and Admin user and execute one of these commands:
+To properly restart or stop `znc` you connect to your server as the Admin user and execute one of these commands:
 
 > **Important note:** When configuring `znc` for the first time you should have created this user with administrator privileges:
 
