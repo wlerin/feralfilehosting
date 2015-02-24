@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Wordpress
-scriptversion="1.0.2"
+scriptversion="1.0.3"
 scriptname="install.wordpress"
 # randomessence
 #
@@ -18,6 +18,7 @@ scriptname="install.wordpress"
 ###### Variable Start ######
 ############################
 #
+wordpressurl="http://wordpress.org/latest.tar.gz"
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Worpress/scripts/install.wordpress.sh"
 #
 ############################
