@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Wordpress
-scriptversion="1.0.1"
+scriptversion="1.0.2"
 scriptname="install.wordpress"
 # randomessence
 #
@@ -10,8 +10,6 @@ scriptname="install.wordpress"
 ## Version History Starts ##
 ############################
 #
-# v1.0.0 template updated and basic script tweaked.
-#
 ############################
 ### Version History Ends ###
 ############################
@@ -20,7 +18,6 @@ scriptname="install.wordpress"
 ###### Variable Start ######
 ############################
 #
-wordpressurl="http://wordpress.org/latest.tar.gz"
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Worpress/scripts/install.wordpress.sh"
 #
 ############################
@@ -31,43 +28,26 @@ scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20W
 #### Self Updater Start ####
 ############################
 #
-mkdir -p "$HOME/bin"
+[[ ! -d ~/bin ]] && mkdir -p ~/bin
+[[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
 #
-if [[ ! -f "$HOME/$scriptname.sh" ]]
-then
-    wget -qO "$HOME/$scriptname.sh" "$scripturl"
-fi
-if [[ ! -f "$HOME/bin/$scriptname" ]]
-then
-    wget -qO "$HOME/bin/$scriptname" "$scripturl"
-fi
+wget -qO ~/.000"$scriptname" "$scripturl"
 #
-wget -qO "$HOME/000$scriptname.sh" "$scripturl"
-#
-if ! diff -q "$HOME/000$scriptname.sh" "$HOME/$scriptname.sh" > /dev/null 2>&1
+if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
 then
-    echo '#!/bin/bash
-    scriptname="'"$scriptname"'"
-    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
-    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
-    bash "$HOME/$scriptname.sh"
-    exit 1' > "$HOME/111$scriptname.sh"
-    bash "$HOME/111$scriptname.sh"
-    exit 1
+    echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
+    bash ~/.111"$scriptname"
+    exit
+else
+    if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
+    then
+        echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
+        bash ~/.222"$scriptname"
+        exit
+    fi
 fi
-if ! diff -q "$HOME/000$scriptname.sh" "$HOME/bin/$scriptname" > /dev/null 2>&1
-then
-    echo '#!/bin/bash
-    scriptname="'"$scriptname"'"
-    wget -qO "$HOME/$scriptname.sh" "'"$scripturl"'"
-    wget -qO "$HOME/bin/$scriptname" "'"$scripturl"'"
-    bash "$HOME/$scriptname.sh"
-    exit 1' > "$HOME/222$scriptname.sh"
-    bash "$HOME/222$scriptname.sh"
-    exit 1
-fi
-cd && rm -f {000,111,222}"$scriptname.sh"
-chmod -f 700 "$HOME/bin/$scriptname"
+cd && rm -f .{000,111,222}"$scriptname"
+chmod -f 700 ~/bin/"$scriptname"
 #
 ############################
 ##### Self Updater End #####
@@ -80,7 +60,7 @@ chmod -f 700 "$HOME/bin/$scriptname"
 echo
 echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
 echo
-read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " updatestatus
+read -ep "The script has been updated, enter [y] to continue or [q] to exit: " -i "y" updatestatus
 echo
 if [[ "$updatestatus" =~ ^[Yy]$ ]]
 then
@@ -93,7 +73,7 @@ then
     then
         echo -e "Downloading and extracting latest version to:"
         echo
-        echo -e "\033[32m""$(whoami).$(hostname -f)/wordpress""\e[0m"
+        echo -e "\033[32m""https://$(hostname -f)/$(whoami)/wordpress""\e[0m"
         echo
         wget -qO "$HOME"/latest.tar.gz "$wordpressurl"
         tar xf "$HOME"/latest.tar.gz -C "$HOME"/www/$(whoami).$(hostname -f)/public_html
@@ -111,7 +91,7 @@ then
         then
             echo -e "Downloading and extracting latest version to:"
             echo
-            echo -e "\033[32m""$(whoami).$(hostname -f)/wordpress""\e[0m"
+            echo -e "\033[32m""https://$(hostname -f)/$(whoami)/wordpress""\e[0m"
             echo
             wget -qO "$HOME"/latest.tar.gz "$wordpressurl"
             tar xf "$HOME"/latest.tar.gz -C "$HOME"/www/$(whoami).$(hostname -f)/public_html
