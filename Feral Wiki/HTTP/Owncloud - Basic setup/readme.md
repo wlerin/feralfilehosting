@@ -7,7 +7,7 @@ Owncloud Manual installation
 In [SSH](https://www.feralhosting.com/faq/view?question=12) run this command. It will download the `setup.php` to the root of your `WWW`
 
 ~~~
-wget -P ~/www/$(whoami).$(hostname)/public_html/ https://download.owncloud.com/download/community/setup-owncloud.php
+wget -P ~/www/$(whoami).$(hostname -f)/public_html/ https://download.owncloud.com/download/community/setup-owncloud.php
 ~~~
 
 Now visit the URL in this format, in your browser, it will look something like this:
