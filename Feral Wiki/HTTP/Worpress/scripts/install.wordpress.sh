@@ -74,7 +74,7 @@ then
     then
         echo -e "Downloading and extracting latest version to:"
         echo
-        echo -e "\033[32m""https://$(hostname -f)/$(whoami)/wordpress""\e[0m"
+        echo -e "\033[32m""https://$(hostname -f)/$(whoami)/wordpress/""\e[0m"
         echo
         wget -qO "$HOME"/latest.tar.gz "$wordpressurl"
         tar xf "$HOME"/latest.tar.gz -C "$HOME"/www/$(whoami).$(hostname -f)/public_html
@@ -92,7 +92,7 @@ then
         then
             echo -e "Downloading and extracting latest version to:"
             echo
-            echo -e "\033[32m""https://$(hostname -f)/$(whoami)/wordpress""\e[0m"
+            echo -e "\033[32m""https://$(hostname -f)/$(whoami)/wordpress/""\e[0m"
             echo
             wget -qO "$HOME"/latest.tar.gz "$wordpressurl"
             tar xf "$HOME"/latest.tar.gz -C "$HOME"/www/$(whoami).$(hostname -f)/public_html
