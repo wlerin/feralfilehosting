@@ -1,6 +1,6 @@
 #!/bin/bash
 # proftpd basic setup script
-scriptversion="1.1.4"
+scriptversion="1.1.5"
 # Don't foregt to change the conf file size if the configurations are modified.
 scriptname="install.proftpd"
 proftpdversion="proftpd-1.3.5"
@@ -71,7 +71,7 @@ chmod -f 700 ~/bin/"$scriptname"
 echo
 echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
 echo
-read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " updatestatus
+read -ep "The script has been updated, enter [y] to continue or [q] to exit: " -i "y" updatestatus
 echo
 if [[ "$updatestatus" =~ ^[Yy]$ ]]
 then
@@ -186,11 +186,11 @@ then
     sed -i 's|AllowUser my_username|AllowUser '$(whoami)'|g' "$HOME/proftpd/etc/proftpd.conf"
     # sftp.conf
     sed -i 's|/media/DiskID/home/my_username|'"$HOME"'|g' "$HOME/proftpd/etc/sftp.conf"
-    sed -i 's|Port 23001|Port '$(shuf -i 6000-50000 -n 1)'|g' "$HOME/proftpd/etc/sftp.conf"
+    sed -i 's|Port 23001|Port '$(shuf -i 10001-49999 -n 1)'|g' "$HOME/proftpd/etc/sftp.conf"
     echo -e "This is your" "\033[31m""SFTP""\e[0m" "port:" "\033[31m""$(sed -nr 's/^Port (.*)/\1/p' ~/proftpd/etc/sftp.conf)""\e[0m"
     # ftps.conf
     sed -i 's|/media/DiskID/home/my_username|'"$HOME"'|g' "$HOME/proftpd/etc/ftps.conf"
-    sed -i 's|Port 23002|Port '$(shuf -i 6000-50000 -n 1)'|g' "$HOME/proftpd/etc/ftps.conf"
+    sed -i 's|Port 23002|Port '$(shuf -i 10001-49999 -n 1)'|g' "$HOME/proftpd/etc/ftps.conf"
     echo
     echo -e "This is your" "\033[32m""FTPS""\e[0m" "port:" "\033[32m""$(sed -nr 's/^Port (.*)/\1/p' ~/proftpd/etc/ftps.conf)""\e[0m"
     echo
@@ -203,7 +203,9 @@ then
     echo
     echo -e "You have completed Steps 1 through 6. Please continue with the FAQ from Step 7 onwards."
     echo
-    echo -e "proftpd was NOT started to allow you to edit the jails as required first, shown in the FAQ."
+    echo -e "proftpd was NOT started to allow you to edit the jails in Step 8 of the FAQ as required."
+    echo
+    echo -e "See Step 9 of the FAQ for how to start proftpd"
     echo
 #
 ############################
