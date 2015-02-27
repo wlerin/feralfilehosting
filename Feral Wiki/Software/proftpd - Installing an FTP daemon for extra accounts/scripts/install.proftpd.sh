@@ -95,10 +95,12 @@ then
         if [[ -f "$HOME"/proftpd/.proftpdversion ]]
         then
             echo -e "\033[32m""proftpd update. No settings, jails or users will be lost by updating.""\e[0m"
+            echo
             read -ep "Would you like to update your version $installedproftpdversion of proftpd with this one $proftpdversion? [y]es or [e]xit or full [r]einstall: " agree2update
             echo
         else
             echo -e "\033[32m""proftpd update. No settings, jails or users will be lost by updating.""\e[0m"
+            echo
             read -ep "Would you like to update your version of proftpd with this one $proftpdversion? [y]es or [e]xit or full [r]einstall: " agree2update
             echo
         fi
