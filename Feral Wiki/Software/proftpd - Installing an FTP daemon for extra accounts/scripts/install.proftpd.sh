@@ -157,7 +157,7 @@ then
     echo -n "$proftpdversion" > "$HOME"/proftpd/.proftpdversion
     rm -f "$HOME"/proftpd.tar.gz
     cd "$HOME/$proftpdversion"
-    echo -e "\033[32m""About to configure, make and install proftpd. This could take some time to comlplete. Be patient.""\e[0m"
+    echo -e "\033[32m""About to configure, make and install proftpd. This could take some time to complete. Be patient.""\e[0m"
     echo
     # configure and install
     echo "Starting to 1: configure, 2: make, 3 make install"
