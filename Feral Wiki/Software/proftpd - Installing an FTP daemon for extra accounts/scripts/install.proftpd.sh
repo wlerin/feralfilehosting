@@ -1,6 +1,6 @@
 #!/bin/bash
 # proftpd basic setup script
-scriptversion="1.1.5"
+scriptversion="1.1.6"
 # Don't foregt to change the conf file size if the configurations are modified.
 scriptname="install.proftpd"
 proftpdversion="proftpd-1.3.5"
@@ -10,10 +10,20 @@ installedproftpdversion=$(cat $HOME/proftpd/.proftpdversion 2> /dev/null)
 # wget -qO ~/install.proftpd http://git.io/nQJBxw && bash ~/install.proftpd
 #
 ############################
+#### Script Notes Start ####
+############################
+#
+# Warning - If you modify the conf files dont forget to modify the related variables in the Variable section
+#
+############################
+##### Script Notes End #####
+############################
+#
+############################
 ## Version History Starts ##
 ############################
 #
-# v1.1.1 template update and script tweaks
+# 1.1.6 fixed broken conf file size after changes were made to the proftpd.conf
 #
 ############################
 ### Version History Ends ###
@@ -24,7 +34,7 @@ installedproftpdversion=$(cat $HOME/proftpd/.proftpdversion 2> /dev/null)
 ############################
 #
 proftpdconf="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/conf/proftpd.conf"
-proftpdconfsize="2977"
+proftpdconfsize="3586"
 sftpconf="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/conf/sftp.conf"
 sftpconfsize="891"
 ftpsconf="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/conf/ftps.conf"
