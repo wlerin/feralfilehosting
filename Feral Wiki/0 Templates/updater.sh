@@ -7,6 +7,16 @@ scriptname="somescript"
 # Bash Command
 #
 ############################
+#### Script Notes Start ####
+############################
+#
+# Add notes or warnings here for anyone modifying the scripts
+#
+############################
+##### Script Notes End #####
+############################
+#
+############################
 ## Version History Starts ##
 ############################
 #
