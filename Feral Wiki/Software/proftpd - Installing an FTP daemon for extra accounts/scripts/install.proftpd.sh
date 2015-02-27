@@ -161,6 +161,7 @@ then
     echo
     # configure and install
     echo "Starting to 1: configure, 2: make, 3 make install"
+    echo
     install_user=$(whoami) install_group=$(whoami) ./configure --prefix="$HOME"/proftpd --enable-openssl --enable-dso --enable-nls --enable-ctrls --with-shared=mod_ratio:mod_readme:mod_sftp:mod_tls:mod_ban > "$HOME"/proftpd/install_logs/configure.log 2>&1
     echo "1: configure complete, moving to 2 of 3"
     make > "$HOME"/proftpd/install_logs/make.log 2>&1
