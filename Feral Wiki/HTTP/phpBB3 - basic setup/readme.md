@@ -10,19 +10,19 @@ In SSH do these commands. Use this FAQ if you do not know how to SSH into your s
 Download the phpBB3 package:
 
 ~~~
-wget -qO ~/phpBB-3.0.12.zip https://www.phpbb.com/files/release/phpBB-3.0.12.zip
+wget -qO ~/phpbb3.zip https://www.phpbb.com/files/release/phpBB-3.1.3.zip
 ~~~
 
 Then extract the file archive:
 
 ~~~
-unzip -qo ~/phpBB-3.0.12.zip -d ~/www/$(whoami).$(hostname)/public_html
+unzip -qo ~/phpbb3.zip -d ~/www/$(whoami).$(hostname -f)/public_html
 ~~~
 
 Optional: Clean up by removing the phpBB3 zip
 
 ~~~
-rm -f ~/~/phpBB-3.0.12.zip
+rm -f ~/phpbb3.zip
 ~~~
 
 ### Preparation

@@ -18,16 +18,37 @@ Use these first two commands to create to do some pre requisite tasks:
 mkdir -p ~/bin && bash
 ~~~
 
-**3.0.2 Latest version**
+> **Important note** You can check here for the current version - [http://www.cmake.org/download/](http://www.cmake.org/download/)
+
+### Binary Distribution Installation (Fast).
+
+~~~
+wget -qO ~/cmake.tar.gz http://www.cmake.org/files/v3.2/cmake-3.2.0-rc2-Linux-x86_64.tar.gz
+tar xf ~/cmake.tar.gz --strip-components=1 -C ~/
+~~~
+
+Then test it works:
+
+~~~
+cmake --version
+~~~
+
+### Compile from Source Code
 
 Install the program from source using these commands:
 
 ~~~
-wget -qO ~/cmake.tar.gz http://www.cmake.org/files/v3.0/cmake-3.0.2.tar.gz
-tar xf ~/cmake.tar.gz && cd ~/cmake-3.0.2
+wget -qO ~/cmake.tar.gz http://www.cmake.org/files/v3.2/cmake-3.2.0-rc2.tar.gz
+tar xf ~/cmake.tar.gz && cd ~/cmake-3.2.0-rc2
 ./configure --prefix=$HOME
 make && make install
-cd && rm -rf cmake{-3.0.2,.tar.gz}
+cd && rm -rf cmake{-3.2.0-rc2,.tar.gz}
+~~~
+
+Then test it works:
+
+~~~
+cmake --version
 ~~~
 
 Usage:

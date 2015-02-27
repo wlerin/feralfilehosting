@@ -1,5 +1,14 @@
 
-**Important note:** You will need to have Java install to use this program - [Java 1.7](https://www.feralhosting.com/faq/view?question=183)
+**Important note:** You will need to have Java 1.8 installed locally to use this program - [Java 1.8](https://www.feralhosting.com/faq/view?question=183)
+
+From the [Filebot FAQ](https://www.filebot.net/forums/viewtopic.php?f=3&t=7#p7)
+
+**Q:** When I try to start filebot it crashes immediately with an UnsupportedClassVersionError. What does that mean?
+
+**A:** If you get an error like Exception in thread "main" java.lang.UnsupportedClassVersionError: net/filebot/Main : Unsupported major.minor version 52.0 it means that you're running Java 6 or 7 but Java 8 is required for running FileBot.
+
+Filebot:
+---
 
 Filebot basic installation to use the command line options (no GUI) on your Feral slot.
 
@@ -15,7 +24,7 @@ FileBot CLI setup
 The download, unpacking and editing.
 
 ~~~
-wget -qO ~/filebot.zip http://downloads.sourceforge.net/project/filebot/filebot/FileBot_4.5/FileBot_4.5-portable.zip
+wget -qO ~/filebot.zip http://downloads.sourceforge.net/project/filebot/filebot/FileBot_4.5.6/FileBot_4.5.6-portable.zip
 unzip -qo ~/filebot.zip -d ~/filebot && rm -f ~/filebot.zip
 ~~~
 
