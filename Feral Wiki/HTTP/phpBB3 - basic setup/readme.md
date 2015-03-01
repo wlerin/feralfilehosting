@@ -57,7 +57,13 @@ Database type: `mysql`
 
 Your socket path will be displayed on the Slot details page for the relevant slot.
 
-Database hostname: `:/media/DiskID/username/private/mysql/socket`
+**Database hostname:** `:/media/DiskID/username/private/mysql/socket`
+
+**Database name:** The username you created in Adminer
+
+**Database name:** The database you created in Adminer.
+
+Leave all other fields blank or with their defaults.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/phpBB3 - basic setup/dbsettings-socket.png)
 
@@ -70,6 +76,15 @@ Fortunately we can change this without having to hack phpbb3.
 When you arrive at Server URL Settings page of the installer, follow the pointers in the image to make the server.feralhosting.com/username URL format the default and primary one.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/phpBB3 - basic setup/urlsettings.png)
+
+Removing the installation folder
+---
+
+Once the set-up is complete you can use this command to remove the installation directory.
+
+~~~
+rm -rf ~/www/$(whoami).$(hostname -f)/public_html/phpBB3/install
+~~~
 
 
 
