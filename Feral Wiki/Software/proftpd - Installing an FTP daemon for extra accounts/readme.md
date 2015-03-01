@@ -9,14 +9,14 @@ You login information for the relevant slot will be shown here:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_ssh.png)
 
-**Important note:** If you just want to find out which Ports to use for connecting, see Step 5. If did not complete the user creation/password part of the script see Step 6 for the `ftpasswd` commands you need to 1: create your main user and 2: other jailed users.
+> **Important note:** If you just want to find out which Ports to use for connecting, see Step 5. If did not complete the user creation/password part of the script see Step 6 for the `ftpasswd` commands you need to 1: create your main user and 2: other jailed users.
 
 Bash script installation
 ---
 
 This bash script will perform the **basic setup** outlined in Steps 1,2,3,4,5,6. Including creating your main user account.
 
-**Important note:** This script can also update proftpd, when updates become available and the script is updated, without losing any settings, jails or users you have configured.
+> **Important note:** This script can also update proftpd, when updates become available and the script is updated, without losing any settings, jails or users you have configured.
 
 So if you use the bash script and complete it successfully you can continue from Step 7 of the FAQ.
 
@@ -125,7 +125,7 @@ openssl req -new -x509 -nodes -days 365 -subj '/C=GB/ST=none/L=none/CN=none' -ne
 Step 5: The Configuration files:
 ---
 
-**Important note:** These configuration files just work. They do not need to changed to get the functionality described in this guide, apart from where you are directed to do so. 
+> **Important note:** These configuration files just work. They do not need to changed to get the functionality described in this guide, apart from where you are directed to do so. 
 
 They have been configured with 3 default **READ ONLY** jails:
 
@@ -137,7 +137,7 @@ private/transmission/data
 
 They are **READ ONLY** by default, accessible to all non main users so all you need to do is create some standard users to use them. No edits to the configuration files are required. 
 
-**Important note:** To use non default folders or restrict user access, please see the Jail section in `Step 8` of this FAQ for further information.
+> **Important note:** To use non default folders or restrict user access, please see the Jail section in `Step 8` of this FAQ for further information.
 
 These configuration files have been set-up to work in a specific way. 
 
@@ -145,7 +145,7 @@ These configuration files have been set-up to work in a specific way.
 
 **2:** The `sftp.conf` and `ftps.conf` contain only protocol specific settings.
 
-**Important Note:** These files have already been downloaded, if you used the bash script or followed the commands in `Step 1`, and configured, if you used the bash script or followed the steps in `Step 3.2`. 
+> **Important note:** These files have already been downloaded, if you used the bash script or followed the commands in `Step 1`, and configured, if you used the bash script or followed the steps in `Step 3.2`. 
 
 For manual set-up or altering, they can be found in the `~/proftpd/etc/` of the installation directory, for example:`~/proftpd/etc/proftpd.conf`
 
@@ -220,7 +220,7 @@ This command below will automatically create a user using:
 
 **2:** Your Feral slot user's `UID` and `GID`. 
 
-**Important Note:** This user is already configured in the `proftpd.conf` for full access if you used the bash script or Step 3.2. 
+> **Important note:** This user is already configured in the `proftpd.conf` for full access if you used the bash script or Step 3.2. 
 
 Use this command to create the main user and enter a password when prompted.
 
@@ -228,7 +228,7 @@ Use this command to create the main user and enter a password when prompted.
 ~/proftpd/bin/ftpasswd --passwd --name $(whoami) --file ~/proftpd/etc/ftpd.passwd --uid $(id -u $(whoami)) --gid $(id -g $(whoami)) --home $HOME/ --shell /bin/false
 ~~~
 
-**Important note:** This user (with your username) will not be jailed. This is a full access account. This is for your use and not public sharing.
+> **Important note:** This user (with your username) will not be jailed. This is a full access account. This is for your use and not public sharing.
 
 **Explanation: using `UID` and `GID`:**
 
@@ -275,9 +275,9 @@ These users, when created, are all **jailed by default** based on the configurat
 
 There is a bash add user script (optional) linked near the end of this section. The users created with this script are also jailed by default.
 
-**Important note:** You will get a directory listing error when connecting if your user's `HOME`, when created, does not match an existing jail path. You can get around this by manually specifying a remote path which is supported by most FTP programs. See Step 8 of this FAQ for more info on specifying a users' root/home directory.
+> **Important note:** You will get a directory listing error when connecting if your user's `HOME`, when created, does not match an existing jail path. You can get around this by manually specifying a remote path which is supported by most FTP programs. See Step 8 of this FAQ for more info on specifying a users' root/home directory.
 
-**Important note:** There are three existing and default jail directories you can use without needing to edit the configuration files.
+> **Important note:** There are three existing and default jail directories you can use without needing to edit the configuration files.
 
 ~~~
 private/rtorrent/data
@@ -355,7 +355,7 @@ And that should be your new user created and ready to connect once you have star
 Step 8: Jail your users:
 ---
 
-**Important note:** Don't forget changes made to the` proftpd.conf`, `sftp.conf` and `ftps.conf` will require the proftpd running process to restarted for the changes to take effect. See `Step 9` for restart commands.
+> **Important note:** Don't forget changes made to the` proftpd.conf`, `sftp.conf` and `ftps.conf` will require the proftpd running process to restarted for the changes to take effect. See `Step 9` for restart commands.
 
 Inside the:
 
@@ -365,7 +365,7 @@ Inside the:
 
 Section of the `proftpd.conf` you will find that three **READ ONLY** jails have already been set up. The `proftpd.conf` uses a **READ ONLY** jail for all users who are not specifically named with `AllowUser` inside the `<Limit ALL>`section. Any users you create will be jailed by default and restricted to only the default jails.
 
-**Important note:** A user's HOME is the start location where they are placed upon connecting to the server. If they do not have a HOME that corresponds to an existing jail they will most like get a "Directory listing failed" or similar error. You can manually set these paths in most FTP programs, such as Filezilla (default remote directory) since having a HOME is not that important, as long as they have permission to access the remote directory set in your FTP program.
+> **Important note:** A user's HOME is the start location where they are placed upon connecting to the server. If they do not have a HOME that corresponds to an existing jail they will most like get a "Directory listing failed" or similar error. You can manually set these paths in most FTP programs, such as Filezilla (default remote directory) since having a HOME is not that important, as long as they have permission to access the remote directory set in your FTP program.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/remotedirectory.png)
 
@@ -517,7 +517,7 @@ Please see the Useful links section at the end of the FAQ for info on directives
 Step 9: Let's start ProFTPD:
 ---
 
-**Important note:** If you make changes to the `proftpd.conf` you will need to restart it for these changes to take effect.
+> **Important note:** If you make changes to the `proftpd.conf` you will need to restart it for these changes to take effect.
 
 **Before you start proftpd make sure you have configured your jails. Configuration file changes require you restart proftpd to take effect.**
 
@@ -535,9 +535,15 @@ This is how you would have both sftp and ftps daemons running at the same time. 
 ~/proftpd/sbin/proftpd -c ~/proftpd/etc/ftps.conf
 ~~~
 
-**Important note:** You will see some errors here about PRIVS, but that is completely normal, you should be able to now FTP to the port defined in your configuration files.
+> **Important note:** These warning are normal and to be expected. They are not errors. Proftpd will have started and be running and you should be able to now SFTP/FTPS to the port defined in your configuration files.
 
-If you see an error about truncated data on certain lines this is due to there being no new,blank line at the end of the relevant configuration files. You should not see this error with the configuration files included in this FAQ.
+~~~
+[server ~] ~/proftpd/sbin/proftpd -c ~/proftpd/etc/sftp.conf
+2015-00-00 00:00:00,000 server proftpd[0000] server.feralhosting.com: SocketBindTight in effect, ignoring DefaultServer
+2015-00-00 00:00:00,000 server proftpd[0000] server.feralhosting.com: unable to set daemon groups: Operation not permitted
+~~~
+
+> **Important note:** If you see an error about truncated data on certain lines this is due to there being no new,blank line at the end of the relevant configuration files. You should not see this error with the configuration files included in this FAQ unless you have modified them and removed the blank line at the end.
 
 Do this command to see if it/they are running:
 
@@ -663,7 +669,7 @@ For example:
 ssh-keygen -e -f ~/.ssh/authorized_keys
 ~~~
 
-**Important note:** I could only make it return the first line of multiple lines in this command. If anyone has a solutions to this please update the FAQ. I suggest using the command directly on the OpenSSH format private or public keys.
+> **Important note:** I could only make it return the first line of multiple lines in this command. If anyone has a solutions to this please update the FAQ. I suggest using the command directly on the OpenSSH format private or public keys.
 
 Quick FAQs:
 ---

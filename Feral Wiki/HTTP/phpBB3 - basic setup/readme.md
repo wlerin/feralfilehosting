@@ -29,20 +29,20 @@ rm -f ~/phpbb3.zip
 
 **1:** Make a limited access user and a new database to use with phpBB3 - [Adminer - MySQL administration](https://www.feralhosting.com/faq/view?question=116)
 
-**2:** Set your default mysql and mysqli socket paths - [PHP - modify settings](https://www.feralhosting.com/faq/view?question=213)
-
-**3:** The continue with the installation using `mysql + mysqli extenstion` and `localhost` as the hostname.
+**2:** The continue with the installation.
 
 ### Installation
 
 phpBB3 is now ready to install via a web browser.
 
-It is highly recommended you follow this FAQ and create a new database with a limited user instead of using root- [How to install MySQL and MySQL Adminer for easy MySQL administration](https://www.feralhosting.com/faq/view?question=116)
+It is highly recommended you follow this FAQ and create a new database with a limited user instead of using root as mentioned in Step 1 above - [How to install MySQL and MySQL Adminer for easy MySQL administration](https://www.feralhosting.com/faq/view?question=116)
 
-Next Visit the web based installer, which by default is at
+Next Visit the web based installer, which by default is at:
+
+> **Important note:** nginx users should use this full URL since the redirect to the installation causes issues. If you get redirected to a URL with `:8080` then remove the `:8080` from the address bar and press enter or use the full URL format below.
 
 ~~~
-www/username.feralhosting.com/public_html/phpbb3/
+http://username.server.feralhosting.com/phpBB3/install/index.php
 ~~~
 
 Progress with the installer.
@@ -53,7 +53,13 @@ Progress with the installer.
 
 **Important note:** Make sure you completed step 3 of the preparation.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/phpBB3 - basic setup/dbsettings.png)
+Database type: `mysql`
+
+Your socket path will be displayed on the Slot details page for the relevant slot.
+
+Database hostname: `:/media/DiskID/username/private/mysql/socket`
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/phpBB3 - basic setup/dbsettings-socket.png)
 
 ### URL Settings
 
