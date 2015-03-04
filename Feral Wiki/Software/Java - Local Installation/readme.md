@@ -39,21 +39,21 @@ wget -O ~/java.tar.gz http://javadl.sun.com/webapps/download/AutoDL?BundleId=101
 Unpack the files:
 
 ~~~
-tar xf ~/java.tar.gz && cp -rf ~/jre1.7.0_75/. ~/ && cd && rm -rf java.tar.gz jre1.7.0_75
+tar xf ~/java.tar.gz --strip-components=1 -C ~/
 ~~~
 
-### Java 1.8 U31
+### Java 1.8 U40
 
 Download v8:
 
 ~~~
-wget -O ~/java.tar.gz http://javadl.sun.com/webapps/download/AutoDL?BundleId=101400
+wget -qO ~/java.tar.gz http://javadl.sun.com/webapps/download/AutoDL?BundleId=103420
 ~~~
 
 Unpack the files:
 
 ~~~
-tar xf ~/java.tar.gz && cp -rf ~/jre1.8.0_31/. ~/ && cd && rm -rf java.tar.gz jre1.8.0_31
+tar xf ~/java.tar.gz --strip-components=1 -C ~/
 ~~~
 
 This command also removes the folders and archives we don't need after we are done with them.
@@ -75,9 +75,9 @@ Java HotSpot(TM) 64-Bit Server VM (build 24.75-b04, mixed mode)
 Or
 
 ~~~
-java version "1.8.0_31"
-Java(TM) SE Runtime Environment (build 1.8.0_31-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 25.31-b07, mixed mode)
+java version "1.8.0_40"
+Java(TM) SE Runtime Environment (build 1.8.0_40-b25)
+Java HotSpot(TM) 64-Bit Server VM (build 25.40-b25, mixed mode)
 ~~~
 
 Unless you used the `-version` command before installing the update can just do this command below, otherwise log into a new SSH session for the changes to take effect and then check your version again.

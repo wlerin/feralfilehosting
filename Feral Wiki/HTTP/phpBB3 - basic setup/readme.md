@@ -27,15 +27,15 @@ rm -f ~/phpbb3.zip
 
 ### Preparation
 
-**1:** Make a limited access user and a new database to use with phpBB3 - [Adminer - MySQL administration](https://www.feralhosting.com/faq/view?question=116)
+**Step 1:** Make a limited access user and a new database to use with phpBB3 - [Adminer - MySQL administration](https://www.feralhosting.com/faq/view?question=116)
 
-**2:** The continue with the installation.
+**Step 2:** The continue with the installation in this FAQ..
 
 ### Installation
 
 phpBB3 is now ready to install via a web browser.
 
-It is highly recommended you follow this FAQ and create a new database with a limited user instead of using root as mentioned in Step 1 above - [How to install MySQL and MySQL Adminer for easy MySQL administration](https://www.feralhosting.com/faq/view?question=116)
+It is highly recommended you follow this FAQ and create a new database with a limited user instead of using root as mentioned in preparation Step 1 above - [How to install MySQL and MySQL Adminer for easy MySQL administration](https://www.feralhosting.com/faq/view?question=116)
 
 Next Visit the web based installer, which by default is at:
 
@@ -51,15 +51,13 @@ Progress with the installer.
 
 ### Database settings
 
-**Important note:** Make sure you completed step 3 of the preparation.
-
 Database type: `mysql`
 
 Your socket path will be displayed on the Slot details page for the relevant slot.
 
 **Database hostname:** `:/media/DiskID/username/private/mysql/socket`
 
-**Database name:** The username you created in Adminer
+**Database name:** The name of the non root user you created in Adminer.
 
 **Database name:** The database you created in Adminer.
 

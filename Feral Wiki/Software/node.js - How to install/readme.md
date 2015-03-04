@@ -27,13 +27,13 @@ wget -qO ~/node.js.tar.gz http://nodejs.org/dist/v0.12.0/node-v0.12.0-linux-x64.
 This unpacks the folder archived inside the node.tar.gz.
 
 ~~~
-tar xf ~/node-v0.12.0-linux-x64.tar.gz --strip-components=1 -C ~/
+tar xf ~/node.js.tar.gz --strip-components=1 -C ~/
 ~~~
 
 This deletes the tar archive and unpacked folder we no longer need.
 
 ~~~
-cd && rm -rf node{.js.tar.gz,-v0.12.0-linux-x64}
+cd && rm -rf node.js.tar.gz
 ~~~
 
 Tries to call `node.js` to check the version:
