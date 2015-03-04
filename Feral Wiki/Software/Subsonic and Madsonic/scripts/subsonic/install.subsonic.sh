@@ -1,10 +1,10 @@
 #!/bin/bash
 # Install Subsonic
-scriptversion="1.8.7"
+scriptversion="1.8.8"
 scriptname="install.subsonic"
 subsonicversion="5.1"
-javaversion="1.8 Update 31"
-jvdecimal="1.8.0_31"
+javaversion="1.8 Update 40"
+jvdecimal="1.8.0_40"
 #
 # Bobtentpeg 01/30/2013 & randomessence 04/24/2013
 #
@@ -34,7 +34,7 @@ submemory="2048"
 # Gets the Java version from the last time this script installed Java
 installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 # Java URL
-javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=101400"
+javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=103420"
 # Subsonic Standalone files
 subsonicfv="http://downloads.sourceforge.net/project/subsonic/subsonic/5.1/subsonic-5.1-standalone.tar.gz"
 subsonicfvs="subsonic-5.1-standalone.tar.gz"
@@ -142,7 +142,7 @@ then
     echo
     if [[ \$confirm =~ ^[Yy]\$ ]]
     then
-        kill -9 \$(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null) 2> /dev/null
+        kill \$(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null) 2> /dev/null
         echo -e \"The process PID:\\\033[31m\$(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null)\\\e[0m that was started by the installer or custom scripts has been killed.\"
         echo
         echo -e \"Checking to see if the PID:\\\033[32m\$(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null)\\\e[0m is running:\\\e[0m\"
@@ -304,22 +304,20 @@ then
     if [[ "$installedjavaversion" != "$javaversion" ]]
     then
         echo "Please wait a moment while java is installed"
+        echo
         rm -rf ~/private/java
         wget -qO ~/java.tar.gz "$javaupdatev"
-        tar xf ~/java.tar.gz
-        cp -rf ~/jre"$jvdecimal"/. "$HOME/"
+        tar xf ~/java.tar.gz --strip-components=1 -C ~/
         rm -f ~/java.tar.gz
-        rm -rf ~/jre"$jvdecimal"
         echo -n "$javaversion" > ~/.javaversion
-        cd && rm -f {Welcome.html,THIRDPARTYLICENSEREADME-JAVAFX.txt,THIRDPARTYLICENSEREADME.txt,release,README,LICENSE,COPYRIGHT}
+        rm -f {Welcome.html,THIRDPARTYLICENSEREADME-JAVAFX.txt,THIRDPARTYLICENSEREADME.txt,release,README,LICENSE,COPYRIGHT}
         echo -e "\033[31m""Important:""\e[0m" "Java" "\033[32m""$javaversion""\e[0m" "has been installed to" "\033[36m""$HOME/""\e[0m"
+        if [[ -f ~/private/subsonic/subsonic.sh.PID ]] 
+        then
+            kill $(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null) 2> /dev/null
+            bash ~/private/subsonic/subsonic.sh
+        fi
         echo
-        echo -e "This Script needs to exit for the Java changes to take effect. Please restart the Script using this command:"
-        echo
-        echo 'bash ~/bin/install.subsonic'
-        echo
-        bash
-        exit
     fi
     #
     #############################
@@ -420,7 +418,7 @@ then
         if [[ "$confirm" =~ ^[Yy]$ ]]
         then
             echo "Killing the process and removing files."
-            kill -9 $(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null) 2> /dev/null
+            kill $(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null) 2> /dev/null
             echo -e "\033[31m" "Done""\e[0m"
             echo "Removing ~/private/subsonic"
             rm -rf ~/private/subsonic
@@ -444,9 +442,9 @@ then
             echo -e "\033[31m" "Done and Done""\e[0m"
             echo
             read -ep "Would you like you relaunch the installer [y] or quit [q]: " -i "y"  confirm
+            echo
             if [[ "$confirm" =~ ^[Yy]$ ]]
             then
-                echo
                 echo -e "\033[32m" "Relaunching the installer.""\e[0m"
                 if [[ -f ~/bin/"$scriptname" ]]
                 then
@@ -461,7 +459,7 @@ then
         elif [[ "$confirm" =~ ^[Uu]$ ]]
         then
             echo -e "Subsonic is being updated. This will only take a moment."
-            kill -9 $(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null) 2> /dev/null
+            kill $(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null) 2> /dev/null
             mkdir -p ~/sonictmp
             wget -qO ~/subsonic.tar.gz "$subsonicfv"
             tar xf ~/subsonic.tar.gz -C ~/sonictmp

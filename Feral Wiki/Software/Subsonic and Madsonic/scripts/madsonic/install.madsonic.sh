@@ -1,10 +1,10 @@
 #!/bin/bash
 # Install Madsonic
-scriptversion="1.8.7"
+scriptversion="1.8.8"
 scriptname="install.madsonic"
 madsonicversion="5.1 Build 5200"
-javaversion="1.8 Update 31"
-jvdecimal="1.8.0_31"
+javaversion="1.8 Update 40"
+jvdecimal="1.8.0_40"
 #
 # randomessence
 #
@@ -34,7 +34,7 @@ maxmemory="2048"
 # Gets the Java version from the last time this script installed Java
 installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 # Java URL
-javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=101400"
+javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=103420"
 # Madsonic Standalone files
 madsonicfv="https://bitbucket.org/feralhosting/feralfiles/downloads/5.1.5200-standalone.zip"
 madsonicfvs="5.1.5200-standalone.zip"
@@ -142,7 +142,7 @@ then
     echo
     if [[ \$confirm =~ ^[Yy]\$ ]]
     then
-        kill -9 \$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null) 2> /dev/null
+        kill \$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null) 2> /dev/null
         echo -e \"The process PID:\\\033[31m\$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null)\\\e[0m that was started by the installer or custom scripts has been killed.\"
         echo
         echo -e \"Checking to see if the PID:\\\033[32m\$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null)\\\e[0m is running:\\\e[0m\"
@@ -304,22 +304,20 @@ then
     if [[ "$installedjavaversion" != "$javaversion" ]]
     then
         echo "Please wait a moment while java is installed"
+        echo
         rm -rf ~/private/java
         wget -qO ~/java.tar.gz "$javaupdatev"
-        tar xf ~/java.tar.gz
-        cp -rf ~/jre"$jvdecimal"/. "$HOME/"
+        tar xf ~/java.tar.gz --strip-components=1 -C ~/
         rm -f ~/java.tar.gz
-        rm -rf ~/jre"$jvdecimal"
         echo -n "$javaversion" > ~/.javaversion
-        cd && rm -f {Welcome.html,THIRDPARTYLICENSEREADME-JAVAFX.txt,THIRDPARTYLICENSEREADME.txt,release,README,LICENSE,COPYRIGHT}
+        rm -f {Welcome.html,THIRDPARTYLICENSEREADME-JAVAFX.txt,THIRDPARTYLICENSEREADME.txt,release,README,LICENSE,COPYRIGHT}
         echo -e "\033[31m""Important:""\e[0m" "Java" "\033[32m""$javaversion""\e[0m" "has been installed to" "\033[36m""$HOME/""\e[0m"
+        if [[ -f ~/private/madsonic/madsonic.sh.PID ]]
+        then
+            kill $(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null) 2> /dev/null
+            bash ~/private/madsonic/madsonic.sh
+        fi
         echo
-        echo -e "This Script needs to exit for the Java changes to take effect. Please restart the Script using this command:"
-        echo
-        echo 'bash ~/bin/install.madsonic'
-        echo
-        bash
-        exit
     fi
     #
     #############################
@@ -420,7 +418,7 @@ then
         if [[ "$confirm" =~ ^[Yy]$ ]]
         then
             echo "Killing the process and removing files."
-            kill -9 $(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null) 2> /dev/null
+            kill $(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null) 2> /dev/null
             echo -e "\033[31m" "Done""\e[0m"
             echo "Removing ~/private/madsonic"
             rm -rf ~/private/madsonic
@@ -444,9 +442,9 @@ then
             echo -e "\033[31m" "Done and Done""\e[0m"
             echo
             read -ep "Would you like you relaunch the installer [y] or quit [q]: " -i "y" confirm
+            echo
             if [[ "$confirm" =~ ^[Yy]$ ]]
             then
-                echo
                 echo -e "\033[32m" "Relaunching the installer.""\e[0m"
                 if [[ -f ~/bin/"$scriptname" ]] 
                 then
@@ -461,7 +459,7 @@ then
         elif [[ "$confirm" =~ ^[Uu]$ ]]
         then
             echo -e "Madsonic is being updated. This will only take a moment."
-            kill -9 $(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null) 2> /dev/null
+            kill $(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null) 2> /dev/null
             mkdir -p ~/sonictmp
             wget -qO ~/madsonic.zip "$madsonicfv"
             unzip -qo ~/madsonic.zip -d ~/sonictmp
