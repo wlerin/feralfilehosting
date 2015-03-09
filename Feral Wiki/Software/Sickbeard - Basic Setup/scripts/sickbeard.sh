@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script name
-scriptversion="1.0.5"
+scriptversion="1.0.6"
 scriptname="install.sickbeard"
 # Author name
 #
@@ -260,6 +260,7 @@ then
                                                         sed -i 's|torrent_username = ""|torrent_username = rutorrent|g' ~/.sickrage/config.ini
                                                         sed -i 's|torrent_host = ""|torrent_host = https://'$(hostname -f)'/'$(whoami)'/rtorrent/rpc/|g' ~/.sickrage/config.ini
                                                         sed -i 's|torrent_path = ""|torrent_path = '"$HOME"'/private/rtorrent/data|g' ~/.sickrage/config.ini
+                                                        sed -i 's|torrent_auth_type = ""|torrent_auth_type = basic|g' ~/.sickrage/config.ini
                                                     fi
                                                     # Apache proxypass
                                                     if [[ -d ~/.apache2/conf.d ]]
