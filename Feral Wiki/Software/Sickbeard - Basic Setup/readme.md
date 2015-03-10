@@ -66,7 +66,7 @@ Manual Installation:
 SickRage - [https://github.com/SiCKRAGETV/SickRage](https://github.com/SiCKRAGETV/SickRage)
 
 ~~~
-git clonehttps://github.com/SiCKRAGETV/SickRage ~/.sickrage
+git clone https://github.com/SiCKRAGETV/SickRage ~/.sickrage
 ~~~
 
 ### SickBeard:
@@ -86,8 +86,17 @@ Configuration
 
 Pick a port between `10000` and `50000`.  Remember this port!  Then let's start up the SickBeard daemon on that port.
 
+
+### Sickbeard:
+
 ~~~
-python ~/Sick-Beard/SickBeard.py -d -p XXXXX
+python ~/.sickbeard/SickBeard.py -d -p XXXXX
+~~~
+
+### Sickrage:
+
+~~~
+python ~/.sickrage/SickBeard.py -d -p XXXXX
 ~~~
 
 where `XXXXX` is the port you picked.  If `XXXXX` does not work or errors out, it's probably in use, so pick something else.
@@ -103,12 +112,6 @@ Click Config->General Configuration
 Set `HTTP Username` to your desired username.
 Set `HTTP Password` to your desired password.
 Click `Save Changes`.
-
-If SickBeard goes down, restart it with:
-
-~~~
-python ~/Sick-Beard/SickBeard.py -d -p XXXXX
-~~~
 
 Proxypass Sickbeard or SickRage:
 ---
