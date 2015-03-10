@@ -116,5 +116,22 @@ Where `username` is your Feral username and `server` is the name of the Feral se
 
 The click on Test and you should get a successful connection.
 
+Restarting
+---
+
+> **Important note:** These commands assume the script was used to install Couchpotato.
+
+Do this command then wait 10 to 20 seconds so that Couchpotato can shut-down gracefully:
+
+~~~
+kill $(cat ~/.couchpotato/couchpotato.pid)
+~~~
+
+Then do this command to restart it.
+
+~~~
+python ~/.couchpotato/CouchPotato.py --daemon
+~~~
+
 
 
