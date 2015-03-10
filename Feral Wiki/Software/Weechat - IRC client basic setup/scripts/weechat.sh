@@ -1,6 +1,6 @@
 #!/bin/bash
 # weechat installation
-scriptversion="1.1.2"
+scriptversion="1.1.3"
 scriptname="install.weechat"
 # randomessence
 #
@@ -72,11 +72,11 @@ then
 #### User Script Starts ####
 ############################
 #
-    wget http://www.cmake.org/files/v2.8/cmake-2.8.12.2.tar.gz
-    tar xf cmake-2.8.12.2.tar.gz && cd cmake-2.8.12.2
+    wget -O ~/cmake.tar.gz http://www.cmake.org/files/v2.8/cmake-2.8.12.2.tar.gz
+    tar xf ~/cmake.tar.gz && cd cmake-2.8.12.2
     ./configure --prefix="$HOME"
-    cd && rm -rf cmake{-2.8.12.2,.tar.gz}
     make && make install
+    cd && rm -rf cmake{-2.8.12.2,.tar.gz}
 	if [[ -f "$HOME/bin/cmake" ]]
 	then
 		wget -qO ~/weechat.tar.gz "$weechat"
