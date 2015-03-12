@@ -82,7 +82,7 @@ then
 #### User Script Starts ####
 ############################
 #
-    wget -O ~/cmake.tar.gz http://www.cmake.org/files/v2.8/cmake-2.8.12.2.tar.gz
+    wget -qO ~/cmake.tar.gz http://www.cmake.org/files/v2.8/cmake-2.8.12.2.tar.gz
     tar xf ~/cmake.tar.gz && cd cmake-2.8.12.2
     ./configure --prefix="$HOME"
     make && make install

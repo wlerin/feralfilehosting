@@ -9,25 +9,19 @@ Please run this command in SSH first:
 mkdir -p ~/bin && bash
 ~~~
 
-### 1 Pre-built: Download and extract pre build cmake-2.8.12-Linux-i386
-
-Please see this FAQ. Upon completion of the installation of `cmake` please return to this FAQ and continue.
-
-[CMAKE - Basic Setup](https://www.feralhosting.com/faq/view?question=270)
-
-### 2: Build WeeChat and install it
+1: Build WeeChat and install it
+---
 
 Please use this script.
 
-**Important note 1:** You need to have completed Step 1 before running this script.
-
-**Important note 2:** If you get an error about gcrypt you will need to open a ticket and ask for `libgcrypt11-dev` to be installed.
+**Important note:** If you get errors about missing dependencies please see the dependencies section at the end of this FAQ.
 
 ~~~
 wget -qO ~/install.weechat.sh http://git.io/L6oalA && bash ~/install.weechat.sh
 ~~~
 
-### 3: Start WeeChat
+2: Start WeeChat
+---
 
 We have added the location to the `PATH` in step 1, so we can use this command:
 
@@ -47,7 +41,8 @@ The full path to execute WeeChat is:
 ~/programs/bin/./weechat
 ~~~
 
-### 4: Configure WeeChat
+3: Configure WeeChat
+---
 
 These are some required settings. You enter them in WeeChat after you have started it.
 
@@ -74,7 +69,8 @@ Some final settings:
 
 Add other networks as desired.
 
-### 5: Connecting to predefined IRC networks
+4: Connecting to predefined IRC networks
+---
 
 Use this command to connect to the Feral Hosting IRC channel,  `#feral` on the `What-Network`  IRC network that we defined in the previous step.
 
@@ -82,7 +78,8 @@ Use this command to connect to the Feral Hosting IRC channel,  `#feral` on the `
 /connect What-Network
 ~~~
 
-### 6: Join a channel
+5: Join a channel
+---
 
 ~~~
 /j #feral
@@ -90,7 +87,8 @@ Use this command to connect to the Feral Hosting IRC channel,  `#feral` on the `
 
 To detach from the screen, press and hold `CRTL` and `a` then press `d`.
 
-### Further reading
+Further reading
+---
 
 Here you can get information on further configuration, such as auto join and more.
 
@@ -100,6 +98,25 @@ Here you can get information on further configuration, such as auto join and mor
 
 [WeeChat Quick Start Guide](http://www.weechat.org/files/doc/stable/weechat_user.en.html)
 
+
+Dependencies:
+---
+
+[http://www.weechat.org/files/doc/stable/weechat_user.en.html#dependencies](http://www.weechat.org/files/doc/stable/weechat_user.en.html#dependencies)
+
+You may need to ask for certain dependencies to be installed. If you experience this through the scripts failing to configure  weechat and exiting then please ask for that dependency using this format.
+
+~~~
+Please can you install some dependencies for Weechat
+
+https://packages.debian.org/en/source/wheezy/libcurl4-gnutls-dev
+https://packages.debian.org/en/source/wheezy/libncursesw5-dev
+https://packages.debian.org/en/source/wheezy/libgcrypt11-dev
+
+apt-get install libcurl4-gnutls-dev libncursesw5-dev libgcrypt11-dev
+
+Thank you.
+~~~
 
 
 
