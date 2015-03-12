@@ -26,7 +26,7 @@ The idea is a simple one. You upload the plugin folder to your `rutorrent/plugin
 ~/www/username.server.feralhosting.com/public_html/rutorrent/plugins
 ~~~
 
-Where username is your Feral username and server is the name of the server that is hosting rutorrent.
+Where `username` is your Feral username and `server` is the name of the server that is hosting rutorrent.
 
 ### Troubleshooting
 
@@ -64,21 +64,42 @@ To manually restart your client, please refer to the following FAQ: [Restarting 
 
 This folder is called a `watch` folder — any torrent you put there will be loaded automatically in rTorrent within seconds.
 
-### nginx
+Common Issues
+---
 
-If you see this error with rutorrent:
+If you see this error with rutorrent error:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/nginxrutorrent.png)
+
+~~~
+Webserver user doesn't have read/write/execute access to the torrents directory. You cannot add torrents via ruTorrent.
+rTorrent user must have read/execute access to the torrents directory. You cannot add torrents via ruTorrent.
+~~~
+
+### In Apache (The default on a new slot)
+
+~~~
+mkdir -p ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/share/users/$(whoami)/torrents
+~~~
+
+Then in your browser press  `CTRL` + `F5` to refresh ruTorrent.
+
+### In nginx:
 
 Run this command in [SSH](https://www.feralhosting.com/faq/view?question=12) and then reload rutorrent:
 
 ~~~
+mkdir -p ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/share/users/$(whoami)/torrents
 wget -qO ~/rutnginx.sh http://git.io/9vlcyw && bash ~/rutnginx.sh
 ~~~
+
+If neither solution works after refreshing rutorrent you may be experiencing some disk issues and should [open a ticket](https://www.feralhosting.com/manager/tickets/new).
 
 ### Public Trackers are red / unreachable
 
 In the rutorrent WebUi do this:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/ruTorrent%20-%20troubleshooting/publictorrents.png)
+
+
 
