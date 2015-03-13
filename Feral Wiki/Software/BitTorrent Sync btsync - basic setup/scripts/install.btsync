@@ -1,30 +1,32 @@
 #!/bin/bash
 # Install btsync
-scriptversion="1.0.0"
+scriptversion="1.0.1"
 scriptname="install.btsync"
 # adamaze
 #
 # wget -qO ~/install.btsync http://git.io/zHDQGA && bash ~/install.btsync
 #
 ############################
+#### Script Notes Start ####
+############################
+#
+# Add notes or warnings here for anyone modifying the scripts
+#
+############################
+##### Script Notes End #####
+############################
+#
+############################
 ## Version History Starts ##
-############################
-#
-# How do I customise this updater? 
-# 1: scriptversion="0.0.0" replace "0.0.0" with your script version. This will be shown to the user at the current version.
-# 2: scriptname="somescript" replace "somescript" with your script name. Make it unique to this script.
-# 3: Set the scripturl variable in the variable section to the RAW github URl of the script for updating.
-# 4: Insert your script in the "Script goes here" labelled section
-#
-# This updater deals with updating a single file, the "~/bin/somescript", by updating and switching to this script.
-#
-############################
-### Version History Ends ###
 ############################
 #
 ############################
 ###### Variable Start ######
 ############################
+#
+urlbtsync2="https://download-cdn.getsyncapp.com/stable/linux-x64/BitTorrent-Sync_x64.tar.gz"
+urlbtsync2glibc="https://download-cdn.getsyncapp.com/stable/linux-glibc-x64/BitTorrent-Sync_glibc23_x64.tar.gz"
+urlbtsync1="http://download.getsyncapp.com/endpoint/btsync/os/linux-x64/track/stable"
 #
 scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/BitTorrent%20Sync%20btsync%20-%20basic%20setup/scripts/install.btsync"
 #
@@ -80,7 +82,7 @@ then
     if [[ ! -d ~/btsync ]]
     then
         mkdir -p ~/btsync
-        wget -qO ~/btsync/btsync.tar.gz http://download.getsyncapp.com/endpoint/btsync/os/linux-x64/track/stable
+        wget -qO ~/btsync/btsync.tar.gz $urlbtsync2
         tar xf ~/btsync/btsync.tar.gz -C ~/btsync
         rm -f ~/btsync/btsync.tar.gz
         wget -qO ~/btsync/sync.conf http://git.io/tnT60g
