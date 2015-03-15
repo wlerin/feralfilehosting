@@ -11,11 +11,11 @@ Formerly AjaXplorer, file sharing platform for the enterprise
 In SSH do these commands. Use this FAQ if you do not know how to SSH into your slot: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
 
 ~~~
-wget -qO ~/pydio.zip http://downloads.sourceforge.net/project/ajaxplorer/pydio/stable-channel/6.0.5/pydio-core-6.0.5.zip
-unzip -qo ~/pydio.zip
+wget -qO ~/pydio.tar.gz http://downloads.sourceforge.net/project/ajaxplorer/pydio/stable-channel/6.0.5/pydio-core-6.0.5.tar.gz
+tar xf ~/pydio.tar.gz
 cp -rf ~/pydio-core-6.0.5/. ~/www/$(whoami).$(hostname -f)/public_html/pydio
 sed -i 's|//define("AJXP_LOCALE", "en_EN.UTF-8");|define("AJXP_LOCALE", "en_GB.UTF-8");|g' ~/www/$(whoami).$(hostname -f)/public_html/pydio/conf/bootstrap_conf.php
-cd && rm -rf pydio{-core-6.0.5,.zip}
+cd && rm -rf pydio{-core-6.0.5,.tar.gz}
 ~~~
 
 The last command sets the locale to `en.GB.UTF-8`.

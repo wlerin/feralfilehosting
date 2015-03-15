@@ -1,11 +1,11 @@
 
-This rutorret plugin automatically changes the text in the rutorrent ratio column, from red to green, based on the users upload ratio.
+This ruTorrent plug-in automatically changes the text in the rutorrent ratio column, from red to green, based on the users upload ratio.
 
 Install it using [SSH](https://www.feralhosting.com/faq/view?question=12):
 
 ~~~
 wget -qO ~/ratio.zip http://git.io/71cumA
-unzip -qo ~/ratio.zip -d ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/
+unzip -qo ~/ratio.zip -d ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/
 cd && rm -f ratio.zip
 ~~~
 
@@ -18,12 +18,11 @@ Or install the original plugin like this using [SSH](https://www.feralhosting.co
 It changes the background colour of the cell instead of the font.
 
 ~~~
-cd ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/
+cd ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/
 wget -qO ratiocolor.zip http://git.io/PiSq_g && unzip -qo ratiocolor.zip
 cp -rf rutorrent-ratiocolor-master/. ratiocolor && rm -rf rutorrent-ratiocolor-master ratiocolor.zip
 cd
 ~~~
-
 
 
 
