@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script name
-scriptversion="1.0.8"
+scriptversion="1.0.9"
 scriptname="install.sickbeard"
 # Author name
 #
@@ -128,6 +128,7 @@ then
                                                         cd
                                                     else
                                                         git clone "$giturlsickbeard" ~/.sickbeard
+                                                        echo
                                                     fi
                                                     if [[ ! -f ~/.sickbeard/config.ini ]]
                                                     then
@@ -240,9 +241,11 @@ then
                                                             kill $(ps x | grep "python $HOME/.sickrage/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') > /dev/null 2>&1
                                                             echo "I need to wait 10 seconds for SickRage to shutdown."
                                                             sleep 10
+                                                            echo
                                                         fi
                                                         cd ~/.sickrage
                                                         git pull origin
+                                                        cd
                                                         echo
                                                     else
                                                         git clone "$giturlsickrage" ~/.sickrage
