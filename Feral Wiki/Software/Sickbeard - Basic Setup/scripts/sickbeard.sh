@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script name
-scriptversion="1.0.7"
+scriptversion="1.0.8"
 scriptname="install.sickbeard"
 # Author name
 #
@@ -18,7 +18,7 @@ scriptname="install.sickbeard"
 ###### Variable Start ######
 ############################
 #
-updaterenabled="0"
+updaterenabled="1"
 #
 unrarv="5.2.6"
 unrarfv="http://www.rarlab.com/rar/unrarsrc-5.2.6.tar.gz"
@@ -74,7 +74,7 @@ fi
 echo
 echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
 echo
-read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " -i "y" updatestatus
+read -ep "The script has been updated, enter [y] to continue or [q] to exit: " -i "y" updatestatus
 echo
 if [[ "$updatestatus" =~ ^[Yy]$ ]]
 then
