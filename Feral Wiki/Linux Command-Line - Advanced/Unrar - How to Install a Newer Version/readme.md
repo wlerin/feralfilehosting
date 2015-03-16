@@ -3,7 +3,7 @@ Winrar - How to install a newer version than the slot version (3.90)
 
 ~~~
 mkdir -p ~/bin && bash
-wget -qO ~/unrar.tar.gz http://www.rarlab.com/rar/unrarsrc-5.2.3.tar.gz
+wget -qO ~/unrar.tar.gz http://www.rarlab.com/rar/unrarsrc-5.2.6.tar.gz
 tar xf ~/unrar.tar.gz && cd ~/unrar
 make && make install DESTDIR=~
 cd && rm -rf unrar{,.tar.gz}
