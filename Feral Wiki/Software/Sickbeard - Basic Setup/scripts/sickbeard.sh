@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script name
-scriptversion="1.0.6"
+scriptversion="1.0.7"
 scriptname="install.sickbeard"
 # Author name
 #
@@ -18,6 +18,11 @@ scriptname="install.sickbeard"
 ###### Variable Start ######
 ############################
 #
+updaterenabled="0"
+#
+unrarv="5.2.6"
+unrarfv="http://www.rarlab.com/rar/unrarsrc-5.2.6.tar.gz"
+#
 mainport=$(shuf -i 10001-49000 -n 1)
 scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Sickbeard%20-%20Basic%20Setup/scripts/sickbeard.sh"
 giturlsickbeard="https://github.com/midgetspy/Sick-Beard.git"
@@ -31,26 +36,32 @@ giturlsickrage="https://github.com/SiCKRAGETV/SickRage.git"
 #### Self Updater Start ####
 ############################
 #
-[[ ! -d ~/bin ]] && mkdir -p ~/bin
-[[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
-#
-wget -qO ~/.000"$scriptname" "$scripturl"
-#
-if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
+if [[ "$updaterenabled" -eq 1 ]]
 then
-    echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
-    bash ~/.111"$scriptname"
-    exit
-else
-    if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
+    [[ ! -d ~/bin ]] && mkdir -p ~/bin
+    [[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
+    #
+    wget -qO ~/.000"$scriptname" "$scripturl"
+    #
+    if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
     then
-        echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
-        bash ~/.222"$scriptname"
+        echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
+        bash ~/.111"$scriptname"
         exit
+    else
+        if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
+        then
+            echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
+            bash ~/.222"$scriptname"
+            exit
+        fi
     fi
+    cd && rm -f .{000,111,222}"$scriptname"
+    chmod -f 700 ~/bin/"$scriptname"
+else
+    echo
+    echo "The Updater has been disabled"
 fi
-cd && rm -f .{000,111,222}"$scriptname"
-chmod -f 700 ~/bin/"$scriptname"
 #
 ############################
 ##### Self Updater End #####
@@ -235,6 +246,7 @@ then
                                                         echo
                                                     else
                                                         git clone "$giturlsickrage" ~/.sickrage
+                                                        echo
                                                     fi
                                                     #
                                                     if [[ ! -f ~/.sickrage/config.ini ]]
@@ -280,6 +292,18 @@ then
                                                         echo "Nginx is not installed. The nginx proxypass was not installed."
                                                         echo
                                                     fi
+                                                    # Installing Unrar locally.
+                                                    echo "Installing Unrar $unrarv locally for use with post processing"
+                                                    echo
+                                                    wget -qO ~/unrar.tar.gz "$unrarfv"
+                                                    tar xf ~/unrar.tar.gz && cd ~/unrar
+                                                    make > ~/.sickrage/.unrar.make.log 2>&1
+                                                    make install DESTDIR=~ >> ~/.sickrage/.unrar.make.log 2>&1
+                                                    cd && rm -rf unrar{,.tar.gz}
+                                                    echo "Done"
+                                                    echo
+                                                    echo "Starting SickRage"
+                                                    echo
                                                     python "$HOME"/.sickrage/SickBeard.py -d
                                                     echo "Done"
                                                     echo
