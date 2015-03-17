@@ -1,6 +1,6 @@
 #!/bin/bash
 # php settings
-scriptversion="0.0.3"
+scriptversion="1.0.0"
 scriptname="phpsettings"
 # randomessence
 #
@@ -96,6 +96,8 @@ then
             echo "1) $option1"
             echo "2) $option2"
             echo "3) $option3"
+            echo "4) $option4"
+            echo "5) $option5"
             echo
     }
 
