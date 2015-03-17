@@ -1,6 +1,6 @@
 #!/bin/bash
 # php settings
-scriptversion="1.0.0"
+scriptversion="1.0.1"
 scriptname="phpsettings"
 # randomessence
 #
@@ -151,6 +151,7 @@ then
                             /usr/sbin/apache2ctl -k graceful >/dev/null 2>&1
                             echo -e "\033[32m""Done""\e[0m"
                             echo
+                            sleep 2
                             ;;
                     "4")
                             /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf  >/dev/null 2>&1
@@ -158,6 +159,7 @@ then
                             /usr/sbin/php5-fpm -y $HOME/.nginx/php/fpm.conf >/dev/null 2>&1
                             echo -e "\033[32m""Done""\e[0m"
                             echo
+                            sleep 2
                             ;;
                     "5")
                             echo "You chose to quit the script."
