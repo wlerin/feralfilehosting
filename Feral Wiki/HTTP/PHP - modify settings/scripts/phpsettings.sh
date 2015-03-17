@@ -112,17 +112,24 @@ then
                             sed -i "s|mysqli.default_socket =|mysqli.default_socket = $HOME/private/mysql/socket|g" ~/.apache2/php.ini
                             #
                             /usr/sbin/apache2ctl -k graceful >/dev/null 2>&1
+                            ;;
                     "2")
-                            mv -f ~/.nginx/php/php.ini  ~/.nginx/php/php.ini.bak
-                            cp -f /etc/php5/fpm/php.ini ~/.nginx/php/php.ini
-                            #
-                            sed -i "s|pdo_mysql.default_socket=|pdo_mysql.default_socket = $HOME/private/mysql/socket|g" ~/.nginx/php/php.ini
-                            sed -i "s|mysql.default_socket =|mysql.default_socket = $HOME/private/mysql/socket|g" ~/.nginx/php/php.ini
-                            sed -i "s|mysqli.default_socket =|mysqli.default_socket = $HOME/private/mysql/socket|g" ~/.nginx/php/php.ini
-                            #
-                            /usr/sbin/apache2ctl -k graceful >/dev/null 2>&1
-                            killall php5-fpm >/dev/null 2>&1
-                            /usr/sbin/php5-fpm -y $HOME/.nginx/php/fpm.conf >/dev/null 2>&1
+                            if [[ -d ~/.nginx ]]
+                            then
+                                mv -f ~/.nginx/php/php.ini  ~/.nginx/php/php.ini.bak
+                                cp -f /etc/php5/fpm/php.ini ~/.nginx/php/php.ini
+                                #
+                                sed -i "s|pdo_mysql.default_socket=|pdo_mysql.default_socket = $HOME/private/mysql/socket|g" ~/.nginx/php/php.ini
+                                sed -i "s|mysql.default_socket =|mysql.default_socket = $HOME/private/mysql/socket|g" ~/.nginx/php/php.ini
+                                sed -i "s|mysqli.default_socket =|mysqli.default_socket = $HOME/private/mysql/socket|g" ~/.nginx/php/php.ini
+                                #
+                                /usr/sbin/apache2ctl -k graceful >/dev/null 2>&1
+                                killall php5-fpm >/dev/null 2>&1
+                                /usr/sbin/php5-fpm -y $HOME/.nginx/php/fpm.conf >/dev/null 2>&1
+                            else
+                                echo "nginx is not installed. Please update to nginx first."
+                            fi
+                            ;;
                     "3")
                             echo "You chose to quit the script."
                             echo
