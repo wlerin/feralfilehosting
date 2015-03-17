@@ -112,8 +112,11 @@ then
                             sed -i "s|mysqli.default_socket =|mysqli.default_socket = $HOME/private/mysql/socket|g" ~/.apache2/php.ini
                             #
                             /usr/sbin/apache2ctl -k graceful >/dev/null 2>&1
-                            echo "Done"
+                            echo -e "\033[32m""Done""\e[0m"
                             echo
+                            echo "The mysql,mysqli and pdo defaults sockets have also been set"
+                            echo
+                            sleep 2
                             ;;
                     "2")
                             if [[ -d ~/.nginx ]]
@@ -128,13 +131,16 @@ then
                                 /usr/sbin/apache2ctl -k graceful >/dev/null 2>&1
                                 killall php5-fpm >/dev/null 2>&1
                                 /usr/sbin/php5-fpm -y $HOME/.nginx/php/fpm.conf >/dev/null 2>&1
-                                echo "Done"
+                                echo -e "\033[32m""Done""\e[0m"
+                                echo
+                                echo "The mysql,mysqli and pdo defaults sockets have also been set"
                                 echo
                             else
                                 echo "nginx is not installed. Please update to nginx first."
                                 echo
                                 echo "Updating Apache to nginx - https://www.feralhosting.com/faq/view?question=231"
                                 echo
+                                sleep 2
                             fi
                             ;;
                     "3")
