@@ -1,7 +1,7 @@
 #!/bin/bash
 # php settings
-scriptversion="0.0.1"
-scriptname="somescript"
+scriptversion="0.0.3"
+scriptname="phpsettings"
 # randomessence
 #
 # wget -qO ~/phpsettings http://git.io/hGdl && bash ~/phpsettings
@@ -112,6 +112,8 @@ then
                             sed -i "s|mysqli.default_socket =|mysqli.default_socket = $HOME/private/mysql/socket|g" ~/.apache2/php.ini
                             #
                             /usr/sbin/apache2ctl -k graceful >/dev/null 2>&1
+                            echo "Done"
+                            echo
                             ;;
                     "2")
                             if [[ -d ~/.nginx ]]
@@ -126,8 +128,13 @@ then
                                 /usr/sbin/apache2ctl -k graceful >/dev/null 2>&1
                                 killall php5-fpm >/dev/null 2>&1
                                 /usr/sbin/php5-fpm -y $HOME/.nginx/php/fpm.conf >/dev/null 2>&1
+                                echo "Done"
+                                echo
                             else
                                 echo "nginx is not installed. Please update to nginx first."
+                                echo
+                                echo "Updating Apache to nginx - https://www.feralhosting.com/faq/view?question=231"
+                                echo
                             fi
                             ;;
                     "3")
