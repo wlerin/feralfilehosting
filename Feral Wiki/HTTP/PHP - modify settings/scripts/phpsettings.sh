@@ -25,7 +25,9 @@ scriptname="phpsettings"
 ############################
 option1="Install Apache php.ini"
 option2="Install nginx php.ini"
-option3="Quit the Script"
+option3="Reload Apache"
+option4="Reload Nginx"
+option5="Quit the Script"
 ############################
 ###### Variable Start ######
 ############################
@@ -114,7 +116,7 @@ then
                             /usr/sbin/apache2ctl -k graceful >/dev/null 2>&1
                             echo -e "\033[32m""Done""\e[0m"
                             echo
-                            echo "The mysql,mysqli and pdo defaults sockets have also been set"
+                            echo "The mysql, mysqli and pdo defaults sockets have also been set"
                             echo
                             sleep 2
                             ;;
@@ -128,12 +130,12 @@ then
                                 sed -i "s|mysql.default_socket =|mysql.default_socket = $HOME/private/mysql/socket|g" ~/.nginx/php/php.ini
                                 sed -i "s|mysqli.default_socket =|mysqli.default_socket = $HOME/private/mysql/socket|g" ~/.nginx/php/php.ini
                                 #
-                                /usr/sbin/apache2ctl -k graceful >/dev/null 2>&1
+                                /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf  >/dev/null 2>&1
                                 killall php5-fpm >/dev/null 2>&1
                                 /usr/sbin/php5-fpm -y $HOME/.nginx/php/fpm.conf >/dev/null 2>&1
                                 echo -e "\033[32m""Done""\e[0m"
                                 echo
-                                echo "The mysql,mysqli and pdo defaults sockets have also been set"
+                                echo "The mysql, mysqli and pdo defaults sockets have also been set"
                                 echo
                             else
                                 echo "nginx is not installed. Please update to nginx first."
@@ -144,6 +146,18 @@ then
                             fi
                             ;;
                     "3")
+                            /usr/sbin/apache2ctl -k graceful >/dev/null 2>&1
+                            echo -e "\033[32m""Done""\e[0m"
+                            echo
+                            ;;
+                    "4")
+                            /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf  >/dev/null 2>&1
+                            killall php5-fpm >/dev/null 2>&1
+                            /usr/sbin/php5-fpm -y $HOME/.nginx/php/fpm.conf >/dev/null 2>&1
+                            echo -e "\033[32m""Done""\e[0m"
+                            echo
+                            ;;
+                    "5")
                             echo "You chose to quit the script."
                             echo
                             exit
