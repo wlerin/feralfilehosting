@@ -4,7 +4,7 @@ scriptversion="0.0.1"
 scriptname="somescript"
 # randomessence
 #
-# Bash Command
+# wget -qO ~/phpsettings http://git.io/hGdl && bash ~/phpsettings
 #
 ############################
 #### Script Notes Start ####
@@ -32,7 +32,7 @@ option3="Quit the Script"
 #
 updaterenabled="1"
 #
-scripturl="https://raw.github.com/feralhosting"
+scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/PHP%20-%20modify%20settings/scripts/phpsettings.sh"
 #
 ############################
 ####### Variable End #######
