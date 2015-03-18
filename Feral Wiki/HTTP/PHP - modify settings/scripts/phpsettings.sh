@@ -1,6 +1,6 @@
 #!/bin/bash
 # php settings
-scriptversion="1.0.1"
+scriptversion="1.0.3"
 scriptname="phpsettings"
 # randomessence
 #
@@ -111,9 +111,9 @@ then
                             cp -f /etc/php5/apache2/php.ini ~/.apache2/php.ini
                             echo -n 'PHPINIDir "${HOME}/.apache2/php.ini"' > ~/.apache2/conf.d/php.conf
                             #
-                            sed -i "s|pdo_mysql.default_socket=|pdo_mysql.default_socket = $HOME/private/mysql/socket|g" ~/.apache2/php.ini
                             sed -i "s|mysql.default_socket =|mysql.default_socket = $HOME/private/mysql/socket|g" ~/.apache2/php.ini
                             sed -i "s|mysqli.default_socket =|mysqli.default_socket = $HOME/private/mysql/socket|g" ~/.apache2/php.ini
+                            sed -i "s|pdo_mysql.default_socket=|pdo_mysql.default_socket = $HOME/private/mysql/socket|g" ~/.apache2/php.ini
                             #
                             /usr/sbin/apache2ctl -k graceful >/dev/null 2>&1
                             echo -e "\033[32m""Done""\e[0m"
@@ -128,13 +128,16 @@ then
                                 mv -f ~/.nginx/php/php.ini  ~/.nginx/php/php.ini.bak
                                 cp -f /etc/php5/fpm/php.ini ~/.nginx/php/php.ini
                                 #
-                                sed -i "s|pdo_mysql.default_socket=|pdo_mysql.default_socket = $HOME/private/mysql/socket|g" ~/.nginx/php/php.ini
                                 sed -i "s|mysql.default_socket =|mysql.default_socket = $HOME/private/mysql/socket|g" ~/.nginx/php/php.ini
                                 sed -i "s|mysqli.default_socket =|mysqli.default_socket = $HOME/private/mysql/socket|g" ~/.nginx/php/php.ini
+                                sed -i "s|pdo_mysql.default_socket=|pdo_mysql.default_socket = $HOME/private/mysql/socket|g" ~/.nginx/php/php.ini
                                 #
-                                /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf  >/dev/null 2>&1
-                                killall php5-fpm >/dev/null 2>&1
-                                /usr/sbin/php5-fpm -y $HOME/.nginx/php/fpm.conf >/dev/null 2>&1
+                                killall -u $(whoami) nginx php5-fpm >/dev/null 2>&1
+                                echo "Waiting for nginx to reload. It loads every 5 minutes starting from 00 of the hour"
+                                echo
+                                while [[ ! -f ~/.nginx/php/pid ]]; do echo -ne "$(date +%M:%S)\r"; done
+                                echo
+                                echo "nginx and php5-fpm have been reloaded by the system"
                                 echo -e "\033[32m""Done""\e[0m"
                                 echo
                                 echo "The mysql, mysqli and pdo defaults sockets have also been set"
@@ -154,12 +157,14 @@ then
                             sleep 2
                             ;;
                     "4")
-                            /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf  >/dev/null 2>&1
-                            killall php5-fpm >/dev/null 2>&1
-                            /usr/sbin/php5-fpm -y $HOME/.nginx/php/fpm.conf >/dev/null 2>&1
+                            killall -u $(whoami) nginx php5-fpm >/dev/null 2>&1
+                            echo "Waiting for nginx to reload. It loads every 5 minutes starting from 00 of the hour"
+                            echo
+                            while [[ ! -f ~/.nginx/php/pid ]]; do echo -ne "$(date +%M:%S)\r"; done
+                            echo
+                            echo "nginx and php5-fpm have been reloaded by the system"
                             echo -e "\033[32m""Done""\e[0m"
                             echo
-                            sleep 2
                             ;;
                     "5")
                             echo "You chose to quit the script."
