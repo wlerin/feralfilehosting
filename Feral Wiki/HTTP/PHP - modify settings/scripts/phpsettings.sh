@@ -1,6 +1,6 @@
 #!/bin/bash
 # php settings
-scriptversion="1.0.3"
+scriptversion="1.0.4"
 scriptname="phpsettings"
 # randomessence
 #
@@ -135,9 +135,8 @@ then
                                 killall -u $(whoami) nginx php5-fpm >/dev/null 2>&1
                                 echo "Waiting for nginx to reload. It loads every 5 minutes starting from 00 of the hour"
                                 echo
-                                while [[ ! -f ~/.nginx/php/pid ]]; do echo -ne "$(date +%M:%S)\r"; done
-                                echo
-                                echo "nginx and php5-fpm have been reloaded by the system"
+                                while [[ ! -f ~/.nginx/php/pid ]]; do echo -ne "$(date +%M:%S)\r"; done; echo
+                                echo -e "\nnginx and php5-fpm have been reloaded by the system"
                                 echo -e "\033[32m""Done""\e[0m"
                                 echo
                                 echo "The mysql, mysqli and pdo defaults sockets have also been set"
@@ -160,9 +159,8 @@ then
                             killall -u $(whoami) nginx php5-fpm >/dev/null 2>&1
                             echo "Waiting for nginx to reload. It loads every 5 minutes starting from 00 of the hour"
                             echo
-                            while [[ ! -f ~/.nginx/php/pid ]]; do echo -ne "$(date +%M:%S)\r"; done
-                            echo
-                            echo "nginx and php5-fpm have been reloaded by the system"
+                            while [[ ! -f ~/.nginx/php/pid ]]; do echo -ne "$(date +%M:%S)\r"; done; echo
+                            echo -e "\nnginx and php5-fpm have been reloaded by the system"
                             echo -e "\033[32m""Done""\e[0m"
                             echo
                             ;;
