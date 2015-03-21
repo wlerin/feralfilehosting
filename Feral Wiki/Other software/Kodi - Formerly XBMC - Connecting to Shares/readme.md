@@ -21,7 +21,19 @@ The Follow the steps in the images.
 
 ![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Kodi%20-%20Formerly%20XBMC%20-%20Connecting%20to%20Shares/2.png)
 
-**3:** In the `Add network location` click on `Browse` to open the `Browse for new share` window.
+**3:** In the `Add network location`:
+
+> **Important note:** There is a quick way to connect while you are in this window if you want to customise the command below.
+
+Connection template: You can copy and paste your information into Kodi using the windows keyboard short cuts `CTRL` + `c` to copy and `CTRL` + `v` to paste. `ALT` + `TAB` to switch between windows.
+
+~~~
+sftp://username:password@server.feralhosting.com:22/~
+~~~
+
+Then just click `OK` and providing you gave the correct details it should.
+
+Otherwise continue with the images by clicking on `Browse` to open the `Browse for new share` window.
 
 ![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Kodi%20-%20Formerly%20XBMC%20-%20Connecting%20to%20Shares/3.png)
 
@@ -45,6 +57,8 @@ In this window configure our network location as follows:
 ![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Kodi%20-%20Formerly%20XBMC%20-%20Connecting%20to%20Shares/5.png)
 
 **6:**
+
+Once added then select this share to access it and then click `OK` to confirm and add it as source.
 
 ![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Kodi%20-%20Formerly%20XBMC%20-%20Connecting%20to%20Shares/6.png)
 

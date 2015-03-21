@@ -17,7 +17,7 @@ Your `public_html` folder is located here:
 An easy way to execute SSH commands in this folder is to use this command:
 
 ~~~
- ~/www/$(whoami).$(hostname)/public_html/
+ ~/www/$(whoami).$(hostname -f)/public_html/
 ~~~
 
 This command will work for everyone to automatically find your username and servername and will be used through this FAQ.
@@ -28,7 +28,7 @@ Prevent search indexing - robots.txt
 To prevent indexing by search engines use this command.
 
 ~~~
-echo -e 'User-agent: *\nDisallow: /' > ~/www/$(whoami).$(hostname)/public_html/robots.txt
+echo -e 'User-agent: *\nDisallow: /' > ~/www/$(whoami).$(hostname -f)/public_html/robots.txt
 ~~~
 [http://www.robotstxt.org/robotstxt.html](http://www.robotstxt.org/robotstxt.html)
 
@@ -40,7 +40,7 @@ In SSH do these commands. Use this faq if you do not know how to SSH into your s
 First we create a directory that will be home to our custom links in this guide.
 
 ~~~
-mkdir -p ~/www/$(whoami).$(hostname)/public_html/links
+mkdir -p ~/www/$(whoami).$(hostname -f)/public_html/links
 ~~~
 
 This will create a folder called `links` inside your WWW folder.
@@ -57,7 +57,7 @@ rtorrent data symbolic link
 ---
 
 ~~~
-ln -s ~/private/rtorrent/data/ ~/www/$(whoami).$(hostname)/public_html/links/rtorrent_data
+ln -s ~/private/rtorrent/data/ ~/www/$(whoami).$(hostname -f)/public_html/links/rtorrent_data
 ~~~
 
 Please make sure this is the correct path to your rTorrent your data folder if different from the default location.
@@ -66,7 +66,7 @@ Tranmission default data folder
 ---
 
 ~~~
-ln -s ~/private/transmission/data/ ~/www/$(whoami).$(hostname)/public_html/links/transmission_data
+ln -s ~/private/transmission/data/ ~/www/$(whoami).$(hostname -f)/public_html/links/transmission_data
 ~~~
 
 Please make sure this is the correct path to your Transmission your data folder if different from the default location
@@ -75,7 +75,7 @@ Deluge default data folder
 ---
 
 ~~~
-ln -s ~/private/deluge/data/ ~/www/$(whoami).$(hostname)/public_html/links/deluge_data
+ln -s ~/private/deluge/data/ ~/www/$(whoami).$(hostname -f)/public_html/links/deluge_data
 ~~~
 
 Please make sure this is the correct path to your Deluge your data folder if different from the default location
@@ -99,7 +99,7 @@ To download _h5ai 0.26.1 (custom with dual URL format fix) use these commands in
 
 ~~~
 wget -qO ~/h5ai.zip http://git.io/dEazsw
-unzip -qo ~/h5ai.zip -d ~/www/$(whoami).$(hostname)/public_html/
+unzip -qo ~/h5ai.zip -d ~/www/$(whoami).$(hostname -f)/public_html/
 ~~~
 
 **For Apache only:**
@@ -107,7 +107,7 @@ unzip -qo ~/h5ai.zip -d ~/www/$(whoami).$(hostname)/public_html/
 Use this command to append the required entry to an existing `.htaccess` files or it will create one if needed.
 
 ~~~
-echo -e '\nDirectoryIndex  index.html  index.php  /_h5ai/server/php/index.php' >> ~/www/$(whoami).$(hostname)/public_html/.htaccess
+echo -e '\nDirectoryIndex  index.html  index.php  /_h5ai/server/php/index.php' >> ~/www/$(whoami).$(hostname -f)/public_html/.htaccess
 ~~~
 
 `_h5ai` will now be ready to use in your WWW. By default this works from the WWW root down. 
