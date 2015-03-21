@@ -1,10 +1,12 @@
 
 ~~~
-Please can you install the NAME dependency for APPLICATION
+Please can you install the Application: APPLICATION NAME
 
 https://packages.debian.org/en/wheezy/
 
 apt-get install name
+
+Reason:
 
 Thank you.
 ~~~
