@@ -1,9 +1,9 @@
 
 Here is a brief overview of adding an SFTP share. It is not very difficult.
 
-First, download the XBMC for your platform from here [http://xbmc.org/download/](http://xbmc.org/download/)
+First, download the Kodi for your platform from here [http://kodi.tv/download/](http://kodi.tv/download/)
 
-Install XBMC using a Full installation.
+Install Kodi using a Full installation.
 
 Then run the program and and at the main menu go to the System Option.
 
@@ -22,6 +22,8 @@ The Follow the steps in the images.
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/xbmc%20-%20connecting%20to%20shares/4.png)
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/xbmc%20-%20connecting%20to%20shares/5.png)
+
+> **Important note:** You can copy and paste your password into Kodi using the windows keyboard shortcuts `CTRL` + `c` to copy and `CTRL` + `v` to paste.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/xbmc%20-%20connecting%20to%20shares/6.png)
 
