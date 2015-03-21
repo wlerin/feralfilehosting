@@ -13,21 +13,17 @@ Then run the program and and at the main menu go to the System Option.
 
 The Follow the steps in the images.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/xbmc%20-%20connecting%20to%20shares/1.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral Wiki/Other software/Kodi - Formerly XBMC - Connecting to Shares/1.png)
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/xbmc%20-%20connecting%20to%20shares/2.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral Wiki/Other software/Kodi - Formerly XBMC - Connecting to Shares/.png)
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/xbmc%20-%20connecting%20to%20shares/3.png)
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/xbmc%20-%20connecting%20to%20shares/4.png)
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/xbmc%20-%20connecting%20to%20shares/5.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral Wiki/Other software/Kodi - Formerly XBMC - Connecting to Shares/3.png)
 
 > **Important note:** You can copy and paste your password into Kodi using the windows keyboard shortcuts `CTRL` + `c` to copy and `CTRL` + `v` to paste.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/xbmc%20-%20connecting%20to%20shares/6.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral Wiki/Other software/Kodi - Formerly XBMC - Connecting to Shares/4.png)
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/xbmc%20-%20connecting%20to%20shares/7.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral Wiki/Other software/Kodi - Formerly XBMC - Connecting to Shares/5.png)
 
 And that is pretty much it.
 
