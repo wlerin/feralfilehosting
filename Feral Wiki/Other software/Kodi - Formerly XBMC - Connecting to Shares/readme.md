@@ -13,18 +13,19 @@ Then run the program and and at the main menu go to the System Option.
 
 The Follow the steps in the images.
 
-![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral Wiki/Other software/Kodi - Formerly XBMC - Connecting to Shares/1.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Kodi%20-%20Formerly%20XBMC%20-%20Connecting%20to%20Shares/1.png)
 
-![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral Wiki/Other software/Kodi - Formerly XBMC - Connecting to Shares/.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Kodi%20-%20Formerly%20XBMC%20-%20Connecting%20to%20Shares/2.png)
 
-![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral Wiki/Other software/Kodi - Formerly XBMC - Connecting to Shares/3.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Kodi%20-%20Formerly%20XBMC%20-%20Connecting%20to%20Shares/3.png)
 
 > **Important note:** You can copy and paste your password into Kodi using the windows keyboard shortcuts `CTRL` + `c` to copy and `CTRL` + `v` to paste.
 
-![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral Wiki/Other software/Kodi - Formerly XBMC - Connecting to Shares/4.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Kodi%20-%20Formerly%20XBMC%20-%20Connecting%20to%20Shares/4.png)
 
-![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral Wiki/Other software/Kodi - Formerly XBMC - Connecting to Shares/5.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Other%20software/Kodi%20-%20Formerly%20XBMC%20-%20Connecting%20to%20Shares/5.png)
 
 And that is pretty much it.
+
 
 
