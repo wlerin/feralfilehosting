@@ -12,7 +12,7 @@ You login information for the relevant slot will be shown here:
 ruTorrent plug-ins
 ---
 
-To install any plug-in you require you will need to install it from the [ruTorrent github repo](https://github.com/Novik/ruTorrent).
+To install any plug-in you require you will need to install it from the [ruTorrent github plugin repo](https://github.com/Novik/ruTorrent/tree/master/plugins).
 
 First we use this command in SSH to move us to the correct location of your default rutorrent installation:
 

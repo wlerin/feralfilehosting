@@ -11,12 +11,12 @@ Kitty SSH Client
 Information
 ---
 
-Completing the whole guide is not Required. To use Kitty to connect to your slot you only need to complete the steps in Part 1 of this FAQ to use Kitty in the traditional way you would use putty.
+Completing the whole guide is not Required. To use Kitty to connect to your slot you only need to complete the steps in Part 1 of this FAQ. This will use Kitty to connect in the traditional way you would when using putty.
 
 Part 1: Basic Connection
 ---
 
-We need to force the `UTF-8` language option to avoid some visual issues when connecting. If you are having Unicode character issues it is because you forgot to set this here.
+We need to force the `UTF-8` language option to avoid some visual issues when connecting. If you are having Unicode character issues it is because you forgot to set this here before connecting.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/Kitty%20-%20SSH%20-%20Private%20Keys%20-%20SSH%20tunnels/1.png)
 
@@ -48,7 +48,17 @@ Once loaded into kitty the path to the keyfile will be shown.
 Part 3: Creating an SSH Tunnel to use as a local SOCKS proxy.
 ---
 
+Navigate to the `Connection` > `SSH` > `Tunnels` panel. This is what you will see:
+
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/Kitty%20-%20SSH%20-%20Private%20Keys%20-%20SSH%20tunnels/6.png)
+
+**1:** Select the `Auto` radio (this should already be selected by default)
+**2:** Select the `Dynamic` radio
+**3:** Select and enter a port between the range of `10001` to `49999`
+**4:** Click `Add` to add this SSH tunnel.
+**5:** Once added you will see the tunnel listed in the `Forwarded ports` window.
+
+You can add and create more than one tunnel per session if needed.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/Kitty%20-%20SSH%20-%20Private%20Keys%20-%20SSH%20tunnels/7.png)
 
