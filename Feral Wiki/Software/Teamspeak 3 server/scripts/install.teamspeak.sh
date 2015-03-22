@@ -1,8 +1,8 @@
 #!/bin/bash
 #
 # Install Teamspeak 3
-scriptversion="1.1.7"
-teamspeakversion="3.0.11.1"
+scriptversion="1.1.8"
+teamspeakversion="3.0.11.2"
 scriptname="install.teamspeak"
 # randomessence 27/04/2013
 #
@@ -40,13 +40,15 @@ scriptname="install.teamspeak"
 ###### Variable Start ######
 ############################
 #
+updaterenabled="1"
+#
 vport=$(shuf -i 10001-20000 -n 1)
 # vport the voice port: random port between 6000-50000 used in the sed commands
 fport=$(shuf -i 20001-35000 -n 1)
 # fport is file transfer port: vport + 1 used in the sed commands
 qport=$(shuf -i 35001-50000 -n 1)
 # qport is the query port: vport + 2 used in the sed commands
-teamspeakfv="http://dl.4players.de/ts/releases/3.0.11.1/teamspeak3-server_linux-amd64-3.0.11.1.tar.gz"
+teamspeakfv="http://dl.4players.de/ts/releases/$teamspeakversion/teamspeak3-server_linux-amd64-$teamspeakversion.tar.gz"
 #
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Teamspeak%203%20server/scripts/install.teamspeak.sh"
 #
@@ -58,26 +60,32 @@ scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20W
 #### Self Updater Start ####
 ############################
 #
-[[ ! -d ~/bin ]] && mkdir -p ~/bin
-[[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
-#
-wget -qO ~/.000"$scriptname" "$scripturl"
-#
-if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
+if [[ "$updaterenabled" -eq 1 ]]
 then
-    echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
-    bash ~/.111"$scriptname"
-    exit
-else
-    if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
+    [[ ! -d ~/bin ]] && mkdir -p ~/bin
+    [[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
+    #
+    wget -qO ~/.000"$scriptname" "$scripturl"
+    #
+    if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
     then
-        echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
-        bash ~/.222"$scriptname"
+        echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
+        bash ~/.111"$scriptname"
         exit
+    else
+        if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
+        then
+            echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
+            bash ~/.222"$scriptname"
+            exit
+        fi
     fi
+    cd && rm -f .{000,111,222}"$scriptname"
+    chmod -f 700 ~/bin/"$scriptname"
+else
+    echo
+    echo "The Updater has been disabled"
 fi
-cd && rm -f .{000,111,222}"$scriptname"
-chmod -f 700 ~/bin/"$scriptname"
 #
 ############################
 ##### Self Updater End #####
