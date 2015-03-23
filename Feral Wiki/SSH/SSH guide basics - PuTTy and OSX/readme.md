@@ -1,5 +1,5 @@
 
-### Connecting with SSH:
+### puTTY - Connecting with SSH on Windows:
 
 **Option 1:** Get PuTTy installer; Download PuTTY Installer from [here](http://the.earth.li/~sgtatham/putty/latest/x86/putty-0.64-installer.exe)
 
@@ -27,29 +27,29 @@ Type or copy & paste the hostname of your server, for example: `aphrodite.feralh
 
 Leave the port on default 22, optionally type in a name for the session if you want to save it for later use (recommended!), then click `Open`. This will connect you to the host.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20PuTTy/putty1.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20PuTTy%20and%20OSX/puTTY/putty1.png)
 
 **Optional Step 3.2:** To have PuTTy automatically pass your username then enter it as shown in the image
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20PuTTy/putty2.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20PuTTy%20and%20OSX/puTTY/putty2.png)
 
 **Optional Step 3.3: Private Keyfile usage**
 
 If you have a `.ppk` keyfile you would like to use instead of the default password or you have followed this guide for [Setting up Public Key Authentication for Password-less Login](https://www.feralhosting.com/faq/view?question=13) you can load it here like this.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20PuTTy/putty3.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20PuTTy%20and%20OSX/puTTY/putty3.png)
 
 **Step 3.4: Saving your Sessions expanded**
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20PuTTy/putty3.5.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20PuTTy%20and%20OSX/puTTY/putty3.5.png)
 
 **Step 4:** If your connection is successful, you will see a login prompt such as "login as: " on the screen. Type in your Feral username and press 'enter' to confirm.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20PuTTy/putty4.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20PuTTy%20and%20OSX/puTTY/putty4.png)
 
 You will see something similar to this as you proceed to after you username has been passed to the server:
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20PuTTy/putty5.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20PuTTy%20and%20OSX/puTTY/putty5.png)
 
 Copy your shell access password from the Software Status page and paste it by right-clicking in the Putty window after you have highlighted it, or pressing and holding **SHIFT** then pressing **INS**. 
 
@@ -62,7 +62,7 @@ Your password will not be displayed when you do this, so do not right click more
 
 You will see something like this upon successfully connecting:
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20PuTTy/putty6.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20PuTTy%20and%20OSX/puTTY/putty6.png)
 
 (You will be disconnected by the server after an incorrect password, or if 30 seconds passes.)
 
@@ -92,7 +92,7 @@ OS X Built-in SSH Client
 
 When you open the terminal you will see something like this:
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20OS%20X/3.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20PuTTy%20and%20OSX/OS%20X/3.png)
 
 Now we enter the SSH command to connect to the slot, where `username` is your Feral username and `server` is the name of the server you wish to SSH into:
 
@@ -100,15 +100,15 @@ Now we enter the SSH command to connect to the slot, where `username` is your Fe
 ssh username@server.feralhosting.com
 ~~~
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20OS%20X/4.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20PuTTy%20and%20OSX/OS%20X/4.png)
 
 If this is the first time connecting to this host you will see something like this.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20OS%20X/5.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20PuTTy%20and%20OSX/OS%20X/5.png)
 
 Type `yes` to save the host's key.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20OS%20X/6.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20PuTTy%20and%20OSX/OS%20X/6.png)
 
 Now enter your Feral SSH/SFTP password at the prompt found on your slot details page for the relevant slot:
 
@@ -120,13 +120,13 @@ Now enter your Feral SSH/SFTP password at the prompt found on your slot details 
 
 **There will be no visual response when you paste in your password** — this is a security measure so that your password cannot be stolen by someone looking over your shoulder. Simply paste it and press **enter** to send the password to the server.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20OS%20X/7.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20PuTTy%20and%20OSX/OS%20X/7.png)
 
 At this point you should be logged into your Feral server and ready to execute commands in shell.
 
 After you have saved the host key and use the command shown in this FAQ it will look like this when connecting.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20OS%20X/8.png)
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20guide%20basics%20-%20PuTTy%20and%20OSX/OS%20X/8.png)
 
 You have now successfully connected to your slot via SSH using terminal on OS X.
 
