@@ -1,4 +1,12 @@
 
+Your FTP / SFTP / SSH login information can be found on the Slot Details page for the relevant slot. Use this link in your Account Manager to access the relevant slot:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_link.png)
+
+You login information for the relevant slot will be shown here:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_ssh.png)
+
 Kitty SSH Client
 ---
 
@@ -28,7 +36,21 @@ Save your session once you have provided all the core details.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/Kitty%20-%20SSH%20-%20Private%20Keys%20-%20SSH%20tunnels/3.png)
 
-> **Important note:** If you are asked to save the HOSTs Key say `yes` and check and box that says to remember/always do this.
+Once you have saved your  new session then you would normally follow this process when opeing KiTTY to work with saved sessions:
+
+**1:** Navigate to the `Session` panel if not already there and select the session you want to load
+
+**2:** Click on `Load` to load this session and all configurations associated with it.
+
+**3:** Click `Open` to start the connection.
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/Kitty%20-%20SSH%20-%20Private%20Keys%20-%20SSH%20tunnels/8.png)
+
+> **Important note:** Check you are connecting to the right host before accepting. If you connecting to the correct host and are asked to save the HOSTs Key say `yes` and check and box that says to remember/always do this.
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/Kitty%20-%20SSH%20-%20Private%20Keys%20-%20SSH%20tunnels/9.png)
+
+> **Important note:** Don't forget to save this session after making any new changes.
 
 Part 2: Using a  putty format ppk keyfile.
 ---
