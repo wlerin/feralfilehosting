@@ -1,4 +1,7 @@
 
+Virtual host aka vhost configuration
+---
+
 The steps will similar for any other domain name provider. The DNS settings and tools may differ from place to place but the basic idea is the same anywhere you go.
 
 **STEP 1:** Register Your Domain Name through a registrar.
