@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script name
-scriptversion="1.0.9"
+scriptversion="1.1.0"
 scriptname="install.sickbeard"
 # Author name
 #
@@ -255,7 +255,7 @@ then
                                                     if [[ ! -f ~/.sickrage/config.ini ]]
                                                     then
                                                         mkdir -p ~/.sickrage.tv.shows
-                                                        echo -e "[General]\nweb_port = $mainport\nweb_root = \"/$(whoami)/sickrage\"\nlaunch_browser = 0\nroot_dirs = 0|$HOME/.sickrage.tv.shows\n\n[TORRENT]\ntorrent_username = rutorrent\ntorrent_host = https://$(hostname -f)/$(whoami)/rtorrent/rpc/\ntorrent_path = $HOME/private/rtorrent/data" > ~/.sickrage/config.ini
+                                                        echo -e "[General]\nweb_port = $mainport\nweb_root = \"/$(whoami)/sickrage\"\nlaunch_browser = 0\nroot_dirs = 0|$HOME/.sickrage.tv.shows\n\n[TORRENT]\ntorrent_username = rutorrent\ntorrent_host = https://$(hostname -f)/$(whoami)/rtorrent/rpc/\ntorrent_path = $HOME/private/rtorrent/data\ntorrent_auth_type = basic" > ~/.sickrage/config.ini
                                                     else
                                                         #
                                                         if [[ -z $(ps x | grep "python $HOME/.sickrage/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') ]]
