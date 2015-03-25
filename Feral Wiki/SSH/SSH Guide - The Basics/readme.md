@@ -21,29 +21,57 @@ Basic Connection
 
 We need to force the `UTF-8` language option to avoid some visual issues when connecting. If you are having Unicode character issues it is because you forgot to set this here before connecting.
 
+**1:** Navigate to the `Window` panel.
+
+**2:** Select the `Translation` panel.
+
+**3:** Select `UTF-8` in the drop down menu.
+
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/Kitty%20-%20SSH%20-%20Private%20Keys%20-%20SSH%20tunnels/1.png)
 
 > **Important note:** This optional but recommended step will save your Feral username and SSH password for the session to connect without requiring you to enter this information.
 
+**1:** Navigate to the `Connection` panel.
+
+**2:** Select the `Data` panel.
+
+**3:** Enter your Feral username in the `Auto-login username` field.
+
+**4:** Enter your Feral FTP / SFTP / SSH Access password found in the slots details pages for the relevant slot into the `Auto-login password` field.
+
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/Kitty%20-%20SSH%20-%20Private%20Keys%20-%20SSH%20tunnels/2.png)
 
-Save your session once you have provided all the core details.
+**1:** Navigate to the `Session` panel if not already there.
+
+**2:** Enter the hostname of the Feral server that hosts your slot.
+
+**3:** The SSH port is always `22`.
+
+**4:** Make sure the `SSH` radio option is selected (it should be selected by default).
+
+**5:** Give this session a name for when we save so you can identify and load it after.
+
+**6:** Save this session with all the information you have provided and settings you have configured.
+
+> **Important note:** Make sure you have saved your session once you have provided all the core details.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/Kitty%20-%20SSH%20-%20Private%20Keys%20-%20SSH%20tunnels/3.png)
 
-Once you have saved your  new session then you would normally follow this process when opeing KiTTY to work with saved sessions:
+Once you have saved your  new session then you would normally follow this process when opening KiTTY to work with saved sessions:
 
-**1:** Navigate to the `Session` panel if not already there and select the session you want to load
+**1:** Navigate to the `Session` panel if not already there (this panel is the default when opening KiTTY)
 
-**2:** Click on `Load` to load this session and all configurations associated with it.
+**2:** Select the session you want to load
 
-**3:** Click `Open` to start the connection.
+**3:** Click on `Load` to load this session and all configurations associated with it.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/Kitty%20-%20SSH%20-%20Private%20Keys%20-%20SSH%20tunnels/8.png)
+**4:** Click `Open` to start the connection.
 
-> **Important note:** Check you are connecting to the right host before accepting. If you connecting to the correct host and are asked to save the HOSTs Key say `yes` and check and box that says to remember/always do this.
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/Kitty%20-%20SSH%20-%20Private%20Keys%20-%20SSH%20tunnels/4.png)
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/Kitty%20-%20SSH%20-%20Private%20Keys%20-%20SSH%20tunnels/9.png)
+> **Important note:** Check you are connecting to the right host before accepting. If you connecting to the correct host and are asked to save the server's host Key say `yes` and check and box that says to remember/always do this.
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/Kitty%20-%20SSH%20-%20Private%20Keys%20-%20SSH%20tunnels/5.png)
 
 > **Important note:** Don't forget to save this session after making any new changes.
 
