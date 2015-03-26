@@ -25,6 +25,7 @@ scriptname="somescript"
 # 2: scriptname="somescript" replace "somescript" with your script name. Make it unique to this script.
 # 3: Set the scripturl variable in the variable section to the RAW github URl of the script for updating.
 # 4: Insert your script in the "Script goes here" labelled section
+# 5: To disable the updater you can either set updaterenabled to 0 in the variable section or use the argument nu when calling the script like somescript nu 
 #
 # This updater deals with updating a single file, the "~/bin/somescript", by updating and switching to this script.
 #
@@ -48,31 +49,36 @@ scripturl="https://raw.github.com/feralhosting"
 #### Self Updater Start ####
 ############################
 #
-if [[ "$updaterenabled" -eq 1 ]]
+if [[ ! -z $1 && $1 == 'nu' ]]
 then
-    [[ ! -d ~/bin ]] && mkdir -p ~/bin
-    [[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
-    #
-    wget -qO ~/.000"$scriptname" "$scripturl"
-    #
-    if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
-    then
-        echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
-        bash ~/.111"$scriptname"
-        exit
-    else
-        if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
-        then
-            echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
-            bash ~/.222"$scriptname"
-            exit
-        fi
-    fi
-    cd && rm -f .{000,111,222}"$scriptname"
-    chmod -f 700 ~/bin/"$scriptname"
+    :
 else
-    echo
-    echo "The Updater has been disabled"
+    if [[ "$updaterenabled" -eq 1 ]]
+    then
+        [[ ! -d ~/bin ]] && mkdir -p ~/bin
+        [[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
+        #
+        wget -qO ~/.000"$scriptname" "$scripturl"
+        #
+        if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
+        then
+            echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
+            bash ~/.111"$scriptname"
+            exit
+        else
+            if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
+            then
+                echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
+                bash ~/.222"$scriptname"
+                exit
+            fi
+        fi
+        cd && rm -f .{000,111,222}"$scriptname"
+        chmod -f 700 ~/bin/"$scriptname"
+    else
+        echo
+        echo "The Updater has been disabled"
+    fi
 fi
 #
 ############################
