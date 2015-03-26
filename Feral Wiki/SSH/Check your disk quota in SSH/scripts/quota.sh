@@ -30,11 +30,11 @@ function pad_left() {
 # Input: number which represents MB's
 # Output: formatted filesize with 2 decimals, example: 10.50 MB
 function format_filesize() {
-        if [ "$1" == "" ]; then
-                awk '{x=$1;split("MB GB TB PB",type);for(i=5;y < 1;i--) { y = x / (2^(10*i)/1.024) }; printf "%.2f %s\n",y,type[i+2]; }';
-        else
-                echo "$1" | awk '{x=$1;split("MB GB TB PB",type);for(i=5;y < 1;i--) { y = x / (2^(10*i)/1.024) }; printf "%.2f %s\n",y,type[i+2]; }';
-        fi;
+    if [ "$1" == "" ]; then
+            awk '{x=$1;split("MB GB TB PB",type);for(i=5;y < 1;i--) { y = x / (2^(10*i)/1.024) }; printf "%.2f %s\n",y,type[i+2]; }';
+    else
+            echo "$1" | awk '{x=$1;split("MB GB TB PB",type);for(i=5;y < 1;i--) { y = x / (2^(10*i)/1.024) }; printf "%.2f %s\n",y,type[i+2]; }';
+    fi;
 }
 
 # Lookup used diskspace and available diskspace
@@ -50,7 +50,7 @@ available_fmt=$(echo "$available" | format_filesize);
 # Output results
 
 # Format header in purple with bold and underlined text
-echo -e "\033[1;35;4mDisk usage for user $(whoami)@$(hostname)\e[0m";
+echo -e "\033[1;35;4mDisk usage for user $(whoami)@$(hostname -f)\e[0m";
 
 # Format first part as bold with cyan text
 echo -e "\033[36;1mHome:\e[00m       $HOME";
