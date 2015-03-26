@@ -1,6 +1,6 @@
 #!/bin/bash
 # install autodl
-scriptversion="1.3.8"
+scriptversion="1.3.9"
 scriptname="install.autodl"
 # Bobtentpeg, randomessence
 #
@@ -20,6 +20,7 @@ scriptname="install.autodl"
 ## Version History Starts ##
 ############################
 #
+# v1.3.9 - test for existing but empty autodl.cfg
 # v1.3.8 - template
 # v1.3.6 - $(hostname -f) *points fingers*
 # v1.3.5 - does not force ruTorrent and will install and configure autodl without it.
@@ -172,10 +173,15 @@ then
     # else we use and echo to create our autodl.cfg file. Takes the two previously made variables, $port and $pass to update/create the required info.
     if [[ -f ~/.autodl/autodl.cfg ]]
     then
-        # Sed command to enter the port variable
-        sed -ri 's|(.*)gui-server-port =(.*)|gui-server-port = '"$port"'|g' ~/.autodl/autodl.cfg
-        # Sed command to enter the password variable
-        sed -ri 's|(.*)gui-server-password =(.*)|gui-server-password = '"$pass"'|g' ~/.autodl/autodl.cfg
+        if [[ $(tr -d "\r\n" < ~/.autodl/autodl.cfg | wc -c) -eq 0 ]]
+        then
+            echo -e "[options]\ngui-server-port = $port\ngui-server-password = $pass" > ~/.autodl/autodl.cfg
+        else
+            # Sed command to enter the port variable
+            sed -ri 's|(.*)gui-server-port =(.*)|gui-server-port = '"$port"'|g' ~/.autodl/autodl.cfg
+            # Sed command to enter the password variable
+            sed -ri 's|(.*)gui-server-password =(.*)|gui-server-password = '"$pass"'|g' ~/.autodl/autodl.cfg
+        fi
     else 
         echo -e "[options]\ngui-server-port = $port\ngui-server-password = $pass" > ~/.autodl/autodl.cfg
     fi
