@@ -1,17 +1,28 @@
 #!/bin/bash
 # install autodl
-scriptversion="1.3.7"
+scriptversion="1.3.8"
 scriptname="install.autodl"
 # Bobtentpeg, randomessence
 #
 # wget -qO ~/install.autodl.sh http://git.io/oTUCMg && bash ~/install.autodl.sh
 #
 ############################
+#### Script Notes Start ####
+############################
+#
+# Add notes or warnings here for anyone modifying the scripts
+#
+############################
+##### Script Notes End #####
+############################
+#
+############################
 ## Version History Starts ##
 ############################
 #
+# v1.3.8 - template
 # v1.3.6 - $(hostname -f) *points fingers*
-# v1.3.5 - does not force rutorrent and will install and configure autodl without it.
+# v1.3.5 - does not force ruTorrent and will install and configure autodl without it.
 # v1.3.4 - update URLs changed to http://update.autodl-community.com
 # v1.3.3 - small tweaks
 # v1.3.2 - confusion = automation + comments
@@ -28,7 +39,7 @@ scriptname="install.autodl"
 # v1.2.1 - Code cleanup (cleaner var names, better structure)...more commenting
 # v1.2 - Updated plugin to community edition, freeleech flag and a few other extras
 # v1.1 - Set the password prompt to tell you not to use spaces, fixed a typo and made sure to set svn to --quiet. Groundwork for version checking
-# v1.0.1 - Finish rutorrent check mechanism -- checks for rutorrent folder in vhost
+# v1.0.1 - Finish ruTorrent check mechanism -- checks for ruTorrent folder in vhost
 # v1.0 - Initial release
 #
 ############################
@@ -39,13 +50,15 @@ scriptname="install.autodl"
 ###### Variable Start ######
 ############################
 #
+updaterenabled="1"
+#
 # Bitbucket URLs for the core files.
 autodlirssicommunity="http://update.autodl-community.com/autodl-irssi-community.zip"
 autodltrackers="http://update.autodl-community.com/autodl-trackers.zip"
 # URL for autodl-rutorrent
 autodlrutorrent="https://github.com/autodl-community/autodl-rutorrent/archive/master.zip"
 # Uses shuf to pick a random port between 6000 and 50000
-port=$(shuf -i 6000-50000 -n 1)
+port=$(shuf -i 10001-49999 -n 1)
 # Random password generation
 pass=$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)
 # Raw script URL for self updating
@@ -59,26 +72,32 @@ scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20W
 #### Self Updater Start ####
 ############################
 #
-[[ ! -d ~/bin ]] && mkdir -p ~/bin
-[[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
-#
-wget -qO ~/.000"$scriptname" "$scripturl"
-#
-if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
+if [[ "$updaterenabled" -eq 1 ]]
 then
-    echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
-    bash ~/.111"$scriptname"
-    exit
-else
-    if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
+    [[ ! -d ~/bin ]] && mkdir -p ~/bin
+    [[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
+    #
+    wget -qO ~/.000"$scriptname" "$scripturl"
+    #
+    if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
     then
-        echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
-        bash ~/.222"$scriptname"
+        echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
+        bash ~/.111"$scriptname"
         exit
+    else
+        if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
+        then
+            echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
+            bash ~/.222"$scriptname"
+            exit
+        fi
     fi
+    cd && rm -f .{000,111,222}"$scriptname"
+    chmod -f 700 ~/bin/"$scriptname"
+else
+    echo
+    echo "The Updater has been disabled"
 fi
-cd && rm -f .{000,111,222}"$scriptname"
-chmod -f 700 ~/bin/"$scriptname"
 #
 ############################
 ##### Self Updater End #####
