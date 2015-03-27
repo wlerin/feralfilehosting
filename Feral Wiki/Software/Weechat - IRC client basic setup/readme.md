@@ -38,7 +38,7 @@ screen -r weechat
 The full path to execute WeeChat is:
 
 ~~~
-~/programs/bin/./weechat
+~/bin/weechat
 ~~~
 
 3: Configure WeeChat
