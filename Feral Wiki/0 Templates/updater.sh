@@ -19,7 +19,7 @@ scriptname="somescript"
 # 3: Set the scripturl variable in the variable section to the RAW github URl of the script for updating.
 # 4: Insert your script in the "User Script" labelled section - Indented by two tabs to be in line with the script.
 # 5: Disable the updater - you can either set "updaterenabled" variable to 0 in the variable section or use the argument nu when calling the script, for example - "somescript nu"
-# 6: quick load - use the argument qw when calling the script, for example - "somescript qw".
+# 6: quick load - use the argument qr when calling the script, for example - "somescript qr".
 # 7: To pass your own variables to the script start from $3 onwards.
 #
 ############################
@@ -54,7 +54,7 @@ scripturl="https://raw.github.com/feralhosting"
 #### Self Updater Start ####
 ############################
 #
-if [[ ! -z $1 && $1 == 'qw' ]] || [[ ! -z $2 && $2 == 'qw' ]];then echo -n '' > ~/.quickrun; fi
+if [[ ! -z $1 && $1 == 'qr' ]] || [[ ! -z $2 && $2 == 'qr' ]];then echo -n '' > ~/.quickrun; fi
 #
 if [[ ! -z $1 && $1 == 'nu' ]] || [[ ! -z $2 && $2 == 'nu' ]]
 then
