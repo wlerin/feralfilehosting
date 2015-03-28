@@ -40,13 +40,13 @@ Subsonic or Madsonic automatic installation using a bash script:
 **For Subsonic:**
 
 ~~~
-wget -qO ~/install.subsonic.sh http://git.io/GBjb3w && bash ~/install.subsonic.sh
+wget -qO ~/install.subsonic http://git.io/bGZT && bash ~/install.subsonic
 ~~~
 
 **For Madsonic:**
 
 ~~~
-wget -qO ~/install.madsonic.sh http://git.io/Eq97bg && bash ~/install.madsonic.sh
+wget -qO ~/install.madsonic http://git.io/Eq97bg && bash ~/install.madsonic
 ~~~
 
 Then follow the progress in your terminal. Some steps require user input. You will be asked whether you want to install Subsonic or Madsonic.
