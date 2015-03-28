@@ -1,16 +1,24 @@
 #!/bin/bash
 #
 # Install Teamspeak 3
-scriptversion="1.1.8"
+scriptversion="1.1.9"
 teamspeakversion="3.0.11.2"
 scriptname="install.teamspeak"
 # randomessence 27/04/2013
 #
 # wget -qO ~/install.teamspeak http://git.io/aOACkQ && bash ~/install.teamspeak
 #
+############################
+#### Script Notes Start ####
+############################
+#
 # bash ~/private/teamspeak/ts3server_startscript.sh start
 # bash ~/private/teamspeak/ts3server_startscript.sh stop
 # bash ~/private/teamspeak/ts3server_startscript.sh restart
+#
+############################
+##### Script Notes End #####
+############################
 #
 ############################
 ## Version History Starts ##
@@ -40,13 +48,14 @@ scriptname="install.teamspeak"
 ###### Variable Start ######
 ############################
 #
+# Disables the built in script updater permanently.
 updaterenabled="1"
 #
 vport=$(shuf -i 10001-20000 -n 1)
 # vport the voice port: random port between 6000-50000 used in the sed commands
 fport=$(shuf -i 20001-35000 -n 1)
 # fport is file transfer port: vport + 1 used in the sed commands
-qport=$(shuf -i 35001-50000 -n 1)
+qport=$(shuf -i 35001-49999 -n 1)
 # qport is the query port: vport + 2 used in the sed commands
 teamspeakfv="http://dl.4players.de/ts/releases/$teamspeakversion/teamspeak3-server_linux-amd64-$teamspeakversion.tar.gz"
 #
@@ -60,32 +69,47 @@ scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20W
 #### Self Updater Start ####
 ############################
 #
-if [[ "$updaterenabled" -eq 1 ]]
+if [[ ! -z $1 && $1 == 'qr' ]] || [[ ! -z $2 && $2 == 'qr' ]];then echo -n '' > ~/.quickrun; fi
+#
+if [[ ! -z $1 && $1 == 'nu' ]] || [[ ! -z $2 && $2 == 'nu' ]]
 then
-    [[ ! -d ~/bin ]] && mkdir -p ~/bin
-    [[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
-    #
-    wget -qO ~/.000"$scriptname" "$scripturl"
-    #
-    if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
-    then
-        echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
-        bash ~/.111"$scriptname"
-        exit
-    else
-        if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
-        then
-            echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
-            bash ~/.222"$scriptname"
-            exit
-        fi
-    fi
-    cd && rm -f .{000,111,222}"$scriptname"
-    chmod -f 700 ~/bin/"$scriptname"
-else
     echo
-    echo "The Updater has been disabled"
+    echo "The Updater has been temporarily disabled"
+    echo
+    scriptversion=""$scriptversion"-nu"
+else
+    if [[ "$updaterenabled" -eq 1 ]]
+    then
+        [[ ! -d ~/bin ]] && mkdir -p ~/bin
+        [[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
+        #
+        wget -qO ~/.000"$scriptname" "$scripturl"
+        #
+        if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
+        then
+            echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
+            bash ~/.111"$scriptname"
+            exit
+        else
+            if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
+            then
+                echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
+                bash ~/.222"$scriptname"
+                exit
+            fi
+        fi
+        cd && rm -f .{000,111,222}"$scriptname"
+        chmod -f 700 ~/bin/"$scriptname"
+        echo
+    else
+        echo
+        echo "The Updater has been disabled"
+        echo
+        scriptversion=""$scriptversion"-DEV"
+    fi
 fi
+#
+if [[ -f ~/.quickrun ]];then updatestatus="y"; rm -f ~/.quickrun; fi
 #
 ############################
 ##### Self Updater End #####
@@ -95,11 +119,16 @@ fi
 #### Core Script Starts ####
 ############################
 #
-echo
-echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
-echo
-read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " -i "y" updatestatus
-echo
+if [[ "$updatestatus" == "y" ]]
+then
+    :
+else
+    echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
+    echo
+    read -ep "The script has been updated, enter [y] to continue or [q] to exit: " -i "y" updatestatus
+    echo
+fi
+#
 if [[ "$updatestatus" =~ ^[Yy]$ ]]
 then
 #
@@ -191,27 +220,7 @@ then
             exit
         fi
     fi
-echo "machine_id=
-default_voice_port=9987
-voice_ip=0.0.0.0
-licensepath=
-filetransfer_port=30033
-filetransfer_ip=0.0.0.0
-query_port=10011
-query_ip=0.0.0.0
-query_ip_whitelist=query_ip_whitelist.txt
-query_ip_blacklist=query_ip_blacklist.txt
-dbplugin=ts3db_sqlite3
-dbpluginparameter=
-dbsqlpath=sql/
-dbsqlcreatepath=create_sqlite/
-dbconnections=10
-logpath=logs
-logquerycommands=0
-dbclientkeepdays=30
-logappend=0
-query_skipbruteforcecheck=0
-" > ~/private/teamspeak/ts3server.ini
+    echo -e "machine_id=\ndefault_voice_port=9987\nvoice_ip=0.0.0.0\nlicensepath=\nfiletransfer_port=30033\nfiletransfer_ip=0.0.0.0\nquery_port=10011\nquery_ip=0.0.0.0\nquery_ip_whitelist=query_ip_whitelist.txt\nquery_ip_blacklist=query_ip_blacklist.txt\ndbplugin=ts3db_sqlite3\ndbpluginparameter=\ndbsqlpath=sql/\ndbsqlcreatepath=create_sqlite/\ndbconnections=10\nlogpath=logs\nlogquerycommands=0\ndbclientkeepdays=30\nlogappend=0\nquery_skipbruteforcecheck=0" > ~/private/teamspeak/ts3server.ini
     #
     sed -i "s|default_voice_port=9987|default_voice_port=$vport|g" ~/private/teamspeak/ts3server.ini
     sed -i "s|filetransfer_port=30033|filetransfer_port=$fport|g" ~/private/teamspeak/ts3server.ini
