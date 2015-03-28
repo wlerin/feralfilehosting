@@ -1,10 +1,10 @@
 #!/bin/bash
 # install autodl
-scriptversion="1.4.2"
+scriptversion="1.4.3"
 scriptname="install.autodl"
 # Bobtentpeg, randomessence
 #
-# wget -qO ~/install.autodl.sh http://git.io/oTUCMg && bash ~/install.autodl.sh
+# wget -qO ~/install.autodl.sh http://git.io/oTUCMg && bash ~/install.autodl.sh qr
 #
 ############################
 #### Script Notes Start ####
@@ -20,6 +20,7 @@ scriptname="install.autodl"
 ## Version History Starts ##
 ############################
 #
+# v1.4.3 - Template
 # v1.4.2 - Template
 # v1.4.1 - Visual tweaks.
 # v1.4.0 - better isolating of screen PIDS
@@ -85,6 +86,8 @@ fi
 #### Self Updater Start ####
 ############################
 #
+if [[ ! -z $1 && $1 == 'qr' ]] || [[ ! -z $2 && $2 == 'qr' ]];then echo -n '' > ~/.quickrun; fi
+#
 if [[ ! -z $1 && $1 == 'nu' ]] || [[ ! -z $2 && $2 == 'nu' ]]
 then
     echo
@@ -123,6 +126,8 @@ else
     fi
 fi
 #
+if [[ -f ~/.quickrun ]];then export updatestatus="y"; rm -f ~/.quickrun; fi
+#
 ############################
 ##### Self Updater End #####
 ############################
@@ -131,9 +136,9 @@ fi
 #### Core Script Starts ####
 ############################
 #
-if [[ ! -z $1 && $1 == 'qw' ]] || [[ ! -z $2 && $2 == 'qw' ]]
+if [[ "$updatestatus" == "y" ]]
 then
-    updatestatus="y"
+    :
 else
     echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
     echo
