@@ -94,7 +94,7 @@ else
     fi
 fi
 #
-if [[ -f ~/.quickrun ]];then export updatestatus="y"; rm -f ~/.quickrun; fi
+if [[ -f ~/.quickrun ]];then updatestatus="y"; rm -f ~/.quickrun; fi
 #
 ############################
 ##### Self Updater End #####
