@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install Madsonic
-scriptversion="1.8.8"
+scriptversion="1.9.0"
 scriptname="install.madsonic"
 madsonicversion="5.1 Build 5200"
 javaversion="1.8 Update 40"
@@ -10,7 +10,7 @@ jvdecimal="1.8.0_40"
 #
 # * * * * * bash -l ~/bin/madsonicron
 #
-# wget -qO ~/install.madsonic http://git.io/Eq97bg && bash ~/install.madsonic
+# wget -qO ~/install.madsonic http://git.io/Eq97bg && bash ~/install.madsonic qr
 #
 ############################
 ## Version History Starts ##
@@ -26,6 +26,8 @@ jvdecimal="1.8.0_40"
 ###### Variable Start ######
 ############################
 #
+# Disables the built in script updater permanently.
+updaterenabled="1"
 # Sets a random port between 10000-50000 for http
 http=$(shuf -i 10001-49000 -n 1)
 # Defines the memory variable
@@ -52,26 +54,47 @@ scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/maste
 #### Self Updater Start ####
 ############################
 #
-[[ ! -d ~/bin ]] && mkdir -p ~/bin
-[[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
+if [[ ! -z $1 && $1 == 'qr' ]] || [[ ! -z $2 && $2 == 'qr' ]];then echo -n '' > ~/.quickrun; fi
 #
-wget -qO ~/.000"$scriptname" "$scripturl"
-#
-if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
+if [[ ! -z $1 && $1 == 'nu' ]] || [[ ! -z $2 && $2 == 'nu' ]]
 then
-    echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
-    bash ~/.111"$scriptname"
-    exit
+    echo
+    echo "The Updater has been temporarily disabled"
+    echo
+    scriptversion=""$scriptversion"-nu"
 else
-    if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
+    if [[ "$updaterenabled" -eq 1 ]]
     then
-        echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
-        bash ~/.222"$scriptname"
-        exit
+        [[ ! -d ~/bin ]] && mkdir -p ~/bin
+        [[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
+        #
+        wget -qO ~/.000"$scriptname" "$scripturl"
+        #
+        if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
+        then
+            echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
+            bash ~/.111"$scriptname"
+            exit
+        else
+            if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
+            then
+                echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
+                bash ~/.222"$scriptname"
+                exit
+            fi
+        fi
+        cd && rm -f .{000,111,222}"$scriptname"
+        chmod -f 700 ~/bin/"$scriptname"
+        echo
+    else
+        echo
+        echo "The Updater has been disabled"
+        echo
+        scriptversion=""$scriptversion"-DEV"
     fi
 fi
-cd && rm -f .{000,111,222}"$scriptname"
-chmod -f 700 ~/bin/"$scriptname"
+#
+if [[ -f ~/.quickrun ]];then export updatestatus="y"; rm -f ~/.quickrun; fi
 #
 ############################
 ##### Self Updater End #####
@@ -81,16 +104,20 @@ chmod -f 700 ~/bin/"$scriptname"
 #### Core Script Starts ####
 ############################
 #
-echo
-echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
-echo
-echo -e "The version of the" "\033[33m""Madsonic""\e[0m" "server being used in this script is:" "\033[31m""$madsonicversion""\e[0m"
-echo -e "The version of the" "\033[33m""Java""\e[0m" "being used in this script is:" "\033[31m""$javaversion""\e[0m"
-echo
-if [[ -f "$HOME/private/madsonic/.version" ]]
+if [[ "$updatestatus" == "y" ]]
 then
-    echo -e "Your currently installed version is:" "\033[32m""$(sed -n '1p' $HOME/private/madsonic/.version)""\e[0m"
+    :
+else
+    echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
     echo
+    echo -e "The version of the" "\033[33m""Madsonic""\e[0m" "server being used in this script is:" "\033[31m""$madsonicversion""\e[0m"
+    echo -e "The version of the" "\033[33m""Java""\e[0m" "being used in this script is:" "\033[31m""$javaversion""\e[0m"
+    echo
+    if [[ -f "$HOME/private/madsonic/.version" ]]
+    then
+        echo -e "Your currently installed version is:" "\033[32m""$(sed -n '1p' $HOME/private/madsonic/.version)""\e[0m"
+        echo
+    fi
 fi
 #
 #############################
@@ -279,10 +306,16 @@ fi
 ###### proxypass ends  ######
 #############################
 #
-echo -e "The" "\033[36m""~/bin/madsonicrsk""\e[0m" "has been updated."
-echo
-read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " -i "y" updatestatus
-echo
+if [[ "$updatestatus" == "y" ]]
+then
+    :
+else
+    echo -e "The" "\033[36m""~/bin/madsonicrsk""\e[0m" "has been updated."
+    echo
+    read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " -i "y" updatestatus
+    echo
+fi
+#
 if [[ "$updatestatus" =~ ^[Yy]$ ]]
 then
 #
