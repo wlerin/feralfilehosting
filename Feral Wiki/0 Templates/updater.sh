@@ -113,25 +113,26 @@ else
     read -ep "The script has been updated, enter [y] to continue or [q] to exit: " -i "y" updatestatus
     echo
 fi
-    if [[ "$updatestatus" =~ ^[Yy]$ ]]
-    then
+#
+if [[ "$updatestatus" =~ ^[Yy]$ ]]
+then
 #
 ############################
 #### User Script Starts ####
 ############################
 #
-        #
+    #
 #
 ############################
 ##### User Script End  #####
 ############################
 #
-    else
-        echo -e "You chose to exit after updating the scripts."
-        echo
-        cd && bash
-        exit 1
-    fi
+else
+    echo -e "You chose to exit after updating the scripts."
+    echo
+    cd && bash
+    exit 1
+fi
 #
 ############################
 ##### Core Script Ends #####
