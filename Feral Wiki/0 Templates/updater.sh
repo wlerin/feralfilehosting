@@ -1,16 +1,26 @@
 #!/bin/bash
-# Script name
+# Script name goes here
 scriptversion="0.0.0"
 scriptname="somescript"
-# Author name
+# Author name goes here
 #
-# Bash Command
+# Bash Command goes here
 #
 ############################
 #### Script Notes Start ####
 ############################
 #
-# Add notes or warnings here for anyone modifying the scripts
+# This updater deals with updating a single file, the "~/bin/somescript", by updating and switching to this script.
+#
+# How do I customise this updater?
+#
+# 1: scriptversion="0.0.0" - replace "0.0.0" with your script version. This will be shown to the user at the current version check.
+# 2: scriptname="somescript" - replace "somescript" with your script name. Make it unique to this script. Do not include the file extension.
+# 3: Set the scripturl variable in the variable section to the RAW github URl of the script for updating.
+# 4: Insert your script in the "User Script" labelled section - Indented by two tabs to be in line with the script.
+# 5: Disable the updater - you can either set "updaterenabled" variable to 0 in the variable section or use the argument nu when calling the script, for example - "somescript nu"
+# 6: quick load - use the argument qw when calling the script, for example - "somescript qw"
+# 7: To pass your own variables to the script start from $3 onwards.
 #
 ############################
 ##### Script Notes End #####
@@ -20,14 +30,7 @@ scriptname="somescript"
 ## Version History Starts ##
 ############################
 #
-# How do I customise this updater? 
-# 1: scriptversion="0.0.0" replace "0.0.0" with your script version. This will be shown to the user at the current version.
-# 2: scriptname="somescript" replace "somescript" with your script name. Make it unique to this script.
-# 3: Set the scripturl variable in the variable section to the RAW github URl of the script for updating.
-# 4: Insert your script in the "Script goes here" labelled section
-# 5: To disable the updater you can either set updaterenabled to 0 in the variable section or use the argument nu when calling the script like somescript nu 
-#
-# This updater deals with updating a single file, the "~/bin/somescript", by updating and switching to this script.
+# v1.0.0 -Script updater template
 #
 ############################
 ### Version History Ends ###
@@ -37,8 +40,10 @@ scriptname="somescript"
 ###### Variable Start ######
 ############################
 #
+# Disables the built in script updater permanently.
 updaterenabled="1"
 #
+# This is the raw github url of the script to use with the built in updater.
 scripturl="https://raw.github.com/feralhosting"
 #
 ############################
@@ -49,9 +54,12 @@ scripturl="https://raw.github.com/feralhosting"
 #### Self Updater Start ####
 ############################
 #
-if [[ ! -z $1 && $1 == 'nu' ]]
+if [[ ! -z $1 && $1 == 'nu' ]] || [[ ! -z $2 && $2 == 'nu' ]]
 then
-    :
+    echo
+    echo "The Updater has been temporarily disabled"
+    echo
+    scriptversion=""$scriptversion"-nu"
 else
     if [[ "$updaterenabled" -eq 1 ]]
     then
@@ -75,9 +83,12 @@ else
         fi
         cd && rm -f .{000,111,222}"$scriptname"
         chmod -f 700 ~/bin/"$scriptname"
+        echo
     else
         echo
         echo "The Updater has been disabled"
+        echo
+        scriptversion=""$scriptversion"-DEV"
     fi
 fi
 #
@@ -89,30 +100,34 @@ fi
 #### Core Script Starts ####
 ############################
 #
-echo
-echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
-echo
-read -ep "The script has been updated, enter [y] to continue or [q] to exit: " -i "y" updatestatus
-echo
-if [[ "$updatestatus" =~ ^[Yy]$ ]]
+if [[ ! -z $1 && $1 == 'qw' ]] || [[ ! -z $2 && $2 == 'qw' ]]
 then
+    updatestatus="y"
+else
+    echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
+    echo
+    read -ep "The script has been updated, enter [y] to continue or [q] to exit: " -i "y" updatestatus
+    echo
+fi
+    if [[ "$updatestatus" =~ ^[Yy]$ ]]
+    then
 #
 ############################
 #### User Script Starts ####
 ############################
 #
-    #
+        #
 #
 ############################
 ##### User Script End  #####
 ############################
 #
-else
-    echo -e "You chose to exit after updating the scripts."
-    echo
-    cd && bash
-    exit 1
-fi
+    else
+        echo -e "You chose to exit after updating the scripts."
+        echo
+        cd && bash
+        exit 1
+    fi
 #
 ############################
 ##### Core Script Ends #####
