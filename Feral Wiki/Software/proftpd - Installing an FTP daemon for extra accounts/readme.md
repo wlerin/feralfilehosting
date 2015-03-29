@@ -21,7 +21,7 @@ This bash script will perform the **basic setup** outlined in Steps 1,2,3,4,5,6.
 So if you use the bash script and complete it successfully you can continue from Step 7 of the FAQ.
 
 ~~~
-wget -qO ~/install.proftpd.sh http://git.io/nQJBxw && bash ~/install.proftpd.sh
+wget -qO ~/install.proftpd http://git.io/nQJBxw && bash ~/install.proftpd
 ~~~
 
 Manual Installation Steps
@@ -34,18 +34,18 @@ Step 1: Get the package and extract it:
 
 ~~~
 mkdir -p ~/proftpd/etc/sftp/authorized_keys ~/proftpd/etc/keys ~/proftpd/ssl
-wget -qO proftpd.tar.gz ftp://ftp.proftpd.org/distrib/source/proftpd-1.3.4d.tar.gz
+wget -qO proftpd.tar.gz ftp://ftp.proftpd.org/distrib/source/proftpd-1.3.5.tar.gz
 tar xf ~/proftpd.tar.gz -C ~/ && rm -f ~/proftpd.tar.gz
-cd ~/proftpd-1.3.4d
+cd ~/proftpd-1.3.5
 ~~~
 
 Step 2: Configure and then install it:
 ---
 
 ~~~
-install_user=$(whoami) install_group=$(whoami) ./configure --prefix=$HOME/proftpd --enable-openssl --enable-dso --enable-nls --enable-ctrls --with-shared=mod_ratio:mod_readme:mod_sftp:mod_tls:mod_ban
+install_user=$(whoami) install_group=$(whoami) ./configure --prefix=$HOME/proftpd --enable-openssl --enable-dso --enable-nls --enable-ctrls --with-shared=mod_ratio:mod_readme:mod_sftp:mod_tls:mod_ban:mod_shaper
 make && make install
-cd && rm -rf ~/proftpd-1.3.4d
+cd && rm -rf ~/proftpd-1.3.5
 ~~~
 
 Step 3.1: Download and create some required configuration files we need:
@@ -77,7 +77,7 @@ Do these next commands to configure the `sftp.conf`:
 
 ~~~
 sed -i 's|/media/DiskID/home/my_username|'$HOME'|g' ~/proftpd/etc/sftp.conf
-sed -i 's|Port 23001|Port '$(shuf -i 6000-50000 -n 1)'|g' ~/proftpd/etc/sftp.conf
+sed -i 's|Port 23001|Port '$(shuf -i 10001-49999 -n 1)'|g' ~/proftpd/etc/sftp.conf
 sed -nr 's/^Port (.*)/\1/p' ~/proftpd/etc/sftp.conf
 ~~~
 
@@ -87,7 +87,7 @@ Do these next commands to configure the `ftps.conf`:
 
 ~~~
 sed -i 's|/media/DiskID/home/my_username|'$HOME'|g' ~/proftpd/etc/ftps.conf
-sed -i 's|Port 23002|Port '$(shuf -i 6000-50000 -n 1)'|g' ~/proftpd/etc/ftps.conf
+sed -i 's|Port 23002|Port '$(shuf -i 10001-49999 -n 1)'|g' ~/proftpd/etc/ftps.conf
 sed -nr 's/^Port (.*)/\1/p' ~/proftpd/etc/ftps.conf
 ~~~
 
@@ -226,6 +226,12 @@ Use this command to create the main user and enter a password when prompted.
 
 ~~~
 ~/proftpd/bin/ftpasswd --passwd --name $(whoami) --file ~/proftpd/etc/ftpd.passwd --uid $(id -u $(whoami)) --gid $(id -g $(whoami)) --home $HOME/ --shell /bin/false
+~~~
+
+Create a corresponding group entry (required):
+
+~~~
+~/proftpd/bin/ftpasswd --group --name $(whoami) --file ~/proftpd/etc/ftpd.group --gid $(id -g $(whoami)) --member $(whoami)
 ~~~
 
 > **Important note:** This user (with your username) will not be jailed. This is a full access account. This is for your use and not public sharing.
