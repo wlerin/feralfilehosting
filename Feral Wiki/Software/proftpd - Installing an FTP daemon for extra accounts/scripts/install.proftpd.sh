@@ -1,6 +1,6 @@
 #!/bin/bash
 # proftpd basic setup script
-scriptversion="1.2.0"
+scriptversion="1.2.1"
 # Don't foregt to change the conf file size if the configurations are modified.
 scriptname="install.proftpd"
 proftpdversion="proftpd-1.3.5"
