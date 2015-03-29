@@ -1,6 +1,6 @@
 #!/bin/bash
 # proftpd basic setup script
-scriptversion="1.1.7"
+scriptversion="1.1.9"
 # Don't foregt to change the conf file size if the configurations are modified.
 scriptname="install.proftpd"
 proftpdversion="proftpd-1.3.5"
@@ -23,8 +23,6 @@ installedproftpdversion=$(cat $HOME/proftpd/.proftpdversion 2> /dev/null)
 ## Version History Starts ##
 ############################
 #
-# 1.1.6 fixed broken conf file size after changes were made to the proftpd.conf
-#
 ############################
 ### Version History Ends ###
 ############################
@@ -43,6 +41,8 @@ sftpconfsize="891"
 ftpsconf="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/conf/ftps.conf"
 ftpsconfsize="947"
 scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/scripts/install.proftpd.sh"
+#
+proftpdurl="https://github.com/feralhosting/proftpd-1.3.5.git"
 #
 ############################
 ####### Variable End #######
@@ -137,10 +137,9 @@ then
         then
             killall -9 proftpd -u $(whoami) >/dev/null 2>&1
             mkdir -p "$HOME"/proftpd/install_logs
-            wget -qO "$HOME"/proftpd.tar.gz ftp://ftp.proftpd.org/distrib/source/"$proftpdversion".tar.gz
-            tar xf "$HOME"/proftpd.tar.gz -C "$HOME"/
+            git clone -q "$proftpdurl"
+            chmod -R 700 "$HOME/$proftpdversion"
             echo -n "$proftpdversion" > "$HOME"/proftpd/.proftpdversion
-            rm -f "$HOME"/proftpd.tar.gz
             cd "$HOME/$proftpdversion"
             echo "Starting to 1: configure, 2: make, 3 make install"
             echo
@@ -181,10 +180,9 @@ then
     mkdir -p "$HOME"/proftpd/etc/sftp/authorized_keys
     mkdir -p "$HOME"/proftpd/etc/keys
     mkdir -p "$HOME"/proftpd/{ssl,install_logs}
-    wget -qO "$HOME"/proftpd.tar.gz ftp://ftp.proftpd.org/distrib/source/"$proftpdversion".tar.gz
-    tar xf "$HOME"/proftpd.tar.gz -C "$HOME"/
+    git clone -q "$proftpdurl"
+    chmod -R 700 "$HOME/$proftpdversion"
     echo -n "$proftpdversion" > "$HOME"/proftpd/.proftpdversion
-    rm -f "$HOME"/proftpd.tar.gz
     cd "$HOME/$proftpdversion"
     echo -e "\033[32m""About to configure, make and install proftpd. This could take some time to complete. Be patient.""\e[0m"
     echo
