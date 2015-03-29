@@ -1,6 +1,6 @@
 #!/bin/bash
 # proftpd basic setup script
-scriptversion="1.1.9"
+scriptversion="1.2.0"
 # Don't foregt to change the conf file size if the configurations are modified.
 scriptname="install.proftpd"
 proftpdversion="proftpd-1.3.5"
@@ -137,6 +137,7 @@ then
         then
             killall -9 proftpd -u $(whoami) >/dev/null 2>&1
             mkdir -p "$HOME"/proftpd/install_logs
+            cd && rm -rf "$proftpdversion"
             git clone -q "$proftpdurl"
             chmod -R 700 "$HOME/$proftpdversion"
             echo -n "$proftpdversion" > "$HOME"/proftpd/.proftpdversion
@@ -152,7 +153,7 @@ then
             echo
             "$HOME"/proftpd/bin/ftpasswd --group --name $(whoami) --file "$HOME"/proftpd/etc/ftpd.group --gid $(id -g $(whoami)) --member $(whoami) >/dev/null 2>&1
             # Some tidy up
-            cd && rm -rf "$HOME/$proftpdversion"
+            cd && rm -rf "$proftpdversion"
             chmod 440 ~/proftpd/etc/ftpd{.passwd,.group}
             "$HOME"/proftpd/sbin/proftpd -c "$HOME"/proftpd/etc/sftp.conf >/dev/null 2>&1
             "$HOME"/proftpd/sbin/proftpd -c "$HOME"/proftpd/etc/ftps.conf >/dev/null 2>&1
@@ -179,7 +180,8 @@ then
     #
     mkdir -p "$HOME"/proftpd/etc/sftp/authorized_keys
     mkdir -p "$HOME"/proftpd/etc/keys
-    mkdir -p "$HOME"/proftpd/{ssl,install_logs}
+    mkdir -p "$HOME"/proftpd/{ssl,install_logs
+    cd && rm -rf "$proftpdversion"
     git clone -q "$proftpdurl"
     chmod -R 700 "$HOME/$proftpdversion"
     echo -n "$proftpdversion" > "$HOME"/proftpd/.proftpdversion
@@ -197,7 +199,7 @@ then
     echo "3: make install complete, moving to post installation configuration"
     echo
     # Some tidy up
-    cd && rm -rf "$HOME/$proftpdversion"
+    cd && rm -rf "$proftpdversion"
     # Generate our keyfiles
     ssh-keygen -q -t rsa -f "$HOME"/proftpd/etc/keys/sftp_rsa -N '' && ssh-keygen -q -t dsa -f "$HOME"/proftpd/etc/keys/sftp_dsa -N ''
     echo "rsa keys generated with no passphrase"
