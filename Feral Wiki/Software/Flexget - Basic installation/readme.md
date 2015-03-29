@@ -14,20 +14,18 @@ Flexget Setup
 
 Create our VirtualENV environment using `pip`. Do not use `easy_install` to install `virtualenv`
 
-~~~
-easy_install --user pip
-~/.local/bin/pip install --user virtualenv
-~/.local/bin/virtualenv ~/flexget/
-~/flexget/bin/pip install flexget
-~~~
-
 **Important note:** If you installed `virtualenv` using `easy_install` and have some errors when trying to create a virtual environment, then do these steps:
 
 ~~~
-easy_install --user pip
-~/.local/bin/pip uninstall virtualenv
+pip uninstall virtualenv
 cd && rm -rf .local/bin/virtualenv*
-~/.local/bin/pip install --user virtualenv
+~~~
+
+Installation:
+---
+
+~~~
+pip install --user virtualenv
 ~/.local/bin/virtualenv ~/flexget/
 ~/flexget/bin/pip install flexget
 ~~~
