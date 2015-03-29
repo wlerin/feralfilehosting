@@ -1,6 +1,6 @@
 #!/bin/bash
 # proftpd basic setup script
-scriptversion="1.1.6"
+scriptversion="1.1.7"
 # Don't foregt to change the conf file size if the configurations are modified.
 scriptname="install.proftpd"
 proftpdversion="proftpd-1.3.5"
@@ -33,6 +33,9 @@ installedproftpdversion=$(cat $HOME/proftpd/.proftpdversion 2> /dev/null)
 ###### Variable Start ######
 ############################
 #
+# Disables the built in script updater permanently.
+updaterenabled="1"
+#
 proftpdconf="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/conf/proftpd.conf"
 proftpdconfsize="3586"
 sftpconf="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/conf/sftp.conf"
@@ -49,26 +52,47 @@ scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/maste
 #### Self Updater Start ####
 ############################
 #
-[[ ! -d ~/bin ]] && mkdir -p ~/bin
-[[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
+if [[ ! -z $1 && $1 == 'qr' ]] || [[ ! -z $2 && $2 == 'qr' ]];then echo -n '' > ~/.quickrun; fi
 #
-wget -qO ~/.000"$scriptname" "$scripturl"
-#
-if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
+if [[ ! -z $1 && $1 == 'nu' ]] || [[ ! -z $2 && $2 == 'nu' ]]
 then
-    echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
-    bash ~/.111"$scriptname"
-    exit
+    echo
+    echo "The Updater has been temporarily disabled"
+    echo
+    scriptversion=""$scriptversion"-nu"
 else
-    if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
+    if [[ "$updaterenabled" -eq 1 ]]
     then
-        echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
-        bash ~/.222"$scriptname"
-        exit
+        [[ ! -d ~/bin ]] && mkdir -p ~/bin
+        [[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
+        #
+        wget -qO ~/.000"$scriptname" "$scripturl"
+        #
+        if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
+        then
+            echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
+            bash ~/.111"$scriptname"
+            exit
+        else
+            if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
+            then
+                echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
+                bash ~/.222"$scriptname"
+                exit
+            fi
+        fi
+        cd && rm -f .{000,111,222}"$scriptname"
+        chmod -f 700 ~/bin/"$scriptname"
+        echo
+    else
+        echo
+        echo "The Updater has been disabled"
+        echo
+        scriptversion=""$scriptversion"-DEV"
     fi
 fi
-cd && rm -f .{000,111,222}"$scriptname"
-chmod -f 700 ~/bin/"$scriptname"
+#
+if [[ -f ~/.quickrun ]];then updatestatus="y"; rm -f ~/.quickrun; fi
 #
 ############################
 ##### Self Updater End #####
@@ -78,11 +102,16 @@ chmod -f 700 ~/bin/"$scriptname"
 #### Core Script Starts ####
 ############################
 #
-echo
-echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
-echo
-read -ep "The script has been updated, enter [y] to continue or [q] to exit: " -i "y" updatestatus
-echo
+if [[ "$updatestatus" == "y" ]]
+then
+    :
+else
+    echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
+    echo
+    read -ep "The script has been updated, enter [y] to continue or [q] to exit: " -i "y" updatestatus
+    echo
+fi
+#
 if [[ "$updatestatus" =~ ^[Yy]$ ]]
 then
 #
@@ -207,7 +236,7 @@ then
     echo
     echo -e "This is your" "\033[32m""FTPS""\e[0m" "port:" "\033[32m""$(sed -nr 's/^Port (.*)/\1/p' ~/proftpd/etc/ftps.conf)""\e[0m"
     echo
-    echo -e "The basic setup and cofiguration has been completed." "\033[31m""Please now enter a password for your main, unlimited user""\e[0m"
+    echo -e "The basic setup and configuration has been completed." "\033[31m""Please now enter a password for your main, unlimited user""\e[0m"
     echo
     "$HOME"/proftpd/bin/ftpasswd --passwd --name $(whoami) --file "$HOME"/proftpd/etc/ftpd.passwd --uid $(id -u $(whoami)) --gid $(id -g $(whoami)) --home "$HOME"/ --shell /bin/false
     "$HOME"/proftpd/bin/ftpasswd --group --name $(whoami) --file "$HOME"/proftpd/etc/ftpd.group --gid $(id -g $(whoami)) --member $(whoami) >/dev/null 2>&1
