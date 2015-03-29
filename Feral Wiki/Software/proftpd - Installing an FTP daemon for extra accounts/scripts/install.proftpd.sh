@@ -1,6 +1,6 @@
 #!/bin/bash
 # proftpd basic setup script
-scriptversion="1.2.1"
+scriptversion="1.2.3"
 # Don't foregt to change the conf file size if the configurations are modified.
 scriptname="install.proftpd"
 proftpdversion="proftpd-1.3.5"
@@ -180,7 +180,7 @@ then
     #
     mkdir -p "$HOME"/proftpd/etc/sftp/authorized_keys
     mkdir -p "$HOME"/proftpd/etc/keys
-    mkdir -p "$HOME"/proftpd/{ssl,install_logs
+    mkdir -p "$HOME"/proftpd/{ssl,install_logs}
     cd && rm -rf "$proftpdversion"
     git clone -q "$proftpdurl"
     chmod -R 700 "$HOME/$proftpdversion"
