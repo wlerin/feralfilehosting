@@ -1,6 +1,6 @@
 #!/bin/bash
 # proftpd basic setup script
-scriptversion="1.2.3"
+scriptversion="1.2.4"
 # Don't foregt to change the conf file size if the configurations are modified.
 scriptname="install.proftpd"
 proftpdversion="proftpd-1.3.5"
@@ -140,8 +140,12 @@ then
             cd && rm -rf "$proftpdversion"
             wget -qO ~/proftpd-1.3.5.tar.gz "$proftpdurl"
             tar xf ~/proftpd-1.3.5.tar.gz
-            #git clone -q "$proftpdurl"
-            #chmod -R 700 "$HOME/$proftpdversion"
+            #
+            [[ -z "$(grep -o '^ProcessTitles terse$' $HOME/proftpd/etc/proftpd.conf)" ]] && sed -i '/###### Options/a ProcessTitles terse' "$HOME"/proftpd/etc/proftpd.conf || :
+            [[ -z "$(grep -o '^IdentLookups off$' $HOME/proftpd/etc/proftpd.conf)" ]] && sed -i '/###### Options/a IdentLookups off' "$HOME"/proftpd/etc/proftpd.conf || :
+            [[ -z "$(grep -o '^UseReverseDNS off$' $HOME/proftpd/etc/proftpd.conf)" ]] && sed -i '/###### Options/a UseReverseDNS off' "$HOME"/proftpd/etc/proftpd.conf || :
+            [[ -z "$(grep -o '^AllowOverride off$' $HOME/proftpd/etc/proftpd.conf)" ]] && sed -i '/###### Options/a AllowOverride off' "$HOME"/proftpd/etc/proftpd.conf || :
+            #
             echo -n "$proftpdversion" > "$HOME"/proftpd/.proftpdversion
             cd "$HOME/$proftpdversion"
             echo "Starting to 1: configure, 2: make, 3 make install"
@@ -161,22 +165,24 @@ then
             "$HOME"/proftpd/sbin/proftpd -c "$HOME"/proftpd/etc/ftps.conf >/dev/null 2>&1
             echo -e "proftpd sftp and ftps servers were started."
             echo
-            exit 1
-        elif [[ "$agree2update" =~ ^[Ee]$ ]]
+            exit
+        elif [[ "$agree2update" =~ ^[Rr]$ ]]
         then
-            echo "You chose to exit"
-            echo
-            exit 1
-        else
             read -ep "Are you sure you want to do a full reinstall, all settings, jails and users will be lost? [y]es i am sure or [e]xit: " areyousure
+            echo
             if [[ "$areyousure" =~ ^[Yy]$ ]]
             then
                 killall -9 proftpd -u $(whoami) >/dev/null 2>&1
+                rm -rf "$HOME"/proftpd >/dev/null 2>&1
             else
                 echo "You chose to exit"
                 echo
-                exit 1
+                exit
             fi
+        else
+            echo "You chose to exit"
+            echo
+            exit
         fi
     fi
     #
@@ -261,7 +267,7 @@ else
     echo -e "You chose to exit after updating the scripts."
     echo
     cd && bash
-    exit 1
+    exit
 fi
 #
 ############################
