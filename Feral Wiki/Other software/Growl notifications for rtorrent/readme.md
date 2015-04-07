@@ -10,7 +10,7 @@ In SSH do the commands described in this FAQ. If you do not know how to SSH into
 **Step 2**. Run the below commands
 
 ~~~
-wget -qO ~/growltorrent.py http://btp.me.uk/growltorrent.py
+wget -qO ~/growltorrent.py http://btp.pw/growltorrent.py
 echo "system.method.set_key = event.download.finished,notify_finished,"execute=python,$PWD/growltorrent.py,--finished,$d.get_name="" >> ~/.rtorrent.rc
 echo "system.method.set_key = event.download.inserted_new,notify_inserted_new,"execute=python,$PWD/growltorrent.py,--inserted-new,$d.get_name="" >> ~/.rtorrent.rc
 ~~~
