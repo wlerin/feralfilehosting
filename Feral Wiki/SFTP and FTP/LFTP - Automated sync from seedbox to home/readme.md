@@ -58,18 +58,18 @@ local_dir="/cygdrive/s/lftp/somefolder/where/you.want/your/files/"
 trap "rm -f /tmp/synctorrent.lock" SIGINT SIGTERM
 if [ -e /tmp/synctorrent.lock ]
 then
-  echo "Synctorrent is running already."
-  exit 1
+    echo "Synctorrent is running already."
+    exit 1
 else
-  touch /tmp/synctorrent.lock
-  lftp -u $login,$pass $host << EOF
-  set ftp:ssl-allow no
-  set mirror:use-pget-n 5
-  mirror -c -P5 --log=synctorrents.log $remote_dir $local_dir
-  quit
-EOF
-  rm -f /tmp/synctorrent.lock
-  trap - SIGINT SIGTERM
+    touch /tmp/synctorrent.lock
+    lftp -u $login,$pass $host << EOF
+    set ftp:ssl-allow no
+    set mirror:use-pget-n 5
+    mirror -c -P5 --log=synctorrents.log $remote_dir $local_dir
+    quit
+    EOF
+    rm -f /tmp/synctorrent.lock
+    trap - SIGINT SIGTERM
   exit 0
 fi
 ~~~
@@ -87,18 +87,18 @@ local_dir="/cygdrive/s/lftp/somefolder/where/you.want/your/files/"
 trap "rm -f /tmp/synctorrent.lock" SIGINT SIGTERM
 if [ -e /tmp/synctorrent.lock ]
 then
-echo "Synctorrent is running already."
-exit 1
+    echo "Synctorrent is running already."
+    exit 1
 else
-touch /tmp/synctorrent.lock
-lftp -p 22 -u $login,$pass sftp://$host << EOF
-set mirror:use-pget-n 5
-mirror -c -P5 --log=synctorrents.log $remote_dir $local_dir
-quit
-EOF
-rm -f /tmp/synctorrent.lock
-trap - SIGINT SIGTERM
-exit 0
+    touch /tmp/synctorrent.lock
+    lftp -p 22 -u $login,$pass sftp://$host << EOF
+    set mirror:use-pget-n 5
+    mirror -c -P5 --log=synctorrents.log $remote_dir $local_dir
+    quit
+    EOF
+    rm -f /tmp/synctorrent.lock
+    trap - SIGINT SIGTERM
+    exit 0
 fi
 ~~~
 
