@@ -1,6 +1,6 @@
 #!/bin/bash
 # php settings
-scriptversion="1.0.4"
+scriptversion="1.0.5"
 scriptname="phpsettings"
 # randomessence
 #
@@ -150,19 +150,35 @@ then
                             fi
                             ;;
                     "3")
-                            /usr/sbin/apache2ctl -k graceful >/dev/null 2>&1
-                            echo -e "\033[32m""Done""\e[0m"
-                            echo
-                            sleep 2
+                            if [[ ! -d ~/.nginx ]]
+                            then
+                                /usr/sbin/apache2ctl -k graceful >/dev/null 2>&1
+                                echo -e "\033[32m""Done""\e[0m"
+                                echo
+                                sleep 2
+                            else
+                                echo "nginx is installed. Please use option 4 instead."
+                                echo
+                                sleep 2
+                            fi
                             ;;
                     "4")
-                            killall -u $(whoami) nginx php5-fpm >/dev/null 2>&1
-                            echo "Waiting for nginx to reload. It loads every 5 minutes starting from 00 of the hour"
-                            echo
-                            while [[ ! -f ~/.nginx/php/pid ]]; do echo -ne "$(date +%M:%S)\r"; done; echo
-                            echo -e "\nnginx and php5-fpm have been reloaded by the system"
-                            echo -e "\033[32m""Done""\e[0m"
-                            echo
+                            if [[ -d ~/.nginx ]]
+                            then
+                                killall -u $(whoami) nginx php5-fpm >/dev/null 2>&1
+                                echo "Waiting for nginx to reload. It loads every 5 minutes starting from 00 of the hour"
+                                echo
+                                while [[ ! -f ~/.nginx/php/pid ]]; do echo -ne "$(date +%M:%S)\r"; done; echo
+                                echo -e "\nnginx and php5-fpm have been reloaded by the system"
+                                echo -e "\033[32m""Done""\e[0m"
+                                echo
+                            else
+                                echo "nginx is not installed. Please update to nginx first."
+                                echo
+                                echo "Updating Apache to nginx - https://www.feralhosting.com/faq/view?question=231"
+                                echo
+                                sleep 2
+                            fi
                             ;;
                     "5")
                             echo "You chose to quit the script."
