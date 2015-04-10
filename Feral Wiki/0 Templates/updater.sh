@@ -27,6 +27,25 @@ scriptname="somescript"
 ############################
 #
 ############################
+#### Script Info Starts ####
+############################
+#
+# Use this to show a user script information when they use the info option with the script.
+if [[ ! -z $1 && $1 == 'info' ]]
+then
+    echo
+    #
+    echo "Put your instructions or script information here"
+    #
+    echo
+    exit
+fi
+#
+############################
+##### Script Info Ends #####
+############################
+#
+############################
 ## Version History Starts ##
 ############################
 #
