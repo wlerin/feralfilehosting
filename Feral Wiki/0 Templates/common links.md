@@ -28,7 +28,7 @@ You can do this from the `Install Software` link in your [Account Manager](https
 
 [IRC](https://www.feralhosting.com/chat)
 
-You will need to have MySQL already installed. You can do this from the `Install Software` link in your [Account Manager](https://www.feralhosting.com/manager/)
+You will need to have MySQL already installed. You can do this from the `Install Software` link in your [Account Manager](https://www.feralhosting.com/manager/) for the relevant slot.
 
 [Installing Proftpd for extra FTP/SFTP/FTPS accounts](https://www.feralhosting.com/faq/view?question=193)
 

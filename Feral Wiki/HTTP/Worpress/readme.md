@@ -1,5 +1,5 @@
 
-**1:** First, go to the [Account Manager](https://www.feralhosting.com/manager/) and then use the [**Install Software** link in your Manager](https://www.feralhosting.com/manager/) for that slot.
+You will need to have MySQL already installed. You can do this from the `Install Software` link in your [Account Manager](https://www.feralhosting.com/manager/) for the relevant slot.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/installmysql.png)
 
@@ -16,30 +16,43 @@ This is a relevant FAQ: [PHP - modify settings](https://www.feralhosting.com/faq
 Bash script easy download and extract to default WWW
 ---
 
-This bash script will download and extract Wordpress for you to your **default** WWW directory.
+This bash script will download and extract Wordpress into the `/wordpress` subdirectory for you to your *default* Feral WWW directory.
 
 ~~~
-wget -qO ~/install.wordpress.sh http://git.io/2JBQlg && bash ~/install.wordpress.sh
+wget -qO ~/install.wordpress http://git.io/2JBQlg && bash ~/install.wordpress
 ~~~
 
-Done.
-
-Manual installation via SSH:
+Install to the WWW subdirectory /wordpress manually:
 ---
+
+Do this command in SSH:
 
 ~~~
 wget -qO ~/latest.tar.gz http://wordpress.org/latest.tar.gz
 ~~~
 
-### Using the default Feral domain:
+Now you must decide where to install Worpdress.
 
-Then do this command to install wordpress to the default Feral domain:
+Option 1: Install to the default WWW subdirectory /wordpress manually:
+---
+
+Do this command to install Wordpress into the subdirectory `/wordpress` inside the default Feral WWW directory:
 
 ~~~
-tar xf ~/latest.tar.gz -C ~/www/$(whoami).$(hostname)/public_html/
+tar xf ~/latest.tar.gz -C ~/www/$(whoami).$(hostname -f)/public_html/
 ~~~
 
-### Using a Custom domain:
+Option 2: Install to the WWW root directory manually:
+---
+
+Do this command to install Wordpress into the root of the default Feral WWW directory:
+
+~~~
+tar xf ~/latest.tar.gz  --strip-components=1  -C ~/www/$(whoami).$(hostname -f)/public_html/
+~~~
+
+Custom domain option 1: Install to the Custom domain WWW subdirectory /wordpress:
+---
 
 This requires you have followed this FAQ - [Host a virtual host on your Feral slot](https://www.feralhosting.com/faq/view?question=52)
 
@@ -47,6 +60,15 @@ Use this command format, where `example.co.uk` is replaced by your domain name.
 
 ~~~
 tar xf ~/latest.tar.gz -C ~/www/example.co.uk/public_html/
+~~~
+
+Custom domain option 2: Install to the Custom domain WWW root directory:
+---
+
+Use this command to install it to the root of your WWW instead.
+
+~~~
+tar xf ~/latest.tar.gz  --strip-components=1 -C ~/www/example.co.uk/public_html/
 ~~~
 
 Optionally: remove the tar archive:
