@@ -4,7 +4,14 @@ scriptversion="0.7.0"
 scriptname="install.znc"
 # adamaze
 #
-gitiocommand="wget -qO ~/install.znc http://git.io/hrKo && bash ~/install.znc"
+# http://git.io/ URL goes here:
+#
+gitiourl="http://git.io/vvfyN"
+gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
+#
+# Bash Command goes here:
+#
+# wget -qO ~/somescript http://git.io/ && bash ~/somescript
 #
 ############################
 #### Script Notes Start ####
@@ -83,7 +90,7 @@ fi
 updaterenabled="0"
 #
 # This is the raw github url of the script to use with the built in updater.
-scripturl="https://raw.githubusercontent.com/frankthetank7254/feral/master/znc-install.sh"
+scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/ZNC%20-%20Basic%20Setup/scripts/install.znc"
 #
 ############################
 ####### Variable End #######
