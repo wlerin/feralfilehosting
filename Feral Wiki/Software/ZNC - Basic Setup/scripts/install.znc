@@ -1,0 +1,236 @@
+#!/bin/bash
+# znc-install
+scriptversion="0.7.0"
+scriptname="install.znc"
+# adamaze
+#
+gitiocommand="wget -qO ~/install.znc http://git.io/hrKo && bash ~/install.znc"
+#
+############################
+#### Script Notes Start ####
+############################
+#
+# Todo:
+#	add configuring help?
+#
+############################
+##### Script Notes End #####
+############################
+#
+############################
+#### Script Info Starts ####
+############################
+#
+# Use this to show a user script information when they use the info option with the script.
+if [[ ! -z $1 && $1 == 'info' ]]
+then
+    echo
+    #
+    echo "This script will do these things:"
+    echo
+    echo "1.1: Check if you require full charset support via the required dependency libicu-dev that is not installed by default."
+    echo "1.2: If you require this dependency the script will check if it installed on the server and guide you to get it installed."
+    echo "2: Download, configure, compile and install znc."
+    echo "3: Run the znc make config setup process"
+    echo "4: Install an @reboot crontab entry for znc"
+    echo
+    echo -e "\033[32m""Script options:""\e[0m"
+    echo
+    echo -e "\033[31mImportant note:\e[0m Options \033[36mqr\e[0m and \033[36mnu\e[0m are interchangeable and usable together."
+    echo
+    echo -e "For example: \033[36m$scriptname qr nu\e[0m or \033[36m$scriptname nu qr\e[0m will both work"
+    echo
+    echo -e "\033[36mqr\e[0m = Quick Run - use this to bypass the default update prompts and run the main script directly."
+    echo
+    echo -e "Example usage: \033[36m$scriptname qr\e[0m"
+    echo
+    echo -e "\033[36mnu\e[0m = No Update - disable the built in updater. Useful for testing new features or debugging."
+    echo
+    echo -e "Example usage: \033[36m$scriptname nu\e[0m"
+    echo
+    echo -e "\033[32mBash Commands:\e[0m"
+    echo
+    echo -e "$gitiocommand"
+    echo
+    echo -e "~/bin/$scriptname"
+    echo
+    echo -e "$scriptname"
+    #
+    echo
+    exit
+fi
+#
+############################
+##### Script Info Ends #####
+############################
+#
+############################
+## Version History Starts ##
+############################
+#
+# 0.7.0 - visual and functional tweaks
+# 0.5.0 - initial commit
+#
+############################
+### Version History Ends ###
+############################
+#
+############################
+###### Variable Start ######
+############################
+#
+# Disables the built in script updater permanently.
+updaterenabled="0"
+#
+# This is the raw github url of the script to use with the built in updater.
+scripturl="https://raw.githubusercontent.com/frankthetank7254/feral/master/znc-install.sh"
+#
+############################
+####### Variable End #######
+############################
+#
+############################
+#### Self Updater Start ####
+############################
+#
+if [[ ! -z $1 && $1 == 'qr' ]] || [[ ! -z $2 && $2 == 'qr' ]];then echo -n '' > ~/.quickrun; fi
+#
+if [[ ! -z $1 && $1 == 'nu' ]] || [[ ! -z $2 && $2 == 'nu' ]]
+then
+    echo
+    echo "The Updater has been temporarily disabled"
+    echo
+    scriptversion=""$scriptversion"-nu"
+else
+    if [[ "$updaterenabled" -eq 1 ]]
+    then
+        [[ ! -d ~/bin ]] && mkdir -p ~/bin
+        [[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
+        #
+        wget -qO ~/.000"$scriptname" "$scripturl"
+        #
+        if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
+        then
+            echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
+            bash ~/.111"$scriptname"
+            exit
+        else
+            if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
+            then
+                echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
+                bash ~/.222"$scriptname"
+                exit
+            fi
+        fi
+        cd && rm -f .{000,111,222}"$scriptname"
+        chmod -f 700 ~/bin/"$scriptname"
+        echo
+    else
+        echo
+        echo "The Updater has been disabled"
+        echo
+        scriptversion=""$scriptversion"-DEV"
+    fi
+fi
+#
+if [[ -f ~/.quickrun ]];then updatestatus="y"; rm -f ~/.quickrun; fi
+#
+############################
+##### Self Updater End #####
+############################
+#
+############################
+#### Core Script Starts ####
+############################
+#
+if [[ "$updatestatus" == "y" ]]
+then
+    :
+else
+    echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
+    echo
+    read -ep "The script has been updated, enter [y] to continue or [q] to exit: " -i "y" updatestatus
+    echo
+fi
+#
+if [[ "$updatestatus" =~ ^[Yy]$ ]]
+then
+#
+############################
+#### User Script Starts ####
+############################
+#
+    read -ep "Do you need the extra charset available in ZNC? (This is for non-english characters) [y/n]: " -n 1 REPLY
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        if [ "$(dpkg-query -s libicu-dev 2>&1 | grep -c 'ok installed')" -eq 0 ]; then
+            echo -e "\033[31m""It looks like libicu-dev is not installed on your server.""\e[0m"
+            echo -e Please open a ticket: "\033[32m"https://www.feralhosting.com/manager/tickets/new"\e[0m"
+            echo "Paste the following into the ticket:"
+            echo
+            echo -e "Please can you install the ZNC 1.6 dependency for charset\n\nhttps://packages.debian.org/wheezy/libicu-dev\n\napt-get install libicu-dev\n\nThank you."
+            echo
+            echo -e "\033[33m""Once you are notified that the dependency has been installed, you can re-run this script""\e[0m"
+            echo
+            exit
+        fi
+    fi
+    #
+    echo -e "\033[33m""This script will download and install znc on your slot. It may take a few minutes...""\e[0m"
+    echo
+    mkdir -p ~/bin ~/.logs
+    wget -qO ~/znc.tar.gz http://znc.in/releases/znc-latest.tar.gz
+    tar xf ~/znc.tar.gz
+    cd ~/znc-1.*
+    echo "1: Configuring"
+    echo
+    ./configure --prefix=$HOME > ~/.logs/znc-configure.log 2>&1
+    echo "2: Compiling"
+    echo
+    make > ~/.logs/znc-make.log 2>&1
+    echo "3: Installing"
+    echo
+    make install > ~/.logs/znc-make-install.log 2>&1
+    cd && rm -rf znc{-1.*,.tar.gz}
+    echo
+    echo -e "\033[33m""\nNow it is time for initial configuration...""\e[0m"
+    echo
+    ~/bin/znc --makeconf
+    #
+    echo -e "\033[33m""\nNow that ZNC has been installed, configured, and started, we will make sure it starts if/when your server reboots.""\e[0m"
+    echo
+    #
+    # adding to cron
+    tmpcron=$(mktemp)
+    if [ "$(crontab -l 2> /dev/null | grep -c '^@reboot ~/bin/znc$')" == "0" ]; then
+        echo "appending znc to crontab."
+        echo
+        crontab -l 2> /dev/null > "$tmpcron"
+        echo "@reboot ~/bin/znc" >> "$tmpcron"
+        crontab "$tmpcron"
+        rm "$tmpcron"
+    else
+        echo "znc is already in crontab"
+        echo
+    fi
+    # give user the full URL
+    echo -e "\nClick on the URL below to do additional configuration if needed\n"
+    echo -e "\033[33m""https://$(hostname -f):$(grep Port ~/.znc/configs/znc.conf | awk '{print $3}')""\e[0m"
+    echo -e "\nSearch the ZNC wiki for help connecting with different clients. http://wiki.znc.in/\n"
+#
+############################
+##### User Script End  #####
+############################
+#
+else
+    echo -e "You chose to exit after updating the scripts."
+    echo
+    cd && bash
+    exit 1
+fi
+#
+############################
+##### Core Script Ends #####
+############################
+#
