@@ -1,17 +1,22 @@
 #!/bin/bash
-# Script name goes here
-scriptversion="0.0.0"
-scriptname="somescript"
-# Author name goes here
 #
-# http://git.io/ URL goes here:
+############################
+##### Basic Info Start #####
+############################
 #
-gitiourl="http://git.io/vvf9K"
-gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
+# Script Author: 
 #
-# Bash Command goes here:
+# Script Contributors: 
+#
+# License: This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. https://creativecommons.org/licenses/by-sa/4.0/
+#
+# Bash Command for easy reference:
 #
 # wget -qO ~/somescript http://git.io/ && bash ~/somescript
+#
+############################
+###### Basic Info End ######
+############################
 #
 ############################
 #### Script Notes Start ####
@@ -28,9 +33,52 @@ gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
 # 5: Disable the updater - you can either set "updaterenabled" variable to 0 in the variable section or use the argument nu when calling the script, for example - "somescript nu"
 # 6: quick load - use the argument qr when calling the script, for example - "somescript qr".
 # 7: To pass your own variables to the script start from $3 onwards.
+# 8: Use the info option to see useful information about the script. Set this information in the Script Info section, for example - "somescript info".
 #
 ############################
 ##### Script Notes End #####
+############################
+#
+############################
+## Version History Starts ##
+############################
+#
+# v1.0.0 - Script updater template
+#
+############################
+### Version History Ends ###
+############################
+#
+############################
+###### Variable Start ######
+############################
+#
+# Script Version number is set here.
+scriptversion="0.0.0"
+#
+# Script name goes here. Please prefix with install.
+scriptname="install.somescript"
+#
+# Author name goes here.
+scriptauthor="Author's name goes here"
+#
+# Contributor's names go here.
+contributors="Contributor's names go here"
+#
+# Set the http://git.io/ shortened URL for the raw github URL here:
+gitiourl="http://git.io/vvf9K"
+#
+# Don't edit: This is the bash command shown when using the info option.
+gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
+#
+# This is the raw github url of the script to use with the built in updater.
+scripturl="https://raw.github.com/feralhosting"
+#
+# Disables the built in script updater permanently by setting this variable to 0.
+updaterenabled="1"
+#
+############################
+####### Variable End #######
 ############################
 #
 ############################
@@ -41,9 +89,21 @@ gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
 if [[ ! -z $1 && $1 == 'info' ]]
 then
     echo
+    echo
+    echo -e "\033[32m""Script Details:""\e[0m"
+    echo
+    echo "Script Author: $scriptauthor"
+    echo
+    echo "Script Contributors: $contributors"
+    echo
     #
+    ################# Custom Script Notes #################
+    echo -e "\033[32m""Script Notes - this script will do these things:""\e[0m"
+    echo
     echo "Put your instructions or script information here"
     echo
+    #######################################################
+    #
     echo -e "\033[32m""Script options:""\e[0m"
     echo
     echo -e "\033[31mImportant note:\e[0m Options \033[36mqr\e[0m and \033[36mnu\e[0m are interchangeable and usable together."
@@ -72,30 +132,6 @@ fi
 #
 ############################
 ##### Script Info Ends #####
-############################
-#
-############################
-## Version History Starts ##
-############################
-#
-# v1.0.0 -Script updater template
-#
-############################
-### Version History Ends ###
-############################
-#
-############################
-###### Variable Start ######
-############################
-#
-# Disables the built in script updater permanently.
-updaterenabled="1"
-#
-# This is the raw github url of the script to use with the built in updater.
-scripturl="https://raw.github.com/feralhosting"
-#
-############################
-####### Variable End #######
 ############################
 #
 ############################
