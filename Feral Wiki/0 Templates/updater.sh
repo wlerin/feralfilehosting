@@ -4,9 +4,14 @@ scriptversion="0.0.0"
 scriptname="somescript"
 # Author name goes here
 #
-# Bash Command goes here
-gitiocommand="wget -qO ~/somescript http://git.io/ && bash ~/somescript"
+# http://git.io/ URL goes here:
 #
+gitiourl="http://git.io/vvf9K"
+gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
+#
+# Bash Command goes here:
+#
+# wget -qO ~/somescript http://git.io/ && bash ~/somescript
 #
 ############################
 #### Script Notes Start ####
