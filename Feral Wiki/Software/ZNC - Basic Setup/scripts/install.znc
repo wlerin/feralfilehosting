@@ -11,7 +11,7 @@ gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
 #
 # Bash Command goes here:
 #
-# wget -qO ~/somescript http://git.io/ && bash ~/somescript
+# wget -qO ~/install.znc http://git.io/vvfyN && bash ~/install.znc
 #
 ############################
 #### Script Notes Start ####
