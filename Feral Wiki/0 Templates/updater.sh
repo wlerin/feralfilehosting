@@ -5,6 +5,8 @@ scriptname="somescript"
 # Author name goes here
 #
 # Bash Command goes here
+gitiocommand="wget -qO ~/somescript http://git.io/ && bash ~/somescript"
+#
 #
 ############################
 #### Script Notes Start ####
@@ -36,6 +38,28 @@ then
     echo
     #
     echo "Put your instructions or script information here"
+    echo
+    echo -e "\033[32m""Script options:""\e[0m"
+    echo
+    echo -e "\033[31mImportant note:\e[0m Options \033[36mqr\e[0m and \033[36mnu\e[0m are interchangeable and usable together."
+    echo
+    echo -e "For example: \033[36m$scriptname qr nu\e[0m or \033[36m$scriptname nu qr\e[0m will both work"
+    echo
+    echo -e "\033[36mqr\e[0m = Quick Run - use this to bypass the default update prompts and run the main script directly."
+    echo
+    echo -e "Example usage: \033[36m$scriptname qr\e[0m"
+    echo
+    echo -e "\033[36mnu\e[0m = No Update - disable the built in updater. Useful for testing new features or debugging."
+    echo
+    echo -e "Example usage: \033[36m$scriptname nu\e[0m"
+    echo
+    echo -e "\033[32mBash Commands:\e[0m"
+    echo
+    echo -e "$gitiocommand"
+    echo
+    echo -e "~/bin/$scriptname"
+    echo
+    echo -e "$scriptname"
     #
     echo
     exit
