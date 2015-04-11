@@ -38,6 +38,16 @@ You previous configuration file will be backed up and it will create a new versi
 ZNC installation
 ---
 
+### Automatic basic install
+
+This script essentially performs the basic install according to the steps below.
+
+~~~
+wget -qO ~/install.znc http://git.io/vvfyN && bash ~/install.znc
+~~~
+
+### Manual install
+
 Use this command to create the `~/bin` directory and reload your shell for this change to take effect.
 
 ~~~
@@ -56,7 +66,7 @@ tar xf ~/znc.tar.gz && cd ~/znc-1.*
 
 Now we need to check something before we continue. If you require extended charset support you will need to have a dependency installed. After running the configure command and it has completed you can check to see if there is charset support.
 
-> **Important note:** This dependency is not required to successfully build and use ZNC 1.6. It just means that without it certain charset specific option in the webadmin will be greyed out and unavailable to the admin/user when configuring networks.
+ **Important note:** This dependency is not required to successfully build and use ZNC 1.6. It just means that without it certain charset specific option in the webadmin will be greyed out and unavailable to the admin/user when configuring networks.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/ZNC%20-%20Basic%20Setup/config.png)
 
@@ -116,7 +126,7 @@ The binary is located in the `~/bin` directory so it should be in the `PATH`. If
 
 To properly restart or stop `znc` you connect to your server as the Admin user and execute one of these commands:
 
-> **Important note:** When configuring `znc` for the first time you should have created this user with administrator privileges:
+ **Important note:** When configuring `znc` for the first time you should have created this user with administrator privileges:
 
 ~~~
 /znc restart
@@ -139,7 +149,7 @@ Web Admin
 
 If you enable the Web Admin module and configure it while setting up `znc` using the `--makeconf` command you can access it via these URLS:
 
-> **Important note:** In both examples you will need to accept the invalid SSL certificate.
+ **Important note:** In both examples you will need to accept the invalid SSL certificate.
 
 Where `PORT` is the port you configured `znc` to use.
 
@@ -158,7 +168,7 @@ Notifications:
 
 Install this module to configure notifications via various platforms.
 
-> **Important note:** In order to use the `libcurl` transport layer you would need to ask for this dependency to be installed via a ticket if it is not present.
+ **Important note:** In order to use the `libcurl` transport layer you would need to ask for this dependency to be installed via a ticket if it is not present.
 
 ~~~
 libcurl4-openssl-dev
@@ -225,5 +235,6 @@ If you see this error from znc you read why here [https://github.com/jreese/znc-
 ~~~
 *push> Error: service type not selected
 ~~~
+
 
 
