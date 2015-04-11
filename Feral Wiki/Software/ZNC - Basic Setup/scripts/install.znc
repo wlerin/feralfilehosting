@@ -200,8 +200,7 @@ then
     echo
     make install > ~/.logs/znc-make-install.log 2>&1
     cd && rm -rf znc{-1.*,.tar.gz}
-    echo
-    echo -e "\033[33m""\nNow it is time for initial configuration...""\e[0m"
+    echo -e "\033[33m""Now it is time for initial configuration...""\e[0m"
     echo
     ~/bin/znc --makeconf
     #
@@ -218,11 +217,10 @@ then
         crontab "$tmpcron"
         rm "$tmpcron"
     else
-        echo "znc is already in crontab"
-        echo
+        echo "znc @reboot is already in your crontab."
     fi
     # give user the full URL
-    echo -e "\nClick on the URL below to do additional configuration if needed\n"
+    echo -e "\nClick on or copy the URL below to do additional configuration if needed\n"
     echo -e "\033[33m""https://$(hostname -f):$(grep Port ~/.znc/configs/znc.conf | awk '{print $3}')""\e[0m"
     echo -e "\nSearch the ZNC wiki for help connecting with different clients. http://wiki.znc.in/\n"
 #
