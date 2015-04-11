@@ -1,17 +1,21 @@
 #!/bin/bash
-# znc-install
-scriptversion="0.7.0"
-scriptname="install.znc"
-# adamaze
 #
-# http://git.io/ URL goes here:
+############################
+##### Basic Info Start #####
+############################
 #
-gitiourl="http://git.io/vvfyN"
-gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
+# Script Author: adamaze
+# Script Contributors: randomessence
 #
-# Bash Command goes here:
+# License: This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. https://creativecommons.org/licenses/by-sa/4.0/
+#
+# Bash Command for easy reference:
 #
 # wget -qO ~/install.znc http://git.io/vvfyN && bash ~/install.znc
+#
+############################
+###### Basic Info End ######
+############################
 #
 ############################
 #### Script Notes Start ####
@@ -25,6 +29,50 @@ gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
 ############################
 #
 ############################
+## Version History Starts ##
+############################
+#
+# 0.8.0 Template update
+# 0.7.0 - visual and functional tweaks
+# 0.5.0 - initial commit
+#
+############################
+### Version History Ends ###
+############################
+#
+############################
+###### Variable Start ######
+############################
+#
+# Script Version number is set here
+scriptversion="0.8.0"
+#
+# Script name goes here. Please prefix with install.
+scriptname="install.znc"
+#
+# Author name goes here
+scriptauthor="adamaze"
+#
+# Contributor's names go here
+contributors="randomessence"
+#
+# http://git.io/  shortened URL for the raw github URL goes here:
+gitiourl="http://git.io/vvfyN"
+#
+# The bash command shown when using the info option.
+gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
+#
+# This is the raw github url of the script to use with the built in updater.
+scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/ZNC%20-%20Basic%20Setup/scripts/install.znc"
+#
+# Disables the built in script updater permanently by setting this variable to 0.
+updaterenabled="1"
+#
+############################
+####### Variable End #######
+############################
+#
+############################
 #### Script Info Starts ####
 ############################
 #
@@ -32,8 +80,17 @@ gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
 if [[ ! -z $1 && $1 == 'info' ]]
 then
     echo
+    echo -e "\033[32m""Script Details:""\e[0m"
+    echo
+    echo "Script version: $scriptversion"
+    echo
+    echo "Script Author: $scriptauthor"
+    echo
+    echo "Script Contributors: $contributors"
+    echo
     #
-    echo "This script will do these things:"
+    ################# Custom Script Notes #################
+    echo -e "\033[32m""Script Notes - this script will do these things:""\e[0m"
     echo
     echo "1.1: Check if you require full charset support via the required dependency libicu-dev that is not installed by default."
     echo "1.2: If you require this dependency the script will check if it installed on the server and guide you to get it installed."
@@ -41,6 +98,8 @@ then
     echo "3: Run the znc make config setup process"
     echo "4: Install an @reboot crontab entry for znc"
     echo
+    #######################################################
+    #
     echo -e "\033[32m""Script options:""\e[0m"
     echo
     echo -e "\033[31mImportant note:\e[0m Options \033[36mqr\e[0m and \033[36mnu\e[0m are interchangeable and usable together."
@@ -69,31 +128,6 @@ fi
 #
 ############################
 ##### Script Info Ends #####
-############################
-#
-############################
-## Version History Starts ##
-############################
-#
-# 0.7.0 - visual and functional tweaks
-# 0.5.0 - initial commit
-#
-############################
-### Version History Ends ###
-############################
-#
-############################
-###### Variable Start ######
-############################
-#
-# Disables the built in script updater permanently.
-updaterenabled="1"
-#
-# This is the raw github url of the script to use with the built in updater.
-scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/ZNC%20-%20Basic%20Setup/scripts/install.znc"
-#
-############################
-####### Variable End #######
 ############################
 #
 ############################
