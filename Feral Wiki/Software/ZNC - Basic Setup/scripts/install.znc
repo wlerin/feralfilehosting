@@ -279,7 +279,6 @@ then
     tmpcron=$(mktemp)
     if [ "$(crontab -l 2> /dev/null | grep -c '^@reboot ~/bin/znc$')" == "0" ]; then
         echo "appending znc to crontab."
-        echo
         crontab -l 2> /dev/null > "$tmpcron"
         echo "@reboot ~/bin/znc" >> "$tmpcron"
         crontab "$tmpcron"
