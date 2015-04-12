@@ -74,6 +74,11 @@ gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
 # This is the raw github url of the script to use with the built in updater.
 scripturl="https://raw.github.com/feralhosting"
 #
+port=$(shuf -i 10001-49999 -n 1)
+while [[ "$(netstat -ln | grep ':'"$port"'' | grep -c 'LISTEN')" -eq "1" ]]
+do
+    port=$(shuf -i 10001-49999 -n 1)
+done
 # Disables the built in script updater permanently by setting this variable to 0.
 updaterenabled="1"
 #
@@ -88,7 +93,6 @@ updaterenabled="1"
 # Use this to show a user script information when they use the info option with the script.
 if [[ ! -z $1 && $1 == 'info' ]]
 then
-    echo
     echo
     echo -e "\033[32m""Script Details:""\e[0m"
     echo
@@ -215,7 +219,7 @@ else
     echo -e "You chose to exit after updating the scripts."
     echo
     cd && bash
-    exit 1
+    exit
 fi
 #
 ############################
