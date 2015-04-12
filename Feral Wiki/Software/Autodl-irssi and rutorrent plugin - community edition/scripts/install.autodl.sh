@@ -1,16 +1,26 @@
 #!/bin/bash
-# install autodl
-scriptversion="1.4.3"
-scriptname="install.autodl"
-# Bobtentpeg, randomessence
+#
+############################
+##### Basic Info Start #####
+############################
+#
+# Script Author: Bobtentpeg
+#
+# Script Contributors: randomessence
+#
+# License: This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. https://creativecommons.org/licenses/by-sa/4.0/
+#
+# Bash Command for easy reference:
 #
 # wget -qO ~/install.autodl http://git.io/oTUCMg && bash ~/install.autodl qr
 #
 ############################
-#### Script Notes Start ####
+###### Basic Info End ######
 ############################
 #
-# Add notes or warnings here for anyone modifying the scripts
+############################
+#### Script Notes Start ####
+############################
 #
 ############################
 ##### Script Notes End #####
@@ -20,6 +30,8 @@ scriptname="install.autodl"
 ## Version History Starts ##
 ############################
 #
+# v1.4.5 - Template
+# v1.4.4 - Template
 # v1.4.3 - Template
 # v1.4.2 - Template
 # v1.4.1 - Visual tweaks.
@@ -55,18 +67,43 @@ scriptname="install.autodl"
 ###### Variable Start ######
 ############################
 #
-updaterenabled="1"
+# Script Version number is set here.
+scriptversion="1.4.5"
+#
+# Script name goes here. Please prefix with install.
+scriptname="install.autodl"
+#
+# Author name goes here.
+scriptauthor="Bobtentpeg"
+#
+# Contributor's names go here.
+contributors="randomessence"
+#
+# Set the http://git.io/ shortened URL for the raw github URL here:
+gitiourl="http://git.io/oTUCMg"
+#
+# Don't edit: This is the bash command shown when using the info option.
+gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
 #
 # URLs for the core files.
 autodlirssicommunity="http://update.autodl-community.com/autodl-irssi-community.zip"
 autodltrackers="http://update.autodl-community.com/autodl-trackers.zip"
 # URL for autodl-rutorrent
 autodlrutorrent="https://github.com/autodl-community/autodl-rutorrent/archive/master.zip"
-# Uses shuf to pick a random port between 6000 and 50000
+#
+# Uses shuf to pick a random port between 10001 and 49999
 port=$(shuf -i 10001-49999 -n 1)
+#
+# This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
+while [[ "$(netstat -ln | grep ':'"$port"'' | grep -c 'LISTEN')" -eq "1" ]]
+do
+    port=$(shuf -i 10001-49999 -n 1)
+done
+#
 # Random password generation
 pass=$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)
-# Raw script URL for self updating
+#
+# This is the raw github url of the script to use with the built in updater.
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/install.autodl.sh"
 #
 if [[ -d ~/.autodl ]]
@@ -78,8 +115,64 @@ else
     shoutout2="installation"
 fi
 #
+# Disables the built in script updater permanently by setting this variable to 0.
+updaterenabled="1"
+#
 ############################
 ####### Variable End #######
+############################
+#
+############################
+#### Script Info Starts ####
+############################
+#
+# Use this to show a user script information when they use the info option with the script.
+if [[ ! -z $1 && $1 == 'info' ]]
+then
+    echo
+    echo
+    echo -e "\033[32m""Script Details:""\e[0m"
+    echo
+    echo "Script Author: $scriptauthor"
+    echo
+    echo "Script Contributors: $contributors"
+    echo
+    #
+    ################# Custom Script Notes #################
+    echo -e "\033[32m""Script Notes - this script will do these things:""\e[0m"
+    echo
+    echo "Put your instructions or script information here"
+    echo
+    #######################################################
+    #
+    echo -e "\033[32m""Script options:""\e[0m"
+    echo
+    echo -e "\033[31mImportant note:\e[0m Options \033[36mqr\e[0m and \033[36mnu\e[0m are interchangeable and usable together."
+    echo
+    echo -e "For example: \033[36m$scriptname qr nu\e[0m or \033[36m$scriptname nu qr\e[0m will both work"
+    echo
+    echo -e "\033[36mqr\e[0m = Quick Run - use this to bypass the default update prompts and run the main script directly."
+    echo
+    echo -e "Example usage: \033[36m$scriptname qr\e[0m"
+    echo
+    echo -e "\033[36mnu\e[0m = No Update - disable the built in updater. Useful for testing new features or debugging."
+    echo
+    echo -e "Example usage: \033[36m$scriptname nu\e[0m"
+    echo
+    echo -e "\033[32mBash Commands:\e[0m"
+    echo
+    echo -e "$gitiocommand"
+    echo
+    echo -e "~/bin/$scriptname"
+    echo
+    echo -e "$scriptname"
+    #
+    echo
+    exit
+fi
+#
+############################
+##### Script Info Ends #####
 ############################
 #
 ############################
