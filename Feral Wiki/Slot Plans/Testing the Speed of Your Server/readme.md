@@ -1,64 +1,37 @@
 
 If you require a **speedtest.net** sort of test, unfortunately this cannot be achieved as the servers lack a GUI and thus a web browser which you could run on your server to test speeds.
 
-**Important note:** Feral are aware of the python speed test tool. It is not used due to being buggy and inaccurate.
+> **Important note:** Feral are aware of the python speed test tools. It is not used due to being buggy and inaccurate.
 
-There are some options you can offer to those who wish to test the speed of our/your server:
+Speed Test Links
+---
 
-**1:** Provide them with a download link to a file hosted on your server. This will just show the through put is maxing connections where available. Since most home lines will not have the capacity max the upload potential of the server it is not a true representation of your overall speed. Cogent to Leaseweb, server to server would be more accurate of max speed potential.
-
-Here are some FAQs on how to go about sharing your files:
-
-Create sftp/ftps jails using this FAQ: [Installing Proftpd for extra FTP/SFTP/FTPS accounts](https://www.feralhosting.com/faq/view?question=193)
-
-Create WWW/http shareable links and files: [Putting your WWW folder to use](https://www.feralhosting.com/faq/view?question=20)
-
-Create shareable links using [Ajaxplorer 5 - Basic setup](https://www.feralhosting.com/faq/view?question=222)
- 
-**Important note:** You can open a ticket so staff can look at your slot if you feel there is an ongoing issue.
-
-**2:** Provide them with a download link to a file hosted on one of our servers:
-
-Feral OVH test file:
+These are the official Speed test links.
 
 ~~~
-ftp://scarlet.feralhosting.com/8.0-RELEASE-amd64-disc1.iso
+https://feral.io/test.bin
+https://atrato-1.feral.io/test.bin
+https://atrato-2.feral.io/test.bin
+https://fr-1.feral.io/test.bin
+https://fr-2.feral.io/test.bin
+https://gtt-1.feral.io/test.bin
+https://ntt-1.feral.io/test.bin
+https://ntt-2.feral.io/test.bin
 ~~~
 
-Leaseweb Test File:
+Reroute your traffic
+---
 
-~~~
-http://mirror.nl.leaseweb.net/speedtest/100mb.bin
-~~~
+There is an official tool available to users to reroute their traffic and help find the best routes for them:
 
-Fiberring test file:
+[https://network.feral.io/reroute](https://network.feral.io/reroute)
 
-~~~
-http://test.fiberring.net/100mb.bin
-~~~
+You will have to change your route then try the test files above to know which routes work best for you.
 
-Feral Cogent test file:
+Automated reroute:
+---
 
-~~~
-http://iapetus.feralhosting.com/test.bin
-~~~
+A user has provided an automated version of the process. This script can be run on Linux, OS X and Windows via cygwin.
 
-This will only show your the potential upload speed if they have a large download capacity as well as the file being hosted on another server (**scarlet**). Provide them with a link to a file on your server using your *WWW/Http* directory. Then they can *ftp/http/wget* a file of your choosing from **your** server.
-
-**3:** Download a big file to your server with wget and take a screenshot:
-
-~~~
-wget -O /dev/null http://mirror.nl.leaseweb.net/speedtest/100mb.bin
-wget -O /dev/null http://iapetus.feralhosting.com/test.bin
-wget -O /dev/null http://test.fiberring.net/100mb.bin
-wget -O /dev/null ftp://scarlet.feralhosting.com/8.0-RELEASE-amd64-disc1.iso
-~~~
-
-Pres and hold `CTRL` then press `c` at any time to quit the download.
-
-This is a a test of your servers download potential not your upload.
-
-**4:** Take a screenshot of software you're using while uploading/downloading at a nice speed. This won't be an accurate measure of your max upload or download speed potential.
-
-
+[Automated Reroute](https://www.feralhosting.com/faq/view?question=292)
 
