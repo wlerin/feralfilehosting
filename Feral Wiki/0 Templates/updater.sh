@@ -75,10 +75,13 @@ gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
 scripturl="https://raw.github.com/feralhosting"
 #
 port=$(shuf -i 10001-49999 -n 1)
+#
+# This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
 while [[ "$(netstat -ln | grep ':'"$port"'' | grep -c 'LISTEN')" -eq "1" ]]
 do
     port=$(shuf -i 10001-49999 -n 1)
 done
+#
 # Disables the built in script updater permanently by setting this variable to 0.
 updaterenabled="1"
 #
