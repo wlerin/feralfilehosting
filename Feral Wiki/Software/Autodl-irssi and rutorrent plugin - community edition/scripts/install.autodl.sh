@@ -130,7 +130,6 @@ updaterenabled="1"
 if [[ ! -z $1 && $1 == 'info' ]]
 then
     echo
-    echo
     echo -e "\033[32m""Script Details:""\e[0m"
     echo
     echo "Script Author: $scriptauthor"
