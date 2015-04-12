@@ -41,8 +41,8 @@ In the script these are the variables you will need to customise to meet your re
 login="username"
 pass="password"
 host="server.feralhosting.com"
-remote_dir="/folder/you/want/to/copy"
-local_dir="/cygdrive/s/lftp/somefolder/where/you.want/your/files/"
+remote_dir='~/folder/you/want/to/copy'
+local_dir="$HOME/lftp/"
 ~~~
 
 Here is the basic script:
@@ -52,53 +52,58 @@ Here is the basic script:
 login="username"
 pass="password"
 host="server.feralhosting.com"
-remote_dir="/folder/you/want/to/copy"
-local_dir="/cygdrive/s/lftp/somefolder/where/you.want/your/files/"
- 
-trap "rm -f /tmp/synctorrent.lock" SIGINT SIGTERM
-if [ -e /tmp/synctorrent.lock ]
+remote_dir='~/folder/you/want/to/copy'
+local_dir="$HOME/lftp/"
+
+base_name="$(basename "$0")"
+lock_file="/tmp/$base_name.lock"
+trap "rm -f $lock_file" SIGINT SIGTERM
+if [ -e "$lock_file" ]
 then
-    echo "Synctorrent is running already."
-    exit 1
+    echo "$base_name is running already."
+    exit
 else
-    touch /tmp/synctorrent.lock
+    touch "$lock_file"
     lftp -u $login,$pass $host << EOF
     set ftp:ssl-allow no
     set mirror:use-pget-n 5
-    mirror -c -P5 --log=synctorrents.log $remote_dir $local_dir
+    mirror -c -P5 --log="/var/log/$base_name.log" "$remote_dir" "$local_dir"
     quit
-    EOF
-    rm -f /tmp/synctorrent.lock
+EOF
+    rm -f "$lock_file"
     trap - SIGINT SIGTERM
-  exit 0
+    exit
 fi
 ~~~
 
 Here is an edited version for use with sftp:
 
 ~~~
-#!/bin/sh
+#!/bin/bash
 login="username"
 pass="password"
 host="server.feralhosting.com"
-remote_dir="/folder/you/want/to/copy"
-local_dir="/cygdrive/s/lftp/somefolder/where/you.want/your/files/"
+remote_dir='~/folder/you/want/to/copy'
+local_dir="$HOME/lftp/"
 
-trap "rm -f /tmp/synctorrent.lock" SIGINT SIGTERM
-if [ -e /tmp/synctorrent.lock ]
+base_name="$(basename "$0")"
+lock_file="/tmp/$base_name.lock"
+trap "rm -f $lock_file" SIGINT SIGTERM
+if [ -e "$lock_file" ]
 then
-    echo "Synctorrent is running already."
-    exit 1
+    echo "$base_name is running already."
+    exit
 else
-    touch /tmp/synctorrent.lock
-    lftp -p 22 -u $login,$pass sftp://$host << EOF
+    touch "$lock_file"
+    lftp -p 22 -u "$login","$pass" sftp://"$host" << EOF
+    set sftp:auto-confirm yes
     set mirror:use-pget-n 5
-    mirror -c -P5 --log=synctorrents.log $remote_dir $local_dir
+    mirror -c -P5 --log="/var/log/$base_name.log" "$remote_dir" "$local_dir"
     quit
-    EOF
-    rm -f /tmp/synctorrent.lock
+EOF
+    rm -f "$lock_file"
     trap - SIGINT SIGTERM
-    exit 0
+    exit
 fi
 ~~~
 
