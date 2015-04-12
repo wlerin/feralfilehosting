@@ -4,8 +4,9 @@ Uploading DVD ISO's from your Feral slice can be time consuming as you will have
 To simplify this process, there's an easy way of extracting the ISO-file into a VIDEO_TS folder. For this you will need poweriso.
 
 ~~~
+mkdir -p ~/bin && bash
 wget -qO ~/poweriso.tar.gz http://www.poweriso.com/poweriso-1.3.tar.gz
-tar xf ~/poweriso.tar.gz && chmod 700 ~/poweriso
+tar xf ~/poweriso.tar.gz -C ~/bin && chmod 700 ~/bin/poweriso
 ~~~
 
 Poweriso will create the directory you tell it use when it outputs the files.
@@ -13,7 +14,7 @@ Poweriso will create the directory you tell it use when it outputs the files.
 Here is an example command.
 
 ~~~
-~/./poweriso extract ~/path/to/my.iso / -od ~/examplefolder
+~/bin/poweriso extract ~/path/to/my.iso / -od ~/examplefolder
 ~~~
 
 Will extract `~/path/to/my.iso` to `~/examplefolder` and create this folder if it does not exist
