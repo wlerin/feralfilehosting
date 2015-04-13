@@ -153,6 +153,8 @@ then
     echo
     echo -e "\033[32m""Script Details:""\e[0m"
     echo
+    echo "Script version: $scriptversion"
+    echo
     echo "Script Author: $scriptauthor"
     echo
     echo "Script Contributors: $contributors"
