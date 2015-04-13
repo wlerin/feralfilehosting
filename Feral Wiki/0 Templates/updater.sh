@@ -53,19 +53,23 @@
 #
 # 13: Place your unique information and usage instructions inside the section labelled "Custom Script Notes" using echoes.
 #
+### Self Updater Section:
+#
+# 14: This section is self contained you don't need to modify this section. This feature will compare itself vs the raw script linked at the github URL provided and update itself
+#
 ### User Scripts:
 #
 # Important Note: This template is a wrapper around your script. You will need to make use of the script option below like qr to call your own options.
 #
-# 14: Insert your script in the "User Script" labelled section - Indented by one tab (4 spaces) to be in line with the overall script. You can copy and paste a working script into this section.
+# 15: Insert your script in the "User Script" labelled section - Indented by one tab (4 spaces) to be in line with the overall script. You can copy and paste a working script into this section.
 #
 ### Script Options explained:
 #
-# 15: changelog - use the argument qr when calling the script, for example - "somescript changelog".
-# 16: info - use the argument qr when calling the script, for example - "somescript info".
-# 17: qr - use this option to quick run the script suppressing all update prompts and jumping directly to the user script, for example - "somescript qr". Note - This does not disable or bypass the updater.
-# 18: nu - use the option to disable the update features of the script, for example - "somescript nu". Note - This will run the script from where it is called and append -DEV to the version number output.
-# 19: To pass your own variables to the script in the user script section please start from $2 onwards.
+# 16: changelog - use the argument qr when calling the script, for example - "somescript changelog".
+# 17: info - use the argument qr when calling the script, for example - "somescript info".
+# 18: qr - use this option to quick run the script suppressing all update prompts and jumping directly to the user script, for example - "somescript qr". Note - This does not disable or bypass the updater.
+# 19: nu - use the option to disable the update features of the script, for example - "somescript nu". Note - This will run the script from where it is called and append -DEV to the version number output.
+# 20: To pass your own variables to the script in the user script section please start from $2 onwards.
 #
 ############################
 ##### Script Notes End #####
@@ -200,15 +204,19 @@ fi
 #### Self Updater Start ####
 ############################
 #
+# Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, whihc woudl reset the option, it will then find this file and set it back.
 if [[ ! -z $1 && $1 == 'qr' ]] || [[ ! -z $2 && $2 == 'qr' ]];then echo -n '' > ~/.quickrun; fi
 #
+# No Update option: This disables the updater features if the script option "nu" was used when running the script.
 if [[ ! -z $1 && $1 == 'nu' ]] || [[ ! -z $2 && $2 == 'nu' ]]
 then
     echo
     echo "The Updater has been temporarily disabled"
     echo
-    scriptversion=""$scriptversion"-nu"
+    scriptversion="$scriptversion-nu"
 else
+    #
+    # Check to see if the variable "updaterenabled" is set to 1. If it is set to 0 the script will bypass the built in updater regardless of the options used.
     if [[ "$updaterenabled" -eq 1 ]]
     then
         [[ ! -d ~/bin ]] && mkdir -p ~/bin
@@ -236,10 +244,11 @@ else
         echo
         echo "The Updater has been disabled"
         echo
-        scriptversion=""$scriptversion"-DEV"
+        scriptversion="$scriptversion-DEV"
     fi
 fi
 #
+# Quick Run option part 2: If quick run was set and the updater section completes this will enable quick run again then remove the file.
 if [[ -f ~/.quickrun ]];then updatestatus="y"; rm -f ~/.quickrun; fi
 #
 ############################
