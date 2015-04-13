@@ -24,16 +24,48 @@
 #
 # This updater deals with updating a single file, the "~/bin/somescript", by updating and switching to this script.
 #
-# How do I customise this updater?
+# So how do I use and customise this updater template with my script?
 #
-# 1: scriptversion="0.0.0" - replace "0.0.0" with your script version. This will be shown to the user at the current version check.
-# 2: scriptname="somescript" - replace "somescript" with your script name. Make it unique to this script. Do not include the file extension.
-# 3: Set the scripturl variable in the variable section to the RAW github URl of the script for updating.
-# 4: Insert your script in the "User Script" labelled section - Indented by two tabs to be in line with the script.
-# 5: Disable the updater - you can either set "updaterenabled" variable to 0 in the variable section or use the argument nu when calling the script, for example - "somescript nu"
-# 6: quick load - use the argument qr when calling the script, for example - "somescript qr".
-# 7: To pass your own variables to the script start from $3 onwards.
-# 8: Use the info option to see useful information about the script. Set this information in the Script Info section, for example - "somescript info".
+### Basic Info section:
+#
+# 1: Optional - fill in the basic info section at the start for those reading the script code.
+# 2: Most of the important information and usage directions are meant to be set in the script info section and used with the script option info. So set them there if required.
+#
+### Version History Section:
+#
+# 3: Modify the version history templates in the Version History section and uncomment on a per line basis to use with the script option "changelog", for example, "somescript changelog"
+#
+### Variables Section:
+#
+# 4: scriptversion="0.0.0" - replace "0.0.0" with your script version. This will be shown to the user at the current version check.
+# 5: scriptname="somescript" - replace "somescript" with your script name. Make it unique to this script. Do not include the file extension.
+# 6: scriptauthor="None credited" - change this to the script author's name.
+# 7: contributors=="None credited" - add the names of any contributors you wish to credit here.
+# 8: gitiourl="http://git.io/vvf9K" - change this to the shortened URL provided by http://git.io once you have committed the script to github or from a gist.
+# 9: gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname" - Leave this as it is. Do not modify it. This variable depends on the correct setting of the $gitiourl variable.
+# 10: scripturl="https://raw.github.com/feralhosting" - Set the scripturl variable in the variable section to the RAW github URL of the script for use with the updater features.
+# 11: appport=$(shuf -i 10001-49999 -n 1) - works in tandem with a while loop just below it. Will generate and test a port to make sure it is not in use. Use this when configuring an application's port.
+# 12: updaterenabled="1" - Set this to 0 to permanently disable the built in updater and associated features.
+#
+### Script Info Section:
+#
+# Important note: The info section contains basic information about the features of this updater and the script. Don't modify these. You have a section dedicated to your unique information.
+#
+# 13: Place your unique information and usage instructions inside the section labelled "Custom Script Notes" using echoes.
+#
+### User Scripts:
+#
+# Important Note: This template is a wrapper around your script. You will need to make use of the script option below like qr to call your own options.
+#
+# 14: Insert your script in the "User Script" labelled section - Indented by one tab (4 spaces) to be in line with the overall script. You can copy and paste a working script into this section.
+#
+### Script Options explained:
+#
+# 15: changelog - use the argument qr when calling the script, for example - "somescript changelog".
+# 16: info - use the argument qr when calling the script, for example - "somescript info".
+# 17: qr - use this option to quick run the script suppressing all update prompts and jumping directly to the user script, for example - "somescript qr". Note - This does not disable or bypass the updater.
+# 18: nu - use the option to disable the update features of the script, for example - "somescript nu". Note - This will run the script from where it is called and append -DEV to the version number output.
+# 19: To pass your own variables to the script in the user script section please start from $2 onwards.
 #
 ############################
 ##### Script Notes End #####
@@ -43,7 +75,23 @@
 ## Version History Starts ##
 ############################
 #
-# v1.0.0 - Script updater template
+if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
+    #
+    # put your version changes in the single quotes and then uncomment the line.
+    #
+    #echo 'v0.1.0 - My changes go here'
+    #echo 'v0.0.9 - My changes go here'
+    #echo 'v0.0.8 - My changes go here'
+    #echo 'v0.0.7 - My changes go here'
+    #echo 'v0.0.6 - My changes go here'
+    #echo 'v0.0.5 - My changes go here'
+    #echo 'v0.0.4 - My changes go here'
+    #echo 'v0.0.3 - My changes go here'
+    #echo 'v0.0.2 - My changes go here'
+    echo 'v0.0.1 - Updater template updated'
+    #
+    echo; exit; 
+fi
 #
 ############################
 ### Version History Ends ###
@@ -60,10 +108,10 @@ scriptversion="0.0.0"
 scriptname="install.somescript"
 #
 # Author name goes here.
-scriptauthor="Author's name goes here"
+scriptauthor="None credited"
 #
 # Contributor's names go here.
-contributors="Contributor's names go here"
+contributors="None credited"
 #
 # Set the http://git.io/ shortened URL for the raw github URL here:
 gitiourl="http://git.io/vvf9K"
@@ -74,12 +122,13 @@ gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
 # This is the raw github url of the script to use with the built in updater.
 scripturl="https://raw.github.com/feralhosting"
 #
-port=$(shuf -i 10001-49999 -n 1)
+# This will generate a random port for the script between the range 10001 to 49999 to use with applications. You can ignore this unless needed.
+appport=$(shuf -i 10001-49999 -n 1)
 #
 # This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
-while [[ "$(netstat -ln | grep ':'"$port"'' | grep -c 'LISTEN')" -eq "1" ]]
+while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]
 do
-    port=$(shuf -i 10001-49999 -n 1)
+    appport=$(shuf -i 10001-49999 -n 1)
 done
 #
 # Disables the built in script updater permanently by setting this variable to 0.
@@ -103,14 +152,20 @@ then
     echo
     echo "Script Contributors: $contributors"
     echo
-    #
-    ################# Custom Script Notes #################
-    echo -e "\033[32m""Script Notes - this script will do these things:""\e[0m"
+    echo -e "\033[32m""Script Information and usage instructions:""\e[0m"
     echo
-    echo "Put your instructions or script information here"
-    echo
-    #######################################################
     #
+    ###################################
+    #### Custom Script Notes Start ####
+    ###################################
+    #
+    echo -e "Put your instructions or script information here using echoes"
+    #
+    ###################################
+    ##### Custom Script Notes End #####
+    ###################################
+    #
+    echo
     echo -e "\033[32m""Script options:""\e[0m"
     echo
     echo -e "\033[31mImportant note:\e[0m Options \033[36mqr\e[0m and \033[36mnu\e[0m are interchangeable and usable together."
