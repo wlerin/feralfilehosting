@@ -289,6 +289,7 @@ then
                                 sed -i "s|pdo_mysql.default_socket=|pdo_mysql.default_socket = $HOME/private/mysql/socket|g" ~/.nginx/php/php.ini
                                 #
                                 killall -u $(whoami) nginx php5-fpm >/dev/null 2>&1
+                                sleep 2
                                 echo "Waiting for nginx to reload. It loads every 5 minutes starting from 00 of the hour"
                                 echo
                                 #
@@ -343,6 +344,7 @@ then
                             if [[ -d ~/.nginx ]]
                             then
                                 killall -u $(whoami) nginx php5-fpm >/dev/null 2>&1
+                                sleep 2
                                 echo "Waiting for nginx to reload. It loads every 5 minutes starting from 00 of the hour"
                                 echo
                                 #
