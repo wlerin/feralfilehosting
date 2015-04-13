@@ -276,8 +276,8 @@ then
         read -ep "Please tell me the suffix to use for removal of the rtorrent and rutorrent instances: " suffix
         echo
         #
-        screen -S rtorrent-"$suffix" -X quit > /dev/null 2>&1
-        screen -S autodl-"$suffix" -X quit > /dev/null 2>&1
+        kill -9 $(screen -ls rtorrent | sed -rn 's/(.*).rtorrent-(.*)/\1/p')  > /dev/null 2>&1
+        kill -9 $(screen -ls autodl | sed -rn 's/(.*).autodl-(.*)/\1/p')  > /dev/null 2>&1
         #
         echo -e "\033[32m""Custom instance has been shutdown: if it was running""\e[0m"
         echo
@@ -346,7 +346,7 @@ then
         fi
         echo -e "\033[31m""Done""\e[0m"
         sleep 2
-        bash ~/"$scriptname"
+        bash ~/bin/"$scriptname"
     elif [[ "$removal" =~ ^[Nn]$ ]]
     then
     echo -e "This script will create a new rutorrent and rtorrent instance using a suffix, for example:"
@@ -360,7 +360,7 @@ then
     if [[ -z "$suffix" ]]
     then
         echo -e "\033[31m""You did not give a suffix to use. Please enter one. The script will restart""\e[0m"
-        bash ~/"$scriptname"
+        bash ~/bin/"$scriptname"
     else
         if [[ ! -f ~/.rtorrent-"$suffix".rc && ! -d ~/private/rtorrent-"$suffix" && ! -d ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix" ]]
         then
@@ -618,14 +618,14 @@ then
             exit 1
         else
             echo -e "\033[31m""This particular suffix already exists, try another. The script will restart.""\e[0m"
-            bash ~/"$scriptname"
+            bash ~/bin/"$scriptname"
             exit 1
         fi
     fi
     else
         echo -e "\033[31m""You did not select a valid option. Please select either [y]es or [n]o.""\e[0m"
         sleep 2
-        bash ~/"$scriptname"
+        bash ~/bin/"$scriptname"
     fi
 #
 ############################
