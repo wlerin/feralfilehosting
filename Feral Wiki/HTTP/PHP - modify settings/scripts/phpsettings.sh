@@ -69,11 +69,29 @@ gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
 # This is the raw github url of the script to use with the built in updater.
 scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/PHP%20-%20modify%20settings/scripts/phpsettings.sh"
 #
+# This will generate a random port for the script between the range 10001 to 49999 to use with applications. You can ignore this unless needed.
+appport=$(shuf -i 10001-49999 -n 1)
+#
+# This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
+while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]
+do
+    appport=$(shuf -i 10001-49999 -n 1)
+done
+#
+############################
+## Custom Variables Start ##
+############################
+#
+# Menu options
 option1="Install Apache php.ini"
 option2="Install nginx php.ini"
 option3="Reload Apache"
 option4="Reload Nginx"
 option5="Quit the Script"
+#
+############################
+### Custom Variables End ###
+############################
 #
 # Disables the built in script updater permanently by setting this variable to 0.
 updaterenabled="1"
