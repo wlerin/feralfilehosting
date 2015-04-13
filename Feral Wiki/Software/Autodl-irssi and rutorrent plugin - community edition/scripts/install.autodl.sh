@@ -92,13 +92,10 @@ gitiourl="http://git.io/oTUCMg"
 # Don't edit: This is the bash command shown when using the info option.
 gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
 #
-# URLs for the core files.
-autodlirssicommunity="http://update.autodl-community.com/autodl-irssi-community.zip"
-autodltrackers="http://update.autodl-community.com/autodl-trackers.zip"
-# URL for autodl-rutorrent
-autodlrutorrent="https://github.com/autodl-community/autodl-rutorrent/archive/master.zip"
+# This is the raw github url of the script to use with the built in updater.
+scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/install.autodl.sh"
 #
-# Uses shuf to pick a random port between 10001 and 49999
+# This will generate a random port for the script between the range 10001 to 49999 to use with applications. You can ignore this unless needed.
 appport=$(shuf -i 10001-49999 -n 1)
 #
 # This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
@@ -107,11 +104,18 @@ do
     appport=$(shuf -i 10001-49999 -n 1)
 done
 #
+############################
+## Custom Variables Start ##
+############################
+#
+# URLs for the core files.
+autodlirssicommunity="http://update.autodl-community.com/autodl-irssi-community.zip"
+autodltrackers="http://update.autodl-community.com/autodl-trackers.zip"
+# URL for autodl-rutorrent
+autodlrutorrent="https://github.com/autodl-community/autodl-rutorrent/archive/master.zip"
+#
 # Random password generation
 pass=$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)
-#
-# This is the raw github url of the script to use with the built in updater.
-scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/install.autodl.sh"
 #
 if [[ -d ~/.autodl ]]
 then
@@ -121,6 +125,10 @@ else
     shoutout1="Installing"
     shoutout2="installation"
 fi
+#
+############################
+### Custom Variables End ###
+############################
 #
 # Disables the built in script updater permanently by setting this variable to 0.
 updaterenabled="1"
