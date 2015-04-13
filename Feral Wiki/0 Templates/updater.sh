@@ -136,6 +136,16 @@ do
     appport=$(shuf -i 10001-49999 -n 1)
 done
 #
+############################
+## Custom Variables Start ##
+############################
+#
+##
+#
+############################
+### Custom Variables End ###
+############################
+#
 # Disables the built in script updater permanently by setting this variable to 0.
 updaterenabled="1"
 #
