@@ -34,12 +34,13 @@
 #
 if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
     #
+    echo 'v1.2.2 bug fixes'
     echo 'v1.1.6 random password option'
     echo 'v1.1.5 more tweaks and fixed loop.'
     echo 'v1.1.3 small tweaks to installation script'
     echo 'v1.1.2 template updated'
-    echo 'v1.2.0 autodl custom installation included'
-    echo 'v1.2.1 hostname -f'
+    echo 'v1.2.1 autodl custom installation included'
+    echo 'v1.2.0 hostname -f'
     #
     echo
     exit
@@ -345,7 +346,7 @@ then
         fi
         echo -e "\033[31m""Done""\e[0m"
         sleep 2
-        bash ~/"$scriptname.sh"
+        bash ~/"$scriptname"
     elif [[ "$removal" =~ ^[Nn]$ ]]
     then
     echo -e "This script will create a new rutorrent and rtorrent instance using a suffix, for example:"
@@ -359,7 +360,7 @@ then
     if [[ -z "$suffix" ]]
     then
         echo -e "\033[31m""You did not give a suffix to use. Please enter one. The script will restart""\e[0m"
-        bash ~/"$scriptname.sh"
+        bash ~/"$scriptname"
     else
         if [[ ! -f ~/.rtorrent-"$suffix".rc && ! -d ~/private/rtorrent-"$suffix" && ! -d ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix" ]]
         then
@@ -617,14 +618,14 @@ then
             exit 1
         else
             echo -e "\033[31m""This particular suffix already exists, try another. The script will restart.""\e[0m"
-            bash ~/"$scriptname.sh"
+            bash ~/"$scriptname"
             exit 1
         fi
     fi
     else
         echo -e "\033[31m""You did not select a valid option. Please select either [y]es or [n]o.""\e[0m"
         sleep 2
-        bash ~/"$scriptname.sh"
+        bash ~/"$scriptname"
     fi
 #
 ############################
