@@ -94,7 +94,8 @@ if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
     #echo 'v0.0.2 - My changes go here'
     echo 'v0.0.1 - Updater template updated'
     #
-    echo; exit; 
+    echo
+    exit
 fi
 #
 ############################
@@ -171,6 +172,14 @@ then
     #
     echo
     echo -e "\033[32m""Script options:""\e[0m"
+    echo
+    echo -e "\033[36mchangelog\e[0m = See the version history and change log of this script."
+    echo
+    echo -e "Example usage: \033[36m$scriptname changelog\e[0m"
+    echo
+    echo -e "\033[36minfo\e[0m = Show the script information and usage instructions."
+    echo
+    echo -e "Example usage: \033[36m$scriptname info\e[0m"
     echo
     echo -e "\033[31mImportant note:\e[0m Options \033[36mqr\e[0m and \033[36mnu\e[0m are interchangeable and usable together."
     echo
