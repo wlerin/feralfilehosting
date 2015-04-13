@@ -34,6 +34,7 @@
 #
 if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
     #
+    echo 'v1.0.7 - rtorrent and deluge will no longer kill custom instances from the multirtru script. Transmision restart timer imeplemented. Other minor tweaks'
     echo 'v1.0.6 - Template updated'
     echo 'v1.0.5 - Template updated'
     #
@@ -50,7 +51,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.0.6"
+scriptversion="1.0.7"
 #
 # Script name goes here. Please prefix with install.
 scriptname="restart"
@@ -69,15 +70,6 @@ gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
 #
 # This is the raw github url of the script to use with the built in updater.
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/scripts/restart.sh"
-#
-# This will generate a random port for the script between the range 10001 to 49999 to use with applications. You can ignore this unless needed.
-appport=$(shuf -i 10001-49999 -n 1)
-#
-# This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
-while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]
-do
-    appport=$(shuf -i 10001-49999 -n 1)
-done
 #
 # Disables the built in script updater permanently by setting this variable to 0.
 updaterenabled="1"
@@ -107,7 +99,7 @@ then
     #### Custom Script Notes Start ####
     ###################################
     #
-    echo -e "Put your instructions or script information here using echoes"
+    echo -e "Select an appropriate option from the menu list"
     #
     ###################################
     ##### Custom Script Notes End #####
@@ -115,6 +107,14 @@ then
     #
     echo
     echo -e "\033[32m""Script options:""\e[0m"
+    echo
+    echo -e "\033[36mchangelog\e[0m = See the version history and change log of this script."
+    echo
+    echo -e "Example usage: \033[36m$scriptname changelog\e[0m"
+    echo
+    echo -e "\033[36minfo\e[0m = Show the script information and usage instructions."
+    echo
+    echo -e "Example usage: \033[36m$scriptname info\e[0m"
     echo
     echo -e "\033[31mImportant note:\e[0m Options \033[36mqr\e[0m and \033[36mnu\e[0m are interchangeable and usable together."
     echo
@@ -241,7 +241,7 @@ then
                         then
                             echo -e "\033[31m""Killing all instances of rtorrent""\e[0m"
                             echo
-                            killall -u $(whoami) rtorrent
+                            kill -9 $(screen -ls rtorrent | sed -rn 's/(.*).rtorrent[^-](.*)/\1/p')  > /dev/null 2>&1
                             screen -wipe > /dev/null 2>&1
                             echo "Restarting rtorrent"
                             echo
@@ -249,11 +249,11 @@ then
                             sleep 2
                             echo -e "\033[33m""Checking if the process is running:""\e[0m"
                             echo
-                            ps x | grep current/bin/rtorrent | grep -v grep
+                            echo $(ps x | grep current/bin/rtorrent | grep -v grep)
                             echo
                             echo -e "\033[33m""Checking if the screen is running""\e[0m"
                             echo
-                            screen -ls | grep rtorrent
+                            echo $(screen -ls | grep rtorrent)
                             echo
                             echo -e "\033[32m""For troubleshooting refer to the FAQ:""\e[0m" "\033[36m""https://www.feralhosting.com/faq/view?question=158""\e[0m"
                             echo
@@ -270,7 +270,9 @@ then
                         if [[ -d ~/private/deluge ]]
                         then
                             echo -e "\033[31m""Stopping Deluge and Deluge Web""\e[0m"
-                            killall -u $(whoami) deluged deluge-web
+                            echo
+                            kill -9 $(ps x | grep -v grep | grep '/usr/bin/python /usr/local/bin/deluged$' | head -n 1 | awk '{print $1}') > /dev/null 2>&1
+                            kill -9 $(ps x | grep -v grep | grep "/usr/bin/python /usr/local/bin/deluge-web$" | head -n 1 | awk '{print $1}') > /dev/null 2>&1
                             echo "Restarting Deluge"
                             deluged
                             echo "Restarting Deluge Web"
@@ -278,7 +280,7 @@ then
                             echo
                             echo -e "\033[33m""Are the processes running?""\e[0m"
                             echo
-                            ps x | grep deluge | grep -v grep
+                            echo $(ps x | grep deluge | grep -v grep)
                             echo
                             echo -e "\033[32m""For troubleshooting refer to the FAQ:""\e[0m" "\033[36m""https://www.feralhosting.com/faq/view?question=158""\e[0m"
                             echo
@@ -293,12 +295,33 @@ then
                         if [[ -d ~/private/transmission ]]
                         then
                             echo -e "\033[31m""Restarting Transmission""\e[0m"
-                            killall -u $(whoami) transmission-daemon
-                            echo "It can take up to 5 minutes for transmission to restart."
                             echo
-                            echo "Do this command to see if it is running":
+                            killall -9 -u $(whoami) transmission-daemon > /dev/null 2>&1
+                            sleep 2
+                            echo "Waiting for Transmission to reload. It loads every 5 minutes starting from 00 of the hour"
                             echo
-                            echo -e "\033[31m""ps x | grep transmission | grep -v grep""\e[0m"
+                            #
+                            if [[ "$(date +%-M)" -le '4' ]] && [[ "$(date +%-M)" -ge '0' ]]; then time="$(( 5 * 60 ))"; fi
+                            if [[ "$(date +%-M)" -le '9' ]] && [[ "$(date +%-M)" -ge '5' ]]; then time="$(( 10 * 60 ))"; fi
+                            if [[ "$(date +%-M)" -le '14' ]] && [[ "$(date +%-M)" -ge '10' ]]; then time="$(( 15 * 60 ))"; fi
+                            if [[ "$(date +%-M)" -le '19' ]] && [[ "$(date +%-M)" -ge '15' ]]; then time="$(( 20 * 60 ))"; fi
+                            if [[ "$(date +%-M)" -le '24' ]] && [[ "$(date +%-M)" -ge '20' ]]; then time="$(( 25 * 60 ))"; fi
+                            if [[ "$(date +%-M)" -le '29' ]] && [[ "$(date +%-M)" -ge '25' ]]; then time="$(( 30 * 60 ))"; fi
+                            if [[ "$(date +%-M)" -le '34' ]] && [[ "$(date +%-M)" -ge '30' ]]; then time="$(( 35 * 60 ))"; fi
+                            if [[ "$(date +%-M)" -le '39' ]] && [[ "$(date +%-M)" -ge '35' ]]; then time="$(( 40 * 60 ))"; fi
+                            if [[ "$(date +%-M)" -le '44' ]] && [[ "$(date +%-M)" -ge '40' ]]; then time="$(( 45 * 60 ))"; fi
+                            if [[ "$(date +%-M)" -le '49' ]] && [[ "$(date +%-M)" -ge '45' ]]; then time="$(( 50 * 60 ))"; fi
+                            if [[ "$(date +%-M)" -le '54' ]] && [[ "$(date +%-M)" -ge '50' ]]; then time="$(( 55 * 60 ))"; fi
+                            if [[ "$(date +%-M)" -le '59' ]] && [[ "$(date +%-M)" -ge '55' ]]; then time="$(( 60 * 60 ))"; fi
+                            #
+                            while [[ "$(ps x | grep -v grep | grep -c 'transmission-daemon -e /dev/null')" -eq "0" ]]
+                            do
+                                countdown="$(( $time-$(($(date +%-M) * 60 + $(date +%-S))) ))"
+                                printf '\rTransmission will restart in approximately: %dm:%ds ' $(($countdown%3600/60)) $(($countdown%60))
+                            done
+                            echo -e '\n'
+                            #
+                            echo -e "\033[31m""$(ps x | grep -v grep | grep 'transmission-daemon -e /dev/null')""\e[0m"
                             echo
                             echo -e "\033[32m""For troubleshooting refer to the FAQ:""\e[0m" "\033[36m""https://www.feralhosting.com/faq/view?question=158""\e[0m"
                             echo
@@ -313,7 +336,7 @@ then
                             if [[ -d ~/private/mysql ]]
                                 then
                                 echo -e "\033[31m""Restarting MySQL""\e[0m"
-                                killall -9 -u $(whoami) mysqld mysqld_safe
+                                killall -u $(whoami) mysqld mysqld_safe  > /dev/null 2>&1
                                 bash ~/private/mysql/launch.sh > /dev/null 2>&1
                                 echo "Mysql has been restarted"
                                 echo
