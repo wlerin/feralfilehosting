@@ -74,11 +74,27 @@ gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
 # This is the raw github url of the script to use with the built in updater.
 scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/ZNC%20-%20Basic%20Setup/scripts/install.znc"
 #
+# This will generate a random port for the script between the range 10001 to 49999 to use with applications. You can ignore this unless needed.
+appport=$(shuf -i 10001-49999 -n 1)
+#
+# This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
+while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]
+do
+    appport=$(shuf -i 10001-49999 -n 1)
+done
+#
+############################
+## Custom Variables Start ##
+############################
+#
 zncpassword="$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)"
-zncport=$(shuf -i 10001-49999 -n 1)
 #
 znctemplate="http://git.io/vvTzB"
 zncpassgen="http://git.io/vvTgf"
+#
+############################
+### Custom Variables End ###
+############################
 #
 # Disables the built in script updater permanently by setting this variable to 0.
 updaterenabled="1"
@@ -296,16 +312,16 @@ then
     #
     sed -ri 's/SETAPASS/'"$zncpassword"'/g' ~/zncpass.py
     #
-    while [[ "$(netstat -ln | grep ':'"$zncport"'' | grep -c 'LISTEN')" -eq "1" ]]
+    while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]
     do
-        zncport=$(shuf -i 10001-49999 -n 1)
+        appport=$(shuf -i 10001-49999 -n 1)
     done
     #
     sed -ri 's/<User SETAUSER>/<User '"$(whoami)"'>/g' ~/.znc/configs/znc.conf
     sed -ri 's/	Nick       = SETAUSER/	Nick       = '"$(whoami)"'/g' ~/.znc/configs/znc.conf
     sed -ri 's/	AltNick    = SETAUSER_/	AltNick    = '"$(whoami)"_'/g' ~/.znc/configs/znc.conf
     sed -ri 's/	Ident      = SETAUSER/	Ident      = '"$(whoami)"'/g' ~/.znc/configs/znc.conf
-    sed -ri 's/	Port = SETAPORT/	Port = '"$zncport"'/g' ~/.znc/configs/znc.conf
+    sed -ri 's/	Port = SETAPORT/	Port = '"$appport"'/g' ~/.znc/configs/znc.conf
     sed -ri 's/	Pass       = SETAPASS/	Pass       = '$(python ~/zncpass.py)'/g' ~/.znc/configs/znc.conf
     #
     rm -f ~/zncpass.py
@@ -328,7 +344,7 @@ then
     fi
     # give user the full URL
     echo -e "\nClick on or copy the URL below to do additional configuration if needed\n"
-    echo -e "\033[33m""https://$(hostname -f):$zncport""\e[0m"
+    echo -e "\033[33m""https://$(hostname -f):$appport""\e[0m"
     echo
     echo -e "Your znc WebUi username: $(whoami)"
     echo -e "Your znc WebUi password: $zncpassword"
