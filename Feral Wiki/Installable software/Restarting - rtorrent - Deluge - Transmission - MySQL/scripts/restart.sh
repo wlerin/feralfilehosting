@@ -1,16 +1,28 @@
 #!/bin/bash
-# restart.sh
-scriptversion="1.0.5"
-scriptname="restart"
-# randomessence
+#
+############################
+##### Basic Info Start #####
+############################
+#
+# Script Author: randomesessence
+#
+# Script Contributors: none
+#
+# License: This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. https://creativecommons.org/licenses/by-sa/4.0/
+#
+# Bash Command for easy reference:
 #
 # wget -qO ~/restart http://git.io/5Uw8Gw && bash ~/restart
+#
+############################
+###### Basic Info End ######
+############################
 #
 ############################
 #### Script Notes Start ####
 ############################
 #
-# Add notes or warnings here for anyone modifying the scripts
+##
 #
 ############################
 ##### Script Notes End #####
@@ -20,6 +32,15 @@ scriptname="restart"
 ## Version History Starts ##
 ############################
 #
+if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
+    #
+    echo 'v1.0.6 - Template updated'
+    echo 'v1.0.5 - Template updated'
+    #
+    echo
+    exit
+fi
+#
 ############################
 ### Version History Ends ###
 ############################
@@ -28,44 +49,151 @@ scriptname="restart"
 ###### Variable Start ######
 ############################
 #
-updaterenabled="1"
+# Script Version number is set here.
+scriptversion="1.0.6"
 #
+# Script name goes here. Please prefix with install.
+scriptname="restart"
+#
+# Author name goes here.
+scriptauthor="randomessence"
+#
+# Contributor's names go here.
+contributors="None credited"
+#
+# Set the http://git.io/ shortened URL for the raw github URL here:
+gitiourl="http://git.io/5Uw8Gw"
+#
+# Don't edit: This is the bash command shown when using the info option.
+gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
+#
+# This is the raw github url of the script to use with the built in updater.
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/scripts/restart.sh"
+#
+# This will generate a random port for the script between the range 10001 to 49999 to use with applications. You can ignore this unless needed.
+appport=$(shuf -i 10001-49999 -n 1)
+#
+# This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
+while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]
+do
+    appport=$(shuf -i 10001-49999 -n 1)
+done
+#
+# Disables the built in script updater permanently by setting this variable to 0.
+updaterenabled="1"
 #
 ############################
 ####### Variable End #######
 ############################
 #
 ############################
+#### Script Info Starts ####
+############################
+#
+# Use this to show a user script information when they use the info option with the script.
+if [[ ! -z $1 && $1 == 'info' ]]
+then
+    echo
+    echo -e "\033[32m""Script Details:""\e[0m"
+    echo
+    echo "Script Author: $scriptauthor"
+    echo
+    echo "Script Contributors: $contributors"
+    echo
+    echo -e "\033[32m""Script Information and usage instructions:""\e[0m"
+    echo
+    #
+    ###################################
+    #### Custom Script Notes Start ####
+    ###################################
+    #
+    echo -e "Put your instructions or script information here using echoes"
+    #
+    ###################################
+    ##### Custom Script Notes End #####
+    ###################################
+    #
+    echo
+    echo -e "\033[32m""Script options:""\e[0m"
+    echo
+    echo -e "\033[31mImportant note:\e[0m Options \033[36mqr\e[0m and \033[36mnu\e[0m are interchangeable and usable together."
+    echo
+    echo -e "For example: \033[36m$scriptname qr nu\e[0m or \033[36m$scriptname nu qr\e[0m will both work"
+    echo
+    echo -e "\033[36mqr\e[0m = Quick Run - use this to bypass the default update prompts and run the main script directly."
+    echo
+    echo -e "Example usage: \033[36m$scriptname qr\e[0m"
+    echo
+    echo -e "\033[36mnu\e[0m = No Update - disable the built in updater. Useful for testing new features or debugging."
+    echo
+    echo -e "Example usage: \033[36m$scriptname nu\e[0m"
+    echo
+    echo -e "\033[32mBash Commands:\e[0m"
+    echo
+    echo -e "$gitiocommand"
+    echo
+    echo -e "~/bin/$scriptname"
+    echo
+    echo -e "$scriptname"
+    #
+    echo
+    exit
+fi
+#
+############################
+##### Script Info Ends #####
+############################
+#
+############################
 #### Self Updater Start ####
 ############################
 #
-if [[ "$updaterenabled" -eq 1 ]]
+# Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, whihc woudl reset the option, it will then find this file and set it back.
+if [[ ! -z $1 && $1 == 'qr' ]] || [[ ! -z $2 && $2 == 'qr' ]];then echo -n '' > ~/.quickrun; fi
+#
+# No Update option: This disables the updater features if the script option "nu" was used when running the script.
+if [[ ! -z $1 && $1 == 'nu' ]] || [[ ! -z $2 && $2 == 'nu' ]]
 then
-    [[ ! -d ~/bin ]] && mkdir -p ~/bin
-    [[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
-    #
-    wget -qO ~/.000"$scriptname" "$scripturl"
-    #
-    if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
-    then
-        echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
-        bash ~/.111"$scriptname"
-        exit
-    else
-        if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
-        then
-            echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
-            bash ~/.222"$scriptname"
-            exit
-        fi
-    fi
-    cd && rm -f .{000,111,222}"$scriptname"
-    chmod -f 700 ~/bin/"$scriptname"
-else
     echo
-    echo "The Updater has been disabled"
+    echo "The Updater has been temporarily disabled"
+    echo
+    scriptversion="$scriptversion-nu"
+else
+    #
+    # Check to see if the variable "updaterenabled" is set to 1. If it is set to 0 the script will bypass the built in updater regardless of the options used.
+    if [[ "$updaterenabled" -eq 1 ]]
+    then
+        [[ ! -d ~/bin ]] && mkdir -p ~/bin
+        [[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
+        #
+        wget -qO ~/.000"$scriptname" "$scripturl"
+        #
+        if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
+        then
+            echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
+            bash ~/.111"$scriptname"
+            exit
+        else
+            if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
+            then
+                echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
+                bash ~/.222"$scriptname"
+                exit
+            fi
+        fi
+        cd && rm -f .{000,111,222}"$scriptname"
+        chmod -f 700 ~/bin/"$scriptname"
+        echo
+    else
+        echo
+        echo "The Updater has been disabled"
+        echo
+        scriptversion="$scriptversion-DEV"
+    fi
 fi
+#
+# Quick Run option part 2: If quick run was set and the updater section completes this will enable quick run again then remove the file.
+if [[ -f ~/.quickrun ]];then updatestatus="y"; rm -f ~/.quickrun; fi
 #
 ############################
 ##### Self Updater End #####
@@ -75,11 +203,16 @@ fi
 #### Core Script Starts ####
 ############################
 #
-echo
-echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
-echo
-read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " -i "y" updatestatus
-echo
+if [[ "$updatestatus" == "y" ]]
+then
+    :
+else
+    echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
+    echo
+    read -ep "The script has been updated, enter [y] to continue or [q] to exit: " -i "y" updatestatus
+    echo
+fi
+#
 if [[ "$updatestatus" =~ ^[Yy]$ ]]
 then
 #
@@ -209,7 +342,7 @@ else
     echo -e "You chose to exit after updating the scripts."
     echo
     cd && bash
-    exit 1
+    exit
 fi
 #
 ############################
