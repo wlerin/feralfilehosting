@@ -1,33 +1,149 @@
 #!/bin/bash
-# php settings
-scriptversion="1.0.6"
-scriptname="phpsettings"
-# randomessence
+#
+############################
+##### Basic Info Start #####
+############################
+#
+# Script Author: randomessence
+#
+# Script Contributors: 
+#
+# License: This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. https://creativecommons.org/licenses/by-sa/4.0/
+#
+# Bash Command for easy reference:
 #
 # wget -qO ~/phpsettings http://git.io/hGdl && bash ~/phpsettings
+#
+############################
+###### Basic Info End ######
+############################
 #
 ############################
 #### Script Notes Start ####
 ############################
 #
-# Add notes or warnings here for anyone modifying the scripts
+##
 #
 ############################
 ##### Script Notes End #####
 ############################
 #
 ############################
+## Version History Starts ##
+############################
+#
+if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
+    #
+    echo 'v1.0.7 - Template updated. nginx countdown timer'
+    #
+    echo
+    exit
+fi
+#
+############################
+### Version History Ends ###
+############################
+#
+############################
+###### Variable Start ######
+############################
+#
+# Script Version number is set here.
+scriptversion="1.0.6"
+#
+# Script name goes here. Please prefix with install.
+scriptname="phpsettings"
+#
+# Author name goes here.
+scriptauthor="randomessence"
+#
+# Contributor's names go here.
+contributors="None credited"
+#
+# Set the http://git.io/ shortened URL for the raw github URL here:
+gitiourl="http://git.io/hGdl"
+#
+# Don't edit: This is the bash command shown when using the info option.
+gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
+#
+# This is the raw github url of the script to use with the built in updater.
+scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/PHP%20-%20modify%20settings/scripts/phpsettings.sh"
+#
+option1="Install Apache php.ini"
+option2="Install nginx php.ini"
+option3="Reload Apache"
+option4="Reload Nginx"
+option5="Quit the Script"
+#
+# Disables the built in script updater permanently by setting this variable to 0.
+updaterenabled="1"
+#
+############################
+####### Variable End #######
+############################
+#
+############################
 #### Script Info Starts ####
 ############################
 #
+# Use this to show a user script information when they use the info option with the script.
 if [[ ! -z $1 && $1 == 'info' ]]
 then
     echo
+    echo -e "\033[32m""Script Details:""\e[0m"
+    echo
+    echo "Script version: $scriptversion"
+    echo
+    echo "Script Author: $scriptauthor"
+    echo
+    echo "Script Contributors: $contributors"
+    echo
+    echo -e "\033[32m""Script Information and usage instructions:""\e[0m"
+    echo
+    #
+    ###################################
+    #### Custom Script Notes Start ####
+    ###################################
     #
     echo "This script will allow you to do these things:"
     echo "1: edit your php.ini an saves the changes in either Apache or nginx."
     echo "2: Apply some default mysql options for use with applications"
     echo "3: Reload your new changes after your have saved your modifications."
+    #
+    ###################################
+    ##### Custom Script Notes End #####
+    ###################################
+    #
+    echo
+    echo -e "\033[32m""Script options:""\e[0m"
+    echo
+    echo -e "\033[36mchangelog\e[0m = See the version history and change log of this script."
+    echo
+    echo -e "Example usage: \033[36m$scriptname changelog\e[0m"
+    echo
+    echo -e "\033[36minfo\e[0m = Show the script information and usage instructions."
+    echo
+    echo -e "Example usage: \033[36m$scriptname info\e[0m"
+    echo
+    echo -e "\033[31mImportant note:\e[0m Options \033[36mqr\e[0m and \033[36mnu\e[0m are interchangeable and usable together."
+    echo
+    echo -e "For example: \033[36m$scriptname qr nu\e[0m or \033[36m$scriptname nu qr\e[0m will both work"
+    echo
+    echo -e "\033[36mqr\e[0m = Quick Run - use this to bypass the default update prompts and run the main script directly."
+    echo
+    echo -e "Example usage: \033[36m$scriptname qr\e[0m"
+    echo
+    echo -e "\033[36mnu\e[0m = No Update - disable the built in updater. Useful for testing new features or debugging."
+    echo
+    echo -e "Example usage: \033[36m$scriptname nu\e[0m"
+    echo
+    echo -e "\033[32mBash Commands:\e[0m"
+    echo
+    echo -e "$gitiocommand"
+    echo
+    echo -e "~/bin/$scriptname"
+    echo
+    echo -e "$scriptname"
     #
     echo
     exit
@@ -38,42 +154,22 @@ fi
 ############################
 #
 ############################
-## Version History Starts ##
-############################
-#
-############################
-### Version History Ends ###
-############################
-option1="Install Apache php.ini"
-option2="Install nginx php.ini"
-option3="Reload Apache"
-option4="Reload Nginx"
-option5="Quit the Script"
-############################
-###### Variable Start ######
-############################
-#
-updaterenabled="0"
-#
-scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/PHP%20-%20modify%20settings/scripts/phpsettings.sh"
-#
-############################
-####### Variable End #######
-############################
-#
-############################
 #### Self Updater Start ####
 ############################
 #
+# Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, whihc woudl reset the option, it will then find this file and set it back.
 if [[ ! -z $1 && $1 == 'qr' ]] || [[ ! -z $2 && $2 == 'qr' ]];then echo -n '' > ~/.quickrun; fi
 #
+# No Update option: This disables the updater features if the script option "nu" was used when running the script.
 if [[ ! -z $1 && $1 == 'nu' ]] || [[ ! -z $2 && $2 == 'nu' ]]
 then
     echo
     echo "The Updater has been temporarily disabled"
     echo
-    scriptversion=""$scriptversion"-nu"
+    scriptversion="$scriptversion-nu"
 else
+    #
+    # Check to see if the variable "updaterenabled" is set to 1. If it is set to 0 the script will bypass the built in updater regardless of the options used.
     if [[ "$updaterenabled" -eq 1 ]]
     then
         [[ ! -d ~/bin ]] && mkdir -p ~/bin
@@ -101,10 +197,11 @@ else
         echo
         echo "The Updater has been disabled"
         echo
-        scriptversion=""$scriptversion"-DEV"
+        scriptversion="$scriptversion-DEV"
     fi
 fi
 #
+# Quick Run option part 2: If quick run was set and the updater section completes this will enable quick run again then remove the file.
 if [[ -f ~/.quickrun ]];then updatestatus="y"; rm -f ~/.quickrun; fi
 #
 ############################
@@ -176,8 +273,29 @@ then
                                 killall -u $(whoami) nginx php5-fpm >/dev/null 2>&1
                                 echo "Waiting for nginx to reload. It loads every 5 minutes starting from 00 of the hour"
                                 echo
-                                while [[ ! -f ~/.nginx/php/pid ]]; do echo -ne "$(date +%M:%S)\r"; done; echo
-                                echo -e "\nnginx and php5-fpm have been reloaded by the system"
+                                #
+                                if [[ "$(date +%-M)" -le '4' ]] && [[ "$(date +%-M)" -ge '0' ]]; then time="$(( 5 * 60 ))"; fi
+                                if [[ "$(date +%-M)" -le '9' ]] && [[ "$(date +%-M)" -ge '5' ]]; then time="$(( 10 * 60 ))"; fi
+                                if [[ "$(date +%-M)" -le '14' ]] && [[ "$(date +%-M)" -ge '10' ]]; then time="$(( 15 * 60 ))"; fi
+                                if [[ "$(date +%-M)" -le '19' ]] && [[ "$(date +%-M)" -ge '15' ]]; then time="$(( 20 * 60 ))"; fi
+                                if [[ "$(date +%-M)" -le '24' ]] && [[ "$(date +%-M)" -ge '20' ]]; then time="$(( 25 * 60 ))"; fi
+                                if [[ "$(date +%-M)" -le '29' ]] && [[ "$(date +%-M)" -ge '25' ]]; then time="$(( 30 * 60 ))"; fi
+                                if [[ "$(date +%-M)" -le '34' ]] && [[ "$(date +%-M)" -ge '30' ]]; then time="$(( 35 * 60 ))"; fi
+                                if [[ "$(date +%-M)" -le '39' ]] && [[ "$(date +%-M)" -ge '35' ]]; then time="$(( 40 * 60 ))"; fi
+                                if [[ "$(date +%-M)" -le '44' ]] && [[ "$(date +%-M)" -ge '40' ]]; then time="$(( 45 * 60 ))"; fi
+                                if [[ "$(date +%-M)" -le '49' ]] && [[ "$(date +%-M)" -ge '45' ]]; then time="$(( 50 * 60 ))"; fi
+                                if [[ "$(date +%-M)" -le '54' ]] && [[ "$(date +%-M)" -ge '50' ]]; then time="$(( 55 * 60 ))"; fi
+                                if [[ "$(date +%-M)" -le '59' ]] && [[ "$(date +%-M)" -ge '55' ]]; then time="$(( 60 * 60 ))"; fi
+                                #
+                                while [[ ! -f ~/.nginx/php/pid ]]
+                                do
+                                    countdown="$(( $time-$(($(date +%-M) * 60 + $(date +%-S))) ))"
+                                    printf '\rnginx will restart in approximately: %dm:%ds ' $(($countdown%3600/60)) $(($countdown%60))
+                                done
+                                echo -e '\n'
+                                #
+                                echo -e "nginx and php5-fpm have been reloaded by the system"
+                                echo
                                 echo -e "\033[32m""Done""\e[0m"
                                 echo
                                 echo "The mysql, mysqli and pdo defaults sockets have also been set"
@@ -209,8 +327,29 @@ then
                                 killall -u $(whoami) nginx php5-fpm >/dev/null 2>&1
                                 echo "Waiting for nginx to reload. It loads every 5 minutes starting from 00 of the hour"
                                 echo
-                                while [[ ! -f ~/.nginx/php/pid ]]; do echo -ne "$(date +%M:%S)\r"; done; echo
-                                echo -e "\nnginx and php5-fpm have been reloaded by the system"
+                                #
+                                if [[ "$(date +%-M)" -le '4' ]] && [[ "$(date +%-M)" -ge '0' ]]; then time="$(( 5 * 60 ))"; fi
+                                if [[ "$(date +%-M)" -le '9' ]] && [[ "$(date +%-M)" -ge '5' ]]; then time="$(( 10 * 60 ))"; fi
+                                if [[ "$(date +%-M)" -le '14' ]] && [[ "$(date +%-M)" -ge '10' ]]; then time="$(( 15 * 60 ))"; fi
+                                if [[ "$(date +%-M)" -le '19' ]] && [[ "$(date +%-M)" -ge '15' ]]; then time="$(( 20 * 60 ))"; fi
+                                if [[ "$(date +%-M)" -le '24' ]] && [[ "$(date +%-M)" -ge '20' ]]; then time="$(( 25 * 60 ))"; fi
+                                if [[ "$(date +%-M)" -le '29' ]] && [[ "$(date +%-M)" -ge '25' ]]; then time="$(( 30 * 60 ))"; fi
+                                if [[ "$(date +%-M)" -le '34' ]] && [[ "$(date +%-M)" -ge '30' ]]; then time="$(( 35 * 60 ))"; fi
+                                if [[ "$(date +%-M)" -le '39' ]] && [[ "$(date +%-M)" -ge '35' ]]; then time="$(( 40 * 60 ))"; fi
+                                if [[ "$(date +%-M)" -le '44' ]] && [[ "$(date +%-M)" -ge '40' ]]; then time="$(( 45 * 60 ))"; fi
+                                if [[ "$(date +%-M)" -le '49' ]] && [[ "$(date +%-M)" -ge '45' ]]; then time="$(( 50 * 60 ))"; fi
+                                if [[ "$(date +%-M)" -le '54' ]] && [[ "$(date +%-M)" -ge '50' ]]; then time="$(( 55 * 60 ))"; fi
+                                if [[ "$(date +%-M)" -le '59' ]] && [[ "$(date +%-M)" -ge '55' ]]; then time="$(( 60 * 60 ))"; fi
+                                #
+                                while [[ ! -f ~/.nginx/php/pid ]]
+                                do
+                                    countdown="$(( $time-$(($(date +%-M) * 60 + $(date +%-S))) ))"
+                                    printf '\rnginx will restart in approximately: %dm:%ds ' $(($countdown%3600/60)) $(($countdown%60))
+                                done
+                                echo -e '\n'
+                                #
+                                echo -e "nginx and php5-fpm have been reloaded by the system"
+                                echo
                                 echo -e "\033[32m""Done""\e[0m"
                                 echo
                             else
@@ -237,7 +376,7 @@ else
     echo -e "You chose to exit after updating the scripts."
     echo
     cd && bash
-    exit 1
+    exit
 fi
 #
 ############################
