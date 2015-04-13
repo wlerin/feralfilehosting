@@ -5,6 +5,7 @@
 ############################
 #
 # Script Author: adamaze
+#
 # Script Contributors: randomessence
 #
 # License: This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. https://creativecommons.org/licenses/by-sa/4.0/
@@ -32,10 +33,17 @@
 ## Version History Starts ##
 ############################
 #
-# 1.0.0 automation
-# 0.8.0 Template update
-# 0.7.0 - visual and functional tweaks
-# 0.5.0 - initial commit
+if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
+    #
+    echo '1.0.1 push module with curl if required dependency is present otherwise skipped. Template updated'
+    echo '1.0.0 automation'
+    echo 'v0.8.0 Template update'
+    echo 'v0.7.0 - visual and functional tweaks'
+    echo 'v0.5.0 - initial commit'
+    #
+    echo
+    exit
+fi
 #
 ############################
 ### Version History Ends ###
@@ -45,22 +53,22 @@
 ###### Variable Start ######
 ############################
 #
-# Script Version number is set here
-scriptversion="1.0.0"
+# Script Version number is set here.
+scriptversion="1.0.1"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.znc"
 #
-# Author name goes here
+# Author name goes here.
 scriptauthor="adamaze"
 #
-# Contributor's names go here
+# Contributor's names go here.
 contributors="randomessence"
 #
-# http://git.io/  shortened URL for the raw github URL goes here:
+# Set the http://git.io/ shortened URL for the raw github URL here:
 gitiourl="http://git.io/vvfyN"
 #
-# The bash command shown when using the info option.
+# Don't edit: This is the bash command shown when using the info option.
 gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
 #
 # This is the raw github url of the script to use with the built in updater.
@@ -95,8 +103,12 @@ then
     echo
     echo "Script Contributors: $contributors"
     echo
+    echo -e "\033[32m""Script Information and usage instructions:""\e[0m"
+    echo
     #
-    ################# Custom Script Notes #################
+    ###################################
+    #### Custom Script Notes Start ####
+    ###################################
     echo -e "\033[32m""Script Notes - this script will do these things:""\e[0m"
     echo
     echo "1.1: Check if you require full charset support via the required dependency libicu-dev that is not installed by default."
@@ -105,9 +117,20 @@ then
     echo "3: Run the znc make config setup process"
     echo "4: Install an @reboot crontab entry for znc"
     echo
-    #######################################################
+    ###################################
+    ##### Custom Script Notes End #####
+    ###################################
     #
+    echo
     echo -e "\033[32m""Script options:""\e[0m"
+    echo
+    echo -e "\033[36mchangelog\e[0m = See the version history and change log of this script."
+    echo
+    echo -e "Example usage: \033[36m$scriptname changelog\e[0m"
+    echo
+    echo -e "\033[36minfo\e[0m = Show the script information and usage instructions."
+    echo
+    echo -e "Example usage: \033[36m$scriptname info\e[0m"
     echo
     echo -e "\033[31mImportant note:\e[0m Options \033[36mqr\e[0m and \033[36mnu\e[0m are interchangeable and usable together."
     echo
@@ -141,15 +164,19 @@ fi
 #### Self Updater Start ####
 ############################
 #
+# Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, whihc woudl reset the option, it will then find this file and set it back.
 if [[ ! -z $1 && $1 == 'qr' ]] || [[ ! -z $2 && $2 == 'qr' ]];then echo -n '' > ~/.quickrun; fi
 #
+# No Update option: This disables the updater features if the script option "nu" was used when running the script.
 if [[ ! -z $1 && $1 == 'nu' ]] || [[ ! -z $2 && $2 == 'nu' ]]
 then
     echo
     echo "The Updater has been temporarily disabled"
     echo
-    scriptversion=""$scriptversion"-nu"
+    scriptversion="$scriptversion-nu"
 else
+    #
+    # Check to see if the variable "updaterenabled" is set to 1. If it is set to 0 the script will bypass the built in updater regardless of the options used.
     if [[ "$updaterenabled" -eq 1 ]]
     then
         [[ ! -d ~/bin ]] && mkdir -p ~/bin
@@ -177,10 +204,11 @@ else
         echo
         echo "The Updater has been disabled"
         echo
-        scriptversion=""$scriptversion"-DEV"
+        scriptversion="$scriptversion-DEV"
     fi
 fi
 #
+# Quick Run option part 2: If quick run was set and the updater section completes this will enable quick run again then remove the file.
 if [[ -f ~/.quickrun ]];then updatestatus="y"; rm -f ~/.quickrun; fi
 #
 ############################
@@ -242,14 +270,26 @@ then
     make install > ~/.logs/znc-make-install.log 2>&1
     cd && rm -rf znc{-1.*,.tar.gz}
     echo -e "\033[33m""Setting up ZNC using the template files.""\e[0m"
+    echo
     killall -u $(whoami) znc > /dev/null 2>&1
     #
-    #git clone https://github.com/jreese/znc-push.git > ~/.logs/znc-push.log 2>&1
-    #cd ~/znc-push
-    #make curl=yes >> ~/.logs/znc-push.log 2>&1
-    #make install >> ~/.logs/znc-push.log 2>&1
+    if [ "$(dpkg-query -s libcurl4-openssl-dev 2>&1 | grep -c 'ok installed')" -eq 1 ]
+    then
+        echo "libcurl4-openssl-dev is installed. Installing znc push module."
+        echo
+        git clone https://github.com/jreese/znc-push.git > ~/.logs/znc-push.log 2>&1
+        cd ~/znc-push
+        make curl=yes >> ~/.logs/znc-push.log 2>&1
+        make install >> ~/.logs/znc-push.log 2>&1
+        cd && rm -rf znc-push
+    else
+        echo "libcurl4-openssl-dev is not installed. Skipping push module installation."
+        echo
+        echo "Please refer to the ZNC FAQ for how to get the dependency installed."
+        echo "Once you have libcurl4-openssl-dev installed then install the push module manually."
+        echo
+    fi
     #
-    echo
     mkdir -p ~/.znc/configs/
     wget -qO ~/.znc/configs/znc.conf "$znctemplate"
     wget -qO ~/zncpass.py "$zncpassgen"
@@ -304,7 +344,7 @@ else
     echo -e "You chose to exit after updating the scripts."
     echo
     cd && bash
-    exit 1
+    exit
 fi
 #
 ############################
