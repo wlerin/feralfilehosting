@@ -127,14 +127,24 @@ gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
 # This is the raw github url of the script to use with the built in updater.
 scripturl="https://raw.github.com/feralhosting"
 #
+# This will generate a 20 character random passsword for use with your applications.
+apppass=$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)
 # This will generate a random port for the script between the range 10001 to 49999 to use with applications. You can ignore this unless needed.
 appport=$(shuf -i 10001-49999 -n 1)
 #
 # This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
-while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]
-do
-    appport=$(shuf -i 10001-49999 -n 1)
-done
+while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]; do appport=$(shuf -i 10001-49999 -n 1); done
+#
+# Some useful Feral variables.
+host1http="http://$(whoami).$(hostname -f)/"
+host1https="https://$(whoami).$(hostname -f)/"
+host2http="http://$(hostname -f)/$(whoami)/"
+host2https="https://$(hostname -f)/$(whoami)/"
+#
+[[ -d ~/www/$(whoami).$(hostname -f)/public_html ]] && feralwww="$HOME/www/$(whoami).$(hostname -f)/public_html/"
+[[ -d ~/private/rtorrent/data ]] && rtorrentdata="$HOME/private/rtorrent/data"
+[[ -d ~/private/deluge/data ]] && delugedata="$HOME/private/deluge/data"
+[[ -d ~/private/transmission/data ]] && transmissiondata="$HOME/private/transmission/data"
 #
 ############################
 ## Custom Variables Start ##
