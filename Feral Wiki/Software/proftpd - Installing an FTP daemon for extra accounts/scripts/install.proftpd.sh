@@ -45,7 +45,7 @@ if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
     #echo 'v0.0.4 - My changes go here'
     #echo 'v0.0.3 - My changes go here'
     #echo 'v0.0.2 - My changes go here'
-    echo 'v0.0.1 - Updater template updated'
+    echo 'v1.2.4 - Template updated'
     #
     echo
     exit
