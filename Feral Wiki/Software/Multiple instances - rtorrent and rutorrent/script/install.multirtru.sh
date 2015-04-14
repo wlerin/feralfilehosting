@@ -534,7 +534,7 @@ then
                 echo -e "\033[32m""Checking we have started irssi or if there are multiple screens/processes""\e[0m"
                 echo -e "\033[31m"
                 # Check if the screen is running for the user
-                screen -ls | grep autodl-"$suffix"
+                echo $(screen -ls | grep autodl-"$suffix")
                 echo -e "\e[0m"
                 echo -e "You can attach to the screen using this command:"
                 echo
@@ -548,11 +548,11 @@ then
             echo
             echo "To reattach to this screen type:"
             echo
-            echo -e "\033[33m""        screen -r rtorrent-$suffix""\e[0m"
+            echo -e "\033[33m""screen -r rtorrent-$suffix""\e[0m"
             echo
             echo "Is it running?"
             echo -e "\033[33m"
-            screen -ls | grep rtorrent-"$suffix"
+            echo $(screen -ls | grep rtorrent-"$suffix")
             echo -e "\e[0m"
             if [[ -n "$username" ]]
             then
@@ -571,6 +571,7 @@ then
                 if [[ -f ~/.randompasstmp ]]
                 then
                     echo -e "Your password for rutorrent-$suffix is" "\033[32m""$randompass""\e[0m" "Please make a note of this password now."
+                    echo
                     echo -e "If you forget the pass you will have to use the script in this FAQ - https://www.feralhosting.com/faq/view?question=22"
                     cd && rm -rf ~/.randompasstmp
                     echo
