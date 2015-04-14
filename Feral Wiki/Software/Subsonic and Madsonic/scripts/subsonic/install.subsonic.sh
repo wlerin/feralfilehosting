@@ -1,22 +1,53 @@
 #!/bin/bash
-# Install Subsonic
-scriptversion="1.9.0"
-scriptname="install.subsonic"
-subsonicversion="5.2.1"
-javaversion="1.8 Update 40"
-jvdecimal="1.8.0_40"
 #
-# Bobtentpeg 01/30/2013 & randomessence 04/24/2013
+############################
+##### Basic Info Start #####
+############################
 #
-# * * * * * bash -l ~/bin/subsonicron
+# Script Author: Bobtentpeg
 #
-# wget -qO ~/install.subsonic http://git.io/bGZT && bash ~/install.subsonic qr
+# Script Contributors: randomessence
+#
+# License: This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. https://creativecommons.org/licenses/by-sa/4.0/
+#
+# Bash Command for easy reference:
+#
+# wget -qO ~/install.subsonic http://git.io/bGZT && bash ~/install.subsonic
+#
+############################
+###### Basic Info End ######
+############################
+#
+############################
+#### Script Notes Start ####
+############################
+#
+############################
+##### Script Notes End #####
+############################
 #
 ############################
 ## Version History Starts ##
 ############################
 #
-# See version.txt
+if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
+    #
+    # put your version changes in the single quotes and then uncomment the line.
+    #
+    #echo 'v0.1.0 - My changes go here'
+    #echo 'v0.0.9 - My changes go here'
+    #echo 'v0.0.8 - My changes go here'
+    #echo 'v0.0.7 - My changes go here'
+    #echo 'v0.0.6 - My changes go here'
+    #echo 'v0.0.5 - My changes go here'
+    #echo 'v0.0.4 - My changes go here'
+    #echo 'v0.0.3 - My changes go here'
+    #echo 'v0.0.2 - My changes go here'
+    echo 'v2.0.0 Template updated - minor script tweaks'
+    #
+    echo
+    exit
+fi
 #
 ############################
 ### Version History Ends ###
@@ -26,13 +57,64 @@ jvdecimal="1.8.0_40"
 ###### Variable Start ######
 ############################
 #
-# Disables the built in script updater permanently.
-updaterenabled="1"
-# Sets a random port between 10000-50000 for http
-http=$(shuf -i 10001-49000 -n 1)
+# Script Version number is set here.
+scriptversion="2.0.0"
+#
+# Script name goes here. Please prefix with install.
+scriptname="install.subsonic"
+#
+# Author name goes here.
+scriptauthor="None credited"
+#
+# Contributor's names go here.
+contributors="None credited"
+#
+# Set the http://git.io/ shortened URL for the raw github URL here:
+gitiourl="http://git.io/bGZT"
+#
+# Don't edit: This is the bash command shown when using the info option.
+gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
+#
+# This is the raw github url of the script to use with the built in updater.
+scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/subsonic/install.subsonic.sh"
+#
+# This will generate a 20 character random passsword for use with your applications.
+apppass=$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)
+# This will generate a random port for the script between the range 10001 to 49999 to use with applications. You can ignore this unless needed.
+appport=$(shuf -i 10001-49999 -n 1)
+#
+# This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
+while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]; do appport=$(shuf -i 10001-49999 -n 1); done
+#
+# Script user's http www URL in the format http://username.server.feralhosting.com/
+host1http="http://$(whoami).$(hostname -f)/"
+# Script user's https www URL in the format https://username.server.feralhosting.com/
+host1https="https://$(whoami).$(hostname -f)/"
+# Script user's http www url in the format https://server.feralhosting.com/username/
+host2http="http://$(hostname -f)/$(whoami)/"
+# Script user's https www url in the format https://server.feralhosting.com/username/
+host2https="https://$(hostname -f)/$(whoami)/"
+#
+# feralwww - sets the full path to the default public_html directory if it exists.
+[[ -d ~/www/$(whoami).$(hostname -f)/public_html ]] && feralwww="$HOME/www/$(whoami).$(hostname -f)/public_html/"
+# rtorrentdata - sets the full path to the rtorrent data directory if it exists.
+[[ -d ~/private/rtorrent/data ]] && rtorrentdata="$HOME/private/rtorrent/data"
+# deluge - sets the full path to the deluge data directory if it exists.
+[[ -d ~/private/deluge/data ]] && delugedata="$HOME/private/deluge/data"
+# transmission - sets the full path to the transmission data directory if it exists.
+[[ -d ~/private/transmission/data ]] && transmissiondata="$HOME/private/transmission/data"
+#
+############################
+## Custom Variables Start ##
+############################
+#
+subsonicversion="5.2.1"
+javaversion="1.8 Update 40"
+jvdecimal="1.8.0_40"
+#
 # Defines the memory variable
 # buffer
-submemory="2048"
+maxmemory="2048"
 # Gets the Java version from the last time this script installed Java
 installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 # Java URL
@@ -44,25 +126,102 @@ subsonicfvs="subsonic-5.2.1-standalone.tar.gz"
 sffmpegfv="https://bitbucket.org/feralhosting/feralfiles/downloads/sonic.ffmpeg.17.10.2014.zip"
 sffmpegfvs="sonic.ffmpeg.17.10.2014.zip"
 #
-scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/subsonic/install.subsonic.sh"
+############################
+### Custom Variables End ###
+############################
+#
+# Disables the built in script updater permanently by setting this variable to 0.
+updaterenabled="1"
 #
 ############################
 ####### Variable End #######
 ############################
 #
 ############################
+#### Script Info Starts ####
+############################
+#
+# Use this to show a user script information when they use the info option with the script.
+if [[ ! -z $1 && $1 == 'info' ]]
+then
+    echo
+    echo -e "\033[32m""Script Details:""\e[0m"
+    echo
+    echo "Script version: $scriptversion"
+    echo
+    echo "Script Author: $scriptauthor"
+    echo
+    echo "Script Contributors: $contributors"
+    echo
+    echo -e "\033[32m""Script Information and usage instructions:""\e[0m"
+    echo
+    #
+    ###################################
+    #### Custom Script Notes Start ####
+    ###################################
+    #
+    echo -e "Put your instructions or script information here using echoes"
+    #
+    ###################################
+    ##### Custom Script Notes End #####
+    ###################################
+    #
+    echo
+    echo -e "\033[32m""Script options:""\e[0m"
+    echo
+    echo -e "\033[36mchangelog\e[0m = See the version history and change log of this script."
+    echo
+    echo -e "Example usage: \033[36m$scriptname changelog\e[0m"
+    echo
+    echo -e "\033[36minfo\e[0m = Show the script information and usage instructions."
+    echo
+    echo -e "Example usage: \033[36m$scriptname info\e[0m"
+    echo
+    echo -e "\033[31mImportant note:\e[0m Options \033[36mqr\e[0m and \033[36mnu\e[0m are interchangeable and usable together."
+    echo
+    echo -e "For example: \033[36m$scriptname qr nu\e[0m or \033[36m$scriptname nu qr\e[0m will both work"
+    echo
+    echo -e "\033[36mqr\e[0m = Quick Run - use this to bypass the default update prompts and run the main script directly."
+    echo
+    echo -e "Example usage: \033[36m$scriptname qr\e[0m"
+    echo
+    echo -e "\033[36mnu\e[0m = No Update - disable the built in updater. Useful for testing new features or debugging."
+    echo
+    echo -e "Example usage: \033[36m$scriptname nu\e[0m"
+    echo
+    echo -e "\033[32mBash Commands:\e[0m"
+    echo
+    echo -e "$gitiocommand"
+    echo
+    echo -e "~/bin/$scriptname"
+    echo
+    echo -e "$scriptname"
+    #
+    echo
+    exit
+fi
+#
+############################
+##### Script Info Ends #####
+############################
+#
+############################
 #### Self Updater Start ####
 ############################
 #
+# Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, whihc woudl reset the option, it will then find this file and set it back.
 if [[ ! -z $1 && $1 == 'qr' ]] || [[ ! -z $2 && $2 == 'qr' ]];then echo -n '' > ~/.quickrun; fi
 #
+# No Update option: This disables the updater features if the script option "nu" was used when running the script.
 if [[ ! -z $1 && $1 == 'nu' ]] || [[ ! -z $2 && $2 == 'nu' ]]
 then
     echo
     echo "The Updater has been temporarily disabled"
     echo
-    scriptversion=""$scriptversion"-nu"
+    scriptversion="$scriptversion-nu"
 else
+    #
+    # Check to see if the variable "updaterenabled" is set to 1. If it is set to 0 the script will bypass the built in updater regardless of the options used.
     if [[ "$updaterenabled" -eq 1 ]]
     then
         [[ ! -d ~/bin ]] && mkdir -p ~/bin
@@ -90,10 +249,11 @@ else
         echo
         echo "The Updater has been disabled"
         echo
-        scriptversion=""$scriptversion"-DEV"
+        scriptversion="$scriptversion-DEV"
     fi
 fi
 #
+# Quick Run option part 2: If quick run was set and the updater section completes this will enable quick run again then remove the file.
 if [[ -f ~/.quickrun ]];then updatestatus="y"; rm -f ~/.quickrun; fi
 #
 ############################
@@ -222,7 +382,7 @@ then
                     ps -p \$(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null) --no-headers 2> /dev/null
                     echo -e \"\\\e[0m\"
                 fi
-                exit 1
+                exit
             else
                 echo -e \"Subsonic with the PID:\\\033[32m\$(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null)\\\e[0m is already running. Kill it first then restart\"
                 echo
@@ -232,7 +392,7 @@ then
                 then
                     bash ~/bin/subsonicrsk
                 fi
-                exit 1
+                exit
             fi
         elif [[ \$confirm =~ ^[Ll]\$ ]]
         then
@@ -242,13 +402,13 @@ then
         else
             echo This script has done its job and will now exit.
             echo
-            exit 1
+            exit
         fi
     else
         echo
         echo -e \"The \\\033[31m~/private/subsonic/subsonic.sh\\\e[0m does not exist.\"
         echo -e \"please run the \\\033[31m~/install.subsonic\\\e[0m to install and configure subsonic\"
-        exit 1
+        exit
     fi
 else
     echo -e \"Subsonic is not installed\"
@@ -400,10 +560,10 @@ then
         echo -e "\033[33m""Note on user input:""\e[0m" "It is OK to use a relative path like:" "\033[33m""~/private/rtorrent/data""\e[0m"
         #
         sed -i 's|SUBSONIC_HOME=/var/subsonic|SUBSONIC_HOME=~/private/subsonic|g' ~/private/subsonic/subsonic.sh
-        sed -i "s/SUBSONIC_PORT=4040/SUBSONIC_PORT=$http/g" ~/private/subsonic/subsonic.sh
+        sed -i "s/SUBSONIC_PORT=4040/SUBSONIC_PORT=$appport/g" ~/private/subsonic/subsonic.sh
         sed -i 's|SUBSONIC_CONTEXT_PATH=/|SUBSONIC_CONTEXT_PATH=/$(whoami)/subsonic|g' ~/private/subsonic/subsonic.sh
         # buffer
-        sed -i "s/SUBSONIC_MAX_MEMORY=150/SUBSONIC_MAX_MEMORY=$submemory/g" ~/private/subsonic/subsonic.sh
+        sed -i "s/SUBSONIC_MAX_MEMORY=150/SUBSONIC_MAX_MEMORY=$maxmemory/g" ~/private/subsonic/subsonic.sh
         sed -i '0,/SUBSONIC_PIDFILE=/s|SUBSONIC_PIDFILE=|SUBSONIC_PIDFILE=~/private/subsonic/subsonic.sh.PID|g' ~/private/subsonic/subsonic.sh
         #
         read -ep "Enter the path to your media or leave blank and press enter to skip: " path
@@ -420,14 +580,14 @@ then
         sed -i '22 i export LANGUAGE=en_GB.UTF-8' ~/private/subsonic/subsonic.sh
         # Apache proxypass
         mkdir -p ~/.apache2/conf.d
-        echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\nInclude /etc/apache2/mods-available/ssl.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\nSSLProxyEngine on\n\nProxyPass /subsonic http://10.0.0.1:'"$http"'/${USER}/subsonic\nProxyPassReverse /subsonic http://10.0.0.1:'"$http"'/${USER}/subsonic\nRedirect /${USER}/subsonic https://${APACHE_HOSTNAME}/${USER}/subsonic' > "$HOME/.apache2/conf.d/subsonic.conf"
+        echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\nInclude /etc/apache2/mods-available/ssl.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\nSSLProxyEngine on\n\nProxyPass /subsonic http://10.0.0.1:'"$appport"'/${USER}/subsonic\nProxyPassReverse /subsonic http://10.0.0.1:'"$appport"'/${USER}/subsonic\nRedirect /${USER}/subsonic https://${APACHE_HOSTNAME}/${USER}/subsonic' > "$HOME/.apache2/conf.d/subsonic.conf"
         /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
         echo
         # Nginx proxypass
         if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
         then
-        mkdir -p ~/.nginx/proxy
-        echo -e 'location /subsonic {\n\nproxy_temp_path '"$HOME"'/.nginx/proxy;\n\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /subsonic/(.*) /'$(whoami)'/subsonic/$1 break;\nproxy_pass http://10.0.0.1:'"$http"'/'$(whoami)'/subsonic/;\nproxy_redirect http:// https://;\n\n}' > ~/.nginx/conf.d/000-default-server.d/subsonic.conf
+            mkdir -p ~/.nginx/proxy
+            echo -e 'location /subsonic {\n\nproxy_temp_path '"$HOME"'/.nginx/proxy;\n\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /subsonic/(.*) /'$(whoami)'/subsonic/$1 break;\nproxy_pass http://10.0.0.1:'"$appport"'/'$(whoami)'/subsonic/;\nproxy_redirect http:// https://;\n\n}' > ~/.nginx/conf.d/000-default-server.d/subsonic.conf
             /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
         fi
         echo -e "\033[31m""Start-up script successfully configured.""\e[0m"
@@ -478,7 +638,7 @@ then
             echo
             if [[ "$confirm" =~ ^[Yy]$ ]]
             then
-                echo -e "\033[32m" "Relaunching the installer.""\e[0m"
+                echo -e "\033[32m""Relaunching the installer.""\e[0m"
                 if [[ -f ~/bin/"$scriptname" ]]
                 then
                     bash ~/bin/"$scriptname"
@@ -541,8 +701,8 @@ then
 else
     echo -e "You chose to exit after updating the scripts."
     echo
-    exit
     cd && bash
+    exit
 fi
 #
 ############################

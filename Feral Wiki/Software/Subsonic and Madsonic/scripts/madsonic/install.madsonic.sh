@@ -1,22 +1,53 @@
 #!/bin/bash
-# Install Madsonic
-scriptversion="1.9.0"
-scriptname="install.madsonic"
-madsonicversion="5.1 Build 5200"
-javaversion="1.8 Update 40"
-jvdecimal="1.8.0_40"
 #
-# randomessence
+############################
+##### Basic Info Start #####
+############################
 #
-# * * * * * bash -l ~/bin/madsonicron
+# Script Author: randomessence
 #
-# wget -qO ~/install.madsonic http://git.io/Eq97bg && bash ~/install.madsonic qr
+# Script Contributors: 
+#
+# License: This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. https://creativecommons.org/licenses/by-sa/4.0/
+#
+# Bash Command for easy reference:
+#
+# wget -qO ~/install.madsonic http://git.io/Eq97bg && bash ~/install.madsonic
+#
+############################
+###### Basic Info End ######
+############################
+#
+############################
+#### Script Notes Start ####
+############################
+#
+############################
+##### Script Notes End #####
+############################
 #
 ############################
 ## Version History Starts ##
 ############################
 #
-# See version.txt
+if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
+    #
+    # put your version changes in the single quotes and then uncomment the line.
+    #
+    #echo 'v0.1.0 - My changes go here'
+    #echo 'v0.0.9 - My changes go here'
+    #echo 'v0.0.8 - My changes go here'
+    #echo 'v0.0.7 - My changes go here'
+    #echo 'v0.0.6 - My changes go here'
+    #echo 'v0.0.5 - My changes go here'
+    #echo 'v0.0.4 - My changes go here'
+    #echo 'v0.0.3 - My changes go here'
+    #echo 'v0.0.2 - My changes go here'
+    echo 'v2.0.0 - Templater update - minor script tweaks'
+    #
+    echo
+    exit
+fi
 #
 ############################
 ### Version History Ends ###
@@ -26,43 +57,175 @@ jvdecimal="1.8.0_40"
 ###### Variable Start ######
 ############################
 #
-# Disables the built in script updater permanently.
-updaterenabled="1"
-# Sets a random port between 10000-50000 for http
-http=$(shuf -i 10001-49000 -n 1)
+# Script Version number is set here.
+scriptversion="2.0.0"
+#
+# Script name goes here. Please prefix with install.
+scriptname="install.madsonic"
+#
+# Author name goes here.
+scriptauthor="None credited"
+#
+# Contributor's names go here.
+contributors="None credited"
+#
+# Set the http://git.io/ shortened URL for the raw github URL here:
+gitiourl="http://git.io/Eq97bg"
+#
+# Don't edit: This is the bash command shown when using the info option.
+gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
+#
+# This is the raw github url of the script to use with the built in updater.
+scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/madsonic/install.madsonic.sh"
+#
+# This will generate a 20 character random passsword for use with your applications.
+apppass=$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)
+# This will generate a random port for the script between the range 10001 to 49999 to use with applications. You can ignore this unless needed.
+appport=$(shuf -i 10001-49999 -n 1)
+#
+# This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
+while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]; do appport=$(shuf -i 10001-49999 -n 1); done
+#
+# Script user's http www URL in the format http://username.server.feralhosting.com/
+host1http="http://$(whoami).$(hostname -f)/"
+# Script user's https www URL in the format https://username.server.feralhosting.com/
+host1https="https://$(whoami).$(hostname -f)/"
+# Script user's http www url in the format https://server.feralhosting.com/username/
+host2http="http://$(hostname -f)/$(whoami)/"
+# Script user's https www url in the format https://server.feralhosting.com/username/
+host2https="https://$(hostname -f)/$(whoami)/"
+#
+# feralwww - sets the full path to the default public_html directory if it exists.
+[[ -d ~/www/$(whoami).$(hostname -f)/public_html ]] && feralwww="$HOME/www/$(whoami).$(hostname -f)/public_html/"
+# rtorrentdata - sets the full path to the rtorrent data directory if it exists.
+[[ -d ~/private/rtorrent/data ]] && rtorrentdata="$HOME/private/rtorrent/data"
+# deluge - sets the full path to the deluge data directory if it exists.
+[[ -d ~/private/deluge/data ]] && delugedata="$HOME/private/deluge/data"
+# transmission - sets the full path to the transmission data directory if it exists.
+[[ -d ~/private/transmission/data ]] && transmissiondata="$HOME/private/transmission/data"
+#
+############################
+## Custom Variables Start ##
+############################
+#
+madsonicversion="5.1 Build 5200"
+javaversion="1.8 Update 40"
+jvdecimal="1.8.0_40"
+#
 # Defines the memory variable
 initmemory="2048"
 maxmemory="2048"
+#
 # Gets the Java version from the last time this script installed Java
 installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
+#
 # Java URL
 javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=103420"
+#
 # Madsonic Standalone files
 madsonicfv="https://bitbucket.org/feralhosting/feralfiles/downloads/5.1.5200-standalone.zip"
 madsonicfvs="5.1.5200-standalone.zip"
+#
 # ffmpeg files
 mffmpegfvc="https://bitbucket.org/feralhosting/feralfiles/downloads/sonic.ffmpeg.17.10.2014.zip"
 mffmpegfvcs="sonic.ffmpeg.17.10.2014.zip"
 #
-scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Subsonic%20and%20Madsonic/scripts/madsonic/install.madsonic.sh"
+############################
+### Custom Variables End ###
+############################
+#
+# Disables the built in script updater permanently by setting this variable to 0.
+updaterenabled="1"
 #
 ############################
 ####### Variable End #######
 ############################
 #
 ############################
+#### Script Info Starts ####
+############################
+#
+# Use this to show a user script information when they use the info option with the script.
+if [[ ! -z $1 && $1 == 'info' ]]
+then
+    echo
+    echo -e "\033[32m""Script Details:""\e[0m"
+    echo
+    echo "Script version: $scriptversion"
+    echo
+    echo "Script Author: $scriptauthor"
+    echo
+    echo "Script Contributors: $contributors"
+    echo
+    echo -e "\033[32m""Script Information and usage instructions:""\e[0m"
+    echo
+    #
+    ###################################
+    #### Custom Script Notes Start ####
+    ###################################
+    #
+    echo -e "Put your instructions or script information here using echoes"
+    #
+    ###################################
+    ##### Custom Script Notes End #####
+    ###################################
+    #
+    echo
+    echo -e "\033[32m""Script options:""\e[0m"
+    echo
+    echo -e "\033[36mchangelog\e[0m = See the version history and change log of this script."
+    echo
+    echo -e "Example usage: \033[36m$scriptname changelog\e[0m"
+    echo
+    echo -e "\033[36minfo\e[0m = Show the script information and usage instructions."
+    echo
+    echo -e "Example usage: \033[36m$scriptname info\e[0m"
+    echo
+    echo -e "\033[31mImportant note:\e[0m Options \033[36mqr\e[0m and \033[36mnu\e[0m are interchangeable and usable together."
+    echo
+    echo -e "For example: \033[36m$scriptname qr nu\e[0m or \033[36m$scriptname nu qr\e[0m will both work"
+    echo
+    echo -e "\033[36mqr\e[0m = Quick Run - use this to bypass the default update prompts and run the main script directly."
+    echo
+    echo -e "Example usage: \033[36m$scriptname qr\e[0m"
+    echo
+    echo -e "\033[36mnu\e[0m = No Update - disable the built in updater. Useful for testing new features or debugging."
+    echo
+    echo -e "Example usage: \033[36m$scriptname nu\e[0m"
+    echo
+    echo -e "\033[32mBash Commands:\e[0m"
+    echo
+    echo -e "$gitiocommand"
+    echo
+    echo -e "~/bin/$scriptname"
+    echo
+    echo -e "$scriptname"
+    #
+    echo
+    exit
+fi
+#
+############################
+##### Script Info Ends #####
+############################
+#
+############################
 #### Self Updater Start ####
 ############################
 #
+# Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, whihc woudl reset the option, it will then find this file and set it back.
 if [[ ! -z $1 && $1 == 'qr' ]] || [[ ! -z $2 && $2 == 'qr' ]];then echo -n '' > ~/.quickrun; fi
 #
+# No Update option: This disables the updater features if the script option "nu" was used when running the script.
 if [[ ! -z $1 && $1 == 'nu' ]] || [[ ! -z $2 && $2 == 'nu' ]]
 then
     echo
     echo "The Updater has been temporarily disabled"
     echo
-    scriptversion=""$scriptversion"-nu"
+    scriptversion="$scriptversion-nu"
 else
+    #
+    # Check to see if the variable "updaterenabled" is set to 1. If it is set to 0 the script will bypass the built in updater regardless of the options used.
     if [[ "$updaterenabled" -eq 1 ]]
     then
         [[ ! -d ~/bin ]] && mkdir -p ~/bin
@@ -90,10 +253,11 @@ else
         echo
         echo "The Updater has been disabled"
         echo
-        scriptversion=""$scriptversion"-DEV"
+        scriptversion="$scriptversion-DEV"
     fi
 fi
 #
+# Quick Run option part 2: If quick run was set and the updater section completes this will enable quick run again then remove the file.
 if [[ -f ~/.quickrun ]];then updatestatus="y"; rm -f ~/.quickrun; fi
 #
 ############################
@@ -400,7 +564,7 @@ then
         echo -e "\033[33m""Note on user input:""\e[0m" "It is OK to use a relative path like:" "\033[33m""~/private/rtorrent/data""\e[0m"
         #
         sed -i 's|MADSONIC_HOME=/var/madsonic|MADSONIC_HOME=~/private/madsonic|g' ~/private/madsonic/madsonic.sh > /dev/null 2>&1
-        sed -i "s/MADSONIC_PORT=4040/MADSONIC_PORT=$http/g" ~/private/madsonic/madsonic.sh > /dev/null 2>&1
+        sed -i "s/MADSONIC_PORT=4040/MADSONIC_PORT=$appport/g" ~/private/madsonic/madsonic.sh > /dev/null 2>&1
         sed -i 's|MADSONIC_CONTEXT_PATH=/|MADSONIC_CONTEXT_PATH=/$(whoami)/madsonic|g' ~/private/madsonic/madsonic.sh > /dev/null 2>&1
         sed -i "s/MADSONIC_INIT_MEMORY=192/MADSONIC_INIT_MEMORY=$initmemory/g" ~/private/madsonic/madsonic.sh > /dev/null 2>&1
         sed -i "s/MADSONIC_MAX_MEMORY=384/MADSONIC_MAX_MEMORY=$maxmemory/g" ~/private/madsonic/madsonic.sh > /dev/null 2>&1
@@ -420,14 +584,14 @@ then
         sed -i '23 i export LANGUAGE=en_GB.UTF-8' ~/private/madsonic/madsonic.sh > /dev/null 2>&1
         # Apache proxypass
         mkdir -p ~/.apache2/conf.d
-        echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\nInclude /etc/apache2/mods-available/ssl.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\nSSLProxyEngine on\n\nProxyPass /madsonic http://10.0.0.1:'"$http"'/${USER}/madsonic\nProxyPassReverse /madsonic http://10.0.0.1:'"$http"'/${USER}/madsonic\nRedirect /${USER}/madsonic https://${APACHE_HOSTNAME}/${USER}/madsonic' > "$HOME/.apache2/conf.d/madsonic.conf"
+        echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\nInclude /etc/apache2/mods-available/ssl.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\nSSLProxyEngine on\n\nProxyPass /madsonic http://10.0.0.1:'"$appport"'/${USER}/madsonic\nProxyPassReverse /madsonic http://10.0.0.1:'"$appport"'/${USER}/madsonic\nRedirect /${USER}/madsonic https://${APACHE_HOSTNAME}/${USER}/madsonic' > "$HOME/.apache2/conf.d/madsonic.conf"
         /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
         echo
         # Nginx proxypass
         if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
         then
             mkdir -p ~/.nginx/proxy
-            echo -e 'location /madsonic {\n\nproxy_temp_path '"$HOME"'/.nginx/proxy;\n\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /madsonic/(.*) /'$(whoami)'/madsonic/$1 break;\nproxy_pass http://10.0.0.1:'"$http"'/'$(whoami)'/madsonic/;\nproxy_redirect http:// https://;\n\n}' > ~/.nginx/conf.d/000-default-server.d/madsonic.conf
+            echo -e 'location /madsonic {\n\nproxy_temp_path '"$HOME"'/.nginx/proxy;\n\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /madsonic/(.*) /'$(whoami)'/madsonic/$1 break;\nproxy_pass http://10.0.0.1:'"$appport"'/'$(whoami)'/madsonic/;\nproxy_redirect http:// https://;\n\n}' > ~/.nginx/conf.d/000-default-server.d/madsonic.conf
             /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
         fi
         echo -e "\033[31m""Start-up script successfully configured.""\e[0m"
@@ -478,7 +642,7 @@ then
             echo
             if [[ "$confirm" =~ ^[Yy]$ ]]
             then
-                echo -e "\033[32m" "Relaunching the installer.""\e[0m"
+                echo -e "\033[32m""Relaunching the installer.""\e[0m"
                 if [[ -f ~/bin/"$scriptname" ]] 
                 then
                     bash ~/bin/"$scriptname"
@@ -541,8 +705,8 @@ then
 else
     echo -e "You chose to exit after updating the scripts."
     echo
-    exit
     cd && bash
+    exit
 fi
 #
 ############################
