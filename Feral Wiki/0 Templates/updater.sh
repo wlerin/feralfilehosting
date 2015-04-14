@@ -135,15 +135,22 @@ appport=$(shuf -i 10001-49999 -n 1)
 # This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
 while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]; do appport=$(shuf -i 10001-49999 -n 1); done
 #
-# Some useful Feral variables.
+# Script user's http www URL in the format http://username.server.feralhosting.com/
 host1http="http://$(whoami).$(hostname -f)/"
+# Script user's https www URL in the format https://username.server.feralhosting.com/
 host1https="https://$(whoami).$(hostname -f)/"
+# Script user's http www url in the format https://server.feralhosting.com/username/
 host2http="http://$(hostname -f)/$(whoami)/"
+# Script user's https www url in the format https://server.feralhosting.com/username/
 host2https="https://$(hostname -f)/$(whoami)/"
 #
+# feralwww - sets the full path to the default public_html directory if it exists.
 [[ -d ~/www/$(whoami).$(hostname -f)/public_html ]] && feralwww="$HOME/www/$(whoami).$(hostname -f)/public_html/"
+# rtorrentdata - sets the full path to the rtorrent data directory if it exists.
 [[ -d ~/private/rtorrent/data ]] && rtorrentdata="$HOME/private/rtorrent/data"
+# deluge - sets the full path to the deluge data directory if it exists.
 [[ -d ~/private/deluge/data ]] && delugedata="$HOME/private/deluge/data"
+# transmission - sets the full path to the transmission data directory if it exists.
 [[ -d ~/private/transmission/data ]] && transmissiondata="$HOME/private/transmission/data"
 #
 ############################

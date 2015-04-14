@@ -32,6 +32,7 @@
 #
 if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
     #
+    echo 'v1.4.7 - Template and minor tweaks.'
     echo 'v1.4.6 - Template and minor tweaks.'
     echo 'v1.4.5 - Template.'
     echo 'v1.4.4 - Template.'
@@ -75,7 +76,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.4.6"
+scriptversion="1.4.7"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.autodl"
@@ -95,14 +96,31 @@ gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
 # This is the raw github url of the script to use with the built in updater.
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/install.autodl.sh"
 #
+# This will generate a 20 character random passsword for use with your applications.
+apppass=$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)
 # This will generate a random port for the script between the range 10001 to 49999 to use with applications. You can ignore this unless needed.
 appport=$(shuf -i 10001-49999 -n 1)
 #
 # This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
-while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]
-do
-    appport=$(shuf -i 10001-49999 -n 1)
-done
+while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]; do appport=$(shuf -i 10001-49999 -n 1); done
+#
+# Script user's http www URL in the format http://username.server.feralhosting.com/
+host1http="http://$(whoami).$(hostname -f)/"
+# Script user's https www URL in the format https://username.server.feralhosting.com/
+host1https="https://$(whoami).$(hostname -f)/"
+# Script user's http www url in the format https://server.feralhosting.com/username/
+host2http="http://$(hostname -f)/$(whoami)/"
+# Script user's https www url in the format https://server.feralhosting.com/username/
+host2https="https://$(hostname -f)/$(whoami)/"
+#
+# feralwww - sets the full path to the default public_html directory if it exists.
+[[ -d ~/www/$(whoami).$(hostname -f)/public_html ]] && feralwww="$HOME/www/$(whoami).$(hostname -f)/public_html/"
+# rtorrentdata - sets the full path to the rtorrent data directory if it exists.
+[[ -d ~/private/rtorrent/data ]] && rtorrentdata="$HOME/private/rtorrent/data"
+# deluge - sets the full path to the deluge data directory if it exists.
+[[ -d ~/private/deluge/data ]] && delugedata="$HOME/private/deluge/data"
+# transmission - sets the full path to the transmission data directory if it exists.
+[[ -d ~/private/transmission/data ]] && transmissiondata="$HOME/private/transmission/data"
 #
 ############################
 ## Custom Variables Start ##
@@ -114,9 +132,7 @@ autodltrackers="http://update.autodl-community.com/autodl-trackers.zip"
 # URL for autodl-rutorrent
 autodlrutorrent="https://github.com/autodl-community/autodl-rutorrent/archive/master.zip"
 #
-# Random password generation
-pass=$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)
-#
+# This is a test to decide the output of an echoed variable depending of the presence of the ~/.autodl folder
 if [[ -d ~/.autodl ]]
 then
     shoutout1="Updating"
@@ -318,20 +334,20 @@ then
     # Delete files we no longer need.
     rm -f ~/autodl-{irssi,trackers}.zip ~/.irssi/scripts/{README*,CONTRIBUTING.md,autodl-irssi.pl}
     # If the autodl.cfg exists we use sed to update the existing username and pass with the ones the script has generated.
-    # else we use and echo to create our autodl.cfg file. Takes the two previously made variables, $appport and $pass to update/create the required info.
+    # else we use and echo to create our autodl.cfg file. Takes the two previously made variables, $appport and $apppass to update/create the required info.
     if [[ -f ~/.autodl/autodl.cfg ]]
     then
         if [[ $(tr -d "\r\n" < ~/.autodl/autodl.cfg | wc -c) -eq 0 ]]
         then
-            echo -e "[options]\ngui-server-port = $appport\ngui-server-password = $pass" > ~/.autodl/autodl.cfg
+            echo -e "[options]\ngui-server-port = $appport\ngui-server-password = $apppass" > ~/.autodl/autodl.cfg
         else
             # Sed command to enter the port variable
             sed -ri 's|(.*)gui-server-port =(.*)|gui-server-port = '"$appport"'|g' ~/.autodl/autodl.cfg
             # Sed command to enter the password variable
-            sed -ri 's|(.*)gui-server-password =(.*)|gui-server-password = '"$pass"'|g' ~/.autodl/autodl.cfg
+            sed -ri 's|(.*)gui-server-password =(.*)|gui-server-password = '"$apppass"'|g' ~/.autodl/autodl.cfg
         fi
     else 
-        echo -e "[options]\ngui-server-port = $appport\ngui-server-password = $pass" > ~/.autodl/autodl.cfg
+        echo -e "[options]\ngui-server-port = $appport\ngui-server-password = $apppass" > ~/.autodl/autodl.cfg
     fi
     #
     ############################
@@ -355,7 +371,7 @@ then
         # Delete the downloaded zip and the unpacked folder we no longer require.
         cd && rm -rf autodl-rutorrent{-master,.zip}
         # Uses echo to make the config file for the rutorrent plugun to work with autodl using the variables port and pass
-        echo -ne '<?php\n$autodlPort = '"$appport"';\n$autodlPassword = "'"$pass"'";\n?>' > ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi/conf.php
+        echo -ne '<?php\n$autodlPort = '"$appport"';\n$autodlPassword = "'"$apppass"'";\n?>' > ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi/conf.php
         #
         ############################
         ###### RuTorrent Ends ######

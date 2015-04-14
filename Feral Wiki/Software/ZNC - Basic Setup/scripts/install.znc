@@ -74,20 +74,35 @@ gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
 # This is the raw github url of the script to use with the built in updater.
 scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/ZNC%20-%20Basic%20Setup/scripts/install.znc"
 #
+# This will generate a 20 character random passsword for use with your applications.
+apppass=$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)
 # This will generate a random port for the script between the range 10001 to 49999 to use with applications. You can ignore this unless needed.
 appport=$(shuf -i 10001-49999 -n 1)
 #
 # This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
-while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]
-do
-    appport=$(shuf -i 10001-49999 -n 1)
-done
+while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]; do appport=$(shuf -i 10001-49999 -n 1); done
+#
+# Script user's http www URL in the format http://username.server.feralhosting.com/
+host1http="http://$(whoami).$(hostname -f)/"
+# Script user's https www URL in the format https://username.server.feralhosting.com/
+host1https="https://$(whoami).$(hostname -f)/"
+# Script user's http www url in the format https://server.feralhosting.com/username/
+host2http="http://$(hostname -f)/$(whoami)/"
+# Script user's https www url in the format https://server.feralhosting.com/username/
+host2https="https://$(hostname -f)/$(whoami)/"
+#
+# feralwww - sets the full path to the default public_html directory if it exists.
+[[ -d ~/www/$(whoami).$(hostname -f)/public_html ]] && feralwww="$HOME/www/$(whoami).$(hostname -f)/public_html/"
+# rtorrentdata - sets the full path to the rtorrent data directory if it exists.
+[[ -d ~/private/rtorrent/data ]] && rtorrentdata="$HOME/private/rtorrent/data"
+# deluge - sets the full path to the deluge data directory if it exists.
+[[ -d ~/private/deluge/data ]] && delugedata="$HOME/private/deluge/data"
+# transmission - sets the full path to the transmission data directory if it exists.
+[[ -d ~/private/transmission/data ]] && transmissiondata="$HOME/private/transmission/data"
 #
 ############################
 ## Custom Variables Start ##
 ############################
-#
-zncpassword="$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)"
 #
 znctemplate="http://git.io/vvTzB"
 zncpassgen="http://git.io/vvTgf"
@@ -310,7 +325,7 @@ then
     wget -qO ~/.znc/configs/znc.conf "$znctemplate"
     wget -qO ~/zncpass.py "$zncpassgen"
     #
-    sed -ri 's/SETAPASS/'"$zncpassword"'/g' ~/zncpass.py
+    sed -ri 's/SETAPASS/'"$apppass"'/g' ~/zncpass.py
     #
     while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]
     do
@@ -347,7 +362,7 @@ then
     echo -e "\033[33m""https://$(hostname -f):$appport""\e[0m"
     echo
     echo -e "Your znc WebUi username: $(whoami)"
-    echo -e "Your znc WebUi password: $zncpassword"
+    echo -e "Your znc WebUi password: $apppass"
     echo
     echo -e "Search the ZNC wiki for help connecting with different clients. http://wiki.znc.in/"
     echo
