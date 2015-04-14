@@ -12,6 +12,10 @@ if [[ "$(date +%-M)" -le '49' ]] && [[ "$(date +%-M)" -ge '45' ]]; then time="$(
 if [[ "$(date +%-M)" -le '54' ]] && [[ "$(date +%-M)" -ge '50' ]]; then time="$(( 55 * 60 ))"; fi
 if [[ "$(date +%-M)" -le '59' ]] && [[ "$(date +%-M)" -ge '55' ]]; then time="$(( 60 * 60 ))"; fi
 #
-while [[ "$(ps x | grep -v grep | grep -c 'transmission-daemon -e /dev/null')" -eq "0" ]]; do countdown="$(( $time-$(($(date +%-M) * 60 + $(date +%-S))) ))"; printf '\rTransmission will restart in approximately: %dm:%ds ' $(($countdown%3600/60)) $(($countdown%60)); done
+while [[ "$(ps x | grep -v grep | grep -c 'someapp')" -eq "0" ]]
+do
+    countdown="$(( $time-$(($(date +%-M) * 60 + $(date +%-S))) ))"
+    printf '\rsomeapp will restart in approximately: %dm:%ds ' $(($countdown%3600/60)) $(($countdown%60))
+done
 echo -e '\n'
 #
