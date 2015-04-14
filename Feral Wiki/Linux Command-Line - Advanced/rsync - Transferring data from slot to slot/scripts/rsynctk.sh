@@ -32,26 +32,24 @@
 #
 if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
     #
-    # put your version changes in the single quotes and then uncomment the line.
-    #
-    #echo 'v1.1.8 updated template and removed whatbox section. Feral internal only.' 
-    #echo 'v1.1.7 commands echoed to text file.' 
-    #echo 'v1.1.6 Feral interanal connection tweaks'
-    #echo 'v1.1.5 scriptname typo fixed. Removal of ~/bin/rysnc if it is matches certain tests. Credits: Thanks to ozymandias for pointing this out.' 
-    #echo 'v1.1.4 allows the use of paths with spaces in the custom and screen command' 
-    #echo 'v1.1.3 custom destination is created incase it is a nested location and other small tweaks' 
-    #echo 'v1.1.2 Option to select custom destination. Default is ~/rsync' 
-    #echo 'v1.1.1 some visual tweaks and clearer echoes'            
-    #echo 'v1.0.8 users can run a feral or whatbox version of the script.'
-    #echo 'v1.0.7 screen .... -p 0 was the secret sauce. Otherwise you need to be attached to the screen for the command to work'
-    #echo 'v1.0.6 removed partials'
-    #echo 'v1.0.5 screen exec'
-    #echo 'v1.0.3 echoes with custom commands'
-    #echo 'v1.0.2 various bug fixes, typos and general visual layout'
-    #echo 'v1.0.0 Should be a working, functional script'
-    #echo 'v0.0.9 script renamed to rsynctk to avoid conflict with rsync itself.'
-    #echo 'v0.0.8 beta'
-    echo 'v0.0.1 Initial Version
+    echo 'v1.1.8 updated template and removed whatbox section. Feral internal only.' 
+    echo 'v1.1.7 commands echoed to text file.' 
+    echo 'v1.1.6 Feral interanal connection tweaks'
+    echo 'v1.1.5 scriptname typo fixed. Removal of ~/bin/rysnc if it is matches certain tests. Credits: Thanks to ozymandias for pointing this out.' 
+    echo 'v1.1.4 allows the use of paths with spaces in the custom and screen command' 
+    echo 'v1.1.3 custom destination is created incase it is a nested location and other small tweaks' 
+    echo 'v1.1.2 Option to select custom destination. Default is ~/rsync' 
+    echo 'v1.1.1 some visual tweaks and clearer echoes'            
+    echo 'v1.0.8 users can run a feral or whatbox version of the script.'
+    echo 'v1.0.7 screen .... -p 0 was the secret sauce. Otherwise you need to be attached to the screen for the command to work'
+    echo 'v1.0.6 removed partials'
+    echo 'v1.0.5 screen exec'
+    echo 'v1.0.3 echoes with custom commands'
+    echo 'v1.0.2 various bug fixes, typos and general visual layout'
+    echo 'v1.0.0 Should be a working, functional script'
+    echo 'v0.0.9 script renamed to rsynctk to avoid conflict with rsync itself.'
+    echo 'v0.0.8 beta'
+    echo 'v0.0.1 Initial Version'
     #
     echo
     exit
