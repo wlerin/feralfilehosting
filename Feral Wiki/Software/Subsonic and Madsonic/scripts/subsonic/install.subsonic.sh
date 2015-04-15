@@ -160,7 +160,14 @@ then
     #### Custom Script Notes Start ####
     ###################################
     #
-    echo -e "Put your instructions or script information here using echoes"
+    echo -e "This installer provides a special script to restart/stop/kill the Subsonic installation"
+    echo
+    echo -e "To access this script use the command: subsonicrsk"
+    echo
+    echo -e "You can just run the script to until the updater prompt then exit to update these features:"
+    echo
+    echo -e "The java version - The nginx/apache proxypass - The subsonicrsk script."
+    echo
     #
     ###################################
     ##### Custom Script Notes End #####
