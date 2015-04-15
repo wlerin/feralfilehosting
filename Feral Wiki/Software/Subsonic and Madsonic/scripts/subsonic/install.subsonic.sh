@@ -109,8 +109,8 @@ host2https="https://$(hostname -f)/$(whoami)/"
 ############################
 #
 subsonicversion="5.2.1"
-javaversion="1.8 Update 40"
-jvdecimal="1.8.0_40"
+javaversion="1.8 Update 45"
+jvdecimal="1.8.0_45"
 #
 # Defines the memory variable
 # buffer
@@ -118,7 +118,7 @@ maxmemory="2048"
 # Gets the Java version from the last time this script installed Java
 installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 # Java URL
-javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=103420"
+javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=106240"
 # Subsonic Standalone files
 subsonicfv="http://downloads.sourceforge.net/project/subsonic/subsonic/5.2.1/subsonic-5.2.1-standalone.tar.gz"
 subsonicfvs="subsonic-5.2.1-standalone.tar.gz"

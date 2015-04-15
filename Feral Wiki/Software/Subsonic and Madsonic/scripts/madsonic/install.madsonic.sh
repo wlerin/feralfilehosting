@@ -109,8 +109,8 @@ host2https="https://$(hostname -f)/$(whoami)/"
 ############################
 #
 madsonicversion="5.1 Build 5200"
-javaversion="1.8 Update 40"
-jvdecimal="1.8.0_40"
+javaversion="1.8 Update 45"
+jvdecimal="1.8.0_45"
 #
 # Defines the memory variable
 initmemory="2048"
@@ -120,7 +120,7 @@ maxmemory="2048"
 installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 #
 # Java URL
-javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=103420"
+javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=106240"
 #
 # Madsonic Standalone files
 madsonicfv="https://bitbucket.org/feralhosting/feralfiles/downloads/5.1.5200-standalone.zip"

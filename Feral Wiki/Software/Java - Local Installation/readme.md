@@ -42,12 +42,12 @@ Unpack the files:
 tar xf ~/java.tar.gz --strip-components=1 -C ~/
 ~~~
 
-### Java 1.8 U40
+### Java 1.8 U45
 
 Download v8:
 
 ~~~
-wget -qO ~/java.tar.gz http://javadl.sun.com/webapps/download/AutoDL?BundleId=103420
+wget -qO ~/java.tar.gz http://javadl.sun.com/webapps/download/AutoDL?BundleId=106240
 ~~~
 
 Unpack the files:
@@ -64,7 +64,7 @@ Manually call `java` it like this:
 ~/bin/java -version
 ~~~
 
-You will see this:
+You will see this for Java 7:
 
 ~~~
 java version "1.7.0_75"
@@ -72,12 +72,12 @@ Java(TM) SE Runtime Environment (build 1.7.0_75-b13)
 Java HotSpot(TM) 64-Bit Server VM (build 24.75-b04, mixed mode)
 ~~~
 
-Or
+or this for Java 8:
 
 ~~~
-java version "1.8.0_40"
-Java(TM) SE Runtime Environment (build 1.8.0_40-b25)
-Java HotSpot(TM) 64-Bit Server VM (build 25.40-b25, mixed mode)
+java version "1.8.0_45"
+Java(TM) SE Runtime Environment (build 1.8.0_45-b14)
+Java HotSpot(TM) 64-Bit Server VM (build 25.45-b02, mixed mode)
 ~~~
 
 Unless you used the `-version` command before installing the update can just do this command below, otherwise log into a new SSH session for the changes to take effect and then check your version again.
