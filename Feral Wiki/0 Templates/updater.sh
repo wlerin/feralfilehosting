@@ -242,7 +242,7 @@ fi
 #### Self Updater Start ####
 ############################
 #
-# Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, whihc woudl reset the option, it will then find this file and set it back.
+# Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, which would reset the option, it will then find this file and set it back.
 if [[ ! -z $1 && $1 == 'qr' ]] || [[ ! -z $2 && $2 == 'qr' ]];then echo -n '' > ~/.quickrun; fi
 #
 # No Update option: This disables the updater features if the script option "nu" was used when running the script.
