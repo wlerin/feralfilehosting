@@ -42,7 +42,7 @@ if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
     #echo 'v0.0.5 - My changes go here'
     #echo 'v0.0.4 - My changes go here'
     #echo 'v0.0.3 - My changes go here'
-    echo 'v1.0.7 - Added option ot just install the proxypassed. Updated template and mior tweaks.'
+    echo 'v1.0.7 - Added option to just install the proxypass. Updated template and minor tweaks.'
     echo 'v1.0.6 - Updated templated'
     #
     echo
