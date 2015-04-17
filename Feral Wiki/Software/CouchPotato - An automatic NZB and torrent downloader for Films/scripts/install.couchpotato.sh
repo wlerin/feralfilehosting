@@ -325,7 +325,7 @@ then
                                 python ~/.couchpotato/CouchPotato.py --daemon
                                 echo "Visit this URL to finish the set up wizard"
                                 echo
-                                echo "https://$(hostname -f)/$(whoami)/couchpotato/"
+                                echo "${host2https}couchpotato/"
                                 echo
                                 echo -e "\033[31m""It may take a few minutes for the program to load properly in the URL." "\033[32m""Pressing F5 in your browser can help.""\e[0m"
                                 echo
@@ -382,6 +382,13 @@ then
                                 /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
                             fi
                             # proxypass ends
+                            #
+                            # Start couchpotato again
+                            python ~/.couchpotato/CouchPotato.py --daemon
+                            echo "Visit this URL to use Couchpotato:"
+                            echo
+                            echo "${host2https}couchpotato/"
+                            echo
                             exit
                             ;;
                     "4")
