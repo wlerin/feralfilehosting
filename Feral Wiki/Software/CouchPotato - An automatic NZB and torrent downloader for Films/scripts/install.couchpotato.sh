@@ -40,7 +40,7 @@ if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
     #echo 'v0.0.7 - My changes go here'
     #echo 'v0.0.6 - My changes go here'
     #echo 'v0.0.5 - My changes go here'
-    #echo 'v0.0.4 - My changes go here'
+    echo 'v1.0.9 - small fixes and some tweaks'
     echo 'v1.0.8 - bug fixes to option 3. Settings port and proxypass port were different. Visual tweaks.'
     echo 'v1.0.7 - Added option to just install the proxypass. Updated template and minor tweaks.'
     echo 'v1.0.6 - Updated templated'
@@ -58,7 +58,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.0.8"
+scriptversion="1.0.9"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.couchpotato"
@@ -115,7 +115,7 @@ option4="Quit the Script"
 #
 giturl="https://github.com/RuudBurger/CouchPotatoServer.git"
 #
-proxyport="$(grep -oE -m 1 'port = [0-9]{4,5}' ~/.couchpotato/settings.conf | sed -rn 's/^port = (.*)/\1/p')"
+[[ -f ~/.couchpotato/settings.conf ]] && proxyport="$(grep -oE -m 1 'port = [0-9]{4,5}' ~/.couchpotato/settings.conf | sed -rn 's/^port = (.*)/\1/p')"
 #
 ############################
 ### Custom Variables End ###
@@ -331,8 +331,17 @@ then
                                 echo
                                 echo -e "\033[31m""It may take a few minutes for the program to load properly in the URL." "\033[32m""Pressing F5 in your browser can help.""\e[0m"
                                 echo
-                                echo -e "Couchpotato is running at the PID:$(cat ~/.couchpotato/couchpotato.pid)"
-                                echo
+                                sleep 10
+                                if [[ -f ~/.couchpotato/couchpotato.pid ]] 
+                                then
+                                    echo -e "Couchpotato is running at the PID:$(cat ~/.couchpotato/couchpotato.pid)"
+                                    echo
+                                else
+                                    python ~/.couchpotato/CouchPotato.py --config_file="$HOME/.couchpotato/settings.conf"  --daemon
+                                    echo
+                                    echo -e "Couchpotato is running at the PID:$(cat ~/.couchpotato/couchpotato.pid)"
+                                    echo
+                                fi
                             else
                                 echo 'The folder ~/.couchpotato already exists. User Option 2 or remove it first'
                                 echo
@@ -343,15 +352,29 @@ then
                             then
                                 if [[ -f ~/.couchpotato/couchpotato.pid ]]
                                 then
-                                    kill $(cat ~/.couchpotato/couchpotato.pid)
-                                    echo "I need to wait 10 seconds for Couchpotato to shut down."
-                                    sleep 10
-                                    echo
+                                    kill "$(cat ~/.couchpotato/couchpotato.pid)"
+                                    while [[ -f ~/.couchpotato/couchpotato.pid  ]]; do printf '\rI need to wait for Couchpotato to shut down. '; done
+                                    echo -e '\n'
                                 fi
                                 cd ~/.couchpotato
                                 git pull origin
                                 echo
                                 python ~/.couchpotato/CouchPotato.py --config_file="$HOME/.couchpotato/settings.conf" --daemon
+                                echo "Visit this URL to use Couchpotato:"
+                                echo
+                                echo -e "\033[32m""${host2https}couchpotato/""\e[0m"
+                                echo
+                                sleep 10
+                                if [[ -f ~/.couchpotato/couchpotato.pid ]] 
+                                then
+                                    echo -e "Couchpotato is running at the PID:$(cat ~/.couchpotato/couchpotato.pid)"
+                                    echo
+                                else
+                                    python ~/.couchpotato/CouchPotato.py --config_file="$HOME/.couchpotato/settings.conf"  --daemon
+                                    echo
+                                    echo -e "Couchpotato is running at the PID:$(cat ~/.couchpotato/couchpotato.pid)"
+                                    echo
+                                fi
                             else
                                 echo 'Couchpotato is not installed to ~/.couchpotato'
                                 echo
@@ -371,9 +394,8 @@ then
                             if [[ -f ~/.couchpotato/couchpotato.pid ]]
                             then
                                 kill "$(cat ~/.couchpotato/couchpotato.pid)"
-                                echo "I need to wait 10 seconds for Couchpotato to shut down."
-                                sleep 10
-                                echo
+                                while [[ -f ~/.couchpotato/couchpotato.pid  ]]; do printf '\rI need to wait for Couchpotato to shut down. '; done
+                                echo -e '\n'
                             fi
                             # proxypass starts - Install the Apache and ning proxypasses.
                             mkdir -p ~/.apache2/conf.d
@@ -393,9 +415,17 @@ then
                             echo
                             echo -e "\033[32m""${host2https}couchpotato/""\e[0m"
                             echo
-                            echo -e "Couchpotato is running at the PID:$(cat ~/.couchpotato/couchpotato.pid)"
-                            echo
-                            exit
+                            sleep 10
+                            if [[ -f ~/.couchpotato/couchpotato.pid ]] 
+                            then
+                                echo -e "Couchpotato is running at the PID:$(cat ~/.couchpotato/couchpotato.pid)"
+                                echo
+                            else
+                                python ~/.couchpotato/CouchPotato.py --config_file="$HOME/.couchpotato/settings.conf"  --daemon
+                                echo
+                                echo -e "Couchpotato is running at the PID:$(cat ~/.couchpotato/couchpotato.pid)"
+                                echo
+                            fi
                             ;;
                     "4")
                             echo "You chose to quit the script."
