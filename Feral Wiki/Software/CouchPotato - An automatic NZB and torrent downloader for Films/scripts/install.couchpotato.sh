@@ -41,7 +41,7 @@ if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
     #echo 'v0.0.6 - My changes go here'
     #echo 'v0.0.5 - My changes go here'
     #echo 'v0.0.4 - My changes go here'
-    #echo 'v0.0.3 - My changes go here'
+    echo 'v1.0.8 - bug fixes to option 3. Settings port and proxypass port were different. Visual tweaks.'
     echo 'v1.0.7 - Added option to just install the proxypass. Updated template and minor tweaks.'
     echo 'v1.0.6 - Updated templated'
     #
@@ -58,7 +58,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.0.7"
+scriptversion="1.0.8"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.couchpotato"
@@ -114,6 +114,8 @@ option3="Install the Apache or Nginx proxypass."
 option4="Quit the Script"
 #
 giturl="https://github.com/RuudBurger/CouchPotatoServer.git"
+#
+proxyport="$(grep -oE -m 1 'port = [0-9]{4,5}' ~/.couchpotato/settings.conf | sed -rn 's/^port = (.*)/\1/p')"
 #
 ############################
 ### Custom Variables End ###
@@ -322,12 +324,14 @@ then
                                     /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
                                 fi
                                 # proxypass end
-                                python ~/.couchpotato/CouchPotato.py --daemon
+                                python ~/.couchpotato/CouchPotato.py --config_file="$HOME/.couchpotato/settings.conf"  --daemon
                                 echo "Visit this URL to finish the set up wizard"
                                 echo
-                                echo "${host2https}couchpotato/"
+                                echo -e "\033[32m""${host2https}couchpotato/""\e[0m"
                                 echo
                                 echo -e "\033[31m""It may take a few minutes for the program to load properly in the URL." "\033[32m""Pressing F5 in your browser can help.""\e[0m"
+                                echo
+                                echo -e "Couchpotato is running at the PID:$(cat ~/.couchpotato/couchpotato.pid)"
                                 echo
                             else
                                 echo 'The folder ~/.couchpotato already exists. User Option 2 or remove it first'
@@ -347,7 +351,7 @@ then
                                 cd ~/.couchpotato
                                 git pull origin
                                 echo
-                                python ~/.couchpotato/CouchPotato.py --daemon
+                                python ~/.couchpotato/CouchPotato.py --config_file="$HOME/.couchpotato/settings.conf" --daemon
                             else
                                 echo 'Couchpotato is not installed to ~/.couchpotato'
                                 echo
@@ -366,28 +370,30 @@ then
                             # KIll the couchpotato process via the PID file if it is present.
                             if [[ -f ~/.couchpotato/couchpotato.pid ]]
                             then
-                                kill $(cat ~/.couchpotato/couchpotato.pid)
+                                kill "$(cat ~/.couchpotato/couchpotato.pid)"
                                 echo "I need to wait 10 seconds for Couchpotato to shut down."
                                 sleep 10
                                 echo
                             fi
                             # proxypass starts - Install the Apache and ning proxypasses.
                             mkdir -p ~/.apache2/conf.d
-                            echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\n\nProxyPass /couchpotato http://10.0.0.1:'"$appport"'/${USER}/couchpotato\nProxyPassReverse /couchpotato http://10.0.0.1:'"$appport"'/${USER}/couchpotato' > ~/.apache2/conf.d/couchpototo.conf
+                            echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\n\nProxyPass /couchpotato http://10.0.0.1:'"$proxyport"'/${USER}/couchpotato\nProxyPassReverse /couchpotato http://10.0.0.1:'"$appport"'/${USER}/couchpotato' > ~/.apache2/conf.d/couchpototo.conf
                             /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
                             # The nginx specific section - depends on the existence of the required directories.
                             if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
                             then
-                                echo -en 'location ^~ /couchpotato {\nproxy_set_header X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\nproxy_set_header Host $http_x_host;\nproxy_set_header X-NginX-Proxy true;\n\nrewrite /(.*) /'$(whoami)'/$1 break;\nproxy_pass http://10.0.0.1:'"$appport"'/;\nproxy_redirect off;\n}' >  ~/.nginx/conf.d/000-default-server.d/couchpotato.conf
+                                echo -en 'location ^~ /couchpotato {\nproxy_set_header X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\nproxy_set_header Host $http_x_host;\nproxy_set_header X-NginX-Proxy true;\n\nrewrite /(.*) /'$(whoami)'/$1 break;\nproxy_pass http://10.0.0.1:'"$proxyport"'/;\nproxy_redirect off;\n}' >  ~/.nginx/conf.d/000-default-server.d/couchpotato.conf
                                 /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
                             fi
                             # proxypass ends
                             #
                             # Start couchpotato again
-                            python ~/.couchpotato/CouchPotato.py --daemon
+                            python ~/.couchpotato/CouchPotato.py --config_file="$HOME/.couchpotato/settings.conf" --daemon
                             echo "Visit this URL to use Couchpotato:"
                             echo
-                            echo "${host2https}couchpotato/"
+                            echo -e "\033[32m""${host2https}couchpotato/""\e[0m"
+                            echo
+                            echo -e "Couchpotato is running at the PID:$(cat ~/.couchpotato/couchpotato.pid)"
                             echo
                             exit
                             ;;
