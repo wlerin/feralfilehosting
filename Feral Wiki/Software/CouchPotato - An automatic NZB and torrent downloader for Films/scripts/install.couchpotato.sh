@@ -42,7 +42,7 @@ if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
     #echo 'v0.0.5 - My changes go here'
     #echo 'v0.0.4 - My changes go here'
     #echo 'v0.0.3 - My changes go here'
-    #echo 'v0.0.2 - My changes go here'
+    echo 'v1.0.7 - Added option ot just install the proxypassed. Updated template and mior tweaks.'
     echo 'v1.0.6 - Updated templated'
     #
     echo
@@ -58,7 +58,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.0.6"
+scriptversion="1.0.7"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.couchpotato"
@@ -110,7 +110,8 @@ host2https="https://$(hostname -f)/$(whoami)/"
 #
 option1="Install Program"
 option2="Update Program"
-option3="Quit the Script"
+option3="Install the Apache or Nginx proxypass."
+option4="Quit the Script"
 #
 giturl="https://github.com/RuudBurger/CouchPotatoServer.git"
 #
@@ -131,6 +132,7 @@ updaterenabled="1"
 #
 if [[ ! -z $1 && $1 == 'help' ]]
 then
+    echo
     echo -e "\033[32m""Script help and usage instructions:""\e[0m"
     echo
     #
@@ -144,6 +146,8 @@ then
     ###### Custom Help Info Ends ######
     ###################################
     #
+    echo
+    exit
 fi
 #
 ############################
@@ -289,6 +293,8 @@ then
             echo "1) $option1"
             echo "2) $option2"
             echo "3) $option3"
+            echo "4) $option4"
+
             echo
     }
 
@@ -348,6 +354,37 @@ then
                             fi
                             ;;
                     "3")
+                            # Check for the existence of the ~/.nginx/conf.d/000-default-server.d directory so as to echo a relevant statement.
+                            if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+                            then
+                                echo "Installing the Apache and Nginx proxypass."
+                                echo
+                            else
+                                echo "Installing the Apache proxypass."
+                                echo
+                            fi
+                            # KIll the couchpotato process via the PID file if it is present.
+                            if [[ -f ~/.couchpotato/couchpotato.pid ]]
+                            then
+                                kill $(cat ~/.couchpotato/couchpotato.pid)
+                                echo "I need to wait 10 seconds for Couchpotato to shut down."
+                                sleep 10
+                                echo
+                            fi
+                            # proxypass starts - Install the Apache and ning proxypasses.
+                            mkdir -p ~/.apache2/conf.d
+                            echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\n\nProxyPass /couchpotato http://10.0.0.1:'"$appport"'/${USER}/couchpotato\nProxyPassReverse /couchpotato http://10.0.0.1:'"$appport"'/${USER}/couchpotato' > ~/.apache2/conf.d/couchpototo.conf
+                            /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
+                            # The nginx specific section - depends on the existence of the required directories.
+                            if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+                            then
+                                echo -en 'location ^~ /couchpotato {\nproxy_set_header X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\nproxy_set_header Host $http_x_host;\nproxy_set_header X-NginX-Proxy true;\n\nrewrite /(.*) /'$(whoami)'/$1 break;\nproxy_pass http://10.0.0.1:'"$appport"'/;\nproxy_redirect off;\n}' >  ~/.nginx/conf.d/000-default-server.d/couchpotato.conf
+                                /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
+                            fi
+                            # proxypass ends
+                            exit
+                            ;;
+                    "4")
                             echo "You chose to quit the script."
                             echo
                             exit
