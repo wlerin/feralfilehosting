@@ -47,11 +47,14 @@
 # 11: appport=$(shuf -i 10001-49999 -n 1) - works in tandem with a while loop just below it. Will generate and test a port to make sure it is not in use. Use this when configuring an application's port.
 # 12: updaterenabled="1" - Set this to 0 to permanently disable the built in updater and associated features.
 #
+#
+### Script Help Section:
+#
+# 13: Place your help information and usage instructions inside the section labelled "Custom Script Notes" using echoes.
+#
 ### Script Info Section:
 #
-# Important note: The info section contains basic information about the features of this updater and the script. Don't modify these. You have a section dedicated to your unique information.
-#
-# 13: Place your unique information and usage instructions inside the section labelled "Custom Script Notes" using echoes.
+# Important note: The info section contains basic information about the features of this updater and the script. Don't modify these. You have a help section dedicated to your unique information.
 #
 ### Self Updater Section:
 #
@@ -65,11 +68,12 @@
 #
 ### Script Options explained:
 #
-# 16: changelog - use the argument qr when calling the script, for example - "somescript changelog".
-# 17: info - use the argument qr when calling the script, for example - "somescript info".
-# 18: qr - use this option to quick run the script suppressing all update prompts and jumping directly to the user script, for example - "somescript qr". Note - This does not disable or bypass the updater.
-# 19: nu - use the option to disable the update features of the script, for example - "somescript nu". Note - This will run the script from where it is called and append -DEV to the version number output.
-# 20: To pass your own variables to the script in the user script section please start from $2 onwards.
+# 16: help - Use this section to create help notes and usage instructions for the user when they use this option, for example - "somescript help".
+# 17: changelog - use the argument qr when calling the script, for example - "somescript changelog".
+# 18: info - use the argument qr when calling the script, for example - "somescript info".
+# 19: qr - use this option to quick run the script suppressing all update prompts and jumping directly to the user script, for example - "somescript qr". Note - This does not disable or bypass the updater.
+# 20: nu - use the option to disable the update features of the script, for example - "somescript nu". Note - This will run the script from where it is called and append -DEV to the version number output.
+# 21: To pass your own variables to the script in the user script section please start from $2 onwards.
 #
 ############################
 ##### Script Notes End #####
@@ -92,7 +96,7 @@ if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
     #echo 'v0.0.4 - My changes go here'
     #echo 'v0.0.3 - My changes go here'
     #echo 'v0.0.2 - My changes go here'
-    echo 'v0.0.1 - Updater template updated'
+    echo 'v0.0.1 - Updated templated'
     #
     echo
     exit
@@ -171,6 +175,34 @@ updaterenabled="1"
 ############################
 #
 ############################
+#### Script Help Starts ####
+############################
+#
+if [[ ! -z $1 && $1 == 'help' ]]
+then
+    echo
+    echo -e "\033[32m""Script help and usage instructions:""\e[0m"
+    echo
+    #
+    ###################################
+    ##### Custom Help Info Starts #####
+    ###################################
+    #
+    echo -e "Put your help instructions or script guidance here"
+    #
+    ###################################
+    ###### Custom Help Info Ends ######
+    ###################################
+    #
+    echo
+    exit
+fi
+#
+############################
+##### Script Help Ends #####
+############################
+#
+############################
 #### Script Info Starts ####
 ############################
 #
@@ -186,21 +218,11 @@ then
     echo
     echo "Script Contributors: $contributors"
     echo
-    echo -e "\033[32m""Script Information and usage instructions:""\e[0m"
-    echo
-    #
-    ###################################
-    #### Custom Script Notes Start ####
-    ###################################
-    #
-    echo -e "Put your instructions or script information here using echoes"
-    #
-    ###################################
-    ##### Custom Script Notes End #####
-    ###################################
-    #
-    echo
     echo -e "\033[32m""Script options:""\e[0m"
+    echo
+    echo -e "\033[36mhelp\e[0m = See the help section for this script."
+    echo
+    echo -e "Example usage: \033[36m$scriptname help\e[0m"
     echo
     echo -e "\033[36mchangelog\e[0m = See the version history and change log of this script."
     echo
