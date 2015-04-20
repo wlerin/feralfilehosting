@@ -1,77 +1,4 @@
 #!/bin/bash
-# autodlrutorrentfix.sh
-scriptversion="1.1.0"
-scriptname="autodlrutorrentfix"
-# randomessence
-#
-# wget -qO ~/autodlrutorrentfix.sh http://git.io/BBUryw && bash ~/autodlrutorrentfix.sh
-#
-############################
-## Version History Starts ##
-############################
-#
-# v1.0.6 updater template merged
-# v1.1.0 autodl multi instances
-#
-############################
-### Version History Ends ###
-############################
-#
-############################
-###### Variable Start ######
-############################
-#
-scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/autodlrutorrentfix.sh"
-#
-############################
-####### Variable End #######
-############################
-#
-############################
-#### Self Updater Start ####
-############################
-#
-[[ ! -d ~/bin ]] && mkdir -p ~/bin
-[[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
-#
-wget -qO ~/.000"$scriptname" "$scripturl"
-#
-if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
-then
-    echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
-    bash ~/.111"$scriptname"
-    exit
-else
-    if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
-    then
-        echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
-        bash ~/.222"$scriptname"
-        exit
-    fi
-fi
-cd && rm -f .{000,111,222}"$scriptname"
-chmod -f 700 ~/bin/"$scriptname"
-#
-############################
-##### Self Updater End #####
-############################
-#
-############################
-#### Core Script Starts ####
-############################
-#
-echo
-echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
-echo
-read -ep "The script has been updated, enter [y] to continue or [q] to exit: " -i "y" updatestatus
-echo
-if [[ "$updatestatus" =~ ^[Yy]$ ]]
-then
-#
-############################
-#### User Script Starts ####
-############################
-#
 read -ep "Do you need to fix a custom instance [y]es or [n]o: " yesido
 echo
 if [[ "$yesido" =~ ^[Yy]$ ]]
@@ -120,20 +47,20 @@ then
     else
         echo -e "\033[36m""$HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent-$suffix/plugins/autodl-irssi/""\e[0m" "does not exist"
         echo
-        exit 1
+        exit
     fi
-    screen -S autodl-"$suffix" -X quit > /dev/null 2>&1
+    kill -9 $(screen -ls autodl | sed -rn 's/(.*).autodl-(.*)/\1/p')  > /dev/null 2>&1
     screen -wipe > /dev/null 2>&1
     screen -dmS autodl-"$suffix" irssi --home="$HOME"/.irssi-"$suffix"/
     echo -e "\033[33m""Checking we restarted irssi or if there are multiple screens/processes""\e[0m"
     echo
-    screen -ls | grep autodl-"$suffix"
+    echo $(screen -ls | grep autodl-"$suffix")
     echo
     echo -e "Done. Please refresh/reload rutorrent using CTRL + F5"
     echo
     echo -e "This fix might have to be run each time you update/overwrite the autodl or autodl-rutorrent files."
     echo
-    exit 1
+    exit
 else
     if [[ -d "$HOME/.irssi/scripts/AutodlIrssi" ]]
     then
@@ -177,34 +104,18 @@ else
     else
         echo -e "\033[36m""$HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi/""\e[0m" "does not exist"
         echo
-        exit 1
+        exit
     fi
-    screen -S autodl -X quit > /dev/null 2>&1
+    kill -9 $(screen -ls autodl | sed -rn 's/(.*).autodl-(.*)/\1/p')  > /dev/null 2>&1
     screen -wipe > /dev/null 2>&1
     screen -dmS autodl irssi
     echo -e "\033[33m""Checking we restarted irssi or if there are multiple screens/processes""\e[0m"
     echo
-    screen -ls | grep autodl
+    echo $(screen -ls | grep 'autodl\s')
     echo
     echo -e "Done. Please refresh/reload rutorrent using CTRL + F5"
     echo
     echo -e "This fix might have to be run each time you update/overwrite the autodl or autodl-rutorrent files."
     echo
-    exit 1
+    exit
 fi
-#
-############################
-##### User Script End  #####
-############################
-#
-else
-    echo -e "You chose to exit after updating the scripts."
-    echo
-    cd && bash
-    exit 1
-fi
-#
-############################
-##### Core Script Ends #####
-############################
-#
