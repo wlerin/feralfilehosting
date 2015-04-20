@@ -75,24 +75,45 @@ gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
 # This is the raw github url of the script to use with the built in updater.
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Multiple%20instances%20-%20rtorrent%20and%20rutorrent/script/install.multirtru.sh"
 #
+# This will generate a 20 character random passsword for use with your applications.
+apppass=$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)
 # This will generate a random port for the script between the range 10001 to 49999 to use with applications. You can ignore this unless needed.
 appport=$(shuf -i 10001-49999 -n 1)
 #
 # This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
-while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]
-do
-    appport=$(shuf -i 10001-49999 -n 1)
-done
+while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]; do appport=$(shuf -i 10001-49999 -n 1); done
+#
+# Script user's http www URL in the format http://username.server.feralhosting.com/
+host1http="http://$(whoami).$(hostname -f)/"
+# Script user's https www URL in the format https://username.server.feralhosting.com/
+host1https="https://$(whoami).$(hostname -f)/"
+# Script user's http www url in the format https://server.feralhosting.com/username/
+host2http="http://$(hostname -f)/$(whoami)/"
+# Script user's https www url in the format https://server.feralhosting.com/username/
+host2https="https://$(hostname -f)/$(whoami)/"
+#
+# feralwww - sets the full path to the default public_html directory if it exists.
+[[ -d ~/www/$(whoami).$(hostname -f)/public_html ]] && feralwww="$HOME/www/$(whoami).$(hostname -f)/public_html/"
+# rtorrentdata - sets the full path to the rtorrent data directory if it exists.
+[[ -d ~/private/rtorrent/data ]] && rtorrentdata="$HOME/private/rtorrent/data"
+# deluge - sets the full path to the deluge data directory if it exists.
+[[ -d ~/private/deluge/data ]] && delugedata="$HOME/private/deluge/data"
+# transmission - sets the full path to the transmission data directory if it exists.
+[[ -d ~/private/transmission/data ]] && transmissiondata="$HOME/private/transmission/data"
+#
+# Bug reporting varaibles.
+makeissue=".makeissue $scriptname A description of the issue"
+ticketurl="https://www.feralhosting.com/manager/tickets/new"
+gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 #
 ############################
 ## Custom Variables Start ##
 ############################
 #
-# Random password for use with rutorrent user creation
-randompass=$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)
+giturl="https://github.com/Novik/ruTorrent.git"
 #
 # autodl configuration passwords
-pass=$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)
+autodlpass=$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)
 #
 # Some basic plugins
 feralstats="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Feralstats%20plugin%20for%20ruTorrent/files/feralstats.zip"
@@ -119,6 +140,34 @@ updaterenabled="1"
 ############################
 #
 ############################
+#### Script Help Starts ####
+############################
+#
+if [[ ! -z $1 && $1 == 'help' ]]
+then
+    echo
+    echo -e "\033[32m""Script help and usage instructions:""\e[0m"
+    echo
+    #
+    ###################################
+    ##### Custom Help Info Starts #####
+    ###################################
+    #
+    echo -e "Put your help instructions or script guidance here"
+    #
+    ###################################
+    ###### Custom Help Info Ends ######
+    ###################################
+    #
+    echo
+    exit
+fi
+#
+############################
+##### Script Help Ends #####
+############################
+#
+############################
 #### Script Info Starts ####
 ############################
 #
@@ -134,21 +183,11 @@ then
     echo
     echo "Script Contributors: $contributors"
     echo
-    echo -e "\033[32m""Script Information and usage instructions:""\e[0m"
-    echo
-    #
-    ###################################
-    #### Custom Script Notes Start ####
-    ###################################
-    #
-    echo -e "Put your instructions or script information here using echoes"
-    #
-    ###################################
-    ##### Custom Script Notes End #####
-    ###################################
-    #
-    echo
     echo -e "\033[32m""Script options:""\e[0m"
+    echo
+    echo -e "\033[36mhelp\e[0m = See the help section for this script."
+    echo
+    echo -e "Example usage: \033[36m$scriptname help\e[0m"
     echo
     echo -e "\033[36mchangelog\e[0m = See the version history and change log of this script."
     echo
@@ -172,11 +211,29 @@ then
     echo
     echo -e "\033[32mBash Commands:\e[0m"
     echo
-    echo -e "$gitiocommand"
+    echo -e "\033[36m""$gitiocommand""\e[0m"
     echo
-    echo -e "~/bin/$scriptname"
+    echo -e "\033[36m""~/bin/$scriptname""\e[0m"
     echo
-    echo -e "$scriptname"
+    echo -e "\033[36m""$scriptname""\e[0m"
+    echo
+    echo -e "\033[32m""Bug Reporting:""\e[0m"
+    echo
+    echo -e "These are the recommended ways to report bugs for scripts in the FAQs:"
+    echo
+    echo -e "1: In IRC you can use wikibot to create a github issue by using this command format:"
+    echo
+    echo -e "\033[36m""$makeissue""\e[0m"
+    echo
+    echo -e "2: You could open a ticket describing the problem with details of which script and what the problem is."
+    echo
+    echo -e "\033[36m""$ticketurl""\e[0m"
+    echo
+    echo -e "3: You can create an issue directly on github using your github account."
+    echo
+    echo -e "\033[36m""$gitissue""\e[0m"
+    echo
+    echo -e "\033[33m""All bug reports are welcomed and very much appreciated, as they benefit all users.""\033[32m"
     #
     echo
     exit
@@ -190,7 +247,7 @@ fi
 #### Self Updater Start ####
 ############################
 #
-# Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, whihc woudl reset the option, it will then find this file and set it back.
+# Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, which would reset the option, it will then find this file and set it back.
 if [[ ! -z $1 && $1 == 'qr' ]] || [[ ! -z $2 && $2 == 'qr' ]];then echo -n '' > ~/.quickrun; fi
 #
 # No Update option: This disables the updater features if the script option "nu" was used when running the script.
@@ -424,7 +481,7 @@ then
                 # Delete files we no longer need.
                 rm -f ~/autodl-{irssi,trackers}.zip ~/.irssi-"$suffix"/scripts/{README*,CONTRIBUTING.md,autodl-irssi.pl}
                 echo "Writing configuration files"
-                echo -e "[options]\ngui-server-port = $appport\ngui-server-password = $pass" > ~/.autodl-"$suffix"/autodl.cfg
+                echo -e "[options]\ngui-server-port = $appport\ngui-server-password = $autodlpass" > ~/.autodl-"$suffix"/autodl.cfg
                 #
                 ############################
                 ######## Autodl End ########
@@ -444,7 +501,7 @@ then
                 # Delete the downloaded zip and the unpacked folder we no longer require.
                 cd && rm -rf autodl-rutorrent{-master,.zip}
                 # Uses echo to make the config file for the rutorrent plugun to work with autodl using the variables port and pass
-                echo -ne '<?php\n$autodlPort = '"$appport"';\n$autodlPassword = "'"$pass"'";\n?>' > ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/autodl-irssi/conf.php
+                echo -ne '<?php\n$autodlPort = '"$appport"';\n$autodlPassword = "'"$autodlpass"'";\n?>' > ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/autodl-irssi/conf.php
                 #
                 ############################
                 ###### RuTorrent Ends ######
@@ -498,9 +555,9 @@ then
             echo
             if [[ "$makeitso" =~ ^[Yy]$ ]]
             then
-                htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htpasswd "$username" "$randompass"
+                htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htpasswd "$username" "$apppass"
                 echo
-                echo -n 'If you are reading this you can delete this file, it is a tmp file from the multirtru script that was supposed to be removed.' > ~/.randompasstmp
+                echo -n 'If you are reading this you can delete this file, it is a tmp file from the multirtru script that was supposed to be removed.' > ~/.apppasstmp
             else
                 if [[ -n "$username" ]]
                 then
@@ -568,12 +625,12 @@ then
             then
                 echo -e "\033[33m""Don't forget, you can manage your passwords with this FAQ:""\e[0m" "\033[36m""https://www.feralhosting.com/faq/view?question=22""\e[0m"
                 echo
-                if [[ -f ~/.randompasstmp ]]
+                if [[ -f ~/.apppasstmp ]]
                 then
-                    echo -e "Your password for rutorrent-$suffix is" "\033[32m""$randompass""\e[0m" "Please make a note of this password now."
+                    echo -e "Your password for rutorrent-$suffix is" "\033[32m""$apppass""\e[0m" "Please make a note of this password now."
                     echo
                     echo -e "If you forget the pass you will have to use the script in this FAQ - https://www.feralhosting.com/faq/view?question=22"
-                    cd && rm -rf ~/.randompasstmp
+                    cd && rm -rf ~/.apppasstmp
                     echo
                 fi
             else

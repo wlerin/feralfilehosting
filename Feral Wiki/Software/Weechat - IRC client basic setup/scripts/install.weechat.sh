@@ -12,7 +12,7 @@
 #
 # Bash Command for easy reference:
 #
-# wget -qO ~/install.weechat http://git.io/L6oalA && bash ~/install.weechat
+# wget -qO ~/install.weechat http://git.io/vffAV && bash ~/install.weechat
 #
 ############################
 ###### Basic Info End ######
@@ -70,7 +70,7 @@ scriptauthor="randomessence"
 contributors="None credited"
 #
 # Set the http://git.io/ shortened URL for the raw github URL here:
-gitiourl="http://git.io/L6oalA"
+gitiourl="http://git.io/vffAV"
 #
 # Don't edit: This is the bash command shown when using the info option.
 gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"

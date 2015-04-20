@@ -122,6 +122,11 @@ host2https="https://$(hostname -f)/$(whoami)/"
 # transmission - sets the full path to the transmission data directory if it exists.
 [[ -d ~/private/transmission/data ]] && transmissiondata="$HOME/private/transmission/data"
 #
+# Bug reporting varaibles.
+makeissue=".makeissue $scriptname A description of the issue"
+ticketurl="https://www.feralhosting.com/manager/tickets/new"
+gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
+#
 ############################
 ## Custom Variables Start ##
 ############################
@@ -154,6 +159,34 @@ updaterenabled="1"
 ############################
 #
 ############################
+#### Script Help Starts ####
+############################
+#
+if [[ ! -z $1 && $1 == 'help' ]]
+then
+    echo
+    echo -e "\033[32m""Script help and usage instructions:""\e[0m"
+    echo
+    #
+    ###################################
+    ##### Custom Help Info Starts #####
+    ###################################
+    #
+    echo -e "Put your help instructions or script guidance here"
+    #
+    ###################################
+    ###### Custom Help Info Ends ######
+    ###################################
+    #
+    echo
+    exit
+fi
+#
+############################
+##### Script Help Ends #####
+############################
+#
+############################
 #### Script Info Starts ####
 ############################
 #
@@ -169,21 +202,11 @@ then
     echo
     echo "Script Contributors: $contributors"
     echo
-    echo -e "\033[32m""Script Information and usage instructions:""\e[0m"
-    echo
-    #
-    ###################################
-    #### Custom Script Notes Start ####
-    ###################################
-    #
-    echo -e "Put your instructions or script information here using echoes"
-    #
-    ###################################
-    ##### Custom Script Notes End #####
-    ###################################
-    #
-    echo
     echo -e "\033[32m""Script options:""\e[0m"
+    echo
+    echo -e "\033[36mhelp\e[0m = See the help section for this script."
+    echo
+    echo -e "Example usage: \033[36m$scriptname help\e[0m"
     echo
     echo -e "\033[36mchangelog\e[0m = See the version history and change log of this script."
     echo
@@ -207,11 +230,29 @@ then
     echo
     echo -e "\033[32mBash Commands:\e[0m"
     echo
-    echo -e "$gitiocommand"
+    echo -e "\033[36m""$gitiocommand""\e[0m"
     echo
-    echo -e "~/bin/$scriptname"
+    echo -e "\033[36m""~/bin/$scriptname""\e[0m"
     echo
-    echo -e "$scriptname"
+    echo -e "\033[36m""$scriptname""\e[0m"
+    echo
+    echo -e "\033[32m""Bug Reporting:""\e[0m"
+    echo
+    echo -e "These are the recommended ways to report bugs for scripts in the FAQs:"
+    echo
+    echo -e "1: In IRC you can use wikibot to create a github issue by using this command format:"
+    echo
+    echo -e "\033[36m""$makeissue""\e[0m"
+    echo
+    echo -e "2: You could open a ticket describing the problem with details of which script and what the problem is."
+    echo
+    echo -e "\033[36m""$ticketurl""\e[0m"
+    echo
+    echo -e "3: You can create an issue directly on github using your github account."
+    echo
+    echo -e "\033[36m""$gitissue""\e[0m"
+    echo
+    echo -e "\033[33m""All bug reports are welcomed and very much appreciated, as they benefit all users.""\033[32m"
     #
     echo
     exit
@@ -225,7 +266,7 @@ fi
 #### Self Updater Start ####
 ############################
 #
-# Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, whihc woudl reset the option, it will then find this file and set it back.
+# Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, which would reset the option, it will then find this file and set it back.
 if [[ ! -z $1 && $1 == 'qr' ]] || [[ ! -z $2 && $2 == 'qr' ]];then echo -n '' > ~/.quickrun; fi
 #
 # No Update option: This disables the updater features if the script option "nu" was used when running the script.
@@ -311,7 +352,7 @@ then
     # Kill any existing autodl screen processes to make sure the installation can be finalised later.
     kill $(screen -ls autodl | sed -rn 's/(.*).autodl(.*)/\1/p') > /dev/null 2>&1
     # Wipe any dead screens left behind
-    screen -wipe >/dev/null 2>&1
+    screen -wipe > /dev/null 2>&1
     # Make a backup of the ~/.autodl/autodl.cfg just in case
     if [[ -f ~/.autodl/autodl.cfg ]]
     then
@@ -425,7 +466,7 @@ then
     # Kill any existing autodl screen processes before starting
     kill $(screen -ls autodl | sed -rn 's/(.*).autodl(.*)/\1/p') > /dev/null 2>&1
     # Clear dead screens
-    screen -wipe >/dev/null 2>&1
+    screen -wipe > /dev/null 2>&1
     # Start autodl irssi in a screen in the background.
     screen -dmS autodl irssi
     # Send a command to the new screen telling Autodl to update itself. This basically generates the ~/.autodl/AutodlState.xml files with updated info.

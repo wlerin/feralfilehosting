@@ -12,7 +12,7 @@
 #
 # Bash Command for easy reference:
 #
-# wget -qO ~/install.sickbeard http://git.io/bPrsUg && bash ~/install.sickbeard
+# wget -qO ~/install.sick http://git.io/vffpn && bash ~/install.sick
 #
 ############################
 ###### Basic Info End ######
@@ -61,7 +61,7 @@ fi
 scriptversion="1.1.1"
 #
 # Script name goes here. Please prefix with install.
-scriptname="install.sickbeard"
+scriptname="install.sick"
 #
 # Author name goes here.
 scriptauthor="randomessence"
@@ -70,7 +70,7 @@ scriptauthor="randomessence"
 contributors="None credited"
 #
 # Set the http://git.io/ shortened URL for the raw github URL here:
-gitiourl="http://git.io/bPrsUg"
+gitiourl="http://git.io/vffpn"
 #
 # Don't edit: This is the bash command shown when using the info option.
 gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
