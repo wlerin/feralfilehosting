@@ -22,55 +22,6 @@
 #### Script Notes Start ####
 ############################
 #
-# This updater deals with updating a single file, the "~/bin/somescript", by updating and switching to this script.
-#
-# So how do I use and customise this updater template with my script?
-#
-### Basic Info section:
-#
-# 1: Optional - fill in the basic info section at the start for those reading the script code.
-# 2: Most of the important information and usage directions are meant to be set in the script info section and used with the script option info. So set them there if required.
-#
-### Version History Section:
-#
-# 3: Modify the version history templates in the Version History section and uncomment on a per line basis to use with the script option "changelog", for example, "somescript changelog"
-#
-### Variables Section:
-#
-# 4: scriptversion="0.0.0" - replace "0.0.0" with your script version. This will be shown to the user at the current version check.
-# 5: scriptname="somescript" - replace "somescript" with your script name. Make it unique to this script. Do not include the file extension.
-# 6: scriptauthor="None credited" - change this to the script author's name.
-# 7: contributors=="None credited" - add the names of any contributors you wish to credit here.
-# 8: gitiourl="http://git.io/vvf9K" - change this to the shortened URL provided by http://git.io once you have committed the script to github or from a gist.
-# 9: gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname" - Leave this as it is. Do not modify it. This variable depends on the correct setting of the $gitiourl variable.
-# 10: scripturl="https://raw.github.com/feralhosting" - Set the scripturl variable in the variable section to the RAW github URL of the script for use with the updater features.
-# 11: appport=$(shuf -i 10001-49999 -n 1) - works in tandem with a while loop just below it. Will generate and test a port to make sure it is not in use. Use this when configuring an application's port.
-# 12: updaterenabled="1" - Set this to 0 to permanently disable the built in updater and associated features.
-#
-### Script Info Section:
-#
-# Important note: The info section contains basic information about the features of this updater and the script. Don't modify these. You have a section dedicated to your unique information.
-#
-# 13: Place your unique information and usage instructions inside the section labelled "Custom Script Notes" using echoes.
-#
-### Self Updater Section:
-#
-# 14: This section is self contained you don't need to modify this section. This feature will compare itself vs the raw script linked at the github URL provided and update itself
-#
-### User Scripts:
-#
-# Important Note: This template is a wrapper around your script. You will need to make use of the script option below like qr to call your own options.
-#
-# 15: Insert your script in the "User Script" labelled section - Indented by one tab (4 spaces) to be in line with the overall script. You can copy and paste a working script into this section.
-#
-### Script Options explained:
-#
-# 16: changelog - use the argument qr when calling the script, for example - "somescript changelog".
-# 17: info - use the argument qr when calling the script, for example - "somescript info".
-# 18: qr - use this option to quick run the script suppressing all update prompts and jumping directly to the user script, for example - "somescript qr". Note - This does not disable or bypass the updater.
-# 19: nu - use the option to disable the update features of the script, for example - "somescript nu". Note - This will run the script from where it is called and append -DEV to the version number output.
-# 20: To pass your own variables to the script in the user script section please start from $2 onwards.
-#
 ############################
 ##### Script Notes End #####
 ############################
@@ -153,6 +104,11 @@ host2https="https://$(hostname -f)/$(whoami)/"
 # transmission - sets the full path to the transmission data directory if it exists.
 [[ -d ~/private/transmission/data ]] && transmissiondata="$HOME/private/transmission/data"
 #
+# Bug reporting varaibles.
+makeissue=".makeissue $scriptname A description of the issue"
+ticketurl="https://www.feralhosting.com/manager/tickets/new"
+gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
+#
 ############################
 ## Custom Variables Start ##
 ############################
@@ -175,6 +131,34 @@ updaterenabled="1"
 ############################
 #
 ############################
+#### Script Help Starts ####
+############################
+#
+if [[ ! -z $1 && $1 == 'help' ]]
+then
+    echo
+    echo -e "\033[32m""Script help and usage instructions:""\e[0m"
+    echo
+    #
+    ###################################
+    ##### Custom Help Info Starts #####
+    ###################################
+    #
+    echo -e "Put your help instructions or script guidance here"
+    #
+    ###################################
+    ###### Custom Help Info Ends ######
+    ###################################
+    #
+    echo
+    exit
+fi
+#
+############################
+##### Script Help Ends #####
+############################
+#
+############################
 #### Script Info Starts ####
 ############################
 #
@@ -190,21 +174,11 @@ then
     echo
     echo "Script Contributors: $contributors"
     echo
-    echo -e "\033[32m""Script Information and usage instructions:""\e[0m"
-    echo
-    #
-    ###################################
-    #### Custom Script Notes Start ####
-    ###################################
-    #
-    echo -e "Put your instructions or script information here using echoes"
-    #
-    ###################################
-    ##### Custom Script Notes End #####
-    ###################################
-    #
-    echo
     echo -e "\033[32m""Script options:""\e[0m"
+    echo
+    echo -e "\033[36mhelp\e[0m = See the help section for this script."
+    echo
+    echo -e "Example usage: \033[36m$scriptname help\e[0m"
     echo
     echo -e "\033[36mchangelog\e[0m = See the version history and change log of this script."
     echo
@@ -228,11 +202,29 @@ then
     echo
     echo -e "\033[32mBash Commands:\e[0m"
     echo
-    echo -e "$gitiocommand"
+    echo -e "\033[36m""$gitiocommand""\e[0m"
     echo
-    echo -e "~/bin/$scriptname"
+    echo -e "\033[36m""~/bin/$scriptname""\e[0m"
     echo
-    echo -e "$scriptname"
+    echo -e "\033[36m""$scriptname""\e[0m"
+    echo
+    echo -e "\033[32m""Bug Reporting:""\e[0m"
+    echo
+    echo -e "These are the recommended ways to report bugs for scripts in the FAQs:"
+    echo
+    echo -e "1: In IRC you can use wikibot to create a github issue by using this command format:"
+    echo
+    echo -e "\033[36m""$makeissue""\e[0m"
+    echo
+    echo -e "2: You could open a ticket describing the problem with details of which script and what the problem is."
+    echo
+    echo -e "\033[36m""$ticketurl""\e[0m"
+    echo
+    echo -e "3: You can create an issue directly on github using your github account."
+    echo
+    echo -e "\033[36m""$gitissue""\e[0m"
+    echo
+    echo -e "\033[33m""All bug reports are welcomed and very much appreciated, as they benefit all users.""\033[32m"
     #
     echo
     exit
@@ -246,7 +238,7 @@ fi
 #### Self Updater Start ####
 ############################
 #
-# Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, whihc woudl reset the option, it will then find this file and set it back.
+# Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, which would reset the option, it will then find this file and set it back.
 if [[ ! -z $1 && $1 == 'qr' ]] || [[ ! -z $2 && $2 == 'qr' ]];then echo -n '' > ~/.quickrun; fi
 #
 # No Update option: This disables the updater features if the script option "nu" was used when running the script.
