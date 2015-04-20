@@ -474,7 +474,7 @@ then
     echo -e "\033[32m""Checking we have started irssi or if there are multiple screens/processes""\e[0m"
     echo -e "\033[31m"
     # Check if the screen is running for the user
-    echo $(screen -ls | grep autodl)
+    echo $(screen -ls | grep 'autodl\s')
     echo -e "\e[0m"
     echo -e "Done. Please refresh/reload rutorrent using CTRL + F5 and start using autodl"
     echo
