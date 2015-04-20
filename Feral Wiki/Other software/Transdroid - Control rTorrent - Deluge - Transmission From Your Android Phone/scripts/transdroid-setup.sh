@@ -42,7 +42,7 @@ if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
     #echo 'v0.0.5 - My changes go here'
     #echo 'v0.0.4 - My changes go here'
     #echo 'v0.0.3 - My changes go here'
-    #echo 'v0.0.2 - My changes go here'
+    echo 'v1.1.2 - Forgot to update randompass variable to apppass when updating template whihc broke the script - credit to zycore for pointing it out'
     echo 'v1.1.1 - Template updated'
     #
     echo
@@ -58,7 +58,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.1.1"
+scriptversion="1.1.2"
 #
 # Script name goes here. Please prefix with install.
 scriptname="transdroid.setup"
@@ -135,6 +135,41 @@ updaterenabled="1"
 ############################
 #
 ############################
+#### Script Help Starts ####
+############################
+#
+if [[ ! -z $1 && $1 == 'help' ]]
+then
+    echo
+    echo -e "\033[32m""Script help and usage instructions:""\e[0m"
+    echo
+    #
+    ###################################
+    ##### Custom Help Info Starts #####
+    ###################################
+    #
+    echo -e "This script will take your application's WebUi password and generate Qrcode for you."
+    echo -e "It will then create a special password protected WWW directory for you to access this file"
+    echo -e "by providing you with a special URL to use to login to the protected directory in your browser."
+    echo
+    echo -e "You can import his Qrcode directly into Transdroid/Transdrone using the built in import feature."
+    echo
+    echo -e "When you press enter to exit the script at the prompt all files are cleaned up an removed."
+    #
+    #
+    ###################################
+    ###### Custom Help Info Ends ######
+    ###################################
+    #
+    echo
+    exit
+fi
+#
+############################
+##### Script Help Ends #####
+############################
+#
+############################
 #### Script Info Starts ####
 ############################
 #
@@ -150,25 +185,11 @@ then
     echo
     echo "Script Contributors: $contributors"
     echo
-    echo -e "\033[32m""Script Information and usage instructions:""\e[0m"
-    echo
-    #
-    ###################################
-    #### Custom Script Notes Start ####
-    ###################################
-    #
-    echo -e "1: Run this script and provide it with your WebUi password when prompted."
-    #
-    echo -e "2: Once you have done this you will be given a URL to visit in a web browser."
-    #
-    echo -e "3: Scan this Qrcode using the Transdone import by qrcode feature."
-    #
-    ###################################
-    ##### Custom Script Notes End #####
-    ###################################
-    #
-    echo
     echo -e "\033[32m""Script options:""\e[0m"
+    echo
+    echo -e "\033[36mhelp\e[0m = See the help section for this script."
+    echo
+    echo -e "Example usage: \033[36m$scriptname help\e[0m"
     echo
     echo -e "\033[36mchangelog\e[0m = See the version history and change log of this script."
     echo
@@ -210,7 +231,7 @@ fi
 #### Self Updater Start ####
 ############################
 #
-# Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, whihc woudl reset the option, it will then find this file and set it back.
+# Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, which would reset the option, it will then find this file and set it back.
 if [[ ! -z $1 && $1 == 'qr' ]] || [[ ! -z $2 && $2 == 'qr' ]];then echo -n '' > ~/.quickrun; fi
 #
 # No Update option: This disables the updater features if the script option "nu" was used when running the script.
@@ -323,7 +344,7 @@ then
                                 mkdir -p ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2
                                 #
                                 # cp -f ~/$tmpdir1/settings.json ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/settings.json
-                                htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/.htpasswd "$(whoami)" "$randompass" > /dev/null 2>&1
+                                htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/.htpasswd "$(whoami)" "$apppass" > /dev/null 2>&1
                                 #
                                 if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
                                 then
@@ -390,7 +411,7 @@ then
                             mkdir -p ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2
                             #
                             # cp -f ~/$tmpdir1/settings.json ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/settings.json
-                            htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/.htpasswd "$(whoami)" "$randompass" > /dev/null 2>&1
+                            htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/.htpasswd "$(whoami)" "$apppass" > /dev/null 2>&1
                             #
                             if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
                             then
@@ -451,7 +472,7 @@ then
                             mkdir -p ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2
                             #
                             # cp -f ~/$tmpdir1/settings.json ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/settings.json
-                            htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/.htpasswd "$(whoami)" "$randompass" > /dev/null 2>&1
+                            htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/.htpasswd "$(whoami)" "$apppass" > /dev/null 2>&1
                             #
                             if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
                             then
@@ -519,7 +540,7 @@ then
                                 mkdir -p ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2
                                 #
                                 # cp -f ~/$tmpdir1/settings.json ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/settings.json
-                                htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/.htpasswd "$(whoami)" "$randompass" > /dev/null 2>&1
+                                htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/$tmpdir2/.htpasswd "$(whoami)" "$apppass" > /dev/null 2>&1
                                 #
                                 if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
                                 then
