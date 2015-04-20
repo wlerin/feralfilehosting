@@ -17,7 +17,7 @@ Please use this script.
 **Important note:** If you get errors about missing dependencies please see the dependencies section at the end of this FAQ.
 
 ~~~
-wget -qO ~/install.weechat.sh http://git.io/L6oalA && bash ~/install.weechat.sh
+wget -qO ~/install.weechat http://git.io/vffAV && bash ~/install.weechat
 ~~~
 
 2: Start WeeChat

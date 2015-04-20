@@ -19,7 +19,7 @@ Bash Script:
 **5:** Installs Unrar v5 locally to work with SickRage post processing. This feature is not enabled by default.
 
 ~~~
-wget -qO ~/install.sickbeard.sh http://git.io/bPrsUg && bash ~/install.sickbeard.sh
+wget -qO ~/install.sick http://git.io/vffpn && bash ~/install.sick
 ~~~
 
 Restarting:
