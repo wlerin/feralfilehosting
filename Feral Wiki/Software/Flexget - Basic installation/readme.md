@@ -18,7 +18,7 @@ Create our VirtualENV environment using `pip`. Do not use `easy_install` to inst
 
 ~~~
 pip uninstall virtualenv
-cd && rm -rf .local/bin/virtualenv*
+cd && rm -rf .local/bin/virtualenv{,-2.7}
 ~~~
 
 Installation:
@@ -27,7 +27,7 @@ Installation:
 ~~~
 pip install --user virtualenv
 ~/.local/bin/virtualenv ~/flexget/
-~/flexget/bin/pip install flexget
+~/flexget/bin/pip install flexget[webui]
 ~~~
 
 Running flexget
@@ -54,7 +54,7 @@ flexget
 Experimental Web Gui:
 
 ~~~
-flexget-webui --port PORT --username USERNAME --password PASSWORD -d
+flexget webui --port PORT --username USERNAME --password PASSWORD -d
 ~~~
 
 Then connect to the Web Gui in a browser using the URL format:
@@ -65,7 +65,7 @@ server.feralhosting.com:PORT
 
 **server** = Your Feral server name that hosts the slot you installed Flexget on
 
-**PORT** = a port between 5000 and 55000
+**PORT** = a port between 10001 and 49999
 
 **USERNAME** = Your Feral username
 
