@@ -51,34 +51,39 @@
 #
 # 13: Place your custom variables here. They can be used in the help option of the script.
 #
+### Functions Section:
+#
+# 14: Place your custom functions here. Your functions will be able to make use of variables sections in this location. There is an example function in this section.
+#
 ### Script Help Section:
 #
-# 14: Place your help information and usage instructions inside the section labelled "Custom Script Notes" using echoes.
+# 15: Place your help information and usage instructions inside the section labelled "Custom Script Notes" using echoes.
 #
 ### Script Info Section:
 #
 # Important note: The info section contains basic information about the features of this updater and the script. Don't modify these. You have a section dedicated to your unique information.
 #
-# 15: Place your unique information and usage instructions inside the section labelled "Custom Script Notes" using echoes.
+# 16: Place your unique information and usage instructions inside the section labelled "Custom Script Notes" using echoes.
 #
 ### Self Updater Section:
 #
-# 16: This section is self contained you don't need to modify this section. This feature will compare itself vs the raw script linked at the github URL provided and update itself
+# 17: This section is self contained you don't need to modify this section. This feature will compare itself vs the raw script linked at the github URL provided and update itself
 #
 ### User Scripts:
 #
 # Important Note: This template is a wrapper around your script. You will need to make use of the script option below like qr to call your own options.
 #
-# 17: Insert your script in the "User Script" labelled section - Indented by one tab (4 spaces) to be in line with the overall script. You can copy and paste a working script into this section.
+# 18: Insert your script in the "User Script" labelled section - Indented by one tab (4 spaces) to be in line with the overall script. You can copy and paste a working script into this section.
 #
 ### Script Options explained:
 #
-# 18: help - Use this section to create help notes and usage instructions for the user when they use this option, for example - "somescript help".
 # 19: changelog - use the argument qr when calling the script, for example - "somescript changelog".
-# 20: info - use the argument qr when calling the script, for example - "somescript info".
-# 21: qr - use this option to quick run the script suppressing all update prompts and jumping directly to the user script, for example - "somescript qr". Note - This does not disable or bypass the updater.
-# 22: nu - use the option to disable the update features of the script, for example - "somescript nu". Note - This will run the script from where it is called and append -DEV to the version number output.
-# 23: To pass your own variables to the script in the user script section please start from $2 onwards.
+# 20: help - Use this section to create help notes and usage instructions for the user when they use this option, for example - "somescript help".
+# 21: info - use the argument qr when calling the script, for example - "somescript info".
+# 22: qr - use this option to quick run the script suppressing all update prompts and jumping directly to the user script, for example - "somescript qr". Note - This does not disable or bypass the updater.
+# 23: nu - use the option to disable the update features of the script, for example - "somescript nu". Note - This will run the script from where it is called and append -DEV to the version number output.
+#
+# 24: To pass your own variables to the script in the user script section please start from $2 onwards.
 #
 ############################
 ##### Script Notes End #####
@@ -188,7 +193,7 @@ updaterenabled="1"
 ###### Function Start ######
 ############################
 #
-function example {
+example () {
     echo "This is my example function"
 }
 #
