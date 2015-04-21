@@ -34,6 +34,7 @@
 #
 if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
     #
+    echo 'v1.3.2 option 4. merged in install.autodl cfg fixes to make sure pass and paort will match after fixing.' 
     echo 'v1.3.1 none option to exit an option back to the menu. Small tweaks'
     echo 'v1.3.0 Moved to menu style script. auto password generation to make sure nginx rpc is set. new update option that uses rutorrent github. new autodl fix only option. various other tweaks and fixes.'
     echo 'v1.2.2 bug fixes'
@@ -57,7 +58,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.3.1"
+scriptversion="1.3.2"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.multirtru"
@@ -397,11 +398,11 @@ then
                             while [[ -z "$suffix" ]]
                             do
                                 read -ep "Please chose a suffix to use for our new installations: " suffix
+                                echo
                             done
                             #
                             if [[ "$suffix" != "none" ]]
                             then
-                                echo
                                 if [[ ! -f ~/.rtorrent-"$suffix".rc && ! -d ~/private/rtorrent-"$suffix" && ! -d ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix" ]]
                                 then
                                     echo -e "\033[31m""1:""\e[0m" "Creating the installation"
@@ -599,7 +600,6 @@ then
                                 fi
                                 sleep 3
                             fi
-                            echo
                             ;;
                     "2")
                             functiontwo
@@ -846,6 +846,28 @@ then
                                     echo -e "\033[32m""$HOME/.irssi-$suffix/scripts/AutodlIrssi/MatchedRelease.pm Result 1 =" "\033[31m""$(sed -n 's/\(.*\)$rtAddress = "\(.*\)$rtAddress" if $rtAddress =~ \/^:\\d{1,5}$\/;/\2/p' $HOME/.irssi-$suffix/scripts/AutodlIrssi/MatchedRelease.pm 2> /dev/null)""\e[0m"
                                     echo -e "\033[32m""$HOME/.irssi-$suffix/scripts/AutodlIrssi/MatchedRelease.pm Result 2 =" "\033[31m""$(sed -n 's/\(.*\)my $scgi = new AutodlIrssi::Scgi($rtAddress, {REMOTE_ADDR => "\(.*\)"});/\2/p' $HOME/.irssi-$suffix/scripts/AutodlIrssi/MatchedRelease.pm 2> /dev/null)""\e[0m" 
                                     echo
+                                    #
+                                    if [[ -f ~/.autodl-"$suffix"/autodl.cfg ]]
+                                    then
+                                        cp -f ~/.autodl-"$suffix"/autodl.cfg ~/.autodl-"$suffix"/autodl.cfg.bak-$(date +"%d.%m.%y@%H:%M:%S")
+                                    fi
+                                    # If the autodl.cfg exists we use sed to update the existing username and pass with the ones the script has generated.
+                                    # else we use and echo to create our autodl.cfg file. Takes the two previously made variables, $appport and $apppass to update/create the required info.
+                                    if [[ -f ~/.autodl-"$suffix"/autodl.cfg ]]
+                                    then
+                                        if [[ $(tr -d "\r\n" < ~/.autodl-"$suffix"/autodl.cfg | wc -c) -eq "0" ]]
+                                        then
+                                            echo -e "[options]\ngui-server-port = $appport\ngui-server-password = $apppass" > ~/.autodl-"$suffix"/autodl.cfg
+                                        else
+                                            # Sed command to enter the port variable
+                                            sed -ri 's|(.*)gui-server-port =(.*)|gui-server-port = '"$appport"'|g' ~/.autodl-"$suffix"/autodl.cfg
+                                            # Sed command to enter the password variable
+                                            sed -ri 's|(.*)gui-server-password =(.*)|gui-server-password = '"$apppass"'|g' ~/.autodl-"$suffix"/autodl.cfg
+                                        fi
+                                    else 
+                                        echo -e "[options]\ngui-server-port = $appport\ngui-server-password = $apppass" > ~/.autodl-"$suffix"/autodl.cfg
+                                    fi
+                                    #
                                 else
                                     echo -e "\033[36m""$HOME/.irssi-$suffix/scripts/AutodlIrssi/""\e[0m" "does not exist"
                                     echo
@@ -863,6 +885,9 @@ then
                                     echo -e "\033[33m""Autodl-rutorrent After""\e[0m"
                                     echo -e "\033[32m""/rutorrent/plugins/autodl-irssi/getConf.php =" "\033[31m""$(sed -n 's/\(.*\)if (\!socket_connect($socket, "\(.*\)", $autodlPort))/\2/p' $HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent-$suffix/plugins/autodl-irssi/getConf.php 2> /dev/null)""\e[0m"
                                     echo
+                                    # Uses echo to make the config file for the rutorrent plugun to work with autodl using the variables port and pass
+                                    echo -ne '<?php\n$autodlPort = '"$appport"';\n$autodlPassword = "'"$apppass"'";\n?>' > ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/autodl-irssi/conf.php
+                                    #
                                 else
                                     echo -e "\033[36m""$HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent-$suffix/plugins/autodl-irssi/""\e[0m" "does not exist"
                                     echo
