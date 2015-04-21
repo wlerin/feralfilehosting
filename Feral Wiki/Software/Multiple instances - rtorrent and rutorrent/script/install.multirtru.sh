@@ -34,6 +34,7 @@
 #
 if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
     #
+    echo 'v1.3.1 none option to exit an option back to the menu. Small tweaks'
     echo 'v1.3.0 Moved to menu style script. auto password generation to make sure nginx rpc is set. new update option that uses rutorrent github. new autodl fix only option. various other tweaks and fixes.'
     echo 'v1.2.2 bug fixes'
     echo 'v1.1.6 random password option'
@@ -56,7 +57,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.3.0"
+scriptversion="1.3.1"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.multirtru"
@@ -153,7 +154,7 @@ updaterenabled="1"
 ###### Function Start ######
 ############################
 #
-function functionone {
+functionone () {
     if [[ -f ~/multirtru.restart.txt && -s ~/multirtru.restart.txt ]]
     then
         echo -e "\033[32m""Existing custom installations read from the ~/multirtru.restart.txt""\e[0m"
@@ -168,7 +169,7 @@ function functionone {
     fi
 }
 #
-function functiontwo {
+functiontwo () {
     suffix=""
     functionone
     while [[ -z "$suffix" ]]
@@ -381,214 +382,224 @@ then
             echo
             case "$CHOICE" in
                     "1")
+                            # Reset the $suffix variable so that the script can reload a section multiple times in a single use.
                             suffix=""
+                            #
                             echo -e "This script will create a new rutorrent,rtorrent and (optionally) autodl instance using a suffix, for example:"
                             echo
                             echo -e "For example: ""\033[32m""rutorrent-1 ""\e[0m""\033[33m""autodl-1 and irssi-1 ""\e[0m""\033[36m""rtorrent-1 and ~/.rtorrent-1.rc""\e[0m"
                             echo
                             echo -e "\033[31m""The first thing we need to do is pick a suffix to use:""\e[0m"
                             echo
+                            echo -e "To return to the menu type: ""\033[32m""none""\e[0m"
+                            echo
+                            #
                             while [[ -z "$suffix" ]]
                             do
                                 read -ep "Please chose a suffix to use for our new installations: " suffix
                             done
-                            echo
-                            if [[ ! -f ~/.rtorrent-"$suffix".rc && ! -d ~/private/rtorrent-"$suffix" && ! -d ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix" ]]
+                            #
+                            if [[ "$suffix" != "none" ]]
                             then
-                                echo -e "\033[31m""1:""\e[0m" "Creating the installation"
                                 echo
-                                # Create some folders we need
-                                mkdir -p ~/private/rtorrent-"$suffix"/data ~/private/rtorrent-"$suffix"/watch ~/private/rtorrent-"$suffix"/work
-                                # Copy the Feral rutorrent template
-                                cp -rf /opt/rutorrent/current/. ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"
-                                # Make sure rtorrent adder will work with nginx by creating this folder.
-                                mkdir -p ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/share/torrents
-                                # Download and install the Feral stats plugin
-                                wget -qO ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/feralstats.zip "$feralstats"
-                                unzip -qo ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/feralstats.zip -d ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/
-                                rm -f ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/feralstats.zip
-                                # Download and install the ratio colour plugin
-                                wget -qO ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/ratiocolor.zip "$ratiocolor"
-                                unzip -qo ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/ratiocolor.zip -d ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/
-                                rm -f ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/ratiocolor.zip
-                                # Download and configure the custom .rtorrent.rc
-                                wget -qO ~/.rtorrent-"$suffix".rc "$confurl"
-                                #
-                                # sed custom ~/.rtorrent.rc
-                                echo -e "\033[31m""2:""\e[0m" "\033[32m""Part 1""\e[0m" "Editing the files: rtorrent"
-                                echo
-                                sed -i 's|/media/DiskID/home/username/private/rtorrent/|'"$HOME"'/private/rtorrent-'"$suffix"'/|g' ~/.rtorrent-"$suffix".rc
-                                sed -i 's|/media/DiskID/home/username/www/username.server.feralhosting.com/public_html/rutorrent/php/initplugins.php username|'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/rutorrent-'"$suffix"'/php/initplugins.php '$(whoami)'|g' ~/.rtorrent-"$suffix".rc
-                                # sed /rutorrent/
-                                echo -e "\033[31m""2:""\e[0m" "\033[33m""Part 2""\e[0m" "Editing the files: rutorrent"
-                                echo
-                                sed -i 's|/private/rtorrent/.socket|/private/rtorrent-'"$suffix"'/.socket|g' ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/conf/config.php
-                                #
-                                echo 'screen -fa -dmS rtorrent-'"$suffix"' rtorrent -n -o import=~/.rtorrent-'"$suffix"'.rc' >> ~/multirtru.restart.txt
-                                ############################
-                                ############################
-                                ############################
-                                read -ep "Would you like this script to install and configure Autodl-irssi for this instance to? [y]es or [n]o: " -i "y" autodlinstall
-                                echo
-                                if [[ "$autodlinstall" =~ ^[Yy]$ ]]
+                                if [[ ! -f ~/.rtorrent-"$suffix".rc && ! -d ~/private/rtorrent-"$suffix" && ! -d ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix" ]]
                                 then
-                                    ############################
-                                    ####### Autodl Start #######
-                                    ############################
-                                    #
-                                    echo -e "\033[32m""Installing autodl-irssi and the rutorrent plugin for your custom instance""\e[0m"
-                                    # Makes the directories we require for the irssi and autodl installation.
-                                    mkdir -p ~/{.autodl-"$suffix",.irssi-"$suffix"/scripts/autorun}
-                                    echo -e "\033[31m""A randomly generated 20 character password has been set for you by this script""\e[0m"
-                                    echo "Downloading autodl-irssi"
-                                    # Downloads the newest RELEASE version of the autodl community edition and saves it as a zip file.
-                                    wget -qO ~/autodl-irssi.zip "$autodlirssicommunity"
-                                    # Downloads the newest  RELEASE version  of the autodl community trackers file and saves it as a zip file.
-                                    wget -qO ~/autodl-trackers.zip "$autodltrackers"
-                                    # Unpack core autodl files to the desired location for further processing
-                                    unzip -qo ~/autodl-irssi.zip -d ~/.irssi-"$suffix"/scripts/
-                                    # Unpack the latest trackers file just to make sure we are they are current.
-                                    unzip -qo ~/autodl-trackers.zip -d ~/.irssi-"$suffix"/scripts/AutodlIrssi/trackers/
-                                    # Moves the files around to their proper homes. The .pl file is moved to autorun so that autodl starts automatically when we open irssi
-                                    cp -f ~/.irssi-"$suffix"/scripts/autodl-irssi.pl ~/.irssi-"$suffix"/scripts/autorun/
-                                    # Delete files we no longer need.
-                                    rm -f ~/autodl-{irssi,trackers}.zip ~/.irssi-"$suffix"/scripts/{README*,CONTRIBUTING.md,autodl-irssi.pl}
-                                    echo "Writing configuration files"
-                                    echo -e "[options]\ngui-server-port = $appport\ngui-server-password = $autodlpass" > ~/.autodl-"$suffix"/autodl.cfg
-                                    #
-                                    ############################
-                                    ######## Autodl End ########
-                                    ############################
-                                    #
-                                    ############################
-                                    ##### RuTorrent Starts #####
-                                    ############################
-                                    #
-                                    # Downloads the latest version of the autodl-irssi plugin
-                                    wget -qO ~/autodl-rutorrent.zip "$autodlrutorrent"
-                                    # Unpacks the autodl rutorrent plugin here
-                                    unzip -qo ~/autodl-rutorrent.zip
-                                    # Copy the contents from autodl-rutorrent-master to a folder called autodl-irssi in the rutorrent plug-in directory, creating it if absent
-                                    mkdir -p ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins
-                                    cp -rf ~/autodl-rutorrent-master/. ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/autodl-irssi
-                                    # Delete the downloaded zip and the unpacked folder we no longer require.
-                                    cd && rm -rf autodl-rutorrent{-master,.zip}
-                                    # Uses echo to make the config file for the rutorrent plugun to work with autodl using the variables port and pass
-                                    echo -ne '<?php\n$autodlPort = '"$appport"';\n$autodlPassword = "'"$autodlpass"'";\n?>' > ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/autodl-irssi/conf.php
-                                    #
-                                    ############################
-                                    ###### RuTorrent Ends ######
-                                    ############################
-                                    ############################
-                                    ##### Fix script Start #####
-                                    ############################
-                                    #
-                                    echo "Applying the fix script as part of the installation:"
-                                    # Set a custom home dir for autodl to ~/.autodl-$suffix
-                                    sed -i 's|return File::Spec->catfile(getHomeDir(), ".autodl");|return File::Spec->catfile(getHomeDir(), ".autodl-'"$suffix"'");|g' ~/.irssi-"$suffix"/scripts/AutodlIrssi/Dirs.pm
-                                    # Fix the core Autodl files by changing 127.0.0.1 to 10.0.0.1 using sed in 3 places in 2 files.
-                                    sed -i "s|use constant LISTEN_ADDRESS => '127.0.0.1';|use constant LISTEN_ADDRESS => '10.0.0.1';|g" ~/.irssi-"$suffix"/scripts/AutodlIrssi/GuiServer.pm
-                                    sed -i 's|$rtAddress = "127.0.0.1$rtAddress"|$rtAddress = "10.0.0.1$rtAddress"|g' ~/.irssi-"$suffix"/scripts/AutodlIrssi/MatchedRelease.pm
-                                    sed -i 's|my $scgi = new AutodlIrssi::Scgi($rtAddress, {REMOTE_ADDR => "127.0.0.1"});|my $scgi = new AutodlIrssi::Scgi($rtAddress, {REMOTE_ADDR => "10.0.0.1"});|g' ~/.irssi-"$suffix"/scripts/AutodlIrssi/MatchedRelease.pm
-                                    #
-                                    echo -e "\033[33m""Autodl fix has been applied""\e[0m"
-                                    # Fix the relevent rutorrent plugin file by changing 127.0.0.1 to 10.0.0.1 using sed
-                                    sed -i 's|if (!socket_connect($socket, "127.0.0.1", $autodlPort))|if (!socket_connect($socket, "10.0.0.1", $autodlPort))|g' ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/autodl-irssi/getConf.php
-                                    echo -e "\033[33m""Autodl-rutorrent fix has been applied""\e[0m"
+                                    echo -e "\033[31m""1:""\e[0m" "Creating the installation"
                                     echo
+                                    # Create some folders we need
+                                    mkdir -p ~/private/rtorrent-"$suffix"/data ~/private/rtorrent-"$suffix"/watch ~/private/rtorrent-"$suffix"/work
+                                    # Copy the Feral rutorrent template
+                                    cp -rf /opt/rutorrent/current/. ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"
+                                    # Make sure rtorrent adder will work with nginx by creating this folder.
+                                    mkdir -p ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/share/torrents
+                                    # Download and install the Feral stats plugin
+                                    wget -qO ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/feralstats.zip "$feralstats"
+                                    unzip -qo ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/feralstats.zip -d ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/
+                                    rm -f ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/feralstats.zip
+                                    # Download and install the ratio colour plugin
+                                    wget -qO ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/ratiocolor.zip "$ratiocolor"
+                                    unzip -qo ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/ratiocolor.zip -d ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/
+                                    rm -f ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/ratiocolor.zip
+                                    # Download and configure the custom .rtorrent.rc
+                                    wget -qO ~/.rtorrent-"$suffix".rc "$confurl"
                                     #
-                                    ############################
-                                    ###### Fix script End ######
-                                    ############################
-                                    #
-                                    screen -wipe > /dev/null 2>&1
-                                    screen -dmS autodl-"$suffix" irssi --home="$HOME"/.irssi-"$suffix"/
-                                    echo 'screen -dmS autodl-'"$suffix"' irssi --home=$HOME/.irssi-'"$suffix"'/' >> ~/multirtru.restart.txt
-                                    # Send a command to the new screen telling Autodl to update itself. This basically generates the ~/.autodl/AutodlState.xml files with updated info.
-                                    screen -S autodl-"$suffix" -p 0 -X stuff '/autodl update^M'
-                                    ############################
-                                    ############################
-                                    ############################
-                                else
-                                    echo "This instance has been installed without autodl-irssi"
+                                    # sed custom ~/.rtorrent.rc
+                                    echo -e "\033[31m""2:""\e[0m" "\033[32m""Part 1""\e[0m" "Editing the files: rtorrent"
                                     echo
-                                fi
-                                #
-                                # Password protect the setup
-                                #
-                                echo -e "\033[31m""3:""\e[0m" "Password Protect the Installation"
-                                echo
-                                #
-                                if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
-                                then
-                                    echo -e 'location /rutorrent-'"$suffix"' {\n    auth_basic "rutorrent-'"$suffix"'";\n    auth_basic_user_file '"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/rutorrent-'"$suffix"'/.htpasswd;\n}\n\nlocation /rutorrent-'"$suffix"'/conf { deny all; }\nlocation /rutorrent-'"$suffix"'/share { deny all; }' > ~/.nginx/conf.d/000-default-server.d/rtorrent-"$suffix".conf
-                                    echo -e 'location /rtorrent-'"$suffix"'/rpc {\n    include   /etc/nginx/scgi_params;\n    scgi_pass unix://'"$HOME"'/private/rtorrent-'"$suffix"'/.socket;\n\n    auth_basic '\''rtorrent SCGI for rutorrent-'"$suffix"''\'';\n    auth_basic_user_file conf.d/000-default-server.d/scgi-'"$suffix"'-htpasswd;\n}' > ~/.nginx/conf.d/000-default-server.d/rtorrent-"$suffix"-rpc.conf
-                                    /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
-                                fi
-                                #
-                                echo -e 'AuthType Basic\nAuthName "rtorrent-'"$suffix"'"\nAuthUserFile "'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/rutorrent-'"$suffix"'/.htpasswd"\nRequire valid-user' > ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htaccess
-                                chmod 644 ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htaccess
-                                #
-                                while [[ -z "$username" ]]
-                                do
-                                    read -ep "Please give me a username for the user we are creating: " -i "rutorrent-$suffix" username
-                                done
-                                #
-                                echo
-                                echo -e "Generating a random 20 character random password for the user:" "\033[32m""$username""\e[0m"
-                                echo
-                                #
-                                htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htpasswd "$username" "$apppass"
-                                chmod 644 ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htpasswd
-                                echo
-                                #
-                                # nginx copy rutorrent-suffix htpasswd to create the rpc htpasswd file.
-                                #
-                                if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
-                                then
-                                    cp -f ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htpasswd ~/.nginx/conf.d/000-default-server.d/scgi-"$suffix"-htpasswd
-                                    sed -i 's/\(.*\):\(.*\)/rutorrent:\2/g' ~/.nginx/conf.d/000-default-server.d/scgi-"$suffix"-htpasswd
-                                fi
-                                #
-                                # create the screen
-                                if [[ -d ~/.autodl-"$suffix" && ~/.irssi-"$suffix" ]]
+                                    sed -i 's|/media/DiskID/home/username/private/rtorrent/|'"$HOME"'/private/rtorrent-'"$suffix"'/|g' ~/.rtorrent-"$suffix".rc
+                                    sed -i 's|/media/DiskID/home/username/www/username.server.feralhosting.com/public_html/rutorrent/php/initplugins.php username|'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/rutorrent-'"$suffix"'/php/initplugins.php '$(whoami)'|g' ~/.rtorrent-"$suffix".rc
+                                    # sed /rutorrent/
+                                    echo -e "\033[31m""2:""\e[0m" "\033[33m""Part 2""\e[0m" "Editing the files: rutorrent"
+                                    echo
+                                    sed -i 's|/private/rtorrent/.socket|/private/rtorrent-'"$suffix"'/.socket|g' ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/conf/config.php
+                                    #
+                                    echo 'screen -fa -dmS rtorrent-'"$suffix"' rtorrent -n -o import=~/.rtorrent-'"$suffix"'.rc' >> ~/multirtru.restart.txt
+                                    ############################
+                                    ############################
+                                    ############################
+                                    read -ep "Would you like this script to install and configure Autodl-irssi for this instance to? [y]es or [n]o: " -i "y" autodlinstall
+                                    echo
+                                    if [[ "$autodlinstall" =~ ^[Yy]$ ]]
                                     then
-                                    echo -e "\033[32m""Checking we have started irssi or if there are multiple screens/processes""\e[0m"
+                                        ############################
+                                        ####### Autodl Start #######
+                                        ############################
+                                        #
+                                        echo -e "\033[32m""Installing autodl-irssi and the rutorrent plugin for your custom instance""\e[0m"
+                                        # Makes the directories we require for the irssi and autodl installation.
+                                        mkdir -p ~/{.autodl-"$suffix",.irssi-"$suffix"/scripts/autorun}
+                                        echo -e "\033[31m""A randomly generated 20 character password has been set for you by this script""\e[0m"
+                                        echo "Downloading autodl-irssi"
+                                        # Downloads the newest RELEASE version of the autodl community edition and saves it as a zip file.
+                                        wget -qO ~/autodl-irssi.zip "$autodlirssicommunity"
+                                        # Downloads the newest  RELEASE version  of the autodl community trackers file and saves it as a zip file.
+                                        wget -qO ~/autodl-trackers.zip "$autodltrackers"
+                                        # Unpack core autodl files to the desired location for further processing
+                                        unzip -qo ~/autodl-irssi.zip -d ~/.irssi-"$suffix"/scripts/
+                                        # Unpack the latest trackers file just to make sure we are they are current.
+                                        unzip -qo ~/autodl-trackers.zip -d ~/.irssi-"$suffix"/scripts/AutodlIrssi/trackers/
+                                        # Moves the files around to their proper homes. The .pl file is moved to autorun so that autodl starts automatically when we open irssi
+                                        cp -f ~/.irssi-"$suffix"/scripts/autodl-irssi.pl ~/.irssi-"$suffix"/scripts/autorun/
+                                        # Delete files we no longer need.
+                                        rm -f ~/autodl-{irssi,trackers}.zip ~/.irssi-"$suffix"/scripts/{README*,CONTRIBUTING.md,autodl-irssi.pl}
+                                        echo "Writing configuration files"
+                                        echo -e "[options]\ngui-server-port = $appport\ngui-server-password = $autodlpass" > ~/.autodl-"$suffix"/autodl.cfg
+                                        #
+                                        ############################
+                                        ######## Autodl End ########
+                                        ############################
+                                        #
+                                        ############################
+                                        ##### RuTorrent Starts #####
+                                        ############################
+                                        #
+                                        # Downloads the latest version of the autodl-irssi plugin
+                                        wget -qO ~/autodl-rutorrent.zip "$autodlrutorrent"
+                                        # Unpacks the autodl rutorrent plugin here
+                                        unzip -qo ~/autodl-rutorrent.zip
+                                        # Copy the contents from autodl-rutorrent-master to a folder called autodl-irssi in the rutorrent plug-in directory, creating it if absent
+                                        mkdir -p ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins
+                                        cp -rf ~/autodl-rutorrent-master/. ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/autodl-irssi
+                                        # Delete the downloaded zip and the unpacked folder we no longer require.
+                                        cd && rm -rf autodl-rutorrent{-master,.zip}
+                                        # Uses echo to make the config file for the rutorrent plugun to work with autodl using the variables port and pass
+                                        echo -ne '<?php\n$autodlPort = '"$appport"';\n$autodlPassword = "'"$autodlpass"'";\n?>' > ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/autodl-irssi/conf.php
+                                        #
+                                        ############################
+                                        ###### RuTorrent Ends ######
+                                        ############################
+                                        ############################
+                                        ##### Fix script Start #####
+                                        ############################
+                                        #
+                                        echo "Applying the fix script as part of the installation:"
+                                        # Set a custom home dir for autodl to ~/.autodl-$suffix
+                                        sed -i 's|return File::Spec->catfile(getHomeDir(), ".autodl");|return File::Spec->catfile(getHomeDir(), ".autodl-'"$suffix"'");|g' ~/.irssi-"$suffix"/scripts/AutodlIrssi/Dirs.pm
+                                        # Fix the core Autodl files by changing 127.0.0.1 to 10.0.0.1 using sed in 3 places in 2 files.
+                                        sed -i "s|use constant LISTEN_ADDRESS => '127.0.0.1';|use constant LISTEN_ADDRESS => '10.0.0.1';|g" ~/.irssi-"$suffix"/scripts/AutodlIrssi/GuiServer.pm
+                                        sed -i 's|$rtAddress = "127.0.0.1$rtAddress"|$rtAddress = "10.0.0.1$rtAddress"|g' ~/.irssi-"$suffix"/scripts/AutodlIrssi/MatchedRelease.pm
+                                        sed -i 's|my $scgi = new AutodlIrssi::Scgi($rtAddress, {REMOTE_ADDR => "127.0.0.1"});|my $scgi = new AutodlIrssi::Scgi($rtAddress, {REMOTE_ADDR => "10.0.0.1"});|g' ~/.irssi-"$suffix"/scripts/AutodlIrssi/MatchedRelease.pm
+                                        #
+                                        echo -e "\033[33m""Autodl fix has been applied""\e[0m"
+                                        # Fix the relevent rutorrent plugin file by changing 127.0.0.1 to 10.0.0.1 using sed
+                                        sed -i 's|if (!socket_connect($socket, "127.0.0.1", $autodlPort))|if (!socket_connect($socket, "10.0.0.1", $autodlPort))|g' ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/autodl-irssi/getConf.php
+                                        echo -e "\033[33m""Autodl-rutorrent fix has been applied""\e[0m"
+                                        echo
+                                        #
+                                        ############################
+                                        ###### Fix script End ######
+                                        ############################
+                                        #
+                                        screen -wipe > /dev/null 2>&1
+                                        screen -dmS autodl-"$suffix" irssi --home="$HOME"/.irssi-"$suffix"/
+                                        echo 'screen -dmS autodl-'"$suffix"' irssi --home=$HOME/.irssi-'"$suffix"'/' >> ~/multirtru.restart.txt
+                                        # Send a command to the new screen telling Autodl to update itself. This basically generates the ~/.autodl/AutodlState.xml files with updated info.
+                                        screen -S autodl-"$suffix" -p 0 -X stuff '/autodl update^M'
+                                        ############################
+                                        ############################
+                                        ############################
+                                    else
+                                        echo "This instance has been installed without autodl-irssi"
+                                        echo
+                                    fi
+                                    #
+                                    # Password protect the setup
+                                    #
+                                    echo -e "\033[31m""3:""\e[0m" "Password Protect the Installation"
                                     echo
-                                    echo -e "\033[31m"$(screen -ls | grep autodl-"$suffix")"\e[0m"
+                                    #
+                                    if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+                                    then
+                                        echo -e 'location /rutorrent-'"$suffix"' {\n    auth_basic "rutorrent-'"$suffix"'";\n    auth_basic_user_file '"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/rutorrent-'"$suffix"'/.htpasswd;\n}\n\nlocation /rutorrent-'"$suffix"'/conf { deny all; }\nlocation /rutorrent-'"$suffix"'/share { deny all; }' > ~/.nginx/conf.d/000-default-server.d/rtorrent-"$suffix".conf
+                                        echo -e 'location /rtorrent-'"$suffix"'/rpc {\n    include   /etc/nginx/scgi_params;\n    scgi_pass unix://'"$HOME"'/private/rtorrent-'"$suffix"'/.socket;\n\n    auth_basic '\''rtorrent SCGI for rutorrent-'"$suffix"''\'';\n    auth_basic_user_file conf.d/000-default-server.d/scgi-'"$suffix"'-htpasswd;\n}' > ~/.nginx/conf.d/000-default-server.d/rtorrent-"$suffix"-rpc.conf
+                                        /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
+                                    fi
+                                    #
+                                    echo -e 'AuthType Basic\nAuthName "rtorrent-'"$suffix"'"\nAuthUserFile "'"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/rutorrent-'"$suffix"'/.htpasswd"\nRequire valid-user' > ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htaccess
+                                    chmod 644 ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htaccess
+                                    #
+                                    while [[ -z "$username" ]]
+                                    do
+                                        read -ep "Please give me a username for the user we are creating: " -i "rutorrent-$suffix" username
+                                    done
+                                    #
                                     echo
-                                    echo -e "You can attach to the screen using this command: ""\033[32m""screen -r autodl-$suffix""\e[0m"
+                                    echo -e "Generating a random 20 character random password for the user:" "\033[32m""$username""\e[0m"
+                                    echo
+                                    #
+                                    htpasswd -cbm ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htpasswd "$username" "$apppass"
+                                    chmod 644 ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htpasswd
+                                    echo
+                                    #
+                                    # nginx copy rutorrent-suffix htpasswd to create the rpc htpasswd file.
+                                    #
+                                    if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+                                    then
+                                        cp -f ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/.htpasswd ~/.nginx/conf.d/000-default-server.d/scgi-"$suffix"-htpasswd
+                                        sed -i 's/\(.*\):\(.*\)/rutorrent:\2/g' ~/.nginx/conf.d/000-default-server.d/scgi-"$suffix"-htpasswd
+                                    fi
+                                    #
+                                    # create the screen
+                                    if [[ -d ~/.autodl-"$suffix" && ~/.irssi-"$suffix" ]]
+                                        then
+                                        echo -e "\033[32m""Checking we have started irssi or if there are multiple screens/processes""\e[0m"
+                                        echo
+                                        echo -e "\033[31m"$(screen -ls | grep autodl-"$suffix")"\e[0m"
+                                        echo
+                                        echo -e "You can attach to the screen using this command: ""\033[32m""screen -r autodl-$suffix""\e[0m"
+                                        echo
+                                    fi
+                                    echo -e "\033[32m""4:""\e[0m" "Creating the screen process"
+                                    echo
+                                    #
+                                    screen -fa -dmS rtorrent-"$suffix" rtorrent -n -o import=~/.rtorrent-"$suffix".rc
+                                    #
+                                    echo -e "\033[32m""This command was added to""\e[0m" "\033[36m""~/multirtru.restart.txt""\e[0m" "\033[32m""so you can easily restart this instance""\e[0m"
+                                    echo
+                                    echo -e "To reattach to this screen type: ""\033[33m""screen -r rtorrent-$suffix""\e[0m"
+                                    echo
+                                    echo -e "Is it running? ""\033[33m"$(screen -ls | grep rtorrent-"$suffix")"\e[0m"
+                                    echo
+                                    echo -e "The username for this instance is:" "\033[32m""$username""\e[0m"
+                                    echo
+                                    echo -e "Visit this URL to see your new instance:"
+                                    echo
+                                    echo -e "\033[32m""https://$username:$apppass@$(hostname -f)/$(whoami)/rutorrent-$suffix/""\e[0m"
+                                    echo
+                                    echo -e "Your password for ""\033[32m""rutorrent-$suffix""\e[0m" "is" "\033[32m""$apppass""\e[0m" "Please make a note of this password now."
+                                    echo
+                                    echo -e "If you forget the pass you will have to use the script in this FAQ - https://www.feralhosting.com/faq/view?question=22"
+                                    echo
+                                    echo -e "\033[33m""Don't forget, you can manage your passwords with this FAQ:""\e[0m" "\033[36m""https://www.feralhosting.com/faq/view?question=22""\e[0m"
+                                    echo
+                                    sleep 3
+                                else
+                                    echo -e "\033[31m""This suffix is already in use. Please use another.""\e[0m"
                                     echo
                                 fi
-                                echo -e "\033[32m""4:""\e[0m" "Creating the screen process"
-                                echo
-                                #
-                                screen -fa -dmS rtorrent-"$suffix" rtorrent -n -o import=~/.rtorrent-"$suffix".rc
-                                #
-                                echo -e "\033[32m""This command was added to""\e[0m" "\033[36m""~/multirtru.restart.txt""\e[0m" "\033[32m""so you can easily restart this instance""\e[0m"
-                                echo
-                                echo -e "To reattach to this screen type: ""\033[33m""screen -r rtorrent-$suffix""\e[0m"
-                                echo
-                                echo -e "Is it running? ""\033[33m"$(screen -ls | grep rtorrent-"$suffix")"\e[0m"
-                                echo
-                                echo -e "The username for this instance is:" "\033[32m""$username""\e[0m"
-                                echo
-                                echo -e "Visit this URL to see your new instance:"
-                                echo
-                                echo -e "\033[32m""https://$username:$apppass@$(hostname -f)/$(whoami)/rutorrent-$suffix/""\e[0m"
-                                echo
-                                echo -e "Your password for ""\033[32m""rutorrent-$suffix""\e[0m" "is" "\033[32m""$apppass""\e[0m" "Please make a note of this password now."
-                                echo
-                                echo -e "If you forget the pass you will have to use the script in this FAQ - https://www.feralhosting.com/faq/view?question=22"
-                                echo
-                                echo -e "\033[33m""Don't forget, you can manage your passwords with this FAQ:""\e[0m" "\033[36m""https://www.feralhosting.com/faq/view?question=22""\e[0m"
-                                echo
                                 sleep 3
-                            else
-                                echo -e "\033[31m""This suffix is already in use. Please use another.""\e[0m"
-                                echo
                             fi
-                            sleep 3
+                            echo
                             ;;
                     "2")
                             functiontwo
