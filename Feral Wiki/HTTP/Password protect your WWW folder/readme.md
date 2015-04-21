@@ -66,9 +66,9 @@ If you have installed rutorrent via the Software manager it created a `.htaccess
 Section 1: Creating our .htaccess
 ---
 
-**Step 1:** [SSH to your Feral server](https://www.feralhosting.com/faq/view?question=165). First we need to navigate to the directory we want to protect. The file that will be protecting our default www directory is called `.htaccess` (please note the initial dot). It works in partnership with a file called `.htpasswd` in which the actual encrypted password is stored. Let's create the `.htaccess` first.
+**Step 1:** [SSH to your Feral server](https://www.feralhosting.com/faq/view?question=12). First we need to navigate to the directory we want to protect. The file that will be protecting our default www directory is called `.htaccess` (please note the initial dot). It works in partnership with a file called `.htpasswd` in which the actual encrypted password is stored. Let's create the `.htaccess` first.
 
-The First thing we should do is log in via SSH. [please see this guide for how to do this](https://www.feralhosting.com/faq/view?question=165)
+In SSH do this command:
 
 ~~~
 cd ~/www/$(whoami).$(hostname)/public_html/

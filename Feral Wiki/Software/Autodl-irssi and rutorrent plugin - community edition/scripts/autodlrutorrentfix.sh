@@ -1,4 +1,9 @@
 #!/bin/bash
+#
+# Obsolete - Use the install.autodl script for default location installations. Use the install.multrtru script for custom instances.
+#
+# wget -qO ~/autodlfix http://git.io/vfLn5 && bash ~/autodlfix
+#
 read -ep "Do you need to fix a custom instance [y]es or [n]o: " yesido
 echo
 if [[ "$yesido" =~ ^[Yy]$ ]]
@@ -58,7 +63,7 @@ then
     echo
     echo -e "Done. Please refresh/reload rutorrent using CTRL + F5"
     echo
-    echo -e "This fix might have to be run each time you update/overwrite the autodl or autodl-rutorrent files."
+    echo -e "This fix might have to be run each time you update/overwrite the autodl-$suffix or rutorrent-$suffix plugin files."
     echo
     exit
 else
@@ -115,7 +120,7 @@ else
     echo
     echo -e "Done. Please refresh/reload rutorrent using CTRL + F5"
     echo
-    echo -e "This fix might have to be run each time you update/overwrite the autodl or autodl-rutorrent files."
+    echo -e "This fix might have to be run each time you update/overwrite the autodl or rutorrent plugin files."
     echo
     exit
 fi
