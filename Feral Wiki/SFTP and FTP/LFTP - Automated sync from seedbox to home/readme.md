@@ -47,6 +47,14 @@ local_dir="$HOME/lftp/"
 
 Here is the basic script:
 
+Do this command in you Cygwin terminal to download the script.
+
+~~~
+wget -qO ~/autolftp-ftp.sh http://git.io/vf0wo
+~~~
+
+Here is the script to manually copy and paste:
+
 ~~~
 #!/bin/bash
 login="username"
@@ -77,6 +85,14 @@ fi
 ~~~
 
 Here is an edited version for use with sftp:
+
+Do this command in you Cygwin terminal to download the script.
+
+~~~
+wget -qO ~/autolftp-sftp.sh http://git.io/vfGVm
+~~~
+
+Here is the script to manually copy and paste:
 
 ~~~
 #!/bin/bash

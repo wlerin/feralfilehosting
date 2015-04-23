@@ -43,7 +43,7 @@ then
     #echo 'v0.0.6 - My changes go here'
     #echo 'v0.0.5 - My changes go here'
     #echo 'v0.0.4 - My changes go here'
-    echo 'v1.2.3 - updater enabled and version bumped'
+    echo 'v1.2.3 - updater enabled and version bumped. WebUi password protected by default. Existing credentials shown to user upon restart.'
     echo 'v1.2.1 - Script reworked. More self suffucient and a simplified user experience.'
     echo 'v1.1.1 - Template updated'
     #
@@ -60,7 +60,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.2.1"
+scriptversion="1.2.3"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.sick"
