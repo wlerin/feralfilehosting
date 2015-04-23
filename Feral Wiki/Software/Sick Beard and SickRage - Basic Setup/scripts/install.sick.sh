@@ -98,7 +98,7 @@ host2http="http://$(hostname -f)/$(whoami)/"
 host2https="https://$(hostname -f)/$(whoami)/"
 #
 # feralwww - sets the full path to the default public_html directory if it exists.
-[[ -d ~/www/$(whoami).$(hostname -f)/public_html ]] && feralwww="$HOME/www/$(whoami).$(hostname -f)/public_html/"
+[[ -d ~/www/"$(whoami)"."$(hostname -f)"/public_html ]] && feralwww="$HOME/www/$(whoami).$(hostname -f)/public_html/"
 # rtorrentdata - sets the full path to the rtorrent data directory if it exists.
 [[ -d ~/private/rtorrent/data ]] && rtorrentdata="$HOME/private/rtorrent/data"
 # deluge - sets the full path to the deluge data directory if it exists.
@@ -161,66 +161,70 @@ showSickRageMenu ()
 }
 #
 killsickbeard () {
-    if [[ -f ~/.sickbeard/sickbeard.pid ]] && [[ "$(cat ~/.sickbeard/sickbeard.pid 2> /dev/null)" -eq "$(ps x | grep -v grep | grep "python $HOME/.sickbeard/SickBeard.py -d" | awk '{print $1}')" ]]
+    if [[ -f ~/.sickbeard/sickbeard.pid ]] && [[ "$(cat ~/.sickbeard/sickbeard.pid 2> /dev/null)" -eq "$(pgrep -fu "$(whoami)" "python $HOME/.sickbeard/SickBeard.py -d")" ]]
     then
-        COUNTER="0"
-        while [[ "$(ps x | grep -v grep | grep -c "python $HOME/.sickbeard/SickBeard.py -d" | awk '{print $1}')" -eq "1" ]] && [[ "$COUNTER" -le "120" ]]
+        counter="0"
+        while [[ "$(pgrep -cfu "$(whoami)" "python $HOME/.sickbeard/SickBeard.py -d")" -eq "1" ]] && [[ "$counter" -le "30" ]]
         do
             printf '\rI need to wait for Sick Beard to shut down. '
             kill "$(cat ~/.sickbeard/sickbeard.pid 2> /dev/null)" > /dev/null 2>&1
-            let COUNTER=COUNTER+1
+            let counter=counter+1
+            sleep 1
         done
         echo -e '\n'
     else
-        COUNTER="0"
-        while [[ "$(ps x | grep -v grep | grep -c "python $HOME/.sickbeard/SickBeard.py -d" | awk '{print $1}')" -eq "1" ]] && [[ "$COUNTER" -lt "120" ]]
+        counter="0"
+        while [[ "$(pgrep -cfu "$(whoami)" "python $HOME/.sickbeard/SickBeard.py -d")" -eq "1" ]] && [[ "$counter" -le "30" ]]
         do
             printf '\rI need to wait for SickRage to shut down. '
-            kill "$(ps x | grep -v grep | grep "python $HOME/.sickbeard/SickBeard.py -d" | awk '{print $1}')" > /dev/null 2>&1
-            let COUNTER=COUNTER+1
+            kill "$(pgrep -fu "$(whoami)" "python $HOME/.sickbeard/SickBeard.py -d")" > /dev/null 2>&1
+            let counter=counter+1
+            sleep 1
         done
         echo -e '\n'
     fi
     #
-    if  [[ "$COUNTER" -ge "120" ]] && [[ "$(ps x | grep -v grep | grep -c "python $HOME/.sickbeard/SickBeard.py -d" | awk '{print $1}')" -eq "1" ]]
+    if  [[ "$counter" -ge "30" ]] && [[ "$(pgrep -cfu "$(whoami)" "python $HOME/.sickbeard/SickBeard.py -d")" -eq "1" ]]
     then
-        while [[ "$(ps x | grep -v grep | grep -c "python $HOME/.sickbeard/SickBeard.py -d" | awk '{print $1}')" -eq "1" ]]
+        while [[ "$(pgrep -cfu "$(whoami)" "python $HOME/.sickbeard/SickBeard.py -d")" -eq "1" ]]
         do
             printf '\rThe program being stubborn. I am forcing it to quit to continue. '
-            kill -9 "$(ps x | grep -v grep | grep "python $HOME/.sickbeard/SickBeard.py -d" | awk '{print $1}')" > /dev/null 2>&1
+            kill -9 "$(pgrep -fu "$(whoami)" "python $HOME/.sickbeard/SickBeard.py -d")" > /dev/null 2>&1
         done
         echo -e '\n'
     fi
 }
 #
 killsickrage () {
-    if [[ -f ~/.sickrage/sickrage.pid ]] && [[ "$(cat ~/.sickrage/sickrage.pid 2> /dev/null)" -eq "$(ps x | grep -v grep | grep "python $HOME/.sickrage/SickBeard.py -d" | awk '{print $1}')" ]]
+    if [[ -f ~/.sickrage/sickrage.pid ]] && [[ "$(cat ~/.sickrage/sickrage.pid 2> /dev/null)" -eq "$(pgrep -fu "$(whoami)" "python $HOME/.sickrage/SickBeard.py -d")" ]]
     then
-        COUNTER="0"
-        while [[ "$(ps x | grep -v grep | grep -c "python $HOME/.sickrage/SickBeard.py -d" | awk '{print $1}')" -eq "1" ]] && [[ "$COUNTER" -le "120" ]]
+        counter="0"
+        while [[ "$(pgrep -cfu "$(whoami)" "python $HOME/.sickrage/SickBeard.py -d")" -eq "1" ]] && [[ "$counter" -le "30" ]]
         do
             printf '\rI need to wait for Sick Beard to shut down. '
             kill "$(cat ~/.sickrage/sickrage.pid 2> /dev/null)" > /dev/null 2>&1
-            let COUNTER=COUNTER+1
+            let counter=counter+1
+            sleep 1
         done
         echo -e '\n'
     else
-        COUNTER="0"
-        while [[ "$(ps x | grep -v grep | grep -c "python $HOME/.sickrage/SickBeard.py -d" | awk '{print $1}')" -eq "1" ]] && [[ "$COUNTER" -lt "120" ]]
+        counter="0"
+        while [[ "$(pgrep -cfu "$(whoami)" "python $HOME/.sickrage/SickBeard.py -d")" -eq "1" ]] && [[ "$counter" -le "30" ]]
         do
             printf '\rI need to wait for Sick Beard to shut down. '
-            kill "$(ps x | grep -v grep | grep "python $HOME/.sickrage/SickBeard.py -d" | awk '{print $1}')" > /dev/null 2>&1
-            let COUNTER=COUNTER+1
+            kill "$(pgrep -fu "$(whoami)" "python $HOME/.sickrage/SickBeard.py -d")" > /dev/null 2>&1
+            let counter=counter+1
+            sleep 1
         done
         echo -e '\n'
     fi
     #
-    if  [[ "$COUNTER" -ge "120" ]] && [[ "$(ps x | grep -v grep | grep -c "python $HOME/.sickrage/SickBeard.py -d" | awk '{print $1}')" -eq "1" ]]
+    if  [[ "$counter" -ge "30" ]] && [[ "$(pgrep -cfu "$(whoami)" "python $HOME/.sickrage/SickBeard.py -d")" -eq "1" ]]
     then
-        while [[ "$(ps x | grep -v grep | grep -c "python $HOME/.sickrage/SickBeard.py -d" | awk '{print $1}')" -eq "1" ]]
+        while [[ "$(pgrep -cfu "$(whoami)" "python $HOME/.sickrage/SickBeard.py -d")" -eq "1" ]]
         do
             printf '\rThe program being stubborn. I am forcing it to quit to continue. '
-            kill -9 "$(ps x | grep -v grep | grep "python $HOME/.sickrage/SickBeard.py -d" | awk '{print $1}')" > /dev/null 2>&1
+            kill -9 "$(pgrep -fu "$(whoami)" "python $HOME/.sickrage/SickBeard.py -d")" > /dev/null 2>&1
         done
         echo -e '\n'
     fi
@@ -253,7 +257,7 @@ sickbeardproxy () {
     # Nginx Proxypass
     if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
     then
-        echo -en 'location ^~ /sickbeard {\nproxy_set_header X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\nproxy_set_header Host $http_x_host;\nproxy_set_header X-NginX-Proxy true;\n\nrewrite /(.*) /'$(whoami)'/$1 break;\nproxy_pass http://10.0.0.1:'"$appport"'/;\nproxy_redirect off;\n}' >  ~/.nginx/conf.d/000-default-server.d/sickbeard.conf
+        echo -en 'location ^~ /sickbeard {\nproxy_set_header X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\nproxy_set_header Host $http_x_host;\nproxy_set_header X-NginX-Proxy true;\n\nrewrite /(.*) /'"$(whoami)"'/$1 break;\nproxy_pass http://10.0.0.1:'"$appport"'/;\nproxy_redirect off;\n}' >  ~/.nginx/conf.d/000-default-server.d/sickbeard.conf
         /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
     fi
 }
@@ -268,7 +272,7 @@ sickrageproxy () {
     # Nginx Proxypass
     if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
     then
-        echo -en 'location ^~ /sickrage {\nproxy_set_header X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\nproxy_set_header Host $http_x_host;\nproxy_set_header X-NginX-Proxy true;\n\nrewrite /(.*) /'$(whoami)'/$1 break;\nproxy_pass http://10.0.0.1:'"$appport"'/;\nproxy_redirect off;\n}' >  ~/.nginx/conf.d/000-default-server.d/sickrage.conf
+        echo -en 'location ^~ /sickrage {\nproxy_set_header X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\nproxy_set_header Host $http_x_host;\nproxy_set_header X-NginX-Proxy true;\n\nrewrite /(.*) /'"$(whoami)"'/$1 break;\nproxy_pass http://10.0.0.1:'"$appport"'/;\nproxy_redirect off;\n}' >  ~/.nginx/conf.d/000-default-server.d/sickrage.conf
         /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
     fi
 }
@@ -283,16 +287,6 @@ sickbeardcredentials () {
         echo -e "Password:" "\033[32m""$(sed -rn 's/web_password = (.*)/\1/p' ~/.sickbeard/config.ini)""\e[0m"
         echo
     fi
-    #
-    if [[ "$(sed -rn 's/web_username = (.*)/\1/p' ~/.sickbeard/config.ini)" = "$(whoami)" ]] && [[ "$(sed -rn 's/web_password = (.*)/\1/p' ~/.sickbeard/config.ini)" = "$apppass" ]]
-    then
-        echo "Your WebUi credentials are:"
-        echo
-        echo -e "Username:" "\033[32m""$(whoami)""\e[0m"
-        echo
-        echo -e "Password:" "\033[32m""$apppass""\e[0m"
-        echo
-    fi
 }
 #
 sickragecredentials () {
@@ -303,16 +297,6 @@ sickragecredentials () {
         echo -e "Username:" "\033[32m""$(sed -rn 's/web_username = (.*)/\1/p' ~/.sickrage/config.ini)""\e[0m"
         echo
         echo -e "Password:" "\033[32m""$(sed -rn 's/web_password = (.*)/\1/p' ~/.sickrage/config.ini)""\e[0m"
-        echo
-    fi
-    #
-    if [[ "$(sed -rn 's/web_username = (.*)/\1/p' ~/.sickrage/config.ini)" = "$(whoami)" ]] && [[ "$(sed -rn 's/web_password = (.*)/\1/p' ~/.sickrage/config.ini)" = "$apppass" ]]
-    then
-        echo "Your WebUi credentials are:"
-        echo
-        echo -e "Username:" "\033[32m""$(whoami)""\e[0m"
-        echo
-        echo -e "Password:" "\033[32m""$apppass""\e[0m"
         echo
     fi
 }
@@ -467,7 +451,7 @@ else
             bash ~/.111"$scriptname"
             exit
         else
-            if [[ -z "$(ps x | fgrep -v fgrep | fgrep "bash $HOME/bin/$scriptname" | awk '{print $1}')" && "$(ps x | fgrep -v fgrep | fgrep "bash $HOME/bin/$scriptname" | awk '{print $1}')" -ne "$$" ]]
+            if [[ -z "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" && "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" -ne "$$" ]]
             then
                 echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
                 bash ~/.222"$scriptname"
