@@ -19,7 +19,7 @@ Bash Script:
 **5:** Installs Unrar v5 locally to work with SickRage post processing. This feature is not enabled by default.
 
 ~~~
-wget -qO ~/install.sick http://git.io/vffpn && bash ~/install.sick
+wget -qO ~/install.sick http://git.io/vfGch && bash ~/install.sick
 ~~~
 
 Restarting:
@@ -30,21 +30,31 @@ Restarting:
 See if any instances of SickBeard are running. Searches for FAQ or script specific instances only.
 
 ~~~
-ps x | grep "$HOME/.sickbeard/SickBeard.py" | grep -v grep
+ps x | grep -v grep | grep "$HOME/.sickbeard/SickBeard.py"
 ~~~
 
 Use these commands to shut down all instances from `~/.sickbeard`:
 
 > **Important note:** Give the program at least 10 seconds to shut down before restarting.
 
+Try to kill  Sick Beard gracefully so that it saves all settings.
+
 ~~~
-kill $(ps x | grep -v grep | grep "python $HOME/.sickbeard/SickBeard.py" | grep -oE '([0-9]{3,5})')
+kill "$(ps x | grep -v grep | grep "python $HOME/.sickbeard/SickBeard.py -d" | awk '{print $1}')"
+~~~
+
+If it refuses to exit then you have to force it to quit using this command instead.
+
+**Important note:** Make sure you have saved your setting via the WebUi before using this command.
+
+~~~
+kill -9 "$(ps x | grep -v grep | grep "python $HOME/.sickbeard/SickBeard.py -d" | awk '{print $1}')"
 ~~~
 
 Use this command to restart the default instance:
 
 ~~~
-python $HOME/.sickbeard/SickBeard.py -d
+python ~/.sickbeard/SickBeard.py -d --pidfile="$HOME/.sickbeard/sickbeard.pid"
 ~~~
 
 ### SickRage:
@@ -52,21 +62,31 @@ python $HOME/.sickbeard/SickBeard.py -d
 See if any instances of SickRage are running. Searches for FAQ or script specific instances only.
 
 ~~~
-ps x | grep "$HOME/.sickrage/SickBeard.py" | grep -v grep
+ps x | grep -v grep|  grep "$HOME/.sickrage/SickBeard.py"
 ~~~
 
 Use these commands to shut down all instances from `~/.sickrage`:
 
 > **Important note:** Give the program at least 10 seconds to shut down before restarting.
 
+Try to kill  SickRage gracefully so that it saves all settings.
+
 ~~~
-kill $(ps x | grep -v grep | grep "python $HOME/.sickrage/SickBeard.py" | grep -oE '([0-9]{3,5})')
+kill "$(ps x | grep -v grep | grep "python $HOME/.sickrage/SickBeard.py -d" | awk '{print $1}')"
+~~~
+
+If it refuses to exit then you have to force it to quit using this command instead.
+
+**Important note:** Make sure you have saved your setting via the WebUi before using this command.
+
+~~~
+kill -9 "$(ps x | grep -v grep | grep "python $HOME/.sickrage/SickBeard.py -d" | awk '{print $1}')"
 ~~~
 
 Use this command to restart the default instance:
 
 ~~~
-python $HOME/.sickrage/SickBeard.py -d
+python ~/.sickrage/SickBeard.py -d --pidfile="$HOME/.sickrage/sickrage.pid"
 ~~~
 
 Manual Installation:
@@ -97,19 +117,19 @@ Configuration
 
 > **Important note:** To properly configure the proxypass below you will need to edit the config files while the programs is shut-down or set them from within the program and then save and restart. The command below is just a quick start.
 
-Pick a port between `10000` and `50000`.  Remember this port!  Then let's start up the SickBeard daemon on that port.
+Pick a port between `10001` and `49999`.  Remember this port!  Then let's start up the SickBeard daemon on that port.
 
 
 ### Sickbeard:
 
 ~~~
-python ~/.sickbeard/SickBeard.py -d -p XXXXX
+python ~/.sickbeard/SickBeard.py -d -p XXXXX --pidfile="$HOME/.sickbeard/sickbeard.pid"
 ~~~
 
 ### Sickrage:
 
 ~~~
-python ~/.sickrage/SickBeard.py -d -p XXXXX
+python ~/.sickrage/SickBeard.py -d -p XXXXX --pidfile="$HOME/.sickrage/sickrage.pid"
 ~~~
 
 where `XXXXX` is the port you picked.  If `XXXXX` does not work or errors out, it's probably in use, so pick something else.
@@ -192,7 +212,7 @@ ProxyRequests Off
 ProxyPreserveHost On
 ProxyVia On
 
-ProxyPass /mypath http://10.0.0.1:PORT/${USER}/mypath
+ProxyPass /mypath http://10.0.0.1:PORT/${USER}/mypath  retry=0 timeout=5
 ProxyPassReverse /mypath http://10.0.0.1:PORT/${USER}/mypath
 ~~~
 

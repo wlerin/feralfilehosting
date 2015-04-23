@@ -175,7 +175,7 @@ killsickbeard () {
         COUNTER="0"
         while [[ "$(ps x | grep -v grep | grep -c "python $HOME/.sickbeard/SickBeard.py -d" | awk '{print $1}')" -eq "1" ]] && [[ "$COUNTER" -lt "120" ]]
         do
-            printf '\rI need to wait for Sick Beard to shut down. '
+            printf '\rI need to wait for SickRage to shut down. '
             kill "$(ps x | grep -v grep | grep "python $HOME/.sickbeard/SickBeard.py -d" | awk '{print $1}')" > /dev/null 2>&1
             let COUNTER=COUNTER+1
         done
