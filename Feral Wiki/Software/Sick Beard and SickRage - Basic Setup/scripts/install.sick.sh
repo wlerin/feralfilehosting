@@ -43,7 +43,7 @@ then
     #echo 'v0.0.6 - My changes go here'
     #echo 'v0.0.5 - My changes go here'
     #echo 'v0.0.4 - My changes go here'
-    #echo 'v0.0.3 - My changes go here'
+    echo 'v1.2.3 - updater enabled and version bumped'
     echo 'v1.2.1 - Script reworked. More self suffucient and a simplified user experience.'
     echo 'v1.1.1 - Template updated'
     #
@@ -126,7 +126,7 @@ giturlsickrage="https://github.com/SiCKRAGETV/SickRage.git"
 ############################
 #
 # Disables the built in script updater permanently by setting this variable to 0.
-updaterenabled="0"
+updaterenabled="1"
 #
 ############################
 ####### Variable End #######
