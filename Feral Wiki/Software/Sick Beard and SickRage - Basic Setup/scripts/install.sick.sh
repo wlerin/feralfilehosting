@@ -30,7 +30,9 @@
 ## Version History Starts ##
 ############################
 #
-if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
+if [[ ! -z "$1" && "$1" == 'changelog' ]]
+then
+    echo
     #
     # put your version changes in the single quotes and then uncomment the line.
     #
@@ -42,7 +44,7 @@ if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
     #echo 'v0.0.5 - My changes go here'
     #echo 'v0.0.4 - My changes go here'
     #echo 'v0.0.3 - My changes go here'
-    #echo 'v0.0.2 - My changes go here'
+    echo 'v1.2.1 - Script reworked. More self suffucient and a simplified user experience.'
     echo 'v1.1.1 - Template updated'
     #
     echo
@@ -58,7 +60,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.1.1"
+scriptversion="1.2.1"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.sick"
@@ -113,8 +115,8 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 ## Custom Variables Start ##
 ############################
 #
-unrarv="5.2.6"
-unrarfv="http://www.rarlab.com/rar/unrarsrc-5.2.6.tar.gz"
+unrarv="5.2.7"
+unrarfv="http://www.rarlab.com/rar/unrarsrc-5.2.7.tar.gz"
 #
 giturlsickbeard="https://github.com/midgetspy/Sick-Beard.git"
 giturlsickrage="https://github.com/SiCKRAGETV/SickRage.git"
@@ -124,17 +126,216 @@ giturlsickrage="https://github.com/SiCKRAGETV/SickRage.git"
 ############################
 #
 # Disables the built in script updater permanently by setting this variable to 0.
-updaterenabled="1"
+updaterenabled="0"
 #
 ############################
 ####### Variable End #######
 ############################
 #
 ############################
+###### Function Start ######
+############################
+#
+showMainMenu () 
+{
+    echo "1) Install Sickbeard"
+    echo "2) Install SickRage"
+    echo "3) Quit the script"
+    echo
+}
+#
+showSickBeardMenu () 
+{
+    echo "  1) Install or update Sickbeard"
+    echo "  2) Install just the proxypass for Apache or Nginx"
+    echo "  3) Quit the script"
+    echo
+}
+#
+showSickRageMenu () 
+{
+    echo "  1) Install or update SickRage"
+    echo "  2) Install just the proxypass for Apache or Nginx"
+    echo "  3) Quit the script"
+    echo
+}
+#
+killsickbeard () {
+    if [[ -f ~/.sickbeard/sickbeard.pid ]] && [[ "$(cat ~/.sickbeard/sickbeard.pid 2> /dev/null)" -eq "$(ps x | grep -v grep | grep "python $HOME/.sickbeard/SickBeard.py -d" | awk '{print $1}')" ]]
+    then
+        COUNTER="0"
+        while [[ "$(ps x | grep -v grep | grep -c "python $HOME/.sickbeard/SickBeard.py -d" | awk '{print $1}')" -eq "1" ]] && [[ "$COUNTER" -le "120" ]]
+        do
+            printf '\rI need to wait for Sick Beard to shut down. '
+            kill "$(cat ~/.sickbeard/sickbeard.pid 2> /dev/null)" > /dev/null 2>&1
+            let COUNTER=COUNTER+1
+        done
+        echo -e '\n'
+    else
+        COUNTER="0"
+        while [[ "$(ps x | grep -v grep | grep -c "python $HOME/.sickbeard/SickBeard.py -d" | awk '{print $1}')" -eq "1" ]] && [[ "$COUNTER" -lt "120" ]]
+        do
+            printf '\rI need to wait for Sick Beard to shut down. '
+            kill "$(ps x | grep -v grep | grep "python $HOME/.sickbeard/SickBeard.py -d" | awk '{print $1}')" > /dev/null 2>&1
+            let COUNTER=COUNTER+1
+        done
+        echo -e '\n'
+    fi
+    #
+    if  [[ "$COUNTER" -ge "120" ]] && [[ "$(ps x | grep -v grep | grep -c "python $HOME/.sickbeard/SickBeard.py -d" | awk '{print $1}')" -eq "1" ]]
+    then
+        while [[ "$(ps x | grep -v grep | grep -c "python $HOME/.sickbeard/SickBeard.py -d" | awk '{print $1}')" -eq "1" ]]
+        do
+            printf '\rThe program being stubborn. I am forcing it to quit to continue. '
+            kill -9 "$(ps x | grep -v grep | grep "python $HOME/.sickbeard/SickBeard.py -d" | awk '{print $1}')" > /dev/null 2>&1
+        done
+        echo -e '\n'
+    fi
+}
+#
+killsickrage () {
+    if [[ -f ~/.sickrage/sickrage.pid ]] && [[ "$(cat ~/.sickrage/sickrage.pid 2> /dev/null)" -eq "$(ps x | grep -v grep | grep "python $HOME/.sickrage/SickBeard.py -d" | awk '{print $1}')" ]]
+    then
+        COUNTER="0"
+        while [[ "$(ps x | grep -v grep | grep -c "python $HOME/.sickrage/SickBeard.py -d" | awk '{print $1}')" -eq "1" ]] && [[ "$COUNTER" -le "120" ]]
+        do
+            printf '\rI need to wait for Sick Beard to shut down. '
+            kill "$(cat ~/.sickrage/sickrage.pid 2> /dev/null)" > /dev/null 2>&1
+            let COUNTER=COUNTER+1
+        done
+        echo -e '\n'
+    else
+        COUNTER="0"
+        while [[ "$(ps x | grep -v grep | grep -c "python $HOME/.sickrage/SickBeard.py -d" | awk '{print $1}')" -eq "1" ]] && [[ "$COUNTER" -lt "120" ]]
+        do
+            printf '\rI need to wait for Sick Beard to shut down. '
+            kill "$(ps x | grep -v grep | grep "python $HOME/.sickrage/SickBeard.py -d" | awk '{print $1}')" > /dev/null 2>&1
+            let COUNTER=COUNTER+1
+        done
+        echo -e '\n'
+    fi
+    #
+    if  [[ "$COUNTER" -ge "120" ]] && [[ "$(ps x | grep -v grep | grep -c "python $HOME/.sickrage/SickBeard.py -d" | awk '{print $1}')" -eq "1" ]]
+    then
+        while [[ "$(ps x | grep -v grep | grep -c "python $HOME/.sickrage/SickBeard.py -d" | awk '{print $1}')" -eq "1" ]]
+        do
+            printf '\rThe program being stubborn. I am forcing it to quit to continue. '
+            kill -9 "$(ps x | grep -v grep | grep "python $HOME/.sickrage/SickBeard.py -d" | awk '{print $1}')" > /dev/null 2>&1
+        done
+        echo -e '\n'
+    fi
+}
+#
+editsickbeard () {
+    sed -ri 's|web_port = (.*)|web_port = '"$appport"'|g' ~/.sickbeard/config.ini
+    sed -ri 's|web_root = (.*)|web_root = /'"$(whoami)"'/sickbeard|g' ~/.sickbeard/config.ini
+    sed -i 's|launch_browser = 1|launch_browser = 0|g' ~/.sickbeard/config.ini
+}
+#
+editsickrage () {
+    sed -ri 's|web_port = (.*)|web_port = '"$appport"'|g' ~/.sickrage/config.ini
+    sed -ri 's|web_root = (.*)|web_root = /'"$(whoami)"'/sickrage|g' ~/.sickrage/config.ini
+    sed -ri 's|launch_browser = 1|launch_browser = 0|g' ~/.sickrage/config.ini
+    sed -ri 's#root_dirs = (.*)#root_dirs = 0|'"$HOME"'/.sickrage.tv.shows#g' ~/.sickrage/config.ini
+    sed -ri 's|torrent_username = (.*)|torrent_username = rutorrent|g' ~/.sickrage/config.ini
+    sed -ri 's|torrent_host = (.*)|torrent_host = https://'"$(hostname -f)"'/'"$(whoami)"'/rtorrent/rpc/|g' ~/.sickrage/config.ini
+    sed -ri 's|torrent_path = (.*)|torrent_path = '"$HOME"'/private/rtorrent/data|g' ~/.sickrage/config.ini
+    sed -ri 's|torrent_auth_type = (.*)|torrent_auth_type = basic|g' ~/.sickrage/config.ini
+}
+#
+sickbeardproxy () {
+    # Apache proxypass
+    if [[ -d ~/.apache2/conf.d ]]
+    then
+        echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\n\nProxyPass /sickbeard http://10.0.0.1:'"$appport"'/${USER}/sickbeard retry=0 timeout=5\nProxyPassReverse /sickbeard http://10.0.0.1:'"$appport"'/${USER}/sickbeard' > ~/.apache2/conf.d/sickbeard.conf
+        /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
+    fi
+    # Nginx Proxypass
+    if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+    then
+        echo -en 'location ^~ /sickbeard {\nproxy_set_header X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\nproxy_set_header Host $http_x_host;\nproxy_set_header X-NginX-Proxy true;\n\nrewrite /(.*) /'$(whoami)'/$1 break;\nproxy_pass http://10.0.0.1:'"$appport"'/;\nproxy_redirect off;\n}' >  ~/.nginx/conf.d/000-default-server.d/sickbeard.conf
+        /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
+    fi
+}
+#
+sickrageproxy () {
+    # Apache proxypass
+    if [[ -d ~/.apache2/conf.d ]]
+    then
+        echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\n\nProxyPass /sickrage http://10.0.0.1:'"$appport"'/${USER}/sickrage retry=0 timeout=5\nProxyPassReverse /sickrage http://10.0.0.1:'"$appport"'/${USER}/sickrage' > ~/.apache2/conf.d/sickrage.conf
+        /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
+    fi
+    # Nginx Proxypass
+    if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+    then
+        echo -en 'location ^~ /sickrage {\nproxy_set_header X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\nproxy_set_header Host $http_x_host;\nproxy_set_header X-NginX-Proxy true;\n\nrewrite /(.*) /'$(whoami)'/$1 break;\nproxy_pass http://10.0.0.1:'"$appport"'/;\nproxy_redirect off;\n}' >  ~/.nginx/conf.d/000-default-server.d/sickrage.conf
+        /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
+    fi
+}
+#
+sickbeardcredentials () {
+    if [[ "$(sed -rn 's/web_username = (.*)/\1/p' ~/.sickbeard/config.ini)" != '""' ]] && [[ "$(sed -rn 's/web_password = (.*)/\1/p' ~/.sickbeard/config.ini)" != '""' ]]
+    then
+        echo "Your WebUi credentials are:"
+        echo
+        echo -e "Username:" "\033[32m""$(sed -rn 's/web_username = (.*)/\1/p' ~/.sickbeard/config.ini)""\e[0m"
+        echo
+        echo -e "Password:" "\033[32m""$(sed -rn 's/web_password = (.*)/\1/p' ~/.sickbeard/config.ini)""\e[0m"
+        echo
+    fi
+    #
+    if [[ "$(sed -rn 's/web_username = (.*)/\1/p' ~/.sickbeard/config.ini)" = "$(whoami)" ]] && [[ "$(sed -rn 's/web_password = (.*)/\1/p' ~/.sickbeard/config.ini)" = "$apppass" ]]
+    then
+        echo "Your WebUi credentials are:"
+        echo
+        echo -e "Username:" "\033[32m""$(whoami)""\e[0m"
+        echo
+        echo -e "Password:" "\033[32m""$apppass""\e[0m"
+        echo
+    fi
+}
+#
+sickragecredentials () {
+    if [[ "$(sed -rn 's/web_username = (.*)/\1/p' ~/.sickrage/config.ini)" != '""' ]] && [[ "$(sed -rn 's/web_password = (.*)/\1/p' ~/.sickrage/config.ini)" != '""' ]]
+    then
+        echo "Your WebUi credentials are:"
+        echo
+        echo -e "Username:" "\033[32m""$(sed -rn 's/web_username = (.*)/\1/p' ~/.sickrage/config.ini)""\e[0m"
+        echo
+        echo -e "Password:" "\033[32m""$(sed -rn 's/web_password = (.*)/\1/p' ~/.sickrage/config.ini)""\e[0m"
+        echo
+    fi
+    #
+    if [[ "$(sed -rn 's/web_username = (.*)/\1/p' ~/.sickrage/config.ini)" = "$(whoami)" ]] && [[ "$(sed -rn 's/web_password = (.*)/\1/p' ~/.sickrage/config.ini)" = "$apppass" ]]
+    then
+        echo "Your WebUi credentials are:"
+        echo
+        echo -e "Username:" "\033[32m""$(whoami)""\e[0m"
+        echo
+        echo -e "Password:" "\033[32m""$apppass""\e[0m"
+        echo
+    fi
+}
+#
+startsickbeard () {
+    rm -f ~/.sickbeard/sickbeard.pid
+    python ~/.sickbeard/SickBeard.py -d --pidfile="$HOME/.sickbeard/sickbeard.pid"
+}
+#
+startsickrage () {
+    rm -f ~/.sickrage/sickrage.pid
+    python ~/.sickrage/SickBeard.py -d --pidfile="$HOME/.sickrage/sickrage.pid"
+}
+#
+############################
+####### Function End #######
+############################
+#
+############################
 #### Script Help Starts ####
 ############################
 #
-if [[ ! -z $1 && $1 == 'help' ]]
+if [[ ! -z "$1" && "$1" == 'help' ]]
 then
     echo
     echo -e "\033[32m""Script help and usage instructions:""\e[0m"
@@ -144,7 +345,9 @@ then
     ##### Custom Help Info Starts #####
     ###################################
     #
-    echo -e "Put your help instructions or script guidance here"
+    echo -e "Option 1 for Sick Beard or SickRage is an installer and updater. No settings will be lost."
+    echo
+    echo -e "Option 2 for Sick Beard or SickRage is fix and works as a restart. All critical settings will be reset."
     #
     ###################################
     ###### Custom Help Info Ends ######
@@ -163,7 +366,7 @@ fi
 ############################
 #
 # Use this to show a user script information when they use the info option with the script.
-if [[ ! -z $1 && $1 == 'info' ]]
+if [[ ! -z "$1" && "$1" == 'info' ]]
 then
     echo
     echo -e "\033[32m""Script Details:""\e[0m"
@@ -239,10 +442,10 @@ fi
 ############################
 #
 # Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, which would reset the option, it will then find this file and set it back.
-if [[ ! -z $1 && $1 == 'qr' ]] || [[ ! -z $2 && $2 == 'qr' ]];then echo -n '' > ~/.quickrun; fi
+if [[ ! -z "$1" && "$1" == 'qr' ]] || [[ ! -z "$2" && "$2" == 'qr' ]];then echo -n '' > ~/.quickrun; fi
 #
 # No Update option: This disables the updater features if the script option "nu" was used when running the script.
-if [[ ! -z $1 && $1 == 'nu' ]] || [[ ! -z $2 && $2 == 'nu' ]]
+if [[ ! -z "$1" && "$1" == 'nu' ]] || [[ ! -z "$2" && "$2" == 'nu' ]]
 then
     echo
     echo "The Updater has been temporarily disabled"
@@ -258,13 +461,13 @@ else
         #
         wget -qO ~/.000"$scriptname" "$scripturl"
         #
-        if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
+        if [[ "$(sha256sum ~/.000"$scriptname" | awk '{print $1}')" != "$(sha256sum ~/bin/"$scriptname" | awk '{print $1}')" ]]
         then
             echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
             bash ~/.111"$scriptname"
             exit
         else
-            if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
+            if [[ -z "$(ps x | fgrep -v fgrep | fgrep "bash $HOME/bin/$scriptname" | awk '{print $1}')" && "$(ps x | fgrep -v fgrep | fgrep "bash $HOME/bin/$scriptname" | awk '{print $1}')" -ne "$$" ]]
             then
                 echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
                 bash ~/.222"$scriptname"
@@ -310,295 +513,189 @@ then
 #### User Script Starts ####
 ############################
 #
-    showMenu () 
-    {
-            echo "1) Install Sickbeard"
-            echo "2) Install SickRage"
-            echo "3) Quit the script"
-            echo
-    }
-
-    while [ 1 ]
-    do
-            showMenu
-            read -e CHOICE
-            echo
-            case "$CHOICE" in
+while [ 1 ]
+do
+    # function
+    showMainMenu
+    read -e CHOICE
+    echo
+    case "$CHOICE" in
+        "1")
+            while [ 1 ]
+            do
+                # function
+                showSickBeardMenu
+                read -e CHOICE
+                echo
+                case "$CHOICE" in
                     "1")
-                            showMenu () 
-                            {
-                                    echo "1) Install or update Sickbeard"
-                                    echo "2) Install just the proxypass for Apache or Nginx"
-                                    echo "3) Quit the script"
-                                    echo
-                            }
-
-                            while [ 1 ]
-                            do
-                                    showMenu
-                                    read -e CHOICE
-                                    case "$CHOICE" in
-                                            "1")
-                                                    echo
-                                                    if [[ -d ~/.sickbeard ]]
-                                                    then
-                                                        kill $(ps x | grep "python $HOME/.sickbeard/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') > /dev/null 2>&1
-                                                        echo "I need to wait 10 seconds for SickBeard to shutdown."
-                                                        echo
-                                                        sleep 10
-                                                        cd ~/.sickbeard
-                                                        git pull origin
-                                                        python ~/.sickbeard/SickBeard.py -d
-                                                        echo "Sickbeard has been updated and restarted"
-                                                        echo
-                                                        exit
-                                                        cd
-                                                    else
-                                                        git clone "$giturlsickbeard" ~/.sickbeard
-                                                        echo
-                                                    fi
-                                                    if [[ ! -f ~/.sickbeard/config.ini ]]
-                                                    then
-                                                        echo -e "[General]\nweb_port = $appport\nweb_root = \"/$(whoami)/sickbeard\"\nlaunch_browser = 0" > ~/.sickbeard/config.ini
-                                                    else
-                                                        kill $(ps x | grep "python $HOME/.sickbeard/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') > /dev/null 2>&1
-                                                        echo "I need to wait 10 seconds for SickBeard to shutdown."
-                                                        sleep 10
-                                                        sed -ri 's|web_port = (.*)|web_port = '"$appport"'|g' ~/.sickbeard/config.ini
-                                                        sed -ri 's|web_root = "(.*)"|web_root = "'$(whoami)'/sickbeard"|g' ~/.sickbeard/config.ini
-                                                        sed -i 's|launch_browser = 1|launch_browser = 0|g' ~/.sickbeard/config.ini
-                                                    fi
-                                                    # Apache proxypass
-                                                    if [[ -d ~/.apache2/conf.d ]]
-                                                    then
-                                                        echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\n\nProxyPass /sickbeard http://10.0.0.1:'"$appport"'/${USER}/sickbeard\nProxyPassReverse /sickbeard http://10.0.0.1:'"$appport"'/${USER}/sickbeard' > ~/.apache2/conf.d/sickbeard.conf
-                                                        /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
-                                                    else 
-                                                        echo "Apache is not installed. The nginx proxypass was not installed."
-                                                        echo
-                                                    fi
-                                                    # Nginx Proxypass
-                                                    if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
-                                                    then
-                                                        echo -en 'location ^~ /sickbeard {\nproxy_set_header X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\nproxy_set_header Host $http_x_host;\nproxy_set_header X-NginX-Proxy true;\n\nrewrite /(.*) /'$(whoami)'/$1 break;\nproxy_pass http://10.0.0.1:'"$appport"'/;\nproxy_redirect off;\n}' >  ~/.nginx/conf.d/000-default-server.d/sickbeard.conf
-                                                        /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
-                                                    else 
-                                                        echo "Nginx is not installed. The nginx proxypass was not installed."
-                                                        echo
-                                                    fi
-                                                    python ~/.sickbeard/SickBeard.py -d
-                                                    echo
-                                                    echo "Done"
-                                                    echo
-                                                    echo "Visit: https://$(hostname -f)/$(whoami)/sickbeard/home/"
-                                                    echo
-                                                    exit
-                                                    ;;
-                                            "2")
-                                                    echo
-                                                    if [[ -f "$HOME"/.sickbeard/config.ini ]]
-                                                    then
-                                                        kill $(ps x | grep "python $HOME/.sickbeard/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') > /dev/null 2>&1
-                                                        echo "I need to wait 10 seconds for SickBeard to shutdown."
-                                                        sleep 10
-                                                        sed -ri 's|web_port = (.*)|web_port = '"$appport"'|g' ~/.sickbeard/config.ini
-                                                        sed -ri 's|web_root = "(.*)"|web_root = "'$(whoami)'/sickbeard"|g' ~/.sickbeard/config.ini
-                                                        sed -i 's|launch_browser = 1|launch_browser = 0|g' ~/.sickbeard/config.ini
-                                                    else
-                                                        echo "Sickbeard is not Installed to ~/.sickbeard."
-                                                        echo
-                                                        exit
-                                                    fi
-                                                    # Apache proxypass
-                                                    if [[ -d ~/.apache2/conf.d ]]
-                                                    then
-                                                        echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\n\nProxyPass /sickbeard http://10.0.0.1:'"$appport"'/${USER}/sickbeard\nProxyPassReverse /sickbeard http://10.0.0.1:'"$appport"'/${USER}/sickbeard' > ~/.apache2/conf.d/sickbeard.conf
-                                                        /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
-                                                    else
-                                                        echo "Apache is not installed. The nginx proxypass was not installed."
-                                                        echo
-                                                    fi
-                                                    # Nginx Proxypass
-                                                    if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
-                                                    then
-                                                        echo -en 'location ^~ /sickbeard {\nproxy_set_header X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\nproxy_set_header Host $http_x_host;\nproxy_set_header X-NginX-Proxy true;\n\nrewrite /(.*) /'$(whoami)'/$1 break;\nproxy_pass http://10.0.0.1:'"$appport"'/;\nproxy_redirect off;\n}' >  ~/.nginx/conf.d/000-default-server.d/sickbeard.conf
-                                                        /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
-                                                    else
-                                                        echo "Nginx is not installed. The nginx proxypass was not installed."
-                                                        echo
-                                                    fi
-                                                    python "$HOME"/.sickbeard/SickBeard.py -d
-                                                    echo
-                                                    echo "Done"
-                                                    echo
-                                                    echo "Visit: https://$(hostname -f)/$(whoami)/sickbeard/home/"
-                                                    echo
-                                                    exit
-                                                    ;;
-                                            "3")
-                                                    echo
-                                                    exit
-                                                    ;;
-                                    esac
-                            done
-                            ;;
+                        # function
+                        killsickbeard
+                        if [[ -d ~/.sickbeard ]]
+                        then
+                            echo -en "\033[32m"
+                            git --git-dir="$HOME/.sickbeard/.git" --work-tree="$HOME/.sickbeard" pull origin
+                            echo -e "\e[0m"
+                        else
+                            echo -en "\033[32m"
+                            git clone "$giturlsickbeard" ~/.sickbeard
+                            echo -e "\e[0m"
+                        fi
+                        #
+                        if [[ -f ~/.sickbeard/config.ini ]]
+                        then
+                            # function
+                            editsickbeard
+                        else
+                            echo -e '[General]\nweb_port = '"$appport"'\nweb_root = /'"$(whoami)"'/sickbeard\nweb_username = '"$(whoami)"'\nweb_password = '"$apppass"'\nlaunch_browser = 0' > ~/.sickbeard/config.ini
+                        fi
+                        # function
+                        sickbeardproxy
+                        #
+                        echo "Starting Sick Beard"
+                        echo
+                        # function
+                        startsickbeard
+                        echo "All done."
+                        echo
+                        # function
+                        sickbeardcredentials
+                        #
+                        echo "Visit this URL in a browser to log in:"
+                        echo
+                        echo -e "\033[32m""https://$(hostname -f)/$(whoami)/sickbeard/home/""\e[0m"
+                        echo
+                        exit
+                        ;;
                     "2")
-                            showMenu () 
-                            {
-                                    echo "1) Install or update SickRage"
-                                    echo "2) Install just the proxypass for Apache or Nginx"
-                                    echo "3) Quit the script"
-                                    echo
-                            }
-
-                            while [ 1 ]
-                            do
-                                    showMenu
-                                    read -e CHOICE
-                                    case "$CHOICE" in
-                                            "1")
-                                                    echo
-                                                    #
-                                                    if [[ -d ~/.sickrage ]]
-                                                    then
-                                                        if [[ -z $(ps x | grep "python $HOME/.sickrage/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') ]]
-                                                        then
-                                                            :
-                                                        else
-                                                            kill $(ps x | grep "python $HOME/.sickrage/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') > /dev/null 2>&1
-                                                            echo "I need to wait 10 seconds for SickRage to shutdown."
-                                                            sleep 10
-                                                            echo
-                                                        fi
-                                                        cd ~/.sickrage
-                                                        git pull origin
-                                                        cd
-                                                        echo
-                                                    else
-                                                        git clone "$giturlsickrage" ~/.sickrage
-                                                        echo
-                                                    fi
-                                                    #
-                                                    if [[ ! -f ~/.sickrage/config.ini ]]
-                                                    then
-                                                        mkdir -p ~/.sickrage.tv.shows
-                                                        echo -e "[General]\nweb_port = $appport\nweb_root = \"/$(whoami)/sickrage\"\nlaunch_browser = 0\nroot_dirs = 0|$HOME/.sickrage.tv.shows\n\n[TORRENT]\ntorrent_username = rutorrent\ntorrent_host = https://$(hostname -f)/$(whoami)/rtorrent/rpc/\ntorrent_path = $HOME/private/rtorrent/data\ntorrent_auth_type = basic" > ~/.sickrage/config.ini
-                                                    else
-                                                        #
-                                                        if [[ -z $(ps x | grep "python $HOME/.sickrage/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') ]]
-                                                        then
-                                                            :
-                                                        else
-                                                            kill $(ps x | grep "python $HOME/.sickrage/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') > /dev/null 2>&1
-                                                            echo "I need to wait 10 seconds for SickRage to shutdown."
-                                                            sleep 10
-                                                        fi
-                                                        #
-                                                        mkdir -p ~/.sickrage.tv.shows
-                                                        sed -ri 's|web_port = (.*)|web_port = '"$appport"'|g' ~/.sickrage/config.ini
-                                                        sed -ri 's|web_root = "(.*)"|web_root = "'$(whoami)'/sickrage"|g' ~/.sickrage/config.ini
-                                                        sed -i 's|launch_browser = 1|launch_browser = 0|g' ~/.sickrage/config.ini
-                                                        sed -i 's#root_dirs = ""#root_dirs = 0|'$HOME'/.sickrage.tv.shows#g' ~/.sickrage/config.ini
-                                                        sed -i 's|torrent_username = ""|torrent_username = rutorrent|g' ~/.sickrage/config.ini
-                                                        sed -i 's|torrent_host = ""|torrent_host = https://'$(hostname -f)'/'$(whoami)'/rtorrent/rpc/|g' ~/.sickrage/config.ini
-                                                        sed -i 's|torrent_path = ""|torrent_path = '"$HOME"'/private/rtorrent/data|g' ~/.sickrage/config.ini
-                                                        sed -i 's|torrent_auth_type = ""|torrent_auth_type = basic|g' ~/.sickrage/config.ini
-                                                    fi
-                                                    # Apache proxypass
-                                                    if [[ -d ~/.apache2/conf.d ]]
-                                                    then
-                                                        echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\n\nProxyPass /sickrage http://10.0.0.1:'"$appport"'/${USER}/sickrage\nProxyPassReverse /sickrage http://10.0.0.1:'"$appport"'/${USER}/sickrage' > ~/.apache2/conf.d/sickrage.conf
-                                                        /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
-                                                    else 
-                                                        echo "Apache is not installed. The Apache proxypass was not installed."
-                                                        echo
-                                                    fi
-                                                    # Nginx Proxypass
-                                                    if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
-                                                    then
-                                                        echo -en 'location ^~ /sickrage {\nproxy_set_header X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\nproxy_set_header Host $http_x_host;\nproxy_set_header X-NginX-Proxy true;\n\nrewrite /(.*) /'$(whoami)'/$1 break;\nproxy_pass http://10.0.0.1:'"$appport"'/;\nproxy_redirect off;\n}' >  ~/.nginx/conf.d/000-default-server.d/sickrage.conf
-                                                        /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
-                                                    else 
-                                                        echo "Nginx is not installed. The nginx proxypass was not installed."
-                                                        echo
-                                                    fi
-                                                    # Installing Unrar locally.
-                                                    echo "Installing Unrar $unrarv locally for use with post processing"
-                                                    echo
-                                                    wget -qO ~/unrar.tar.gz "$unrarfv"
-                                                    tar xf ~/unrar.tar.gz && cd ~/unrar
-                                                    make > ~/.sickrage/.unrar.make.log 2>&1
-                                                    make install DESTDIR=~ >> ~/.sickrage/.unrar.make.log 2>&1
-                                                    cd && rm -rf unrar{,.tar.gz}
-                                                    echo "Done"
-                                                    echo
-                                                    echo "Starting SickRage"
-                                                    echo
-                                                    python "$HOME"/.sickrage/SickBeard.py -d
-                                                    echo "Done"
-                                                    echo
-                                                    echo "Visit https://$(hostname -f)/$(whoami)/sickrage/home/"
-                                                    echo
-                                                    exit
-                                                    ;;
-                                            "2")
-                                                    echo
-                                                    if [[ -f ~/.sickrage/config.ini ]]
-                                                    then
-                                                         if [[ -z $(ps x | grep "python $HOME/.sickrage/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') ]]
-                                                        then
-                                                            :
-                                                        else
-                                                            kill $(ps x | grep "python $HOME/.sickrage/SickBeard.py" | grep -v grep | head -n 1 | awk '{print $1}') > /dev/null 2>&1
-                                                            echo "I need to wait 10 seconds for SickRage to shutdown."
-                                                            sleep 10
-                                                        fi
-                                                        mkdir -p ~/.sickrage.tv.shows
-                                                        sed -ri 's|web_port = (.*)|web_port = '"$appport"'|g' ~/.sickrage/config.ini
-                                                        sed -ri 's|web_root = "(.*)"|web_root = "'$(whoami)'/sickrage"|g' ~/.sickrage/config.ini
-                                                        sed -i 's|launch_browser = 1|launch_browser = 0|g' ~/.sickrage/config.ini
-                                                    else
-                                                        echo "SickRage is not Installed to ~/.sickrage."
-                                                        echo
-                                                        exit
-                                                    fi
-                                                    # Apache proxypass
-                                                    if [[ -d ~/.apache2/conf.d ]]
-                                                    then
-                                                        echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\n\nProxyPass /sickrage http://10.0.0.1:'"$appport"'/${USER}/sickrage\nProxyPassReverse /sickrage http://10.0.0.1:'"$appport"'/${USER}/sickrage' > ~/.apache2/conf.d/sickrage.conf
-                                                        /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
-                                                    else
-                                                        echo "Apache is not installed. The Apache proxypass was not installed."
-                                                        echo
-                                                    fi
-                                                    # Nginx Proxypass
-                                                    if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
-                                                    then
-                                                        echo -en 'location ^~ /sickrage {\nproxy_set_header X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\nproxy_set_header Host $http_x_host;\nproxy_set_header X-NginX-Proxy true;\n\nrewrite /(.*) /'$(whoami)'/$1 break;\nproxy_pass http://10.0.0.1:'"$appport"'/;\nproxy_redirect off;\n}' >  ~/.nginx/conf.d/000-default-server.d/sickrage.conf
-                                                        /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
-                                                    else
-                                                        echo "Nginx is not installed. The nginx proxypass was not installed."
-                                                        echo
-                                                    fi
-                                                    python "$HOME"/.sickrage/SickBeard.py -d
-                                                    echo "Done"
-                                                    echo
-                                                    echo "Visit https://$(hostname -f)/$(whoami)/sickrage/home/"
-                                                    echo
-                                                    exit
-                                                    ;;
-                                            "3")
-                                                    echo
-                                                    exit
-                                                    ;;
-                                    esac
-                            done
-                            ;;
+                        if [[ -f "$HOME"/.sickbeard/config.ini ]]
+                        then
+                            # function
+                            killsickbeard
+                            # function
+                            editsickbeard
+                            # function
+                            sickbeardproxy
+                            # function
+                            startsickbeard
+                            echo "All done."
+                            echo
+                            # function
+                            sickbeardcredentials
+                            echo -e "\033[32m""https://$(hostname -f)/$(whoami)/sickbeard/home/""\e[0m"
+                            echo
+                            sleep 2
+                        else
+                            echo "~/.sickbeard/config.ini is missing or moved. Install or fix Sick Beard."
+                            echo
+                            echo "Nothing done."
+                            echo
+                            sleep 2
+                        fi
+                        exit
+                        ;;
                     "3")
-                            exit
-                            ;;
-            esac
-    done
+                        exit
+                        ;;
+                esac
+            done
+            ;;
+        "2")
+            while [ 1 ]
+            do
+                # function
+                showSickRageMenu
+                read -e CHOICE
+                echo
+                case "$CHOICE" in
+                    "1")
+                        # function
+                        killsickrage
+                        if [[ -d ~/.sickrage ]]
+                        then
+                            echo -en "\033[32m"
+                            git --git-dir="$HOME/.sickrage/.git" --work-tree="$HOME/.sickrage" pull origin
+                            echo -e "\e[0m"
+                            mkdir -p ~/.sickrage.tv.shows
+                        else
+                            echo -ne "\033[32m"
+                            git clone "$giturlsickrage" ~/.sickrage
+                            echo -e "\e[0m"
+                            mkdir -p ~/.sickrage.tv.shows
+                        fi
+                        #
+                        if [[ -f ~/.sickrage/config.ini ]]
+                        then
+                            # function
+                            editsickrage
+                        else
+                            echo -e '[General]\nweb_port = '"$appport"'\nweb_root = /'"$(whoami)"'/sickrage\nweb_username = '"$(whoami)"'\nweb_password = '"$apppass"'\nlaunch_browser = 0\nroot_dirs = 0|'"$HOME"'/.sickrage.tv.shows\n\n[TORRENT]\ntorrent_username = rutorrent\ntorrent_host = https://'"$(hostname -f)"'/'"$(whoami)"'/rtorrent/rpc/\ntorrent_path = '"$HOME"'/private/rtorrent/data\ntorrent_auth_type = basic' > ~/.sickrage/config.ini
+                        fi
+                        # function
+                        sickrageproxy
+                        if [[ ! -f ~/bin/unrar ]]
+                        then
+                            # Installing Unrar locally.
+                            echo "Installing Unrar $unrarv locally for use with post processing"
+                            echo
+                            wget -qO ~/unrar.tar.gz "$unrarfv"
+                            tar xf ~/unrar.tar.gz
+                            ~/unrar/make > ~/.sickrage/.unrar.make.log 2>&1
+                            ~/unrar/make install DESTDIR="$HOME" >> ~/.sickrage/.unrar.make.log 2>&1
+                            rm -rf ~/unrar{,.tar.gz}
+                            #
+                        fi
+                        echo "Starting SickRage"
+                        echo
+                        # function
+                        startsickrage
+                        echo "All done."
+                        echo
+                        # function
+                        sickragecredentials
+                        echo -e "\033[32m""https://$(hostname -f)/$(whoami)/sickrage/home/""\e[0m"
+                        echo
+                        exit
+                        ;;
+                    "2")
+                        if [[ -f ~/.sickrage/config.ini ]]
+                        then
+                            mkdir -p ~/.sickrage.tv.shows
+                            # function
+                            killsickrage
+                            # function
+                            editsickrage
+                            # function
+                            sickrageproxy
+                            # function
+                            startsickrage
+                            # function
+                            echo "All done."
+                            echo
+                            sickragecredentials
+                            echo -e "\033[32m""https://$(hostname -f)/$(whoami)/sickrage/home/""\e[0m"
+                            echo
+                            sleep 2
+                        else
+                            echo "~/.sickrage/config.ini is missing or moved. Install or fix SickRage."
+                            echo
+                            echo "Nothing done."
+                            echo
+                            sleep 2
+                        fi
+                        exit
+                        ;;
+                    "3")
+                        exit
+                        ;;
+                esac
+            done
+            ;;
+        "3")
+            exit
+            ;;
+    esac
+done
 #
 ############################
 ##### User Script End  #####
