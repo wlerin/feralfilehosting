@@ -640,8 +640,8 @@ do
                             echo
                             wget -qO ~/unrar.tar.gz "$unrarfv"
                             tar xf ~/unrar.tar.gz
-                            ~/unrar/make > ~/.sickrage/.unrar.make.log 2>&1
-                            ~/unrar/make install DESTDIR="$HOME" >> ~/.sickrage/.unrar.make.log 2>&1
+                            make -C ~/unrar > ~/.sickrage/.unrar.make.log 2>&1
+                            make -C ~/unrar install DESTDIR="$HOME" >> ~/.sickrage/.unrar.make.log 2>&1
                             rm -rf ~/unrar{,.tar.gz}
                             #
                         fi
