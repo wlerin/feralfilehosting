@@ -40,7 +40,7 @@
 # 4: scriptversion="0.0.0" - replace "0.0.0" with your script version. This will be shown to the user at the current version check.
 # 5: scriptname="somescript" - replace "somescript" with your script name. Make it unique to this script. Do not include the file extension.
 # 6: scriptauthor="None credited" - change this to the script author's name.
-# 7: contributors=="None credited" - add the names of any contributors you wish to credit here.
+# 7: contributors="None credited" - add the names of any contributors you wish to credit here.
 # 8: gitiourl="http://git.io/vvf9K" - change this to the shortened URL provided by http://git.io once you have committed the script to github or from a gist.
 # 9: gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname" - Leave this as it is. Do not modify it. This variable depends on the correct setting of the $gitiourl variable.
 # 10: scripturl="https://raw.github.com/feralhosting" - Set the scripturl variable in the variable section to the RAW github URL of the script for use with the updater features.
@@ -93,7 +93,7 @@
 ## Version History Starts ##
 ############################
 #
-if [[ ! -z "$1" && "$1" == 'changelog' ]]
+if [[ ! -z "$1" && "$1" = 'changelog' ]]
 then 
     echo
     #
@@ -312,10 +312,10 @@ fi
 ############################
 #
 # Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, which would reset the option, it will then find this file and set it back.
-if [[ ! -z "$1" && "$1" = 'qr' ]] || [[ ! -z "$2" && "$2" == 'qr' ]];then echo -n '' > ~/.quickrun; fi
+if [[ ! -z "$1" && "$1" = 'qr' ]] || [[ ! -z "$2" && "$2" = 'qr' ]];then echo -n '' > ~/.quickrun; fi
 #
 # No Update option: This disables the updater features if the script option "nu" was used when running the script.
-if [[ ! -z "$1" && "$1" = 'nu' ]] || [[ ! -z "$2" && "$2" == 'nu' ]]
+if [[ ! -z "$1" && "$1" = 'nu' ]] || [[ ! -z "$2" && "$2" = 'nu' ]]
 then
     echo
     echo "The Updater has been temporarily disabled"
@@ -337,7 +337,7 @@ else
             bash ~/.111"$scriptname"
             exit
         else
-            if [[ -z "$(ps x | fgrep -v fgrep | fgrep "bash $HOME/bin/$scriptname" | awk '{print $1}')" && "$(ps x | fgrep -v fgrep | fgrep "bash $HOME/bin/$scriptname" | awk '{print $1}')" -ne "$$" ]]
+            if [[ -z "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" && "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" -ne "$$" ]]
             then
                 echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
                 bash ~/.222"$scriptname"

@@ -30,7 +30,7 @@
 ## Version History Starts ##
 ############################
 #
-if [[ ! -z "$1" && "$1" == 'changelog' ]]
+if [[ ! -z "$1" && "$1" = 'changelog' ]]
 then
     echo
     #
@@ -319,7 +319,7 @@ startsickrage () {
 #### Script Help Starts ####
 ############################
 #
-if [[ ! -z "$1" && "$1" == 'help' ]]
+if [[ ! -z "$1" && "$1" = 'help' ]]
 then
     echo
     echo -e "\033[32m""Script help and usage instructions:""\e[0m"
@@ -350,7 +350,7 @@ fi
 ############################
 #
 # Use this to show a user script information when they use the info option with the script.
-if [[ ! -z "$1" && "$1" == 'info' ]]
+if [[ ! -z "$1" && "$1" = 'info' ]]
 then
     echo
     echo -e "\033[32m""Script Details:""\e[0m"
@@ -426,10 +426,10 @@ fi
 ############################
 #
 # Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, which would reset the option, it will then find this file and set it back.
-if [[ ! -z "$1" && "$1" == 'qr' ]] || [[ ! -z "$2" && "$2" == 'qr' ]];then echo -n '' > ~/.quickrun; fi
+if [[ ! -z "$1" && "$1" = 'qr' ]] || [[ ! -z "$2" && "$2" = 'qr' ]];then echo -n '' > ~/.quickrun; fi
 #
 # No Update option: This disables the updater features if the script option "nu" was used when running the script.
-if [[ ! -z "$1" && "$1" == 'nu' ]] || [[ ! -z "$2" && "$2" == 'nu' ]]
+if [[ ! -z "$1" && "$1" = 'nu' ]] || [[ ! -z "$2" && "$2" = 'nu' ]]
 then
     echo
     echo "The Updater has been temporarily disabled"
@@ -438,7 +438,7 @@ then
 else
     #
     # Check to see if the variable "updaterenabled" is set to 1. If it is set to 0 the script will bypass the built in updater regardless of the options used.
-    if [[ "$updaterenabled" -eq 1 ]]
+    if [[ "$updaterenabled" -eq "1" ]]
     then
         [[ ! -d ~/bin ]] && mkdir -p ~/bin
         [[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
@@ -480,7 +480,7 @@ if [[ -f ~/.quickrun ]];then updatestatus="y"; rm -f ~/.quickrun; fi
 #### Core Script Starts ####
 ############################
 #
-if [[ "$updatestatus" == "y" ]]
+if [[ "$updatestatus" = "y" ]]
 then
     :
 else
