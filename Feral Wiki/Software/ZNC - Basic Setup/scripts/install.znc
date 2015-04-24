@@ -340,6 +340,7 @@ then
         if [ "$(dpkg-query -s libicu-dev 2>&1 | grep -c 'ok installed')" -eq 0 ]; then
             echo -e "\033[31m""It looks like libicu-dev is not installed on your server.""\e[0m"
             echo -e "Please open a ticket: ""\033[32m""https://www.feralhosting.com/manager/tickets/new""\e[0m"
+            echo
             echo "Paste the following into the ticket:"
             echo
             echo -e "\033[33m""Please can you install the ZNC 1.6 dependency for charset\n\nhttps://packages.debian.org/wheezy/libicu-dev\n\napt-get install libicu-dev\n\nThank you.""\e[0m"
@@ -390,7 +391,7 @@ then
     mkdir -p ~/.znc/configs/
     wget -qO ~/.znc/configs/znc.conf "$znctemplate"
     #
-    sed -ri 's|    URIPrefix = /SETAUSER/znc/|    URIPrefix = /'"$(whoami)"'/znc/|g' ~/.znc/configs/znc.conf
+    sed -ri 's|    URIPrefix = /SETAUSER/znc|    URIPrefix = /'"$(whoami)"'/znc|g' ~/.znc/configs/znc.conf
     #
     sed -ri 's/SETAPASS/'"$apppass"'/g' ~/zncpass.py
     #
