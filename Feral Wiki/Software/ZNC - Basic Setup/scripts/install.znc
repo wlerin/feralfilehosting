@@ -33,8 +33,12 @@
 ## Version History Starts ##
 ############################
 #
-if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
+if [[ ! -z "$1" && "$1" = 'changelog' ]]
+then 
+    echo
     #
+    echo '1.0.3 proxypass for apache or nginx'
+    echo '1.0.2 template tweaks'
     echo '1.0.1 push module with curl if required dependency is present otherwise skipped. Template updated'
     echo '1.0.0 automation'
     echo 'v0.8.0 Template update'
@@ -54,7 +58,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.0.1"
+scriptversion="1.0.3"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.znc"
@@ -110,7 +114,7 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 ############################
 #
 znctemplate="http://git.io/vvTzB"
-zncpassgen="http://git.io/vvTgf"
+zncpassgen="$(wget -qO - http://git.io/vvTgf | sed 's/SETAPASS/'"$apppass"'/g' | python)"
 #
 ############################
 ### Custom Variables End ###
@@ -124,10 +128,34 @@ updaterenabled="1"
 ############################
 #
 ############################
+###### Function Start ######
+############################
+#
+zncproxy () {
+    # Apache proxypass
+    if [[ -d ~/.apache2/conf.d ]]
+    then
+        echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\nInclude /etc/apache2/mods-available/ssl.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\nSSLProxyEngine On\n\nProxyPass /znc https://10.0.0.1:'"$appport"'/${USER}/znc retry=0 timeout=5\nProxyPassReverse /znc https://10.0.0.1:'"$appport"'/${USER}/znc' > ~/.apache2/conf.d/znc.conf
+        /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
+    fi
+    # Nginx Proxypass
+    if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
+    then
+        echo -en 'location ^~ /znc {\nproxy_set_header X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\nproxy_set_header Host $http_x_host;\nproxy_set_header X-NginX-Proxy true;\n\nrewrite /(.*) /'"$(whoami)"'/$1 break;\nproxy_pass https://10.0.0.1:'"$appport"'/;\nproxy_redirect off;\n}' >  ~/.nginx/conf.d/000-default-server.d/znc.conf
+        /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
+    fi
+}
+#
+#
+############################
+####### Function End #######
+############################
+#
+############################
 #### Script Help Starts ####
 ############################
 #
-if [[ ! -z $1 && $1 == 'help' ]]
+if [[ ! -z "$1" && "$1" = 'help' ]]
 then
     echo
     echo -e "\033[32m""Script help and usage instructions:""\e[0m"
@@ -158,7 +186,7 @@ fi
 ############################
 #
 # Use this to show a user script information when they use the info option with the script.
-if [[ ! -z $1 && $1 == 'info' ]]
+if [[ ! -z "$1" && "$1" = 'info' ]]
 then
     echo
     echo -e "\033[32m""Script Details:""\e[0m"
@@ -234,10 +262,10 @@ fi
 ############################
 #
 # Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, which would reset the option, it will then find this file and set it back.
-if [[ ! -z $1 && $1 == 'qr' ]] || [[ ! -z $2 && $2 == 'qr' ]];then echo -n '' > ~/.quickrun; fi
+if [[ ! -z "$1" && "$1" = 'qr' ]] || [[ ! -z "$2" && "$2" = 'qr' ]];then echo -n '' > ~/.quickrun; fi
 #
 # No Update option: This disables the updater features if the script option "nu" was used when running the script.
-if [[ ! -z $1 && $1 == 'nu' ]] || [[ ! -z $2 && $2 == 'nu' ]]
+if [[ ! -z "$1" && "$1" = 'nu' ]] || [[ ! -z "$2" && "$2" = 'nu' ]]
 then
     echo
     echo "The Updater has been temporarily disabled"
@@ -246,20 +274,20 @@ then
 else
     #
     # Check to see if the variable "updaterenabled" is set to 1. If it is set to 0 the script will bypass the built in updater regardless of the options used.
-    if [[ "$updaterenabled" -eq 1 ]]
+    if [[ "$updaterenabled" -eq "1" ]]
     then
         [[ ! -d ~/bin ]] && mkdir -p ~/bin
         [[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
         #
         wget -qO ~/.000"$scriptname" "$scripturl"
         #
-        if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
+        if [[ "$(sha256sum ~/.000"$scriptname" | awk '{print $1}')" != "$(sha256sum ~/bin/"$scriptname" | awk '{print $1}')" ]]
         then
             echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
             bash ~/.111"$scriptname"
             exit
         else
-            if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
+            if [[ -z "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" && "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" -ne "$$" ]]
             then
                 echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
                 bash ~/.222"$scriptname"
@@ -288,7 +316,7 @@ if [[ -f ~/.quickrun ]];then updatestatus="y"; rm -f ~/.quickrun; fi
 #### Core Script Starts ####
 ############################
 #
-if [[ "$updatestatus" == "y" ]]
+if [[ "$updatestatus" = "y" ]]
 then
     :
 else
@@ -307,16 +335,16 @@ then
 #
     read -ep "Do you need the extra charset available in ZNC? (This is for non-english characters) [y/n]: " -n 1 REPLY
     echo
-    if [[ $REPLY =~ ^[Yy]$ ]]
+    if [[ "$REPLY" =~ ^[Yy]$ ]]
     then
         if [ "$(dpkg-query -s libicu-dev 2>&1 | grep -c 'ok installed')" -eq 0 ]; then
             echo -e "\033[31m""It looks like libicu-dev is not installed on your server.""\e[0m"
-            echo -e Please open a ticket: "\033[32m"https://www.feralhosting.com/manager/tickets/new"\e[0m"
+            echo -e "Please open a ticket: ""\033[32m""https://www.feralhosting.com/manager/tickets/new""\e[0m"
             echo "Paste the following into the ticket:"
             echo
-            echo -e "Please can you install the ZNC 1.6 dependency for charset\n\nhttps://packages.debian.org/wheezy/libicu-dev\n\napt-get install libicu-dev\n\nThank you."
+            echo -e "\033[33m""Please can you install the ZNC 1.6 dependency for charset\n\nhttps://packages.debian.org/wheezy/libicu-dev\n\napt-get install libicu-dev\n\nThank you.""\e[0m"
             echo
-            echo -e "\033[33m""Once you are notified that the dependency has been installed, you can re-run this script""\e[0m"
+            echo -e "Once you are notified that the dependency has been installed, you can re-run this script"
             echo
             exit
         fi
@@ -340,7 +368,7 @@ then
     cd && rm -rf znc{-1.*,.tar.gz}
     echo -e "\033[33m""Setting up ZNC using the template files.""\e[0m"
     echo
-    killall -u $(whoami) znc > /dev/null 2>&1
+    killall -u "$(whoami)" znc > /dev/null 2>&1
     #
     if [ "$(dpkg-query -s libcurl4-openssl-dev 2>&1 | grep -c 'ok installed')" -eq 1 ]
     then
@@ -352,7 +380,7 @@ then
         make install >> ~/.logs/znc-push.log 2>&1
         cd && rm -rf znc-push
     else
-        echo "libcurl4-openssl-dev is not installed. Skipping push module installation."
+        echo -e "\033[31m""libcurl4-openssl-dev is not installed. Skipping push module installation.""\e[0m"
         echo
         echo "Please refer to the ZNC FAQ for how to get the dependency installed."
         echo "Once you have libcurl4-openssl-dev installed then install the push module manually."
@@ -361,23 +389,18 @@ then
     #
     mkdir -p ~/.znc/configs/
     wget -qO ~/.znc/configs/znc.conf "$znctemplate"
-    wget -qO ~/zncpass.py "$zncpassgen"
+    #
+    sed -ri 's|    URIPrefix = /SETAUSER/znc/|    URIPrefix = /'"$(whoami)"'/znc/|g' ~/.znc/configs/znc.conf
     #
     sed -ri 's/SETAPASS/'"$apppass"'/g' ~/zncpass.py
-    #
-    while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]
-    do
-        appport=$(shuf -i 10001-49999 -n 1)
-    done
     #
     sed -ri 's/<User SETAUSER>/<User '"$(whoami)"'>/g' ~/.znc/configs/znc.conf
     sed -ri 's/	Nick       = SETAUSER/	Nick       = '"$(whoami)"'/g' ~/.znc/configs/znc.conf
     sed -ri 's/	AltNick    = SETAUSER_/	AltNick    = '"$(whoami)"_'/g' ~/.znc/configs/znc.conf
     sed -ri 's/	Ident      = SETAUSER/	Ident      = '"$(whoami)"'/g' ~/.znc/configs/znc.conf
     sed -ri 's/	Port = SETAPORT/	Port = '"$appport"'/g' ~/.znc/configs/znc.conf
-    sed -ri 's/	Pass       = SETAPASS/	Pass       = '$(python ~/zncpass.py)'/g' ~/.znc/configs/znc.conf
+    sed -ri 's/	Pass       = SETAPASS/	Pass       = '"$zncpassgen"'/g' ~/.znc/configs/znc.conf
     #
-    rm -f ~/zncpass.py
     ~/bin/znc --makepem > /dev/null 2>&1
     ~/bin/znc
     #
@@ -385,8 +408,9 @@ then
     echo
     #
     # adding to cron
-    tmpcron=$(mktemp)
-    if [ "$(crontab -l 2> /dev/null | grep -c '^@reboot ~/bin/znc$')" == "0" ]; then
+    tmpcron="$(mktemp)"
+    if [ "$(crontab -l 2> /dev/null | grep -c '^@reboot ~/bin/znc$')" == "0" ]
+    then
         echo "appending znc to crontab."
         crontab -l 2> /dev/null > "$tmpcron"
         echo "@reboot ~/bin/znc" >> "$tmpcron"
@@ -395,12 +419,14 @@ then
     else
         echo "znc @reboot is already in your crontab."
     fi
+    # function
+    zncproxy
     # give user the full URL
     echo -e "\nClick on or copy the URL below to do additional configuration if needed\n"
-    echo -e "\033[33m""https://$(hostname -f):$appport""\e[0m"
+    echo -e "\033[33m""${host2https}znc/""\e[0m"
     echo
-    echo -e "Your znc WebUi username: $(whoami)"
-    echo -e "Your znc WebUi password: $apppass"
+    echo -e "Your znc WebUi username: ""\033[32m""$(whoami)""\e[0m"
+    echo -e "Your znc WebUi password: ""\033[32m""$apppass""\e[0m"
     echo
     echo -e "Search the ZNC wiki for help connecting with different clients. http://wiki.znc.in/"
     echo
