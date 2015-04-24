@@ -37,6 +37,7 @@ if [[ ! -z "$1" && "$1" = 'changelog' ]]
 then 
     echo
     #
+    echo '1.0.4 bug fixes and tweaks.'
     echo '1.0.3 proxypass for apache or nginx'
     echo '1.0.2 template tweaks'
     echo '1.0.1 push module with curl if required dependency is present otherwise skipped. Template updated'
@@ -58,7 +59,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.0.3"
+scriptversion="1.0.4"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.znc"
@@ -428,6 +429,10 @@ then
     echo
     echo -e "Your znc WebUi username: ""\033[32m""$(whoami)""\e[0m"
     echo -e "Your znc WebUi password: ""\033[32m""$apppass""\e[0m"
+    echo
+    echo -e "Your IRC client connection information is:"
+    echo
+    echo -e "\033[32m""$(hostname -f)""\e[0m"" or ""\033[32m""$(hostname -i)""\e[0m"" and the port is: ""\033[32m""$appport""\e[0m"
     echo
     echo -e "Search the ZNC wiki for help connecting with different clients. http://wiki.znc.in/"
     echo
