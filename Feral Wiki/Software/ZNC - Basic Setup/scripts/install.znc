@@ -37,6 +37,7 @@ if [[ ! -z "$1" && "$1" = 'changelog' ]]
 then 
     echo
     #
+    echo '1.0.5 obsolete sed line removed'
     echo '1.0.4 bug fixes and tweaks.'
     echo '1.0.3 proxypass for apache or nginx'
     echo '1.0.2 template tweaks'
@@ -59,7 +60,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.0.4"
+scriptversion="1.0.5"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.znc"
@@ -393,8 +394,6 @@ then
     wget -qO ~/.znc/configs/znc.conf "$znctemplate"
     #
     sed -ri 's|    URIPrefix = /SETAUSER/znc|    URIPrefix = /'"$(whoami)"'/znc|g' ~/.znc/configs/znc.conf
-    #
-    sed -ri 's/SETAPASS/'"$apppass"'/g' ~/zncpass.py
     #
     sed -ri 's/<User SETAUSER>/<User '"$(whoami)"'>/g' ~/.znc/configs/znc.conf
     sed -ri 's/	Nick       = SETAUSER/	Nick       = '"$(whoami)"'/g' ~/.znc/configs/znc.conf
