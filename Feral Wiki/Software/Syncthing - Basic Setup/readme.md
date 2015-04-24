@@ -29,7 +29,7 @@ https://server.feralhosting.com/username/syncthing/
 
 ~~~
 mkdir -p ~/bin && source ~/.{profile,bashrc}
-wget -qO ~/syncthing.tar.gz https://github.com/syncthing/syncthing/releases/download/v0.10.12/syncthing-linux-amd64-v0.10.12.tar.gz
+wget -qO ~/syncthing.tar.gz https://github.com/syncthing/syncthing/releases/download/v0.11.0/syncthing-linux-amd64-v0.11.0.tar.gz
 tar xf ~/syncthing.tar.gz
 mv ~/syncthing-linux-amd64-v*/syncthing ~/bin/
 cd && rm -rf syncthing{-linux-amd64-v*,.tar.gz}
@@ -66,25 +66,30 @@ nano ~/.config/syncthing/config.xml
 Your  generated configuration file will load and look like this. We need to make a few changes to suit our needs.
 
 ~~~
-<configuration version="4">
-    <repository id="default" directory="/media/DiskID/home/username/Sync" ro="false" rescanIntervalS="60" ignorePerms="false">
-        <node id="N67TTCK-CW4EXN4-B3HD6TW-OYMXTQG-OWIKUI5-YJZDH2Q-7WUT6RL-F54DLAU"></node>
+<configuration version="10">
+    <folder id="default" path="/media/DiskID/home/username/Sync" ro="false" rescanIntervalS="60" ignorePerms="false" autoNormalize="false">
+        <device id="1A2B3C4-1A2B3C4-1A2B3C4-1A2B3C4-1A2B3C4-1A2B3C4-1A2B3C4-1A2B3C4"></device>
         <versioning></versioning>
-    </repository>
-    <node id="N67TTCK-CW4EXN4-B3HD6TW-OYMXTQG-OWIKUI5-YJZDH2Q-7WUT6RL-F54DLAU" name="server" compression="false">
+        <lenientMtimes>false</lenientMtimes>
+        <copiers>0</copiers>
+        <pullers>0</pullers>
+        <hashers>0</hashers>
+    </folder>
+    <device id="1A2B3C4-1A2B3C4-1A2B3C4-1A2B3C4-1A2B3C4-1A2B3C4-1A2B3C4-1A2B3C4" name="server" compression="metadata" introducer="false">
         <address>dynamic</address>
-    </node>
+    </device>
     <gui enabled="true" tls="false">
-        <address>127.0.0.1:8080</address>
+        <address>127.0.0.1:8384</address>
+        <apikey>dhe47861283742ijiod808srd7822142</apikey>
     </gui>
     <options>
         <listenAddress>0.0.0.0:22000</listenAddress>
-        <globalAnnounceServer>announce.syncthing.net:22026</globalAnnounceServer>
+        <globalAnnounceServer>udp4://announce.syncthing.net:22026</globalAnnounceServer>
+        <globalAnnounceServer>udp6://announce-v6.syncthing.net:22026</globalAnnounceServer>
         <globalAnnounceEnabled>true</globalAnnounceEnabled>
         <localAnnounceEnabled>true</localAnnounceEnabled>
         <localAnnouncePort>21025</localAnnouncePort>
         <localAnnounceMCAddr>[ff32::5222]:21026</localAnnounceMCAddr>
-        <parallelRequests>16</parallelRequests>
         <maxSendKbps>0</maxSendKbps>
         <maxRecvKbps>0</maxRecvKbps>
         <reconnectionIntervalS>60</reconnectionIntervalS>
@@ -92,31 +97,41 @@ Your  generated configuration file will load and look like this. We need to make
         <upnpEnabled>true</upnpEnabled>
         <upnpLeaseMinutes>0</upnpLeaseMinutes>
         <upnpRenewalMinutes>30</upnpRenewalMinutes>
+        <upnpTimeoutSeconds>3</upnpTimeoutSeconds>
         <urAccepted>0</urAccepted>
+        <urUniqueID></urUniqueID>
         <restartOnWakeup>true</restartOnWakeup>
+        <autoUpgradeIntervalH>12</autoUpgradeIntervalH>
+        <keepTemporariesH>24</keepTemporariesH>
+        <cacheIgnoredFiles>true</cacheIgnoredFiles>
+        <progressUpdateIntervalS>5</progressUpdateIntervalS>
+        <symlinksEnabled>true</symlinksEnabled>
+        <limitBandwidthInLan>false</limitBandwidthInLan>
     </options>
 </configuration>
-~~~
 
-**Change 1:** The WebUi address and port to port between the range of `6000` to `50000`:
 
 ~~~
-<address>127.0.0.1:8080</address>
+
+**Change 1:** The WebUi address and port to port between the range of `10001` to `49999`:
+
+~~~
+<address>127.0.0.1:8384</address>
 ~~~
 
-Change the hostname to `0.0.0.0` and port 
+Make sure the hostname is set to `0.0.0.0` and port is changed. For example:
 
 ~~~
 <address>0.0.0.0:29384</address>
 ~~~
 
-**Change 2:** The programs listening port to port between the range of `6000` to `50000` that is NOT the default `22000`:
+**Change 2:** The programs listening port to port between the range of `10001` to `49999` that is NOT the default `22000`:
 
 ~~~
 <listenAddress>0.0.0.0:22000</listenAddress>
 ~~~
 
-Change it to something else:
+Change it to something else, for example:
 
 ~~~
 <listenAddress>0.0.0.0:12532</listenAddress>

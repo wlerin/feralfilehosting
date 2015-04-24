@@ -30,7 +30,7 @@ Restarting:
 See if any instances of SickBeard are running. Searches for FAQ or script specific instances only.
 
 ~~~
-ps x | grep -v grep | grep "$HOME/.sickbeard/SickBeard.py"
+pgrep -fu "$(whoami)" "python $HOME/.sickbeard/SickBeard.py -d"
 ~~~
 
 Use these commands to shut down all instances from `~/.sickbeard`:
@@ -40,7 +40,7 @@ Use these commands to shut down all instances from `~/.sickbeard`:
 Try to kill  Sick Beard gracefully so that it saves all settings.
 
 ~~~
-kill "$(ps x | grep -v grep | grep "python $HOME/.sickbeard/SickBeard.py -d" | awk '{print $1}')"
+kill "$(pgrep -fu "$(whoami)" "python $HOME/.sickbeard/SickBeard.py -d")"
 ~~~
 
 If it refuses to exit then you have to force it to quit using this command instead.
@@ -48,7 +48,7 @@ If it refuses to exit then you have to force it to quit using this command inste
 **Important note:** Make sure you have saved your setting via the WebUi before using this command.
 
 ~~~
-kill -9 "$(ps x | grep -v grep | grep "python $HOME/.sickbeard/SickBeard.py -d" | awk '{print $1}')"
+kill -9 "$(pgrep -fu "$(whoami)" "python $HOME/.sickbeard/SickBeard.py -d")"
 ~~~
 
 Use this command to restart the default instance:
@@ -62,7 +62,7 @@ python ~/.sickbeard/SickBeard.py -d --pidfile="$HOME/.sickbeard/sickbeard.pid"
 See if any instances of SickRage are running. Searches for FAQ or script specific instances only.
 
 ~~~
-ps x | grep -v grep|  grep "$HOME/.sickrage/SickBeard.py"
+pgrep -fu "$(whoami)" "python $HOME/.sickrage/SickBeard.py -d"
 ~~~
 
 Use these commands to shut down all instances from `~/.sickrage`:
@@ -72,7 +72,7 @@ Use these commands to shut down all instances from `~/.sickrage`:
 Try to kill  SickRage gracefully so that it saves all settings.
 
 ~~~
-kill "$(ps x | grep -v grep | grep "python $HOME/.sickrage/SickBeard.py -d" | awk '{print $1}')"
+kill "$(pgrep -fu "$(whoami)" "python $HOME/.sickrage/SickBeard.py -d")"
 ~~~
 
 If it refuses to exit then you have to force it to quit using this command instead.
@@ -80,7 +80,7 @@ If it refuses to exit then you have to force it to quit using this command inste
 **Important note:** Make sure you have saved your setting via the WebUi before using this command.
 
 ~~~
-kill -9 "$(ps x | grep -v grep | grep "python $HOME/.sickrage/SickBeard.py -d" | awk '{print $1}')"
+kill -9 "$(pgrep -fu "$(whoami)" "python $HOME/.sickrage/SickBeard.py -d")"
 ~~~
 
 Use this command to restart the default instance:
@@ -212,7 +212,7 @@ ProxyRequests Off
 ProxyPreserveHost On
 ProxyVia On
 
-ProxyPass /mypath http://10.0.0.1:PORT/${USER}/mypath  retry=0 timeout=5
+ProxyPass /mypath http://10.0.0.1:PORT/${USER}/mypath retry=0 timeout=5
 ProxyPassReverse /mypath http://10.0.0.1:PORT/${USER}/mypath
 ~~~
 
