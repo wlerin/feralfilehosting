@@ -14,14 +14,32 @@ You login information for the relevant slot will be shown here:
 Bash script installation
 ---
 
-This bash script will perform the **basic setup** outlined in Steps 1,2,3,4,5,6. Including creating your main user account.
+This bash script will perform the **basic set-up** outlined in Steps 1,2,3,4,5,6. Including creating your main user account.
 
-> **Important note:** This script can also update proftpd, when updates become available and the script is updated, without losing any settings, jails or users you have configured.
+> **Important note:** This script can also update proftpd and add or modify users. When updates become available and the script update your installation without losing any settings, jails or users you have configured.
 
-So if you use the bash script and complete it successfully you can continue from Step 7 of the FAQ.
+Run this command in SSH:
 
 ~~~
 wget -qO ~/install.proftpd http://git.io/nQJBxw && bash ~/install.proftpd
+~~~
+
+You can easily add or modify users from the installation script at any time.
+
+~~~
+~/install.proftpd adduser
+~~~
+
+You can also pass a username directly to the script and it will use that automatically.
+
+~~~
+~/install.proftpd adduser username
+~~~
+
+Use the option `help` for information on start up commands and configured ports:
+
+~~~
+~/install.proftpd help
 ~~~
 
 Manual Installation Steps
@@ -207,8 +225,8 @@ These are the partial line changes you want to change with your own path in the 
 To get your ports again at a later date use these commands. You may want to note these down or create aliases for them:
 
 ~~~
-echo  SFTP = $(grep '^Port [0-9]*' ~/proftpd/etc/sftp.conf)
-echo  FTPS = $(grep '^Port [0-9]*' ~/proftpd/etc/ftps.conf)
+echo  "SFTP port = $(sed -nr 's/^Port (.*)/\1/p' ~/proftpd/etc/sftp.conf)"
+echo  "FTPS port = $(sed -nr 's/^Port (.*)/\1/p' ~/proftpd/etc/ftps.conf)"
 ~~~
 
 Step 6: Create our main user with full access

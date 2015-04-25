@@ -193,9 +193,9 @@ then
     echo
     echo -e "\033[33m""The proftpd deamon ports configured are:""\e[0m"
     echo
-    echo -e "SFTP port = ""\033[32m""$(sed -rn 's/Port ([0-9].*)/\1/p' ~/proftpd/etc/sftp.conf)""\e[0m"
+    echo -e "SFTP port = ""\033[32m""$(sed -nr 's/^Port (.*)/\1/p' ~/proftpd/etc/sftp.conf)""\e[0m"
     echo
-    echo -e "FTPS port = ""\033[32m""$(sed -rn 's/Port ([0-9].*)/\1/p' ~/proftpd/etc/ftps.conf)""\e[0m"
+    echo -e "FTPS port = ""\033[32m""$(sed -nr 's/^Port (.*)/\1/p' ~/proftpd/etc/ftps.conf)""\e[0m"
     echo
     echo -e "\033[31m""adduser script:""\e[0m"
     echo
