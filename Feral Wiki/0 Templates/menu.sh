@@ -40,7 +40,7 @@
 # 4: scriptversion="0.0.0" - replace "0.0.0" with your script version. This will be shown to the user at the current version check.
 # 5: scriptname="somescript" - replace "somescript" with your script name. Make it unique to this script. Do not include the file extension.
 # 6: scriptauthor="None credited" - change this to the script author's name.
-# 7: contributors=="None credited" - add the names of any contributors you wish to credit here.
+# 7: contributors="None credited" - add the names of any contributors you wish to credit here.
 # 8: gitiourl="http://git.io/vvf9K" - change this to the shortened URL provided by http://git.io once you have committed the script to github or from a gist.
 # 9: gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname" - Leave this as it is. Do not modify it. This variable depends on the correct setting of the $gitiourl variable.
 # 10: scripturl="https://raw.github.com/feralhosting" - Set the scripturl variable in the variable section to the RAW github URL of the script for use with the updater features.
@@ -96,7 +96,9 @@
 ## Version History Starts ##
 ############################
 #
-if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
+if [[ ! -z "$1" && "$1" = 'changelog' ]]
+then
+    echo
     #
     # put your version changes in the single quotes and then uncomment the line.
     #
@@ -142,15 +144,15 @@ gitiourl="http://git.io/vvf9K"
 gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
 #
 # This is the raw github url of the script to use with the built in updater.
-scripturl="https://raw.github.com/feralhosting"
+scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/"
 #
 # This will generate a 20 character random passsword for use with your applications.
-apppass=$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)
+apppass="$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)"
 # This will generate a random port for the script between the range 10001 to 49999 to use with applications. You can ignore this unless needed.
-appport=$(shuf -i 10001-49999 -n 1)
+appport="$(shuf -i 10001-49999 -n 1)"
 #
 # This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
-while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]; do appport=$(shuf -i 10001-49999 -n 1); done
+while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]; do appport="$(shuf -i 10001-49999 -n 1)"; done
 #
 # Script user's http www URL in the format http://username.server.feralhosting.com/
 host1http="http://$(whoami).$(hostname -f)/"
@@ -162,7 +164,7 @@ host2http="http://$(hostname -f)/$(whoami)/"
 host2https="https://$(hostname -f)/$(whoami)/"
 #
 # feralwww - sets the full path to the default public_html directory if it exists.
-[[ -d ~/www/$(whoami).$(hostname -f)/public_html ]] && feralwww="$HOME/www/$(whoami).$(hostname -f)/public_html/"
+[[ -d ~/www/"$(whoami)"."$(hostname -f)"/public_html ]] && feralwww="$HOME/www/$(whoami).$(hostname -f)/public_html/"
 # rtorrentdata - sets the full path to the rtorrent data directory if it exists.
 [[ -d ~/private/rtorrent/data ]] && rtorrentdata="$HOME/private/rtorrent/data"
 # deluge - sets the full path to the deluge data directory if it exists.
@@ -201,6 +203,17 @@ updaterenabled="1"
 ###### Function Start ######
 ############################
 #
+showMenu () {
+    #
+    echo "1) $option1"
+    echo "2) $option2"
+    echo "3) $option3"
+    #echo "4) $option4"
+    #echo "5) $option5"
+    #echo "6) $option6"
+    #
+    echo
+}
 example () {
     echo "This is my example function"
 }
@@ -213,7 +226,7 @@ example () {
 #### Script Help Starts ####
 ############################
 #
-if [[ ! -z $1 && $1 == 'help' ]]
+if [[ ! -z "$1" && "$1" = 'help' ]]
 then
     echo
     echo -e "\033[32m""Script help and usage instructions:""\e[0m"
@@ -242,7 +255,7 @@ fi
 ############################
 #
 # Use this to show a user script information when they use the info option with the script.
-if [[ ! -z $1 && $1 == 'info' ]]
+if [[ ! -z "$1" && "$1" = 'info' ]]
 then
     echo
     echo -e "\033[32m""Script Details:""\e[0m"
@@ -318,10 +331,10 @@ fi
 ############################
 #
 # Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, which would reset the option, it will then find this file and set it back.
-if [[ ! -z $1 && $1 == 'qr' ]] || [[ ! -z $2 && $2 == 'qr' ]];then echo -n '' > ~/.quickrun; fi
+if [[ ! -z "$1" && "$1" = 'qr' ]] || [[ ! -z "$2" && "$2" = 'qr' ]];then echo -n '' > ~/.quickrun; fi
 #
 # No Update option: This disables the updater features if the script option "nu" was used when running the script.
-if [[ ! -z $1 && $1 == 'nu' ]] || [[ ! -z $2 && $2 == 'nu' ]]
+if [[ ! -z "$1" && "$1" = 'nu' ]] || [[ ! -z "$2" && "$2" = 'nu' ]]
 then
     echo
     echo "The Updater has been temporarily disabled"
@@ -330,20 +343,20 @@ then
 else
     #
     # Check to see if the variable "updaterenabled" is set to 1. If it is set to 0 the script will bypass the built in updater regardless of the options used.
-    if [[ "$updaterenabled" -eq 1 ]]
+    if [[ "$updaterenabled" -eq "1" ]]
     then
         [[ ! -d ~/bin ]] && mkdir -p ~/bin
         [[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
         #
         wget -qO ~/.000"$scriptname" "$scripturl"
         #
-        if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
+        if [[ "$(sha256sum ~/.000"$scriptname" | awk '{print $1}')" != "$(sha256sum ~/bin/"$scriptname" | awk '{print $1}')" ]]
         then
             echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
             bash ~/.111"$scriptname"
             exit
         else
-            if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
+            if [[ -z "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" && "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" -ne "$$" ]]
             then
                 echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
                 bash ~/.222"$scriptname"
@@ -372,7 +385,7 @@ if [[ -f ~/.quickrun ]];then updatestatus="y"; rm -f ~/.quickrun; fi
 #### Core Script Starts ####
 ############################
 #
-if [[ "$updatestatus" == "y" ]]
+if [[ "$updatestatus" = "y" ]]
 then
     :
 else
@@ -389,40 +402,27 @@ then
 #### User Script Starts ####
 ############################
 #
-    showMenu () 
-    {
-            #
-            echo "1) $option1"
-            echo "2) $option2"
-            echo "3) $option3"
-            #echo "4) $option4"
-            #echo "5) $option5"
-            #echo "6) $option6"
-            #
+while [ 1 ]
+do
+    showMenu
+    read -e CHOICE
+    echo
+    case "$CHOICE" in
+        "1")
+            echo "Bob was here"
             echo
-    }
-
-    while [ 1 ]
-    do
-            showMenu
-            read -e CHOICE
+            ;;
+        "2")
+            echo "Amy was here"
             echo
-            case "$CHOICE" in
-                    "1")
-                            echo "Bob was here"
-                            echo
-                            ;;
-                    "2")
-                            echo "Amy was here"
-                            echo
-                            ;;
-                    "3")
-                            echo "You chose to quit the script."
-                            echo
-                            exit
-                            ;;
-            esac
-    done
+            ;;
+        "3")
+            echo "You chose to quit the script."
+            echo
+            exit
+            ;;
+    esac
+done
 #
 ############################
 ##### User Script End  #####
