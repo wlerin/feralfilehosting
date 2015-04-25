@@ -385,12 +385,12 @@ then
     #
     ###### Start of functions attached to menu items
     while [ 1 ]
-        do
-            showMenu
-            echo
-            read -ep "Enter the number of the action you wish to complete: " CHOICE
-            echo
-            case "$CHOICE" in
+    do
+        showMenu
+        echo
+        read -ep "Enter the number of the action you wish to complete: " CHOICE
+        echo
+        case "$CHOICE" in
     ##########
             "1") # Create a new ~/private/.htpasswd and user only
                 if [[ ! -f $HOME/private/.htpasswd ]]
@@ -858,7 +858,7 @@ then
             "15") # Protect the /links directory using the ~/private/.htpasswd
                 if [[ -f ~/private/.htpasswd && -d ~/.nginx/conf.d  ]]
                 then
-                echo -e 'location /links {\nindex  index.html  index.php  /_h5ai/server/php/index.php;\n    auth_basic "Please log in";\n    auth_basic_user_file '"$HOME"'/private/.htpasswd;\n}' > ~/.nginx/conf.d/000-default-server.d/links.conf
+                echo -e 'location /links {\n    index  index.html  index.php  /_h5ai/server/php/index.php;\n    auth_basic "Please log in";\n    auth_basic_user_file '"$HOME"'/private/.htpasswd;\n}' > ~/.nginx/conf.d/000-default-server.d/links.conf
                 /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
                 echo "Done. You may need to clear your browser cache to see the changes"
                 echo
@@ -873,7 +873,7 @@ then
             "16") # Protect the /links directory using the /rutorrent/.htpasswd
                 if [[ -f ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/.htpasswd && -d ~/.nginx/conf.d ]]
                 then
-                echo -e 'location /links {\nindex  index.html  index.php  /_h5ai/server/php/index.php;\n    auth_basic "'"$(whoami)"'";\n    auth_basic_user_file '"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/rutorrent/.htpasswd;\n}' > ~/.nginx/conf.d/000-default-server.d/links.conf
+                echo -e 'location /links {\n    index  index.html  index.php  /_h5ai/server/php/index.php;\n    auth_basic "'"$(whoami)"'";\n    auth_basic_user_file '"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/rutorrent/.htpasswd;\n}' > ~/.nginx/conf.d/000-default-server.d/links.conf
                 /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
                 echo "Done. You may need to clear your browser cache to see the changes"
                 echo
