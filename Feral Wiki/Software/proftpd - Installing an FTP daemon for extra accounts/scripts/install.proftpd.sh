@@ -46,7 +46,7 @@ then
     #echo 'v0.0.5 - My changes go here'
     #echo 'v0.0.4 - My changes go here'
     #echo 'v0.0.3 - My changes go here'
-    #echo 'v0.0.2 - My changes go here'
+    echo 'v1.2.5 - Automatic password generation. USer experience simplified. More useful information is shown.'
     echo 'v1.2.4 - Template updated'
     #
     echo
@@ -62,7 +62,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.2.4"
+scriptversion="1.2.5"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.proftpd"
@@ -359,9 +359,9 @@ then
         fi
         if [[ "$agree2update" =~ ^[Yy]$ ]]
         then
-            killall -9 proftpd -u $(whoami) >/dev/null 2>&1
+            killall -9 -u "$(whoami)" proftpd >/dev/null 2>&1
             mkdir -p "$HOME"/proftpd/install_logs
-            cd && rm -rf "$proftpdversion"
+            rm -rf ~/"$proftpdversion"{,.tar.gz}
             wget -qO ~/proftpd-1.3.5.tar.gz "$proftpdurl"
             tar xf ~/proftpd-1.3.5.tar.gz
             #
@@ -374,16 +374,16 @@ then
             cd "$HOME/$proftpdversion"
             echo "Starting to 1: configure, 2: make, 3 make install"
             echo
-            install_user=$(whoami) install_group=$(whoami) ./configure --prefix="$HOME"/proftpd --enable-openssl --enable-dso --enable-nls --enable-ctrls --with-shared=mod_ratio:mod_readme:mod_sftp:mod_tls:mod_ban > "$HOME"/proftpd/install_logs/configure.log 2>&1
+            install_user="$(whoami)" install_group="$(whoami)" ./configure --prefix="$HOME"/proftpd --enable-openssl --enable-dso --enable-nls --enable-ctrls --with-shared=mod_ratio:mod_readme:mod_sftp:mod_tls:mod_ban > "$HOME"/proftpd/install_logs/configure.log 2>&1
             echo "1: configure complete, moving to 2 of 3"
             make > "$HOME"/proftpd/install_logs/make.log 2>&1
             echo "2: make complete, moving to 3 of 3"
             make install > "$HOME"/proftpd/install_logs/make_install.log 2>&1
             echo "3: make install complete, moving to post installation configuration"
             echo
-            "$HOME"/proftpd/bin/ftpasswd --group --name $(whoami) --file "$HOME"/proftpd/etc/ftpd.group --gid $(id -g $(whoami)) --member $(whoami) >/dev/null 2>&1
+            "$HOME"/proftpd/bin/ftpasswd --group --name="$(whoami)" --file="$HOME/proftpd/etc/ftpd.group" --gid="$(id -g "$(whoami)")" --member="$(whoami)" >/dev/null 2>&1
             # Some tidy up
-            cd && rm -rf "$proftpdversion"
+            rm -rf ~/"$proftpdversion"{,.tar.gz}
             chmod 440 ~/proftpd/etc/ftpd{.passwd,.group}
             "$HOME"/proftpd/sbin/proftpd -c "$HOME"/proftpd/etc/sftp.conf >/dev/null 2>&1
             "$HOME"/proftpd/sbin/proftpd -c "$HOME"/proftpd/etc/ftps.conf >/dev/null 2>&1
@@ -396,7 +396,7 @@ then
             echo
             if [[ "$areyousure" =~ ^[Yy]$ ]]
             then
-                killall -9 proftpd -u $(whoami) >/dev/null 2>&1
+                killall -9 -u "$(whoami)" proftpd >/dev/null 2>&1
                 rm -rf "$HOME"/proftpd >/dev/null 2>&1
             else
                 echo "You chose to exit"
@@ -419,12 +419,12 @@ then
     #chmod -R 700 "$HOME/$proftpdversion"
     echo -n "$proftpdversion" > "$HOME"/proftpd/.proftpdversion
     cd "$HOME/$proftpdversion"
-    echo -e "\033[32m""About to configure, make and install proftpd. This could take some time to complete. Be patient.""\e[0m"
+    echo -e "\033[33m""About to configure, make and install proftpd. This could take some time to complete. Be patient.""\e[0m"
     echo
     # configure and install
     echo "Starting to 1: configure, 2: make, 3 make install"
     echo
-    install_user=$(whoami) install_group=$(whoami) ./configure --prefix="$HOME"/proftpd --enable-openssl --enable-dso --enable-nls --enable-ctrls --with-shared=mod_ratio:mod_readme:mod_sftp:mod_tls:mod_ban > "$HOME"/proftpd/install_logs/configure.log 2>&1
+    install_user="$(whoami)" install_group="$(whoami)" ./configure --prefix="$HOME"/proftpd --enable-openssl --enable-dso --enable-nls --enable-ctrls --with-shared=mod_ratio:mod_readme:mod_sftp:mod_tls:mod_ban > "$HOME"/proftpd/install_logs/configure.log 2>&1
     echo "1: configure complete, moving to 2 of 3"
     make > "$HOME"/proftpd/install_logs/make.log 2>&1
     echo "2: make complete, moving to 3 of 3"
@@ -432,55 +432,51 @@ then
     echo "3: make install complete, moving to post installation configuration"
     echo
     # Some tidy up
-    cd && rm -rf "$proftpdversion"
+    rm -rf ~/"$proftpdversion"{,.tar.gz}
     # Generate our keyfiles
     ssh-keygen -q -t rsa -f "$HOME"/proftpd/etc/keys/sftp_rsa -N '' && ssh-keygen -q -t dsa -f "$HOME"/proftpd/etc/keys/sftp_dsa -N ''
-    echo "rsa keys generated with no passphrase"
     openssl req -new -x509 -nodes -days 365 -subj '/C=GB/ST=none/L=none/CN=none' -newkey rsa:2048 -keyout "$HOME"/proftpd/ssl/proftpd.key.pem -out "$HOME"/proftpd/ssl/proftpd.cert.pem >/dev/null 2>&1
-    echo "ssl keys generated"
-    echo
     # Get the conf files from github and configure them for this user
-    echo "Downloading and configuring the .conf files."
-    echo
-    until [[ $(stat -c %s ~/proftpd/etc/proftpd.conf 2> /dev/null) -eq "$proftpdconfsize" ]]
+    until [[ "$(stat -c %s ~/proftpd/etc/proftpd.conf 2> /dev/null)" -eq "$proftpdconfsize" ]]
     do
         wget -qO "$HOME"/proftpd/etc/proftpd.conf "$proftpdconf"
     done
-    until [[ $(stat -c %s ~/proftpd/etc/sftp.conf 2> /dev/null) -eq "$sftpconfsize" ]]
+    until [[ "$(stat -c %s ~/proftpd/etc/sftp.conf 2> /dev/null)" -eq "$sftpconfsize" ]]
     do
         wget -qO "$HOME"/proftpd/etc/sftp.conf "$sftpconf"
     done
-    until [[ $(stat -c %s ~/proftpd/etc/ftps.conf 2> /dev/null) -eq "$ftpsconfsize" ]]
+    until [[ "$(stat -c %s ~/proftpd/etc/ftps.conf 2> /dev/null)" -eq "$ftpsconfsize" ]]
     do
         wget -qO "$HOME"/proftpd/etc/ftps.conf "$ftpsconf"
     done
     # proftpd.conf
     sed -i 's|/media/DiskID/home/my_username|'"$HOME"'|g' "$HOME/proftpd/etc/proftpd.conf"
-    sed -i 's|User my_username|User '$(whoami)'|g' "$HOME/proftpd/etc/proftpd.conf"
-    sed -i 's|Group my_username|Group '$(whoami)'|g' "$HOME/proftpd/etc/proftpd.conf"
-    sed -i 's|AllowUser my_username|AllowUser '$(whoami)'|g' "$HOME/proftpd/etc/proftpd.conf"
+    sed -i 's|User my_username|User '"$(whoami)"'|g' "$HOME/proftpd/etc/proftpd.conf"
+    sed -i 's|Group my_username|Group '"$(whoami)"'|g' "$HOME/proftpd/etc/proftpd.conf"
+    sed -i 's|AllowUser my_username|AllowUser '"$(whoami)"'|g' "$HOME/proftpd/etc/proftpd.conf"
     # sftp.conf
     sed -i 's|/media/DiskID/home/my_username|'"$HOME"'|g' "$HOME/proftpd/etc/sftp.conf"
     sed -i 's|Port 23001|Port '"$sftpport"'|g' "$HOME/proftpd/etc/sftp.conf"
-    echo -e "This is your" "\033[31m""SFTP""\e[0m" "port:" "\033[31m""$(sed -nr 's/^Port (.*)/\1/p' ~/proftpd/etc/sftp.conf)""\e[0m"
     # ftps.conf
     sed -i 's|/media/DiskID/home/my_username|'"$HOME"'|g' "$HOME/proftpd/etc/ftps.conf"
     sed -i 's|Port 23002|Port '"$ftpsport"'|g' "$HOME/proftpd/etc/ftps.conf"
+    echo "$apppass" | "$HOME"/proftpd/bin/ftpasswd --passwd --name="$(whoami)" --file="$HOME/proftpd/etc/ftpd.passwd" --uid="$(id -u "$(whoami)")" --gid="$(id -g "$(whoami)")" --home="$HOME/" --shell="/bin/false" --stdin >/dev/null 2>&1
+    "$HOME"/proftpd/bin/ftpasswd --group --name="$(whoami)" --file="$HOME/proftpd/etc/ftpd.group" --gid="$(id -g "$(whoami)")" --member="$(whoami)" >/dev/null 2>&1
+    echo -e "\033[33m""You have completed Steps 1 through 6. Please continue with the FAQ from Step 7 onwards.""\e[0m"
+    echo
+    echo -e "\033[31m""proftpd was NOT started to allow you to edit the jails in Step 8 of the FAQ as required.""\e[0m"
+    echo
+    echo -e "\033[33m""See Step 9 of the FAQ for how to start proftpd.""\e[0m"
+    echo
+    echo -e "\033[31m""FTPS/SFTP Connection Settings:""\e[0m"
+    echo
+    echo -e "This is your hostname: ""\033[32m""$(hostname -f)""\e[0m"
+    echo
+    echo -e "This is your" "\033[32m""SFTP""\e[0m" "port:" "\033[32m""$(sed -nr 's/^Port (.*)/\1/p' ~/proftpd/etc/sftp.conf)""\e[0m"
     echo
     echo -e "This is your" "\033[32m""FTPS""\e[0m" "port:" "\033[32m""$(sed -nr 's/^Port (.*)/\1/p' ~/proftpd/etc/ftps.conf)""\e[0m"
     echo
-    echo -e "The basic setup and configuration has been completed." "\033[31m""Please now enter a password for your main, unlimited user""\e[0m"
-    echo
-    "$HOME"/proftpd/bin/ftpasswd --passwd --name $(whoami) --file "$HOME"/proftpd/etc/ftpd.passwd --uid $(id -u $(whoami)) --gid $(id -g $(whoami)) --home "$HOME"/ --shell /bin/false
-    "$HOME"/proftpd/bin/ftpasswd --group --name $(whoami) --file "$HOME"/proftpd/etc/ftpd.group --gid $(id -g $(whoami)) --member $(whoami) >/dev/null 2>&1
-    echo
-    echo -e "\033[31m""If for some reason the user creation failed, see Step 6 of the FAQ to do this again""\e[0m"
-    echo
-    echo -e "You have completed Steps 1 through 6. Please continue with the FAQ from Step 7 onwards."
-    echo
-    echo -e "proftpd was NOT started to allow you to edit the jails in Step 8 of the FAQ as required."
-    echo
-    echo -e "See Step 9 of the FAQ for how to start proftpd"
+    echo -e "This is your main username: ""\033[32m""$(whoami)""\e[0m"" and this is your password: ""\033[32m""$apppass""\e[0m"
     echo
 #
 ############################
