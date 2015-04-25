@@ -862,7 +862,7 @@ then
             "15") # Protect the /links directory using the ~/private/.htpasswd
             if [[ -f ~/private/.htpasswd && -d ~/.nginx/conf.d  ]]
             then
-            echo -e 'location /links {\n    auth_basic "Please log in";\n    auth_basic_user_file '$HOME'/private/.htpasswd;\n}' > ~/.nginx/conf.d/000-default-server.d/links.conf
+            echo -e 'location /links {\nindex  index.html  index.php  /_h5ai/server/php/index.php;\n    auth_basic "Please log in";\n    auth_basic_user_file '"$HOME"'/private/.htpasswd;\n}' > ~/.nginx/conf.d/000-default-server.d/links.conf
             /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
             echo "Done. You may need to clear your browser cache to see the changes"
             echo
@@ -877,7 +877,7 @@ then
             "16") # Protect the /links directory using the /rutorrent/.htpasswd
             if [[ -f ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/.htpasswd && -d ~/.nginx/conf.d ]]
             then
-            echo -e 'location /links {\n    auth_basic "'$(whoami)'";\n    auth_basic_user_file '$HOME'/www/'$(whoami)'.'$(hostname -f)'/public_html/rutorrent/.htpasswd;\n}' > ~/.nginx/conf.d/000-default-server.d/links.conf
+            echo -e 'location /links {\nindex  index.html  index.php  /_h5ai/server/php/index.php;\n    auth_basic "'"$(whoami)"'";\n    auth_basic_user_file '"$HOME"'/www/'$(whoami)'.'$(hostname -f)'/public_html/rutorrent/.htpasswd;\n}' > ~/.nginx/conf.d/000-default-server.d/links.conf
             /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
             echo "Done. You may need to clear your browser cache to see the changes"
             echo
@@ -892,7 +892,7 @@ then
             "17") # change the rpc password for the user rutorrent
             if [[ -f ~/.nginx/conf.d/000-default-server.d/scgi-htpasswd ]]
             then
-                htpasswd -m $HOME/.nginx/conf.d/000-default-server.d/scgi-htpasswd rutorrent
+                htpasswd -m "$HOME"/.nginx/conf.d/000-default-server.d/scgi-htpasswd rutorrent
                 sed -ri '/^rutorrent:(.*)/! s/(.*)//g' ~/.nginx/conf.d/000-default-server.d/scgi-htpasswd
                 sed -ri '/^$/d' ~/.nginx/conf.d/000-default-server.d/scgi-htpasswd
                 echo
