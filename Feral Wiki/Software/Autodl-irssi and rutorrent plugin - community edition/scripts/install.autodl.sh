@@ -22,6 +22,8 @@
 #### Script Notes Start ####
 ############################
 #
+##
+#
 ############################
 ##### Script Notes End #####
 ############################
@@ -30,7 +32,9 @@
 ## Version History Starts ##
 ############################
 #
-if [[ ! -z $1 && $1 == 'changelog' ]]; then echo
+if [[ ! -z "$1" && "$1" = 'changelog' ]]
+then
+    echo
     #
     echo 'v1.4.7 - Template and minor tweaks.'
     echo 'v1.4.6 - Template and minor tweaks.'
@@ -97,12 +101,12 @@ gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
 scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Autodl-irssi%20and%20rutorrent%20plugin%20-%20community%20edition/scripts/install.autodl.sh"
 #
 # This will generate a 20 character random passsword for use with your applications.
-apppass=$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)
+apppass="$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)"
 # This will generate a random port for the script between the range 10001 to 49999 to use with applications. You can ignore this unless needed.
-appport=$(shuf -i 10001-49999 -n 1)
+appport="$(shuf -i 10001-49999 -n 1)"
 #
 # This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
-while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]; do appport=$(shuf -i 10001-49999 -n 1); done
+while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]; do appport="$(shuf -i 10001-49999 -n 1)"; done
 #
 # Script user's http www URL in the format http://username.server.feralhosting.com/
 host1http="http://$(whoami).$(hostname -f)/"
@@ -114,7 +118,7 @@ host2http="http://$(hostname -f)/$(whoami)/"
 host2https="https://$(hostname -f)/$(whoami)/"
 #
 # feralwww - sets the full path to the default public_html directory if it exists.
-[[ -d ~/www/$(whoami).$(hostname -f)/public_html ]] && feralwww="$HOME/www/$(whoami).$(hostname -f)/public_html/"
+[[ -d ~/www/"$(whoami)"."$(hostname -f)"/public_html ]] && feralwww="$HOME/www/$(whoami).$(hostname -f)/public_html/"
 # rtorrentdata - sets the full path to the rtorrent data directory if it exists.
 [[ -d ~/private/rtorrent/data ]] && rtorrentdata="$HOME/private/rtorrent/data"
 # deluge - sets the full path to the deluge data directory if it exists.
@@ -159,10 +163,22 @@ updaterenabled="1"
 ############################
 #
 ############################
+###### Function Start ######
+############################
+#
+example () {
+    echo "This is my example function"
+}
+#
+############################
+####### Function End #######
+############################
+#
+############################
 #### Script Help Starts ####
 ############################
 #
-if [[ ! -z $1 && $1 == 'help' ]]
+if [[ ! -z "$1" && "$1" = 'help' ]]
 then
     echo
     echo -e "\033[32m""Script help and usage instructions:""\e[0m"
@@ -191,7 +207,7 @@ fi
 ############################
 #
 # Use this to show a user script information when they use the info option with the script.
-if [[ ! -z $1 && $1 == 'info' ]]
+if [[ ! -z "$1" && "$1" = 'info' ]]
 then
     echo
     echo -e "\033[32m""Script Details:""\e[0m"
@@ -267,10 +283,10 @@ fi
 ############################
 #
 # Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, which would reset the option, it will then find this file and set it back.
-if [[ ! -z $1 && $1 == 'qr' ]] || [[ ! -z $2 && $2 == 'qr' ]];then echo -n '' > ~/.quickrun; fi
+if [[ ! -z "$1" && "$1" = 'qr' ]] || [[ ! -z "$2" && "$2" = 'qr' ]];then echo -n '' > ~/.quickrun; fi
 #
 # No Update option: This disables the updater features if the script option "nu" was used when running the script.
-if [[ ! -z $1 && $1 == 'nu' ]] || [[ ! -z $2 && $2 == 'nu' ]]
+if [[ ! -z "$1" && "$1" = 'nu' ]] || [[ ! -z "$2" && "$2" = 'nu' ]]
 then
     echo
     echo "The Updater has been temporarily disabled"
@@ -279,20 +295,20 @@ then
 else
     #
     # Check to see if the variable "updaterenabled" is set to 1. If it is set to 0 the script will bypass the built in updater regardless of the options used.
-    if [[ "$updaterenabled" -eq 1 ]]
+    if [[ "$updaterenabled" -eq "1" ]]
     then
         [[ ! -d ~/bin ]] && mkdir -p ~/bin
         [[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
         #
         wget -qO ~/.000"$scriptname" "$scripturl"
         #
-        if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
+        if [[ "$(sha256sum ~/.000"$scriptname" | awk '{print $1}')" != "$(sha256sum ~/bin/"$scriptname" | awk '{print $1}')" ]]
         then
             echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
             bash ~/.111"$scriptname"
             exit
         else
-            if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
+            if [[ -z "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" && "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" -ne "$$" ]]
             then
                 echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
                 bash ~/.222"$scriptname"
@@ -321,7 +337,7 @@ if [[ -f ~/.quickrun ]];then updatestatus="y"; rm -f ~/.quickrun; fi
 #### Core Script Starts ####
 ############################
 #
-if [[ "$updatestatus" == "y" ]]
+if [[ "$updatestatus" = "y" ]]
 then
     :
 else

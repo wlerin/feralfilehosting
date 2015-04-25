@@ -22,6 +22,8 @@
 #### Script Notes Start ####
 ############################
 #
+##
+#
 ############################
 ##### Script Notes End #####
 ############################
@@ -81,12 +83,12 @@ gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
 scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Sick%20Beard%20and%20SickRage%20-%20Basic%20Setup/scripts/install.sick.sh"
 #
 # This will generate a 20 character random passsword for use with your applications.
-apppass=$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)
+apppass="$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)"
 # This will generate a random port for the script between the range 10001 to 49999 to use with applications. You can ignore this unless needed.
-appport=$(shuf -i 10001-49999 -n 1)
+appport="$(shuf -i 10001-49999 -n 1)"
 #
 # This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
-while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]; do appport=$(shuf -i 10001-49999 -n 1); done
+while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]; do appport="$(shuf -i 10001-49999 -n 1)"; done
 #
 # Script user's http www URL in the format http://username.server.feralhosting.com/
 host1http="http://$(whoami).$(hostname -f)/"
