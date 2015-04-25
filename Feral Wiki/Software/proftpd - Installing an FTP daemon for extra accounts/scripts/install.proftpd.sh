@@ -45,7 +45,7 @@ then
     #echo 'v0.0.6 - My changes go here'
     #echo 'v0.0.5 - My changes go here'
     #echo 'v0.0.4 - My changes go here'
-    #echo 'v0.0.3 - My changes go here'
+    echo 'v1.2.6 - merged adduser script into main script as a script option and tweaked script.'
     echo 'v1.2.5 - Automatic password generation. USer experience simplified. More useful information is shown.'
     echo 'v1.2.4 - Template updated'
     #
@@ -62,7 +62,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.2.5"
+scriptversion="1.2.6"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.proftpd"
@@ -177,7 +177,31 @@ then
     ##### Custom Help Info Starts #####
     ###################################
     #
-    echo -e "Put your help instructions or script guidance here"
+    echo -e "This script will complete Steps 1 to 6 from the proftpd FAQ. Continue the FAQ from Step 7."
+    echo
+    echo -e "\033[33m""proftpd is not started by this script so that you may configure your users and jails first""\e[0m"
+    echo
+    echo -e "Three read only jails that any valid user can access are configured by default, they are:"
+    echo
+    echo -e "1:""\033[36m"" ~/private/rtorrent/data""\e[0m" "2:""\033[36m"" ~/private/deluge/data""\e[0m" "3:""\033[36m"" ~/private/transmission/data""\e[0m"
+    echo
+    echo -e "\033[31m""Start Commands:""\e[0m"
+    echo
+    echo -e "Start SFTP: ""\033[36m""~/proftpd/sbin/proftpd -c ~/proftpd/etc/sftp.conf""\e[0m"
+    echo
+    echo -e "Start FTPS: ""\033[36m""~/proftpd/sbin/proftpd -c ~/proftpd/etc/ftps.conf""\e[0m"
+    echo
+    echo -e "\033[33m""The proftpd deamon ports configured are:""\e[0m"
+    echo
+    echo -e "SFTP port = ""\033[32m""$(sed -rn 's/Port ([0-9].*)/\1/p' ~/proftpd/etc/sftp.conf)""\e[0m"
+    echo
+    echo -e "FTPS port = ""\033[32m""$(sed -rn 's/Port ([0-9].*)/\1/p' ~/proftpd/etc/ftps.conf)""\e[0m"
+    echo
+    echo -e "\033[31m""adduser script:""\e[0m"
+    echo
+    echo -e "\033[36madduser\e[0m = Uses the built in add user script to easily create and add a new user."
+    echo
+    echo -e "Example usage: \033[36m$scriptname adduser\e[0m or it will accept a username: \033[36m$scriptname adduser username\e[0m"
     #
     ###################################
     ###### Custom Help Info Ends ######
@@ -320,6 +344,64 @@ if [[ -f ~/.quickrun ]];then updatestatus="y"; rm -f ~/.quickrun; fi
 #
 ############################
 ##### Self Updater End #####
+############################
+#
+############################
+###### Adduser Starts ######
+############################
+#
+if [[ "$1" = "adduser" ]]
+then
+    # made by finesse for feral hosting FAQ
+    # use as you like
+    # no warranties
+    passwdfile="$HOME/proftpd/etc/ftpd.passwd"
+    groupdfile="$HOME/proftpd/etc/ftpd.group"
+    binarycmd="$HOME/proftpd/bin/ftpasswd"
+    idcount=5001
+    exec 6<&0
+    exec 0<"$passwdfile"
+    while read line1
+    do
+        foundid="$(echo $line1 |grep -o $idcount)"
+        if [ -n "$foundid" ]
+            then
+                idcount="$(expr $idcount + 1)"
+        fi
+    done
+    exec 0<&6
+    echo -e "Using" "\033[32m""$idcount""\e[0m" "for id's."
+    echo
+    if [ -n "$2" ]
+        then
+            echo -e "Using ""\033[32m""$2""\e[0m"" for name."
+            name="$2"
+            echo
+        else
+            read -ep "Please input username: " name
+            echo
+    fi
+    echo -e "\033[32m""Do not include the""\e[0m" "\033[36m""~/""\e[0m" "\033[32m""in the path. Use paths that match existing Jails, relative to your Root directory, for example:""\e[0m"
+    echo
+    echo -e "\033[36m""private/rtorrent/data""\e[0m"
+    echo
+    echo -e "\033[33m""Use TAB to auto complete the path.""\e[0m"
+    echo
+    read -ep "Please specify a relative path to the users home/jail directory: ~/" -i "private/rtorrent/data" jailpath
+    echo
+    echo "$apppass" | "$binarycmd" --passwd --name="$name" --file="$passwdfile" --uid="$idcount" --gid="$idcount" --home="$HOME/$jailpath" --shell="/bin/false" --stdin >/dev/null 2>&1
+    "$binarycmd" --group --name="$name" --file="$groupdfile" --gid="$idcount" --member="$name" >/dev/null 2>&1
+    echo -e "The username is: ""\033[32m""$name""\e[0m"
+    echo
+    echo -e "The password is: ""\033[32m""$apppass""\e[0m"
+    echo
+    echo -e "The jail PATH is: ""\033[36m""$HOME/$jailpath""\e[0m"
+    echo
+    exit
+fi
+#
+############################
+####### Adduser Ends #######
 ############################
 #
 ############################
