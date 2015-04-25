@@ -23,12 +23,15 @@ None
 
 ### Check your disk quota in SSH
 
-    quota
+    quota.sh
 
 4: SFTP and FTP
 ---
 
-None
+### LFTP - automated
+
+lftp-ftp.sh
+lftp-sftp.sh
 
 5: HTTP
 ---
@@ -36,6 +39,10 @@ None
 ### Password protect your WWW folder
 
     htpasswdtk.sh
+
+### PHP settings
+
+    phpsettings.sh
 
 ### Redirecting HTTP to HTTPS
 
@@ -52,7 +59,18 @@ None
 6: Other Software
 ---
 
-### aria2c - Windows only vbs scripts
+### aria2c 
+
+    aria2c.bat
+    test.vbs
+
+### Transdroid
+
+transdroid-setup.sh
+
+### Auto reroute
+
+http://git.io/hsFb
 
 7: Slot Plans
 ---
@@ -68,14 +86,16 @@ none
 
 ### Autodl-irssi and rutorrent plugin - community edition
 
-    autodlport.sh
     autodlrutorrentfix.sh
-    installautodl.sh
-    trackerlist.sh
+    install.autodl.sh
+
+### bitorrent sync
+
+    install.btsync
 
 ### couchpotato
 
-    couchpotato.sh
+    install.couchpotato.sh
 
 ### multiple instances of rtorrent and rutorrent
 
@@ -90,24 +110,41 @@ none
     install.proftpd.sh
     proftpdadduser.sh
 
-### WeeChat
+### Sick Beard and SickRage
 
-    install.weechat.sh
+    install.sick
 
-### Subsonic
+### Subsonic and Madsonic
 
     install.subsonic.sh
-
-### Madsonic 
-
     install.madsonic.sh
+
+### Synthing
+
+    install.syncthing.sh
 
 ### Teamspeak 3 server
 
     install.teamspeak.sh
 
+### WeeChat
+
+    install.weechat.sh
+
+### znc
+
+    install.znc.sh
+
 9: Linux Command-Line - Advanced
 ---
+
+### Flac to MP3 for What.CD
+
+convert.pl
+
+### Flac to MP3 in perl
+
+convert.pl
 
 ### rsync - Transferring data from slot to slot
 
