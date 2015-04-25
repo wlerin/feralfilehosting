@@ -43,7 +43,7 @@ ZNC installation
 This script essentially performs the basic install according to the steps below.
 
 ~~~
-wget -qO ~/install.znc http://git.io/vvfyN && bash ~/install.znc
+wget -qO ~/install.znc http://git.io/vfKaT && bash ~/install.znc
 ~~~
 
 ### Manual install
