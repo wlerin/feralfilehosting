@@ -94,7 +94,7 @@
 ############################
 #
 if [[ ! -z "$1" && "$1" = 'changelog' ]]
-then 
+then
     echo
     #
     # put your version changes in the single quotes and then uncomment the line.
