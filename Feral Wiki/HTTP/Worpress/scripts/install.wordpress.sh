@@ -131,7 +131,7 @@ nginxconf () {
     if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
     then
         wget -qO ~/.nginx/conf.d/000-default-server.d/wordpress.conf "$wordpressconf"
-        /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf
+        /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf >/dev/null 2>&1
     fi
 }
 #
@@ -296,6 +296,33 @@ if [[ -f ~/.quickrun ]];then updatestatus="y"; rm -f ~/.quickrun; fi
 #
 ############################
 ##### Self Updater End #####
+############################
+#
+############################
+## Positional Param Start ##
+############################
+#
+if [[ "$1" = "example" ]]
+then
+    echo
+    #
+    # Edit below this line
+    #
+    echo "Add your custom positional parameters in this section."
+    #
+    if [[ -n "$2" ]]
+    then
+        echo "You used $scriptname $1 $2 when calling this example"
+    fi
+    #
+    # Edit above this line
+    #
+    echo
+    exit
+fi
+#
+############################
+### Positional Param End ###
 ############################
 #
 ############################
