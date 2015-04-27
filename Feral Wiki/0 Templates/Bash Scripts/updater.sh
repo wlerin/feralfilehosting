@@ -69,21 +69,27 @@
 #
 # 17: This section is self contained you don't need to modify this section. This feature will compare itself vs the raw script linked at the github URL provided and update itself
 #
+### Positional Param Section:
+#
+# Important note: use somescript example or somescript example test to load the example.
+#
+# 18: Place your custom positional parameters in this section. They will load after the main updater to make sure they are current.
+#
 ### User Scripts:
 #
 # Important Note: This template is a wrapper around your script. You will need to make use of the script option below like qr to call your own options.
 #
-# 18: Insert your script in the "User Script" labelled section - Indented by one tab (4 spaces) to be in line with the overall script. You can copy and paste a working script into this section.
+# 19: Insert your script in the "User Script" labelled section - Indented by one tab (4 spaces) to be in line with the overall script. You can copy and paste a working script into this section.
 #
 ### Script Options explained:
 #
-# 19: changelog - use the argument qr when calling the script, for example - "somescript changelog".
-# 20: help - Use this section to create help notes and usage instructions for the user when they use this option, for example - "somescript help".
-# 21: info - use the argument qr when calling the script, for example - "somescript info".
-# 22: qr - use this option to quick run the script suppressing all update prompts and jumping directly to the user script, for example - "somescript qr". Note - This does not disable or bypass the updater.
-# 23: nu - use the option to disable the update features of the script, for example - "somescript nu". Note - This will run the script from where it is called and append -DEV to the version number output.
+# 20: changelog - use the argument qr when calling the script, for example - "somescript changelog".
+# 22: help - Use this section to create help notes and usage instructions for the user when they use this option, for example - "somescript help".
+# 23: info - use the argument qr when calling the script, for example - "somescript info".
+# 24: qr - use this option to quick run the script suppressing all update prompts and jumping directly to the user script, for example - "somescript qr". Note - This does not disable or bypass the updater.
+# 25: nu - use the option to disable the update features of the script, for example - "somescript nu". Note - This will run the script from where it is called and append -DEV to the version number output.
 #
-# 24: To pass your own variables to the script in the user script section please start from $2 onwards.
+# 26: To pass your own variables to the script in the user script section please start from $2 onwards.
 #
 ############################
 ##### Script Notes End #####
@@ -313,6 +319,7 @@ fi
 #
 # Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, which would reset the option, it will then find this file and set it back.
 if [[ ! -z "$1" && "$1" = 'qr' ]] || [[ ! -z "$2" && "$2" = 'qr' ]];then echo -n '' > ~/.quickrun; fi
+if [[ ! -z "$1" && "$1" != 'qr' ]] || [[ ! -z "$2" && "$2" != 'qr' ]] ;then echo -n '' > ~/.passparams; fi
 #
 # No Update option: This disables the updater features if the script option "nu" was used when running the script.
 if [[ ! -z "$1" && "$1" = 'nu' ]] || [[ ! -z "$2" && "$2" = 'nu' ]]
@@ -357,9 +364,37 @@ fi
 #
 # Quick Run option part 2: If quick run was set and the updater section completes this will enable quick run again then remove the file.
 if [[ -f ~/.quickrun ]];then updatestatus="y"; rm -f ~/.quickrun; fi
+if [[ -f ~/.passparams ]];then updatestatus="y"; rm -f ~/.quickrun; fi
 #
 ############################
 ##### Self Updater End #####
+############################
+#
+############################
+## Positional Param Start ##
+############################
+#
+if [[ "$1" = "example" ]]
+then
+    echo
+    #
+    # Edit below this line
+    #
+    echo "Add your custom positional parameters in this section."
+    #
+    if [[ -n "$2" ]]
+    then
+        echo "You used $scriptname $1 $2 when calling this example"
+    fi
+    #
+    # Edit above this line
+    #
+    echo
+    exit
+fi
+#
+############################
+### Positional Param End ###
 ############################
 #
 ############################
