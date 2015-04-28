@@ -296,9 +296,9 @@ fi
 #### Self Updater Start ####
 ############################
 #
-if [[ ! -z "$1" && "$1" != 'qr' ]] || [[ ! -z "$2" && "$2" != 'qr' ]] ;then echo -en "$1\n$2" > ~/.passparams; fi
+[[ ! -z "$1" && "$1" != 'qr' ]] || [[ ! -z "$2" && "$2" != 'qr' ]] && echo -en "$1\n$2" > ~/.passparams
 # Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, which would reset the option, it will then find this file and set it back.
-if [[ ! -z "$1" && "$1" = 'qr' ]] || [[ ! -z "$2" && "$2" = 'qr' ]];then echo -n '' > ~/.quickrun; fi
+[[ ! -z "$1" && "$1" = 'qr' ]] || [[ ! -z "$2" && "$2" = 'qr' ]] && echo -n '' > ~/.quickrun
 #
 # No Update option: This disables the updater features if the script option "nu" was used when running the script.
 if [[ ! -z "$1" && "$1" = 'nu' ]] || [[ ! -z "$2" && "$2" = 'nu' ]]
@@ -358,7 +358,6 @@ if [[ ! -z "$1" && "$1" = 'adduser' ]]
 then
     if [[ -d ~/proftpd && -f ~/proftpd/bin/ftpasswd ]]
     then
-        echo
         #
         # Edit below this line
         #
@@ -406,7 +405,6 @@ then
         echo -e "The password is: ""\033[32m""$apppass""\e[0m"
         echo
         echo -e "The jail PATH is: ""\033[36m""$HOME/$jailpath""\e[0m"
-        echo
         #
         # Edit above this line
         #
