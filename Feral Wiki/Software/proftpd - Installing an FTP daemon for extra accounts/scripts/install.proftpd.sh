@@ -611,7 +611,7 @@ then
     echo -e "This is your" "\033[32m""FTPS""\e[0m" "port:" "\033[32m""$(sed -nr 's/^Port (.*)/\1/p' ~/proftpd/etc/ftps.conf)""\e[0m"
     echo
     echo -e "This is your main username: ""\033[32m""$(whoami)""\e[0m"" and this is your password: ""\033[32m""$apppass""\e[0m"
-    function
+    #function
     filezillaxml
     echo
     echo "Filezilla site templates that you can import into Filezilla were generated in:"
