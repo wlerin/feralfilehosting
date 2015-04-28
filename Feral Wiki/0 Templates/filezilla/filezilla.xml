@@ -4,7 +4,7 @@
         <Server>
             <Host>HOSTNAME</Host>
             <Port>DAEMONPORT</Port>
-            <Protocol>1</Protocol>
+            <Protocol>DAEMONPROTOCOL</Protocol>
             <Type>0</Type>
             <User>USERNAME</User>
             <Pass encoding="base64">PASSWORD</Pass>

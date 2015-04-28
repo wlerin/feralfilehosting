@@ -187,9 +187,15 @@ filezillaxml () {
     sed -ri 's|DAEMONPORT|'"$sftpport"'|g' ~/.proftpd-filezilla/filezilla-sftp.xml
     sed -ri 's|DAEMONPORT|'"$ftpsport"'|g' ~/.proftpd-filezilla/filezilla-ftps.xml
     #
+    sed -ri 's|DAEMONPROTOCOL|1|g' ~/.proftpd-filezilla/filezilla-sftp.xml
+    sed -ri 's|DAEMONPROTOCOL|3|g' ~/.proftpd-filezilla/filezilla-ftps.xml
+    #
     sed -ri 's|USERNAME|'"$(whoami)"'|g' ~/.proftpd-filezilla/filezilla-{sftp,ftps}.xml
     sed -ri 's|PASSWORD|'"$(echo -n $apppass | base64)"'|g' ~/.proftpd-filezilla/filezilla-{sftp,ftps}.xml
-    sed -ri 's|SERVERNAME|'"$(hostname -f)"'|g' ~/.proftpd-filezilla/filezilla-{sftp,ftps}.xml
+    #
+    sed -ri 's|SERVERNAME|'"$(hostname -f) sftp"'|g' ~/.proftpd-filezilla/filezilla-sftp.xml
+    sed -ri 's|SERVERNAME|'"$(hostname -f) ftps"'|g' ~/.proftpd-filezilla/filezilla-ftps.xml
+    #
     sed -ri 's|REMOTEDIR|'"$(remotepath)"'|g' ~/.proftpd-filezilla/filezilla-{sftp,ftps}.xml
 }
 #
