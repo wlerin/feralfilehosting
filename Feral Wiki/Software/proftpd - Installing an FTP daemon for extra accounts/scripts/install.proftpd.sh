@@ -45,6 +45,7 @@ then
     #echo 'v0.0.6 - My changes go here'
     #echo 'v0.0.5 - My changes go here'
     #echo 'v0.0.4 - My changes go here'
+    echo 'v1.2.9 - filezilla importable templates generated during installation.'
     echo 'v1.2.7 - fixed broken if in adduser section.'
     echo 'v1.2.6 - merged adduser script into main script as a script option and tweaked script.'
     echo 'v1.2.5 - Automatic password generation. USer experience simplified. More useful information is shown.'
@@ -63,7 +64,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.2.8"
+scriptversion="1.2.9"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.proftpd"
@@ -118,6 +119,8 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 ## Custom Variables Start ##
 ############################
 #
+filezilla="http://git.io/vfAZ9"
+#
 proftpdversion="proftpd-1.3.5"
 installedproftpdversion=$(cat $HOME/proftpd/.proftpdversion 2> /dev/null)
 #
@@ -156,8 +159,38 @@ updaterenabled="1"
 ###### Function Start ######
 ############################
 #
-example () {
-    echo "This is my example function"
+remotepath () {
+    path1="media"
+    path2="$(echo $HOME | cut -d '/' -f3)"
+    path3="$(echo $HOME | cut -d '/' -f4)"
+    if [[ "$path3" = "home" ]]; then
+        path3="home"
+        path4="$(whoami)"
+        echo "1 0 $(echo ${#path1}) $path1 $(echo ${#path2}) $path2 $(echo ${#path3}) $path3 $(echo ${#path4}) $path4"
+    else
+        path3="$(whoami)"
+        echo "1 0 $(echo ${#path1}) $path1 $(echo ${#path2}) $path2 $(echo ${#path3}) $path3"
+    fi
+}
+#
+filezillaxml () {
+    mkdir -p ~/.proftpd-filezilla
+    #
+    wget -qO ~/.proftpd-filezilla/filezilla.xml "$filezilla"
+    #
+    cp -f ~/.proftpd-filezilla/filezilla.xml ~/.proftpd-filezilla/filezilla-sftp.xml
+    cp -f ~/.proftpd-filezilla/filezilla.xml ~/.proftpd-filezilla/filezilla-ftps.xml
+    rm -f ~/.proftpd-filezilla/filezilla.xml
+    #
+    sed -ri 's|HOSTNAME|'"$(hostname -f)"'|g' ~/.proftpd-filezilla/filezilla-{sftp,ftps}.xml
+    #
+    sed -ri 's|DAEMONPORT|'"$sftpport"'|g' ~/.proftpd-filezilla/filezilla-sftp.xml
+    sed -ri 's|DAEMONPORT|'"$ftpsport"'|g' ~/.proftpd-filezilla/filezilla-ftps.xml
+    #
+    sed -ri 's|USERNAME|'"$(whoami)"'|g' ~/.proftpd-filezilla/filezilla-{sftp,ftps}.xml
+    sed -ri 's|PASSWORD|'"$(echo $apppass | base64)"'|g' ~/.proftpd-filezilla/filezilla-{sftp,ftps}.xml
+    sed -ri 's|SERVERNAME|'"$(hostname -f)"'|g' ~/.proftpd-filezilla/filezilla-{sftp,ftps}.xml
+    sed -ri 's|REMOTEDIR|'"$(remotepath)"'|g' ~/.proftpd-filezilla/filezilla-{sftp,ftps}.xml
 }
 #
 ############################
@@ -296,6 +329,7 @@ fi
 #### Self Updater Start ####
 ############################
 #
+# Checks for the positional parameters $1 and $2 to be reset if the script is updated.
 [[ ! -z "$1" && "$1" != 'qr' ]] || [[ ! -z "$2" && "$2" != 'qr' ]] && echo -en "$1\n$2" > ~/.passparams
 # Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, which would reset the option, it will then find this file and set it back.
 [[ ! -z "$1" && "$1" = 'qr' ]] || [[ ! -z "$2" && "$2" = 'qr' ]] && echo -n '' > ~/.quickrun
@@ -344,6 +378,7 @@ fi
 # Quick Run option part 2: If quick run was set and the updater section completes this will enable quick run again then remove the file.
 [[ -f ~/.quickrun ]] && updatestatus="y"; rm -f ~/.quickrun
 #
+# resets the positional parameters $1 and $2 post update.
 [[ -f ~/.passparams ]] && set "$1" "$(sed -n '1p' ~/.passparams)" && set "$2" "$(sed -n '2p' ~/.passparams)"; rm -f ~/.passparams
 #
 ############################
@@ -576,6 +611,12 @@ then
     echo -e "This is your" "\033[32m""FTPS""\e[0m" "port:" "\033[32m""$(sed -nr 's/^Port (.*)/\1/p' ~/proftpd/etc/ftps.conf)""\e[0m"
     echo
     echo -e "This is your main username: ""\033[32m""$(whoami)""\e[0m"" and this is your password: ""\033[32m""$apppass""\e[0m"
+    function
+    filezillaxml
+    echo
+    echo "Filezilla site templates that you can import into Filezilla were generated in:"
+    echo
+    echo -e "\033[36m""~/.proftpd-filezilla""\e[0m"
     echo
 #
 ############################
