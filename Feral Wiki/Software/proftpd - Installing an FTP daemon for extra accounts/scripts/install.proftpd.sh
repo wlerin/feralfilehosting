@@ -129,7 +129,7 @@ proftpdconfsize="3773"
 sftpconf="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/conf/sftp.conf"
 sftpconfsize="832"
 ftpsconf="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/conf/ftps.conf"
-ftpsconfsize="953"
+ftpsconfsize="999"
 scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/scripts/install.proftpd.sh"
 #
 proftpdurl="ftp://ftp.proftpd.org/distrib/source/proftpd-1.3.5.tar.gz"
@@ -188,7 +188,7 @@ filezillaxml () {
     sed -ri 's|DAEMONPORT|'"$ftpsport"'|g' ~/.proftpd-filezilla/filezilla-ftps.xml
     #
     sed -ri 's|USERNAME|'"$(whoami)"'|g' ~/.proftpd-filezilla/filezilla-{sftp,ftps}.xml
-    sed -ri 's|PASSWORD|'"$(echo $apppass | base64)"'|g' ~/.proftpd-filezilla/filezilla-{sftp,ftps}.xml
+    sed -ri 's|PASSWORD|'"$(echo -n $apppass | base64)"'|g' ~/.proftpd-filezilla/filezilla-{sftp,ftps}.xml
     sed -ri 's|SERVERNAME|'"$(hostname -f)"'|g' ~/.proftpd-filezilla/filezilla-{sftp,ftps}.xml
     sed -ri 's|REMOTEDIR|'"$(remotepath)"'|g' ~/.proftpd-filezilla/filezilla-{sftp,ftps}.xml
 }
