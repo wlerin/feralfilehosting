@@ -63,7 +63,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.2.7"
+scriptversion="1.2.8"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.proftpd"
@@ -296,6 +296,7 @@ fi
 #### Self Updater Start ####
 ############################
 #
+if [[ ! -z "$1" && "$1" != 'qr' ]] || [[ ! -z "$2" && "$2" != 'qr' ]] ;then echo -en "$1\n$2" > ~/.passparams; fi
 # Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, which would reset the option, it will then find this file and set it back.
 if [[ ! -z "$1" && "$1" = 'qr' ]] || [[ ! -z "$2" && "$2" = 'qr' ]];then echo -n '' > ~/.quickrun; fi
 #
@@ -341,7 +342,9 @@ else
 fi
 #
 # Quick Run option part 2: If quick run was set and the updater section completes this will enable quick run again then remove the file.
-if [[ -f ~/.quickrun ]];then updatestatus="y"; rm -f ~/.quickrun; fi
+[[ -f ~/.quickrun ]] && updatestatus="y"; rm -f ~/.quickrun
+#
+[[ -f ~/.passparams ]] && set "$1" "$(sed -n '1p' ~/.passparams)" && set "$2" "$(sed -n '2p' ~/.passparams)"; rm -f ~/.passparams
 #
 ############################
 ##### Self Updater End #####
@@ -353,31 +356,33 @@ if [[ -f ~/.quickrun ]];then updatestatus="y"; rm -f ~/.quickrun; fi
 #
 if [[ ! -z "$1" && "$1" = 'adduser' ]]
 then
-    echo
-    #
-    # Edit below this line
-    #
-    # made by finesse for feral hosting FAQ
-    # use as you like
-    # no warranties
-    passwdfile="$HOME/proftpd/etc/ftpd.passwd"
-    groupdfile="$HOME/proftpd/etc/ftpd.group"
-    binarycmd="$HOME/proftpd/bin/ftpasswd"
-    idcount=5001
-    exec 6<&0
-    exec 0<"$passwdfile"
-    while read line1
-    do
-        foundid="$(echo $line1 |grep -o $idcount)"
-        if [ -n "$foundid" ]
-            then
-                idcount="$(expr $idcount + 1)"
-        fi
-    done
-    exec 0<&6
-    echo -e "Using" "\033[32m""$idcount""\e[0m" "for id's."
-    echo
-    if [ -n "$2" ]
+    if [[ -d ~/proftpd && -f ~/proftpd/bin/ftpasswd ]]
+    then
+        echo
+        #
+        # Edit below this line
+        #
+        # made by finesse for feral hosting FAQ
+        # use as you like
+        # no warranties
+        passwdfile="$HOME/proftpd/etc/ftpd.passwd"
+        groupdfile="$HOME/proftpd/etc/ftpd.group"
+        binarycmd="$HOME/proftpd/bin/ftpasswd"
+        idcount=5001
+        exec 6<&0
+        exec 0<"$passwdfile"
+        while read line1
+        do
+            foundid="$(echo $line1 |grep -o $idcount)"
+            if [ -n "$foundid" ]
+                then
+                    idcount="$(expr $idcount + 1)"
+            fi
+        done
+        exec 0<&6
+        echo -e "Using" "\033[32m""$idcount""\e[0m" "for id's."
+        echo
+        if [ -n "$2" ]
         then
             echo -e "Using ""\033[32m""$2""\e[0m"" for name."
             name="$2"
@@ -385,28 +390,33 @@ then
         else
             read -ep "Please input username: " name
             echo
+        fi
+        echo -e "\033[32m""Do not include the""\e[0m" "\033[36m""~/""\e[0m" "\033[32m""in the path. Use paths that match existing Jails, relative to your Root directory, for example:""\e[0m"
+        echo
+        echo -e "\033[36m""private/rtorrent/data""\e[0m"
+        echo
+        echo -e "\033[33m""Use TAB to auto complete the path.""\e[0m"
+        echo
+        read -ep "Please specify a relative path to the users home/jail directory: ~/" -i "private/rtorrent/data" jailpath
+        echo
+        echo "$apppass" | "$binarycmd" --passwd --name="$name" --file="$passwdfile" --uid="$idcount" --gid="$idcount" --home="$HOME/$jailpath" --shell="/bin/false" --stdin >/dev/null 2>&1
+        "$binarycmd" --group --name="$name" --file="$groupdfile" --gid="$idcount" --member="$name" >/dev/null 2>&1
+        echo -e "The username is: ""\033[32m""$name""\e[0m"
+        echo
+        echo -e "The password is: ""\033[32m""$apppass""\e[0m"
+        echo
+        echo -e "The jail PATH is: ""\033[36m""$HOME/$jailpath""\e[0m"
+        echo
+        #
+        # Edit above this line
+        #
+        echo
+        exit
+    else
+        echo -e "\033[36m""~/proftpd/bin/ftpasswd""\e[0m"" not found. Is proftpd actually installed?"
+        echo
+        exit
     fi
-    echo -e "\033[32m""Do not include the""\e[0m" "\033[36m""~/""\e[0m" "\033[32m""in the path. Use paths that match existing Jails, relative to your Root directory, for example:""\e[0m"
-    echo
-    echo -e "\033[36m""private/rtorrent/data""\e[0m"
-    echo
-    echo -e "\033[33m""Use TAB to auto complete the path.""\e[0m"
-    echo
-    read -ep "Please specify a relative path to the users home/jail directory: ~/" -i "private/rtorrent/data" jailpath
-    echo
-    echo "$apppass" | "$binarycmd" --passwd --name="$name" --file="$passwdfile" --uid="$idcount" --gid="$idcount" --home="$HOME/$jailpath" --shell="/bin/false" --stdin >/dev/null 2>&1
-    "$binarycmd" --group --name="$name" --file="$groupdfile" --gid="$idcount" --member="$name" >/dev/null 2>&1
-    echo -e "The username is: ""\033[32m""$name""\e[0m"
-    echo
-    echo -e "The password is: ""\033[32m""$apppass""\e[0m"
-    echo
-    echo -e "The jail PATH is: ""\033[36m""$HOME/$jailpath""\e[0m"
-    echo
-    #
-    # Edit above this line
-    #
-    echo
-    exit
 fi
 #
 ############################
