@@ -2,23 +2,23 @@
 <FileZilla3>
     <Servers>
         <Server>
-            <Host>server.feralhosting.com</Host>
+            <Host>HOSTNAME</Host>
             <Port>22</Port>
             <Protocol>1</Protocol>
             <Type>0</Type>
-            <User>username</User>
-            <Pass encoding="base64">cGFzc3dvcmQ=</Pass>
+            <User>USERNAME</User>
+            <Pass encoding="base64">PASSWORD</Pass>
             <Logontype>1</Logontype>
             <TimezoneOffset>0</TimezoneOffset>
             <PasvMode>MODE_DEFAULT</PasvMode>
             <MaximumMultipleConnections>0</MaximumMultipleConnections>
             <EncodingType>UTF-8</EncodingType>
             <BypassProxy>0</BypassProxy>
-            <Name>server name</Name>
+            <Name>SERVERNAME</Name>
             <Comments />
             <LocalDir />
-            <RemoteDir>1 0 5 media 4 sdi1 4 home 9 konichiwa</RemoteDir>
-            <SyncBrowsing>0</SyncBrowsing>server name&#x0A;        
+            <RemoteDir>REMOTEDIR</RemoteDir>
+            <SyncBrowsing>0</SyncBrowsing>SERVERNAME&#x0A;        
         </Server>
     </Servers>
 </FileZilla3>
