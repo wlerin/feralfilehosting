@@ -146,7 +146,7 @@ For example we can edit the `h5ai.conf` to this:
 
 ~~~
 location /links {
-index  index.html  index.php  /_h5ai/server/php/index.php;
+    index  index.html  index.php  /_h5ai/server/php/index.php;
 }
 ~~~
 
@@ -165,9 +165,9 @@ So for example we edit the `links.conf` to be like this:
 
 ~~~
 location /links {
-index  index.html  index.php /_h5ai/server/php/index.php;
-auth_basic "Please log in";
-auth_basic_user_file /path/to/the/.htpasswd;
+    index  index.html  index.php /_h5ai/server/php/index.php;
+    auth_basic "Please log in";
+    auth_basic_user_file /path/to/the/.htpasswd;
 }
 ~~~
 

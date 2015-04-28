@@ -12,15 +12,15 @@ This effectively allows you to actively workaround routing or congestion issues.
 Getting connected
 ---
 
-To get connected via IPv6 you should first check to see if your ISP supports IPv6. Some ISPs have begun rolling it out in a usable form.
+To get connected via IPv6 you should first check to see if your ISP supports IPv6. Some ISP have begun rolling it out in a usable form.
 
-Here are a list of ISPs that can get IPv6 with minimal fuss:
+Here are a list of ISP that can get IPv6 with minimal fuss:
 
-- AT&T: https://www.att.com/ipv6 / http://www.att.com/esupport/article.jsp?&sid=KB409112
-- Comcast: http://comcast6.net/
+- AT&T: [https://www.att.com/ipv6](https://www.att.com/ipv6) / [http://www.att.com/esupport/article.jsp?&sid=KB409112](http://www.att.com/esupport/article.jsp?&sid=KB409112)
+- Comcast: [http://comcast6.net/](http://comcast6.net/)
 - Free SAS
-- QWest / CenturyLink: http://internethelp.centurylink.com/internethelp/modem-pk5001z-ipv6rd.html
-- Videotron: http://support.videotron.com/residential/internet/ipv6
+- QWest / CenturyLink: [http://internethelp.centurylink.com/internethelp/modem-pk5001z-ipv6rd.html](http://internethelp.centurylink.com/internethelp/modem-pk5001z-ipv6rd.html)
+- Videotron: [http://support.videotron.com/residential/internet/ipv6](http://support.videotron.com/residential/internet/ipv6)
 
 The list is short because it's new. If you find that your ISP provides IPv6, please [open a support ticket](https://www.feralhosting.com/manager/tickets/new) and we'll update this list.
 
@@ -31,19 +31,19 @@ If your ISP does not offer any support for IPv6 then a tunnel broker can be set 
 
 Here are a few [tunnel brokers](https://en.wikipedia.org/wiki/List_of_IPv6_tunnel_brokers):
 
-### Freenet6 (gogo6): http://www.gogo6.com/freenet6/tunnelbroker
+### Freenet6 (gogo6): [http://www.gogo6.com/freenet6/tunnelbroker](http://www.gogo6.com/freenet6/tunnelbroker)
 
 * Multiple locations spread out across the world for alternative connectivity.
 * Client is a simple download and run.
 * Website is difficult to navigate.
 
-### SixXS: https://www.sixxs.net/main/
+### SixXS: [https://www.sixxs.net/main/](https://www.sixxs.net/main/)
 
 * Provides a step-by-step guide (with pictures): https://www.sixxs.net/faq/account/?faq=10steps
 * Many locations available for alternative connectivity.
 * Requires a waiting period of at least a week to get activated.
 
-### Hurricane Electric: https://tunnelbroker.net/
+### Hurricane Electric: [https://tunnelbroker.net/](https://tunnelbroker.net/)
 
 * Tier 1 ISP who are providing us with IPv6 connectivity.
 * No activation time.

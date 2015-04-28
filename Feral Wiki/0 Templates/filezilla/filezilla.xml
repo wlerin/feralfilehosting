@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<FileZilla3>
+    <Servers>
+        <Server>
+            <Host>server.feralhosting.com</Host>
+            <Port>22</Port>
+            <Protocol>1</Protocol>
+            <Type>0</Type>
+            <User>username</User>
+            <Pass encoding="base64">cGFzc3dvcmQ=</Pass>
+            <Logontype>1</Logontype>
+            <TimezoneOffset>0</TimezoneOffset>
+            <PasvMode>MODE_DEFAULT</PasvMode>
+            <MaximumMultipleConnections>0</MaximumMultipleConnections>
+            <EncodingType>UTF-8</EncodingType>
+            <BypassProxy>0</BypassProxy>
+            <Name>server name</Name>
+            <Comments />
+            <LocalDir />
+            <RemoteDir>1 0 5 media 4 sdi1 4 home 9 konichiwa</RemoteDir>
+            <SyncBrowsing>0</SyncBrowsing>server name&#x0A;        
+        </Server>
+    </Servers>
+</FileZilla3>

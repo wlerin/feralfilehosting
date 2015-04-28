@@ -17,7 +17,7 @@ This is the first page you see after logging in. It displays the username and em
 
 **Slots**
 
-- [Server - Helium-4/Neon-4/Argon-4/Xenon-4/Radon-4](https://www.feralhosting.com/manager/slot/) - Click this to visit your Slot Details pages for that slot.
+- [Server - Helium/Neon/Argon/Xenon/Radon](https://www.feralhosting.com/manager/slot/) - Click this to visit your Slot Details pages for that slot.
 - [Install Software](https://www.feralhosting.com/manager/slot/install) - This will take you to the Install Software page for that slot.
 - [Usage](https://www.feralhosting.com/manager/slot/usage) - Check on your slot usage such as your disk space and upload quota.
 
@@ -56,7 +56,13 @@ Payment Methods
 
 On this page you will also see the payment options available to you to purchase or renew your services.
 
-**Important note:** Stripes and GoCardless (UK only) are only available to users who have already purchased a service using Google Wallet or Bitcoin.
+### New users:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/General/Your%20Feral%20slot%20is%20active%20-%20Part%201%20-%20The%20Account%20Manager/payment-new.png)
+
+### Existing users:
+
+**Important note:** Amazon payments is only available to existing users who have successfully completed previous Google checkout payments.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/General/Your%20Feral%20slot%20is%20active%20-%20Part%201%20-%20The%20Account%20Manager/payment.png)
 
