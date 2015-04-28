@@ -3,7 +3,7 @@
     <Servers>
         <Server>
             <Host>HOSTNAME</Host>
-            <Port>22</Port>
+            <Port>DAEMONPORT</Port>
             <Protocol>1</Protocol>
             <Type>0</Type>
             <User>USERNAME</User>
