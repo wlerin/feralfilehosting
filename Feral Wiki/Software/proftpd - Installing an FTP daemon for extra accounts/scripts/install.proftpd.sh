@@ -42,7 +42,7 @@ then
     #echo 'v0.0.9 - My changes go here'
     #echo 'v0.0.8 - My changes go here'
     #echo 'v0.0.7 - My changes go here'
-    #echo 'v0.0.6 - My changes go here'
+    echo 'v1.3.2 - deleteuser option added'
     echo 'v1.3.1 - adduser custom filezilla profiles'
     echo 'v1.3.0 - even easier filezilla template.'
     echo 'v1.2.9 - filezilla importable templates generated during installation.'
@@ -64,7 +64,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.3.1"
+scriptversion="1.3.2"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.proftpd"
@@ -149,7 +149,7 @@ while [[ "$(netstat -ln | grep ':'"$ftpsport"'' | grep -c 'LISTEN')" -eq "1" ]];
 ############################
 #
 # Disables the built in script updater permanently by setting this variable to 0.
-updaterenabled="1"
+updaterenabled="0"
 #
 ############################
 ####### Variable End #######
@@ -287,6 +287,12 @@ then
     echo -e "\033[36madduser\e[0m = Uses the built in add user script to easily create and add a new user."
     echo
     echo -e "Example usage: \033[36m$scriptname adduser\e[0m or it will accept a username: \033[36m$scriptname adduser username\e[0m"
+    echo
+    echo -e "\033[31m""deleteuser script:""\e[0m"
+    echo
+    echo -e "\033[36mdeleteuser\e[0m = Uses the built in add user script to easily create and add a new user."
+    echo
+    echo -e "Example usage: \033[36m$scriptname deleteuser\e[0m or it will accept a username: \033[36m$scriptname deleteuser username\e[0m"
     echo
     echo -e "\033[31m""Filezilla Importable Templates:""\e[0m"
     echo
@@ -445,6 +451,43 @@ fi
 ############################
 ## Positional Param Start ##
 ############################
+#
+if [[ ! -z "$1" && "$1" = 'deleteuser' ]]
+then
+    if [[ -d ~/proftpd && -f ~/proftpd/bin/ftpasswd ]]
+    then
+    echo -e "\033[32m""Available users before:""\e[0m"
+    echo
+    echo -e "\033[33m""$(cat ~/proftpd/etc/ftpd.passwd | cut -d ':' -f1)""\e[0m"
+    echo
+    passwdfile="$HOME/proftpd/etc/ftpd.passwd"
+    groupdfile="$HOME/proftpd/etc/ftpd.group"
+    binarycmd="$HOME/proftpd/bin/ftpasswd"
+    #
+    if [ -n "$2" ]
+    then
+        echo -e "Using ""\033[32m""$2""\e[0m"" for name."
+        name="$2"
+        echo
+    else
+        read -ep "Please input username: " name
+        echo
+    fi
+    "$binarycmd" --passwd --name="$name" --delete-user --file="$passwdfile"
+    "$binarycmd" --group --name="$name" --delete-group --file="$groupdfile"
+    #
+    rm -f ~/.proftpd-filezilla/"$name"."$(hostname -f)".xml
+    #
+    echo
+    echo -e "\033[32m""Available users after:""\e[0m"
+    echo
+    echo -e "\033[33m""$(cat ~/proftpd/etc/ftpd.passwd | cut -d ':' -f1)""\e[0m"
+    echo
+    echo "User deleted."
+    echo
+    exit
+    fi
+fi
 #
 if [[ ! -z "$1" && "$1" = 'adduser' ]]
 then
