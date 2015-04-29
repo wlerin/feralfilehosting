@@ -43,7 +43,7 @@ then
     #echo 'v0.0.8 - My changes go here'
     #echo 'v0.0.7 - My changes go here'
     #echo 'v0.0.6 - My changes go here'
-    #echo 'v0.0.5 - My changes go here'
+    echo 'v1.3.1 - adduser custom filezilla profiles'
     echo 'v1.3.0 - even easier filezilla template.'
     echo 'v1.2.9 - filezilla importable templates generated during installation.'
     echo 'v1.2.7 - fixed broken if in adduser section.'
@@ -64,7 +64,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.3.0"
+scriptversion="1.3.1"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.proftpd"
@@ -172,27 +172,68 @@ remotepath () {
         echo "1 0 $(echo ${#path1}) $path1 $(echo ${#path2}) $path2 $(echo ${#path3}) $path3"
     fi
 }
+jailpath () {
+
+    [[ -n "$(echo $HOME/$jailpath | cut -d '/' -f5)" ]] && path1="$(echo $HOME/$jailpath | cut -d '/' -f5)" || path1="nullanvoid"
+    #
+    [[ -n "$(echo $HOME/$jailpath | cut -d '/' -f6)" ]] && path2="$(echo $HOME/$jailpath | cut -d '/' -f6)" || path2="nullanvoid"
+    [[ -n "$(echo $HOME/$jailpath | cut -d '/' -f7)" ]] && path3="$(echo $HOME/$jailpath | cut -d '/' -f7)" || path3="nullanvoid"
+    [[ -n "$(echo $HOME/$jailpath | cut -d '/' -f8)" ]] && path4="$(echo $HOME/$jailpath | cut -d '/' -f8)" || path4="nullanvoid"
+    [[ -n "$(echo $HOME/$jailpath | cut -d '/' -f9)" ]] && path5="$(echo $HOME/$jailpath | cut -d '/' -f9)" || path5="nullanvoid"
+    [[ -n "$(echo $HOME/$jailpath | cut -d '/' -f10)" ]] && path6="$(echo $HOME/$jailpath | cut -d '/' -f10)" || path6="nullanvoid"
+    [[ -n "$(echo $HOME/$jailpath | cut -d '/' -f11)" ]] && path7="$(echo $HOME/$jailpath | cut -d '/' -f11)" || path7="nullanvoid"
+    [[ -n "$(echo $HOME/$jailpath | cut -d '/' -f12)" ]] && path8="$(echo $HOME/$jailpath | cut -d '/' -f12)" || path8="nullanvoid"
+    [[ -n "$(echo $HOME/$jailpath | cut -d '/' -f13)" ]] && path9="$(echo $HOME/$jailpath | cut -d '/' -f13)" || path9="nullanvoid"
+    #
+    echo "$(echo ${#path1}) $path1 $(echo ${#path2}) $path2 $(echo ${#path3}) $path3 $(echo ${#path4}) $path4 $(echo ${#path5}) $path6 $(echo ${#path6}) $path6 $(echo ${#path7}) $path7 $(echo ${#path8}) $path8 $(echo ${#path9}) $path9" | sed -r "s/ 10 nullanvoid//g"
+}
 #
 filezillaxml () {
     mkdir -p ~/.proftpd-filezilla
     #
-    wget -qO ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml "$filezilla"
+    filezillauser="$(whoami)"
     #
-    sed -ri 's|HOSTNAME|'"$(hostname -f)"'|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
+    wget -qO ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml "$filezilla"
     #
-    sed -ri 's|DAEMONPORTSFTP|'"$sftpport"'|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
-    sed -ri 's|DAEMONPORTFTPS|'"$ftpsport"'|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
+    sed -ri 's|HOSTNAME|'"$(hostname -f)"'|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
     #
-    sed -ri 's|DAEMONPROTOCOLSFTP|1|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
-    sed -ri 's|DAEMONPROTOCOLFTPS|4|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
+    sed -ri 's|DAEMONPORTSFTP|'"$sftpport"'|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
+    sed -ri 's|DAEMONPORTFTPS|'"$ftpsport"'|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
     #
-    sed -ri 's|USERNAME|'"$(whoami)"'|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
-    sed -ri 's|PASSWORD|'"$(echo -n $apppass | base64)"'|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
+    sed -ri 's|DAEMONPROTOCOLSFTP|1|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
+    sed -ri 's|DAEMONPROTOCOLFTPS|4|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
     #
-    sed -ri 's|SERVERNAMESFTP|'"$(hostname -f) sftp"'|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
-    sed -ri 's|SERVERNAMEFTPS|'"$(hostname -f) ftps"'|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
+    sed -ri 's|USERNAME|'"$filezillauser"'|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
+    sed -ri 's|PASSWORD|'"$(echo -n $apppass | base64)"'|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
     #
-    sed -ri 's|REMOTEDIR|'"$(remotepath)"'|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
+    sed -ri 's|SERVERNAMESFTP|'"$filezillauser $(hostname) sftp"'|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
+    sed -ri 's|SERVERNAMEFTPS|'"$filezillauser $(hostname) ftps"'|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
+    #
+    sed -ri 's|REMOTEDIR|'"$(remotepath)"'|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
+}
+#
+filezillaxmladduser () {
+    mkdir -p ~/.proftpd-filezilla
+    #
+    filezillauser="$name"
+    #
+    wget -qO ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml "$filezilla"
+    #
+    sed -ri 's|HOSTNAME|'"$(hostname -f)"'|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
+    #
+    sed -ri 's|DAEMONPORTSFTP|'"$sftpport"'|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
+    sed -ri 's|DAEMONPORTFTPS|'"$ftpsport"'|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
+    #
+    sed -ri 's|DAEMONPROTOCOLSFTP|1|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
+    sed -ri 's|DAEMONPROTOCOLFTPS|4|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
+    #
+    sed -ri 's|USERNAME|'"$filezillauser"'|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
+    sed -ri 's|PASSWORD|'"$(echo -n $apppass | base64)"'|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
+    #
+    sed -ri 's|SERVERNAMESFTP|'"$filezillauser $(hostname) sftp"'|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
+    sed -ri 's|SERVERNAMEFTPS|'"$filezillauser $(hostname) ftps"'|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
+    #
+    sed -ri 's|REMOTEDIR|'"$(remotepath) $(jailpath)"'|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
 }
 #
 ############################
@@ -444,6 +485,14 @@ then
         echo -e "The jail PATH is: ""\033[36m""$HOME/$jailpath""\e[0m"
         #
         # Edit above this line
+        echo
+        echo 
+        filezillaxmladduser
+        echo
+        echo "Filezilla site templates that you can import into Filezilla were generated in:"
+        echo
+        echo -e "\033[36m""~/.proftpd-filezilla/$name.$(hostname -f).xml""\e[0m"
+        echo
         #
         echo
         exit
