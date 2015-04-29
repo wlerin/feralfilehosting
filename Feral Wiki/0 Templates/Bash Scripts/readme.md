@@ -51,12 +51,10 @@ Variables Section: Custom Variables
 
 **13:** Place your custom variables here. They can be used in the help option of the script.
 
-Menu Template specific: `options1`,`options2`,`options3` are the option descriptions in the script. If you add more option you also need to modify the menu entry in the script to match.
-
-See `option4`,`option5`,`option6` as examples to modify.
-
 Functions Section:
 ---
+
+**Menu Template specific: **`options1`,`options2`,`options3` are the option descriptions in the script. If you add more option you also need to modify the menu entry in the script to match. See `option4`,`option5`,`option6` as examples to modify.
 
 **14:** Place your custom functions here. Your functions will be able to make use of variables sections in this location. There is an example function in this section.
 

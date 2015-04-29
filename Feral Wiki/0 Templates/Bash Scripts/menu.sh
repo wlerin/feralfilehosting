@@ -117,13 +117,6 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 ## Custom Variables Start ##
 ############################
 #
-option1="Install Program"
-option2="Update Program"
-option3="Quit the Script"
-#option4=""
-#option5=""
-#option6=""
-#
 ############################
 ### Custom Variables End ###
 ############################
@@ -141,15 +134,16 @@ updaterenabled="1"
 #
 showMenu () {
     #
-    echo "1) $option1"
-    echo "2) $option2"
-    echo "3) $option3"
-    #echo "4) $option4"
-    #echo "5) $option5"
-    #echo "6) $option6"
+    echo "1) option 1"
+    echo "2) option 2"
+    echo "3) option 3"
+    #echo "4) option 4"
+    #echo "5) option 5"
+    #echo "6) option 6"
     #
     echo
 }
+#
 example () {
     echo "This is my example function"
 }
