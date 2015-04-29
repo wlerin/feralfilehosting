@@ -424,7 +424,7 @@ then
     mkdir -p ~/.znc/configs/
     wget -qO ~/.znc/configs/znc.conf "$znctemplate"
     #
-    sed -ri 's|    URIPrefix = /SETAUSER/znc|    URIPrefix = /'"$(whoami)"'/znc|g' ~/.znc/configs/znc.conf
+    sed -ri 's|URIPrefix = /SETAUSER/znc|URIPrefix = /'"$(whoami)"'/znc|g' ~/.znc/configs/znc.conf
     #
     sed -ri 's/<User SETAUSER>/<User '"$(whoami)"'>/g' ~/.znc/configs/znc.conf
     sed -ri 's/	Nick       = SETAUSER/	Nick       = '"$(whoami)"'/g' ~/.znc/configs/znc.conf
