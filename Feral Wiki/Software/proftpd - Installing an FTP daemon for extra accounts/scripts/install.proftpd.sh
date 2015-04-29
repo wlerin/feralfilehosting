@@ -122,7 +122,7 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 filezilla="http://git.io/vfAZ9"
 #
 proftpdversion="proftpd-1.3.5"
-installedproftpdversion=$(cat $HOME/proftpd/.proftpdversion 2> /dev/null)
+installedproftpdversion="$(cat $HOME/proftpd/.proftpdversion 2> /dev/null)"
 #
 proftpdconf="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/conf/proftpd.conf"
 proftpdconfsize="3773"
@@ -134,15 +134,15 @@ scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/maste
 #
 proftpdurl="ftp://ftp.proftpd.org/distrib/source/proftpd-1.3.5.tar.gz"
 #
-sftpport=$(shuf -i 10001-49999 -n 1)
+sftpport="$(shuf -i 10001-49999 -n 1)"
 #
 # This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
-while [[ "$(netstat -ln | grep ':'"$sftpport"'' | grep -c 'LISTEN')" -eq "1" ]]; do sftpport=$(shuf -i 10001-49999 -n 1); done
+while [[ "$(netstat -ln | grep ':'"$sftpport"'' | grep -c 'LISTEN')" -eq "1" ]]; do sftpport="$(shuf -i 10001-49999 -n 1)"; done
 #
-ftpsport=$(shuf -i 10001-49999 -n 1)
+ftpsport="$(shuf -i 10001-49999 -n 1)"
 #
 # This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
-while [[ "$(netstat -ln | grep ':'"$ftpsport"'' | grep -c 'LISTEN')" -eq "1" ]]; do ftpsport=$(shuf -i 10001-49999 -n 1); done
+while [[ "$(netstat -ln | grep ':'"$ftpsport"'' | grep -c 'LISTEN')" -eq "1" ]]; do ftpsport="$(shuf -i 10001-49999 -n 1)"; done
 #
 ############################
 ### Custom Variables End ###
