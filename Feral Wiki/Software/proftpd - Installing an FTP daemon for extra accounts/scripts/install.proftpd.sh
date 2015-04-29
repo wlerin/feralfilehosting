@@ -184,7 +184,7 @@ filezillaxml () {
     sed -ri 's|DAEMONPORTFTPS|'"$ftpsport"'|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
     #
     sed -ri 's|DAEMONPROTOCOLSFTP|1|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
-    sed -ri 's|DAEMONPROTOCOLFTPS|3|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
+    sed -ri 's|DAEMONPROTOCOLFTPS|4|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
     #
     sed -ri 's|USERNAME|'"$(whoami)"'|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
     sed -ri 's|PASSWORD|'"$(echo -n $apppass | base64)"'|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
@@ -571,7 +571,7 @@ then
     rm -rf ~/"$proftpdversion"{,.tar.gz}
     # Generate our keyfiles
     ssh-keygen -q -t rsa -f "$HOME"/proftpd/etc/keys/sftp_rsa -N '' && ssh-keygen -q -t dsa -f "$HOME"/proftpd/etc/keys/sftp_dsa -N ''
-    openssl req -new -x509 -nodes -days 365 -subj '/C=GB/ST=none/L=none/CN=none' -newkey rsa:2048 -keyout "$HOME"/proftpd/ssl/proftpd.key.pem -out "$HOME"/proftpd/ssl/proftpd.cert.pem >/dev/null 2>&1
+    openssl req -new -x509 -nodes -days 365 -subj '/C=GB/ST=none/L=none/CN=none' -newkey rsa:3072 -sha256 -keyout "$HOME"/proftpd/ssl/proftpd.key.pem -out "$HOME"/proftpd/ssl/proftpd.cert.pem >/dev/null 2>&1
     # Get the conf files from github and configure them for this user
     until [[ "$(stat -c %s ~/proftpd/etc/proftpd.conf 2> /dev/null)" -eq "$proftpdconfsize" ]]
     do
