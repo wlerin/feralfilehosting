@@ -44,7 +44,7 @@ then
     #echo 'v0.0.7 - My changes go here'
     #echo 'v0.0.6 - My changes go here'
     #echo 'v0.0.5 - My changes go here'
-    #echo 'v0.0.4 - My changes go here'
+    echo 'v1.3.0 - even easier filezilla template.'
     echo 'v1.2.9 - filezilla importable templates generated during installation.'
     echo 'v1.2.7 - fixed broken if in adduser section.'
     echo 'v1.2.6 - merged adduser script into main script as a script option and tweaked script.'
@@ -64,7 +64,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.2.9"
+scriptversion="1.3.0"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.proftpd"
@@ -176,27 +176,23 @@ remotepath () {
 filezillaxml () {
     mkdir -p ~/.proftpd-filezilla
     #
-    wget -qO ~/.proftpd-filezilla/filezilla.xml "$filezilla"
+    wget -qO ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml "$filezilla"
     #
-    cp -f ~/.proftpd-filezilla/filezilla.xml ~/.proftpd-filezilla/filezilla-sftp.xml
-    cp -f ~/.proftpd-filezilla/filezilla.xml ~/.proftpd-filezilla/filezilla-ftps.xml
-    rm -f ~/.proftpd-filezilla/filezilla.xml
+    sed -ri 's|HOSTNAME|'"$(hostname -f)"'|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
     #
-    sed -ri 's|HOSTNAME|'"$(hostname -f)"'|g' ~/.proftpd-filezilla/filezilla-{sftp,ftps}.xml
+    sed -ri 's|DAEMONPORTSFTP|'"$sftpport"'|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
+    sed -ri 's|DAEMONPORTFTPS|'"$ftpsport"'|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
     #
-    sed -ri 's|DAEMONPORT|'"$sftpport"'|g' ~/.proftpd-filezilla/filezilla-sftp.xml
-    sed -ri 's|DAEMONPORT|'"$ftpsport"'|g' ~/.proftpd-filezilla/filezilla-ftps.xml
+    sed -ri 's|DAEMONPROTOCOLSFTP|1|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
+    sed -ri 's|DAEMONPROTOCOLFTPS|3|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
     #
-    sed -ri 's|DAEMONPROTOCOL|1|g' ~/.proftpd-filezilla/filezilla-sftp.xml
-    sed -ri 's|DAEMONPROTOCOL|3|g' ~/.proftpd-filezilla/filezilla-ftps.xml
+    sed -ri 's|USERNAME|'"$(whoami)"'|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
+    sed -ri 's|PASSWORD|'"$(echo -n $apppass | base64)"'|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
     #
-    sed -ri 's|USERNAME|'"$(whoami)"'|g' ~/.proftpd-filezilla/filezilla-{sftp,ftps}.xml
-    sed -ri 's|PASSWORD|'"$(echo -n $apppass | base64)"'|g' ~/.proftpd-filezilla/filezilla-{sftp,ftps}.xml
+    sed -ri 's|SERVERNAMESFTP|'"$(hostname -f) sftp"'|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
+    sed -ri 's|SERVERNAMEFTPS|'"$(hostname -f) ftps"'|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
     #
-    sed -ri 's|SERVERNAME|'"$(hostname -f) sftp"'|g' ~/.proftpd-filezilla/filezilla-sftp.xml
-    sed -ri 's|SERVERNAME|'"$(hostname -f) ftps"'|g' ~/.proftpd-filezilla/filezilla-ftps.xml
-    #
-    sed -ri 's|REMOTEDIR|'"$(remotepath)"'|g' ~/.proftpd-filezilla/filezilla-{sftp,ftps}.xml
+    sed -ri 's|REMOTEDIR|'"$(remotepath)"'|g' ~/.proftpd-filezilla/filezilla."$(hostname -f)".xml
 }
 #
 ############################
