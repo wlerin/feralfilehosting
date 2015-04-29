@@ -3,8 +3,8 @@
     <Servers>
         <Server>
             <Host>HOSTNAME</Host>
-            <Port>DAEMONPORT</Port>
-            <Protocol>DAEMONPROTOCOL</Protocol>
+            <Port>DAEMONPORTSFTP</Port>
+            <Protocol>DAEMONPROTOCOLSFTP</Protocol>
             <Type>0</Type>
             <User>USERNAME</User>
             <Pass encoding="base64">PASSWORD</Pass>
@@ -14,11 +14,30 @@
             <MaximumMultipleConnections>0</MaximumMultipleConnections>
             <EncodingType>UTF-8</EncodingType>
             <BypassProxy>0</BypassProxy>
-            <Name>SERVERNAME</Name>
+            <Name>SERVERNAMESFTP</Name>
             <Comments />
             <LocalDir />
             <RemoteDir>REMOTEDIR</RemoteDir>
-            <SyncBrowsing>0</SyncBrowsing>SERVERNAME&#x0A;        
+            <SyncBrowsing>0</SyncBrowsing>SERVERNAMESFTP&#x0A;        
+        </Server>
+        <Server>
+            <Host>HOSTNAME</Host>
+            <Port>DAEMONPORTFTPS</Port>
+            <Protocol>DAEMONPROTOCOLFTPS</Protocol>
+            <Type>0</Type>
+            <User>USERNAME</User>
+            <Pass encoding="base64">PASSWORD</Pass>
+            <Logontype>1</Logontype>
+            <TimezoneOffset>0</TimezoneOffset>
+            <PasvMode>MODE_DEFAULT</PasvMode>
+            <MaximumMultipleConnections>0</MaximumMultipleConnections>
+            <EncodingType>UTF-8</EncodingType>
+            <BypassProxy>0</BypassProxy>
+            <Name>SERVERNAMEFTPS</Name>
+            <Comments />
+            <LocalDir />
+            <RemoteDir>REMOTEDIR</RemoteDir>
+            <SyncBrowsing>0</SyncBrowsing>SERVERNAMEFTPS&#x0A;        
         </Server>
     </Servers>
 </FileZilla3>
