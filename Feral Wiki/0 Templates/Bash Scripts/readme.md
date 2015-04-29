@@ -5,6 +5,12 @@ Bash script updater.
 
 This bash script update/updater templates deals with updating a single file, the `~/bin/somescript`, by updating and switching to this script.
 
+There are two implementations of this template. `update.sh` and `menu.sh`. They are identical except for:
+
+`update.sh` is designed to be linear script, a to b.
+
+`menu.sh` is designed to be an interactive looping menu until the use exits.
+
 **1:** A `wget` command is used to download the github hosted script somewhere on your server.
 
 **2:** When run without bypassing the built in updater the script will compare itself against the github version and update in place if needed.
