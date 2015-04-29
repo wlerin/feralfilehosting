@@ -221,8 +221,8 @@ filezillaxmladduser () {
     #
     sed -ri 's|HOSTNAME|'"$(hostname -f)"'|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
     #
-    sed -ri 's|DAEMONPORTSFTP|'"$sftpport"'|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
-    sed -ri 's|DAEMONPORTFTPS|'"$ftpsport"'|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
+    sed -ri 's|DAEMONPORTSFTP|'"$(sed -nr 's/^Port (.*)/\1/p' ~/proftpd/etc/sftp.conf)"'|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
+    sed -ri 's|DAEMONPORTFTPS|'"$(sed -nr 's/^Port (.*)/\1/p' ~/proftpd/etc/ftps.conf)"'|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
     #
     sed -ri 's|DAEMONPROTOCOLSFTP|1|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
     sed -ri 's|DAEMONPROTOCOLFTPS|4|g' ~/.proftpd-filezilla/"$filezillauser"."$(hostname -f)".xml
