@@ -120,8 +120,8 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 syncthingversion="$(wget -q -O - https://github.com/syncthing/syncthing/releases/latest | grep '<strong>syncthing-linux-amd64-v' | sed -rn 's|(.*)<strong>syncthing-linux-amd64-v(.*).tar.gz</strong>|\2|p')"
 syncthingurl="https://github.com/syncthing/syncthing/releases/download/v$syncthingversion/syncthing-linux-amd64-v$syncthingversion.tar.gz"
 #
-syncport=$(expr 1 + $appport)
-while [[ "$(netstat -ln | grep ':'"$syncport"'' | grep -c 'LISTEN')" -eq "1" ]]; do syncport=$(shuf -i 10001-32001 -n 1); done
+syncport="(expr 1 + $appport)"
+while [[ "$(netstat -ln | grep ':'"$syncport"'' | grep -c 'LISTEN')" -eq "1" ]]; do syncport="$(shuf -i 10001-32001 -n 1)"; done
 #
 apacheconf="http://git.io/WqUqBQ"
 nginxconf="http://git.io/TnhqpA"

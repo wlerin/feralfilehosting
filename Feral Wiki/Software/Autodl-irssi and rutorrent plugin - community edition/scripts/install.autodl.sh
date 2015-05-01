@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bashv
 #
 ############################
 ##### Basic Info Start #####
@@ -135,8 +135,12 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 ## Custom Variables Start ##
 ############################
 #
+githublatest="$(wget -q -O - https://github.com/autodl-community/autodl-irssi/releases/latest | sed -rn 's|(.*)autodl-irssi-community-v(.*).zip</strong>|\2|p')"
+#
 # URLs for the core files.
-autodlirssicommunity="http://update.autodl-community.com/autodl-irssi-community.zip"
+# autodlirssicommunity="http://update.autodl-community.com/autodl-irssi-community.zip"
+#
+autodlirssicommunity="https://github.com/autodl-community/autodl-irssi/releases/download/community-v$githublatest/autodl-irssi-community-v$githublatest.zip"
 autodltrackers="http://update.autodl-community.com/autodl-trackers.zip"
 # URL for autodl-rutorrent
 autodlrutorrent="https://github.com/autodl-community/autodl-rutorrent/archive/master.zip"
