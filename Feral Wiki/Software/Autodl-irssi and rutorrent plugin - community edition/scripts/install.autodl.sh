@@ -36,6 +36,7 @@ if [[ ! -z "$1" && "$1" = 'changelog' ]]
 then
     echo
     #
+    echo 'v1.4.8 - Download URLs are now generated from the Github Latest URI to get the current releases from github directly.'
     echo 'v1.4.7 - Template and minor tweaks.'
     echo 'v1.4.6 - Template and minor tweaks.'
     echo 'v1.4.5 - Template.'
@@ -80,7 +81,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.4.7"
+scriptversion="1.4.8"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.autodl"
@@ -135,13 +136,14 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 ## Custom Variables Start ##
 ############################
 #
-githublatest="$(wget -q -O - https://github.com/autodl-community/autodl-irssi/releases/latest | sed -rn 's|(.*)autodl-irssi-community-v(.*).zip</strong>|\2|p')"
+autodllatest="$(wget -q -O - https://github.com/autodl-community/autodl-irssi/releases/latest | sed -rn 's|(.*)<strong>autodl-irssi-community-v(.*).zip</strong>|\2|p')"
+trackerslatest="$(wget -q -O - https://github.com/autodl-community/autodl-trackers/releases/latest | sed -rn 's|(.*)<strong>autodl-trackers-v(.*).zip</strong>|\2|p')"
 #
 # URLs for the core files.
 # autodlirssicommunity="http://update.autodl-community.com/autodl-irssi-community.zip"
 #
-autodlirssicommunity="https://github.com/autodl-community/autodl-irssi/releases/download/community-v$githublatest/autodl-irssi-community-v$githublatest.zip"
-autodltrackers="http://update.autodl-community.com/autodl-trackers.zip"
+autodlirssicommunity="https://github.com/autodl-community/autodl-irssi/releases/download/community-v$autodllatest/autodl-irssi-community-v$autodllatest.zip"
+autodltrackers="https://github.com/autodl-community/autodl-trackers/releases/download/community-v$trackerslatest/autodl-trackers-v$trackerslatest.zip"
 # URL for autodl-rutorrent
 autodlrutorrent="https://github.com/autodl-community/autodl-rutorrent/archive/master.zip"
 #
