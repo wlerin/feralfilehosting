@@ -31,19 +31,25 @@ If your ISP does not offer any support for IPv6 then a tunnel broker can be set 
 
 Here are a few [tunnel brokers](https://en.wikipedia.org/wiki/List_of_IPv6_tunnel_brokers):
 
-### Freenet6 (gogo6): [http://www.gogo6.com/freenet6/tunnelbroker](http://www.gogo6.com/freenet6/tunnelbroker)
+### Freenet6 (gogo6): 
+
+[http://www.gogo6.com/freenet6/tunnelbroker](http://www.gogo6.com/freenet6/tunnelbroker)
 
 * Multiple locations spread out across the world for alternative connectivity.
 * Client is a simple download and run.
 * Website is difficult to navigate.
 
-### SixXS: [https://www.sixxs.net/main/](https://www.sixxs.net/main/)
+### SixXS: 
 
-* Provides a step-by-step guide (with pictures): https://www.sixxs.net/faq/account/?faq=10steps
+[https://www.sixxs.net/main/](https://www.sixxs.net/main/)
+
+* Provides a step-by-step guide (with pictures): [https://www.sixxs.net/faq/account/?faq=10steps](https://www.sixxs.net/faq/account/?faq=10steps)
 * Many locations available for alternative connectivity.
 * Requires a waiting period of at least a week to get activated.
 
-### Hurricane Electric: [https://tunnelbroker.net/](https://tunnelbroker.net/)
+### Hurricane Electric: 
+
+[https://tunnelbroker.net/](https://tunnelbroker.net/)
 
 * Tier 1 ISP who are providing us with IPv6 connectivity.
 * No activation time.
