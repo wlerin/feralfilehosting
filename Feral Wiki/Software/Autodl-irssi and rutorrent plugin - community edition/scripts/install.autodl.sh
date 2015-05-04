@@ -1,4 +1,4 @@
-#!/bin/bashv
+#!/bin/bash
 #
 ############################
 ##### Basic Info Start #####
