@@ -721,7 +721,7 @@ then
     echo
     echo "Filezilla site templates that you can import into Filezilla were generated in:"
     echo
-    echo -e "\033[36m""~/.proftpd-filezilla/$name.$(hostname -f).xml""\e[0m"
+    echo -e "\033[36m""~/.proftpd-filezilla/$(whoami).$(hostname -f).xml""\e[0m"
     echo
     echo -e "Use this command to see important information:" "\033[36m""$scriptname help""\e[0m"
     echo
