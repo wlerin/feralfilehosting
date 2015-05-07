@@ -1,24 +1,23 @@
 
-
 The Feral IRC channel is kindly hosted on the `irc.what-network.net`. We abide by and enforce their Global server rules.
 
-> **Important note:** We are guests on the `what-network` and must respect their global IRC rules as well as our channel specific rules. Here are the combined rule you will need to know.
+ **Important note:** We are guests on the `what-network` and must respect their global IRC rules as well as our channel specific rules. Here are the combined rule you will need to know.
 
 `#feral` is an English language channel. Please try to use English when asking your questions.
 
-The majority of Staff in `#feral` are in UK or Western European timezones and you should consider this when looking for a response from staff in IRC. We would recommend you [open a ticket](https://www.feralhosting.com/manager/tickets/new) if the concern is urgent.
+The majority of Staff in `#feral` are in UK or Western European time zones and you should consider this when looking for a response from staff in IRC. We would recommend you [open a ticket](https://www.feralhosting.com/manager/tickets/new) if the concern is urgent.
 
 Here are the golden rules.
 
 **1:** The offering, selling, trading, and giving away of invites to this or any other site on our IRC network is strictly forbidden.
 
-**2:** No prejudice, especially related to race, religion, politics, ethnic background, etc. It is highly suggested to avoid this entirely.
+**2:** No prejudice, especially related to race, religion, politics, ethnic background, etc. It is highly suggested to avoid these topics entirely.
 
-**3:** Spamming is strictly forbidden. This includes, but is not limited to, personal sites, online auctions, and torrent uploads.
+**3:** Spamming is strictly forbidden. This includes, but is not limited to, personal sites, on-line auctions, and torrent uploads.
 
 **4:** Do not PM, DCC, or Query anyone you don't know or have never talked to without asking first; this applies specifically to staff.
 
-**5:** Communicate with other people in a respectable manner, regardless of your importance of your issue.
+**5:** Communicate with other people in a respectable manner at all times, regardless of the perceived importance of your issue.
 
 **6:** Please ask your question clearly and with as much detail as you can provide so that other users and staff may better help you. Don't be vague or ask to ask questions.
 
@@ -41,11 +40,11 @@ IRC is to be considered primarily as community support for a wide range of issue
 
 ### What to expect in IRC:
 
-You can expect the general help and support of other very knowledgeable users and Staff for a wide range of issues when these people are able to do so. Staff are users to and we like to help out other users where possible.
+You can expect the general help and support of other very knowledgeable users and Staff for a wide range of issues when these people are able to do so. Staff are users too and we like to help out other users where possible.
 
-Very often the answers a user needs don't actually require Staff's attention and can be supported other users in the channel using their knowledge and the wide range of FAQs and guides we have in the Feral FAQs. You will find these linked to often in the responses given to your issue.
+Very often the problem a user has doesn't actually require Staff's attention and they can be supported by other users in the channel using their knowledge and the wide range of FAQs and guides we have in the Feral FAQs. You will find these linked to often in the responses given to your issue.
 
-There has been a lot of effort put into the FAQs by  many Feral users over the years that enables you to support yourself without relying on Staff. Do not think that you being given a FAQ link is to help you with your issue is the equivalent of your issue being dismissed. This could not be further from the truth.
+There has been a lot of effort put into the FAQs by  many Feral users over the years that enables you to support yourself without relying on Staff. Do not think that you being given a FAQ link to help you with your issue is the equivalent of your issue being dismissed. This could not be further from the truth.
 
 ### What not to expect in IRC:
 
@@ -60,7 +59,7 @@ Process your ticket faster for creating a fuss about it.
 IRC Bots
 ---
 
-> **Important note:**  Bots Policy: Users are welcome to create and share their bots with other users providing the features are considered useful and constructive and it does harass, private message or spam other users in the `#feral` channel. The `#feral` IRC channel is not your bot sandbox so please do your testing elsewhere where possible.
+ **Important note:**  Bots Policy: Users are welcome to create and share their bots with other users providing the features are considered useful and constructive and it does harass, private message or spam other users in the `#feral` channel. The `#feral` IRC channel is not your bot sandbox so please do your testing elsewhere where possible.
 
 Breaking these simple rules will result in your bots being banned from the `#feral` channel.
 
@@ -96,19 +95,19 @@ If you wish to "reserve" your nickname so others may not use it, you need to reg
 
 The first time you join the What-Network IRC network, you will want to register your nickname with NickServ. To do this, type:
 
-```
+~~~
 /msg NickServ REGISTER PASSWORD EMAIL
-```
+~~~
 
 Replacing PASSWORD with any password you wish, and EMAIL with a real email address (in case you need to reset your password).
 
 If the command completes successfully, NickServ will protect your nick by requiring a password when you attempt to use it.
 
-The next time you log into IRC, you won't be automatically recognized by the NickServ system. You will need to identify yourself to the server. QYou do this by typing:
+The next time you log into IRC, you won't be automatically recognized by the NickServ system. You will need to identify yourself to the server. You do this by typing:
 
-```
+~~~
 /msg NickServ IDENTIFY PASSWORD
-```
+~~~
 
 If you want to be automatically identified when you open your client, you will have to set up commands to be run. Each client has its own way, but mIRC will let you do it in Tools > Options > Connect > Options > Perform
 When you have this window open, make sure to "enable perform on connect", and enter the commands to be run in the biggest box below.
@@ -116,9 +115,9 @@ When you have this window open, make sure to "enable perform on connect", and en
 This is everything you need to know about using IRC.
 If you have trouble with the NickServ system, type:
 
-```
+~~~
 /msg NickServ HELP
-```
+~~~
 
 This command will explain how to use the NickServ service.
 
