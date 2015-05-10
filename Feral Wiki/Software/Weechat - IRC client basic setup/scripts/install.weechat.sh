@@ -85,11 +85,11 @@ scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/maste
 #
 # This will generate a 20 character random passsword for use with your applications.
 apppass="$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)"
-# This will generate a random port for the script between the range 10001 to 49999 to use with applications. You can ignore this unless needed.
-appport="$(shuf -i 10001-49999 -n 1)"
+# This will generate a random port for the script between the range 10001 to 32001 to use with applications. You can ignore this unless needed.
+appport="$(shuf -i 10001-32001 -n 1)"
 #
 # This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
-while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]; do appport="$(shuf -i 10001-49999 -n 1)"; done
+while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]; do appport="$(shuf -i 10001-32001 -n 1)"; done
 #
 # Script user's http www URL in the format http://username.server.feralhosting.com/
 host1http="http://$(whoami).$(hostname -f)/"
@@ -130,6 +130,18 @@ updaterenabled="1"
 #
 ############################
 ####### Variable End #######
+############################
+#
+############################
+###### Function Start ######
+############################
+#
+example () {
+    echo "This is my example function"
+}
+#
+############################
+####### Function End #######
 ############################
 #
 ############################
@@ -240,8 +252,10 @@ fi
 #### Self Updater Start ####
 ############################
 #
+# Checks for the positional parameters $1 and $2 to be reset if the script is updated.
+[[ ! -z "$1" && "$1" != 'qr' ]] || [[ ! -z "$2" && "$2" != 'qr' ]] && echo -en "$1\n$2" > ~/.passparams
 # Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, which would reset the option, it will then find this file and set it back.
-if [[ ! -z "$1" && "$1" = 'qr' ]] || [[ ! -z "$2" && "$2" = 'qr' ]];then echo -n '' > ~/.quickrun; fi
+[[ ! -z "$1" && "$1" = 'qr' ]] || [[ ! -z "$2" && "$2" = 'qr' ]] && echo -n '' > ~/.quickrun
 #
 # No Update option: This disables the updater features if the script option "nu" was used when running the script.
 if [[ ! -z "$1" && "$1" = 'nu' ]] || [[ ! -z "$2" && "$2" = 'nu' ]]
@@ -285,10 +299,40 @@ else
 fi
 #
 # Quick Run option part 2: If quick run was set and the updater section completes this will enable quick run again then remove the file.
-if [[ -f ~/.quickrun ]];then updatestatus="y"; rm -f ~/.quickrun; fi
+[[ -f ~/.quickrun ]] && updatestatus="y"; rm -f ~/.quickrun
+#
+# resets the positional parameters $1 and $2 post update.
+[[ -f ~/.passparams ]] && set "$1" "$(sed -n '1p' ~/.passparams)" && set "$2" "$(sed -n '2p' ~/.passparams)"; rm -f ~/.passparams
 #
 ############################
 ##### Self Updater End #####
+############################
+#
+############################
+## Positional Param Start ##
+############################
+#
+if [[ ! -z "$1" && "$1" = "example" ]]
+then
+    echo
+    #
+    # Edit below this line
+    #
+    echo "Add your custom positional parameters in this section."
+    #
+    if [[ -n "$2" ]]
+    then
+        echo "You used $scriptname $1 $2 when calling this example"
+    fi
+    #
+    # Edit above this line
+    #
+    echo
+    exit
+fi
+#
+############################
+### Positional Param End ###
 ############################
 #
 ############################
