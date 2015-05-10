@@ -47,6 +47,7 @@ then
     #echo 'v0.0.4 - My changes go here'
     #echo 'v0.0.3 - My changes go here'
     #echo 'v0.0.2 - My changes go here'
+    echo 'v1.1.6 - fixed script url'
     echo 'v1.1.5 - Template updated'
     #
     echo
@@ -62,7 +63,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.1.5"
+scriptversion="1.1.6"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.weechat"
@@ -80,7 +81,7 @@ gitiourl="http://git.io/vffAV"
 gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
 #
 # This is the raw github url of the script to use with the built in updater.
-scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Weechat%20-%20IRC%20client%20basic%20setup/scripts/weechat.sh"
+scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Weechat%20-%20IRC%20client%20basic%20setup/scripts/install.weechat.sh"
 #
 # This will generate a 20 character random passsword for use with your applications.
 apppass="$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)"
