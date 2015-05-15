@@ -17,7 +17,7 @@ Sqlite installation
 A very basic guide to manual installation of sqlite 3.
 
 ~~~
-wget -qO ~/sqlite3.tar.gz http://www.sqlite.org/2014/sqlite-autoconf-3080702.tar.gz
+wget -qO ~/sqlite3.tar.gz http://www.sqlite.org/2015/sqlite-autoconf-3081001.tar.gz
 tar xf ~/sqlite3.tar.gz && cd ~/sqlite-*/
 ./configure --prefix=$HOME && make && make install
 cd && rm -rf ~/sqlite-*/ ~/sqlite3.tar.gz
@@ -26,7 +26,7 @@ cd && rm -rf ~/sqlite-*/ ~/sqlite3.tar.gz
 For some applications you will have to link to this location, for example:
 
 ~~~
-env CPPFLAGS="-I$HOME/programs/include" LDFLAGS="-L$HOME/programs/lib" ./configure --prefix=$HOME/programs
+env CPPFLAGS="-I$HOME/include" LDFLAGS="-L$HOME/lib" ./configure --prefix=$HOME/
 ~~~
 
 ### Just the Binary
