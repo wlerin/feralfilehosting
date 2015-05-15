@@ -25,7 +25,7 @@ In the body submit a link to the FAQ you edited. So for example:
 [h2]Formatting[/h2]
 You can use Markdown to edit or create a FAQ if you wish. You will have to convert it to Feral BBCode using this tool:
 
-[url=http://feralhosting.github.io/convert/m2b/index.html]Markdown to BBCode[/url]
+[url=http://feralhosting.github.io/index.html]Markdown to BBCode[/url]
 
 [b]Important note:[/b] Please use fenced code blocks and in-line URLs (not the type linked at the bottom of the page). See formatting guidelines below for more info
 
@@ -37,7 +37,7 @@ Here are some good on-line Markdown editors.
 
 There is also a BBCode to Markdown tool for porting an existing FAQ so it can be edited or updated in Markdown and then converted back.
 
-[url=http://feralhosting.github.io/convert/b2m/index.html]BBCode to Markdown[/url]
+[url=http://feralhosting.github.io/b2m/index.html]BBCode to Markdown[/url]
 
 Copy and paste the returned text into a new FAQ or an edit. The layout and formatting will be correct, there is no need to change it.
 
