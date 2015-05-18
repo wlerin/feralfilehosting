@@ -63,7 +63,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.1.6"
+scriptversion="1.1.7"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.weechat"
@@ -118,8 +118,10 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 ## Custom Variables Start ##
 ############################
 #
-weechat="http://weechat.org/files/src/weechat-1.1.1.tar.gz"
-weechatfv="1.1.1"
+cmakeurl="https://github.com/feralhosting/feralfilehosting/raw/master/Feral%20Wiki/Software/CMAKE%20-%20Basic%20Setup/binary/cmake-3.2.2-Linux-x86_64.tar.gz"
+#
+weechat="http://weechat.org/files/src/weechat-1.2.tar.gz"
+weechatfv="1.2"
 #
 ############################
 ### Custom Variables End ###
@@ -356,22 +358,26 @@ then
 #### User Script Starts ####
 ############################
 #
-    wget -qO ~/cmake.tar.gz http://www.cmake.org/files/v2.8/cmake-2.8.12.2.tar.gz
-    tar xf ~/cmake.tar.gz && cd cmake-2.8.12.2
-    ./configure --prefix="$HOME"
-    make && make install
-    cd && rm -rf cmake{-2.8.12.2,.tar.gz}
+    mkdir ~/.weechat-tmp
+    wget -O ~/.weechat-tmp/cmake.tar.gz "$cmakeurl"
+    tar xf ~/cmake.tar.gz --strip-components=1 -C ~/.weechat-tmp
+    #
 	if [[ -f "$HOME/bin/cmake" ]]
 	then
 		wget -qO ~/weechat.tar.gz "$weechat"
 		tar xf ~/weechat.tar.gz
 		cd ~/weechat-"$weechatfv"
-		sed -i 's/set(CMAKE_SKIP_RPATH ON)//g' ~/weechat-"$weechatfv"/CMakeLists.txt
-		"$HOME"/bin/cmake -DCMAKE_INSTALL_RPATH=/opt/curl/current/lib -DPREFIX="$HOME" -DCURL_LIBRARY=/opt/curl/current/lib/libcurl.so -DCURL_INCLUDE_DIR=/opt/curl/current/include
-		make
+        if [[ $(whereis curl) == 'curl: /usr/local/bin/curl /usr/include/curl' ]]
+        then
+            "$HOME"/.weechat-tmp/bin/cmake -DCMAKE_INSTALL_PREFIX="$HOME"
+        else
+            sed -i 's/set(CMAKE_SKIP_RPATH ON)//g' ~/weechat-"$weechatfv"/CMakeLists.txt
+            "$HOME"/.weechat-tmp/bin/cmake -DCMAKE_INSTALL_RPATH=/opt/curl/current/lib -DCMAKE_INSTALL_PREFIX="$HOME" -DCURL_LIBRARY=/opt/curl/current/lib/libcurl.so -DCURL_INCLUDE_DIR=/opt/curl/current/include
+		fi
+        make
 		make install
 		cd
-		rm -rf ~/weechat.tar.gz ~/weechat-"$weechatfv"
+		rm -rf ~/weechat.tar.gz ~/weechat-"$weechatfv" ~/.weechat-tmp
 		echo
 		echo "Done. Continue with the rest of the FAQ to configure weechat"
 		echo
