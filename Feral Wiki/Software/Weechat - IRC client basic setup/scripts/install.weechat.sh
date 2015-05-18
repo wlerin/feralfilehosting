@@ -358,33 +358,27 @@ then
 #### User Script Starts ####
 ############################
 #
-    mkdir ~/.weechat-tmp
-    wget -O ~/.weechat-tmp/cmake.tar.gz "$cmakeurl"
-    tar xf ~/cmake.tar.gz --strip-components=1 -C ~/.weechat-tmp
+    mkdir -p ~/.weechat-tmp
+    wget -qO ~/.weechat-tmp/cmake.tar.gz "$cmakeurl"
+    tar xf ~/.weechat-tmp/cmake.tar.gz --strip-components=1 -C ~/.weechat-tmp
     #
-	if [[ -f "$HOME/bin/cmake" ]]
-	then
-		wget -qO ~/weechat.tar.gz "$weechat"
-		tar xf ~/weechat.tar.gz
-		cd ~/weechat-"$weechatfv"
-        if [[ $(whereis curl) == 'curl: /usr/local/bin/curl /usr/include/curl' ]]
-        then
-            "$HOME"/.weechat-tmp/bin/cmake -DCMAKE_INSTALL_PREFIX="$HOME"
-        else
-            sed -i 's/set(CMAKE_SKIP_RPATH ON)//g' ~/weechat-"$weechatfv"/CMakeLists.txt
-            "$HOME"/.weechat-tmp/bin/cmake -DCMAKE_INSTALL_RPATH=/opt/curl/current/lib -DCMAKE_INSTALL_PREFIX="$HOME" -DCURL_LIBRARY=/opt/curl/current/lib/libcurl.so -DCURL_INCLUDE_DIR=/opt/curl/current/include
-		fi
-        make
-		make install
-		cd
-		rm -rf ~/weechat.tar.gz ~/weechat-"$weechatfv" ~/.weechat-tmp
-		echo
-		echo "Done. Continue with the rest of the FAQ to configure weechat"
-		echo
-	else
-		echo "Cmake is not installed. Please Complete Step 1 of the FAQ before running this script"
-		echo
-	fi
+    wget -qO ~/weechat.tar.gz "$weechat"
+    tar xf ~/weechat.tar.gz
+    cd ~/weechat-"$weechatfv"
+    if [[ $(whereis curl) == 'curl: /usr/local/bin/curl /usr/include/curl' ]]
+    then
+        "$HOME"/.weechat-tmp/bin/cmake -DCMAKE_INSTALL_PREFIX="$HOME"
+    else
+        sed -i 's/set(CMAKE_SKIP_RPATH ON)//g' ~/weechat-"$weechatfv"/CMakeLists.txt
+        "$HOME"/.weechat-tmp/bin/cmake -DCMAKE_INSTALL_RPATH=/opt/curl/current/lib -DCMAKE_INSTALL_PREFIX="$HOME" -DCURL_LIBRARY=/opt/curl/current/lib/libcurl.so -DCURL_INCLUDE_DIR=/opt/curl/current/include
+    fi
+    make
+    make install
+    cd
+    rm -rf ~/weechat.tar.gz ~/weechat-"$weechatfv" ~/.weechat-tmp
+    echo
+    echo "Done. Continue with the rest of the FAQ to configure weechat"
+    echo
 #
 ############################
 ##### User Script End  #####
