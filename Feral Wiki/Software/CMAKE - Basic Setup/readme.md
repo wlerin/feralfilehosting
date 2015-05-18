@@ -23,7 +23,7 @@ mkdir -p ~/bin && bash
 ### Binary Distribution Installation (Fast).
 
 ~~~
-wget -qO ~/cmake.tar.gz http://www.cmake.org/files/v3.1/cmake-3.1.3-Linux-x86_64.tar.gz
+wget -qO ~/cmake.tar.gz http://www.cmake.org/files/v3.2/cmake-3.2.2-Linux-x86_64.tar.gz
 tar xf ~/cmake.tar.gz --strip-components=1 -C ~/
 ~~~
 
@@ -38,11 +38,11 @@ cmake --version
 Install the program from source using these commands:
 
 ~~~
-wget -qO ~/cmake.tar.gz http://www.cmake.org/files/v3.1/cmake-3.1.3.tar.gz
-tar xf ~/cmake.tar.gz && cd ~/cmake-3.1.3
+wget -qO ~/cmake.tar.gz http://www.cmake.org/files/v3.2/cmake-3.2.2.tar.gz
+tar xf ~/cmake.tar.gz && cd ~/cmake-3.2.2
 ./configure --prefix=$HOME
 make && make install
-cd && rm -rf cmake{-3.1.3,.tar.gz}
+cd && rm -rf cmake{-3.2.2,.tar.gz}
 ~~~
 
 Then test it works:

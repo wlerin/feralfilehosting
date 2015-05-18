@@ -35,3 +35,9 @@ A user has provided an automated version of the process. This script can be run 
 
 [Automated Reroute](https://www.feralhosting.com/faq/view?question=292)
 
+Windows users:
+---
+
+You can also try these configuration options
+
+[http://www.speedguide.net/articles/windows-7-vista-2008-tweaks-2574](http://www.speedguide.net/articles/windows-7-vista-2008-tweaks-2574)

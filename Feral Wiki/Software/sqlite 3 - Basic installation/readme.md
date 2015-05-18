@@ -32,7 +32,7 @@ env CPPFLAGS="-I$HOME/include" LDFLAGS="-L$HOME/lib" ./configure --prefix=$HOME/
 ### Just the Binary
 
 ~~~
-wget -qO ~/sqlite.deb http://ftp.uk.debian.org/debian/pool/main/s/sqlite/sqlite_2.8.17-8_amd64.deb
+wget -qO ~/sqlite.deb http://ftp.uk.debian.org/debian/pool/main/s/sqlite/sqlite_2.8.17-12_amd64.deb
 dpkg-deb -x ~/sqlite.deb ~/sqlitetmp
-cp -rf ~/sqlitetmp/usr/bin/. ~/programs/bin
+cp -rf ~/sqlitetmp/usr/bin/. ~/bin
 ~~~

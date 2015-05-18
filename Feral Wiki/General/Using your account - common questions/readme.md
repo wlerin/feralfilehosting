@@ -184,7 +184,7 @@ Related article: [Late Payments](https://www.feralhosting.com/faq/view?question=
 Upload Traffic - What happens if I go over my quota?
 ---
 
-Your upload will be throttled to 1Mbits for Cogent and 10Mbits for OVH for the duration of that monthly cycle.
+I you go over the quota of your plan your bandwidth is then no longer guaranteed (could be anything from 1 Mbps+)
 
 What counts to my Upload quota or Usage allowance?
 ---
