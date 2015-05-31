@@ -1,5 +1,5 @@
 
-If you find yourself regularly visiting the [reroute page](https://network.feral.io/reroute) to make route changes, or you just want an easy way to accurately test speed from Feral servers to your home network, run the auto-reroute script on your computer at home. The script downloads test files from each of Feral's routes, determines the fastest route, then sets that route for you.
+If you find yourself regularly visiting the [reroute page](https://network.feral.io/reroute) to make route changes, or you just want an easy way to accurately test speed from Feral servers to your home network, run the auto-reroute script on your computer at home. The script downloads test files from each of Feral's routes, determines the fastest route, then sets that route for you. Results are logged to ~/.auto-reroute/auto-reroute.log
 
 Linux & OSX
 ---
@@ -22,7 +22,6 @@ Once installed, open up a Cygwin terminal, paste in, and run the following comma
 ~~~
 curl -s -L -o ~/auto-reroute.sh http://git.io/hsFb && bash ~/auto-reroute.sh
 ~~~
-
 
 
 

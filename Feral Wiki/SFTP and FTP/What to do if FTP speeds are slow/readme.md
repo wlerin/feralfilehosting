@@ -47,7 +47,7 @@ LFTP
 
 The Windows and OSX versions are port from the Unix version. Once you have `lftp` installed for your platform you can use the Unix section below to run `lftp` via a terminal like Putty or terminal in OSX
 
-Once you have `lftp` installed continue with the unix section of this FAQ for LFTP.
+Once you have `lftp` installed continue with the unix section of this FAQ for LFTP, or [check out this FAQ](https://www.feralhosting.com/faq/view?question=153) for an automated script.
 
 ### In lftp (Windows via cygwin)
 

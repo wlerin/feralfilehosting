@@ -1,4 +1,5 @@
-One of the biggest complaints from seedbox users is not about the BitTorrent upload/download speeds within the server itself; rather, the FTP speeds in which the files are transferred back to the home PC. Often these sluggish FTP speeds can be attributed directly to the server provider; OVH is one of the usual suspects here. 
+
+One of the biggest complaints from seedbox users is not about the BitTorrent upload/download speeds within the server itself; rather, the FTP speeds in which the files are transferred back to the home PC. 
 
 ### Multiple Concurrent Transfers
 
