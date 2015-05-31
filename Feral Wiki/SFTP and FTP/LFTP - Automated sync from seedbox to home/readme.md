@@ -65,7 +65,7 @@ local_dir="$HOME/lftp/"
 
 base_name="$(basename "$0")"
 lock_file="/tmp/$base_name.lock"
-trap "rm -f $lock_file" SIGINT SIGTERM
+trap "rm -f $lock_file; exit 0" SIGINT SIGTERM
 if [ -e "$lock_file" ]
 then
     echo "$base_name is running already."
@@ -104,7 +104,7 @@ local_dir="$HOME/lftp/"
 
 base_name="$(basename "$0")"
 lock_file="/tmp/$base_name.lock"
-trap "rm -f $lock_file" SIGINT SIGTERM
+trap "rm -f $lock_file; exit 0" SIGINT SIGTERM
 if [ -e "$lock_file" ]
 then
     echo "$base_name is running already."
