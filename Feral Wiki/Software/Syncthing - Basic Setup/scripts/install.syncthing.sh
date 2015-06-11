@@ -46,7 +46,7 @@ then
     #echo 'v0.0.5 - My changes go here'
     #echo 'v0.0.4 - My changes go here'
     #echo 'v0.0.3 - My changes go here'
-    #echo 'v0.0.2 - My changes go here'
+    echo 'v1.0.7 - fixed typo in syncport causing a critical failure in the modification of the config.xml'
     echo 'v1.0.6 - Updater template updated - script detects latest version automatically.'
     #
     echo
@@ -62,7 +62,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.0.6"
+scriptversion="1.0.7"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.syncthing"
@@ -120,7 +120,7 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 syncthingversion="$(wget -q -O - https://github.com/syncthing/syncthing/releases/latest | sed -rn 's|(.*)<strong>syncthing-linux-amd64-v(.*).tar.gz</strong>|\2|p')"
 syncthingurl="https://github.com/syncthing/syncthing/releases/download/v$syncthingversion/syncthing-linux-amd64-v$syncthingversion.tar.gz"
 #
-syncport="(expr 1 + $appport)"
+syncport="$(expr 1 + $appport)"
 while [[ "$(netstat -ln | grep ':'"$syncport"'' | grep -c 'LISTEN')" -eq "1" ]]; do syncport="$(shuf -i 10001-32001 -n 1)"; done
 #
 apacheconf="http://git.io/WqUqBQ"
