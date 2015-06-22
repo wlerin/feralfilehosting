@@ -36,6 +36,7 @@ if [[ ! -z "$1" && "$1" = 'changelog' ]]
 then
     echo
     #
+    echo 'v1.0.8 - tweak to rtorrent restart to check for orphaned lock file.'
     echo 'v1.0.7 - rtorrent and deluge will no longer kill custom instances from the multirtru script. Transmision restart timer imeplemented. Other minor tweaks'
     echo 'v1.0.6 - Template updated'
     echo 'v1.0.5 - Template updated'
@@ -53,7 +54,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.0.7"
+scriptversion="1.0.8"
 #
 # Script name goes here. Please prefix with install.
 scriptname="restart"
@@ -152,7 +153,9 @@ then
     ##### Custom Help Info Starts #####
     ###################################
     #
-    echo -e "Put your help instructions or script guidance here"
+    echo "To troubleshoot rtorrent not starting you should do this:"
+    echo
+    echo -e "Use the command: rtorrent"
     #
     ###################################
     ###### Custom Help Info Ends ######
@@ -334,11 +337,14 @@ do
                 screen -wipe > /dev/null 2>&1
                 echo "Restarting rtorrent"
                 echo
+                # Test to see if rtorrent is running, if the result is null and the respective lock file exists then delete the lock file. Otherwise do nothing.
+                [[ -z $(pgrep -fu "$(whoami)" "/opt/rtorrent/current/bin/rtorrent") && -f ~/private/rtorrent/work/rtorrent.lock ]] && rm -f ~/private/rtorrent/work/rtorrent.lock
+                #
                 screen -fa -dmS rtorrent rtorrent
                 sleep 2
                 echo -e "\033[33m""Checking if the process is running:""\e[0m"
                 echo
-                echo $(ps x | grep current/bin/rtorrent | grep -v grep)
+                echo $(ps x | grep "/opt/rtorrent/current/bin/rtorrent" | grep -v grep)
                 echo
                 echo -e "\033[33m""Checking if the screen is running""\e[0m"
                 echo
