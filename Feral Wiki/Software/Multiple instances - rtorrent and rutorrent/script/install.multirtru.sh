@@ -36,6 +36,7 @@ if [[ ! -z "$1" && "$1" = 'changelog' ]]
 then
     echo
     #
+    echo 'v1.3.3 fixed rutorrent custom update (option 2) not fecthing the conf template.'
     echo 'v1.3.2 option 4. merged in install.autodl cfg fixes to make sure pass and paort will match after fixing.' 
     echo 'v1.3.1 none option to exit an option back to the menu. Small tweaks'
     echo 'v1.3.0 Moved to menu style script. auto password generation to make sure nginx rpc is set. new update option that uses rutorrent github. new autodl fix only option. various other tweaks and fixes.'
@@ -60,7 +61,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.3.2"
+scriptversion="1.3.3"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.multirtru"
@@ -616,7 +617,7 @@ then
                                     wget -qO ~/rutorrentgit.zip $rutorrentgit
                                     unzip -qo ~/rutorrentgit.zip
                                     cp -rf ~/ruTorrent-master/. ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"
-                                    sed -i 's|/private/rtorrent/.socket|/private/rtorrent-'"$suffix"'/.socket|g' ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/conf/config.php
+                                    wget -qO ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/conf/config.php $rutorrentconf
                                     rm -rf ~/www/konichiwa.asteria.feralhosting.com/public_html/rutorrent-12345/plugins/
                                     cd && rm -rf ruTorrent-master rutorrentgit.zip
                                     # cp -rf /opt/rutorrent/current/. ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"
