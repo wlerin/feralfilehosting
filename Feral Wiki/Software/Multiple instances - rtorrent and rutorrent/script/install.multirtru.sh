@@ -23,7 +23,7 @@
 ############################
 #
 ##
-#
+# '
 ############################
 ##### Script Notes End #####
 ############################
@@ -36,6 +36,7 @@ if [[ ! -z "$1" && "$1" = 'changelog' ]]
 then
     echo
     #
+    echo 'v1.3.4 fixed option 2 htaccess conflict when updating.'
     echo 'v1.3.3 fixed rutorrent custom update (option 2) not fecthing the conf template.'
     echo 'v1.3.2 option 4. merged in install.autodl cfg fixes to make sure pass and paort will match after fixing.' 
     echo 'v1.3.1 none option to exit an option back to the menu. Small tweaks'
@@ -61,7 +62,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.3.3"
+scriptversion="1.3.4"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.multirtru"
@@ -616,9 +617,10 @@ then
                                     # Copy the Feral rutorrent template
                                     wget -qO ~/rutorrentgit.zip $rutorrentgit
                                     unzip -qo ~/rutorrentgit.zip
+                                    rm -f ~/ruTorrent-master/.htaccess
+                                    rm -rf ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/{cpuload,diskspace}
                                     cp -rf ~/ruTorrent-master/. ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"
                                     wget -qO ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/conf/config.php $rutorrentconf
-                                    rm -rf ~/www/konichiwa.asteria.feralhosting.com/public_html/rutorrent-12345/plugins/
                                     cd && rm -rf ruTorrent-master rutorrentgit.zip
                                     # cp -rf /opt/rutorrent/current/. ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"
                                     #
