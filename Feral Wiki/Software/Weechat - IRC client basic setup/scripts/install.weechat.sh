@@ -47,6 +47,7 @@ then
     #echo 'v0.0.4 - My changes go here'
     #echo 'v0.0.3 - My changes go here'
     #echo 'v0.0.2 - My changes go here'
+    echo 'v1.1.8 - jessie curl whereis location'
     echo 'v1.1.6 - fixed script url'
     echo 'v1.1.5 - Template updated'
     #
@@ -63,7 +64,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.1.7"
+scriptversion="1.1.8"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.weechat"
@@ -365,7 +366,7 @@ then
     wget -qO ~/weechat.tar.gz "$weechat"
     tar xf ~/weechat.tar.gz
     cd ~/weechat-"$weechatfv"
-    if [[ $(whereis curl) == 'curl: /usr/local/curl /usr/include/curl' ]] || [[ $(whereis curl) == 'curl: /usr/bin/curl /usr/include/curl /usr/share/man/man1/curl.1.gz' ]]
+    if [[ $(whereis curl) == 'curl: /usr/local/bin/curl /usr/include/curl' ]] || [[ $(whereis curl) == 'curl: /usr/bin/curl /usr/include/curl /usr/share/man/man1/curl.1.gz' ]]
     then
         "$HOME"/.weechat-tmp/bin/cmake -DCMAKE_INSTALL_PREFIX="$HOME"
     else
