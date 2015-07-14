@@ -365,7 +365,7 @@ then
     wget -qO ~/weechat.tar.gz "$weechat"
     tar xf ~/weechat.tar.gz
     cd ~/weechat-"$weechatfv"
-    if [[ $(whereis curl) == 'curl: /usr/local/bin/curl /usr/include/curl' ]]
+    if [[ $(whereis curl) == 'curl: /usr/local/curl /usr/include/curl' ]] || [[ $(whereis curl) == 'curl: /usr/bin/curl /usr/include/curl /usr/share/man/man1/curl.1.gz' ]]
     then
         "$HOME"/.weechat-tmp/bin/cmake -DCMAKE_INSTALL_PREFIX="$HOME"
     else
