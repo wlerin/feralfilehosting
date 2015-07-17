@@ -19,7 +19,7 @@ This next stage of the guide needs to be done in an SSH client such as PuTTy.How
 
 ~~~
 mkdir -p ~/www/$(whoami).$(hostname -f)/public_html/adminer && cd $_
-wget -qO index.php http://downloads.sourceforge.net/project/adminer/Adminer/Adminer%204.2.1/adminer-4.2.1.php
+wget -qO index.php http://ufpr.dl.sourceforge.net/project/adminer/Adminer/Adminer%204.2.1/adminer-4.2.1.php
 ~~~
 
 **Step 4:**
