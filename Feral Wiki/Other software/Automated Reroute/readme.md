@@ -23,5 +23,12 @@ Once installed, open up a Cygwin terminal, paste in, and run the following comma
 curl -s -L -o ~/auto-reroute.sh http://git.io/hsFb && bash ~/auto-reroute.sh
 ~~~
 
+Sample Run
+---
+
+The following is a real time example of what the script should look like when run. 
+
+![](http://i.imgur.com/6AkGI7d.gif)
+
 
 

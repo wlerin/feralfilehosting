@@ -1,12 +1,16 @@
 
-Common links and common phrases
+Common links and phrases
 ---
+
+~~~
+
+Please select a port between the range of `10001-32001`
 
 SSH to your slot and do these commands:
 
-Optionally, you can edit it over FTP, please read and understand this FAQ first - [Text editing - Over FTP or SFTP](https://www.feralhosting.com/faq/view?question=219)
+> **Important note:** Optionally, you can edit it over FTP, please read and understand this FAQ first - [Text editing - Over FTP or SFTP](https://www.feralhosting.com/faq/view?question=219)
 
-In SSH do the commands described in this FAQ. If you do not know how to SSH into your slot use this FAQ: [SSH guide basics - PuTTy](https://www.feralhosting.com/faq/view?question=12) or [SSH guide basics - OS X](https://www.feralhosting.com/faq/view?question=217)
+In SSH do the commands described in this FAQ. If you do not know how to SSH into your slot use this FAQ: [SSH Guide - The Basics](https://www.feralhosting.com/faq/view?question=12)
 
 [SSH Guide - The Basics](https://www.feralhosting.com/faq/view?question=12)
 
@@ -39,12 +43,11 @@ Where `username` is your Feral username and `server` is the name of the Feral se
 Now we enter the SSH command to connect to the slot, where `username` is your Feral username and `server` is the name of the server you wish to SSH into:
 
 **Important note:** Folder names with spaces will require that your wrap them in quotes, for example `folder name`.
-
-~~~
-peterpan@aphrodite.feralhosting.com
 ~~~
 
-
+~~~
+username@server.feralhosting.com
+~~~
 
 ~~~
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/install_mysql.png)
@@ -67,7 +70,7 @@ Then press and hold `CTRL` and then press `x` to save. Press `y` to confirm.
 
 Then press and hold `CTRL` and `a` then press `d` to detach from the screen. This leaves it running in the background.
 
-where `username` if your Feral username and `server` if the name of the server that the relevant slot is hosted on.
+where `username` is your Feral username and `server` is the name of the server that the relevant slot is hosted on.
 
 nginx
 ---
@@ -83,13 +86,6 @@ Use this command to create the `~/bin` directory and reload your shell for this 
 mkdir -p ~/bin && bash
 ~~~
 
-PATH
----
 
-Add `PATHS` to the `~/.bashrc`#
 
-Python `~/.local/bin`:
 
-~~~
-[ ! "$(grep '~/.local/bin' ~/.bashrc)" ] && echo 'export PATH=~/.local/bin:$PATH' >> ~/.bashrc ; source ~/.bashrc
-~~~

@@ -1,5 +1,5 @@
 
-**Important note:** For using Owncloud With nginx please see the nginx section of this guide.
+> **Important note:** For using Owncloud With nginx please see the nginx section of this guide.
 
 Owncloud Manual installation
 ---
@@ -12,7 +12,7 @@ wget -P ~/www/$(whoami).$(hostname -f)/public_html/ https://download.owncloud.co
 
 Now visit the URL in this format, in your browser, it will look something like this:
 
-**Important note:** If you use or force https you may need to unblock the remote content of the installer in Firefox.
+> **Important note:** If you use or force https you may need to unblock the remote content of the installer in Firefox.
 
 ![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Owncloud%20-%20Basic%20setup/https.png)
 
@@ -79,7 +79,7 @@ These options are taken from the `config.sample.php` located in the same directo
 nginx
 ---
 
-**Important note:** This configuration depends on the user installing owncloud to the WWW subdirectory `/owncloud`
+> **Important note:** This configuration depends on the user installing owncloud to the default location which is the subdirectory `/owncloud` inside the `public_html` folder.
 
 **Owncloud custom conf:**
 
@@ -91,7 +91,7 @@ wget -qO ~/.nginx/conf.d/000-default-server.d/owncloud.conf http://git.io/nVy4Cg
 
 Now run this command in SSH:
 
-**Important note:** You need to run this command at least once to properly configure the `owncloud.conf`
+> **Important note:** You need to run this command at least once to properly configure the `owncloud.conf`
 
 ~~~
 sed -ri "s|fastcgi_pass(.*);|fastcgi_pass    unix:$HOME/.nginx/php/socket;|g" ~/.nginx/conf.d/000-default-server.d/owncloud.conf

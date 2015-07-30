@@ -43,9 +43,10 @@ cd && rm -rf readline{.tar.gz,-6.3}
 Install the program using these commands:
 
 ~~~
+echo 'gem: --no-document' > ~/.gemrc
 wget -qO ~/ruby.tar.gz http://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.2.tar.gz
 tar xf ~/ruby.tar.gz && cd ~/ruby-2.2.2
-./configure --prefix=$HOME && make && make install
+./configure --prefix=$HOME --disable-install-doc  && make && make install
 cd && rm -rf ruby{-2.2.2,.tar.gz}
 ~~~
 

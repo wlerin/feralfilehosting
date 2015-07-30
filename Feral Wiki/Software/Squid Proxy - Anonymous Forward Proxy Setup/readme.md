@@ -29,7 +29,7 @@ htdigest -c ~/.squidauth NoOrcs bilbobaggins
 **2:** Install and compile Squid.
 
 ~~~
-wget -qO ~/squid.tar.gz http://www.squid-cache.org/Versions/v3/3.5/squid-3.5.3.tar.gz
+wget -qO ~/squid.tar.gz http://www.squid-cache.org/Versions/v3/3.5/squid-3.5.6.tar.gz
 tar xf ~/squid.tar.gz && cd squid-*
 ./configure --prefix=$HOME
 make && make install && cd
