@@ -117,37 +117,19 @@ killall -9 -u $(whoami) deluged deluge-web
 
 ### Restart the deluge daemon and Web Gui
 
-**Option 1:** Start deluge only
+**Important note:**  Deluge cannot be started by the user and will be started by the system instead. After killing the process allow up to 5 minutes for it to automatically to restart.
 
-~~~
-deluged
-~~~
-
-**Option 2:** Start the Web Gui only
-
-~~~
-deluge-web --fork
-~~~
-
-**Option 3:** This command would start the deluge process and the Web Gui together
-
-~~~
-deluged && deluge-web --fork
-~~~
-
-If all goes well, you should be greeted with an empty command prompt:
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/3.png)
-
-If you get this error you will need to open a [support ticket](https://www.feralhosting.com/manager/tickets/new) with a relevant title. This problem requires Staff to fix.
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/twisted.png)
-
-Do this command to see if they are running:
+You can do this to see if the process has restarted:
 
 ~~~
 ps x | grep deluge | grep -v grep
 ~~~
+
+You will see this if the process is running.
+
+If you get this error you will need to open a [support ticket](https://www.feralhosting.com/manager/tickets/new) with a relevant title. This problem requires Staff to fix.
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/twisted.png)
 
 If the processes are running the result will look like this:
 

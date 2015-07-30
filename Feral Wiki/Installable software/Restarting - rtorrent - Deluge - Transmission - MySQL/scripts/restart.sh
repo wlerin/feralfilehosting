@@ -129,10 +129,9 @@ updaterenabled="1"
 showMenu () 
 {
     echo "1"": Restart rtorrent"
-    echo "2"": Restart Deluge"
-    echo "3"": Restart Tranmission"
-    echo "4"": Restart MySQL"
-    echo "5"": quit"
+    echo "2"": Restart Tranmission"
+    echo "3"": Restart MySQL"
+    echo "4"": quit"
 }
 #
 ############################
@@ -362,31 +361,6 @@ do
             ;;
         "2")
             echo
-            if [[ -d ~/private/deluge ]]
-            then
-                echo -e "\033[31m""Stopping Deluge and Deluge Web""\e[0m"
-                echo
-                kill -9 $(ps x | grep -v grep | grep '/usr/bin/python /usr/local/bin/deluged$' | head -n 1 | awk '{print $1}') > /dev/null 2>&1
-                kill -9 $(ps x | grep -v grep | grep "/usr/bin/python /usr/local/bin/deluge-web$" | head -n 1 | awk '{print $1}') > /dev/null 2>&1
-                echo "Restarting Deluge"
-                deluged
-                echo "Restarting Deluge Web"
-                deluge-web --fork
-                echo
-                echo -e "\033[33m""Are the processes running?""\e[0m"
-                echo
-                echo $(ps x | grep deluge | grep -v grep)
-                echo
-                echo -e "\033[32m""For troubleshooting refer to the FAQ:""\e[0m" "\033[36m""https://www.feralhosting.com/faq/view?question=158""\e[0m"
-                echo
-                sleep 2
-            else
-                echo -e "\033[31m""Deluge is not installed. Nothing to do""\e[0m"
-                echo
-            fi
-            ;;
-        "3")
-            echo
             if [[ -d ~/private/transmission ]]
             then
                 echo -e "\033[31m""Restarting Transmission""\e[0m"
@@ -426,7 +400,7 @@ do
                 echo
             fi
             ;;
-        "4")
+        "3")
             echo
             if [[ -d ~/private/mysql ]]
                 then
@@ -443,7 +417,7 @@ do
                 echo
             fi
             ;;
-        "5")
+        "4")
             echo
             echo -e "\033[31m""You chose to quit this script""\e[0m"
             echo
