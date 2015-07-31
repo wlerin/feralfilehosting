@@ -51,10 +51,22 @@ Helium-5
 echo -n '500000' > ~/.quotaspace
 ~~~
 
+Helium-6
+
+~~~
+echo -n '500000' > ~/.quotaspace
+~~~
+
 Helium-7
 
 ~~~
 echo -n '666000' > ~/.quotaspace
+~~~
+
+Helium-8
+
+~~~
+echo -n '1000000' > ~/.quotaspace
 ~~~
 
 Neon-3
@@ -75,6 +87,24 @@ Neon-5
 echo -n '750000' > ~/.quotaspace
 ~~~
 
+Neon-6
+
+~~~
+echo -n '750000' > ~/.quotaspace
+~~~
+
+Neon-7
+
+~~~
+echo -n '1000000' > ~/.quotaspace
+~~~
+
+Neon-8
+
+~~~
+echo -n '1500000' > ~/.quotaspace
+~~~
+
 Argon-3
 
 ~~~
@@ -91,6 +121,24 @@ Argon-5
 
 ~~~
 echo -n '1000000' > ~/.quotaspace
+~~~
+
+Argon-6
+
+~~~
+echo -n '1000000' > ~/.quotaspace
+~~~
+
+Argon-7
+
+~~~
+echo -n '1333000' > ~/.quotaspace
+~~~
+
+Argon-8
+
+~~~
+echo -n '2000000' > ~/.quotaspace
 ~~~
 
 Xenon-3
@@ -111,6 +159,24 @@ Xenon-5
 echo -n '1500000' > ~/.quotaspace
 ~~~
 
+Xenon-6
+
+~~~
+echo -n '1500000' > ~/.quotaspace
+~~~
+
+Xenon-7
+
+~~~
+echo -n '2000000' > ~/.quotaspace
+~~~
+
+Krypton-8
+
+~~~
+echo -n '3000000' > ~/.quotaspace
+~~~
+
 Radon-4
 
 ~~~
@@ -121,6 +187,45 @@ Radon-7
 
 ~~~
 echo -n '5000000' > ~/.quotaspace
+~~~
+
+Radon-8
+
+~~~
+echo -n '8000000' > ~/.quotaspace
+~~~
+
+SSD Slots
+---
+
+Neon
+
+~~~
+echo -n '100000' > ~/.quotaspace
+~~~
+
+Argon
+
+~~~
+echo -n '133000' > ~/.quotaspace
+~~~
+
+Krypton
+
+~~~
+echo -n '200000' > ~/.quotaspace
+~~~
+
+Xenon
+
+~~~
+echo -n '400000' > ~/.quotaspace
+~~~
+
+Radon
+
+~~~
+echo -n '800000' > ~/.quotaspace
 ~~~
 
 **Step 2:** After SSHing into your slot, run the following the commands
