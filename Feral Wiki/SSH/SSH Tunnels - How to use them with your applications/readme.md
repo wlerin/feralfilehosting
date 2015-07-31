@@ -33,21 +33,36 @@ This is the best method for firefox. A very customizable proxy addon.
 
 ### Chrome
 
-[Chrome Proxy SwitchySharp](https://chrome.google.com/webstore/detail/proxy-switchysharp/dpplabbmogkhghncfbfdeeokoefdjegm)
+[Proxy SwitchyOmega](https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif)
 
 Chrome does not give the user any useful built in network/proxy options. The plugin below is the best choice to do this (it is a good plugin)
 
-Once you have installed the plugins, click on it's icon and click on `Options`.
+Once you have installed the plugins, click on it's icon and click on `Options` and create a new profile.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20Tunnels%20-%20How%20to%20use%20them%20with%20your%20applications/proxysharp1.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20Tunnels%20-%20How%20to%20use%20them%20with%20your%20applications/proxyomega1.png)
 
-Now in the options window enter you proxy information.
+Now give create a new profile and select the  Proxy profile.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20Tunnels%20-%20How%20to%20use%20them%20with%20your%20applications/proxysharp2.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20Tunnels%20-%20How%20to%20use%20them%20with%20your%20applications/proxyomega2.png)
 
 After you have saved, you can click on the icon to select from any configured proxies.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20Tunnels%20-%20How%20to%20use%20them%20with%20your%20applications/proxysharp3.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20Tunnels%20-%20How%20to%20use%20them%20with%20your%20applications/proxyomega3.png)
 
+Now:
+
+**1:** Select `SOCKS5`
+
+**2:** Enter `127.0.0.1`
+
+**3:** Select a port between the range of `10001` to `32001`
+
+**4:** Apply the changes
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20Tunnels%20-%20How%20to%20use%20them%20with%20your%20applications/proxyomega4.png)
+
+Once saved, you can select the icon again to see and select your new proxy connections.
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/SSH%20Tunnels%20-%20How%20to%20use%20them%20with%20your%20applications/proxyomega5.png)
 
 
