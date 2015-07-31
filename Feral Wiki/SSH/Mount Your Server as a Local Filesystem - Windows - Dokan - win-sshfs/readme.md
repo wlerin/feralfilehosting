@@ -1,27 +1,40 @@
 
 This Guide will allow you to mount your Feral slots remote file system as a local file system through SFTP.
 
-Recommended Method: Install Dokan 0.06 Libraries and then use win-sshfs.
+> **Recommended Method:** Install Dokan Libraries and then use win-sshfs.
 
 To do this you need meet these requirements:
 
-1: You have a Feral slot that has been activated and you can SSH to. This means that your FTP/SFTP/SSH user name and password have been set-up and and are visible from your [**Install Software** link in your Manager](https://www.feralhosting.com/manager/)
+**1:** You have a Feral slot that has been activated and you can SSH to. This means that your FTP/SFTP/SSH user name and password have been set-up and and are visible from You can do this from the `Install Software` link in your [Account Manager](https://www.feralhosting.com/manager/)
 
-2: You downloaded and installed these items in the order listed.
+You login information for the relevant slot will be shown here:
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_ssh.png)
+
+**2:** You will need to install the Visual C++ Redistributable Packages for Visual Studio 2013 to make sure Dokan will work.
+
+[http://www.microsoft.com/en-us/download/details.aspx?id=40784](Visual C++ Redistributable Packages for Visual Studio 2013)
+
+Download and install `vcredist_x86.exe`
+Download and install `vcredist_x64.exe`
+
+> **Important note:** Install the x86 regardless of whether your system is x86 or you will get an error about `MSVCR120.dll` not being found
+
+Now continue to download and install the Dokan library.
 
 ### Step 1
 
-**Important note:** Windows 8 users must use Windows 7 compatibility mode on this installer.
+**1:** Remove the previous Dokan library if you had it installed via the Add or Remove programs option.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/Mount%20Your%20Server%20as%20a%20Local%20Filesystem%20-%20Windows%20-%20Dokan%20-%20win-sshfs/Dokan/compat%201.png)
+**2:** Download and install the current latest release from this URL:  [Dokan Libraries](https://github.com/dokan-dev/dokany/releases).
 
-Download and install this: 
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/Mount%20Your%20Server%20as%20a%20Local%20Filesystem%20-%20Windows%20-%20Dokan%20-%20win-sshfs/Dokan/dokan-1.png)
 
-[Dokan Libraries](http://dokan-dev.net/wp-content/uploads/DokanInstall_0.6.0.exe) you will need to install this first, reboot if asked.
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/Mount%20Your%20Server%20as%20a%20Local%20Filesystem%20-%20Windows%20-%20Dokan%20-%20win-sshfs/Dokan/dokan-2.png)
 
-**Important note:** If you see this box on Windows 8 just click "This program ran correctly" option:
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/Mount%20Your%20Server%20as%20a%20Local%20Filesystem%20-%20Windows%20-%20Dokan%20-%20win-sshfs/Dokan/dokan-3.png)
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/Mount%20Your%20Server%20as%20a%20Local%20Filesystem%20-%20Windows%20-%20Dokan%20-%20win-sshfs/Dokan/compat%202.png)
+Reboot if asked.
 
 You can now jump to the win-sshfs section.
 
