@@ -36,6 +36,7 @@ if [[ ! -z "$1" && "$1" = 'changelog' ]]
 then
     echo
     #
+    echo 'v1.3.5 added crontab functionality' 
     echo 'v1.3.4 fixed option 2 htaccess conflict when updating.'
     echo 'v1.3.3 fixed rutorrent custom update (option 2) not fecthing the conf template.'
     echo 'v1.3.2 option 4. merged in install.autodl cfg fixes to make sure pass and paort will match after fixing.' 
@@ -62,7 +63,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.3.4"
+scriptversion="1.3.5"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.multirtru"
@@ -509,7 +510,6 @@ then
                                         # Fix the relevent rutorrent plugin file by changing 127.0.0.1 to 10.0.0.1 using sed
                                         sed -i 's|if (!socket_connect($socket, "127.0.0.1", $autodlPort))|if (!socket_connect($socket, "10.0.0.1", $autodlPort))|g' ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-"$suffix"/plugins/autodl-irssi/getConf.php
                                         echo -e "\033[33m""Autodl-rutorrent fix has been applied""\e[0m"
-                                        echo
                                         #
                                         ############################
                                         ###### Fix script End ######
@@ -518,6 +518,18 @@ then
                                         screen -wipe > /dev/null 2>&1
                                         screen -dmS autodl-"$suffix" irssi --home="$HOME"/.irssi-"$suffix"/
                                         echo 'screen -dmS autodl-'"$suffix"' irssi --home=$HOME/.irssi-'"$suffix"'/' >> ~/multirtru.restart.txt
+                                        # Add to crontab
+                                        tmpcron="$(mktemp)"
+                                        if [ "$(crontab -l 2> /dev/null | grep -c 'screen -dmS autodl-'"$suffix"' irssi --home=$HOME/.irssi-'"$suffix")" == "0" ]; then
+                                            echo "Adding autodl-irssi to crontab"
+                                            echo
+                                            crontab -l > "$tmpcron"
+                                            echo '@reboot screen -dmS autodl-'"$suffix"' irssi --home=$HOME/.irssi-'"$suffix" >> "$tmpcron"
+                                            crontab "$tmpcron"
+                                            rm "$tmpcron"
+                                        else
+                                            echo "This autodl-irssi instance is already in your crontab."
+                                        fi      
                                         # Send a command to the new screen telling Autodl to update itself. This basically generates the ~/.autodl/AutodlState.xml files with updated info.
                                         screen -S autodl-"$suffix" -p 0 -X stuff '/autodl update^M'
                                         ############################
@@ -528,9 +540,21 @@ then
                                         echo
                                     fi
                                     #
+                                    # Add to crontab
+                                    tmpcron="$(mktemp)"
+                                    echo -e "\033[31m""3:""\e[0m" "Adding to crontab"
+                                    echo
+                                    if [ "$(crontab -l 2> /dev/null | grep -c 'screen -fa -dmS rtorrent-'"$suffix"' rtorrent -n -o import=~/.rtorrent-'"$suffix"'.rc')" == "0" ]; then
+                                        crontab -l > "$tmpcron"
+                                        echo '@reboot screen -fa -dmS rtorrent-'"$suffix"' rtorrent -n -o import=~/.rtorrent-'"$suffix"'.rc' >> "$tmpcron"
+                                        crontab "$tmpcron"
+                                        rm "$tmpcron"
+                                    else
+                                        echo "This instance is already in your crontab."
+                                    fi 
                                     # Password protect the setup
                                     #
-                                    echo -e "\033[31m""3:""\e[0m" "Password Protect the Installation"
+                                    echo -e "\033[31m""4:""\e[0m" "Password Protect the Installation"
                                     echo
                                     #
                                     if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
@@ -574,7 +598,7 @@ then
                                         echo -e "You can attach to the screen using this command: ""\033[32m""screen -r autodl-$suffix""\e[0m"
                                         echo
                                     fi
-                                    echo -e "\033[32m""4:""\e[0m" "Creating the screen process"
+                                    echo -e "\033[32m""5:""\e[0m" "Creating the screen process"
                                     echo
                                     #
                                     screen -fa -dmS rtorrent-"$suffix" rtorrent -n -o import=~/.rtorrent-"$suffix".rc
@@ -646,6 +670,17 @@ then
                                         echo 'screen -fa -dmS rtorrent-'"$suffix"' rtorrent -n -o import=~/.rtorrent-'"$suffix"'.rc' >> ~/multirtru.restart.txt
                                     fi
                                     ############################
+                                    # Add to crontab
+                                    tmpcron="$(mktemp)"
+                                    if [ "$(crontab -l 2> /dev/null | grep -c 'screen -fa -dmS rtorrent-'"$suffix"' rtorrent -n -o import=~/.rtorrent-'"$suffix"'.rc')" == "0" ]; then
+                                        echo "appending rtorrent-${suffix} to crontab."
+                                        crontab -l 2> /dev/null > "$tmpcron"
+                                        echo '@reboot screen -fa -dmS rtorrent-'"$suffix"' rtorrent -n -o import=~/.rtorrent-'"$suffix"'.rc' >> "$tmpcron"
+                                        crontab "$tmpcron"
+                                        rm "$tmpcron"
+                                    else
+                                        echo "This instance is already in your crontab."
+                                    fi 
                                     ############################
                                     ############################
                                 else 
@@ -702,6 +737,17 @@ then
                                         echo 'screen -dmS autodl-'"$suffix"' irssi --home=$HOME/.irssi-'"$suffix"'/' >> ~/multirtru.restart.txt
                                     fi
                                     #
+                                    # Add to crontab
+                                    tmpcron="$(mktemp)"
+                                    if [ "$(crontab -l 2> /dev/null | grep -c 'screen -dmS autodl-'"$suffix"' irssi --home=$HOME/.irssi-'"$suffix")" == "0" ]; then
+                                        echo "appending rtorrent-${suffix} to crontab."
+                                        crontab -l 2> /dev/null > "$tmpcron"
+                                        echo '@reboot screen -dmS autodl-'"$suffix"' irssi --home=$HOME/.irssi-'"$suffix" >> "$tmpcron"
+                                        crontab "$tmpcron"
+                                        rm "$tmpcron"
+                                    else
+                                        echo "This instance is already in your crontab."
+                                    fi 
                                     ############################
                                     ###### RuTorrent Ends ######
                                     ############################
@@ -821,6 +867,35 @@ then
                                     sed -i '/screen -dmS autodl-'"$suffix"' irssi --home=$HOME\/.irssi-'"$suffix"'\//d' ~/multirtru.restart.txt
                                     sed -i '/^$/d' ~/multirtru.restart.txt
                                 fi
+                                #
+                                if [ "$(crontab -l 2> /dev/null | grep -c 'screen -dmS autodl-'"$suffix"' irssi --home=$HOME/.irssi-'"$suffix")" == "0" ]
+                                then
+                                    echo "This instance was not setup in crontab, skipping"
+                                    echo
+                                else
+                                    tmpcron="$(mktemp)"
+                                    crontab -l > $tmpcron 
+                                    sed -i '/screen -dmS autodl-'"$suffix"' irssi --home=$HOME\/.irssi-'"$suffix"'/d' $tmpcron
+                                    crontab "$tmpcron"
+                                    rm "$tmpcron"
+                                    echo "This instance of autodl-irssi has been removed from crontab"
+                                    echo
+                                fi
+                                # 
+                                if [ "$(crontab -l 2> /dev/null | grep -c 'screen -fa -dmS rtorrent-'"$suffix"' rtorrent -n -o import=~/.rtorrent-'"$suffix"'.rc')" == "0" ]
+                                then
+                                    echo "This instance was not setup in crontab, skipping"
+                                    echo
+                                else
+                                    tmpcron="$(mktemp)"
+                                    crontab -l > $tmpcron 
+                                    sed -i '/@reboot screen -fa -dmS rtorrent-'"$suffix"' rtorrent -n -o import=~\/.rtorrent-'"$suffix"'.rc/d' $tmpcron
+                                    crontab "$tmpcron"
+                                    rm "$tmpcron"
+                                    echo "This instance has been removed from crontab"
+                                    echo
+                                fi
+                                #
                                 echo -e "\033[31m""Done""\e[0m"
                                 echo
                                 sleep 3
