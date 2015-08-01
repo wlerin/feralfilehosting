@@ -41,7 +41,7 @@ wget -qO ~/ncdu-1.11.tar.gz http://dev.yorhel.nl/download/ncdu-1.11.tar.gz
 cd ~/ 
 tar xvzf ncdu-1.11.tar.gz
 cd ncdu-1.11
-./configure --prefix=$HOME
+./configure --prefix="$HOME"
 make
 make install
 cd ~/
@@ -63,4 +63,7 @@ Otherwise, run it like this:
 Usage
 ---
 
-Use the arrow keys, enter, and delete to navigate, and 'q' to quit"
+Use the arrow keys, enter, and delete to navigate (or vim movement keys), and 'q' to quit"
+
+
+
