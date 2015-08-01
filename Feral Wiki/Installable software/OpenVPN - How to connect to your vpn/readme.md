@@ -65,6 +65,8 @@ The networking stack of OS X has VPN support built-in, however a dedicated clien
 
 You need to download the contents of `~/private/vpn/` to a secure location in your home directory. Then in Viscosity Preferences, simply "Import Connection" and use the client.ovpn file; Viscosity will import all the needed data. You can then delete the vpn directory you downloaded as Viscosity stores the data in its own Library location.
 
+Update 2015-04-11 - The ovpn file doesn't setup the TLS-Auth shared key properly. In Viscosity's Authentication settings, under Extra > Tls-Auth set the key to tls-auth.key and the direction to 1.
+
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/OpenVPN%20-%20How%20to%20connect%20to%20your%20vpn/osx1.png)
 
 iOS

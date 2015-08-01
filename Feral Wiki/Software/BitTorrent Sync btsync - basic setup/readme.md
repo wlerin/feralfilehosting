@@ -54,7 +54,7 @@ tar xf ~/btsync/btsync.tar.gz -C ~/btsync && cd && rm -f btsync/btsync.tar.gz
 
 ~~~
 mkdir -p ~/btsync
-wget -qO ~/btsync/btsync.tar.gz https://download-cdn.getsyncapp.com/stable/linux-x64/BitTorrent-Sync_x64.tar.gz
+wget -qO ~/btsync/btsync.tar.gz https://download-cdn.getsync.com/stable/linux-x64/BitTorrent-Sync_x64.tar.gz
 tar xf ~/btsync/btsync.tar.gz -C ~/btsync && cd && rm -f btsync/btsync.tar.gz
 ~~~
 
@@ -143,6 +143,27 @@ Once you have done this step you will be prompted to log in:
 ![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/BitTorrent%20Sync%20btsync%20-%20basic%20setup/webuiauth.png)
 
 ONce logged in your are ready to use btsync.
+
+ Network & Speed Tweaks 
+---
+
+BTSync seemed very slow for me at times, and was curious on the Advanced settings, and what could be safely changed without having a massive performance hit client side. 
+
+Mileage may vary, remember the default values to go back to. I'll also mention them here. 
+
+~~~
+Setting disk_low_priority to False
+~~~
+
+
+Allows for more disk usage, specially if you're Syncing to a secondary hard drive, no reason to have it set to low priority. 
+
+~~~
+send_buf_size and recv_buf_size
+~~~
+
+The default values are 10 per variable. I slowly increased them by 5 each time and see if I saw any improvement. I didn't see any improvement till I set both variables to 35. Like I said, you may change them further and see if you find any improvement, but don't go to crazy. 
+
 
 Kill btsync
 ---
