@@ -13,30 +13,30 @@ Account Overview
 
 This is the first page you see after logging in. It displays the username and email associated with your account as well as displaying the payment status for your slot(s). Here you can manage and oversee some of the core features of your account, such as:
 
-[Overview](https://www.feralhosting.com/manager/) - This link takes you to the slot overview page
+**1:** [Overview](https://www.feralhosting.com/manager/) - This link takes you to the slot overview page
 
 **Slots**
 
-- [Server - Helium/Neon/Argon/Xenon/Radon](https://www.feralhosting.com/manager/slot/) - Click this to visit your Slot Details pages for that slot.
-- [Install Software](https://www.feralhosting.com/manager/slot/install) - This will take you to the Install Software page for that slot.
-- [Usage](https://www.feralhosting.com/manager/slot/usage) - Check on your slot usage such as your disk space and upload quota.
+**2:** [Server - Helium/Neon/Argon/Xenon/Radon](https://www.feralhosting.com/manager/slot/) - Click this to visit your Slot Details pages for that slot.
+**3:** [Install Software](https://www.feralhosting.com/manager/slot/install) - This will take you to the Install Software page for that slot.
+**4:** [Usage](https://www.feralhosting.com/manager/slot/usage) - Check on your slot usage such as your disk space and upload quota.
 
 **Support**
 
-- [Wiki / FAQ](https://www.feralhosting.com/faq/) - A large collection of useful FAQs, guides and tutorials for doing things on and with your slot.
-- [IRC](https://www.feralhosting.com/chat) - A secondary means of getting support and mostly user supported. Not for discussing Payment issues.
-- [Tickets](https://www.feralhosting.com/manager/tickets/) -  Your primary means of getting support on Feral.
+**5:** [Wiki / FAQ](https://www.feralhosting.com/faq/) - A large collection of useful FAQs, guides and tutorials for doing things on and with your slot.
+**6:** [IRC](https://www.feralhosting.com/chat) - A secondary means of getting support and mostly user supported. Not for discussing Payment issues.
+**7:** [Tickets](https://www.feralhosting.com/manager/tickets/) -  Your primary means of getting support on Feral.
 
 **Accounting**
 
-- [Invoices](https://www.feralhosting.com/manager/invoices) - Click this to view your invoices
-- [Payments](https://www.feralhosting.com/manager/payments) - Click this to view your payments to Feral
+**8:** [Settings](https://www.feralhosting.com/manager/settings) - Click here to manage your saved payment details and options.
+**9:** [Invoices](https://www.feralhosting.com/manager/invoices) - Click this to view your invoices
+**10:** [Payments](https://www.feralhosting.com/manager/payments) - Click this to view your payments to Feral
 
-Now, the feralhosting.com manager is only part of managing your slot. Whilst you have access to some great features and a wealth of information in the FAQs, you will mostly be accessing your slot directly from remote locations using tools like: 
-
-- Putty for SSH and SSH tunnels
-- FTP/SFTP programs, like Filezilla to download and upload data.
-- Web browsers, like Firefox to visit the Web Gui for installed programs.
+**11:** Logout of your main Feralhosting Account.
+**12:** The email you registered with. Can be changed by opening a ticket and requesting it.
+**13:** Your Feral username.
+**14:** The date you registered your account.
 
 Payment Status:
 ---
@@ -106,13 +106,23 @@ Once you install software from the Manager any relevant information, such as URL
 
 This information should be all you need to access the Web Gui for the selected app/s
 
-**Important Note:** If you have just received your slot, please allow some extra time for things to work, even after the process has show to be completed.
+> **Important Note:** If you have just received your slot, please allow some extra time for things to work, even after the process has show to be completed.
 
 Remember, you are remotely managing programs on the Feral slot from home or wherever you are. These programs run on the server and not on your laptop or PC. These are the three basic ways in which you will manage the core features of your slot.
 
 - HTTP - Web Gui and more
 - SSH
 - FTP/SFTP
+
+The feralhosting.com  Account Manager is only part of managing your slot. Whilst you have access to some great features directly from the account manager you will mostly be accessing your slot directly from remote locations using tools like: 
+
+- KiTTy for SSH and SSH tunnels
+- FTP/SFTP programs, like Filezilla to download and upload data.
+- Web browsers, like Firefox or Chrome to visit the WebUi for installed programs like ruTorrent or Deluge.
+
+You will use the account manager to access important features like the automatic software installation page for each slot you control and to manage your payments and payment details.
+
+You will use the account manager to access your personal details for the slots features like FTP/SFTP/SSH passwords and WebUi passwords.
 
 And we will cover these topics in part 2 of this article - [Your Feral slot is active - Part 2 - Using your slot](https://www.feralhosting.com/faq/view?question=225)
 

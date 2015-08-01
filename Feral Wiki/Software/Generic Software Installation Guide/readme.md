@@ -2,7 +2,7 @@
 Generic Software Guide Introduction:
 ---
 
-**Important note:** Just because you can do something does not automatically mean you should. For example, custom python installations tend to cause more problems that they solve.  Also if you think the programs you want to install will interfere with other users or that Staff might not want you using them you should [open a ticket](https://www.feralhosting.com/manager/tickets/new) and ask first. Please use some common sense with the programs you try to install and use.
+**Important note:** Just because you can do something does not automatically mean you should. For example, custom python installations tend to cause more problems than they solve.  Also if you think the programs you want to install will interfere with other users or that Staff might not want you using them you should [open a ticket](https://www.feralhosting.com/manager/tickets/new) and ask first. Please use some common sense with the programs you try to install and use.
 
 With your Feral slot you do not have `root` access to the server. Your account runs as user account in a Debian Linux environment. These are not dedicated servers which means you cannot use these commands on your slot:
 
@@ -32,7 +32,7 @@ For this guide we will look at the methods available to you to install software 
 - Spideroak
 -  filebot
 
-It is important that you understand that no one of these methods is a guaranteed thing. There are many factors that will contribute to the success or failure of the attempt. These could be dependencies on other applications, binaries, libraries or additional requirements that you have no way to fulfil. This is just something you will have to accept before attempting to install any software on your slot. In this linked examples you will see various methods and solutions to such issues.
+It is important that you understand that no single one of these methods is a guaranteed thing. There are many factors that will contribute to the success or failure of the attempt. These could be dependencies on other applications, binaries, libraries or additional requirements that you have no way to fulfil. This is just something you will have to accept before attempting to install any software on your slot. In this linked examples you will see various methods and solutions to such issues.
 
 Installed Software locations:
 ---
@@ -51,7 +51,7 @@ This is effectively your home directory and will mimic the conventional director
 
 When we add a location to the `PATH` in Linux it basically tells the SSH terminal to include this location when it looks for the binaries to execute. If a location is not in the `PATH` you would be required to use a full path to that program in order to execute it in your terminal. This method is used for simplicity. All files are installed to the `~/bin` folder and generally maintain a conventional directory structure.
 
-This FAQ will use the same directory structure for any examples used, though once you understand the process you can install applications where ever you want. 
+This FAQ will use the same directory structure for any examples used, though once you understand the process you can install applications where ever you want.
 
 You could then manage your installations and have more than one version of a program.
 
@@ -66,6 +66,8 @@ Some applications do not use `configure` and instead require you use `cmake` to 
 ---
 
 It is very common for source code application to come with an executable file called `configure`. When using this program to configure our source code for installation we can often pass it some arguments that tell it to do certain things or behave in a certain way. The most important of theses is the `--prefix` argument.
+
+> **Important note:** If the program does not come with a .configure file you may have to generate one yourself. Check the `README` or documentation. Sometimes it will be created by a file called `.autogen.sh`. The best way to know is to read the programs documentation.
 
 If you do not specify a `prefix` what happens is that `configure` will assume you want to use the standard file structure such as `/etc` and `/lib` for which you do not have permission to use. So what we do is specify a `--prefix` that tell `configure` where to install the application and subsequently where to find the files it needs to run.
 
