@@ -25,6 +25,24 @@ wget -qO ~/install.wordpress http://git.io/2JBQlg && bash ~/install.wordpress
 Install to the WWW subdirectory /wordpress manually:
 ---
 
+> **Important note:** Nginx users using the default feral URLs must add this configuration file and then reload nginx for permalinks and similar to function properly. If you are using a custom vHost, the vHost FAQ already covers this in the provided template.
+
+Use these commands if you installed wordpress to the default subdirectory of `/wordpress`
+
+~~~
+wget -qO ~/.nginx/conf.d/000-default-server.d/wordpress.conf http://git.io/vO6NA
+/usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf
+~~~
+
+Use these commands if you installed wordpress to the default root directory of www.
+
+~~~
+wget -qO ~/.nginx/conf.d/000-default-server.d/wordpress.conf  http://git.io/vO6Nj
+/usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf
+~~~
+
+If you installed to a custom location you should download one of the above and then you will need to modify the location inside the conf file to reflect your custom location. Then reload nginx.
+
 Do this command in SSH:
 
 ~~~

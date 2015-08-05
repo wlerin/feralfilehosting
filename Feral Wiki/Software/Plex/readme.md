@@ -28,7 +28,7 @@ To avoid having to use the SSH tunnel to talk to Plex we need to make it availab
 Private IP: $port <- Public IP: $port <- Internet
 ~~~
 
-Please tick "manually specify port" and enter the port given next to the public IP. You should now be able to visit http://$server.feralhosting.com:$port/web (replace $server with your server name and $port with the port you specified) and drop the SSH tunnel.
+Please make sure "manually specify port" is unticked and Plex will then set things up for you. You should now be able to visit http://$server.feralhosting.com:$port/web (replace $server with your server name and $port with the port specified for Public IP) and drop the SSH tunnel.
 
 Tips for Plex
 ---
