@@ -30,17 +30,24 @@ mkdir -p ~/bin && bash
 
 ~~~
 wget -qO ~/ffmpeg.tar.gz http://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz
-tar xf ~/ffmpeg.tar.gz && cd && rm -rf ffmpeg-2.6-64bit-static/{manpages,presets,readme.txt}
-cp ~/ffmpeg-2.6-64bit-static/* ~/bin
+tar xf ~/ffmpeg.tar.gz && cd && rm -rf ffmpeg-*-64bit-static/{manpages,presets,readme.txt}
+cp ~/ffmpeg-*-64bit-static/* ~/bin
 chmod 700 ~/bin/{ffmpeg,ffprobe,ffmpeg-10bit,qt-faststart}
-cd && rm -rf ffmpeg{.tar.gz,-2.6-64bit-static}
+cd && rm -rf ffmpeg{.tar.gz,-*-64bit-static}
 ~~~
 
 **2:** Check your version:
 
+> **Important note:** If you keep getting the old version please start a new SSH session and try again.
+
 ~~~
 ffmpeg -version
 ~~~
+
+~~~
+~/bin/ffmpeg -version
+~~~
+
 
 The path to the binary will be:
 

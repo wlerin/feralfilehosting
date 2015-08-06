@@ -71,7 +71,7 @@ Section 1: Creating our .htaccess
 In SSH do this command:
 
 ~~~
-cd ~/www/$(whoami).$(hostname)/public_html/
+cd ~/www/$(whoami).$(hostname -f)/public_html/
 ~~~
 
 This will move us into the root of our WWW folder
