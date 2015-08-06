@@ -1,16 +1,46 @@
 
 > **Important note:**  You can open a support ticket for help setting up Plex.
 
+Plex.tv account:
+---
+
+> **Important note:**  It is a requirement of this guide that you have an active plex.tv account.
+
+If you have not already create an account with plex.tv please do so now.
+
+[https://plex.tv/users/sign_in](https://plex.tv/users/sign_in)
+
+Here is an example of the sign up page:
+
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Plex/signup.png)
+
 Install Plex
 ---
 
-To install Plex, create the folder ~/private/plex with your FTP / SFTP client. You can also run the following SSH command: `mkdir ~/private/plex`
+To install Plex all you need to do is create a folder called `plex` inside your `~/private` directory. You can do this with your FTP / SFTP client. Or  you can also run the following SSH command: 
 
-Plex will then be set up automatically in the next 5 minutes creating the file `~/private/plex/README` once done. It will be automatically restarted if it is not running.
+~~~
+mkdir ~/private/plex
+~~~
+
+Plex will then be set up automatically within the next 5 minutes creating the file:
+
+`~/private/plex/README`
+
+Restarting Plex:
+---
+
+> **Important note:** Plex will be automatically restarted if it is not running.
+
+Run this command to kill the plex processes. Then wait up to 10 minutes for it to restart.
+
+~~~
+kill $(ps x | pgrep -fu "$(whoami)" 'plexmediaserver')
+~~~
 
 ### Gaining access to Plex
 
-> **Important note:** Once Plex has been installed it will be limited to local connections only.
+> **Important note:** Once Plex has been installed and running it will be limited to local connections only.
 
 To access plex will need to set up an SSH tunnel and connect to Plex's local IP. The IP can be found in the file `~/private/plex/README` You should view this file in your FTP / SFTP client (possibly needing to download it first) or run the SSH command: 
 
@@ -43,36 +73,64 @@ To avoid having to use the SSH tunnel to talk to Plex we need to make it availab
 
 ![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Plex/2.png)
 
-1: Make sure you are on the `Remote Access` section
-2: Click on the `Show Advanced` button
+**1:** Make sure you are on the `Remote Access` section
+**2:** Click on the `Show Advanced` button
 
 ![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Plex/3.png)
 
-**1:** Make sure you have shown the advanced settings
-**2:** This is your remote address to access plex remotely.
-
-> **Important note:** You must add the `/web` to the end of the remote address otherwise you will get a `401` access denied error.
-For example:
+**1:** Make sure you are in the Remote Access section
+**2:** Make sure you have shown the advanced settings
+**3:** This is your remote address to access plex remotely.
 
 ~~~
 123.123.123.123:12345/web
 ~~~
 
-or
-
-Where `server` is the name of the server that hosts the relevant slot.
+Optionally you can replace this IP with the server hostname. Where `server` is the name of the server that hosts the relevant slot:
 
 ~~~
 server.feralhosting.com:12345/web
 ~~~
 
-> **Important note:** Please make sure `manually specify port` is unticked.
-
 ![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Plex/4.png)
 
-When visiting Plex for the first time it will ask you to login and you will see this:
+Remote Connections issues
+---
+
+**1:** If you see this error it means the remote connection is not working.
+**2:** You will also see this red `x` to show the connection chain is broken.
+**3:** Make sure the `Manually specify port` box is *unchecked*
+**4:** Click on the `Retry` button
 
 ![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Plex/5.png)
+
+**1:** Make sure you have shown the advanced settings
+**2:** Make sure you are in the Remote Access section
+**3:** If the connection is working the arrow will be green
+
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Plex/6.png)
+
+Remote Access:
+---
+
+In a web browser connect to the remote access URL shown in previous steps. It will need to be in the format:
+
+~~~
+123.123.123.123:12345/web
+~~~
+
+Optionally you can replace this IP with the server hostname. Where `server` is the name of the server that hosts the relevant slot:
+
+~~~
+server.feralhosting.com:12345/web
+~~~
+
+When visiting the remote Plex URL for the first time it will ask you to login and you will see this:
+
+> **Important note:** You must add the `/web` to the end of the remote address otherwise you will get a `401` access denied error.
+For example:
+
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Plex/login.png)
 
 Tips for Plex
 ---
@@ -86,9 +144,7 @@ In `web` -> `player settings`, select `only image formats` for burn subtitles fo
 
 In `web` -> `general`, untick `Play Theme Music`
 
-
-
-
+Add you own tips here!
 
 
 
