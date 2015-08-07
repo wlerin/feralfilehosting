@@ -33,15 +33,30 @@ Optionally,  you can run this SSH command:
 mkdir -p ~/private/plex
 ~~~
 
+Then run this command to automatically load the README when it is created:
+
+~~~
+while [ ! -f ~/private/plex/README ]; do printf '\rWaiting up to 5 minutes'; sleep 2; done && cat ~/private/plex/README
+~~~
+
 Restarting Plex:
 ---
 
-> **Important note:** Plex will be automatically restarted if it is not running.
+> **Important note:** Plex will be automatically restarted if it is not running. It can take up to ten minutes to reload.
 
 Run this command to kill the plex processes. Then wait up to 10 minutes for it to restart.
 
 ~~~
-kill $(ps x | pgrep -fu "$(whoami)" 'plexmediaserver')
+kill $(ps x | pgrep -fu "$(whoami)" 'plexmediaserver') &> /dev/null
+~~~
+
+Updating Plex
+---
+
+Run this command to update Plex to the latest version Feral is hosting and then wait up to ten minutes for it to reload.
+
+~~~
+kill $(ps x | pgrep -fu "$(whoami)" 'plexmediaserver') &> /dev/null; rm -rf ~/private/plex && mkdir -p ~/private/plex
 ~~~
 
 Plex Post installation:
