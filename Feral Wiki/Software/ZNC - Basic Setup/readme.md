@@ -33,7 +33,11 @@ Now start the new server in SSH using the command:
 znc
 ~~~
 
-You previous configuration file will be backed up and it will create a new version and merge the old data with the new configuration file.
+### Your configs
+
+If you update using the  manuall method your previous configuration file will be backed up and  znc will create a new version and merge the old data with the new configuration file.
+
+If you install znc using the script your configuration file will be backed up in the `~/.znc/configs/` and then and new config will be created from a template. You can then merge in your details manually.
 
 ZNC installation
 ---
@@ -41,6 +45,8 @@ ZNC installation
 ### Automatic basic install
 
 This script essentially performs the basic install according to the steps below.
+
+
 
 ~~~
 wget -qO ~/install.znc http://git.io/vfKaT && bash ~/install.znc
