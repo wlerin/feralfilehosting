@@ -422,6 +422,7 @@ then
     fi
     #
     mkdir -p ~/.znc/configs/
+    [[ -f ~/.znc/configs/znc.conf ]] && cp ~/.znc/configs/znc.conf ~/.znc/configs/znc.conf.bak-$(date +"%d.%m.%y@%H:%M:%S")
     wget -qO ~/.znc/configs/znc.conf "$znctemplate"
     #
     sed -ri 's|URIPrefix = /SETAUSER/znc|URIPrefix = /'"$(whoami)"'/znc|g' ~/.znc/configs/znc.conf
