@@ -15,7 +15,7 @@ du -sB GB ~/
 
 `-B` is for block size. In this case it is `GB`
 
-There might be a delay before any response is displayed — it may possibly take up to 3 minutes for the system to calculate the amount of data in your slice.
+There might be a delay before any response is displayed, it may possibly take up to 3 minutes for the system to calculate the amount of data in your slice.
 
 To check the size of a folder you can do:
 

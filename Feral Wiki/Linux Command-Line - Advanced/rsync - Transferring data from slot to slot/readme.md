@@ -79,7 +79,7 @@ This is the command we will use to copy files from our old slot to our new slot,
 rsync -avhPS usename@server.feralhosting.com:'"~/location/of/files"' "~/destination/of/files/"
 ~~~
 
-For example, using the directories we created in **Step 1** we can do this
+For example, using the directories we created in **Step 1** we can do this:
 
 ~~~
 rsync -avhPS usename@server.feralhosting.com:'"~/private/rtorrent/data"' "~/rsync/"
@@ -87,10 +87,22 @@ rsync -avhPS usename@server.feralhosting.com:'"~/private/rtorrent/data"' "~/rsyn
 
 This will copy the folder and the contents of the `~/private/rtorrent/data` directory from the `usename@server.feralhosting.com` used in the command into the `~/rsync` directory of the slot you are currently SSH'd into.
 
-For Feral internal transfers you can also use this command which will be faster than the default method:
+For Feral internal transfers you can also use this command which will be faster than the default method:]
+
+**1:** Make sure you are in the root folder by entering this command:
 
 ~~~
-rsync -avhPSe "ssh -T -c arcfour -o Compression=no" usename@server.feralhosting.com:'"~/location/of/files"' "~/destination/of/files/"
+cd
+~~~
+
+Then edit this command, where:
+
+**1:** `username` is your Feral username and `server` is the name of the Feral server your slot is hosted on:
+**2:** `location/of/files` is the relative path to the data you want transferred.
+**3:** `destination/of/files/` is the relative path to the location you want the data moved on the new slot.
+
+~~~
+rsync -avhPSe "ssh -T -c arcfour -o Compression=no" usename@server.feralhosting.com:'"location/of/files"' "destination/of/files/"
 ~~~
 
 **2.3** Understanding trailing slashes `/` in paths.

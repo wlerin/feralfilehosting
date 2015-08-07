@@ -4,9 +4,9 @@
 Plex.tv account:
 ---
 
-> **Important note:**  It is a requirement of this guide that you have an active plex.tv account.
+> **Important note:**  It is a requirement of this guide that you have already created and activated a [plex.tv](https://plex.tv/) account. 
 
-If you have not already create an account with plex.tv please do so now.
+If you have not already created an account with [plex.tv](https://plex.tv/) please do so now.
 
 [https://plex.tv/users/sign_in](https://plex.tv/users/sign_in)
 
@@ -17,15 +17,21 @@ Here is an example of the sign up page:
 Install Plex
 ---
 
-To install Plex all you need to do is create a folder called `plex` inside your `~/private` directory. You can do this with your FTP / SFTP client. Or  you can also run the following SSH command: 
+To install Plex all you need to do is create a folder named `plex` inside your `~/private` directory. 
+
+You can do this with an FTP / SFTP client or using SSH and client.
+
+### Install Plex Using Filezilla:
+
+[Filezilla - Basic Setup for FTP or SFTP](https://www.feralhosting.com/faq/view?question=187)
+
+### Install Plex Using SSH:
+
+Optionally,  you can run this SSH command: 
 
 ~~~
-mkdir ~/private/plex
+mkdir -p ~/private/plex
 ~~~
-
-Plex will then be set up automatically within the next 5 minutes creating the file:
-
-`~/private/plex/README`
 
 Restarting Plex:
 ---
@@ -38,23 +44,48 @@ Run this command to kill the plex processes. Then wait up to 10 minutes for it t
 kill $(ps x | pgrep -fu "$(whoami)" 'plexmediaserver')
 ~~~
 
+Plex Post installation:
+---
+
+After the folder is created Plex will then be set up automatically within the next 5 minutes.
+
 ### Gaining access to Plex
 
 > **Important note:** Once Plex has been installed and running it will be limited to local connections only.
 
-To access plex will need to set up an SSH tunnel and connect to Plex's local IP. The IP can be found in the file `~/private/plex/README` You should view this file in your FTP / SFTP client (possibly needing to download it first) or run the SSH command: 
+When Plex is successfully installed it will have created this file:
+
+`~/private/plex/README`
+
+To access plex will need to set up an SSH tunnel and connect to Plex's local IP.
+
+### Create an SSH tunnel
+
+Please set up an SSH tunnel now if you don't have one active: [SSH Tunnels Guide - The Basics](https://www.feralhosting.com/faq/view?question=37)
+
+Then configure your browser to use it using this guide: [SSH Tunnels - How to use them with your applications](https://www.feralhosting.com/faq/view?question=242).
+
+### Connecting to Plex locally:
+
+
+The Local IP can be found in the file `~/private/plex/README` You can view this file in your FTP / SFTP client (possibly needing to download it first) or run this SSH command: 
 
 ~~~
 cat ~/private/plex/README
 ~~~
 
-Once we know the relevant IP, please set up [an SSH tunnel](https://www.feralhosting.com/faq/view?question=37) and then [configure your browser to use it](https://www.feralhosting.com/faq/view?question=242). In essence you're creating a `SOCKS5` proxy and then using your browser to connect to Plex's IP.
+Once connected via the tunnel, using your web browser, navigate to:
 
-Once connected via the tunnel, navigate to `http://IP:32400/web` where IP is the IP we got from the `README` (in the format 10.x.x.x).
+`http://IP:32400/web` 
 
-### Configuring Plex
+Where `IP` is the IP we got from the `README`, For example:
 
-To avoid having to use the SSH tunnel to talk to Plex we need to make it available for remote connections.  To do this, please click the settings icon in the top-right, then server, then "show advanced". In the general section you may need to sign in. Then select the "remote access" option. You'll see an IP address and port provided in this format:
+`http://10.0.3.2:32400/web`
+
+Configuring Plex
+---
+
+To avoid having to use the SSH tunnel to talk to Plex we need to make it available for remote connections. To do this, please click the settings icon in the top-right, then server, then "show advanced". In the general section you may need to sign in. Then select the "remote access" option. You'll see an IP address and port provided in this format:
 
 **1:** Click on the settings icon.
 
@@ -68,7 +99,7 @@ To avoid having to use the SSH tunnel to talk to Plex we need to make it availab
 
 ![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Plex/1.png)
 
-**1:** You will be logged in and see an avatar of yoru account.
+**1:** You will be logged in and see an avatar of your account.
 **2:** Click on the `Remote Access` section. 
 
 ![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Plex/2.png)
@@ -80,7 +111,7 @@ To avoid having to use the SSH tunnel to talk to Plex we need to make it availab
 
 **1:** Make sure you are in the Remote Access section
 **2:** Make sure you have shown the advanced settings
-**3:** This is your remote address to access plex remotely.
+**3:** This is your remote address to access Plex remotely.
 
 ~~~
 123.123.123.123:12345/web
@@ -113,6 +144,8 @@ Remote Connections issues
 Remote Access:
 ---
 
+> **Important note:** You must not use the active SSH tunnel proxy to connect to the remote connections. Disable your proxy first and then try to connect to the remote address.
+
 In a web browser connect to the remote access URL shown in previous steps. It will need to be in the format:
 
 ~~~
@@ -142,7 +175,7 @@ The channels section is based on the UK locale.
 
 In `web` -> `player settings`, select `only image formats` for burn subtitles for better performance.
 
-In `web` -> `general`, untick `Play Theme Music`
+In `web` -> `general`, un check `Play Theme Music`
 
 Add you own tips here!
 
