@@ -28,26 +28,12 @@ Files found via [http://www.java.com/en/download/manual.jsp?locale=en](http://ww
      
 This method will download and install/update the 64 bit Java files for Linux
 
-### Java 1.7 U75
-
-Download v7:
-
-~~~
-wget -O ~/java.tar.gz http://javadl.sun.com/webapps/download/AutoDL?BundleId=101460
-~~~
-
-Unpack the files:
-
-~~~
-tar xf ~/java.tar.gz --strip-components=1 -C ~/
-~~~
-
-### Java 1.8 U45
+### Java 1.8 U51
 
 Download v8:
 
 ~~~
-wget -qO ~/java.tar.gz http://javadl.sun.com/webapps/download/AutoDL?BundleId=106240
+wget -qO ~/java.tar.gz http://javadl.sun.com/webapps/download/AutoDL?BundleId=108139
 ~~~
 
 Unpack the files:
@@ -64,20 +50,12 @@ Manually call `java` it like this:
 ~/bin/java -version
 ~~~
 
-You will see this for Java 7:
+You will see this:
 
 ~~~
-java version "1.7.0_75"
-Java(TM) SE Runtime Environment (build 1.7.0_75-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 24.75-b04, mixed mode)
-~~~
-
-or this for Java 8:
-
-~~~
-java version "1.8.0_45"
-Java(TM) SE Runtime Environment (build 1.8.0_45-b14)
-Java HotSpot(TM) 64-Bit Server VM (build 25.45-b02, mixed mode)
+java version "1.8.0_51"
+Java(TM) SE Runtime Environment (build 1.8.0_51-b16)
+Java HotSpot(TM) 64-Bit Server VM (build 25.51-b03, mixed mode)
 ~~~
 
 Unless you used the `-version` command before installing the update can just do this command below, otherwise log into a new SSH session for the changes to take effect and then check your version again.

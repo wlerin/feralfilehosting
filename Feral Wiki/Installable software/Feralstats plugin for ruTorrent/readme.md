@@ -6,12 +6,12 @@ The plugin shows how much external traffic and disk usage that has been used, an
 To install in [SSH](https://www.feralhosting.com/faq/view?question=12):
 
 ~~~
-cd ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/
+cd ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/
 wget -qO feralstats.zip http://git.io/nB1WyA
 unzip -qo feralstats.zip && rm -f feralstats.zip
 ~~~
 
-To upload using FTP:
+To upload using FTP do this:
 
 **1:** Download [http://git.io/nB1WyA](http://git.io/nB1WyA)
 **2:** Extract the archive.
@@ -23,7 +23,7 @@ To upload using FTP:
 
 To use:
 
-**1:** After uploading, reload Rutorrent in your browser. Pressing CTLR + F5 will force a refresh.
+**1:** After uploading, reload Rutorrent in your browser. Pressing CTRL + F5 will force a refresh.
 **2:** Authenticate the tool in the lower left corner of ruTorrent, if it has not already authenticated.
 
 
