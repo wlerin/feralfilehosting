@@ -117,9 +117,9 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 ## Custom Variables Start ##
 ############################
 #
-madsonicversion="5.1 Build 5200"
-javaversion="1.8 Update 45"
-jvdecimal="1.8.0_45"
+madsonicversion="5.1 Build 5240"
+javaversion="1.8 Update 51"
+jvdecimal="1.8.0_51"
 #
 # Defines the memory variable
 initmemory="2048"
@@ -129,15 +129,15 @@ maxmemory="2048"
 installedjavaversion="$(cat ~/.javaversion 2> /dev/null)"
 #
 # Java URL
-javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=106240"
+javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=108139"
 #
 # Madsonic Standalone files
-madsonicfv="https://bitbucket.org/feralhosting/feralfiles/downloads/5.1.5200-standalone.zip"
-madsonicfvs="5.1.5200-standalone.zip"
+madsonicfv="https://github.com/feralhosting/feralfilehosting/releases/download/Madsonic/5.1.5240-standalone.zip"
+madsonicfvs="5.1.5240-standalone.zip"
 #
 # ffmpeg files
-mffmpegfvc="https://bitbucket.org/feralhosting/feralfiles/downloads/sonic.ffmpeg.17.10.2014.zip"
-mffmpegfvcs="sonic.ffmpeg.17.10.2014.zip"
+mffmpegfvc="https://github.com/feralhosting/feralfilehosting/releases/download/Madsonic/sonic.ffmpeg.04.07.2015.zip"
+mffmpegfvcs="sonic.ffmpeg.04.07.2015.zip"
 #
 ############################
 ### Custom Variables End ###
@@ -602,7 +602,7 @@ then
         echo -e "\033[36m""$mffmpegfvcs""\e[0m" "Has been downloaded and renamed to" "\033[36m""ffmpeg.tar.gz\e[0m"
         echo -e "\033[36m""$mffmpegfvcs""\e[0m" "Is being unpacked now."
         unzip -qo ~/sonictmp/ffmpeg.zip -d ~/private/madsonic/transcode/
-        chmod -f 700 ~/private/madsonic/transcode/{Audioffmpeg,ffmpeg,lame,xmp}
+        chmod -f 700 ~/private/madsonic/transcode/{ffmpeg,lame,xmp}
         echo -e "\033[36m""$mffmpegfvcs""\e[0m" "Has been unpacked to" "\033[36m~/private/madsonic/transcode/\e[0m"
         rm -rf ~/sonictmp
         echo
@@ -721,7 +721,7 @@ then
             cp -rf ~/sonictmp/. ~/private/madsonic/
             wget -qO ~/ffmpeg.zip "$mffmpegfvc"
             unzip -qo ~/ffmpeg.zip -d ~/private/madsonic/transcode
-            chmod -f 700 ~/private/madsonic/transcode/{Audioffmpeg,ffmpeg,lame,xmp}
+            chmod -f 700 ~/private/madsonic/transcode/{ffmpeg,lame,xmp}
             echo -n "$madsonicfvs" > ~/private/madsonic/.version
             rm -rf ~/madsonic.zip ~/ffmpeg.zip ~/sonictmp
             sed -i 's|^MADSONIC_CONTEXT_PATH=/$|MADSONIC_CONTEXT_PATH=/$(whoami)/madsonic|g' ~/private/madsonic/madsonic.sh
