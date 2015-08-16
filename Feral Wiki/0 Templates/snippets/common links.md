@@ -4,6 +4,8 @@ Common links and phrases
 
 ~~~
 
+> **Important note:** You can also create this directory structure using your FTP client of choice.
+
 Please select a port between the range of `10001-32001`
 
 SSH to your slot and do these commands:
