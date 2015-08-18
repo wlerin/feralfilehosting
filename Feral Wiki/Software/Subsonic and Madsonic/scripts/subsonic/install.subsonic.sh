@@ -118,8 +118,8 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 ############################
 #
 subsonicversion="5.2.1"
-javaversion="1.8 Update 45"
-jvdecimal="1.8.0_45"
+javaversion="1.8 Update 60"
+jvdecimal="1.8.0_60"
 #
 # Defines the memory variable
 # buffer
@@ -127,13 +127,13 @@ maxmemory="2048"
 # Gets the Java version from the last time this script installed Java
 installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 # Java URL
-javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=106240"
+javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=109700"
 # Subsonic Standalone files
 subsonicfv="http://downloads.sourceforge.net/project/subsonic/subsonic/5.2.1/subsonic-5.2.1-standalone.tar.gz"
 subsonicfvs="subsonic-5.2.1-standalone.tar.gz"
 # ffmpeg files
-sffmpegfv="https://bitbucket.org/feralhosting/feralfiles/downloads/sonic.ffmpeg.17.10.2014.zip"
-sffmpegfvs="sonic.ffmpeg.17.10.2014.zip"
+sffmpegfv="https://github.com/feralhosting/feralfilehosting/releases/download/Madsonic/sonic.ffmpeg.04.07.2015.zip"
+sffmpegfvs="sonic.ffmpeg.04.07.2015.zip"
 #
 ############################
 ### Custom Variables End ###

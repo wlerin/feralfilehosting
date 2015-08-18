@@ -118,8 +118,8 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 ############################
 #
 madsonicversion="5.1 Build 5240"
-javaversion="1.8 Update 51"
-jvdecimal="1.8.0_51"
+javaversion="1.8 Update 60"
+jvdecimal="1.8.0_60"
 #
 # Defines the memory variable
 initmemory="2048"
@@ -129,7 +129,7 @@ maxmemory="2048"
 installedjavaversion="$(cat ~/.javaversion 2> /dev/null)"
 #
 # Java URL
-javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=108139"
+javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=109700"
 #
 # Madsonic Standalone files
 madsonicfv="https://github.com/feralhosting/feralfilehosting/releases/download/Madsonic/5.1.5240-standalone.zip"
