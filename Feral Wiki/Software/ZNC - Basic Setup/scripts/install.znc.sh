@@ -36,6 +36,7 @@ if [[ ! -z "$1" && "$1" = 'changelog' ]]
 then
     echo
     #
+    echo '1.0.6 apache proxy pass updated for jessie'
     echo '1.0.5 obsolete sed line removed'
     echo '1.0.4 bug fixes and tweaks.'
     echo '1.0.3 proxypass for apache or nginx'
@@ -59,7 +60,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.0.5"
+scriptversion="1.0.6"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.znc"
@@ -136,7 +137,7 @@ zncproxy () {
     # Apache proxypass
     if [[ -d ~/.apache2/conf.d ]]
     then
-        echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\nInclude /etc/apache2/mods-available/ssl.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\nSSLProxyEngine On\n\nProxyPass /znc https://10.0.0.1:'"$appport"'/${USER}/znc retry=0 timeout=5\nProxyPassReverse /znc https://10.0.0.1:'"$appport"'/${USER}/znc' > ~/.apache2/conf.d/znc.conf
+        echo -en 'Include /etc/apache2/mods-available/proxy.load\nInclude /etc/apache2/mods-available/proxy_http.load\nInclude /etc/apache2/mods-available/headers.load\nInclude /etc/apache2/mods-available/ssl.load\n\nProxyRequests Off\nProxyPreserveHost On\nProxyVia On\nSSLProxyEngine on\nSSLProxyVerify none\nSSLProxyCheckPeerCN off\nSSLProxyCheckPeerName off\nSSLProxyCheckPeerExpire off\n\nProxyPass /znc https://10.0.0.1:'"$appport"'/${USER}/znc retry=0 timeout=5\nProxyPassReverse /znc https://10.0.0.1:'"$appport"'/${USER}/znc' > ~/.apache2/conf.d/znc.conf
         /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
     fi
     # Nginx Proxypass
