@@ -134,6 +134,10 @@ updaterenabled="1"
 ############################
 #
 zncproxy () {
+    if [[ -f ~/.znc/configs/znc.conf ]]
+    then
+        appport="$(sed -rn 's/(.*)Port = (.*)/\2/p' ~/.znc/configs/znc.conf)"
+    fi
     # Apache proxypass
     if [[ -d ~/.apache2/conf.d ]]
     then
