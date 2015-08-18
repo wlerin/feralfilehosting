@@ -15,6 +15,14 @@ Then restart Apache.
 
 This command will reload your `conf` files instead of restarting.
 
+> **Important note:** This error below is normal and to be expected when reloading Apache2.
+
+~~~
+mkdir: cannot create directory ‘/var/run/apache2’: Permission denied
+~~~
+
+Use this command to reload Apache2:
+
 ~~~
 /usr/sbin/apache2ctl -k graceful
 ~~~
