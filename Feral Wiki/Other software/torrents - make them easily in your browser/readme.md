@@ -78,7 +78,7 @@ Save the file by pressing Control+x and accepting with Y.
 **5:** Move the `index.php` to be visible by HTTP.  If you're an rutorrent user, the easiest way to to move it to your rutorrent folder with the below command
 
 ~~~
-mv index.php ~/www/$(whoami).$(hostname)/public_html/rutorrent/make.php
+mv index.php ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/make.php
 ~~~
 .
 5b. If you aren't an rutorrent user, be sure to put the php file in a folder that is password protected.  You can find directions to pass protect your WWW folders in the introduction for this FAQ.

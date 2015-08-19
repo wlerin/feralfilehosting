@@ -32,7 +32,7 @@ rsync -avhPS
 The rysnc command itself with options. you can mostly ignore this part.
 
 ~~~
-~/www/$(whoami).$(hostname)/public_html/rutorrent/share/users/
+~/www/$(whoami).$(hostname -f)/public_html/rutorrent/share/users/
 ~~~
 
 The location of the directory you wish rsync to backup

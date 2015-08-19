@@ -364,16 +364,16 @@ Feral FAQ Cheat Sheet
 
 What is this? this is a list of preferred formatting when adding certain info. Feel free to add to this.
 
-Use `$(whoami)` and `$(hostname)` to automatically insert a users info.
+Use `$(whoami)` and `$(hostname -f)` to automatically insert a users info.
 
 ~~~
-cd ~/www/$(whoami).$(hostname)/public_html/
+cd ~/www/$(whoami).$(hostname -f)/public_html/
 ~~~
 
 The following command in SSH to see the `hostname` and IP:
 
 ~~~
-host $(hostname)
+host $(hostname -f)
 ~~~
 
 The following command in SSH to see the IP only:

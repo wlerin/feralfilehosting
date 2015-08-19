@@ -34,7 +34,7 @@ You should be able to just click on this file from your apache/nginx/h5ai index.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Owncloud%20-%20Basic%20setup/web-install-3.png)
 
-The easiest way to install Owncloud is to use the sqlite database option (default). Using MySQL can be done but requires a lot of extra steps that we are not going to cover in this basic set-up.
+The easiest way to install Owncloud is to use the sqlite database option (default). 
 
 Once you have visited the URL in a browser you will see this:
 
@@ -43,7 +43,7 @@ Once you have visited the URL in a browser you will see this:
 Using Owncloud with the valid SSL URL format instead of the default.
 ---
 
-If you want to be able to use the valid SSL URL with owncloud you must make these edits.
+If you want to be able to use the valid SSL URL with Owncloud you must make these edits.
 
 Inside your `/owncloud` installation is a folder called `config` and inside this is a file called `config.php`.
 
@@ -56,7 +56,7 @@ owncloud/config/config.php
 To edit this file using nano:
 
 ~~~
-nano -w ~/www/$(whoami).$(hostname)/public_html/owncloud/config/config.php
+nano -w ~/www/$(whoami).$(hostname -f)/public_html/owncloud/config/config.php
 ~~~
 
 Open this file with a text editor and add these new options:
@@ -68,7 +68,7 @@ Open this file with a text editor and add these new options:
 
 Where `server` is the name of your Feral server that is hosting owncloud and where `username` is your Feral username.
 
-Once you have done this is will look something like this:
+**1:** Once you have done this your `config.php` will look something like this with the two new customised lines added at the end:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Owncloud%20-%20Basic%20setup/config.png)
 
@@ -104,3 +104,42 @@ Now reload nginx:
 ~~~
 
 Owncloud should now work as intended with nginx.
+
+Using MySQL with Owncloud:
+---
+
+> **Important note:** You will need to have MySQL already installed. MySQL can take up to 15 minutes to install as it is compiled upon request of installation so please be patient:
+
+You can do this from the `Install Software` link in your [Account Manager](https://www.feralhosting.com/manager/) for the relevant slot.
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/install_mysql.png)
+
+Then click the button to install MySQL.
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/install_software_button.png)
+
+> **Important note:** You will see the installation process listed as pending. Refresh the page periodically to see when it has been completed. 
+
+Take note of your `Socket` path and your `Password` once the installation is completed.
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/mysql_socket.png)
+
+Configuring Owncloud to use MySQL:
+---
+
+**1:** Select Mysql as the database type. The use these settings to configure Owncloud and MySQL.
+
+**2:**Username: `root`
+**3:**Password: Your mysql root user password
+**4:**Database name: `owncloud`
+**5:**Hostname: `localhost:/media/DiskID/home/username/private/mysql/socket`
+**6:** Click on `Finish setup`
+
+Where the `/media/DiskID/home/username/private/mysql/socket` is your socket path listed on the Slot Details page for the relevant slot.
+
+![](https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Owncloud%20-%20Basic%20setup/mysql.png)
+
+Owncloud will then use the root account to configure the required users and databases. The MySQL set-up can take a few minutes to complete so please be patient.
+
+
+

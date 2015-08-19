@@ -231,12 +231,12 @@ Please leave 4 blank lines at the end of any question you edit or submit. This i
 [h2]Feral FAQ Cheat Sheet[/h2]
 What is this? this is a list of preferred formatting when adding certain info. Feel free to add to this.
 
-Use [code single]$(whoami)[/code] and [code single]$(hostname)[/code] to automatically insert a users info.
+Use [code single]$(whoami)[/code] and [code single]$(hostname -f)[/code] to automatically insert a users info.
 
-[code]cd ~/www/$(whoami).$(hostname)/public_html/[/code]
+[code]cd ~/www/$(whoami).$(hostname -f)/public_html/[/code]
 The following command in SSH to see the [code single]hostname[/code] and IP:
 
-[code]host $(hostname)[/code]
+[code]host $(hostname -f)[/code]
 The following command in SSH to see the IP only:
 
 [code]hostname -i[/code]

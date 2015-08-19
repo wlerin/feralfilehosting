@@ -57,7 +57,7 @@ But it stills works.
 If you update to nginx run this command:
 
 ~~~
-mkdir -p ~/www/$(whoami).$(hostname)/public_html/rutorrent/share/torrents
+mkdir -p ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/share/torrents
 ~~~
 
 Still having issues?

@@ -15,20 +15,20 @@ tar xf ~/SABnzbd.tar.gz
 
 **3:** Run SABnzbd.py
 
-**3.1:** Replace `PORT` in `$(hostname):PORT` with a port number between the range of ` 6000` to `50000`. This is the default port. If you pick the same port as someone else, you'll get an error.  Quit and restart with a different port number.
+**3.1:** Replace `PORT` in `$(hostname -f):PORT` with a port number between the range of ` 6000` to `50000`. This is the default port. If you pick the same port as someone else, you'll get an error.  Quit and restart with a different port number.
 
 **3.2:** Replace `PORT` in `--https PORT` with a port number between the range of ` 6000` to `50000`. Do not use the same port as the default port, use one above or below to keep things simple. This will be your https port. You will be required to accept the invalid certificate in order to connect.
 
 This is the command you will need to edit:
 
 ~~~
-screen -fa -dmS sabnzbd python SABnzbd-*/SABnzbd.py --browser 0 --server $(hostname):PORT --https PORT
+screen -fa -dmS sabnzbd python SABnzbd-*/SABnzbd.py --browser 0 --server $(hostname -f):PORT --https PORT
 ~~~
 
 For example:
 
 ~~~
-screen -fa -dmS sabnzbd python SABnzbd-*/SABnzbd.py --browser 0 --server $(hostname):12345 --https 12346
+screen -fa -dmS sabnzbd python SABnzbd-*/SABnzbd.py --browser 0 --server $(hostname -f):12345 --https 12346
 ~~~
 
 **4:** Access SABnzb through your browser.

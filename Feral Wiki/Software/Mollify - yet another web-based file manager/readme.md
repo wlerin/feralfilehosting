@@ -22,7 +22,7 @@ Installation
 2.1: Move to the WWW root using this command via SSH
 
 ~~~
-cd ~/www/$(whoami).$(hostname)/public_html/
+cd ~/www/$(whoami).$(hostname -f)/public_html/
 ~~~
 
 2.2: Download and unzip the file using wget and zip via SSH using this command 

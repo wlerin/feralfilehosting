@@ -1,2 +1,2 @@
-cp -f ~/www/$(whoami).$(hostname)/public_html/rutorrent/.htpasswd ~/.nginx/conf.d/000-default-server.d/scgi-htpasswd
+cp -f ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/.htpasswd ~/.nginx/conf.d/000-default-server.d/scgi-htpasswd
 sed -ri 's/(.*):(.*)/rutorrent:\2/g' ~/.nginx/conf.d/000-default-server.d/scgi-htpasswd

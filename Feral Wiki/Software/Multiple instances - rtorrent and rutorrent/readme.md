@@ -93,7 +93,7 @@ cp -f ~/.rtorrent.rc ~/.rtorrent-1.rc
 **2:** Clone the rutorrent Web Gui
 
 ~~~
-cp -rf ~/www/$(whoami).$(hostname)/public_html/rutorrent/. ~/www/$(whoami).$(hostname)/public_html/rutorrent-1
+cp -rf ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/. ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-1
 ~~~
 
 **3:** Create some directories for our new instance.
@@ -174,7 +174,7 @@ Edit the files - rutorrent
 Open your `~/www/username.feralhosting.com/public_html/rutorrent-1/conf/config.php`
 
 ~~~
-nano -w ~/www/$(whoami).$(hostname)/public_html/rutorrent-1/conf/config.php
+nano -w ~/www/$(whoami).$(hostname -f)/public_html/rutorrent-1/conf/config.php
 ~~~
 
 Edit this line, changing the paths to reflect the new locations.

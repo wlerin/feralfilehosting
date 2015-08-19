@@ -18,7 +18,7 @@ You **DO NOT** need to edit this code before it will work for you
 To edit in SSH do:
 
 ~~~
-nano -w ~/www/$(whoami).$(hostname)/public_html/.htaccess
+nano -w ~/www/$(whoami).$(hostname -f)/public_html/.htaccess
 ~~~
 
 Then copy an paste this code below:
@@ -40,7 +40,7 @@ The press and hold `CTRL` then press `x` to save. Press `y` to confirm.
 Run this `chmod` command in SSH no matter how you created the file:
 
 ~~~
-chmod 644 ~/www/$(whoami).$(hostname)/public_html/.htaccess
+chmod 644 ~/www/$(whoami).$(hostname -f)/public_html/.htaccess
 ~~~
 
 If you are still unsure here is an example you can paste into your `.htaccess` on pastebin. 

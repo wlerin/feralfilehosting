@@ -167,7 +167,7 @@ The Output should look like this.
 Get the `Hostname:Default_voice_port` to use when connecting with this command.
 
 ~~~
-echo "$(hostname):$(sed -n -e 's/default_voice_port=\(.*\)/\1/p' ~/private/teamspeak/ts3server.ini)"
+echo "$(hostname -f):$(sed -n -e 's/default_voice_port=\(.*\)/\1/p' ~/private/teamspeak/ts3server.ini)"
 ~~~
 
 Teamspeak 3 Client

@@ -53,7 +53,7 @@ Retrieve important information:
 PASSWORD=$(cat ~/.config/deluge2/auth | grep $(whoami) | cut -d\:  -f2)
 echo "Your deluge web interface connection information is as follows:"; echo "HOST=localhost"; echo "PORT=${NEW_PORT}"; echo "USERNAME=$(whoami)"; echo "PASSWORD=${PASSWORD}"; echo "###";
 
-echo "Your deluge thin client connection information is as follows:"; echo "HOST=$(hostname)"; echo "PORT=${NEW_PORT}"; echo "USERNAME=$(whoami)"; echo "PASSWORD=${PASSWORD}";
+echo "Your deluge thin client connection information is as follows:"; echo "HOST=$(hostname -f)"; echo "PORT=${NEW_PORT}"; echo "USERNAME=$(whoami)"; echo "PASSWORD=${PASSWORD}";
 ~~~
 
 Start new instance:

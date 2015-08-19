@@ -36,7 +36,7 @@ SSH to your slot and run these commands:
 killall irssi -u $(whoami); screen -wipe
 cp -f ~/.autodl/autodl.cfg ~/.autodl/autodl.cfg.bak
 cd && rm -rf .irssi/scripts/AutodlIrssi .irssi/scripts/autorun/autodl-irssi.pl
-cd && rm -rf www/$(whoami).$(hostname)/public_html/rutorrent/plugins/autodl-irssi
+cd && rm -rf www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi
 ~~~
 
 Manual installation of autodl-irssi
@@ -86,7 +86,7 @@ Manual installation of autodl-irssi rutorrent plugin
 > **Important note:** These next commands are to download and then edit the GUI plugin to connect with the process. And are required if you wish to use the rutorrent GUI to manage autodl-irssi.
 
 ~~~
-cd ~/www/$(whoami).$(hostname)/public_html/rutorrent/plugins/
+cd ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/
 wget -qO autodl-rutorrent.zip https://github.com/autodl-community/autodl-rutorrent/archive/master.zip
 unzip -qo autodl-rutorrent.zip
 cp -rf autodl-rutorrent-master/. autodl-irssi

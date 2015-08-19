@@ -13,7 +13,7 @@ hostname -i
 This shows the hostname and `IPv6` address:
 
 ~~~
-host $(hostname)
+host $(hostname -f)
 ~~~
 
 External checks on the slot vis SSH

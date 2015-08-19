@@ -39,7 +39,7 @@ Rapidleech has no password authentication turned on by default, so it is necessa
 **2:** Edit you config.php using nano in SSH using this command:
 
 ~~~
-nano -w ~/www/$(whoami).$(hostname)/public_html/rapidleech/configs/config.php
+nano -w ~/www/$(whoami).$(hostname -f)/public_html/rapidleech/configs/config.php
 ~~~
 
 Find the line:
