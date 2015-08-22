@@ -62,7 +62,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.0.1"
+scriptversion="1.0.2"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.somescript"
@@ -117,6 +117,7 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 ## Custom Variables Start ##
 ############################
 #
+mubmeversion="1.2.10"
 murmururl="http://downloads.sourceforge.net/project/mumble/Mumble/1.2.10/murmur-static_x86-1.2.10.tar.bz2"
 #
 ############################
@@ -326,10 +327,10 @@ then
     echo
     wget -qO ~/server.tar.bz2 "$murmururl"
     tar xf ~/server.tar.bz2
-    cp -rf ~/murmur-static_x86-1.2.10/. ~/private/murmur
-    cd && rm -rf {murmur-static_x86-1.2.10,server.tar.bz2}
+    cp -rf ~/murmur-static_x86-"$mubmeversion"/. ~/private/murmur
+    cd && rm -rf {murmur-static_x86-"$mubmeversion",server.tar.bz2}
     sed -i 's|port=64738|port='$(shuf -i 10001-32001 -n 1)'|g' ~/private/murmur/murmur.ini
-    echo -e "Here is your murmur server:" "\033[33m""$(hostname)""\e[0m"":""\033[32m""$(sed -n -e 's/port=\(.*\)/\1/p' ~/private/murmur/murmur.ini)""\e[0m"
+    echo -e "Here is your murmur server:" "\033[33m""$(hostname -f)""\e[0m"":""\033[32m""$(sed -n -e 's/port=\(.*\)/\1/p' ~/private/murmur/murmur.ini)""\e[0m"
     echo
     read -ep "Would you like to set a password to connect to the server now? [y] or skip this step [s]: "  confirm
     echo
