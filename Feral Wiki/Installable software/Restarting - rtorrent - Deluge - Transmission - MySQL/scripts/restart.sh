@@ -369,7 +369,6 @@ do
                 echo -e "\033[31m""Restarting Deluge""\e[0m"
                 echo
                 killall -9 -u $(whoami) deluged deluge-web  > /dev/null 2>&1
-                echo
                 if [[ "$(date +%-M)" -le '4' ]] && [[ "$(date +%-M)" -ge '0' ]]; then time="$(( 5 * 60 ))"; fi
                 if [[ "$(date +%-M)" -le '9' ]] && [[ "$(date +%-M)" -ge '5' ]]; then time="$(( 10 * 60 ))"; fi
                 if [[ "$(date +%-M)" -le '14' ]] && [[ "$(date +%-M)" -ge '10' ]]; then time="$(( 15 * 60 ))"; fi
@@ -445,6 +444,7 @@ do
             if [[ -d ~/private/mysql ]]
                 then
                 echo -e "\033[31m""Restarting MySQL""\e[0m"
+                echo
                 killall -u $(whoami) mysqld mysqld_safe  > /dev/null 2>&1
                 bash ~/private/mysql/launch.sh > /dev/null 2>&1
                 echo "Mysql has been restarted"
