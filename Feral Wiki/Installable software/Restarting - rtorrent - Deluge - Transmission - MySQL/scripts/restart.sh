@@ -36,6 +36,7 @@ if [[ ! -z "$1" && "$1" = 'changelog' ]]
 then
     echo
     #
+    echo 'v1.0.9 - deluge restart'
     echo 'v1.0.8 - tweak to rtorrent restart to check for orphaned lock file.'
     echo 'v1.0.7 - rtorrent and deluge will no longer kill custom instances from the multirtru script. Transmision restart timer imeplemented. Other minor tweaks'
     echo 'v1.0.6 - Template updated'
@@ -54,7 +55,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.0.8"
+scriptversion="1.0.9"
 #
 # Script name goes here. Please prefix with install.
 scriptname="restart"
@@ -76,11 +77,11 @@ scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20W
 #
 # This will generate a 20 character random passsword for use with your applications.
 apppass="$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)"
-# This will generate a random port for the script between the range 10001 to 49999 to use with applications. You can ignore this unless needed.
-appport="$(shuf -i 10001-49999 -n 1)"
+# This will generate a random port for the script between the range 10001 to 32001 to use with applications. You can ignore this unless needed.
+appport="$(shuf -i 10001-32001 -n 1)"
 #
 # This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
-while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]; do appport="$(shuf -i 10001-49999 -n 1)"; done
+while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]; do appport="$(shuf -i 10001-32001 -n 1)"; done
 #
 # Script user's http www URL in the format http://username.server.feralhosting.com/
 host1http="http://$(whoami).$(hostname -f)/"
@@ -129,9 +130,10 @@ updaterenabled="1"
 showMenu () 
 {
     echo "1"": Restart rtorrent"
-    echo "2"": Restart Tranmission"
-    echo "3"": Restart MySQL"
-    echo "4"": quit"
+    echo "2"": Restart Deluge"
+    echo "3"": Restart Tranmission"
+    echo "4"": Restart MySQL"
+    echo "5"": quit"
 }
 #
 ############################
@@ -360,6 +362,44 @@ do
             fi
             ;;
         "2")
+            ##
+            echo
+            if [[ -d ~/private/deluge ]]
+            then
+                echo -e "\033[31m""Restarting Deluge""\e[0m"
+                echo
+                killall -9 -u $(whoami) deluged deluge-web  > /dev/null 2>&1
+                echo
+                if [[ "$(date +%-M)" -le '4' ]] && [[ "$(date +%-M)" -ge '0' ]]; then time="$(( 5 * 60 ))"; fi
+                if [[ "$(date +%-M)" -le '9' ]] && [[ "$(date +%-M)" -ge '5' ]]; then time="$(( 10 * 60 ))"; fi
+                if [[ "$(date +%-M)" -le '14' ]] && [[ "$(date +%-M)" -ge '10' ]]; then time="$(( 15 * 60 ))"; fi
+                if [[ "$(date +%-M)" -le '19' ]] && [[ "$(date +%-M)" -ge '15' ]]; then time="$(( 20 * 60 ))"; fi
+                if [[ "$(date +%-M)" -le '24' ]] && [[ "$(date +%-M)" -ge '20' ]]; then time="$(( 25 * 60 ))"; fi
+                if [[ "$(date +%-M)" -le '29' ]] && [[ "$(date +%-M)" -ge '25' ]]; then time="$(( 30 * 60 ))"; fi
+                if [[ "$(date +%-M)" -le '34' ]] && [[ "$(date +%-M)" -ge '30' ]]; then time="$(( 35 * 60 ))"; fi
+                if [[ "$(date +%-M)" -le '39' ]] && [[ "$(date +%-M)" -ge '35' ]]; then time="$(( 40 * 60 ))"; fi
+                if [[ "$(date +%-M)" -le '44' ]] && [[ "$(date +%-M)" -ge '40' ]]; then time="$(( 45 * 60 ))"; fi
+                if [[ "$(date +%-M)" -le '49' ]] && [[ "$(date +%-M)" -ge '45' ]]; then time="$(( 50 * 60 ))"; fi
+                if [[ "$(date +%-M)" -le '54' ]] && [[ "$(date +%-M)" -ge '50' ]]; then time="$(( 55 * 60 ))"; fi
+                if [[ "$(date +%-M)" -le '59' ]] && [[ "$(date +%-M)" -ge '55' ]]; then time="$(( 60 * 60 ))"; fi
+                #
+                while [[ "$(ps x | grep -v grep | grep -c 'deluge')" -eq "0" ]]
+                do
+                    countdown="$(( $time-$(($(date +%-M) * 60 + $(date +%-S))) ))"
+                    printf '\rDeluge will restart in approximately: %dm:%ds ' $(($countdown%3600/60)) $(($countdown%60))
+                done
+                echo -e '\n'
+                #
+                echo -e "\033[31m""$(ps x | grep -v grep | grep 'deluge')""\e[0m"
+                echo
+                echo -e "\033[32m""For troubleshooting refer to the FAQ:""\e[0m" "\033[36m""https://www.feralhosting.com/faq/view?question=158""\e[0m"
+                echo
+            else
+                echo -e "\033[31m""Deluge is not installed. Nothing to do""\e[0m"
+                echo
+            fi
+            ;;
+        "3")
             echo
             if [[ -d ~/private/transmission ]]
             then
@@ -400,7 +440,7 @@ do
                 echo
             fi
             ;;
-        "3")
+        "4")
             echo
             if [[ -d ~/private/mysql ]]
                 then
@@ -417,7 +457,7 @@ do
                 echo
             fi
             ;;
-        "4")
+        "5")
             echo
             echo -e "\033[31m""You chose to quit this script""\e[0m"
             echo
