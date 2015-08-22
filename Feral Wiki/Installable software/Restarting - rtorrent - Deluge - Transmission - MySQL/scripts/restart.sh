@@ -382,7 +382,7 @@ do
                 if [[ "$(date +%-M)" -le '54' ]] && [[ "$(date +%-M)" -ge '50' ]]; then time="$(( 55 * 60 ))"; fi
                 if [[ "$(date +%-M)" -le '59' ]] && [[ "$(date +%-M)" -ge '55' ]]; then time="$(( 60 * 60 ))"; fi
                 #
-                while [[ "$(ps x | grep -v grep | grep -c 'deluge')" -eq "0" ]]
+                while [[ "$(ps x | grep -v grep | grep -c '/usr/bin/python /usr/local/bin/deluged$')" -eq "0" ]]
                 do
                     countdown="$(( $time-$(($(date +%-M) * 60 + $(date +%-S))) ))"
                     printf '\rDeluge will restart in approximately: %dm:%ds ' $(($countdown%3600/60)) $(($countdown%60))
