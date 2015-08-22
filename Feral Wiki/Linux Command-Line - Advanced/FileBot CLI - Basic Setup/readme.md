@@ -24,7 +24,7 @@ FileBot CLI setup
 The download, unpacking and editing.
 
 ~~~
-wget -qO ~/filebot.zip http://downloads.sourceforge.net/project/filebot/filebot/FileBot_4.5.6/FileBot_4.5.6-portable.zip
+wget -qO ~/filebot.zip http://downloads.sourceforge.net/project/filebot/filebot/FileBot_4.6/FileBot_4.6-portable.zip
 unzip -qo ~/filebot.zip -d ~/filebot && rm -f ~/filebot.zip
 ~~~
 
