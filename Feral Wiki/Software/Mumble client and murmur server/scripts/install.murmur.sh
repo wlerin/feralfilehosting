@@ -117,7 +117,7 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 ## Custom Variables Start ##
 ############################
 #
-murmururl="http://downloads.sourceforge.net/project/mumble/Mumble/1.2.8/murmur-static_x86-1.2.8.tar.bz2"
+murmururl="http://downloads.sourceforge.net/project/mumble/Mumble/1.2.10/murmur-static_x86-1.2.10.tar.bz2"
 #
 ############################
 ### Custom Variables End ###
@@ -326,10 +326,10 @@ then
     echo
     wget -qO ~/server.tar.bz2 "$murmururl"
     tar xf ~/server.tar.bz2
-    cp -rf ~/murmur-static_x86-1.2.5/. ~/private/murmur
-    cd && rm -rf {murmur-static_x86-1.2.5,server.tar.bz2}
-    sed -i 's|port=64738|port='$(shuf -i 6000-50000 -n 1)'|g' ~/private/murmur/murmur.ini
-    echo -e "Here is your murmur server:" "\033[33m""$(hostname -f)""\e[0m"":""\033[32m""$(sed -n -e 's/port=\(.*\)/\1/p' ~/private/murmur/murmur.ini)""\e[0m"
+    cp -rf ~/murmur-static_x86-1.2.10/. ~/private/murmur
+    cd && rm -rf {murmur-static_x86-1.2.10,server.tar.bz2}
+    sed -i 's|port=64738|port='$(shuf -i 10001-32001 -n 1)'|g' ~/private/murmur/murmur.ini
+    echo -e "Here is your murmur server:" "\033[33m""$(hostname)""\e[0m"":""\033[32m""$(sed -n -e 's/port=\(.*\)/\1/p' ~/private/murmur/murmur.ini)""\e[0m"
     echo
     read -ep "Would you like to set a password to connect to the server now? [y] or skip this step [s]: "  confirm
     echo
