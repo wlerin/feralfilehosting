@@ -4,9 +4,10 @@
 ##### Basic Info Start #####
 ############################
 #
-# Script Author: randomessence
+# Original Script Author: randomessence
+# Modified Script Author: zovt
 #
-# Script Contributors: 
+# Script Contributors: randomessence, zovt
 #
 # License: This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. https://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -46,8 +47,8 @@ then
     #echo 'v0.0.5 - My changes go here'
     #echo 'v0.0.4 - My changes go here'
     #echo 'v0.0.3 - My changes go here'
-    #echo 'v0.0.2 - My changes go here'
-    echo 'v0.0.1 - Updated templated'
+    echo 'v2.0.0 - Script now installs x64 Murmur'
+    #echo 'v0.0.1 - Updated templated'
     #
     echo
     exit
@@ -62,16 +63,16 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.0.2"
+scriptversion="2.0.0"
 #
 # Script name goes here. Please prefix with install.
-scriptname="install.somescript"
+scriptname="install.murmur"
 #
 # Author name goes here.
-scriptauthor="randomessence"
+scriptauthor="randomessence, zovt"
 #
 # Contributor's names go here.
-contributors="None credited"
+contributors="randomessence, zovt"
 #
 # Set the http://git.io/ shortened URL for the raw github URL here:
 gitiourl="http://git.io/-mVd3g"
@@ -117,8 +118,7 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 ## Custom Variables Start ##
 ############################
 #
-mubmeversion="1.2.10"
-murmururl="http://downloads.sourceforge.net/project/mumble/Mumble/1.2.10/murmur-static_x86-1.2.10.tar.bz2"
+murmurversion="1.2.10"
 #
 ############################
 ### Custom Variables End ###
@@ -135,9 +135,6 @@ updaterenabled="1"
 ###### Function Start ######
 ############################
 #
-example () {
-    echo "This is my example function"
-}
 #
 ############################
 ####### Function End #######
@@ -323,30 +320,29 @@ then
 #### User Script Starts ####
 ############################
 #
-    echo -e "Downloading and configuring murmur"
-    echo
-    wget -qO ~/server.tar.bz2 "$murmururl"
-    tar xf ~/server.tar.bz2
-    cp -rf ~/murmur-static_x86-"$mubmeversion"/. ~/private/murmur
-    cd && rm -rf {murmur-static_x86-"$mubmeversion",server.tar.bz2}
-    sed -i 's|port=64738|port='$(shuf -i 10001-32001 -n 1)'|g' ~/private/murmur/murmur.ini
-    echo -e "Here is your murmur server:" "\033[33m""$(hostname -f)""\e[0m"":""\033[32m""$(sed -n -e 's/port=\(.*\)/\1/p' ~/private/murmur/murmur.ini)""\e[0m"
-    echo
-    read -ep "Would you like to set a password to connect to the server now? [y] or skip this step [s]: "  confirm
-    echo
-    if [[ "$confirm" =~ ^[Yy]$ ]]; then
-        read -ep "please enter you password: " mumblepass
-        echo
-        sed -i 's|serverpassword=|serverpassword='"$mumblepass"'|g' ~/private/murmur/murmur.ini
-    fi
-    ~/private/murmur/./murmur.x86 -ini ~/private/murmur/murmur.ini
-    echo -e "The server has been started."
-    echo
-    echo -e "Here is a list of the running servers:"
-    echo
-    echo $(ps x | grep murmur | grep -v grep)
-    echo
-    exit
+    echo "Installing murmur to ~/murmur/usr/sbin/murmurd"
+    mkdir ~/murmur/
+    cd ~/murmur/
+    echo "Grabbing dependencies"
+    apt-get download libavahi-compat-libdnssd1 libiceutil35 libqt4-dbus libqt4-network libqt4-sql-sqlite libqt4-sql libqt4-xml libqtcore4 libqtdbus4 libzeroc-ice35 mumble-server
+    for f in $(ls)
+    do
+    	echo "Extracting $f"
+    	dpkg-deb -x $f ~/murmur/local/
+    done
+    cp -rf ~/murmur/local/* ~/murmur/
+    mkdir ~/murmur/usr/sbin/sqldrivers
+    cp ~/murmur/usr/lib/x86_64-linux-gnu/qt4/plugins/sqldrivers/libqsqlite.so ~/murmur/usr/sbin/sqldrivers
+    echo "Creating shortcut '~/murmur/murmurd'"
+    ln -s ~/murmur/usr/sbin/murmurd ~/murmur/murmurd
+    echo "Adding libraries to LD_LIBRARY_PATH"
+    echo -e "export LD_LIBRARY_PATH=~/murmur/usr/lib/x86_64-linux-gnu:/usr/lib" >> ~/.bash_profile
+    source ~/.bash_profile
+    echo "Copying default configuration"
+    cp ~/murmur/etc/mumble-server.ini ~/murmur/murmur.ini
+    echo "Cleaning up"
+    rm -rf ~/murmur/*.deb ~/murmur/local
+    echo "Now please follow the rest of the Wiki to configure your murmur.ini. Remember to change your port!"
 #
 ############################
 ##### User Script End  #####
