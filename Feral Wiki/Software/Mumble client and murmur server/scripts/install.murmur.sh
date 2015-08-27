@@ -336,13 +336,13 @@ then
     echo "Creating shortcut '~/murmur/murmurd'"
     ln -s ~/murmur/usr/sbin/murmurd ~/murmur/murmurd
     echo "Adding libraries to LD_LIBRARY_PATH"
-    echo -e "export LD_LIBRARY_PATH=~/murmur/usr/lib/x86_64-linux-gnu:/usr/lib" >> ~/.bash_profile
-    source ~/.bash_profile
+    echo -e "export LD_LIBRARY_PATH=~/murmur/usr/lib/x86_64-linux-gnu:/usr/lib" >> ~/.bashrc
     echo "Copying default configuration"
     cp ~/murmur/etc/mumble-server.ini ~/murmur/murmur.ini
     echo "Cleaning up"
     rm -rf ~/murmur/*.deb ~/murmur/local
     echo "Now please follow the rest of the Wiki to configure your murmur.ini. Remember to change your port!"
+    echo "***** DON'T FORGET TO RUN: 'source ~/.bashrc' ******"
 #
 ############################
 ##### User Script End  #####
