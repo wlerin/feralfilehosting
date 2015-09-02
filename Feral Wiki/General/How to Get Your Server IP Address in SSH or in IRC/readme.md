@@ -16,7 +16,7 @@ This shows the hostname and `IPv6` address:
 host $(hostname -f)
 ~~~
 
-External checks on the slot vis SSH
+External checks on the slot via SSH
 ---
 
 [http://icanhazip.com/](http://major.io/icanhazip-com-faq/)

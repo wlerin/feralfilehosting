@@ -22,22 +22,31 @@ Creating an SSH Tunnel to use as a local SOCKS proxy with KiTTY.
 > **Important note:** You can add and create more than one tunnel per session if needed.
 
 **1:** Navigate to the `Session` panel if not already there (this panel is the default when opening KiTTY)
+
 **2:** Select the session you want to load
+
 **3:** Click on `Load` to load this session and all configurations associated with it.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/Kitty%20-%20SSH%20-%20Private%20Keys%20-%20SSH%20tunnels/10.png)
 
 **1:** Navigate to the `Connection` panel.
+
 **2:** Navigate down to the `SSH Panel.
+
 **3:** Select the `Tunnels` panel.
+
 **4:** Configure the new dynamic forwarded port that will act as a local SOCKS proxy (see next image for details)
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/Kitty%20-%20SSH%20-%20Private%20Keys%20-%20SSH%20tunnels/11.png)
 
 **1:** Select the `Auto` radio (this should already be selected by default)
+
 **2:** Select the `Dynamic` radio
+
 **3:** Select and enter a port between the range of `10001` to `32001`
+
 **4:** Click `Add` to add this SSH tunnel.
+
 **5:** Once added you will see the tunnel listed in the `Forwarded ports` window.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/Kitty%20-%20SSH%20-%20Private%20Keys%20-%20SSH%20tunnels/12.png)
@@ -45,7 +54,9 @@ Creating an SSH Tunnel to use as a local SOCKS proxy with KiTTY.
 > **Important note:** Don't forget to save this session after making any new changes.
 
 **1:** Navigate back to the `Session` panel.
+
 **2:** Select the session you want to save and merge the new configuration settings with.
+
 **3:** Click on `Save` to have these new settings saved to the selected session.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/SSH/Kitty%20-%20SSH%20-%20Private%20Keys%20-%20SSH%20tunnels/13.png)
@@ -95,7 +106,9 @@ nano ~/.ssh/authorized_keys
 ~~~
 
 **5:** Paste your clipboard contents into the file, ensuring that the contents are all on one line (remove line breaks)
+
 **6:** Then press and hold `CTRL` and then press `x` to save. Press `y` to confirm.
+
 **7:** Type `exit` to leave SSH session on feral slot
 
 Creating SSH tunnels:
@@ -109,7 +122,7 @@ ssh -D 12345 -l username server.feralhosting.com
 
 Replace `username` and `server` with your own details.
 
-**Important note:** You must change `12345` to another port number if you wish. Use a port between the range of `10001` to `32001`.
+> **Important note:** You must change `12345` to another port number if you wish. Use a port between the range of `10001` to `32001`.
 
 **2:** You have now created an Socks proxy on port your selected port. See instructions later in this article for instructions on how to use this proxy.
 
@@ -121,7 +134,7 @@ You can semi-automate the above process by creating an alias for the tunnel comm
 **1:** in terminal type 
 
 ~~~
-nano ~/.bash_rc
+nano ~/.bash_profile
 ~~~
 
 **2:** In the resulting  editor window type 
@@ -132,15 +145,20 @@ alias feraltun="screen ssh -D 12345 -l username server.feralhosting.com"
 
 Replace `username` and `server` with your own details.
 
-**Important note:** You must change `12345` to another port number if you wish. Use a port between the range of `10001` to `32001`.
+> **Important note:** You must change `12345` to another port number if you wish. Use a port between the range of `10001` to `32001`.
 
 **3:** Then press and hold `CTRL` and then press `x` to save. Press `y` to confirm.
 
+**4:** To enable the new alias in your current session type:
+
+~~~
+source ~/.bash_profile
+~~~
+
+
 **To use your new alias:**
 
-**1:** Start a new terminal session (type exit to leave the old one if still open)
-
-**2:** Type:
+**1:** Type:
 
 ~~~
 feraltun
@@ -148,9 +166,9 @@ feraltun
 
 Your SSH tunnel is now active.
 
-**3:** Then press and hold `CTRL` and `a` then press `d` to detach from the screen. This leaves it running in the background.
+**2:** Then press and hold `CTRL` and `a` then press `d` to detach from the screen. This leaves it running in the background.
 
-**4:** You can now close terminal and use your tunnel
+**3:** You can now close terminal and use your tunnel
 
 > **Important note:**  If you have any questions about this procedure for OS X or suggestions on improving the instructions, please contact liriel in IRC.
 

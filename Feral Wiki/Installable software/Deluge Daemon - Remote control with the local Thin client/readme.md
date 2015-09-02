@@ -12,8 +12,9 @@ This bash script will do the following things for you.:
 **1:** Print your hostname and daemon port 
 **2:** Print your username and password
 **3:** Enable remote access
-**4:** Kill deluge and the Web Gui 
-**5:** Restart deluge and the Web Gui
+**4:** Kill deluge and the Web Gui
+
+> **Important note:** You will need to wait up to five minutes for the system to restart Deluge and the WebUi
 
 You will then be able to connect to deluge using the thin client with the information printed by the script.
 

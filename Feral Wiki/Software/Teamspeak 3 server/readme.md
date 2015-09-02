@@ -21,7 +21,7 @@ If Teamspeak is not giving you the privilege key on first run you will need to c
 And look for this error
 
 ~~~
-Server() error while starting servermanager, error: instance check error
+Server() error while starting servermanager, error: instance limit reached
 ~~~
 
 It means Teamspeak is detecting another users instance and will not let you run yours, do this command in SSH to confirm:
