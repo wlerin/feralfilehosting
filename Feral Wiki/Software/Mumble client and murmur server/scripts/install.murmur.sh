@@ -47,6 +47,7 @@ then
     #echo 'v0.0.5 - My changes go here'
     #echo 'v0.0.4 - My changes go here'
     #echo 'v0.0.3 - My changes go here'
+    echo 'v2.0.1 - user experience tweaks'
     echo 'v2.0.0 - Script now installs x64 Murmur'
     echo 'v0.0.1 - Updated templated'
     #
@@ -63,7 +64,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="2.0.0"
+scriptversion="2.0.1"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.murmur"
@@ -354,13 +355,16 @@ then
     sed -i 's#logfile=/var/log/mumble-server/mumble-server.log#logfile='"$HOME"'/murmur/mumble-server.log#g' ~/murmur/murmur.ini
     sed -i 's#pidfile=/var/run/mumble-server/mumble-server.pid#pidfile='"$HOME"'/murmur/mumble-server.pid#g' ~/murmur/murmur.ini
     sed -i 's#serverpassword=#serverpassword='"$apppass"'#g' ~/murmur/murmur.ini
-    echo "Cleaning up"
-    echo
     rm -rf ~/murmur/*.deb ~/murmur/local
-    echo "Now please follow the rest of the Wiki: https://www.feralhosting.com/faq/view?question=299"
+    echo "Use this command to load murmur:"
     echo
-    ~/murmur/murmurd -ini ~/murmur/murmur.ini
-    echo "http://$(hostname -f):$appport"
+    echo -e "\033[31m"'~/murmur/murmurd -ini ~/murmur/murmur.ini'"\e[0m"
+    echo
+    echo "Then connect using this URL:"
+    echo
+    echo -e "\033[32m""http://$(hostname -f):$appport""\e[0m"
+    echo
+    echo "Please see the FAQ for troubleshooting: https://www.feralhosting.com/faq/view?question=299"
     echo
     cd && bash
 #
