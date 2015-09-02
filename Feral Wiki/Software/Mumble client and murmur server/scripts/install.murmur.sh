@@ -47,6 +47,7 @@ then
     #echo 'v0.0.5 - My changes go here'
     #echo 'v0.0.4 - My changes go here'
     #echo 'v0.0.3 - My changes go here'
+    echo 'v2.0.2 - user experience tweaks'
     echo 'v2.0.1 - user experience tweaks'
     echo 'v2.0.0 - Script now installs x64 Murmur'
     echo 'v0.0.1 - Updated templated'
@@ -64,7 +65,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="2.0.1"
+scriptversion="2.0.2"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.murmur"
@@ -355,6 +356,8 @@ then
     sed -i 's#logfile=/var/log/mumble-server/mumble-server.log#logfile='"$HOME"'/murmur/mumble-server.log#g' ~/murmur/murmur.ini
     sed -i 's#pidfile=/var/run/mumble-server/mumble-server.pid#pidfile='"$HOME"'/murmur/mumble-server.pid#g' ~/murmur/murmur.ini
     sed -i 's#serverpassword=#serverpassword='"$apppass"'#g' ~/murmur/murmur.ini
+    echo -n "$apppass" > ~/murmur/server_password.txt
+    echo -n "$appport" > ~/murmur/server_port.txt
     rm -rf ~/murmur/*.deb ~/murmur/local
     echo "Use this command to load murmur:"
     echo
@@ -362,7 +365,7 @@ then
     echo
     echo "Then connect using this Info below, the label and username can be anything you want:"
     echo
-    echo -e "Address:" "\033[32m""http://$(hostname -f)""\e[0m"
+    echo -e "Address:" "\033[32m""$(hostname -f)""\e[0m"
     echo
     echo -e "Port:" "\033[32m""$appport""\e[0m"
     echo
