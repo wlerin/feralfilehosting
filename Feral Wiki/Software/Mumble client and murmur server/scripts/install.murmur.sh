@@ -360,9 +360,11 @@ then
     echo
     echo -e "\033[31m"'~/murmur/murmurd -ini ~/murmur/murmur.ini'"\e[0m"
     echo
-    echo "Then connect using this URL:"
+    echo "Then connect using this Info below, the label and username can be anything you want:"
     echo
-    echo -e "\033[32m""http://$(hostname -f):$appport""\e[0m"
+    echo -e "Address:" "\033[32m""http://$(hostname -f)""\e[0m"
+    echo
+    echo -e "Port:" "\033[32m""$appport""\e[0m"
     echo
     echo -e "Your server password is:"
     echo
