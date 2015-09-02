@@ -364,6 +364,10 @@ then
     echo
     echo -e "\033[32m""http://$(hostname -f):$appport""\e[0m"
     echo
+    echo -e "Your server password is:"
+    echo
+    echo -e "\033[33m""$apppass""\e[0m"
+    echo
     echo "Please see the FAQ for troubleshooting: https://www.feralhosting.com/faq/view?question=299"
     echo
     cd && bash
