@@ -349,10 +349,18 @@ then
     echo "Copying default configuration"
     echo
     cp ~/murmur/etc/mumble-server.ini ~/murmur/murmur.ini
+    sed -i 's#port=64738#port='"$appport"'#g' ~/murmur/murmur.ini
+    sed -i 's#database=/var/lib/mumble-server/mumble-server.sqlite#database='"$HOME"'/murmur/mumble-server.sqlite#g' ~/murmur/murmur.ini
+    sed -i 's#logfile=/var/log/mumble-server/mumble-server.log#logfile='"$HOME"'/murmur/mumble-server.log#g' ~/murmur/murmur.ini
+    sed -i 's#pidfile=/var/run/mumble-server/mumble-server.pid#pidfile='"$HOME"'/murmur/mumble-server.pid#g' ~/murmur/murmur.ini
+    sed -i 's#serverpassword=#serverpassword='"$apppass"'#g' ~/murmur/murmur.ini
     echo "Cleaning up"
     echo
     rm -rf ~/murmur/*.deb ~/murmur/local
-    echo "Now please follow the rest of the Wiki to configure your murmur.ini. Remember to change your port!"
+    echo "Now please follow the rest of the Wiki: https://www.feralhosting.com/faq/view?question=299"
+    echo
+    ~/murmur/murmurd -ini ~/murmur/murmur.ini
+    echo "http://$(hostname -f):$appport"
     echo
     cd && bash
 #
