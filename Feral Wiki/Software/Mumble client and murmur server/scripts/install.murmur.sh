@@ -7,7 +7,7 @@
 # Original Script Author: randomessence
 # Modified Script Author: zovt
 #
-# Script Contributors: randomessence, zovt
+# Script Contributors: zovt
 #
 # License: This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. https://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -48,7 +48,7 @@ then
     #echo 'v0.0.4 - My changes go here'
     #echo 'v0.0.3 - My changes go here'
     echo 'v2.0.0 - Script now installs x64 Murmur'
-    #echo 'v0.0.1 - Updated templated'
+    echo 'v0.0.1 - Updated templated'
     #
     echo
     exit
@@ -69,10 +69,10 @@ scriptversion="2.0.0"
 scriptname="install.murmur"
 #
 # Author name goes here.
-scriptauthor="randomessence, zovt"
+scriptauthor="randomessence"
 #
 # Contributor's names go here.
-contributors="randomessence, zovt"
+contributors="zovt"
 #
 # Set the http://git.io/ shortened URL for the raw github URL here:
 gitiourl="http://git.io/-mVd3g"
@@ -85,11 +85,11 @@ scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20W
 #
 # This will generate a 20 character random passsword for use with your applications.
 apppass="$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)"
-# This will generate a random port for the script between the range 10001 to 49999 to use with applications. You can ignore this unless needed.
-appport="$(shuf -i 10001-49999 -n 1)"
+# This will generate a random port for the script between the range 10001 to 32001 to use with applications. You can ignore this unless needed.
+appport="$(shuf -i 10001-32001 -n 1)"
 #
 # This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
-while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]; do appport="$(shuf -i 10001-49999 -n 1)"; done
+while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]; do appport="$(shuf -i 10001-32001 -n 1)"; done
 #
 # Script user's http www URL in the format http://username.server.feralhosting.com/
 host1http="http://$(whoami).$(hostname -f)/"
@@ -135,6 +135,9 @@ updaterenabled="1"
 ###### Function Start ######
 ############################
 #
+example () {
+    echo "This is my example function"
+}
 #
 ############################
 ####### Function End #######
@@ -321,28 +324,37 @@ then
 ############################
 #
     echo "Installing murmur to ~/murmur/usr/sbin/murmurd"
+    echo
     mkdir ~/murmur/
     cd ~/murmur/
     echo "Grabbing dependencies"
+    echo
     apt-get download libavahi-compat-libdnssd1 libiceutil35 libqt4-dbus libqt4-network libqt4-sql-sqlite libqt4-sql libqt4-xml libqtcore4 libqtdbus4 libzeroc-ice35 mumble-server
     for f in $(ls)
     do
     	echo "Extracting $f"
+        echo
     	dpkg-deb -x $f ~/murmur/local/
     done
     cp -rf ~/murmur/local/* ~/murmur/
     mkdir ~/murmur/usr/sbin/sqldrivers
     cp ~/murmur/usr/lib/x86_64-linux-gnu/qt4/plugins/sqldrivers/libqsqlite.so ~/murmur/usr/sbin/sqldrivers
     echo "Creating shortcut '~/murmur/murmurd'"
+    echo
     ln -s ~/murmur/usr/sbin/murmurd ~/murmur/murmurd
     echo "Adding libraries to LD_LIBRARY_PATH"
+    echo
     echo -e "export LD_LIBRARY_PATH=~/murmur/usr/lib/x86_64-linux-gnu:/usr/lib" >> ~/.bashrc
+    echo
     echo "Copying default configuration"
+    echo
     cp ~/murmur/etc/mumble-server.ini ~/murmur/murmur.ini
     echo "Cleaning up"
+    echo
     rm -rf ~/murmur/*.deb ~/murmur/local
     echo "Now please follow the rest of the Wiki to configure your murmur.ini. Remember to change your port!"
-    echo "***** DON'T FORGET TO RUN: 'source ~/.bashrc' ******"
+    echo
+    bash
 #
 ############################
 ##### User Script End  #####
