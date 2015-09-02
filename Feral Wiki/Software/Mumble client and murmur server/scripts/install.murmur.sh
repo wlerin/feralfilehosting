@@ -13,7 +13,7 @@
 #
 # Bash Command for easy reference:
 #
-# wget -qO ~/murmur http://git.io/-mVd3g && bash ~/murmur
+# wget -qO ~/install.murmur http://git.io/-mVd3g && bash ~/install.murmur
 #
 ############################
 ###### Basic Info End ######
@@ -325,11 +325,12 @@ then
 #
     echo "Installing murmur to ~/murmur/usr/sbin/murmurd"
     echo
-    mkdir ~/murmur/
+    mkdir -p ~/murmur/
     cd ~/murmur/
     echo "Grabbing dependencies"
     echo
     apt-get download libavahi-compat-libdnssd1 libiceutil35 libqt4-dbus libqt4-network libqt4-sql-sqlite libqt4-sql libqt4-xml libqtcore4 libqtdbus4 libzeroc-ice35 mumble-server
+    echo
     for f in $(ls)
     do
     	echo "Extracting $f"
@@ -345,7 +346,6 @@ then
     echo "Adding libraries to LD_LIBRARY_PATH"
     echo
     echo -e "export LD_LIBRARY_PATH=~/murmur/usr/lib/x86_64-linux-gnu:/usr/lib" >> ~/.bashrc
-    echo
     echo "Copying default configuration"
     echo
     cp ~/murmur/etc/mumble-server.ini ~/murmur/murmur.ini
@@ -354,7 +354,7 @@ then
     rm -rf ~/murmur/*.deb ~/murmur/local
     echo "Now please follow the rest of the Wiki to configure your murmur.ini. Remember to change your port!"
     echo
-    bash
+    cd && bash
 #
 ############################
 ##### User Script End  #####
