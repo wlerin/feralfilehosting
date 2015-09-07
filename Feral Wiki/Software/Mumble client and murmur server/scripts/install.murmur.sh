@@ -4,10 +4,9 @@
 ##### Basic Info Start #####
 ############################
 #
-# Original Script Author: randomessence
-# Modified Script Author: zovt
+# Original Script Author: zovt
 #
-# Script Contributors: zovt
+# Script Contributors: randomessence
 #
 # License: This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. https://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -71,10 +70,10 @@ scriptversion="2.0.2"
 scriptname="install.murmur"
 #
 # Author name goes here.
-scriptauthor="randomessence"
+scriptauthor="zovt"
 #
 # Contributor's names go here.
-contributors="zovt"
+contributors="randomessence"
 #
 # Set the http://git.io/ shortened URL for the raw github URL here:
 gitiourl="http://git.io/-mVd3g"
