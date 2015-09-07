@@ -1,4 +1,6 @@
 
+In SSH do the commands described in this FAQ. If you do not know how to SSH into your slot use this FAQ: [SSH Guide - The Basics](https://www.feralhosting.com/faq/view?question=12) 
+
 > **Important notes:** Please see the end of the FAQ for nginx.
 
 Htpasswd toolkit Bash script
@@ -47,25 +49,21 @@ So the `conf` file stores the set-up information for the authentication using lo
 Section 1: Apache - creating our .htaccess
 ---
 
-In SSH do the commands described in this FAQ. If you do not know how to SSH into your slot use this FAQ: [SSH Guide - The Basics](https://www.feralhosting.com/faq/view?question=12) 
-
-**Step 1:** [SSH to your Feral server](https://www.feralhosting.com/faq/view?question=12). First we need to navigate to the directory we want to protect. The file that will be protecting our default www directory is called `.htaccess` (please note the initial dot). It works in partnership with a file called `.htpasswd` in which the actual encrypted password is stored. Let's create the `.htaccess` first.
+**Step 1:** In SSH we must first navigate to the directory we want to protect and then create the `.htaccess`.
 
 ~~~
 cd ~/www/$(whoami).$(hostname -f)/public_html/
 ~~~
 
-This will move us into the root of our WWW folder
+This will move us into the root of our `WWW` folder
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Password%20protect%20your%20WWW%20folder/htaccess_0.png)
 
-Now type:
+This command will either open an existing file or create the new file upon saving using a text editor called nano, so now type:
 
 ~~~
 nano -w .htaccess
 ~~~
-
-This opens an existing file, in this case .htaccess, or creates the new file upon saving using a text editor called nano
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Password%20protect%20your%20WWW%20folder/htaccess_1.png)
 
@@ -109,9 +107,9 @@ Once you have done this copy the text to your clipboard, then back in the SSH wi
 
 As you can see, we are telling `.htaccess` 2 things: 
 
-**1:** where to look for the file containing the password, in this case it is called `.htpasswd`
+**1:** Where to look for the file containing the password, in this case it is called `.htpasswd`
 
-**2:** what user to authenticate with that password.
+**2:** What user to authenticate with that password.
 
 We are done with creating our `.htaccess` file. Press and hold `CTRL` then press `x` to save and exit nano. It will ask: Save modified buffer? Press `Y` to save changes, and then `ENTER` to confirm.
 
@@ -137,7 +135,7 @@ That is it. You have successfully created you `.htaccess` file. Time to do the `
 
 ### Final Notes for Section 1:
 
-I recommend you place the `.htaccess` file only INSIDE the folders you wish to protect, you can do this via FTP(SFTP). This will let you give free access to some folders in your WWW but hide any that contain this `.htaccess` we just created.This means anyone can access the WWW folder, but cannot access folders restricted by your `.htaccess`
+I recommend you place the `.htaccess` file only INSIDE the folders you wish to protect, you can do this via FTP(SFTP). This will let you give free access to some folders in your `WWW` but hide any that contain this `.htaccess` we just created.This means anyone can access the `WWW` folder, but cannot access folders restricted by your `.htaccess`
 
 > **Important note:** To allow users access to only some folders and not others please see **Final Notes Section 3:**
 
@@ -166,8 +164,6 @@ Use the same username that you configured earlier in `.htaccess`. The system wil
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Password%20protect%20your%20WWW%20folder/htpasswd_1.png)
 
-I suggest you use the same password Feral provided you in your Manager/Slot/Server page for Rutorrent if you installed it using **copy** then **shift + INS** (remember if you are using PuTTy or KiTTy and have the window selected a right click = paste) . 
-
 You can use your own password, ( remember the info at the start of the guide about password managers and Chrome).
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Password%20protect%20your%20WWW%20folder/htpasswd_2.png)
@@ -190,15 +186,7 @@ This will `chmod` a file by the name of `.htpasswd` to `600` in our current loca
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Password%20protect%20your%20WWW%20folder/htpasswd_6.png)
 
-Or this will also work from any location in SSH.
-
-~~~
-chmod 600 ~/private/.htpasswd 
-~~~
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Password%20protect%20your%20WWW%20folder/htpasswd_7.png)
-
-And this is it. Now open ruTorrent in your browser and see if it requires you to type in your username/password.
+And this is it. You have passworded your WWW directory for a single user.
 
 ### Final Notes for Section 2:
 
@@ -206,11 +194,11 @@ I recommend you place the `.htaccess` file only INSIDE the folders you wish to p
 
 To allow users access to only some folders and not others please see the **Final Notes Section 3:** section
 
-If you receive an **Internal Server Error** message when you try to access your page/directory, check for typing errors in your `.htaccess` file.
+> **Important notes:** If you receive an `Internal Server Error` message when you try to access your page/directory, check for typing errors in your `.htaccess` file.
 
 To un-protect a directory, delete the `.htaccess` and the `.htpasswd` files, or just rename the `.htaccess` file to `.htaccess_off`
 
-Section 2.1 Changing my own password or that of other users
+Section 2.1 Adding users
 ---
 
 This will be what your `.htaccess` looks like.
@@ -238,7 +226,7 @@ require user guestuser
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Password%20protect%20your%20WWW%20folder/htpasswd_adduser_1.png)
 
-Alternatively you can allow all valid users to access the directory. This will allow any user present in the .`htpasswd` file to access the protected directory. This simplifies the process for multiple users but will all anyone in the `.htaccess` to access the directory.
+Alternatively you can allow all valid users to access the directory. This will allow any user present in the .`htpasswd` file to access the protected directory. This simplifies the process for multiple users but will all anyone in the `.htpasswd` to access the directory.
 
 ~~~
 AuthName "Secure Area"
@@ -250,19 +238,11 @@ require valid-user
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Password%20protect%20your%20WWW%20folder/htpasswd_adduser_2.png)
 
-To change your own password inside an existing `.htpasswd` you must move(cd) to the location of `.htaccess` and use the `.htpasswd` command. Replace **username** in the below command for the name of the user you wish to change/update the password for.
+To change your own password inside an existing `.htpasswd` you must use the `.htpasswd` command. Replace `exampleuser` in the below command for the name of the user you wish to change/update the password for.
 
 ~~~
-htpasswd .htpasswd username
+htpasswd ~/private/.htpasswd exampleuser
 ~~~
-
-Assuming you have followed this guide and your .htpasswd is inside your ~/private directory so we can do this from any location in SSH, to change the password for `testuser`
-
-~~~
-htpasswd ~/private/.htpasswd testuser
-~~~
-
-This is just using a direct path to the file in the command rather than being inside the folder.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Password%20protect%20your%20WWW%20folder/htpasswd_adduser_3.png)
 
@@ -272,87 +252,75 @@ This is just using a direct path to the file in the command rather than being in
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Password%20protect%20your%20WWW%20folder/htpasswd_adduser_6.png)
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Password%20protect%20your%20WWW%20folder/htpasswd_adduser_7.png)
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Password%20protect%20your%20WWW%20folder/htpasswd_adduser_8.png)
-
 **Section 3: Password Protecting a Directory for Multiple Users**
 
-To give multiple users access to one or more directories we must do two things:
+To give multiple users access to one or more directories we must do two things. Assuming you have followed the steps in this guide we will add a new user to our `.htaccess` and give them a password by editing the `.htpasswd`. 
 
-**1:** add a valid user name to the `.htaccess` protecting that directory as described in Section 1.
+**Step 1:** To add your own users please edit the `.htaccess` file and add your user as shown in section `2.1` first to allow your specific user or to all all valid users.
 
-**2:** add their password to the `.htpasswd` as described in Section 2
-
-Assuming you have followed the steps in this guide we will add a new user to our `.htaccess` and give them a password. 
-
-**Step 1:** Edit the `.htaccess` file and add your user as shown here. You can do this using FTP(SFTP) or as shown in Section 1.
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Password%20protect%20your%20WWW%20folder/htpasswd_adduser_4.png)
-
-Now we must assign a password to each username added using the htpasswd command. This needs to be done in an SSH Terminal .
-
-Open a SSH Terminal, connect to your slot and type this command (same command if you are already connected )
+**Step 2:** Then use this command to add the new user to the `.htpasswd`, where you change `guestuser` to the name of the user you wish to add:
 
 ~~~
-cd ~/private
+htpasswd ~/private/.htpasswd guestuser
 ~~~
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Password%20protect%20your%20WWW%20folder/15.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Password%20protect%20your%20WWW%20folder/htpasswd_update_0.png)
 
-It will move us directly to the location of the `.htpasswd` no matter where we previously were.
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Password%20protect%20your%20WWW%20folder/htpasswd_update_1.png)
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Password%20protect%20your%20WWW%20folder/16.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Password%20protect%20your%20WWW%20folder/htpasswd_update_2.png)
 
-Now we add passwords for new users **without using the -c** command. As shown in the images here for the user `guestuser`
-
-Your commands should look something like this:
-
-~~~
-htpasswd .htpasswd guestuser
-htpasswd .htpasswd anotheruser
-~~~
-
-**Important note:** Please note that it's important to create passwords for the users in the order specified in your `.htaccess` file, or else you will get a password verification error. !!
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Password%20protect%20your%20WWW%20folder/17.png)
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Password%20protect%20your%20WWW%20folder/18.png)
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Password%20protect%20your%20WWW%20folder/19.png)
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Password%20protect%20your%20WWW%20folder/20.png)
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Password%20protect%20your%20WWW%20folder/htpasswd_update_3.png)
 
 **Final Notes Section 3:**
 
 To deny a user access to a folder you do no have to delete them from the `.htpasswd`. All you have to do is remove their user name from the `.htaccess` in the folders you do not wish them access to, so for example.
 
 ~~~
-<LIMIT GET PUT POST>
-require user testuser
-</LIMIT>
+require user exampleuser
 ~~~
 
-Only `testuser` will have access to this folder. other users will not even see it exists. When a user visits your WWW folder they will only see and access folders that have their username in the `.htaccess` using our configuration.
+Only `exampleuser` will have access to this folder. other users will not even see it exists. When a user visits your `WWW` folder they will only see and access folders that have their username in the `.htaccess` using our configuration.
 
 **Section 4: Rutorrent Specific Info**
 
 The guide tells you everything you need to know in detail on how to change/create the settings/files you need. This is just to tell you where the relevant files if you wish to use the existing Rutorrent `.htaccess` and `.htpasswd`
 
+Apache:
+
 The `.htaccess` is located here:
 
 ~~~
-~/www/username.Server.feralhosting.com/public_html/rutorrent/.htaccess
+~/www/username.server.feralhosting.com/public_html/rutorrent/.htaccess
 ~~~
 
 The `.htpasswd` is located here.
 
 ~~~
-~/www/username.Server.feralhosting.com/public_html/rutorrent/.htpasswd
+~/www/username.server.feralhosting.com/public_html/rutorrent/.htpasswd
+~~~
+
+nginx:
+
+The `rutorrent.conf` is located here:
+
+~~~
+~/.nginx/conf.d/000-default-server.d/rutorrent.conf
+~~~
+
+The `.htpasswd` is located here.
+
+~~~
+~/www/username.server.feralhosting.com/public_html/rutorrent/.htpasswd
 ~~~
 
 **Final Notes for Section 4:**
 
+> **Important notes:** The ruTorrent `.htaccess` makes use of 
+
 You can change the rutorrent `.htaccess` to link to another `.htpasswd` of your choosing (one created in Section 2 for example) by editing the file as described in Section 1.
 
-In this case the `.htpasswd` is stored within the WWW realm and not outside it (like the `.htpasswd` from Section 2 is). Moving this to somewhere outside the WWW is a good idea.
+In this case the `.htpasswd` is stored within the `WWW` realm and not outside it (like the `.htpasswd` from Section 2 is). Moving this to somewhere outside the `WWW` is a good idea.
 
 nginx
 ---

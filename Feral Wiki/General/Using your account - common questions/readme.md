@@ -77,7 +77,7 @@ Where is my slot located? Where are the the servers hosted.
 
 The servers are hosted at the [Interxion](http://www.interxion.com) carrier-neutral data centre in the [Netherlands](http://en.wikipedia.org/wiki/Netherlands).
 
-Can I install Deluge,rTorrent/rutorrent, rtorrent and transmission or can I only use one?
+Can I install Deluge, rTorrent/rutorrent, rtorrent and transmission or can I only use one?
 ---
 
 You can install and use all three applications if you want. All software on the Install Software page can be installed at the same time and actively used. You can also run more than one instance of certain applications, like Deluge and rTorrent as well. Staff might not support or troubleshoot your second running instances though, but if they do it is at their discretion.

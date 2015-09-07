@@ -1,5 +1,4 @@
 
-
 In SSH do the commands described in this FAQ. If you do not know how to SSH into your slot use this FAQ: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
 
 Your FTP / SFTP / SSH login information can be found on the Slot Details page for the relevant slot.
@@ -22,21 +21,11 @@ Aerofs is essentially a peer to peer secure dropbox style app. You only share di
 Install AeroFS:
 ---
 
-Please go to [https://aerofs.com/](https://aerofs.com/ "aerofs.com") and create an account.
+Please go to [https://aerofs.com/](https://aerofs.com/) and create an account.
 
 ~~~
-wget -qO ~/aerofs.tgz https://dsy5cjk52fz4a.cloudfront.net/aerofs-installer-0.8.77.tgz
+wget -qO ~/aerofs.tgz https://dsy5cjk52fz4a.cloudfront.net/aerofs-installer-0.8.91.tgz
 tar xf ~/aerofs.tgz
-~~~
-
-### Teamserver example (Optional - Just for demonstration):
-
-> **Important note:** The teamserver installation is pretty much exactly the same. Centralised files storage vs peer to peer clients.
-
-~~~
-wget -qO ~/aerofsts.tgz https://dsy5cjk52fz4a.cloudfront.net/aerofsts-installer-0.8.77.tgz
-tar xf ~/aerofsts.tgz
-screen -S aerofs ~/aerofs/aerofsts-cli
 ~~~
 
 Running Aerofs
@@ -47,6 +36,19 @@ At first run we need set up the app and it work better in a screen, so type this
 ~~~
 screen -S aerofs ~/aerofs/aerofs-cli
 ~~~
+
+### Aerofs Teamserver example (Optional - Just for demonstration):
+
+> **Important note:** The teamserver installation is pretty much exactly the same. Centralised files storage vs peer to peer clients.
+
+~~~
+wget -qO ~/aerofsts.tgz https://dsy5cjk52fz4a.cloudfront.net/aerofsts-installer-0.8.91.tgz
+tar xf ~/aerofsts.tgz
+screen -S aerofs ~/aerofs/aerofsts-cli
+~~~
+
+Configuring Aerofs
+---
 
 This will start the set-up process.
 
