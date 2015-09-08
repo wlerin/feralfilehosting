@@ -118,11 +118,11 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 ## Custom Variables Start ##
 ############################
 #
-option1="Install a Custom Instance."
-option2="Update a custom Instance"
-option3="Remove a Custom Instance"
-option4="Fix autodl on a custom Instance"
-option5="Quit the Script"
+option1="Install a custom instance."
+option2="Update a custom instance"
+option3="Remove a custom instance"
+option4="Fix autodl on a custom instance"
+option5="Quit the script"
 #
 giturl="https://github.com/Novik/ruTorrent.git"
 #
