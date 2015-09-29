@@ -43,7 +43,9 @@ FileBot CLI - usage
 
 Use `" "` around paths. Use `$HOME` in paths instead of `~`. Filebot gets confused about the `~`
 
-Please refer to this page: [Filebot Command Line](http://www.filebot.net/cli.html) for more options.
+Please refer to this page: [Filebot Command Line](http://www.filebot.net/cli.html) for more options. 
+
+Scripts for media center automation can be found in [this](http://www.filebot.net/forums/viewtopic.php?t=215) thread on the [Filebot forum](http://www.filebot.net/forums).
 
 
 
