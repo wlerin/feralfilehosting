@@ -58,11 +58,10 @@ This will save a significant amount of time and processing power for you and oth
 To create a rar archive with files of `200MB` and with some other compression settings (got this from a scener)
 
 ~~~
-rar a filename.rar -r -snd -m0 -vn -md4096 -ep1 -v200000000b $DIR
+rar a filename.rar -r -m0 -vn -md4096 -ep1 -v200000000b $DIR
 ~~~
 
 `-r` : Recurse subdirectories.
-`-snd`: (no idea)
 `-m0` : compression level (`0-store` / `3-default` / `5-best`)
 `-vn`: Use the old style volume naming scheme, where the first volume file in a multi-volume set has the extension .rar, following volumes are numbered from `.r00` to `.r99`.
 `-md4096` : dictionary size in Kb (`64`,`128`,`256`,`512`,`1024`,`2048`,`4097`  or `a`,`b`,`c`,`d`,`e`,`f`,`g`)
