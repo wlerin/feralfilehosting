@@ -284,7 +284,6 @@ else
             fi
         fi
         cd && rm -f .{000,111,222}"$scriptname"
-        kill -9 $(pgrep -fu $(whoami) $HOME/restart) $(pgrep -fu $(whoami) $HOME/.111restart) $(pgrep -fu $(whoami) $HOME/.222restart) > /dev/null 2>&1
         chmod -f 700 ~/bin/"$scriptname"
         echo
     else
