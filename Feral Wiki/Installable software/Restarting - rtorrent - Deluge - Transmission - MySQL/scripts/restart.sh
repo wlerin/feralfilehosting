@@ -55,7 +55,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.1.2"
+scriptversion="1.1.3"
 #
 # Script name goes here. Please prefix with install.
 scriptname="restart"
@@ -275,15 +275,18 @@ else
         if [[ "$(sha256sum ~/.000"$scriptname" | awk '{print $1}')" != "$(sha256sum ~/bin/"$scriptname" | awk '{print $1}')" ]]
         then
             echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
-            chmod -f 700 ~/.111"$scriptname" && exec ~/.111"$scriptname"
+            bash ~/.111"$scriptname"
+            exit
         else
             if [[ -z "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" && "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" -ne "$$" ]]
             then
                 echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
-                chmod -f 700 ~/.222"$scriptname" && exec ~/.222"$scriptname"
+                bash ~/.222"$scriptname"
+                exit
             fi
         fi
         cd && rm -f .{000,111,222}"$scriptname"
+        kill -9 $(pgrep -fu $(whoami) $HOME/restart) $(pgrep -fu $(whoami) $HOME/.111restart) $(pgrep -fu $(whoami) $HOME/.222restart) > /dev/null 2>&1
         chmod -f 700 ~/bin/"$scriptname"
         echo
     else
