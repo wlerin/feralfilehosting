@@ -55,7 +55,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.1.0"
+scriptversion="1.1.1"
 #
 # Script name goes here. Please prefix with install.
 scriptname="restart"
@@ -250,8 +250,10 @@ fi
 #### Self Updater Start ####
 ############################
 #
+# Checks for the positional parameters $1 and $2 to be reset if the script is updated.
+[[ ! -z "$1" && "$1" != 'qr' ]] || [[ ! -z "$2" && "$2" != 'qr' ]] && echo -en "$1\n$2" > ~/.passparams
 # Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, which would reset the option, it will then find this file and set it back.
-if [[ ! -z "$1" && "$1" = 'qr' ]] || [[ ! -z "$2" && "$2" = 'qr' ]];then echo -n '' > ~/.quickrun; fi
+[[ ! -z "$1" && "$1" = 'qr' ]] || [[ ! -z "$2" && "$2" = 'qr' ]] && echo -n '' > ~/.quickrun
 #
 # No Update option: This disables the updater features if the script option "nu" was used when running the script.
 if [[ ! -z "$1" && "$1" = 'nu' ]] || [[ ! -z "$2" && "$2" = 'nu' ]]
@@ -272,13 +274,15 @@ else
         #
         if [[ "$(sha256sum ~/.000"$scriptname" | awk '{print $1}')" != "$(sha256sum ~/bin/"$scriptname" | awk '{print $1}')" ]]
         then
-            echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nexit && bash ~/bin/$scriptname" > ~/.111"$scriptname"
-            exit && bash ~/.111"$scriptname"
+            echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
+            bash ~/.111"$scriptname"
+            exit
         else
             if [[ -z "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" && "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" -ne "$$" ]]
             then
-                echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nexit && bash ~/bin/$scriptname" > ~/.222"$scriptname"
-                exit && bash ~/.222"$scriptname"
+                echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
+                bash ~/.222"$scriptname"
+                exit
             fi
         fi
         cd && rm -f .{000,111,222}"$scriptname"
@@ -293,7 +297,10 @@ else
 fi
 #
 # Quick Run option part 2: If quick run was set and the updater section completes this will enable quick run again then remove the file.
-if [[ -f ~/.quickrun ]];then updatestatus="y"; rm -f ~/.quickrun; fi
+[[ -f ~/.quickrun ]] && updatestatus="y"; rm -f ~/.quickrun
+#
+# resets the positional parameters $1 and $2 post update.
+[[ -f ~/.passparams ]] && set "$1" "$(sed -n '1p' ~/.passparams)" && set "$2" "$(sed -n '2p' ~/.passparams)"; rm -f ~/.passparams
 #
 ############################
 ##### Self Updater End #####
@@ -332,7 +339,7 @@ do
             then
                 echo -e "\033[31m""Killing all instances of rtorrent""\e[0m"
                 echo
-                kill -9 $(screen -ls rtorrent | sed -rn 's/(.*).rtorrent[^-](.*)/\1/p')  > /dev/null 2>&1
+                kill -9 $(screen -ls rtorrent | sed -rn 's/(.*).rtorrent[^-](.*)/\1/p') > /dev/null 2>&1
                 screen -wipe > /dev/null 2>&1
                 echo "Restarting rtorrent"
                 echo
