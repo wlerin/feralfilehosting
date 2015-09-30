@@ -1,20 +1,17 @@
 
 This FAQ requires you have already installed Deluge using the [**Install Software** link in your Manager](https://www.feralhosting.com/manager/) link in the manager for your slot.
 
-A Web Gui is great, but nothing compares to the cold hard configurable application. And deluge allows you to have the best of both worlds. 
+In SSH do these commands. Use this FAQ if you do not know how to SSH into your slot: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
 
 To be able to connect your local deluge client to your remote daemon and interact with it as if it were running locally is easy and just takes a few steps.
 
-In SSH do these commands. Use this FAQ if you do not know how to SSH into your slot: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
+Bash Script:
+---
 
 This bash script will do the following things for you.:
 
 **1:** Print your hostname and daemon port 
 **2:** Print your username and password
-**3:** Enable remote access
-**4:** Kill deluge and the Web Gui
-
-> **Important note:** You will need to wait up to five minutes for the system to restart Deluge and the WebUi
 
 You will then be able to connect to deluge using the thin client with the information printed by the script.
 
@@ -24,86 +21,66 @@ wget -qO ~/delugethin.sh http://git.io/obe0mA && bash ~/delugethin.sh
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Deluge%20Daemon%20-%20Remote%20control%20with%20the%20local%20Thin%20client/script.png)
 
-### Manual Installation Steps:
+Manual Installation Steps:
+---
 
-**Step 1:** Gather Server Information
+You need to know some settings and passwords on the server first. To do this, [SSH](http://www.feralhosting.com/faq/view?question=12) into your Feral slot and execute the following commands:
 
-You need to know some settings and passwords on the server first. To do this, [SSH](http://www.feralhosting.com/faq/view?question=12) into your Feral slot and execute the following command sequence:
+**1:** Get your connection details.
 
-Get your username:
-
-~~~
-echo $(whoami)
-~~~
-
-Which will return something like:
+Copy and paste this one liner to retrieve all the required info in a single copy and paste command:
 
 ~~~
-username
+printf "$(hostname -f)\n$(whoami)\n$(sed -rn 's/(.*)"daemon_port": (.*),/\2/p' ~/.config/deluge/core.conf)\n$(sed -rn "s/$(whoami):(.*):(.*)/\1/p" ~/.config/deluge/auth)\n"
 ~~~
 
-Get the daemon port:
+Here are the individual components of the one liner command:
+
+Your hostname:
 
 ~~~
-cat ~/.config/deluge/core.conf | grep daemon_port
+hostname -f
 ~~~
 
-This will return something along the lines of:
+Your username:
 
 ~~~
-"daemon_port": 23456
+whoami
 ~~~
 
-Write down the port that is returned, which for this example is `23456`.
-
-**Important Note:** If you already use Deluge via the WebUI, the daemon port is also stored in the daemon info found
-inside the `Preferences` menu.
-
-To get your access password, run the following command:
+Your connection port:
 
 ~~~
-cat ~/.config/deluge/auth | grep $(whoami) | cut -d\: -f2
-~~~
-
-This should return something like the following:
-
-~~~
-dgeyh47563483HDgr
+sed -rn 's/(.*)"daemon_port": (.*),/\2/p' ~/.config/deluge/core.conf
 ~~~
 
 This is the password you will need to connect the thin client to the remote daemon.
 
-**Important Note:** This password is **NOT** the same as your WebUi password listed on your Slot Detail page. They are different passwords.
+~~~
+sed -rn "s/$(whoami):(.*):(.*)/\1/p" ~/.config/deluge/auth
+~~~
 
-**Step 2:** Allow Remote Connections to the Daemon
+**Step 2:** Local Client (Thin Client) Set-up
 
-**2.1:** Log into your Deluge Web Gui, go to `Preferences` and set `Allow remote connections` to `Yes`;
+Download [deluge](http://dev.deluge-torrent.org/wiki/Download) (make sure the version matches the daemon version running on the server).
 
-**2.2:** [Restarting - rtorrent - Deluge - Transmission - MySQL](https://www.feralhosting.com/faq/view?question=158) — this is absolutely necessary; please follow the link for instructions.
+Install and run deluge on your local machine and then run it.
 
-**Step 3:** Local Client (Thin Client) Set-up
-
-Download [deluge](http://dev.deluge-torrent.org/wiki/Download) (make sure the version matches the daemon version running on the server — currently v1.3.6).
-
-Install and run deluge.
-
-Go to `Preferences -> Interface` and untick `Enable` under `Classic Mode`.
-
-**Step 4:** Restart deluge. 
+Go to `Preferences -> Interface` and un-check`Enable` under `Classic Mode`.
 
 You should now see a connection manager box pop up.
 
 Remove the localhost daemon
 
-Click `Add` and enter the address of your Feral server, for example: `athena.feralhosting.com` found on your [Slot Detail](https://www.feralhosting.com/manager/) page for the relevant slot.
+Click `Add` and enter the address of your Feral server, for example: `athena.feralhosting.com` found from the commands in **Step 1**.
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_link.png)
+Set the port to the port you got in **Step 1**. 
 
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_ssh.png)
+Enter the username and password you got from **Step 1**.
 
-Set the port to the port you got in Step 1. Enter the username and password you got from Step 1, in our case `username` and `dgeyh47563483HDgr`
+Click `Add` to add your server's daemon — you should now see a green icon as the status for the host you just added. #
 
-Click `Add` to add your server's daemon — you should now see a green icon as the status for the host you just added
+If the light stays red, remove the connection start again.
 
 **Optional:** 
 

@@ -18,7 +18,7 @@ So how do I do stuff? Well, it is actually quite easy once you understand the ba
 Web Gui
 ---
 
-A Web Gui is provided for rutorrent, deluge and transmission to remotely control the applications running on the server.
+A Web Gui is provided for ruTorrent, Deluge and Transmission to remotely control the applications running on the server.
 
 So how do I get torrents downloading and uploading on my slot, and not on my home devices?
 
@@ -26,14 +26,14 @@ First you would need to have installed one or more of the applications discussed
 
 Then you would access your slot's Web Gui from your local devices using a Web browser like Firefox.
 
-You would usually download a torrent file directly to your local machine and then upload it/open it in the Web Gui of your choice. The Web Gui will then communicate this to the running processes on your server. The running processes, for example rtorrent, will then communicate with trackers and peers directly from the server.
+You would usually download a torrent file directly to your local machine and then upload it/open it in the Web Gui of your choice. The Web Gui will then communicate this to the running processes on your server. The running processes, for example rTorrent, will then communicate with trackers and peers directly from the server.
 
 Here is a breakdown of using a Web Gui.
 
 **1:** Visit a torrent site and find a torrent file or a magnet link
 **2:** Download and save the torrent file to your local device (do not open it directly with another program, like uTorrent) or copy the magnet URL
-**3:** Visit the Web Gui of the application you installed, for example rutorrent.
-**4:** Follow the Steps shown below to add this torrent in the Web Gui so that it is passed to rtorrent running on your slot.
+**3:** Visit the Web Gui of the application you installed, for example ruTorrent.
+**4:** Follow the Steps shown below to add this torrent in the Web Gui so that it is passed to rTorrent running on your slot.
 
 **Important note:** This is where people often get confused. You will need to download torrent files to your device first and then upload them to the Web Gui. 
 
@@ -52,26 +52,26 @@ Here is a brief overview of how using the Web Gui works so that you can better u
 
 As the image shows, the Web Gui interacts with the processes running on the server and that allows you to do things like add torrents and magnet links. The running processes will then deal directly with your tracker and peers.
 
-This means you can turn off your PC and it will not affect the running processes such as rtorrent or deluge. They run on your server and you are only interacting with them using the Web Gui. Closing the Web Gui or turning off you PC will not stop theses programs from working.
+This means you can turn off your PC and it will not affect the running processes such as rTorrent or Deluge. They run on your server and you are only interacting with them using the Web Gui. Closing the Web Gui or turning off you PC will not stop theses programs from working.
 
-Rutorrent Web Gui
+ruTorrent Web Gui
 ---
 
-**Important note:** Rutorrent (Gui) is blamed for causing rtorrent (the actual program) to crash and become unstable when dealing with large number of active torrents, in the range 1500 to 5000. In this case it is recommended to only use rtorrent (SSH) for managing your torrents. This means you should avoid using the Gui with large volumes of files and active torrents.
+**Important note:** ruTorrent (Gui) is blamed for causing rTorrent (the actual program) to crash and become unstable when dealing with large number of active torrents, in the range 1500 to 5000. In this case it is recommended to only use rTorrent (SSH) for managing your torrents. This means you should avoid using the Gui with large volumes of files and active torrents.
 
-[ruTorrent](http://code.google.com/p/rutorrent/) is a front-end for the popular Bittorrent client [rTorrent](http://libtorrent.rakshasa.no/). It uses the power of the rtorrent back-end combined with the Web interface from utorrent for one powerful combination. rtorrent is a very powerful client, and comes preconfigured with settings. The default settings work fine so you should only troubleshoot by changing the settings as a last resort. Rutorrent comes with a number of plug-ins installed that expand what rutorrent can do. rtorrent without a Web Gui can handle thousands of torrents and is highly stable.
+[ruTorrent](https://github.com/Novik/ruTorrent) is a front-end for the popular Bittorrent client [rTorrent](https://github.com/rakshasa/rtorrent). It uses the power of the rTorrent back-end combined with the Web interface from utorrent for one powerful combination. rTorrent is a very powerful client, and comes preconfigured with settings. The default settings work fine so you should only troubleshoot by changing the settings as a last resort. ruTorrent comes with a number of plug-ins installed that expand what ruTorrent can do. rTorrent without a Web Gui can handle thousands of torrents and is highly stable.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral Wiki/General/Your Feral slot is active - Part 2 - Using your slot/03 rutorrent 1.png)
 
-In the navigation menu on the top left of Rutorrent click on the Globe.
+In the navigation menu on the top left of ruTorrent click on the Globe.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral Wiki/General/Your Feral slot is active - Part 2 - Using your slot/03 rutorrent 2.png)
 
 Now you will get this window. Here you browse for the torrent files you downloaded to your local machine from your Torrent site.
 
-**Related tutorial:** [Selecting an rtorrent version](https://www.feralhosting.com/faq/view?question=202)
+**Related tutorial:** [Selecting an rTorrent version](https://www.feralhosting.com/faq/view?question=202)
 
-**Related tutorial:** [Restarting - rtorrent - Deluge - Transmission - MySQL](https://www.feralhosting.com/faq/view?question=158)
+**Related tutorial:** [Restarting - rTorrent - Deluge - Transmission - MySQL](https://www.feralhosting.com/faq/view?question=158)
 
 **Related tutorial:** [ruTorrent - Troubleshooting](https://www.feralhosting.com/faq/view?question=100)
 
@@ -86,11 +86,11 @@ Deluge is a fully fledged BitTorrent client that aggressively downloads content 
 
 **Important Note:** Plug ins do not work with the Web Gui, you will need to use the [Deluge Thin Client](https://www.feralhosting.com/faq/view?question=76).
 
-In the deluge Web Gui you must first connect to the deluge daemon.
+In the Deluge Web Gui you must first connect to the Deluge daemon.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral Wiki/General/Your Feral slot is active - Part 2 - Using your slot/04 deluge 1.png)
 
-Once you have done that you will be able to control deluge and start uploading or downloading.
+Once you have done that you will be able to control Deluge and start uploading or downloading.
 
 Click on "Add" in the navigation bar.
 
@@ -100,7 +100,7 @@ Now select the type of torrent, file or magnet URL you would like to upload.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral Wiki/General/Your Feral slot is active - Part 2 - Using your slot/04 deluge 3.png)
 
-**Related tutorial:** [Restarting - rtorrent - Deluge - Transmission - MySQL](https://www.feralhosting.com/faq/view?question=158)
+**Related tutorial:** [Restarting - rTorrent - Deluge - Transmission - MySQL](https://www.feralhosting.com/faq/view?question=158)
 
 **Related tutorial:** [Troubleshooting Deluge](https://www.feralhosting.com/faq/view?question=62)
 
@@ -109,9 +109,9 @@ Now select the type of torrent, file or magnet URL you would like to upload.
 Transmission Web Gui
 ---
 
-Transmission is a fast, easy, and free multi-platform BitTorrent client that comes with a Web interface. While not the preferred client of those offered, transmission's interface is simple and easy to understand. Transmission works well for low numbers of torrents, less than 100, and can be used at most private trackers. Please be aware, some trackers may not support transmission or the version we use.  
+Transmission is a fast, easy, and free multi-platform BitTorrent client that comes with a Web interface. While not the preferred client of those offered, Transmission's interface is simple and easy to understand. Transmission works well for low numbers of torrents, less than 100, and can be used at most private trackers. Please be aware, some trackers may not support Transmission or the version we use.  
 
-In the transmission Web Gui you click on the Folder icon to add a torrent or magnet link.
+In the Transmission Web Gui you click on the Folder icon to add a torrent or magnet link.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral Wiki/General/Your Feral slot is active - Part 2 - Using your slot/05 transmission 1.png)
 
@@ -119,7 +119,7 @@ Now provide the file or URL of the torrent you wish to open.
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral Wiki/General/Your Feral slot is active - Part 2 - Using your slot/05 transmission 2.png)
 
-**Related tutorial:** [Restarting - rtorrent - Deluge - Transmission - MySQL](https://www.feralhosting.com/faq/view?question=158)
+**Related tutorial:** [Restarting - rTorrent - Deluge - Transmission - MySQL](https://www.feralhosting.com/faq/view?question=158)
 
 **Related tutorial:** [Transmission Remote Gui](https://www.feralhosting.com/faq/view?question=4)
 
@@ -128,7 +128,7 @@ Remote Clients
 
 You can also control some of the server software as if it was installed on your PC in some cases using these programs.
 
-**Rutorrent and Deluge:** you can run [Transdroid](https://www.feralhosting.com/faq/view?question=81) (requires Java)
+**ruTorrent and Deluge:** you can run [Transdroid](https://www.feralhosting.com/faq/view?question=81) (requires Java)
 
 **Deluge only:** you can also run the [Thin Client](https://www.feralhosting.com/faq/view?question=76). Recommended for Deluge, requires you install Deluge first using the Install Software link in your manager.
 
@@ -191,7 +191,7 @@ All slots can install OpenVPN Server so that users can use OpenVPN supporting so
 
 **Important note:** Each OpenVPN installation is limited to a **single open connection** at any one time. You cannot have multiple OpenVPN clients establish an open connection to your Feral OpenVPN server at the same time. So this means only one device behind a firewall/router would be able to connect directly to and through the Feral slot OpenVPN server. Some routers will allow you to configure and connect to the OpenVPN server from directly within the router set-up allowing all users behind to connect via the Feral Slot OpenVPN server.
 
-OpenVPN is basically a way to have the benefits of LAN access from a remote location and it encrypts traffic at the driver level. In regards to the Feral set-up there are no particular benefits to using OpenVPN over using an SSH tunnel, except where special needs or requirements demand it. For example some applications do not support using a proxy, like rtorrent.
+OpenVPN is basically a way to have the benefits of LAN access from a remote location and it encrypts traffic at the driver level. In regards to the Feral set-up there are no particular benefits to using OpenVPN over using an SSH tunnel, except where special needs or requirements demand it. For example some applications do not support using a proxy, like rTorrent.
 
 An OpenVPN connection will use a specially installed network adapter (a TUN/TAP adapter) to force all your network traffic through the slot's OpenVPN server. This means every program on your Computer will go through the Feral slot and the server will be the point of origin for your traffic to the rest of the world.
 

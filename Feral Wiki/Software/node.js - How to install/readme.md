@@ -18,10 +18,10 @@ Use this command to create the `~/bin` directory and reload your shell for this 
 mkdir -p ~/bin && bash
 ~~~
 
-This command downloads the `node-v4.0.0-linux-x64.tar.gz` and then saves it as `node.tar.gz` in your servers root directory.
+This command downloads the `node-v4.1.1-linux-x64.tar.gz` and then saves it as `node.tar.gz` in your servers root directory.
 
 ~~~
-wget -qO ~/node.js.tar.gz https://nodejs.org/dist/v4.0.0/node-v4.0.0-linux-x64.tar.gz
+wget -qO ~/node.js.tar.gz https://nodejs.org/dist/v4.1.1/node-v4.1.1-linux-x64.tar.gz
 ~~~
 
 This unpacks the folder archived inside the node.tar.gz.
@@ -45,7 +45,7 @@ node -v
 Which should return:
 
 ~~~
-v4.0.0
+v4.1.1
 ~~~
 
 If you see the version then it is ready to use.
@@ -66,11 +66,11 @@ mkdir -p ~/bin && bash
 Now run these commands:
 
 ~~~
-wget -qO ~/node.js.tar.gz https://nodejs.org/dist/v4.0.0/node-v4.0.0.tar.gz
-tar xf ~/node.js.tar.gz && cd ~/node-v4.*
+wget -qO ~/node.js.tar.gz https://nodejs.org/dist/v4.1.1/node-v4.1.1.tar.gz
+tar xf ~/node.js.tar.gz && cd ~/node-v4.1.1
 ./configure --prefix=$HOME
 make && make install && cd
-rm -rf ~/node{-v4.*,.js.tar.gz}
+rm -rf ~/node{-v4.1.1,.js.tar.gz}
 ~~~
 
 
