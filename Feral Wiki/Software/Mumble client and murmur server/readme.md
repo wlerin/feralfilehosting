@@ -1,8 +1,8 @@
 
-Installing Murmur 
+Installing Murmur
 ===
 
-"Magic" Installer 
+"Magic" Installer
 ---
 
 To install Murmur on your seedbox, you should use this script
@@ -64,13 +64,7 @@ logfile=
 pidfile=
 ~~~
 
-I personally like just adding
-
-~~~
-~/murmur
-~~~
-
-to the front of the paths, but you can use any directory you'd like.
+I personally like just using the murmur folder at /full path to your home dir/murmur
 
 All Done! 
 ---
