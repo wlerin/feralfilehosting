@@ -74,10 +74,12 @@ Then press and hold `CTRL` and `a` then press `d` to detach from the screen. Thi
 
 where `username` is your Feral username and `server` is the name of the server that the relevant slot is hosted on.
 
+~~~
 nginx
 ---
 
 **Important note:** You must update Apache to nginx to use the rtorrent rpc - [Update Apache to Nginx](https://www.feralhosting.com/faq/view?question=231).
+~~~
 
 Common Commands
 ---
@@ -88,6 +90,13 @@ Use this command to create the `~/bin` directory and reload your shell for this 
 mkdir -p ~/bin && bash
 ~~~
 
+Get the full path to a directory:
 
+~~~
+ls -d ~/private
+~~~
 
+~~~
+cd ~/$(whoami).$(hostname -f)/public_html
+~~~
 

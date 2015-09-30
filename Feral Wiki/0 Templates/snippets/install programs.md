@@ -2,7 +2,7 @@
 ~~~
 Please can you install the Application: APPLICATION NAME
 
-https://packages.debian.org/en/wheezy/
+https://packages.debian.org/en/jessie/
 
 apt-get install name
 
