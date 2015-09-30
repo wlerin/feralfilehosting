@@ -55,7 +55,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.0.9"
+scriptversion="1.1.0"
 #
 # Script name goes here. Please prefix with install.
 scriptname="restart"
@@ -272,15 +272,13 @@ else
         #
         if [[ "$(sha256sum ~/.000"$scriptname" | awk '{print $1}')" != "$(sha256sum ~/bin/"$scriptname" | awk '{print $1}')" ]]
         then
-            echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
-            bash ~/.111"$scriptname"
-            exit
+            echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nexit && bash ~/bin/$scriptname" > ~/.111"$scriptname"
+            exit && bash ~/.111"$scriptname"
         else
             if [[ -z "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" && "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" -ne "$$" ]]
             then
-                echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
-                bash ~/.222"$scriptname"
-                exit
+                echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nexit && bash ~/bin/$scriptname" > ~/.222"$scriptname"
+                exit && bash ~/.222"$scriptname"
             fi
         fi
         cd && rm -f .{000,111,222}"$scriptname"
@@ -368,7 +366,8 @@ do
             then
                 echo -e "\033[31m""Restarting Deluge""\e[0m"
                 echo
-                killall -9 -u $(whoami) deluged deluge-web  > /dev/null 2>&1
+                killall -9 -u $(whoami) deluged deluge-web > /dev/null 2>&1
+                rm -rf ~/.config/deluge/deluged.pid
                 if [[ "$(date +%-M)" -le '4' ]] && [[ "$(date +%-M)" -ge '0' ]]; then time="$(( 5 * 60 ))"; fi
                 if [[ "$(date +%-M)" -le '9' ]] && [[ "$(date +%-M)" -ge '5' ]]; then time="$(( 10 * 60 ))"; fi
                 if [[ "$(date +%-M)" -le '14' ]] && [[ "$(date +%-M)" -ge '10' ]]; then time="$(( 15 * 60 ))"; fi
@@ -382,7 +381,7 @@ do
                 if [[ "$(date +%-M)" -le '54' ]] && [[ "$(date +%-M)" -ge '50' ]]; then time="$(( 55 * 60 ))"; fi
                 if [[ "$(date +%-M)" -le '59' ]] && [[ "$(date +%-M)" -ge '55' ]]; then time="$(( 60 * 60 ))"; fi
                 #
-                while [[ "$(ps x | grep -v grep | grep -c '/usr/bin/python /usr/local/bin/deluged$')" -eq "0" ]]
+                while [[ ! -f ~/.config/deluge/deluged.pid ]]
                 do
                     countdown="$(( $time-$(($(date +%-M) * 60 + $(date +%-S))) ))"
                     printf '\rDeluge will restart in approximately: %dm:%ds ' $(($countdown%3600/60)) $(($countdown%60))
@@ -422,7 +421,7 @@ do
                 if [[ "$(date +%-M)" -le '54' ]] && [[ "$(date +%-M)" -ge '50' ]]; then time="$(( 55 * 60 ))"; fi
                 if [[ "$(date +%-M)" -le '59' ]] && [[ "$(date +%-M)" -ge '55' ]]; then time="$(( 60 * 60 ))"; fi
                 #
-                while [[ "$(ps x | grep -v grep | grep -c 'transmission-daemon -e /dev/null')" -eq "0" ]]
+                while [[ "$(pgrep -cfu "$(whoami)" 'transmission-daemon -e /dev/null')" -eq "0" ]]
                 do
                     countdown="$(( $time-$(($(date +%-M) * 60 + $(date +%-S))) ))"
                     printf '\rTransmission will restart in approximately: %dm:%ds ' $(($countdown%3600/60)) $(($countdown%60))
