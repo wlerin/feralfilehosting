@@ -11,7 +11,7 @@ You login information for the relevant slot will be shown here:
 
 **Important Note:** Do not install Python manually without a good reason. It will most likely cause more problems than is solves.
 
-**Python 2.7.3 is already installed on your slot**
+**Python 2.7.9 is already installed on your slot**
 
 Type to show the current version:
 
@@ -159,7 +159,7 @@ To use `easy_install` with this installation use the full path to your installat
 Done.
 
 Installing Python 2.7 from source:
---
+---
 
 In SSH do these commands. Use this FAQ if you do not know how to SSH into your slot: [SSH basics - Putty](https://www.feralhosting.com/faq/view?question=12)
 
@@ -170,10 +170,10 @@ In SSH do these commands. Use this FAQ if you do not know how to SSH into your s
 ~~~
 
 ~~~
-mkdir -p ~/python/python.2.7
-wget -qO ~/Python-2.7.8.tgz https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz
-tar xf ~/Python-2.7.8.tgz && cd ~/Python-2.7.8
-./configure --prefix=$HOME/python/python.2.7 && make && make install
+mkdir -p ~/python/python2
+wget -qO ~/Python.tgz https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz
+tar xf ~/Python.tgz && cd ~/Python-2.7.10
+./configure --prefix=$HOME/python/python2 && make && make install
 ~~~
 
 The configuration and installation can take some time to be patient.
@@ -181,27 +181,61 @@ The configuration and installation can take some time to be patient.
 When it is finished installing, do some clean up with this command.
 
 ~~~
-cd && rm -rf ~/Python{-2.7.8,-2.7.8.tgz}
+cd && rm -rf ~/Python{-2.7.10,.tgz}
 ~~~
 
 Python has been installed. Now check which version is in use:
 
 ~~~
-~/python/python.2.7/bin/python -V
+~/python/python2/bin/python -V
 ~~~
 
 Using `easy_install` from the command line to install mods:
 
 ~~~
-~/python/python.2.7/bin/easy_install pip
+~/python/python2/bin/easy_install pip
 ~~~
 
 ~~~
-~/python/python.2.7/bin/pip install virtualenv
+~/python/python2/bin/pip install virtualenv
 ~~~
 
 ~~~
-~/python/python.2.7/bin/pip install flexget
+~/python/python2/bin/pip install flexget
+~~~
+
+Python 3
+---
+
+~~~
+mkdir -p ~/python/python3
+wget -qO ~/Python.tar.xz  https://www.python.org/ftp/python/3.5.0/Python-3.5.0.tar.xz
+tar xf ~/Python.tgz && cd ~/Python-3.5.0
+./configure --prefix=$HOME/python/python3 && make && make install
+~~~
+
+The configuration and installation can take some time to be patient.
+
+When it is finished installing, do some clean up with this command.
+
+~~~
+cd && rm -rf ~/Python{-3.5.0,.tgz}
+~~~
+
+Python has been installed. Now check which version is in use:
+
+~~~
+~/python/python3/bin/python -V
+~~~
+
+Using `easy_install` from the command line to install mods:
+
+~~~
+~/python/python3/bin/pip install virtualenv
+~~~
+
+~~~
+~/python/python3/bin/pip install flexget
 ~~~
 
 
