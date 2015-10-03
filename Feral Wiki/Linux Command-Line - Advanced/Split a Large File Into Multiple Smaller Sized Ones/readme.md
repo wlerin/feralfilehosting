@@ -1,3 +1,4 @@
+
 This is a bash script that uses the Linux `dd` command to split files into several smaller files and then merge them together using the cat command.
 
 First off, to be able to use the script from any directory you might be in, the catalog where the script is in should be included in the PATH environment variable. The easiest way to make that happen is actually to create a bin folder in your home catalog and then put the script there. 
@@ -121,6 +122,5 @@ One more easy way is to use a command called `split` that is pre-installed comma
 ~~~
 split -b 50 -d mylargefile.ext
 ~~~
-
 
 
