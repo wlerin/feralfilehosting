@@ -36,6 +36,7 @@ if [[ ! -z "$1" && "$1" = 'changelog' ]]
 then
     echo
     #
+    echo 'v1.1.5 - And he tooketh the holy hammer and hit it until it wath fixeth.'
     echo 'v1.0.9 - deluge restart'
     echo 'v1.0.8 - tweak to rtorrent restart to check for orphaned lock file.'
     echo 'v1.0.7 - rtorrent and deluge will no longer kill custom instances from the multirtru script. Transmision restart timer imeplemented. Other minor tweaks'
@@ -55,7 +56,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.1.3"
+scriptversion="1.1.5"
 #
 # Script name goes here. Please prefix with install.
 scriptname="restart"
@@ -117,7 +118,7 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 ############################
 #
 # Disables the built in script updater permanently by setting this variable to 0.
-updaterenabled="1"
+updaterenabled="0"
 #
 ############################
 ####### Variable End #######
@@ -376,6 +377,16 @@ do
                 echo
                 killall -9 -u $(whoami) deluged deluge-web > /dev/null 2>&1
                 rm -rf ~/.config/deluge/deluged.pid
+                deluged > /dev/null 2>&1
+                sleep 4
+                if [[ -f ~/.config/deluge/deluged.pid ]] 
+                then
+                    echo -e "Deluged was started\n"
+                else   
+                    echo -e "\nPlease open a ticket labelled\n\n""Deluge port in use - Servername\n\n""https://www.feralhosting.com/manager/tickets/new\n"
+                    sleep 2
+                    exit
+                fi
                 if [[ "$(date +%-M)" -le '4' ]] && [[ "$(date +%-M)" -ge '0' ]]; then time="$(( 5 * 60 ))"; fi
                 if [[ "$(date +%-M)" -le '9' ]] && [[ "$(date +%-M)" -ge '5' ]]; then time="$(( 10 * 60 ))"; fi
                 if [[ "$(date +%-M)" -le '14' ]] && [[ "$(date +%-M)" -ge '10' ]]; then time="$(( 15 * 60 ))"; fi
@@ -389,10 +400,10 @@ do
                 if [[ "$(date +%-M)" -le '54' ]] && [[ "$(date +%-M)" -ge '50' ]]; then time="$(( 55 * 60 ))"; fi
                 if [[ "$(date +%-M)" -le '59' ]] && [[ "$(date +%-M)" -ge '55' ]]; then time="$(( 60 * 60 ))"; fi
                 #
-                while [[ ! -f ~/.config/deluge/deluged.pid ]]
+                while [[ $(pgrep -cfu $(whoami) "deluge-web -f$") -eq "0" ]]
                 do
                     countdown="$(( $time-$(($(date +%-M) * 60 + $(date +%-S))) ))"
-                    printf '\rDeluge will restart in approximately: %dm:%ds ' $(($countdown%3600/60)) $(($countdown%60))
+                    printf '\rDeluge-web will restart in approximately: %dm:%ds ' $(($countdown%3600/60)) $(($countdown%60))
                 done
                 echo -e '\n'
                 #
