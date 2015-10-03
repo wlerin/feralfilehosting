@@ -36,7 +36,7 @@ if [[ ! -z "$1" && "$1" = 'changelog' ]]
 then
     echo
     #
-    echo 'v1.1.5 - And he tooketh the holy hammer and hit it until it wath fixeth.'
+    echo 'v1.1.6 - And he tooketh the holy hammer and hit it until it wath fixeth.'
     echo 'v1.0.9 - deluge restart'
     echo 'v1.0.8 - tweak to rtorrent restart to check for orphaned lock file.'
     echo 'v1.0.7 - rtorrent and deluge will no longer kill custom instances from the multirtru script. Transmision restart timer imeplemented. Other minor tweaks'
@@ -56,7 +56,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.1.5"
+scriptversion="1.1.6"
 #
 # Script name goes here. Please prefix with install.
 scriptname="restart"
@@ -118,7 +118,7 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 ############################
 #
 # Disables the built in script updater permanently by setting this variable to 0.
-updaterenabled="0"
+updaterenabled="1"
 #
 ############################
 ####### Variable End #######
