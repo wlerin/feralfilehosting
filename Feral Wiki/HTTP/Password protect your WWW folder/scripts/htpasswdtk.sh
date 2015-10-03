@@ -38,6 +38,7 @@ then
     #
     # put your version changes in the single quotes and then uncomment the line.
     #
+    echo 'v1.1.5 auth group removed'
     echo 'v1.1.4 template updated'
     echo 'v1.1.2 template updated'
     echo '1.1.1 nginx rcp specific options for default and multple instances. tweaked the way option 18 works.'
@@ -64,7 +65,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.1.4"
+scriptversion="1.1.5"
 #
 # Script name goes here. Please prefix with install.
 scriptname="htpasswdtk"
@@ -442,7 +443,7 @@ then
                             then
                                 if [[ -z "$(sed -n '/AuthName "Please Login"/p' $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess)" ]]
                                 then
-                                    echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess
+                                    echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess
                                     find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                                     echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in" "\033[36m""/$specificlocpath""\e[0m"
                                     echo
@@ -455,7 +456,7 @@ then
                                     echo
                                 fi
                             else
-                                echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess
+                                echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess
                                 find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                                 echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in" "\033[36m""/$specificlocpath""\e[0m"
                                 echo
@@ -473,7 +474,7 @@ then
                         then
                             if [[ -z "$(sed -n '/AuthName "Please Login"/p' $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess)" ]]
                             then
-                                echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess
+                                echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess
                                 find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                                 echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in the" "\033[36m""WWW""\e[0m" "root"
                                 echo
@@ -486,7 +487,7 @@ then
                                 echo
                             fi
                         else
-                            echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess
+                            echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess
                             find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                             echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in the" "\033[36m""WWW""\e[0m" "root"
                             echo
@@ -524,7 +525,7 @@ then
                             then
                                 if [[ -z "$(sed -n '/AuthName "Please Login"/p' $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess)" ]]
                                 then
-                                    echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess
+                                    echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess
                                     find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                                     echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in" "\033[36m""/$specificlocpath""\e[0m"
                                     echo
@@ -537,7 +538,7 @@ then
                                     echo
                                 fi
                             else
-                                echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess
+                                echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess
                                 find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                                 echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in" "\033[36m""/$specificlocpath""\e[0m"
                                 echo
@@ -555,7 +556,7 @@ then
                         then
                             if [[ -z "$(sed -n '/AuthName "Please Login"/p' $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess)" ]]
                             then
-                                echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess
+                                echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess
                                 find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                                 echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in the" "\033[36m""WWW""\e[0m" "root"
                                 echo
@@ -568,7 +569,7 @@ then
                                 echo
                             fi
                         else
-                            echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess
+                            echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess
                             find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                             echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in the" "\033[36m""WWW""\e[0m" "root"
                             echo
@@ -597,7 +598,7 @@ then
                                     then
                                         if [[ -z "$(sed -n '/AuthName "Please Login"/p' $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess)" ]]
                                         then
-                                            echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess
+                                            echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess
                                             find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                                             echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in" "\033[36m""/$specificlocpath""\e[0m"
                                             echo
@@ -610,7 +611,7 @@ then
                                             echo
                                         fi
                                     else
-                                        echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess
+                                        echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/$specificlocpath/.htaccess
                                         find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                                         echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in" "\033[36m""/$specificlocpath""\e[0m"
                                         echo
@@ -628,7 +629,7 @@ then
                                 then
                                     if [[ -z "$(sed -n '/AuthName "Please Login"/p' $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess)" ]]
                                     then
-                                        echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess
+                                        echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess
                                         find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                                         echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in the" "\033[36m""WWW""\e[0m" "root"
                                         echo
@@ -641,7 +642,7 @@ then
                                         echo
                                     fi
                                 else
-                                    echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess
+                                    echo -e "\n######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" >> $HOME/www/$(whoami).$(hostname -f)/public_html/.htaccess
                                     find $HOME/www/$(whoami).$(hostname -f)/public_html -type f -name ".htaccess" -exec chmod 644 {} \;
                                     echo -e "The" "\033[36m"".htaccess""\e[0m" "file was created or updated in the" "\033[36m""WWW""\e[0m" "root"
                                     echo
@@ -698,7 +699,7 @@ then
             "5") # Protect the /links directory using ~/private/.htpasswd
                 if [[ -d $HOME/www/$(whoami).$(hostname -f)/public_html/links ]]
                 then
-                    echo -e "######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" > $HOME/www/$(whoami).$(hostname -f)/public_html/links/.htaccess
+                    echo -e "######\nAuthUserFile \"$HOME/private/.htpasswd\"\nAuthName \"Please Login\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" > $HOME/www/$(whoami).$(hostname -f)/public_html/links/.htaccess
                     echo -e "The" "\033[36m""/links""\e[0m" "directory has been protected using the" "\033[36m""~/private/.htpasswd""\e[0m"
                 else
                     echo -e "The" "\033[36m""$HOME/www/$(whoami).$(hostname -f)/public_html/links""\e[0m" "does not exist"
@@ -775,7 +776,7 @@ then
             "10") #RuTorrent: Protect the /links directory using /rutorrent/.htpasswd
                 if [[ -d $HOME/www/$(whoami).$(hostname -f)/public_html/links ]]
                 then
-                    echo -e "######\nAuthUserFile \"$HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent/.htpasswd\"\nAuthGroupFile /dev/null\nAuthName \"$(whoami)\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" > $HOME/www/$(whoami).$(hostname -f)/public_html/links/.htaccess
+                    echo -e "######\nAuthUserFile \"$HOME/www/$(whoami).$(hostname -f)/public_html/rutorrent/.htpasswd\"\nAuthName \"$(whoami)\"\nAuthType Basic\n#####\nRequire valid-user\n####\nSatisfy All\n###" > $HOME/www/$(whoami).$(hostname -f)/public_html/links/.htaccess
                     echo -e "The" "\033[36m""/links""\e[0m" "directory has been protected using the" "\033[36m""/rutorrent/.htpasswd""\e[0m"
                 else
                     echo -e "The" "\033[36m""$HOME/www/$(whoami).$(hostname -f)/public_html/links""\e[0m" "does not exist"
