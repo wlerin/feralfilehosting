@@ -121,8 +121,8 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 #
 cmakeurl="https://github.com/feralhosting/feralfilehosting/raw/master/Feral%20Wiki/Software/CMAKE%20-%20Basic%20Setup/binary/cmake-3.2.2-Linux-x86_64.tar.gz"
 #
-weechat="http://weechat.org/files/src/weechat-1.2.tar.gz"
-weechatfv="1.2"
+weechat="http://weechat.org/files/src/weechat-1.3.tar.gz"
+weechatfv="1.3"
 #
 ############################
 ### Custom Variables End ###
