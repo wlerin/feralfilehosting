@@ -121,7 +121,7 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 syncthingversion="$(wget -q -O - https://github.com/syncthing/syncthing/releases/latest | sed -rn 's|(.*)<strong>syncthing-linux-amd64-v(.*).tar.gz</strong>|\2|p')"
 syncthingurl="https://github.com/syncthing/syncthing/releases/download/v$syncthingversion/syncthing-linux-amd64-v$syncthingversion.tar.gz"
 #
-syncport="$(expr 1 + $appport)"
+syncport="$(($appport+1))"
 while [[ "$(netstat -ln | grep ':'"$syncport"'' | grep -c 'LISTEN')" -eq "1" ]]; do syncport="$(shuf -i 10001-32001 -n 1)"; done
 #
 apacheconf="http://git.io/WqUqBQ"
