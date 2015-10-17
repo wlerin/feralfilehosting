@@ -46,6 +46,7 @@ then
     #echo 'v0.0.5 - My changes go here'
     #echo 'v0.0.4 - My changes go here'
     #echo 'v0.0.3 - My changes go here'
+    echo 'v1.0.8 - tweaks inline with current dev'
     echo 'v1.0.7 - fixed typo in syncport causing a critical failure in the modification of the config.xml'
     echo 'v1.0.6 - Updater template updated - script detects latest version automatically.'
     #
@@ -62,7 +63,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.0.7"
+scriptversion="1.0.8"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.syncthing"
@@ -339,6 +340,9 @@ then
     ~/bin/syncthing -generate="~/.config/syncthing"
     sed -i -r 's#<address>127.0.0.1:(.*)</address>#<address>10.0.0.1:'"$appport"'</address>#g' ~/.config/syncthing/config.xml
     sed -i 's#<listenAddress>0.0.0.0:22000</listenAddress>#<listenAddress>0.0.0.0:'"$syncport"'</listenAddress>#g' ~/.config/syncthing/config.xml
+    sed -i -r 's#<localAnnounceEnabled>true</localAnnounceEnabled>#<localAnnounceEnabled>false</localAnnounceEnabled>#g' ~/.config/syncthing/config.xml
+    sed -i -r 's#<startBrowser>true</startBrowser>#<startBrowser>false</startBrowser>#g' ~/.config/syncthing/config.xml
+    sed -i -r 's#<upnpEnabled>true</upnpEnabled>#<upnpEnabled>false</upnpEnabled>#g' ~/.config/syncthing/config.xml
     # Apache proxypass
     if [[ ! -f ~/.apache2/conf.d/syncthing.conf ]]
     then
@@ -346,7 +350,7 @@ then
         sed -i -r 's#PORT#'"$appport"'#g' ~/.apache2/conf.d/syncthing.conf
         /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
     else
-        configport=$(sed -nr 's#\s*<address>10.0.0.1:(.*)</address>#\1#p' ~/.config/syncthing/config.xml)
+        configport="$(sed -nr 's#\s*<address>10.0.0.1:(.*)</address>#\1#p' ~/.config/syncthing/config.xml)"
         wget -qO ~/.apache2/conf.d/syncthing.conf "$apacheconf"
         sed -i -r 's#PORT#'"$configport"'#g' ~/.apache2/conf.d/syncthing.conf
         /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
@@ -361,7 +365,7 @@ then
             sed -i -r 's#PORT#'"$appport"'#g' ~/.nginx/conf.d/000-default-server.d/syncthing.conf
             /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
         else
-            configport=$(sed -nr 's#\s*<address>10.0.0.1:(.*)</address>#\1#p' ~/.config/syncthing/config.xml)
+            configport="$(sed -nr 's#\s*<address>10.0.0.1:(.*)</address>#\1#p' ~/.config/syncthing/config.xml)"
             wget -qO ~/.nginx/conf.d/000-default-server.d/syncthing.conf "$nginxconf"
             sed -i -r 's#USERNAME#'"$(whoami)"'#g' ~/.nginx/conf.d/000-default-server.d/syncthing.conf
             sed -i -r 's#PORT#'"$configport"'#g' ~/.nginx/conf.d/000-default-server.d/syncthing.conf
