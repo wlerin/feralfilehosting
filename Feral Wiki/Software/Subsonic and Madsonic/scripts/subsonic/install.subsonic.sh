@@ -118,8 +118,8 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 ############################
 #
 subsonicversion="5.2.1"
-javaversion="1.8 Update 60"
-jvdecimal="1.8.0_60"
+javaversion="1.8 Update 65"
+jvdecimal="1.8.0_65"
 #
 # Defines the memory variable
 # buffer
@@ -127,7 +127,7 @@ maxmemory="2048"
 # Gets the Java version from the last time this script installed Java
 installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 # Java URL
-javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=109700"
+javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=111681"
 # Subsonic Standalone files
 subsonicfv="http://downloads.sourceforge.net/project/subsonic/subsonic/5.2.1/subsonic-5.2.1-standalone.tar.gz"
 subsonicfvs="subsonic-5.2.1-standalone.tar.gz"
