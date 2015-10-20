@@ -12,7 +12,8 @@ If you get errors on restarting a particular program or they fail to start, refe
 wget -qO ~/restart.sh http://git.io/5Uw8Gw && bash ~/restart.sh
 ~~~
 
-### Manually restarting programs
+Manually restarting programs
+---
 
 Copy and paste commands directly as written in this FAQ.
 
@@ -95,7 +96,8 @@ Run the following commands through [ SSH](https://www.feralhosting.com/faq/view?
 
 Use the commands you need to kill and start the deluge daemon and Web Gui:
 
-### Kill the deluge daemon and Web Gui
+Kill the deluge daemon and Web Gui
+---
 
 **Option 1:** Kill deluge only
 
@@ -109,33 +111,43 @@ killall -9 -u $(whoami) deluged
 killall -9 -u $(whoami) deluge-web
 ~~~
 
-**Option 3** This command would kill the deluge process and the web gui together
+**Option 3** This command would kill the deluge process and the WebUi together
 
 ~~~
 killall -9 -u $(whoami) deluged deluge-web
 ~~~
 
-### Restart the deluge daemon and Web Gui
+Restart the deluge daemon and WebUi
+---
 
-**Important note:**  Deluge cannot be started by the user and will be started by the system instead. After killing the process allow up to 5 minutes for it to automatically to restart.
+**Important note:** `deluged` can be started by the user but `deluge-web` cannot be started by the user and will be started by the system instead. After killing the process allow up to 5 minutes for it to automatically to restart.
 
-You can do this to see if the process has restarted:
+If you get this error when starting `deluged` you will need to open a [support ticket](https://www.feralhosting.com/manager/tickets/new) with a relevant title. This problem requires Staff to fix.
+
+![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/twisted.png)
+
+### Restart deluged
+
+~~~
+deluged
+~~~
+
+### Restart deluge-web
+
+Please wait up to 5 minutes for the system to restart the `deluge-web` process.
+
+You can do this to see if the process has restarted, You will see this if the process is running:
 
 ~~~
 ps x | grep deluge | grep -v grep
 ~~~
 
-You will see this if the process is running.
-
-If you get this error you will need to open a [support ticket](https://www.feralhosting.com/manager/tickets/new) with a relevant title. This problem requires Staff to fix.
-
-![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/twisted.png)
-
 If the processes are running the result will look like this:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Installable%20software/Restarting%20-%20rtorrent%20-%20Deluge%20-%20Transmission%20-%20MySQL/deluge.png)
 
-### Restarting MySQL
+Restarting MySQL
+---
 
 Run the following commands through [ SSH](https://www.feralhosting.com/faq/view?question=12). (Copy and paste these commands directly as written). 
 

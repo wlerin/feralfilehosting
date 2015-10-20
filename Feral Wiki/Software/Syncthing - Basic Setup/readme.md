@@ -29,7 +29,7 @@ https://server.feralhosting.com/username/syncthing/
 
 ~~~
 mkdir -p ~/bin && source ~/.{profile,bashrc}
-wget -qO ~/syncthing.tar.gz https://github.com/syncthing/syncthing/releases/download/v0.11.0/syncthing-linux-amd64-v0.11.0.tar.gz
+wget -qO ~/syncthing.tar.gz https://github.com/syncthing/syncthing/releases/download/v0.11.26/syncthing-linux-amd64-v0.11.26.tar.gz
 tar xf ~/syncthing.tar.gz
 mv ~/syncthing-linux-amd64-v*/syncthing ~/bin/
 cd && rm -rf syncthing{-linux-amd64-v*,.tar.gz}
@@ -66,21 +66,23 @@ nano ~/.config/syncthing/config.xml
 Your  generated configuration file will load and look like this. We need to make a few changes to suit our needs.
 
 ~~~
-<configuration version="10">
-    <folder id="default" path="/media/DiskID/home/username/Sync" ro="false" rescanIntervalS="60" ignorePerms="false" autoNormalize="false">
-        <device id="1A2B3C4-1A2B3C4-1A2B3C4-1A2B3C4-1A2B3C4-1A2B3C4-1A2B3C4-1A2B3C4"></device>
+<configuration version="11">
+    <folder id="default" path="/media/DiskID/username/Sync" ro="false" rescanIntervalS="60" ignorePerms="false" autoNormalize="false">
+        <device id="BLYW5FJ-ZCZFS7D-UIIXDIQ-OJQUWA3-LT7TFGK-3GAPZ4S-P5AYI3M-KIKPAQL"></device>
+        <minDiskFreePct>1</minDiskFreePct>
         <versioning></versioning>
-        <lenientMtimes>false</lenientMtimes>
         <copiers>0</copiers>
         <pullers>0</pullers>
         <hashers>0</hashers>
+        <order>random</order>
+        <ignoreDelete>false</ignoreDelete>
     </folder>
-    <device id="1A2B3C4-1A2B3C4-1A2B3C4-1A2B3C4-1A2B3C4-1A2B3C4-1A2B3C4-1A2B3C4" name="server" compression="metadata" introducer="false">
+    <device id="BLYW5FJ-ZCZFS7D-UIIXDIQ-OJQUWA3-LT7TFGK-3GAPZ4S-P5AYI3M-KIKPAQL" name="pallas" compression="metadata" introducer="false">
         <address>dynamic</address>
     </device>
     <gui enabled="true" tls="false">
         <address>127.0.0.1:8384</address>
-        <apikey>dhe47861283742ijiod808srd7822142</apikey>
+        <apikey>V9tVDYebOoiUXR0wZdyeyktgeoyYTE3X</apikey>
     </gui>
     <options>
         <listenAddress>0.0.0.0:22000</listenAddress>
@@ -95,9 +97,9 @@ Your  generated configuration file will load and look like this. We need to make
         <reconnectionIntervalS>60</reconnectionIntervalS>
         <startBrowser>true</startBrowser>
         <upnpEnabled>true</upnpEnabled>
-        <upnpLeaseMinutes>0</upnpLeaseMinutes>
+        <upnpLeaseMinutes>60</upnpLeaseMinutes>
         <upnpRenewalMinutes>30</upnpRenewalMinutes>
-        <upnpTimeoutSeconds>3</upnpTimeoutSeconds>
+        <upnpTimeoutSeconds>10</upnpTimeoutSeconds>
         <urAccepted>0</urAccepted>
         <urUniqueID></urUniqueID>
         <restartOnWakeup>true</restartOnWakeup>
@@ -107,10 +109,12 @@ Your  generated configuration file will load and look like this. We need to make
         <progressUpdateIntervalS>5</progressUpdateIntervalS>
         <symlinksEnabled>true</symlinksEnabled>
         <limitBandwidthInLan>false</limitBandwidthInLan>
+        <databaseBlockCacheMiB>0</databaseBlockCacheMiB>
+        <pingTimeoutS>30</pingTimeoutS>
+        <pingIdleTimeS>60</pingIdleTimeS>
+        <minHomeDiskFreePct>1</minHomeDiskFreePct>
     </options>
 </configuration>
-
-
 ~~~
 
 **Change 1:** The WebUi address and port to port between the range of `10001` to `49999`:
@@ -139,13 +143,15 @@ Change it to something else, for example:
 
 **Change 3:**
 
-Find this setting:
+Find these settings:
 
 ~~~
+<localAnnounceEnabled>true</localAnnounceEnabled>
+<startBrowser>true</startBrowser>
 <upnpEnabled>true</upnpEnabled>
 ~~~
 
-And set it to false:
+And set them to false:
 
 ~~~
 <upnpEnabled>false</upnpEnabled>

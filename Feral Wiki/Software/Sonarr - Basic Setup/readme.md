@@ -12,7 +12,13 @@ You login information for the relevant slot will be shown here:
 Installing Mono and then Sonarr
 ---
 
-You need to install this first:
+Use this command to create the `~/bin` directory and reload your shell for this change to take effect.
+
+~~~
+mkdir -p ~/bin && bash
+~~~
+
+Then you need to install `libtool`
 
 ~~~
 wget -qO ~/libtool.tar.gz http://ftpmirror.gnu.org/libtool/libtool-2.4.6.tar.gz

@@ -209,8 +209,8 @@ Python 3
 
 ~~~
 mkdir -p ~/python/python3
-wget -qO ~/Python.tar.xz  https://www.python.org/ftp/python/3.5.0/Python-3.5.0.tar.xz
-tar xf ~/Python.tgz && cd ~/Python-3.5.0
+wget -qO ~/python.tar.xz  https://www.python.org/ftp/python/3.5.0/Python-3.5.0.tar.xz
+tar xf ~/python.tar.xz && cd ~/Python-3.5.0
 ./configure --prefix=$HOME/python/python3 && make && make install
 ~~~
 
@@ -219,7 +219,7 @@ The configuration and installation can take some time to be patient.
 When it is finished installing, do some clean up with this command.
 
 ~~~
-cd && rm -rf ~/Python{-3.5.0,.tgz}
+cd && rm -rf ~/python{-3.5.0,.tar.xz}
 ~~~
 
 Python has been installed. Now check which version is in use:
