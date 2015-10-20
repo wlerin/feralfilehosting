@@ -28,12 +28,12 @@ Files found via [http://www.java.com/en/download/manual.jsp?locale=en](http://ww
      
 This method will download and install/update the 64 bit Java files for Linux
 
-### Java 1.8 U60
+### Java 1.8 U65
 
 Download v8:
 
 ~~~
-wget -qO ~/java.tar.gz http://javadl.sun.com/webapps/download/AutoDL?BundleId=109700
+wget -qO ~/java.tar.gz http://javadl.sun.com/webapps/download/AutoDL?BundleId=111681
 ~~~
 
 Unpack the files:
@@ -53,9 +53,9 @@ Manually call `java` it like this:
 You will see this:
 
 ~~~
-java version "1.8.0_60"
-Java(TM) SE Runtime Environment (build 1.8.0_60-b27)
-Java HotSpot(TM) 64-Bit Server VM (build 25.60-b23, mixed mode)
+java version "1.8.0_65"
+Java(TM) SE Runtime Environment (build 1.8.0_65-b17)
+Java HotSpot(TM) 64-Bit Server VM (build 25.65-b01, mixed mode)
 ~~~
 
 Unless you used the `-version` command before installing the update can just do this command below, otherwise log into a new SSH session for the changes to take effect and then check your version again.
