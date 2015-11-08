@@ -1,7 +1,7 @@
 
 **Important note:** This procedure applies to moving or downgrading slots as well.
 
-An upgraded slot is a larger one. For example, doubling a Neon slot is known as a Xenon as it offers more than twice the bandwidth and disk space.
+An upgraded slot is a larger one. For example, doubling a Neon slot is known as a Krypton as it offers twice the disk space.
 
 You do not need to register a separate account for an upgrade unless you wish to change your feral username. 
 

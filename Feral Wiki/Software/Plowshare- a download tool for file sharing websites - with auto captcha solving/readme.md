@@ -12,8 +12,8 @@ You login information for the relevant slot will be shown here:
 Plowshare
 ---
 
-Plowshare homepage: [http://code.google.com/p/plowshare/](http://code.google.com/p/plowshare/)
-Plowshare Readme: [http://code.google.com/p/plowshare/wiki/Readme4](http://code.google.com/p/plowshare/wiki/Readme4)
+[Plowshare homepage](https://github.com/mcrapet/plowshare)
+[Plowshare Readme](https://github.com/mcrapet/plowshare/wiki/Modules)
 
 Plowshare is a UNIX/Linux command line tool for downloading files from file sharing websites like rapidshare.com, hotfile.com, depositfiles.com, and so on, it currently has support for 49 sites.
 
@@ -23,74 +23,16 @@ The automatic captcha solving is done by using one of several sites which allow 
 
 Plowshare is a command line tool and while not hard to install, setup, and run, it is not for Linux newbies. You really need to know how to edit files on your Feral slot, create and change directories, and such like. This is a step-by-step guide for installing and using Plowshare on your Feral slot and not a how-to-do the basics of Linux.
 
-### Step 1 - Get the Plowshare source file on to your Feral slot.
-
-Download the latest "Plowshare source tarball" (the file which ends in ".tar.gz") from this page:
- 
-[http://code.google.com/p/plowshare/downloads/list](http://code.google.com/p/plowshare/downloads/list)
-
-The current version as of November 21, 2013 is `plowshare4-snapshot-git20131102.b72c58d.tar.gz `  but that will change in time. You want the "plowshare4-snapshot..." and NOT the "plowshare3-snapshot...".
- 
-Create a temp 'install' directory on your Feral slot, let's say 'plowtemp', and put the "plowshare-snapshot-version-num.tar.gz" file into that directory.
- 
-More advanced Linux users can use wget to download the file directly to their Feral slot. e.g.
-
-Note: For the correct link to use with wget click on the ".tar.gz" file on the Plowshare downloads page and then copy the download link on the page you are taken to.
+Download and install Plowshare:
+---
 
 ~~~
-wget http://plowshare.googlecode.com/files/plowshare4-snapshot-git20130520.2b2d736.tar.gz
+mkdir -p ~/bin && bash
+git clone https://github.com/mcrapet/plowshare.git ~/.plowshare-source && cd ~/.plowshare-source
+make install PREFIX=$HOME && cd && rm -rf .plowshare-source
 ~~~
 
-### Step 2 - Untar the Plowshare source.
-
-Make sure you are in the temp install directory you created, e.g. 'plowtemp'.
-
-Untar the source tarball with this command:
-
-~~~
-tar -zxvf plowshare-snapshot-*.tar.gz
-~~~
-
-The tar command above will create a new directory with the same name as the plowshare-snapshot-version-num.tar.gz but without the ".tar.gz" extension. This directory will contain all the files needed for the installation.
-
-### Step 3 - Install Plowshare.
-
-Change to the directory that was created by tar in Step 2, e.g. 'plowshare-snapshot-version-num'.
-
-If you type the command "ls -l" you should see a file listing of something like this:
-
-~~~
--rw------- 1 YourUserName YourUserName  2342 Jun  9 11:38 AUTHORS
--rw------- 1 YourUserName YourUserName  9203 Jun  9 11:38 CHANGELOG
-drwx------ 2 YourUserName YourUserName  4096 Jun  9 11:38 contrib
--rw------- 1 YourUserName YourUserName 35147 Jun  9 11:38 COPYING
-drwx------ 2 YourUserName YourUserName  4096 Jun  9 11:38 docs
-drwx------ 2 YourUserName YourUserName  4096 Jun  9 11:38 etc
--rw------- 1 YourUserName YourUserName  1338 Jun  9 11:38 INSTALL
--rw------- 1 YourUserName YourUserName  3702 Jun  9 11:38 Makefile
--rw------- 1 YourUserName YourUserName  6805 Jun  9 11:38 README
--rwx------ 1 YourUserName YourUserName  3746 Jun  9 11:38 setup.sh
-drwx------ 4 YourUserName YourUserName  4096 Jun  9 11:38 src
-drwx------ 2 YourUserName YourUserName  4096 Jun  9 11:38 tests
-~~~
-
-To install Plowshare as non-root (you do not have root / sudo privileges on your Feral slot), run the "make install" command below:
-
-**Important note:** It is important that you use exactly this command and not the one specified in the INSTALL file which does not work (I know I tried it and it does not put the executable links in the 'bin' directory - see below).
-
-~~~
-make install PREFIX=$HOME
-~~~
-
-**Important note:** When you run the command above you might notice the error below - Do Not Worry! The install process is just trying to check that you are installing the newest version of Plowshare and using 'git' to check. Feral slots do not have 'git' installed so this process will not work, but the install will continue to work perfectly well.
-
-~~~
-/bin/sh: git: command not found
-~~~
-
-The "make install" command will install the Plowshare script into a directory called 'share' in your home directory. It will also create another directory in your home directory called 'bin' (if that does not already exist) into which it will place symbolic links to the various executable scripts that make up Plowshare. Do not move or change the names of these directories or anything inside them or Plowshare won't work.
- 
-You can now check to see if Plowshare is installed, just run the following command:
+Now it should be successful installed. You can test by running this command.
 
 ~~~
 plowdown -h
@@ -100,7 +42,8 @@ You should see a page of usage and options. If instead you get "command not foun
 
 At this point you can delete the temp install directory you created, i.e. 'plowtemp', as well as the source tarball (.tar.gz) file if you want, they won't be needed again.
 
-### Step 4 - Fix Potential IPv6 (Internet Protocol v6) Problem.
+Fix Potential IPv6 (Internet Protocol v6) Problem.
+---
 
 There is no support on Feral slots for IPv6 (Internet Protocol version 6) at the moment. Plowshare makes extensive use of a program called 'curl' to access the web and you must create a 'curl' init file to make sure 'curl' always uses IPv4 IP addresses and not IPv6.
  
@@ -117,13 +60,15 @@ echo '--ipv4' >> ~/.curlrc
 ~~~
 
  
-### Step 5 - Create an automated captcha Account.
+Create an automated captcha Account.
+---
 
 You can use 9kw.eu, deathbycaptcha.com or antigate.com to buy captcha credits, but only 9kw.eu allows you to earn credits by solving other people's captchas - this works by you going to the 9kw.eu 'Captcha' page, it will give you a captcha to solve, when you do so it will give you some credits, then it will give you another captcha to solve and so on.
 
 Note: An alternative to automated captcha solving is manual captcha solving. Just use the "--captchamethod=imgur" option on the command line or "captchamethod=imgur" in your config file. Plowshare will provide you with an imgurlink hosting the captcha, and you will need to solve it yourself which means you will have to keep and eye on the window if downloading more than one file at a time.
 
-### Step 6 - Create a Plowshare Config File.
+Create a Plowshare Config File.
+---
 
 **Important note:** You do not need to create a config file, everything can be done on the command line, but it is useful to use one.
  
@@ -190,7 +135,8 @@ The `Plowdown` section can have all kinds of things set in them, I just have a f
 Any option can be placed in the config file, please see the Plowshare Readme config file section, here:
 [http://code.google.com/p/plowshare/wiki/Readme4#Configuration_file](http://code.google.com/p/plowshare/wiki/Readme4#Configuration_file)
 
-### Step 7 - Using Plowshare.
+Using Plowshare.
+---
 
 Plowshare can be used to download, upload, list, and delete files on the file sharing websites.
 

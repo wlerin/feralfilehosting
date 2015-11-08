@@ -193,7 +193,7 @@ Updating Plex
 Run this command to update Plex to the latest version Feral is hosting and then wait up to ten minutes for it to reload.
 
 ~~~
-pkill -9 -fu "$(whoami)" 'plexmediaserver'&& rm -rf ~/private/plex && mkdir -p ~/private/plex
+pkill -9 -fu "$(whoami)" 'plexmediaserver' && rm -rf ~/private/plex && mkdir -p ~/private/plex
 ~~~
 
 Tips for Plex

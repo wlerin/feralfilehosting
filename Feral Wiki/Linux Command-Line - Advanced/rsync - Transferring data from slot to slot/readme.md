@@ -8,13 +8,11 @@ Do this command on your **NEW** slot:
 wget -qO ~/rsynctk.sh http://git.io/ikae7Q && bash ~/rsynctk.sh
 ~~~
 
-This script basically does 3 things.
+This script basically does 2 things.
 
 **1:** Asks you for inputs such as username and server name and will then generate you a working command that you can do inside a screen window.
 
 **2:** You can continue and have the script create a screen and add the command. This stage requires your SSH passwords for your old slot. If you complete the steps correctly, it will create a screen and start the transfer based on your input.
-
-**3:** whatbox.ca: The script can perform the same two features as above, but for importing from whatbox.ca. You will be presented with this option when the script runs.
 
 If anything, you can just do stage one to get a working command. Remember, you run this script on your **NEW** slot. It copies files from your old slot to the new. The process is started and runs on the new slot.
 

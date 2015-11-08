@@ -29,11 +29,10 @@ htdigest -c ~/.squidauth NoOrcs bilbobaggins
 **2:** Install and compile Squid.
 
 ~~~
-wget -qO ~/squid.tar.gz http://www.squid-cache.org/Versions/v3/3.5/squid-3.5.6.tar.gz
+wget -qO ~/squid.tar.gz http://www.squid-cache.org/Versions/v4/squid-4.0.1.tar.gz
 tar xf ~/squid.tar.gz && cd squid-*
 ./configure --prefix=$HOME
-make && make install && cd
-rm -rf squid{-*,.tar.gz}
+make && make install && cd && rm -rf squid{-*,.tar.gz}
 ~~~
 
 **3:** Get the preconfigured conf file that we will have to modify a little.
@@ -59,8 +58,8 @@ nano ~/etc/squid.conf
 
 Modify this section only:
 
-**1:** `username` needs to be changed to match the user you created in Step 1 in the `~/.squidauth` file.
-**2:** Change `MyRealm` to the what was set with the `htdigest` command in Step 1.
+**1:** line `61` - Change `MyRealm` to the what was set with the `htdigest` command in Step 1.
+**2:** lines `66` and `67` need `username` to be changed to match the user you created in Step 1 in the `~/.squidauth` file.
 **3:** Full paths should already match your slots if you ran the `sed` command. Otherwise edit them to match your slots full path.
 **4:** The port should have been randomised for you  if you ran the `sed` commands so just take not of it. Otherwise change the port to something between `10001` and `32001`
 
