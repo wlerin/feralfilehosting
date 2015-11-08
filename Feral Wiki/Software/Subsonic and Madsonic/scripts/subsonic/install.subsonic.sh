@@ -117,7 +117,7 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 ## Custom Variables Start ##
 ############################
 #
-subsonicversion="5.2.1"
+subsonicversion="5.3"
 javaversion="1.8 Update 65"
 jvdecimal="1.8.0_65"
 #
@@ -129,11 +129,11 @@ installedjavaversion=$(cat ~/.javaversion 2> /dev/null)
 # Java URL
 javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=111681"
 # Subsonic Standalone files
-subsonicfv="http://downloads.sourceforge.net/project/subsonic/subsonic/5.2.1/subsonic-5.2.1-standalone.tar.gz"
-subsonicfvs="subsonic-5.2.1-standalone.tar.gz"
+subsonicfv="http://subsonic.org/download/subsonic-5.3-standalone.tar.gz"
+subsonicfvs="subsonic-5.3-standalone.tar.gz"
 # ffmpeg files
-sffmpegfv="https://github.com/feralhosting/feralfilehosting/releases/download/Madsonic/sonic.ffmpeg.04.07.2015.zip"
-sffmpegfvs="sonic.ffmpeg.04.07.2015.zip"
+sffmpegfv="https://github.com/feralhosting/feralfilehosting/releases/download/Madsonic-5.1.5250/sonic.ffmpeg.08.10.2015.zip"
+sffmpegfvs="sonic.ffmpeg.08.10.2015.zip"
 #
 ############################
 ### Custom Variables End ###
