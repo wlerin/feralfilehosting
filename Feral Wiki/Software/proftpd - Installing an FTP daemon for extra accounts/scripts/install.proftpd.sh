@@ -254,7 +254,7 @@ then
     ##### Custom Help Info Starts #####
     ###################################
     #
-    echo -e "This script will complete Steps 1 to 6 from the proftpd FAQ. Continue the FAQ from Step 7."
+    echo -e "This script will complete Steps 1 to 6 from the proftpd FAQ. Continue the FAQ from Step 1."
     echo
     echo -e "\033[33m""proftpd is not started by this script so that you may configure your users and jails first""\e[0m"
     echo
@@ -701,11 +701,11 @@ then
     sed -i 's|Port 23002|Port '"$ftpsport"'|g' "$HOME/proftpd/etc/ftps.conf"
     echo "$apppass" | "$HOME"/proftpd/bin/ftpasswd --passwd --name="$(whoami)" --file="$HOME/proftpd/etc/ftpd.passwd" --uid="$(id -u "$(whoami)")" --gid="$(id -g "$(whoami)")" --home="$HOME/" --shell="/bin/false" --stdin >/dev/null 2>&1
     "$HOME"/proftpd/bin/ftpasswd --group --name="$(whoami)" --file="$HOME/proftpd/etc/ftpd.group" --gid="$(id -g "$(whoami)")" --member="$(whoami)" >/dev/null 2>&1
-    echo -e "\033[33m""You have completed Steps 1 through 6. Please continue with the FAQ from Step 7 onwards.""\e[0m"
+    echo -e "\033[33m""You have completed the installtion. Please continue with the FAQ from Step 1 onwards.""\e[0m"
     echo
-    echo -e "\033[31m""proftpd was NOT started to allow you to edit the jails in Step 8 of the FAQ as required.""\e[0m"
+    echo -e "\033[31m""proftpd was NOT started to allow you to edit the jails in Step 2 of the FAQ as required.""\e[0m"
     echo
-    echo -e "\033[33m""See Step 9 of the FAQ for how to start proftpd.""\e[0m"
+    echo -e "\033[33m""See Step 3 of the FAQ for how to start proftpd.""\e[0m"
     echo
     echo -e "\033[31m""FTPS/SFTP Connection Settings:""\e[0m"
     echo
