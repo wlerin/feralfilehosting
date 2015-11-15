@@ -56,7 +56,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.1.6"
+scriptversion="1.1.7"
 #
 # Script name goes here. Please prefix with install.
 scriptname="restart"
@@ -103,8 +103,6 @@ host2https="https://$(hostname -f)/$(whoami)/"
 [[ -d ~/private/transmission/data ]] && transmissiondata="$HOME/private/transmission/data"
 #
 # Bug reporting varaibles.
-makeissue=".makeissue $scriptname A description of the issue"
-ticketurl="https://www.feralhosting.com/manager/tickets/new"
 gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 #
 ############################
@@ -223,17 +221,7 @@ then
     echo
     echo -e "\033[32m""Bug Reporting:""\e[0m"
     echo
-    echo -e "These are the recommended ways to report bugs for scripts in the FAQs:"
-    echo
-    echo -e "1: In IRC you can use wikibot to create a github issue by using this command format:"
-    echo
-    echo -e "\033[36m""$makeissue""\e[0m"
-    echo
-    echo -e "2: You could open a ticket describing the problem with details of which script and what the problem is."
-    echo
-    echo -e "\033[36m""$ticketurl""\e[0m"
-    echo
-    echo -e "3: You can create an issue directly on github using your github account."
+    echo -e "You can create an issue directly on github using your github account."
     echo
     echo -e "\033[36m""$gitissue""\e[0m"
     echo
@@ -383,7 +371,7 @@ do
                 then
                     echo -e "Deluged was started\n"
                 else   
-                    echo -e "\nPlease open a ticket labelled\n\n""Deluge port in use - Servername\n\n""https://www.feralhosting.com/manager/tickets/new\n"
+                    echo -e "Please open a ticket labelled\n\n""Deluge port in use - $(hostname)\n\n""https://www.feralhosting.com/manager/tickets/new\n"
                     sleep 2
                     exit
                 fi
