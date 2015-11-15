@@ -9,12 +9,8 @@ You login information for the relevant slot will be shown here:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/0%20Generic/slot_detail_ssh.png)
 
-> **Important note:** If you just want to find out which Ports to use for connecting, see Step 5. If did not complete the user creation/password part of the script see Step 6 for the `ftpasswd` commands you need to 1: create your main user and 2: other jailed users.
-
 Bash script installation
 ---
-
-This bash script will perform the **basic set-up** outlined in Steps 1,2,3,4,5,6. Including creating your main user account.
 
 > **Important note:** This script can also update proftpd and add or modify users. When updates become available and the script update your installation without losing any settings, jails or users you have configured.
 
@@ -27,272 +23,24 @@ wget -qO ~/install.proftpd http://git.io/nQJBxw && bash ~/install.proftpd
 You can easily add or modify users from the installation script at any time.
 
 ~~~
-~/install.proftpd adduser
+install.proftpd adduser
 ~~~
 
 You can also pass a username directly to the script and it will use that automatically.
 
 ~~~
-~/install.proftpd adduser username
+install.proftpd adduser username
 ~~~
 
-Use the option `help` for information on start up commands and configured ports:
+**Important note:** Use the option `help` for important information on start up commands, configured ports, connection info and debugging:
 
 ~~~
-~/install.proftpd help
+install.proftpd help
 ~~~
 
-Manual Installation Steps
----
+**Important note:** The script will generate filezilla connection profiles you can download and import. Use the `help` option to see the location.
 
-Follow these steps to manually download and install proftpd. The bash script will complete Steps 1,2,3,4,5,6 for you.
-
-Step 1: Get the package and extract it:
----
-
-~~~
-mkdir -p ~/proftpd/etc/sftp/authorized_keys ~/proftpd/etc/keys ~/proftpd/ssl
-wget -qO proftpd.tar.gz ftp://ftp.proftpd.org/distrib/source/proftpd-1.3.5.tar.gz
-tar xf ~/proftpd.tar.gz -C ~/ && rm -f ~/proftpd.tar.gz
-cd ~/proftpd-1.3.5
-~~~
-
-Step 2: Configure and then install it:
----
-
-~~~
-install_user=$(whoami) install_group=$(whoami) ./configure --prefix=$HOME/proftpd --enable-openssl --enable-dso --enable-nls --enable-ctrls --with-shared=mod_ratio:mod_readme:mod_sftp:mod_tls:mod_ban:mod_shaper
-make && make install
-cd && rm -rf ~/proftpd-1.3.5
-~~~
-
-Step 3.1: Download and create some required configuration files we need:
----
-
-Do these commands to download the preconfigured configuration files.
-
-~~~
-wget -qO ~/proftpd/etc/proftpd.conf http://git.io/CbaIJQ
-wget -qO ~/proftpd/etc/sftp.conf http://git.io/SFHs5g
-wget -qO ~/proftpd/etc/ftps.conf http://git.io/ee86Hw
-~~~
-
-Step 3.2: Optional Configuration:
----
-
-Use these commands if you would like the conf files configured using SSH commands. Skip this section if you wish to do it manually.
-
-Do these next commands to configure the `proftpd.conf`.
-
-~~~
-sed -i 's|/media/DiskID/home/my_username|'$HOME'|g' ~/proftpd/etc/proftpd.conf
-sed -i 's|User my_username|User '$(whoami)'|g' ~/proftpd/etc/proftpd.conf
-sed -i 's|Group my_username|Group '$(whoami)'|g' ~/proftpd/etc/proftpd.conf
-sed -i 's|AllowUser my_username|AllowUser '$(whoami)'|g' ~/proftpd/etc/proftpd.conf
-~~~
-
-Do these next commands to configure the `sftp.conf`:
-
-~~~
-sed -i 's|/media/DiskID/home/my_username|'$HOME'|g' ~/proftpd/etc/sftp.conf
-sed -i 's|Port 23001|Port '$(shuf -i 10001-49999 -n 1)'|g' ~/proftpd/etc/sftp.conf
-sed -nr 's/^Port (.*)/\1/p' ~/proftpd/etc/sftp.conf
-~~~
-
-Make a note of this port, This is your SFTP port.
-
-Do these next commands to configure the `ftps.conf`:
-
-~~~
-sed -i 's|/media/DiskID/home/my_username|'$HOME'|g' ~/proftpd/etc/ftps.conf
-sed -i 's|Port 23002|Port '$(shuf -i 10001-49999 -n 1)'|g' ~/proftpd/etc/ftps.conf
-sed -nr 's/^Port (.*)/\1/p' ~/proftpd/etc/ftps.conf
-~~~
-
-Make a note of this port, This is your FTPS port.
-
-Once these commands have been completed the conf files have all been configured ready for use.
-
-Continue with FAQ.
-
-Step 4: Generate some keys and certs:
----
-
-Here you need to generate the SFTP keys and/or the SSL certs for FTPS
-
-**For SFTP:**
-
-Pass-phrases are optional. Proftpd asks for the pass-phrases when you start the daemon if there are any.
-
-**Copy and paste this command below.** It is required to create our SSH keys.
-
-~~~
-ssh-keygen -qt rsa -f ~/proftpd/etc/keys/sftp_rsa && ssh-keygen -qt dsa -f ~/proftpd/etc/keys/sftp_dsa
-~~~
-
-Press enter 4 times to generate keyfiles with no passphrase. Using a Pass-phrases is optional. Proftpd will ask for the pass-phrases when you start the daemon if one was used.
-
-**For FTPS:**
-
-**Copy and paste this command below.** It is required to generate the SSL certificates we need for FTPS.
-
-~~~
-openssl req -new -x509 -nodes -days 365 -subj '/C=GB/ST=none/L=none/CN=none' -newkey rsa:2048 -keyout ~/proftpd/ssl/proftpd.key.pem -out ~/proftpd/ssl/proftpd.cert.pem
-~~~
-
-Step 5: The Configuration files:
----
-
-> **Important note:** These configuration files just work. They do not need to changed to get the functionality described in this guide, apart from where you are directed to do so. 
-
-They have been configured with 3 default **READ ONLY** jails:
-
-~~~
-private/rtorrent/data
-private/deluge/data
-private/transmission/data
-~~~
-
-They are **READ ONLY** by default, accessible to all non main users so all you need to do is create some standard users to use them. No edits to the configuration files are required. 
-
-> **Important note:** To use non default folders or restrict user access, please see the Jail section in `Step 8` of this FAQ for further information.
-
-These configuration files have been set-up to work in a specific way. 
-
-**1:** The `proftpd.conf` is home to the global settings that are loaded/included in both the `sftp.conf` and the `ftps.conf` when they are called. 
-
-**2:** The `sftp.conf` and `ftps.conf` contain only protocol specific settings.
-
-> **Important note:** These files have already been downloaded, if you used the bash script or followed the commands in `Step 1`, and configured, if you used the bash script or followed the steps in `Step 3.2`. 
-
-For manual set-up or altering, they can be found in the `~/proftpd/etc/` of the installation directory, for example:`~/proftpd/etc/proftpd.conf`
-
-Manual Configuration of conf files
----
-
-You only if you did not use the bash script or skipped using the `sed` commands in step 3.2
-
-proftpd.conf
----
-
-In the Global Section of the `proftpd.conf`
-
-~~~
-User my_username
-Group my_username
-~~~
-
-In the <Limit ALL> section of the `proftpd.conf` change `my_username` to your Feral username to give yourself a full access account. This is the `Main User` account.
-
-~~~
-AllowUser my_username
-~~~
-
-These are the partial line changes you want to change with your own path in the `proftpd.conf`
-
-~~~
-/media/DiskID/home/my_username
-~~~
-
-### sftp.conf
-
-Change the port to a different number (between 6000 and 50000)
-
-~~~
-Port 23001
-~~~
-
-These are the partial line changes you want to change with your own path in the `sftp.conf`
-
-~~~
-/media/DiskID/home/my_username
-~~~
-
-### ftps.conf
-
-Change the port to a different number (between 6000 and 50000)
-
-~~~
-Port 23002
-~~~
-
-These are the partial line changes you want to change with your own path in the `ftps.conf`
-
-~~~
-/media/DiskID/home/my_username
-~~~
-
-To get your ports again at a later date use these commands. You may want to note these down or create aliases for them:
-
-~~~
-echo  "SFTP port = $(sed -nr 's/^Port (.*)/\1/p' ~/proftpd/etc/sftp.conf)"
-echo  "FTPS port = $(sed -nr 's/^Port (.*)/\1/p' ~/proftpd/etc/ftps.conf)"
-~~~
-
-Step 6: Create our main user with full access
----
-
-This command below will automatically create a user using:
-
-**1:** Your Feral slot username.
-
-**2:** Your Feral slot user's `UID` and `GID`. 
-
-> **Important note:** This user is already configured in the `proftpd.conf` for full access if you used the bash script or Step 3.2. 
-
-Use this command to create the main user and enter a password when prompted.
-
-~~~
-~/proftpd/bin/ftpasswd --passwd --name $(whoami) --file ~/proftpd/etc/ftpd.passwd --uid $(id -u $(whoami)) --gid $(id -g $(whoami)) --home $HOME/ --shell /bin/false
-~~~
-
-Create a corresponding group entry (required):
-
-~~~
-~/proftpd/bin/ftpasswd --group --name $(whoami) --file ~/proftpd/etc/ftpd.group --gid $(id -g $(whoami)) --member $(whoami)
-~~~
-
-> **Important note:** This user (with your username) will not be jailed. This is a full access account. This is for your use and not public sharing.
-
-**Explanation: using `UID` and `GID`:**
-
-Do these commands in SSH, where `my_username` is your Feral username
-
-~~~
-id -u my_username
-~~~
-
-~~~
-id -g my_username
-~~~
-
-For example:
-
-~~~
-id -u superguy
-~~~
-
-Returns:
-
-~~~
-1032
-~~~
-
-And then:
-
-~~~
-id -g superguy
-~~~
-
-Returns:
-
-~~~
-1032
-~~~
-
-This will give you **your** `UID` and `GID`, which in this example, are both **1032**. When creating a user if you provide the `UID` and `GID` listed from those commands you will have your full permissions when accessing the slot. The username does not matter as long as the `UID` and `GID` match. This is important for using some programs like WinSCP or when creating an account for yourself.
-
-Step 7: Creating new users and groups
+Step 1: Creating new users and groups
 ---
 
 These users, when created, are all **jailed by default** based on the configuration file settings.
@@ -355,13 +103,7 @@ Create user bash script
 ---
 
 ~~~
-wget -qO ~/proftpdadduser.sh http://git.io/NGk2Aw
-~~~
-
-Then this command to execute it:
-
-~~~
-bash ~/proftpdadduser.sh
+install.proftpd adduser
 ~~~
 
 It will find the next available ID and then ask you for a name, or you can invoke it with a name.
@@ -374,12 +116,12 @@ You will need to:
 
 **3:** Enter a password.
 
-And that should be your new user created and ready to connect once you have started the servers in step 9.
+And that should be your new user created and ready to connect once you have started the servers in Step 3.
 
-Step 8: Jail your users:
+Step 2: Jail your users:
 ---
 
-> **Important note:** Don't forget changes made to the` proftpd.conf`, `sftp.conf` and `ftps.conf` will require the proftpd running process to restarted for the changes to take effect. See `Step 9` for restart commands.
+> **Important note:** Don't forget changes made to the` proftpd.conf`, `sftp.conf` and `ftps.conf` will require the proftpd running process to restarted for the changes to take effect. See Step 3 for restart commands.
 
 Inside the:
 
@@ -414,7 +156,7 @@ To add more jails look at the example described next to see how we do this.
 Adding or editing custom jails
 ---
 
-**Step 1:** Choose or create a folder to lock them in (their HOME location). Then use the relative path to that folder in the commands below for `--home`. This is an optional step, but if their `HOME` corresponds to the jail path you wish to set for them, they will connect directly to their `HOME` folder by default, using an FTP client, with no need to manually specify the location.
+**Part 1:** Choose or create a folder to lock them in (their HOME location). Then use the relative path to that folder in the commands below for `--home`. This is an optional step, but if their `HOME` corresponds to the jail path you wish to set for them, they will connect directly to their `HOME` folder by default, using an FTP client, with no need to manually specify the location.
 
 ~~~
 ~/proftpd/bin/ftpasswd --passwd --name my_username --file ~/proftpd/etc/ftpd.passwd --uid 5001 --gid 5001 --home $HOME/path/to/jail --shell /bin/false
@@ -426,7 +168,7 @@ For example:
 ~/proftpd/bin/ftpasswd --passwd --name my_username --file ~/proftpd/etc/ftpd.passwd --uid 5001 --gid 5001 --home $HOME/private/downloads/ --shell /bin/false
 ~~~
 
-**Step2:** Edit your:
+**Part 2:** Edit your:
 
 ~~~
 ~/proftpd/etc/proftpd.conf
@@ -538,7 +280,7 @@ So instead of `WRITE` you could allow the specific permissions only.
 
 Please see the Useful links section at the end of the FAQ for info on directives you can use in the proftpd.conf and the use of Limits.
 
-Step 9: Let's start ProFTPD:
+Step 3: Let's start ProFTPD:
 ---
 
 > **Important note:** If you make changes to the `proftpd.conf` you will need to restart it for these changes to take effect.
@@ -630,7 +372,7 @@ Now all you need to do is add whichever of these lines you want to restart on a 
 
 Then press and hold `CTRL` then press `X` to save then press `Y` say yes and exit
 
-Step 10: Connecting to my Server
+Step 4: Connecting to my Server
 ---
 
 The process is the same as normal:

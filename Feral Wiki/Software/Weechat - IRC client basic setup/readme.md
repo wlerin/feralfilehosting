@@ -109,11 +109,9 @@ You may need to ask for certain dependencies to be installed. If you experience 
 ~~~
 Please can you install some dependencies for Weechat
 
-https://packages.debian.org/en/source/wheezy/libcurl4-openssl-dev
-https://packages.debian.org/en/source/wheezy/libncursesw5-dev
-https://packages.debian.org/en/source/wheezy/libgcrypt11-dev
+http://www.weechat.org/files/doc/stable/weechat_user.en.html#dependencies
 
-apt-get install libcurl4-gnutls-dev libncursesw5-dev libgcrypt11-dev
+apt-get install libgnutls28-dev libncursesw5-dev libgcrypt20-dev
 
 Thank you.
 ~~~

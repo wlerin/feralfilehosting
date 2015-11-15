@@ -31,7 +31,7 @@ Then you can install mono locally:
 > **Important notes:** mono takes a long time to install. Once you do the last command expect to wait up to 20 minutes for the process to complete.
 
 ~~~
-wget -qO ~/mono.tar.gz http://download.mono-project.com/sources/mono/mono-4.2.1.36.tar.bz2
+wget -qO ~/mono.tar.gz http://download.mono-project.com/sources/mono/mono-4.2.1.102.tar.bz2
 tar xf ~/mono.tar.gz && cd ~/mono-4.2.1
 ./autogen.sh --prefix="$HOME" && make get-monolite-latest
 make && make install && cd && rm -rf mono{-4.2.1,.tar.gz}

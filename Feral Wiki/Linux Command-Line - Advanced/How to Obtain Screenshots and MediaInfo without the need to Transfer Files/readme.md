@@ -26,9 +26,9 @@ You'll find filename.txt in the folder you ran the command in. Remember, autocom
 **Important note:**  You can use [Static ffmpeg builds](https://www.feralhosting.com/faq/view?question=268) if needed.)
 
 ~~~
-ffmpeg -ss 00:05:00 -vframes 1 -i "Filename.avi" -y -f image2 "screenshot1.png"
-ffmpeg -ss 00:10:00 -vframes 1 -i "Filename.avi" -y -f image2 "screenshot2.png"
-ffmpeg -ss 00:15:00 -vframes 1 -i "Filename.avi" -y -f image2 "screenshot3.png"
+ffmpeg -ss 00:05:00 -i "Filename.avi" -vframes 1 -y -f image2 "screenshot1.png"
+ffmpeg -ss 00:10:00 -i "Filename.avi" -vframes 1 -y -f image2 "screenshot2.png"
+ffmpeg -ss 00:15:00 -i "Filename.avi" -vframes 1 -y -f image2 "screenshot3.png"
 ~~~
 
 or
