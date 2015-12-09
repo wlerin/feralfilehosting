@@ -41,11 +41,17 @@ function format_filesize() {
 used=$(du -s --si -B 1MB $HOME/ | cut -f 1);
 quota=$(cat ~/.quotaspace);
 available=$(echo "$quota-$used" | bc );
+exceeded=$(echo "$used-$quota" | bc );
 
 # Format results
 quota_fmt=$(echo "$quota" | format_filesize );
 used_fmt=$(echo "$used" | format_filesize );
 available_fmt=$(echo "$available" | format_filesize);
+if [ "$available" -lt "0" ]; then
+        exceeded_fmt=$(echo "$exceeded" | format_filesize );
+else
+        available_fmt=$(echo "$available" | format_filesize);
+fi;
 
 # Output results
 
@@ -54,14 +60,14 @@ echo -e "\033[1;35;4mDisk usage for user $(whoami)@$(hostname -f)\e[0m";
 
 # Format first part as bold with cyan text
 echo -e "\033[36;1mHome:\e[00m       $HOME";
-echo -e "\033[36;1mQuota:\e[00m $(pad_left "$quota_fmt" 14)";
-echo -e "\033[36;1mUsed:\e[00m $(pad_left "$used_fmt" 15)";
+echo -e "\033[36;1mQuota:\e[00m $(pad_left "$quota_fmt" 17)";
+echo -e "\033[36;1mUsed:\e[00m $(pad_left "$used_fmt" 18)";
 
 # Check if you are under or over your available diskspace
 if [ "$available" -lt "0" ]; then
 	# Format amount in red
-	echo -e "\033[36;1mAvailable:\e[00m \e[00;31m$(pad_left "$available_fmt" 10)\e[00m";
+	echo -e "\033[36;1mExceeded by:\e[00m \e[00;31m$(pad_left "$exceeded_fmt" 11)\e[00m";
 else
 	# Format amount in green
-	echo -e "\033[36;1mAvailable:\e[00m \e[00;32m$(pad_left "$available_fmt" 10)\e[00m";
+	echo -e "\033[36;1mAvailable:\e[00m \e[00;32m$(pad_left "$available_fmt" 13)\e[00m";
 fi;
