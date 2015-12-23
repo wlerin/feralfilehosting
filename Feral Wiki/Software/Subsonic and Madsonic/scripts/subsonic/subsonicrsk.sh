@@ -57,7 +57,7 @@ then
         fi
     elif [[ "$confirm" =~ ^[Aa]$ ]]
     then
-        killall -9 -u $(whoami) java 2> /dev/null
+        killall -9 -u "$(whoami)" java 2> /dev/null
         echo -e "\033[31mAll java processes have been killed\e[0m"
         echo
         echo -e "\033[33mChecking for open java processes:\e[0m"
