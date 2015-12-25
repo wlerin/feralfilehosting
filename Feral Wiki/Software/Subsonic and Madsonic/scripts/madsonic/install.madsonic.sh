@@ -46,7 +46,7 @@ then
     #echo 'v0.0.5 - My changes go here'
     #echo 'v0.0.4 - My changes go here'
     #echo 'v0.0.3 - My changes go here'
-    #echo 'v0.0.2 - My changes go here'
+    echo 'v2.0.1 - rsk script moved to separate script'
     echo 'v2.0.0 - Templater update - minor script tweaks'
     #
     echo
@@ -240,17 +240,7 @@ then
     echo
     echo -e "\033[32m""Bug Reporting:""\e[0m"
     echo
-    echo -e "These are the recommended ways to report bugs for scripts in the FAQs:"
-    echo
-    echo -e "1: In IRC you can use wikibot to create a github issue by using this command format:"
-    echo
-    echo -e "\033[36m""$makeissue""\e[0m"
-    echo
-    echo -e "2: You could open a ticket describing the problem with details of which script and what the problem is."
-    echo
-    echo -e "\033[36m""$ticketurl""\e[0m"
-    echo
-    echo -e "3: You can create an issue directly on github using your github account."
+    echo -e "You can create an issue directly on github using your github account."
     echo
     echo -e "\033[36m""$gitissue""\e[0m"
     echo
@@ -439,7 +429,7 @@ then
         echo -e "\033[31m""Important:""\e[0m" "Java" "\033[32m""$javaversion""\e[0m" "has been installed to" "\033[36m""$HOME/""\e[0m"
         if [[ -f ~/private/madsonic/madsonic.sh.PID ]]
         then
-            kill $(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null) 2> /dev/null
+            kill "$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null)" 2> /dev/null
             bash ~/private/madsonic/madsonic.sh
         fi
         echo
@@ -543,7 +533,7 @@ then
         if [[ "$confirm" =~ ^[Yy]$ ]]
         then
             echo "Killing the process and removing files."
-            kill $(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null) 2> /dev/null
+            kill "$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null)" 2> /dev/null
             echo -e "\033[31m" "Done""\e[0m"
             echo "Removing ~/private/madsonic"
             rm -rf ~/private/madsonic
@@ -584,7 +574,7 @@ then
         elif [[ "$confirm" =~ ^[Uu]$ ]]
         then
             echo -e "Madsonic is being updated. This will only take a moment."
-            kill $(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null) 2> /dev/null
+            kill "$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null)" 2> /dev/null
             mkdir -p ~/sonictmp
             wget -qO ~/madsonic.zip "$madsonicfv"
             unzip -qo ~/madsonic.zip -d ~/sonictmp
