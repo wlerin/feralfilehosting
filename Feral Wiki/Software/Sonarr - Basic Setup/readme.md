@@ -110,6 +110,7 @@ echo -e "\nhttps://$(hostname -f)/$(whoami)/sonarr/\n"
 
 ~~~
 wget -qO ~/.nginx/conf.d/000-default-server.d/sonarr.conf http://git.io/vcC03
+sed -i 's|username|'"$(whoami)"'|g' ~/.nginx/conf.d/000-default-server.d/sonarr.conf
 sed -i 's|PORT|'"$(sed -rn 's|(.*)<Port>(.*)</Port>|\2|p' ~/.config/NzbDrone/config.xml)"'|g' ~/.nginx/conf.d/000-default-server.d/sonarr.conf
 /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf 2>/dev/null
 ~~~

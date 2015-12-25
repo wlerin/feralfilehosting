@@ -38,7 +38,7 @@ install.proftpd adduser username
 install.proftpd help
 ~~~
 
-**Important note:** The script will generate filezilla connection profiles you can download and import. Use the `help` option to see the location.
+**Important note:** The script will generate Filezilla connection profiles you can download and import. Use the `help` option to see the location.
 
 Step 1: Creating new users and groups
 ---
@@ -58,46 +58,6 @@ private/transmission/data
 ~~~
 
 If you use one of these jail paths as your user's `HOME` or as a remote directory in your FTP program your user will already have access and get a successful directory listing when connecting.
-
-Creating or editing users in SSH using ftpasswd:
----
-
-In the command below, replace `my_username` with the username of the user you want to add. Add your Jail path after `$HOME/`, for example `$HOME/private/jail`
-
-~~~
-~/proftpd/bin/ftpasswd --passwd --name my_username --file ~/proftpd/etc/ftpd.passwd --uid 5001 --gid 5001 --home $HOME/ --shell /bin/false
-~~~
-
-To change an existing user's password use this command, where `my_username` is the name of the user you wish to edit:
-
-~~~
-~/proftpd/bin/ftpasswd --passwd --name=my_username --change-password --file ~/proftpd/etc/ftpd.passwd
-~~~
-
-To delete an existing users use this command, where `my_username` is the name of the user you wish to remove:
-
-~~~
-~/proftpd/bin/ftpasswd --passwd --name=my_username  --delete-user --file ~/proftpd/etc/ftpd.passwd
-~~~
-
-Please see then end of this section for an easy way to add users using a bash script.
-
-Creating or editing groups in SSH using ftpasswd:
----
-
-Now we can add that user to a group (optional):
-
-In the command below, replace `my_username` with the username of the user you want to add to the group `proftpdgroup`. You can change `proftpdgroup` to another name. This new name will be the new group name the user is added to.
-
-~~~
-~/proftpd/bin/ftpasswd --group --name proftpdgroup --file ~/proftpd/etc/ftpd.group --gid 5001 --member my_username
-~~~
-
-Delete an existing group, where `my_group` is the name of the group you wish to remove:
-
-~~~
-~/proftpd/bin/ftpasswd --group --name my_group --delete-group --file ~/proftpd/etc/ftpd.group
-~~~
 
 Create user bash script
 ---
@@ -440,13 +400,13 @@ ssh-keygen -e -f ~/.ssh/authorized_keys
 Quick FAQs:
 ---
 
-Q: I get permission errors uploading files or trying to change permissions.
+**Q:** I get permission errors uploading files or trying to change permissions.
 
 A: This is disabled in the proftp.conf in the SITE CHMOD section. Use the `AllowUser Username` directive inside the Limit tags to overcome this on a per user basis
 
-Q: "Failed to retrieve directory listing" and "Failed to parse returned path."
+**Q:** "Failed to retrieve directory listing" and "Failed to parse returned path."
 
-A: Your users Jail home must correspond to an existing Jail path. IF you have made changes to any of the conf files don't forget to restart proftpd as shown in Step 9
+A: Your users Jail home must correspond to an existing Jail path. If you have made changes to any of the conf files don't forget to restart proftpd as shown in Step 3
 
 Useful Links:
 ---
