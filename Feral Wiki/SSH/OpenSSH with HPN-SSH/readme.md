@@ -19,7 +19,7 @@ wget -qO ~/openssh-7.1p1.tar.gz http://www.mirrorservice.org/pub/OpenBSD/OpenSSH
 Unpack the source code
 
 ~~~
-tar xf ~/openssh-7.1p1.tar.gz && cd openssh-7.1p1
+tar xf ~/openssh-7.1p1.tar.gz && cd ~/openssh-7.1p1
 ~~~
 
 Patch the source code
@@ -106,7 +106,7 @@ ps x | grep 'sbin/./sshd' | grep -v grep
 Stop the server with this command if it is running.
 
 ~~~
-kill "$(cat ~/sshd.pid > /dev/null 2>&1)"
+kill "$(cat ~/sshd.pid 2> /dev/null)"
 ~~~
 
 Start the server with this command.
