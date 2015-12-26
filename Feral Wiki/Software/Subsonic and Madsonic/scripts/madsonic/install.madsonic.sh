@@ -68,7 +68,7 @@ scriptversion="2.0.1"
 scriptname="install.madsonic"
 #
 # Author name goes here.
-scriptauthor="None credited"
+scriptauthor="randomessence"
 #
 # Contributor's names go here.
 contributors="None credited"

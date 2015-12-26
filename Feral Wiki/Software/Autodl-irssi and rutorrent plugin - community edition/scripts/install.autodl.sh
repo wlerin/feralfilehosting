@@ -4,9 +4,9 @@
 ##### Basic Info Start #####
 ############################
 #
-# Script Author: Bobtentpeg
+# Script Author: randomessence
 #
-# Script Contributors: randomessence
+# Script Contributors:
 #
 # License: This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. https://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -87,10 +87,10 @@ scriptversion="1.4.8"
 scriptname="install.autodl"
 #
 # Author name goes here.
-scriptauthor="Bobtentpeg"
+scriptauthor="randomessence"
 #
 # Contributor's names go here.
-contributors="randomessence"
+scriptauthor="None credited"
 #
 # Set the http://git.io/ shortened URL for the raw github URL here:
 gitiourl="http://git.io/oTUCMg"
@@ -128,8 +128,6 @@ host2https="https://$(hostname -f)/$(whoami)/"
 [[ -d ~/private/transmission/data ]] && transmissiondata="$HOME/private/transmission/data"
 #
 # Bug reporting varaibles.
-makeissue=".makeissue $scriptname A description of the issue"
-ticketurl="https://www.feralhosting.com/manager/tickets/new"
 gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 #
 ############################
@@ -260,17 +258,7 @@ then
     echo
     echo -e "\033[32m""Bug Reporting:""\e[0m"
     echo
-    echo -e "These are the recommended ways to report bugs for scripts in the FAQs:"
-    echo
-    echo -e "1: In IRC you can use wikibot to create a github issue by using this command format:"
-    echo
-    echo -e "\033[36m""$makeissue""\e[0m"
-    echo
-    echo -e "2: You could open a ticket describing the problem with details of which script and what the problem is."
-    echo
-    echo -e "\033[36m""$ticketurl""\e[0m"
-    echo
-    echo -e "3: You can create an issue directly on github using your github account."
+    echo -e "You can create an issue directly on github using your github account."
     echo
     echo -e "\033[36m""$gitissue""\e[0m"
     echo
