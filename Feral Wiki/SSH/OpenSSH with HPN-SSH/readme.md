@@ -79,6 +79,8 @@ You should perform these commands to ensure security or error free connections.
 ln -s /usr/bin/id $HOME/bin/id
 sed -i 's/#Protocol 2/Protocol 2/g' ~/etc/sshd_config
 sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin no/g' ~/etc/sshd_config
+sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/g' ~/etc/sshd_config
+
 ~~~
 
 Editing the config file
@@ -148,7 +150,9 @@ ssh -p 12345 -i ~/mykeyfile username@serverferalhosting.com
 You will now be able to connect top your patched server using your Feral username and the keyfile combo you have configured.
 
 **username:** Your feral username
+
 **authentication:** keyfile
+
 **port:** use the command above to find your custom port.
 
 
