@@ -1,15 +1,18 @@
 filehosting
 ===========
 
-This is a project that aimed to make use of github as platform to build and maintain an external knowledge base and it's resource dependencies while being as self sufficient as possible. This was so that people could be empowered by good documentation and tools instead of being information being hoarded and selectively shared which fostered a culture of dependency and ignorance, as we see is an inherent problem in the Feral IRC.
+This is a project that aimed to make use of github as platform to build and maintain an external knowledge base and it's resource dependencies while making the articles as self sufficient as possible. This was so that people could be empowered by good documentation and tools instead of being information being hoarded and selectively shared which fostered a culture of dependency and ignorance, as we see is an inherent problem in the Feral IRC and support in general which often refereed users to poor documentation as a solution.
 
-This project has never been officially supported by Feral in any capacity and was always a user project at heart with the user's needs in mind. Written by users for users.
+This project has never been officially supported by Feral in any capacity and was always a user project at heart with the user's needs in mind. Written by users for other users.
 
-I thank all those who actually cared enough to provide edits, articles or scripts and those who were courageous enough to share their work publicly to be scrutinised, applauded or criticised. To those that did, not those that said. 
+I thank all those who actually cared enough to provide edits, articles or scripts and those who were courageous enough to share their work publicly to be scrutinised, applauded or criticised. To those that did, not those that said; too much was said and too little was done.
+
+Licensing
+---
 
 If you wish to use any resource in this repo you may do so under the following licenses.
 
-For documentation:
+For documentation and images:
 
 > This work by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/feralhosting/feralfilehosting" property="cc:attributionName" rel="cc:attributionURL">randomessence</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
