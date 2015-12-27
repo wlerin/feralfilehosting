@@ -3,8 +3,10 @@ Get the latest github release version number from the github api using a simple 
 
 The start to this is to get the api json result via a command. curl or wget both work. Where `username` is the Github username and `reponame` is the repositary name in the example commands below.
 
+~~~
 curl -s https://api.github.com/repos/username/reponame/releases/latest
 wget -q -O - https://api.github.com/repos/username/reponame/releases/latest
+~~~
 
 For example, using the constantly changing version number fro [Syncthing](https://github.com/syncthing/syncthing)
 
@@ -45,6 +47,8 @@ So now I only get:
 ~~~
 0.12.10
 ~~~
+
+How it works? The two sections in the command like this `(.*)` that are called capture groups. Since there are two I have told `sed` to print the result of capture group 2. It will only capture and print the result of this capture group. So the more specific I make the surrounding section it is searching the more specific my captured group will be. The first capture groups exists to prevent the capture and printing of spaces or tabs at the start of the line.
 
 You will have to customise it on a case by case basis if you only need part of the result.
 
