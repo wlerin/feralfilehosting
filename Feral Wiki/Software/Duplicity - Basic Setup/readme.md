@@ -30,6 +30,8 @@ mkdir -p ~/bin && bash
 
 2: Install librsync
 
+git clone https://github.com/librsync/librsync.git
+
 ~~~
 wget -qO ~/librsync.tar.gz http://downloads.sourceforge.net/project/librsync/librsync/0.9.7/librsync-0.9.7.tar.gz
 tar xf ~/librsync.tar.gz && cd ~/librsync-0.9.7

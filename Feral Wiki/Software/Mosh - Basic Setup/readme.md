@@ -21,10 +21,9 @@ Installation Step 1: Install Protobuf (required dependency)
 This is a required dependency that is not included with your slot.
 
 ~~~
-wget -qO ~/protobuf.tar.gz https://github.com/google/protobuf/releases/download/2.6.1/protobuf-2.6.1.tar.gz
+wget -qO ~/protobuf.tar.gz https://github.com/google/protobuf/releases/download/v2.6.1/protobuf-2.6.1.tar.gz
 tar xf ~/protobuf.tar.gz && cd ~/protobuf-2.6.1
-./configure --prefix=$HOME && make && make install
-cd && rm -rf  protobuf{.tar.gz,-2.6.1}
+./configure --prefix=$HOME && make && make install && cd && rm -rf  protobuf{.tar.gz,-2.6.1}
 ~~~
 
 Installation Step 2: Install Mosh
@@ -32,16 +31,14 @@ Installation Step 2: Install Mosh
 
 Now download and install `mosh`:
 
-~~~
-wget -qO ~/mosh-1.2.4.tar.gz http://mosh.mit.edu/mosh-1.2.4.tar.gz
-tar xf ~/mosh-1.2.4.tar.gz && cd ~/mosh-1.2.4
-./configure --prefix=$HOME PKG_CONFIG_PATH=$HOME/lib/pkgconfig LDFLAGS="--static" 
-make
-make install
-cd && rm -rf  mosh{-1.2.4.tar.gz,-1.2.4}
-~~~
+**Important note:** If you get a `curses.h` error  when using `make` please use open a ticket and ask for this dependency to be installed:
 
-If you get a `curses.h` error  when using `make` please use open a ticket and ask for this dependency to be installed:
+~~~
+wget -qO ~/mosh.tar.gz https://mosh.mit.edu/mosh-1.2.5.tar.gz
+tar xf ~/mosh.tar.gz && cd ~/mosh-1.2.5
+./configure --prefix=$HOME PKG_CONFIG_PATH=$HOME/lib/pkgconfig LDFLAGS="--static"
+make && make install && cd && rm -rf  mosh{.tar.gz,-1.2.5}
+~~~
 
 ~~~
 libncurses5 libncurses5-dev
