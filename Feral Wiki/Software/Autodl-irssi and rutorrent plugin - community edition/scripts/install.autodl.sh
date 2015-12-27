@@ -155,8 +155,8 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 ## Custom Variables Start ##
 ############################
 #
-autodllatest="$(wget -q -O - https://github.com/autodl-community/autodl-irssi/releases/latest | sed -rn 's|(.*)<strong>autodl-irssi-community-v(.*).zip</strong>|\2|p')"
-trackerslatest="$(wget -q -O - https://github.com/autodl-community/autodl-trackers/releases/latest | sed -rn 's|(.*)<strong>autodl-trackers-v(.*).zip</strong>|\2|p')"
+autodllatest="$(curl -s https://api.github.com/repos/autodl-community/autodl-irssi/releases/latest | sed -rn 's/(.*)"tag_name": "community-v(.*)",/\2/p')"
+trackerslatest="$(curl -s https://api.github.com/repos/autodl-community/autodl-trackers/releases/latest | sed -rn 's/(.*)"tag_name": "community-v(.*)",/\2/p')"
 #
 # URLs for the core files.
 # autodlirssicommunity="http://update.autodl-community.com/autodl-irssi-community.zip"
