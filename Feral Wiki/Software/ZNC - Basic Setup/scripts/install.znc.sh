@@ -36,6 +36,7 @@ if [[ ! -z "$1" && "$1" = 'changelog' ]]
 then
     echo
     #
+    echo '1.0.7 layout tweaks'
     echo '1.0.6 apache proxy pass updated for jessie'
     echo '1.0.5 obsolete sed line removed'
     echo '1.0.4 bug fixes and tweaks.'
@@ -60,7 +61,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.0.6"
+scriptversion="1.0.7"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.znc"
@@ -107,14 +108,13 @@ host2https="https://$(hostname -f)/$(whoami)/"
 [[ -d ~/private/transmission/data ]] && transmissiondata="$HOME/private/transmission/data"
 #
 # Bug reporting varaibles.
-makeissue=".makeissue $scriptname A description of the issue"
-ticketurl="https://www.feralhosting.com/manager/tickets/new"
 gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 #
 ############################
 ## Custom Variables Start ##
 ############################
 #
+zncdownload="http://znc.in/releases/znc-latest.tar.gz"
 znctemplate="http://git.io/vvTzB"
 zncpassgen="$(wget -qO - http://git.io/vvTgf | sed 's/SETAPASS/'"$apppass"'/g' | python)"
 #
@@ -239,17 +239,7 @@ then
     echo
     echo -e "\033[32m""Bug Reporting:""\e[0m"
     echo
-    echo -e "These are the recommended ways to report bugs for scripts in the FAQs:"
-    echo
-    echo -e "1: In IRC you can use wikibot to create a github issue by using this command format:"
-    echo
-    echo -e "\033[36m""$makeissue""\e[0m"
-    echo
-    echo -e "2: You could open a ticket describing the problem with details of which script and what the problem is."
-    echo
-    echo -e "\033[36m""$ticketurl""\e[0m"
-    echo
-    echo -e "3: You can create an issue directly on github using your github account."
+    echo -e "You should create an issue directly on github using your github account."
     echo
     echo -e "\033[36m""$gitissue""\e[0m"
     echo
@@ -271,51 +261,32 @@ fi
 [[ ! -z "$1" && "$1" != 'qr' ]] || [[ ! -z "$2" && "$2" != 'qr' ]] && echo -en "$1\n$2" > ~/.passparams
 # Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, which would reset the option, it will then find this file and set it back.
 [[ ! -z "$1" && "$1" = 'qr' ]] || [[ ! -z "$2" && "$2" = 'qr' ]] && echo -n '' > ~/.quickrun
-#
 # No Update option: This disables the updater features if the script option "nu" was used when running the script.
-if [[ ! -z "$1" && "$1" = 'nu' ]] || [[ ! -z "$2" && "$2" = 'nu' ]]
-then
-    echo
-    echo "The Updater has been temporarily disabled"
-    echo
+if [[ ! -z "$1" && "$1" = 'nu' ]] || [[ ! -z "$2" && "$2" = 'nu' ]]; then
     scriptversion="$scriptversion-nu"
+    echo -e "\nThe Updater has been temporarily disabled\n"
 else
-    #
     # Check to see if the variable "updaterenabled" is set to 1. If it is set to 0 the script will bypass the built in updater regardless of the options used.
-    if [[ "$updaterenabled" -eq "1" ]]
-    then
+    if [[ "$updaterenabled" -eq "1" ]]; then
         [[ ! -d ~/bin ]] && mkdir -p ~/bin
         [[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
-        #
         wget -qO ~/.000"$scriptname" "$scripturl"
-        #
-        if [[ "$(sha256sum ~/.000"$scriptname" | awk '{print $1}')" != "$(sha256sum ~/bin/"$scriptname" | awk '{print $1}')" ]]
-        then
-            echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
-            bash ~/.111"$scriptname"
-            exit
+        if [[ "$(sha256sum ~/.000"$scriptname" | awk '{print $1}')" != "$(sha256sum ~/bin/"$scriptname" | awk '{print $1}')" ]]; then
+            echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname" && bash ~/.111"$scriptname"
         else
-            if [[ -z "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" && "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" -ne "$$" ]]
-            then
-                echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
-                bash ~/.222"$scriptname"
-                exit
+            if [[ -z "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" && "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" -ne "$$" ]]; then
+                echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname" && bash ~/.222"$scriptname"
             fi
         fi
-        cd && rm -f .{000,111,222}"$scriptname"
-        chmod -f 700 ~/bin/"$scriptname"
+        cd && rm -f .{000,111,222}"$scriptname" && chmod -f 700 ~/bin/"$scriptname"
         echo
     else
-        echo
-        echo "The Updater has been disabled"
-        echo
         scriptversion="$scriptversion-DEV"
+        echo -e "\nThe Updater has been disabled\n"
     fi
 fi
-#
 # Quick Run option part 2: If quick run was set and the updater section completes this will enable quick run again then remove the file.
 [[ -f ~/.quickrun ]] && updatestatus="y"; rm -f ~/.quickrun
-#
 # resets the positional parameters $1 and $2 post update.
 [[ -f ~/.passparams ]] && set "$1" "$(sed -n '1p' ~/.passparams)" && set "$2" "$(sed -n '2p' ~/.passparams)"; rm -f ~/.passparams
 #
@@ -395,7 +366,7 @@ then
     echo -e "\033[33m""This script will download and install znc on your slot. It may take a few minutes...""\e[0m"
     echo
     mkdir -p ~/bin ~/.logs
-    wget -qO ~/znc.tar.gz http://znc.in/releases/znc-latest.tar.gz
+    wget -qO ~/znc.tar.gz "$zncdownload"
     tar xf ~/znc.tar.gz
     cd ~/znc-1.*
     echo "1: Configuring"
