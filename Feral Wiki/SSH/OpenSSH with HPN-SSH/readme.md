@@ -115,6 +115,33 @@ Start the server with this command.
 ~/sbin/./sshd
 ~~~
 
+crontab
+---
+
+First create this folder
+
+~~~
+mkdir ~/.cronjobs/logs
+~~~
+
+Now run this command to create a script we will call with crontab
+
+~~~
+echo -e '#!/bin/bash\n[[ "$(pgrep -cfu $(whoami) "$HOME/sbin/./sshd")" -eq "0" ]] && ~/sbin/./sshd && echo "$(date +"%H:%M on the %d.%m.%y")" && exit' > ~/.cronjobs/sshd.cronjob
+~~~
+
+Now edit your crontab
+
+~~~
+crontab -e
+~~~
+
+Then enter this command and save your crontab
+
+~~~
+* * * * * bash -l ~/.cronjobs/sshd.cronjob >> ~/.cronjobs/logs/sshd.log 2>&1
+~~~
+
 Connecting to your server
 ---
 
