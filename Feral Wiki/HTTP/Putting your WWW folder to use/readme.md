@@ -10,6 +10,8 @@ Let's get started
 
 Your `public_html` folder is located here:
 
+**Important note:**  this directory `~/www/username.servername` is just a symbolic link or short-cut to the parent directory location below.
+
 ~~~
 ~/www/username.servername.feralhosting.com/public_html
 ~~~
@@ -20,17 +22,26 @@ An easy way to execute SSH commands in this folder is to use this command:
  ~/www/$(whoami).$(hostname -f)/public_html/
 ~~~
 
-This command will work for everyone to automatically find your username and servername and will be used through this FAQ.
+This command will work for everyone to automatically find your `username` and `servername` and will be used through this FAQ.
 
-Prevent search indexing - robots.txt
+Prevent search indexing by robots
 ---
 
 To prevent indexing by search engines use this command.
 
+Apache:
+
 ~~~
-echo -e 'User-agent: *\nDisallow: /' > ~/www/$(whoami).$(hostname -f)/public_html/robots.txt
+echo -e '<Location ~ "/">\n    Header set X-Robots-Tag "noindex, nofollow, noarchive"\n</Location>' > ~/.apache2/conf.d/robots.conf
+/usr/sbin/apache2ctl -k graceful
 ~~~
-[http://www.robotstxt.org/robotstxt.html](http://www.robotstxt.org/robotstxt.html)
+
+nginx
+
+~~~
+echo -e 'location = / {\n    add_header  X-Robots-Tag "noindex, nofollow, nosnippet, noarchive";\n}' > ~/.nginx/conf.d/000-default-server.d/robots.conf
+/usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf
+~~~
 
 Creating Symbolic links
 ---
@@ -89,63 +100,82 @@ Optional
 
 **Important note:** The main `_h5ai` directory does not like being anywhere else except the server root. To only apply the indexing to certain directories please use the options described below. Do not try to install the actual `_h5ai` directory to a sub directory.
 
+**Important note:**  You must merge location directives if they are the same
+
+**Important note:**  h5ai does not work with nginx, auth, and symlinks. 
+
 The screen shot below illustrates the result:
 
 ![](https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/HTTP/Putting%20your%20WWW%20folder%20to%20use/h5ai.png)
 
-To download _h5ai 0.27 (custom with dual URL format fix) use these commands in SSH.
+To download _h5ai 0.28.1 (custom with dual URL format fix) use these commands in SSH.
 
-> **Important note:** This is a very [lightly modified](https://github.com/feralhosting/_h5ai_custom/commit/170dd526ea2fa1a17b10dd73b0db35777bd17ea2) version to allow it work with both URL formats you are provided at Feral.
+> **Important note:** This is a very [lightly modified](https://github.com/feralhosting/feralfilehosting/commit/e60a80e2cb32089992e0868d2cf2ef3db4d4eba5) version to allow it work with both URL formats you are provided at Feral.
 
 ~~~
-wget -qO ~/h5ai.zip http://git.io/dEazsw
+wget -qO ~/h5ai.zip http://git.io/vEMGv
 unzip -qo ~/h5ai.zip -d ~/www/$(whoami).$(hostname -f)/public_html/
 ~~~
 
 **For Apache only:**
 
-Use this command to append the required entry to an existing `.htaccess` files or it will create one if needed.
+Use these commands to configure `_h5ai` with Apache.
 
 ~~~
-echo -e '\nDirectoryIndex  index.html  index.php  /_h5ai/server/php/index.php' >> ~/www/$(whoami).$(hostname -f)/public_html/.htaccess
+echo -e '<Location ~ "/">\n    DirectoryIndex  index.html  index.php  /_h5ai/public/index.php\n</Location>' > ~/.apache2/conf.d/h5ai.conf
+/usr/sbin/apache2ctl -k graceful
 ~~~
 
 `_h5ai` will now be ready to use in your WWW. By default this works from the WWW root down. 
-
-If you would like to make it specific to certain folders you need to edit the `.htaccess ` files and remove this:
-
-~~~
-DirectoryIndex  index.html  index.php  /_h5ai/server/php/index.php
-~~~
-
-Then, inside the directory you want to use `_h5ai` create either:
-
-1: Create a `.htaccess` file if there is not one present, or add the line to it 
-
-2: Add the line to any existing `.htaccess` files. This will make it work for this folder and folders within.
 
 **For nginx only:**
 
 Run these two commands:
 
 ~~~
-echo -e 'location / {\n    index  index.html  index.php  /_h5ai/server/php/index.php;\n}' > ~/.nginx/conf.d/000-default-server.d/h5ai.conf
+echo -e 'location = / {\n    index  index.html  index.php  /_h5ai/public/index.php;\n}' > ~/.nginx/conf.d/000-default-server.d/h5ai.conf
 /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf
 ~~~
-
-Once it has restarted the h5ai should be working.
 
 h5ai custom directory with nginx that is not password protected
 ---
 
-For a specific directory only, you can change the location in the `h5ai.conf` if the directory you want to use is not already password protected:
+For a specific directory only, you can change the location in the `h5ai.conf` if the directory you want to use:
 
 **Important note:** The location is relative to your WWW root. Make sure the location exists in your WWW.
 
 For example we can edit the `h5ai.conf` to this:
 
+Apache: The location of the file:
+
 ~~~
-location /links {
+nano ~/.apache2/conf.d/h5ai.conf
+~~~
+
+Edit the `"/"` to `"/links"` for example:
+
+~~~
+<Location ~ "/links">
+    DirectoryIndex  index.html  index.php  /_h5ai/public/index.php
+</Location>
+~~~
+
+Then reload your Apache configuration:
+
+~~~
+/usr/sbin/apache2ctl -k graceful
+~~~
+
+nginx: The location of the file:
+
+~~~
+nano ~/.nginx/conf.d/000-default-server.d/h5ai.conf
+~~~
+
+Edit the `"/"` to `"/links"` for example:
+
+~~~
+location = "/links" {
     index  index.html  index.php  /_h5ai/server/php/index.php;
 }
 ~~~
@@ -181,8 +211,6 @@ Contribute:
 ---
 
 The repo for this custom file can be found here for users to check or to contribute to.
-
-[https://github.com/feralhosting/_h5ai_custom](https://github.com/feralhosting/_h5ai_custom)
 
 
 
