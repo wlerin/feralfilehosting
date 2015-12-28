@@ -8,11 +8,31 @@
 #
 # Script Contributors: randomessence
 #
-# License: This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. https://creativecommons.org/licenses/by-sa/4.0/
-#
 # Bash Command for easy reference:
 #
 # wget -qO ~/install.znc http://git.io/vfKaT && bash ~/install.znc
+#
+# The MIT License (MIT)
+#
+# Copyright (c) 2016 randomessence
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 #
 ############################
 ###### Basic Info End ######
@@ -36,6 +56,7 @@ if [[ ! -z "$1" && "$1" = 'changelog' ]]
 then
     echo
     #
+    echo '1.0.8 username and password are stored in plain text in ~/.script-credentials/. cat ~/.script-credentials/znc-credentials.txt '
     echo '1.0.7 layout tweaks'
     echo '1.0.6 apache proxy pass updated for jessie'
     echo '1.0.5 obsolete sed line removed'
@@ -61,7 +82,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.0.7"
+scriptversion="1.0.8"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.znc"
@@ -150,6 +171,12 @@ zncproxy () {
         echo -en 'location ^~ /znc {\nproxy_set_header X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\nproxy_set_header Host $http_x_host;\nproxy_set_header X-NginX-Proxy true;\n\nrewrite /(.*) /'"$(whoami)"'/$1 break;\nproxy_pass https://10.0.0.1:'"$appport"'/;\nproxy_redirect off;\n}' >  ~/.nginx/conf.d/000-default-server.d/znc.conf
         /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
     fi
+}
+#
+credentials () {
+    mkdir -p ~/.script-credentials
+    [[ ! -f ~/.script-credentials/znc-credentials.txt ]] && echo '' > ~/.script-credentials/znc-credentials.txt
+    echo -e "Your znc WebUi username: $(whoami)\nYour znc WebUi password: $apppass" | tee ~/.script-credentials/znc-credentials.txt
 }
 #
 #
@@ -437,8 +464,7 @@ then
     echo -e "\nClick on or copy the URL below to do additional configuration if needed\n"
     echo -e "\033[33m""${host2https}znc/""\e[0m"
     echo
-    echo -e "Your znc WebUi username: ""\033[32m""$(whoami)""\e[0m"
-    echo -e "Your znc WebUi password: ""\033[32m""$apppass""\e[0m"
+    credentials
     echo
     echo -e "Your IRC client connection information is:"
     echo
