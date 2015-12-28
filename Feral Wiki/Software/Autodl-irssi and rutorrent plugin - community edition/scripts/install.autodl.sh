@@ -56,6 +56,7 @@ if [[ ! -z "$1" && "$1" = 'changelog' ]]
 then
     echo
     #
+    echo 'v1.5.0 - quoting subshell expansions.'
     echo 'v1.4.9 - licensing MIT'
     echo 'v1.4.8 - Download URLs are now generated from the Github Latest URI to get the current releases from github directly.'
     echo 'v1.4.7 - Template and minor tweaks.'
@@ -102,7 +103,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.4.9"
+scriptversion="1.5.0"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.autodl"
@@ -297,52 +298,38 @@ fi
 #### Self Updater Start ####
 ############################
 #
+# Checks for the positional parameters $1 and $2 to be reset if the script is updated.
+[[ ! -z "$1" && "$1" != 'qr' ]] || [[ ! -z "$2" && "$2" != 'qr' ]] && echo -en "$1\n$2" > ~/.passparams
 # Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, which would reset the option, it will then find this file and set it back.
-if [[ ! -z "$1" && "$1" = 'qr' ]] || [[ ! -z "$2" && "$2" = 'qr' ]];then echo -n '' > ~/.quickrun; fi
-#
+[[ ! -z "$1" && "$1" = 'qr' ]] || [[ ! -z "$2" && "$2" = 'qr' ]] && echo -n '' > ~/.quickrun
 # No Update option: This disables the updater features if the script option "nu" was used when running the script.
-if [[ ! -z "$1" && "$1" = 'nu' ]] || [[ ! -z "$2" && "$2" = 'nu' ]]
-then
-    echo
-    echo "The Updater has been temporarily disabled"
-    echo
+if [[ ! -z "$1" && "$1" = 'nu' ]] || [[ ! -z "$2" && "$2" = 'nu' ]]; then
     scriptversion="$scriptversion-nu"
+    echo -e "\nThe Updater has been temporarily disabled\n"
 else
-    #
     # Check to see if the variable "updaterenabled" is set to 1. If it is set to 0 the script will bypass the built in updater regardless of the options used.
-    if [[ "$updaterenabled" -eq "1" ]]
-    then
+    if [[ "$updaterenabled" -eq "1" ]]; then
         [[ ! -d ~/bin ]] && mkdir -p ~/bin
         [[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
-        #
         wget -qO ~/.000"$scriptname" "$scripturl"
-        #
-        if [[ "$(sha256sum ~/.000"$scriptname" | awk '{print $1}')" != "$(sha256sum ~/bin/"$scriptname" | awk '{print $1}')" ]]
-        then
-            echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
-            bash ~/.111"$scriptname"
-            exit
+        if [[ "$(sha256sum ~/.000"$scriptname" | awk '{print $1}')" != "$(sha256sum ~/bin/"$scriptname" | awk '{print $1}')" ]]; then
+            echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname" && bash ~/.111"$scriptname"
         else
-            if [[ -z "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" && "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" -ne "$$" ]]
-            then
-                echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
-                bash ~/.222"$scriptname"
-                exit
+            if [[ -z "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" && "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" -ne "$$" ]]; then
+                echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname" && bash ~/.222"$scriptname"
             fi
         fi
-        cd && rm -f .{000,111,222}"$scriptname"
-        chmod -f 700 ~/bin/"$scriptname"
+        cd && rm -f .{000,111,222}"$scriptname" && chmod -f 700 ~/bin/"$scriptname"
         echo
     else
-        echo
-        echo "The Updater has been disabled"
-        echo
         scriptversion="$scriptversion-DEV"
+        echo -e "\nThe Updater has been disabled\n"
     fi
 fi
-#
 # Quick Run option part 2: If quick run was set and the updater section completes this will enable quick run again then remove the file.
-if [[ -f ~/.quickrun ]];then updatestatus="y"; rm -f ~/.quickrun; fi
+[[ -f ~/.quickrun ]] && updatestatus="y"; rm -f ~/.quickrun
+# resets the positional parameters $1 and $2 post update.
+[[ -f ~/.passparams ]] && set "$1" "$(sed -n '1p' ~/.passparams)" && set "$2" "$(sed -n '2p' ~/.passparams)"; rm -f ~/.passparams
 #
 ############################
 ##### Self Updater End #####
@@ -381,18 +368,18 @@ then
     echo -e "\033[31m""A randomly generated 20 character password has been set for you by this script""\e[0m"
     echo
     # Kill any existing autodl screen processes to make sure the installation can be finalised later.
-    kill $(screen -ls autodl | sed -rn 's/(.*).autodl(.*)/\1/p') > /dev/null 2>&1
+    kill "$(screen -ls autodl | sed -rn 's/(.*).autodl(.*)/\1/p')" > /dev/null 2>&1
     # Wipe any dead screens left behind
     screen -wipe > /dev/null 2>&1
     # Make a backup of the ~/.autodl/autodl.cfg just in case
     if [[ -f ~/.autodl/autodl.cfg ]]
     then
-        cp -f ~/.autodl/autodl.cfg ~/.autodl/autodl.cfg.bak-$(date +"%d.%m.%y@%H:%M:%S")
+        cp -f ~/.autodl/autodl.cfg ~/.autodl/autodl.cfg.bak-"$(date +"%d.%m.%y@%H:%M:%S")"
     fi
     # Clean install by removing the related irssi folder and files and the rutorrent plug in folder
     rm -rf ~/.irssi/scripts/AutodlIrssi
     rm -f ~/.irssi/scripts/autorun/autodl-irssi.pl
-    rm -rf ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi
+    rm -rf ~/www/"$(whoami)"."$(hostname -f)"/public_html/rutorrent/plugins/autodl-irssi
     # Downloads the newest RELEASE version of the autodl community edition and saves it as a zip file.
     wget -qO ~/autodl-irssi.zip "$autodlirssicommunity"
     # Downloads the newest  RELEASE version  of the autodl community trackers file and saves it as a zip file.
@@ -409,7 +396,7 @@ then
     # else we use and echo to create our autodl.cfg file. Takes the two previously made variables, $appport and $apppass to update/create the required info.
     if [[ -f ~/.autodl/autodl.cfg ]]
     then
-        if [[ $(tr -d "\r\n" < ~/.autodl/autodl.cfg | wc -c) -eq 0 ]]
+        if [[ "$(tr -d "\r\n" < ~/.autodl/autodl.cfg | wc -c)" -eq 0 ]]
         then
             echo -e "[options]\ngui-server-port = $appport\ngui-server-password = $apppass" > ~/.autodl/autodl.cfg
         else
@@ -431,19 +418,19 @@ then
     ############################
     #
     # Checks for rutorrent. If the folder does not exist in the required location the script moves to the else statement.
-    if [[ -d ~/www/$(whoami).$(hostname -f)/public_html/rutorrent ]]
+    if [[ -d ~/www/"$(whoami)"."$(hostname -f)"/public_html/rutorrent ]]
     then
         # Downloads the latest version of the autodl-irssi plugin
         wget -qO ~/autodl-rutorrent.zip "$autodlrutorrent"
         # Unpacks the autodl rutorrent plugin here
         unzip -qo ~/autodl-rutorrent.zip
         # Copy the contents from autodl-rutorrent-master to a folder called autodl-irssi in the rutorrent plug-in directory, creating it if absent
-        mkdir -p ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins
-        cp -rf ~/autodl-rutorrent-master/. ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi
+        mkdir -p ~/www/"$(whoami)"."$(hostname -f)"/public_html/rutorrent/plugins
+        cp -rf ~/autodl-rutorrent-master/. ~/www/"$(whoami)"."$(hostname -f)"/public_html/rutorrent/plugins/autodl-irssi
         # Delete the downloaded zip and the unpacked folder we no longer require.
         cd && rm -rf autodl-rutorrent{-master,.zip}
         # Uses echo to make the config file for the rutorrent plugun to work with autodl using the variables port and pass
-        echo -ne '<?php\n$autodlPort = '"$appport"';\n$autodlPassword = "'"$apppass"'";\n?>' > ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi/conf.php
+        echo -ne '<?php\n$autodlPort = '"$appport"';\n$autodlPassword = "'"$apppass"'";\n?>' > ~/www/"$(whoami)"."$(hostname -f)"/public_html/rutorrent/plugins/autodl-irssi/conf.php
         #
         ############################
         ###### RuTorrent Ends ######
@@ -479,10 +466,10 @@ then
     fi
     #
     # If the ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi/ apply the fix else warn the user the directory is missing.
-    if [[ -d ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi/ ]]
+    if [[ -d ~/www/"$(whoami)"."$(hostname -f)"/public_html/rutorrent/plugins/autodl-irssi/ ]]
     then
         # Fix the relevent rutorrent plugin file by changing 127.0.0.1 to 10.0.0.1 using sed
-        sed -i 's|if (!socket_connect($socket, "127.0.0.1", $autodlPort))|if (!socket_connect($socket, "10.0.0.1", $autodlPort))|g' ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi/getConf.php
+        sed -i 's|if (!socket_connect($socket, "127.0.0.1", $autodlPort))|if (!socket_connect($socket, "10.0.0.1", $autodlPort))|g' ~/www/"$(whoami)"."$(hostname -f)"/public_html/rutorrent/plugins/autodl-irssi/getConf.php
         echo -e "\033[33m""Autodl-rutorrent fix has been applied""\e[0m"
         echo
     else
@@ -495,7 +482,7 @@ then
     ############################
     #
     # Kill any existing autodl screen processes before starting
-    kill $(screen -ls autodl | sed -rn 's/(.*).autodl(.*)/\1/p') > /dev/null 2>&1
+    kill "$(screen -ls autodl | sed -rn 's/(.*).autodl(.*)/\1/p')" > /dev/null 2>&1
     # Clear dead screens
     screen -wipe > /dev/null 2>&1
     # Start autodl irssi in a screen in the background.
@@ -505,7 +492,7 @@ then
     echo -e "\033[32m""Checking we have started irssi or if there are multiple screens/processes""\e[0m"
     echo -e "\033[31m"
     # Check if the screen is running for the user
-    echo $(screen -ls | grep 'autodl\s')
+    echo "$(screen -ls | grep 'autodl\s')"
     echo -e "\e[0m"
     echo -e "Done. Please refresh/reload rutorrent using CTRL + F5 and start using autodl"
     echo
@@ -513,7 +500,7 @@ then
     echo
     echo -e "\033[32m""screen -r autodl""\e[0m"
     echo
-    if [[ -d ~/www/$(whoami).$(hostname -f)/public_html/rutorrent/ ]]
+    if [[ -d ~/www/"$(whoami)"."$(hostname -f)"/public_html/rutorrent/ ]]
     then
         echo -e "This script will have to be run each time you update/overwrite the autodl or autodl-rutorrent files to apply the fix."
         echo
