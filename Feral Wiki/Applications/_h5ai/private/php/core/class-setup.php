@@ -101,8 +101,13 @@ class Setup {
         if ($this->get('SERVER_NAME') === 'lighttpd') {
             $script_name = preg_replace('#^.*?//#', '/', $script_name);
         }
-
-        $this->set('H5AI_HREF', Util::normalize_path(dirname(dirname($script_name)), true));
+        
+        if ($_SERVER['HTTP_X_HOST'] != $_SERVER['HTTP_HOST']){  // HTTP_HOST is always the same format username.server.feralhosting.com
+        $xproxy = "/" . getenv("USER");                         // If the HOSTs don't match then insert this variable
+        } else {                                                // If they do match then do this instead
+        $xproxy = '';                                           // insert nothing. Basically, do nothing
+        }                                                       // close
+        $this->set('H5AI_HREF', $xproxy . Util::normalize_path(dirname(dirname($script_name)), true));
         $this->set('H5AI_PATH', Util::normalize_path(dirname(dirname(dirname(dirname(__FILE__)))), false));
 
         $this->set('ROOT_HREF', Util::normalize_path(dirname($this->get('H5AI_HREF')), true));
