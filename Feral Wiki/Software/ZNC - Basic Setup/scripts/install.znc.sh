@@ -201,6 +201,18 @@ then
     echo -e "This script will get you set up basic access to the znc WebUi."
     echo
     echo -e "Use the WebUi to further configure znc for netowrks and users."
+    echo
+    echo -e "To see login your info use this command:"
+    echo
+    echo -e "cat ~/.script-credentials/znc-credentials.txt"
+    echo
+    echo -e "Once installed via the script you can update znc manually from then on."
+    echo
+    echo -e "Shutdown ZNC first via the admin account using /znc shutdown"
+    echo
+    echo -e "Use the commands in the wiki to make and make install znc then it will be updated"
+    echo
+    echo "See here for instructions: http://git.io/vE1hm"
     #
     ###################################
     ###### Custom Help Info Ends ######
@@ -472,6 +484,7 @@ then
     echo
     echo -e "Search the ZNC wiki for help connecting with different clients. http://wiki.znc.in/"
     echo
+    exit
 #
 ############################
 ##### User Script End  #####
