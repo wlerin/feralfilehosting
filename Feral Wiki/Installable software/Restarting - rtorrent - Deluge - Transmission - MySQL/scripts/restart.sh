@@ -8,11 +8,31 @@
 #
 # Script Contributors: none
 #
-# License: This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. https://creativecommons.org/licenses/by-sa/4.0/
-#
 # Bash Command for easy reference:
 #
 # wget -qO ~/restart http://git.io/5Uw8Gw && bash ~/restart
+#
+# The MIT License (MIT)
+#
+# Copyright (c) 2016 randomessence
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 #
 ############################
 ###### Basic Info End ######
@@ -243,52 +263,32 @@ fi
 [[ ! -z "$1" && "$1" != 'qr' ]] || [[ ! -z "$2" && "$2" != 'qr' ]] && echo -en "$1\n$2" > ~/.passparams
 # Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, which would reset the option, it will then find this file and set it back.
 [[ ! -z "$1" && "$1" = 'qr' ]] || [[ ! -z "$2" && "$2" = 'qr' ]] && echo -n '' > ~/.quickrun
-#
 # No Update option: This disables the updater features if the script option "nu" was used when running the script.
-if [[ ! -z "$1" && "$1" = 'nu' ]] || [[ ! -z "$2" && "$2" = 'nu' ]]
-then
-    echo
-    echo "The Updater has been temporarily disabled"
-    echo
+if [[ ! -z "$1" && "$1" = 'nu' ]] || [[ ! -z "$2" && "$2" = 'nu' ]]; then
     scriptversion="$scriptversion-nu"
+    echo -e "\nThe Updater has been temporarily disabled\n"
 else
-    #
     # Check to see if the variable "updaterenabled" is set to 1. If it is set to 0 the script will bypass the built in updater regardless of the options used.
-    if [[ "$updaterenabled" -eq "1" ]]
-    then
+    if [[ "$updaterenabled" -eq "1" ]]; then
         [[ ! -d ~/bin ]] && mkdir -p ~/bin
         [[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
-        #
         wget -qO ~/.000"$scriptname" "$scripturl"
-        #
-        if [[ "$(sha256sum ~/.000"$scriptname" | awk '{print $1}')" != "$(sha256sum ~/bin/"$scriptname" | awk '{print $1}')" ]]
-        then
-            echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
-            bash ~/.111"$scriptname"
-            exit
+        if [[ "$(sha256sum ~/.000"$scriptname" | awk '{print $1}')" != "$(sha256sum ~/bin/"$scriptname" | awk '{print $1}')" ]]; then
+            echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname" && bash ~/.111"$scriptname"; exit
         else
-            if [[ -z "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" && "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" -ne "$$" ]]
-            then
-                echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
-                bash ~/.222"$scriptname"
-                exit
+            if [[ -z "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" && "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" -ne "$$" ]]; then
+                echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname" && bash ~/.222"$scriptname"; exit
             fi
         fi
-        cd && rm -f .{000,111,222}"$scriptname"
-        chmod -f 700 ~/bin/"$scriptname"
-        
+        cd && rm -f .{000,111,222}"$scriptname" && chmod -f 700 ~/bin/"$scriptname"
         echo
     else
-        echo
-        echo "The Updater has been disabled"
-        echo
         scriptversion="$scriptversion-DEV"
+        echo -e "\nThe Updater has been disabled\n"
     fi
 fi
-#
 # Quick Run option part 2: If quick run was set and the updater section completes this will enable quick run again then remove the file.
 [[ -f ~/.quickrun ]] && updatestatus="y"; rm -f ~/.quickrun
-#
 # resets the positional parameters $1 and $2 post update.
 [[ -f ~/.passparams ]] && set "$1" "$(sed -n '1p' ~/.passparams)" && set "$2" "$(sed -n '2p' ~/.passparams)"; rm -f ~/.passparams
 #
@@ -329,22 +329,22 @@ do
             then
                 echo -e "\033[31m""Killing all instances of rtorrent""\e[0m"
                 echo
-                kill -9 $(screen -ls rtorrent | sed -rn 's/(.*).rtorrent[^-](.*)/\1/p') > /dev/null 2>&1
+                kill -9 "$(screen -ls rtorrent | sed -rn 's/(.*).rtorrent[^-](.*)/\1/p')" > /dev/null 2>&1
                 screen -wipe > /dev/null 2>&1
                 echo "Restarting rtorrent"
                 echo
                 # Test to see if rtorrent is running, if the result is null and the respective lock file exists then delete the lock file. Otherwise do nothing.
-                [[ -z $(pgrep -fu "$(whoami)" "/opt/rtorrent/current/bin/rtorrent") && -f ~/private/rtorrent/work/rtorrent.lock ]] && rm -f ~/private/rtorrent/work/rtorrent.lock
+                [[ -z "$(pgrep -fu "$(whoami)" "/opt/rtorrent/current/bin/rtorrent")" && -f ~/private/rtorrent/work/rtorrent.lock ]] && rm -f ~/private/rtorrent/work/rtorrent.lock
                 #
                 screen -fa -dmS rtorrent rtorrent
                 sleep 2
                 echo -e "\033[33m""Checking if the process is running:""\e[0m"
                 echo
-                echo $(ps x | grep "/opt/rtorrent/current/bin/rtorrent" | grep -v grep)
+                echo "$(ps x | grep "/opt/rtorrent/current/bin/rtorrent" | grep -v grep)"
                 echo
                 echo -e "\033[33m""Checking if the screen is running""\e[0m"
                 echo
-                echo $(screen -ls | grep rtorrent)
+                echo "$(screen -ls | grep rtorrent)"
                 echo
                 echo -e "\033[32m""For troubleshooting refer to the FAQ:""\e[0m" "\033[36m""https://www.feralhosting.com/faq/view?question=158""\e[0m"
                 echo
@@ -388,7 +388,7 @@ do
                 if [[ "$(date +%-M)" -le '54' ]] && [[ "$(date +%-M)" -ge '50' ]]; then time="$(( 55 * 60 ))"; fi
                 if [[ "$(date +%-M)" -le '59' ]] && [[ "$(date +%-M)" -ge '55' ]]; then time="$(( 60 * 60 ))"; fi
                 #
-                while [[ $(pgrep -cfu $(whoami) "deluge-web -f$") -eq "0" ]]
+                while [[ "$(pgrep -cfu $(whoami) "deluge-web -f$")" -eq "0" ]]
                 do
                     countdown="$(( $time-$(($(date +%-M) * 60 + $(date +%-S))) ))"
                     printf '\rDeluge-web will restart in approximately: %dm:%ds ' $(($countdown%3600/60)) $(($countdown%60))
@@ -410,7 +410,7 @@ do
             then
                 echo -e "\033[31m""Restarting Transmission""\e[0m"
                 echo
-                killall -9 -u $(whoami) transmission-daemon > /dev/null 2>&1
+                killall -9 -u "$(whoami)" transmission-daemon > /dev/null 2>&1
                 sleep 2
                 echo "Waiting for Transmission to reload. It loads every 5 minutes starting from 00 of the hour"
                 echo
@@ -451,7 +451,7 @@ do
                 then
                 echo -e "\033[31m""Restarting MySQL""\e[0m"
                 echo
-                killall -u $(whoami) mysqld mysqld_safe  > /dev/null 2>&1
+                killall -u "$(whoami)" mysqld mysqld_safe  > /dev/null 2>&1
                 bash ~/private/mysql/launch.sh > /dev/null 2>&1
                 echo "Mysql has been restarted"
                 echo

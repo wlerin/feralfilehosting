@@ -47,7 +47,7 @@ SSH to your slot and run these commands:
 ~~~
 mkdir -p ~/.irssi/scripts/autorun ~/.autodl
 echo -e "[options]\ngui-server-port = 0\ngui-server-password = PASS" > ~/.autodl/autodl.cfg
-wget -qO ~/autodl-irssi.zip http://update.autodl-community.com/autodl-irssi-community.zip
+wget -O ~/autodl-irssi.zip $(curl -sL http://git.io/vlcND | grep 'browser' | cut -d\" -f4)
 unzip -qo ~/autodl-irssi.zip -d ~/.irssi/scripts/
 cp -f ~/.irssi/scripts/autodl-irssi.pl ~/.irssi/scripts/autorun/
 cd && rm -f autodl-irssi.zip .irssi/scripts/{README*,autodl-irssi.pl,CONTRIBUTING.md}
@@ -74,7 +74,7 @@ gui-server-port = 0
 gui-server-password = PASS
 ~~~
 
-**1:** Change the port to something between `10001` and `49999`
+**1:** Change the port to something between `10001` and `32001`
 
 **2:** Create a password and replace `PASS` with your new password.
 
