@@ -8,11 +8,31 @@
 #
 # Script Contributors: 
 #
-# License: This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. https://creativecommons.org/licenses/by-sa/4.0/
-#
 # Bash Command for easy reference:
 #
-# wget -qO ~/install.sick http://git.io/vfGch && bash ~/install.sick
+# wget -qO ~/install.sick git.io/vfGch && bash ~/install.sick
+#
+# The MIT License (MIT)
+#
+# Copyright (c) 2016 randomessence
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 #
 ############################
 ###### Basic Info End ######
@@ -74,7 +94,7 @@ scriptauthor="randomessence"
 contributors="None credited"
 #
 # Set the http://git.io/ shortened URL for the raw github URL here:
-gitiourl="http://git.io/vfGch"
+gitiourl="git.io/vfGch"
 #
 # Don't edit: This is the bash command shown when using the info option.
 gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
@@ -109,16 +129,14 @@ host2https="https://$(hostname -f)/$(whoami)/"
 [[ -d ~/private/transmission/data ]] && transmissiondata="$HOME/private/transmission/data"
 #
 # Bug reporting varaibles.
-makeissue=".makeissue $scriptname A description of the issue"
-ticketurl="https://www.feralhosting.com/manager/tickets/new"
 gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 #
 ############################
 ## Custom Variables Start ##
 ############################
 #
-unrarv="5.2.7"
-unrarfv="http://www.rarlab.com/rar/unrarsrc-5.2.7.tar.gz"
+unrarv="5.3.8"
+unrarfv="http://www.rarlab.com/rar/unrarsrc-5.3.8.tar.gz"
 #
 giturlsickbeard="https://github.com/midgetspy/Sick-Beard.git"
 giturlsickrage="https://github.com/SiCKRAGETV/SickRage.git"
@@ -274,7 +292,7 @@ sickrageproxy () {
     # Nginx Proxypass
     if [[ -d ~/.nginx/conf.d/000-default-server.d ]]
     then
-        echo -en 'location ^~ /sickrage {\nproxy_set_header X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\nproxy_set_header Host $http_x_host;\nproxy_set_header X-NginX-Proxy true;\n\nrewrite /(.*) /'"$(whoami)"'/$1 break;\nproxy_pass http://10.0.0.1:'"$appport"'/;\nproxy_redirect off;\n}' >  ~/.nginx/conf.d/000-default-server.d/sickrage.conf
+        echo -en 'location /sickrage {\nproxy_set_header X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\nproxy_set_header Host $http_x_host;\nproxy_set_header X-NginX-Proxy true;\n\nrewrite /(.*) /'"$(whoami)"'/$1 break;\nproxy_pass http://10.0.0.1:'"$appport"'/;\nproxy_redirect off;\n}' >  ~/.nginx/conf.d/000-default-server.d/sickrage.conf
         /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
     fi
 }
@@ -399,17 +417,7 @@ then
     echo
     echo -e "\033[32m""Bug Reporting:""\e[0m"
     echo
-    echo -e "These are the recommended ways to report bugs for scripts in the FAQs:"
-    echo
-    echo -e "1: In IRC you can use wikibot to create a github issue by using this command format:"
-    echo
-    echo -e "\033[36m""$makeissue""\e[0m"
-    echo
-    echo -e "2: You could open a ticket describing the problem with details of which script and what the problem is."
-    echo
-    echo -e "\033[36m""$ticketurl""\e[0m"
-    echo
-    echo -e "3: You can create an issue directly on github using your github account."
+    echo -e "3: You should create an issue directly on github using your github account."
     echo
     echo -e "\033[36m""$gitissue""\e[0m"
     echo
@@ -431,51 +439,32 @@ fi
 [[ ! -z "$1" && "$1" != 'qr' ]] || [[ ! -z "$2" && "$2" != 'qr' ]] && echo -en "$1\n$2" > ~/.passparams
 # Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, which would reset the option, it will then find this file and set it back.
 [[ ! -z "$1" && "$1" = 'qr' ]] || [[ ! -z "$2" && "$2" = 'qr' ]] && echo -n '' > ~/.quickrun
-#
 # No Update option: This disables the updater features if the script option "nu" was used when running the script.
-if [[ ! -z "$1" && "$1" = 'nu' ]] || [[ ! -z "$2" && "$2" = 'nu' ]]
-then
-    echo
-    echo "The Updater has been temporarily disabled"
-    echo
+if [[ ! -z "$1" && "$1" = 'nu' ]] || [[ ! -z "$2" && "$2" = 'nu' ]]; then
     scriptversion="$scriptversion-nu"
+    echo -e "\nThe Updater has been temporarily disabled\n"
 else
-    #
     # Check to see if the variable "updaterenabled" is set to 1. If it is set to 0 the script will bypass the built in updater regardless of the options used.
-    if [[ "$updaterenabled" -eq "1" ]]
-    then
+    if [[ "$updaterenabled" -eq "1" ]]; then
         [[ ! -d ~/bin ]] && mkdir -p ~/bin
         [[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
-        #
         wget -qO ~/.000"$scriptname" "$scripturl"
-        #
-        if [[ "$(sha256sum ~/.000"$scriptname" | awk '{print $1}')" != "$(sha256sum ~/bin/"$scriptname" | awk '{print $1}')" ]]
-        then
-            echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
-            bash ~/.111"$scriptname"
-            exit
+        if [[ "$(sha256sum ~/.000"$scriptname" | awk '{print $1}')" != "$(sha256sum ~/bin/"$scriptname" | awk '{print $1}')" ]]; then
+            echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname" && bash ~/.111"$scriptname"; exit
         else
-            if [[ -z "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" && "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" -ne "$$" ]]
-            then
-                echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
-                bash ~/.222"$scriptname"
-                exit
+            if [[ -z "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" && "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" -ne "$$" ]]; then
+                echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname" && bash ~/.222"$scriptname"; exit
             fi
         fi
-        cd && rm -f .{000,111,222}"$scriptname"
-        chmod -f 700 ~/bin/"$scriptname"
+        cd && rm -f .{000,111,222}"$scriptname" && chmod -f 700 ~/bin/"$scriptname"
         echo
     else
-        echo
-        echo "The Updater has been disabled"
-        echo
         scriptversion="$scriptversion-DEV"
+        echo -e "\nThe Updater has been disabled\n"
     fi
 fi
-#
 # Quick Run option part 2: If quick run was set and the updater section completes this will enable quick run again then remove the file.
 [[ -f ~/.quickrun ]] && updatestatus="y"; rm -f ~/.quickrun
-#
 # resets the positional parameters $1 and $2 post update.
 [[ -f ~/.passparams ]] && set "$1" "$(sed -n '1p' ~/.passparams)" && set "$2" "$(sed -n '2p' ~/.passparams)"; rm -f ~/.passparams
 #
@@ -627,6 +616,19 @@ do
                 echo
                 case "$CHOICE" in
                     "1")
+                        if [[ ! -d ~/.sickrage ]]
+                        then
+                            read -ep "Would you like to set the Git repo URL manually? " -i "y" urlstatus
+                            echo
+                            if [[ "$urlstatus" = "y" ]]
+                            then
+                            echo "echel0n: ""$giturlsickrage"
+                            echo "miigotu: ""$giturlsickragealt"
+                            echo
+                                read -ep "Please give me the URL: " giturlsickrage
+                                [[ ! -z "giturlsickrage" ]] && giturlsickrage="https://github.com/SiCKRAGETV/SickRage.git"
+                            fi
+                        fi
                         # function
                         killsickrage
                         if [[ -d ~/.sickrage ]]
