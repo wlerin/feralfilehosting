@@ -8,11 +8,31 @@
 #
 # Script Contributors: 
 #
-# License: This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. https://creativecommons.org/licenses/by-sa/4.0/
-#
 # Bash Command for easy reference:
 #
-# wget -qO ~/install.teamspeak http://git.io/aOACkQ && bash ~/install.teamspeak
+# wget -qO ~/install.teamspeak https://git.io/vzWZi && bash ~/install.teamspeak
+#
+# The MIT License (MIT)
+#
+# Copyright (c) 2016 randomessence
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 #
 ############################
 ###### Basic Info End ######
@@ -76,21 +96,21 @@ scriptauthor="None credited"
 contributors="None credited"
 #
 # Set the http://git.io/ shortened URL for the raw github URL here:
-gitiourl="http://git.io/aOACk"
+gitiourl="https://git.io/vzWZi "
 #
 # Don't edit: This is the bash command shown when using the info option.
 gitiocommand="wget -qO ~/$scriptname $gitiourl && bash ~/$scriptname"
 #
 # This is the raw github url of the script to use with the built in updater.
-scripturl="https://raw.github.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/Teamspeak%203%20server/scripts/install.teamspeak.sh"
+scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Archived/Teamspeak%203%20server/scripts/install.teamspeak.sh"
 #
 # This will generate a 20 character random passsword for use with your applications.
 apppass="$(< /dev/urandom tr -dc '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' | head -c20; echo;)"
-# This will generate a random port for the script between the range 10001 to 49999 to use with applications. You can ignore this unless needed.
-appport="$(shuf -i 10001-49999 -n 1)"
+# This will generate a random port for the script between the range 10001 to 32001 to use with applications. You can ignore this unless needed.
+appport="$(shuf -i 10001-15000 -n 1)"
 #
 # This wil take the previously generated port and test it to make sure it is not in use, generating it again until it has selected an open port.
-while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]; do appport="$(shuf -i 10001-49999 -n 1)"; done
+while [[ "$(netstat -ln | grep ':'"$appport"'' | grep -c 'LISTEN')" -eq "1" ]]; do appport="$(shuf -i 10001-15000 -n 1)"; done
 #
 # Script user's http www URL in the format http://username.server.feralhosting.com/
 host1http="http://$(whoami).$(hostname -f)/"
@@ -111,25 +131,23 @@ host2https="https://$(hostname -f)/$(whoami)/"
 [[ -d ~/private/transmission/data ]] && transmissiondata="$HOME/private/transmission/data"
 #
 # Bug reporting varaibles.
-makeissue=".makeissue $scriptname A description of the issue"
-ticketurl="https://www.feralhosting.com/manager/tickets/new"
 gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 #
 ############################
 ## Custom Variables Start ##
 ############################
 #
-teamspeakversion="3.0.11.2"
+teamspeakversion="3.0.11.4"
 #
 # vport the voice port: random port between 10001-20000 used in the sed commands
-vport=$(shuf -i 10001-20000 -n 1)
-while [[ "$(netstat -ln | grep ':'"$vport"'' | grep -c 'LISTEN')" -eq "1" ]]; do vport=$(shuf -i 10001-20000 -n 1); done
+vport=$(shuf -i 15001-20000 -n 1)
+while [[ "$(netstat -ln | grep ':'"$vport"'' | grep -c 'LISTEN')" -eq "1" ]]; do vport=$(shuf -i 15001-20000 -n 1); done
 # fport is file transfer port: vport + 1 used in the sed commands
-fport=$(shuf -i 20001-35000 -n 1)
-while [[ "$(netstat -ln | grep ':'"$fport"'' | grep -c 'LISTEN')" -eq "1" ]]; do fport=$(shuf -i 20001-35000 -n 1); done
+fport=$(shuf -i 20001-25000 -n 1)
+while [[ "$(netstat -ln | grep ':'"$fport"'' | grep -c 'LISTEN')" -eq "1" ]]; do fport=$(shuf -i 20001-25000 -n 1); done
 # qport is the query port: vport + 2 used in the sed commands
-qport=$(shuf -i 35001-49999 -n 1)
-while [[ "$(netstat -ln | grep ':'"$qport"'' | grep -c 'LISTEN')" -eq "1" ]]; do qport=$(shuf -i 35001-49999 -n 1); done
+qport=$(shuf -i 25001-32001 -n 1)
+while [[ "$(netstat -ln | grep ':'"$qport"'' | grep -c 'LISTEN')" -eq "1" ]]; do qport=$(shuf -i 25001-32001 -n 1); done
 #
 teamspeakfv="http://dl.4players.de/ts/releases/$teamspeakversion/teamspeak3-server_linux-amd64-$teamspeakversion.tar.gz"
 #
@@ -151,6 +169,24 @@ updaterenabled="1"
 example () {
     echo "This is my example function"
 }
+
+cronjob () {
+    # adding jobs to cron: Set the variable tmpcron to a randomly generated temporary file.
+    tmpcron="$(mktemp)"
+    # Check if the job exists already by grepping whatever is between ^$
+    if [[ "$(crontab -l 2> /dev/null | grep -oc '^#This is an example crontab entry from an install.script$')" == "0" ]]
+    then
+        # sometimes the cronjob will be to run a custom script generated by the installer, located in the directory ~/.cronjobs
+        mkdir -p ~/.cronjobs/logs
+        echo "Appending application to crontab."
+        crontab -l 2> /dev/null > "$tmpcron"
+        echo "#This is an example crontab entry from a install.script" >> "$tmpcron"
+        crontab "$tmpcron"
+        rm "$tmpcron"
+    else
+        echo "Some Job is already in crontab"
+    fi
+ }
 #
 ############################
 ####### Function End #######
@@ -236,17 +272,7 @@ then
     echo
     echo -e "\033[32m""Bug Reporting:""\e[0m"
     echo
-    echo -e "These are the recommended ways to report bugs for scripts in the FAQs:"
-    echo
-    echo -e "1: In IRC you can use wikibot to create a github issue by using this command format:"
-    echo
-    echo -e "\033[36m""$makeissue""\e[0m"
-    echo
-    echo -e "2: You could open a ticket describing the problem with details of which script and what the problem is."
-    echo
-    echo -e "\033[36m""$ticketurl""\e[0m"
-    echo
-    echo -e "3: You can create an issue directly on github using your github account."
+    echo -e "You should create an issue directly on github using your github account."
     echo
     echo -e "\033[36m""$gitissue""\e[0m"
     echo
@@ -264,55 +290,68 @@ fi
 #### Self Updater Start ####
 ############################
 #
+# Checks for the positional parameters $1 and $2 to be reset if the script is updated.
+[[ ! -z "$1" && "$1" != 'qr' ]] || [[ ! -z "$2" && "$2" != 'qr' ]] && echo -en "$1\n$2" > ~/.passparams
 # Quick Run option part 1: If qr is used it will create this file. Then if the script also updates, which would reset the option, it will then find this file and set it back.
-if [[ ! -z "$1" && "$1" = 'qr' ]] || [[ ! -z "$2" && "$2" = 'qr' ]];then echo -n '' > ~/.quickrun; fi
-#
+[[ ! -z "$1" && "$1" = 'qr' ]] || [[ ! -z "$2" && "$2" = 'qr' ]] && echo -n '' > ~/.quickrun
 # No Update option: This disables the updater features if the script option "nu" was used when running the script.
-if [[ ! -z "$1" && "$1" = 'nu' ]] || [[ ! -z "$2" && "$2" = 'nu' ]]
-then
-    echo
-    echo "The Updater has been temporarily disabled"
-    echo
+if [[ ! -z "$1" && "$1" = 'nu' ]] || [[ ! -z "$2" && "$2" = 'nu' ]]; then
     scriptversion="$scriptversion-nu"
+    echo -e "\nThe Updater has been temporarily disabled\n"
 else
-    #
     # Check to see if the variable "updaterenabled" is set to 1. If it is set to 0 the script will bypass the built in updater regardless of the options used.
-    if [[ "$updaterenabled" -eq "1" ]]
-    then
+    if [[ "$updaterenabled" -eq "1" ]]; then
         [[ ! -d ~/bin ]] && mkdir -p ~/bin
         [[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
-        #
         wget -qO ~/.000"$scriptname" "$scripturl"
-        #
-        if [[ "$(sha256sum ~/.000"$scriptname" | awk '{print $1}')" != "$(sha256sum ~/bin/"$scriptname" | awk '{print $1}')" ]]
-        then
-            echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
-            bash ~/.111"$scriptname"
-            exit
+        if [[ "$(sha256sum ~/.000"$scriptname" | awk '{print $1}')" != "$(sha256sum ~/bin/"$scriptname" | awk '{print $1}')" ]]; then
+            echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname" && bash ~/.111"$scriptname"; exit
         else
-            if [[ -z "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" && "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" -ne "$$" ]]
-            then
-                echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
-                bash ~/.222"$scriptname"
-                exit
+            if [[ -z "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" && "$(pgrep -fu "$(whoami)" "bash $HOME/bin/$scriptname")" -ne "$$" ]]; then
+                echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname" && bash ~/.222"$scriptname"; exit
             fi
         fi
-        cd && rm -f .{000,111,222}"$scriptname"
-        chmod -f 700 ~/bin/"$scriptname"
+        cd && rm -f .{000,111,222}"$scriptname" && chmod -f 700 ~/bin/"$scriptname"
         echo
     else
-        echo
-        echo "The Updater has been disabled"
-        echo
         scriptversion="$scriptversion-DEV"
+        echo -e "\nThe Updater has been disabled\n"
     fi
 fi
-#
 # Quick Run option part 2: If quick run was set and the updater section completes this will enable quick run again then remove the file.
-if [[ -f ~/.quickrun ]];then updatestatus="y"; rm -f ~/.quickrun; fi
+[[ -f ~/.quickrun ]] && updatestatus="y"; rm -f ~/.quickrun
+# resets the positional parameters $1 and $2 post update.
+[[ -f ~/.passparams ]] && set "$1" "$(sed -n '1p' ~/.passparams)" && set "$2" "$(sed -n '2p' ~/.passparams)"; rm -f ~/.passparams
 #
 ############################
 ##### Self Updater End #####
+############################
+#
+############################
+## Positional Param Start ##
+############################
+#
+if [[ ! -z "$1" && "$1" = "example" ]]
+then
+    echo
+    #
+    # Edit below this line
+    #
+    echo "Add your custom positional parameters in this section."
+    #
+    if [[ -n "$2" ]]
+    then
+        echo "You used $scriptname $1 $2 when calling this example"
+    fi
+    #
+    # Edit above this line
+    #
+    echo
+    exit
+fi
+#
+############################
+### Positional Param End ###
 ############################
 #
 ############################
