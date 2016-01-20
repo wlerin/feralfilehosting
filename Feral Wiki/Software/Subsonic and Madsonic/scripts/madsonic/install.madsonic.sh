@@ -47,7 +47,7 @@ then
     #echo 'v0.0.4 - My changes go here'
     #echo 'v0.0.3 - My changes go here'
     echo 'v2.0.1 - rsk script moved to separate script'
-    echo 'v2.0.0 - Templater update - minor script tweaks'
+    echo 'v2.0.0 - Template updated - minor script tweaks'
     #
     echo
     exit
@@ -122,17 +122,13 @@ jvdecimal="1.8.0_71"
 # Defines the memory variable
 initmemory="2048"
 maxmemory="2048"
-#
 # Gets the Java version from the last time this script installed Java
 installedjavaversion="$(cat ~/.javaversion 2> /dev/null)"
-#
 # Java URL
 javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=114681"
-#
 # Madsonic Standalone files
 madsonicfv="https://github.com/feralhosting/feralfilehosting/releases/download/Madsonic-5.1.5260/5.1.5260-standalone.zip"
 madsonicfvs="5.1.5260-standalone.zip"
-#
 # ffmpeg files
 mffmpegfvc="https://github.com/feralhosting/feralfilehosting/releases/download/ffmpeg.19.01.2016/sonic_ffmpeg_19.01.2016.zip"
 mffmpegfvcs="sonic_ffmpeg_19.01.2016.zip"
