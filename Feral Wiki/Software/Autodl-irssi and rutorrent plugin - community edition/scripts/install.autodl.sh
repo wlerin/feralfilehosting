@@ -158,15 +158,11 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 #
 autodllatest="$(curl -s https://api.github.com/repos/autodl-community/autodl-irssi/releases/latest | sed -rn 's/(.*)"tag_name": "community-v(.*)",/\2/p')"
 trackerslatest="$(curl -s https://api.github.com/repos/autodl-community/autodl-trackers/releases/latest | sed -rn 's/(.*)"tag_name": "community-v(.*)",/\2/p')"
-#
 # URLs for the core files.
-# autodlirssicommunity="http://update.autodl-community.com/autodl-irssi-community.zip"
-#
 autodlirssicommunity="https://github.com/autodl-community/autodl-irssi/releases/download/community-v$autodllatest/autodl-irssi-community-v$autodllatest.zip"
 autodltrackers="https://github.com/autodl-community/autodl-trackers/releases/download/community-v$trackerslatest/autodl-trackers-v$trackerslatest.zip"
 # URL for autodl-rutorrent
 autodlrutorrent="https://github.com/autodl-community/autodl-rutorrent/archive/master.zip"
-#
 # This is a test to decide the output of an echoed variable depending of the presence of the ~/.autodl folder
 if [[ -d ~/.autodl ]]
 then
@@ -214,7 +210,9 @@ then
     ##### Custom Help Info Starts #####
     ###################################
     #
-    echo -e "Put your help instructions or script guidance here"
+    echo -e "Running this script will perform a number of features."
+    echo -e "Some of those are troubleshooting for common issues"
+    echo -e "Such as multiple instances and port/password conflicts."
     #
     ###################################
     ###### Custom Help Info Ends ######
@@ -361,21 +359,16 @@ then
     ####### Autodl Start #######
     ############################
     #
-    echo -e "\033[32m""$shoutout1 autodl-irssi and the rutorrent plugin""\e[0m"
-    echo
+    echo -e "\033[32m""$shoutout1 autodl-irssi and the rutorrent plugin""\e[0m"; echo
     # Makes the directories we require for the irssi and autodl installation.
     mkdir -p ~/{.autodl,.irssi/scripts/autorun}
-    echo -e "\033[31m""A randomly generated 20 character password has been set for you by this script""\e[0m"
-    echo
+    echo -e "\033[31m""A randomly generated 20 character password has been set for you by this script""\e[0m"; echo
     # Kill any existing autodl screen processes to make sure the installation can be finalised later.
     kill "$(screen -ls autodl | sed -rn 's/(.*).autodl(.*)/\1/p')" > /dev/null 2>&1
     # Wipe any dead screens left behind
     screen -wipe > /dev/null 2>&1
     # Make a backup of the ~/.autodl/autodl.cfg just in case
-    if [[ -f ~/.autodl/autodl.cfg ]]
-    then
-        cp -f ~/.autodl/autodl.cfg ~/.autodl/autodl.cfg.bak-"$(date +"%d.%m.%y@%H:%M:%S")"
-    fi
+    [[ -f ~/.autodl/autodl.cfg ]] && cp -f ~/.autodl/autodl.cfg ~/.autodl/autodl.cfg.bak-"$(date +"%d.%m.%y@%H:%M:%S")"
     # Clean install by removing the related irssi folder and files and the rutorrent plug in folder
     rm -rf ~/.irssi/scripts/AutodlIrssi
     rm -f ~/.irssi/scripts/autorun/autodl-irssi.pl
@@ -438,16 +431,14 @@ then
         #
     else
         # If the ~/www/$(whoami).$(hostname -f)/public_html/rutorrent does not exist say this.
-        echo -e "\033[31m""If you wish to use the rutorrent plug-in then please install rutorrent and then run this script again""\e[0m"
-        echo
+        echo -e "\033[31m""If you wish to use the rutorrent plug-in then please install rutorrent and then run this script again""\e[0m"; echo
     fi
     #
     ############################
     ##### Fix script Start #####
     ############################
     #
-    echo "Applying the fix script as part of the $shoutout2:"
-    echo
+    echo "Applying the fix script as part of the $shoutout2:"; echo
     # If the ~/.irssi/scripts/AutodlIrssi folder exists then apply the fix or else warn the user the directory is missing.
     if [[ -d ~/.irssi/scripts/AutodlIrssi ]]
     then
@@ -456,12 +447,10 @@ then
         sed -i 's|$rtAddress = "127.0.0.1$rtAddress"|$rtAddress = "10.0.0.1$rtAddress"|g' ~/.irssi/scripts/AutodlIrssi/MatchedRelease.pm
         sed -i 's|my $scgi = new AutodlIrssi::Scgi($rtAddress, {REMOTE_ADDR => "127.0.0.1"});|my $scgi = new AutodlIrssi::Scgi($rtAddress, {REMOTE_ADDR => "10.0.0.1"});|g' ~/.irssi/scripts/AutodlIrssi/MatchedRelease.pm
         #
-        echo -e "\033[33m""Autodl fix has been applied""\e[0m"
-        echo
+        echo -e "\033[33m""Autodl fix has been applied""\e[0m"; echo
     else
         echo -e "\033[36m""~/.irssi/scripts/AutodlIrssi/""\e[0m" "does not exist"
-        echo -e "\033[36m""Install autodl using the bash script installer in the FAQ"
-        echo
+        echo -e "\033[36m""Install autodl using the bash script installer in the FAQ"; echo
         exit
     fi
     #
@@ -470,11 +459,9 @@ then
     then
         # Fix the relevent rutorrent plugin file by changing 127.0.0.1 to 10.0.0.1 using sed
         sed -i 's|if (!socket_connect($socket, "127.0.0.1", $autodlPort))|if (!socket_connect($socket, "10.0.0.1", $autodlPort))|g' ~/www/"$(whoami)"."$(hostname -f)"/public_html/rutorrent/plugins/autodl-irssi/getConf.php
-        echo -e "\033[33m""Autodl-rutorrent fix has been applied""\e[0m"
-        echo
+        echo -e "\033[33m""Autodl-rutorrent fix has been applied""\e[0m"; echo
     else
-        echo -e "\033[36m""~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi/""\e[0m" "does not exist. Skipped."
-        echo
+        echo -e "\033[36m""~/www/$(whoami).$(hostname -f)/public_html/rutorrent/plugins/autodl-irssi/""\e[0m" "does not exist. Skipped."; echo
     fi
     #
     ############################
@@ -490,28 +477,18 @@ then
     # Send a command to the new screen telling Autodl to update itself. This basically generates the ~/.autodl/AutodlState.xml files with updated info.
     screen -S autodl -p 0 -X stuff '/autodl update^M'
     echo -e "\033[32m""Checking we have started irssi or if there are multiple screens/processes""\e[0m"
-    echo -e "\033[31m"
-    # Check if the screen is running for the user
-    echo "$(screen -ls | grep 'autodl\s')"
-    echo -e "\e[0m"
-    echo -e "Done. Please refresh/reload rutorrent using CTRL + F5 and start using autodl"
-    echo
-    echo -e "You can attach to the screen using this command:"
-    echo
-    echo -e "\033[32m""screen -r autodl""\e[0m"
-    echo
+    echo -e "\033[31m""$(screen -ls | grep 'autodl\s')""\e[0m"
+    echo -e "Done. Please refresh/reload rutorrent using CTRL + F5 and start using autodl"; echo
+    echo -e "You can attach to the screen using this command:"; echo
+    echo -e "\033[32m""screen -r autodl""\e[0m"; echo
     if [[ -d ~/www/"$(whoami)"."$(hostname -f)"/public_html/rutorrent/ ]]
     then
-        echo -e "This script will have to be run each time you update/overwrite the autodl or autodl-rutorrent files to apply the fix."
-        echo
-        echo "Visit your updated rutorrent installation here:"
-        echo
-        echo -e "\033[32m""https://$(hostname -f)/$(whoami)/rutorrent/""\e[0m"
-        echo
+        echo -e "This script will have to be run each time you update/overwrite the autodl or autodl-rutorrent files to apply the fix."; echo
+        echo "Visit your updated rutorrent installation here:"; echo
+        echo -e "\033[32m""https://$(hostname -f)/$(whoami)/rutorrent/""\e[0m"; echo
         exit
     else
-        echo -e "\033[31m""This script will have to be run each time you update/overwrite the autodl files to apply the fix.""\e[0m"
-        echo
+        echo -e "\033[31m""This script will have to be run each time you update/overwrite the autodl files to apply the fix.""\e[0m"; echo
         exit
     fi
 #
@@ -520,8 +497,7 @@ then
 ############################
 #
 else
-    echo -e "You chose to exit after updating the scripts."
-    echo
+    echo -e "You chose to exit after updating the scripts."; echo
     cd && bash
     exit
 fi

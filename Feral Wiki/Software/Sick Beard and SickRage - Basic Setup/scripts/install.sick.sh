@@ -140,6 +140,7 @@ unrarfv="http://www.rarlab.com/rar/unrarsrc-5.3.8.tar.gz"
 #
 giturlsickbeard="https://github.com/midgetspy/Sick-Beard.git"
 giturlsickrage="https://github.com/SiCKRAGETV/SickRage.git"
+giturlsickragealt="https://github.com/SickRage/SickRage.git"
 #
 ############################
 ### Custom Variables End ###
@@ -623,10 +624,10 @@ do
                             if [[ "$urlstatus" = "y" ]]
                             then
                             echo "echel0n: ""$giturlsickrage"
-                            echo "miigotu: ""$giturlsickragealt"
+                            echo "miigotu (default): ""$giturlsickragealt"
                             echo
                                 read -ep "Please give me the URL: " giturlsickrage
-                                [[ ! -z "giturlsickrage" ]] && giturlsickrage="https://github.com/SiCKRAGETV/SickRage.git"
+                                [[ ! -z "giturlsickrage" ]] && giturlsickrage="https://github.com/SickRage/SickRage.git"
                             fi
                         fi
                         # function
