@@ -22,6 +22,14 @@ Bash Script:
 wget -qO ~/install.sick http://git.io/vfGch && bash ~/install.sick
 ~~~
 
+**Please note:** installing SickRage will allow you to specify the Git repo URL manually. There have been some problems recently with SickRage spawning several processes (to the extent that the slot may become unusable) and changing the repo seems to prevent this.
+
+Feral is aware of internal strife amongst the development team of SickRage and whilst it has no involvement at all in those issues, if you are receiving errors such as `Server refused to start a shell/command` or `shell request failed on channel X` you may prefer to switch.
+
+To do this, you'll first need to log into your slot via SSH and kill the process. You can open a ticket if this is not possible. Then, remove the `.sickrage/` directory.
+
+This means that when you rerun the install script above, rather than simply update it'll allow you to manually specify the Git URL. An option to use which does not seem to result in multiple processes being spawned is `https://github.com/SickRage/SickRage.git`
+
 Restarting:
 ---
 
@@ -35,7 +43,7 @@ pgrep -fu "$(whoami)" "python $HOME/.sickbeard/SickBeard.py -d"
 
 Use these commands to shut down all instances from `~/.sickbeard`:
 
-> **Important note:** Give the program at least 10 seconds to shut down before restarting.
+ **Important note:** Give the program at least 10 seconds to shut down before restarting.
 
 Try to kill  Sick Beard gracefully so that it saves all settings.
 
@@ -67,7 +75,7 @@ pgrep -fu "$(whoami)" "python $HOME/.sickrage/SickBeard.py -d"
 
 Use these commands to shut down all instances from `~/.sickrage`:
 
-> **Important note:** Give the program at least 10 seconds to shut down before restarting.
+ **Important note:** Give the program at least 10 seconds to shut down before restarting.
 
 Try to kill  SickRage gracefully so that it saves all settings.
 
@@ -100,7 +108,7 @@ SickRage - [https://github.com/SiCKRAGETV/SickRage](https://github.com/SiCKRAGET
 git clone https://github.com/SiCKRAGETV/SickRage ~/.sickrage
 ~~~
 
-> **Important note:** Please use this FAQ to install Unrar v5 locally for use with the post processing feature Unpack (rar only) - [Unrar - How to Install a Newer Version](https://www.feralhosting.com/faq/view?question=280) - You will need to restart your SickRage instance for the changes to take effect.
+ **Important note:** Please use this FAQ to install Unrar v5 locally for use with the post processing feature Unpack (rar only) - [Unrar - How to Install a Newer Version](https://www.feralhosting.com/faq/view?question=280) - You will need to restart your SickRage instance for the changes to take effect.
 
 ### SickBeard:
 
@@ -115,7 +123,7 @@ git clone https://github.com/midgetspy/Sick-Beard ~/.sickbeard
 Configuration
 ---
 
-> **Important note:** To properly configure the proxypass below you will need to edit the config files while the programs is shut-down or set them from within the program and then save and restart. The command below is just a quick start.
+ **Important note:** To properly configure the proxypass below you will need to edit the config files while the programs is shut-down or set them from within the program and then save and restart. The command below is just a quick start.
 
 Pick a port between `10001` and `49999`.  Remember this port!  Then let's start up the SickBeard daemon on that port.
 
@@ -272,7 +280,7 @@ https://server.feralhosting.com/username/mypath
 SickRage rTorrent rpc:
 ---
 
-> **Important note:** You must update Apache to nginx to use the rtorrent rpc - [Update Apache to Nginx](https://www.feralhosting.com/faq/view?question=231).
+ **Important note:** You must update Apache to nginx to use the rtorrent rpc - [Update Apache to Nginx](https://www.feralhosting.com/faq/view?question=231).
 
 These are your `rpc` settings:
 

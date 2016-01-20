@@ -1,7 +1,7 @@
 
 aria2 is a lightweight multi-protocol & multi-source command-line download utility. It supports HTTP/HTTPS, FTP, BitTorrent and Metalink. aria2 can be manipulated via built-in JSON-RPC and XML-RPC interfaces.
 
-[aria2c command documentation](http://aria2.sourceforge.net/manual/en/html/aria2c.html)
+[aria2c command documentation](https://aria2.github.io/)
 
 Using the aria2c Windows Command line binary with the Web Gui
 ---
@@ -10,7 +10,7 @@ Using the aria2c Windows Command line binary with the Web Gui
 
 **Important note:** This is required for use with the Web Gui. The Web Gui does not come with the binary.
 
-[aria2c 1.18.10 x86](http://downloads.sourceforge.net/project/aria2/stable/aria2-1.18.10/aria2-1.18.10-win-32bit-build1.zip) or [aria2c 1.18.10 x64](http://downloads.sourceforge.net/project/aria2/stable/aria2-1.18.10/aria2-1.18.10-win-64bit-build1.zip) - Windows command line executable. 
+[aria2c 1.19.3 x86](https://github.com/tatsuhiro-t/aria2/releases/download/release-1.19.3/aria2-1.19.3-win-32bit-build1.zip) or [aria2c 1.19.3 x64](https://github.com/tatsuhiro-t/aria2/releases/download/release-1.19.3/aria2-1.19.3-win-64bit-build1.zip) - Windows command line executable. 
 
 **2:** Getting [Aria2c Web Gui](https://github.com/ziahamza/webui-aria2/) - A very simple Web application that you can download and run in any browser.
 
@@ -63,7 +63,7 @@ C:\aria2c.exe --enable-rpc=true --check-certificate=false -d downloads -x 16 -s 
 
 For a full list of options and their defaults please refer to this page:
 
-[aria2c command documentation](http://aria2.sourceforge.net/manual/en/html/aria2c.html)
+[aria2c command documentation](https://aria2.github.io/)
 
 **Important note:** If you close the command prompt window that opens you will terminate the `aria2c.exe` process. See the custom set-up below to avoid this.
 
@@ -78,7 +78,7 @@ This set-up will allow you to easily download from password protected http/s fol
 
 **What is this custom set-up then? **
 
-This is the aria2c v1.18.10 x64 or x86 exe, in a folder that includes a `aria2c.bat`, a `runme.vbs` file and a custom `aria2.conf` with some pre configured settings.
+This is the aria2c v1.19.3 x64 or x86 exe, in a folder that includes a `aria2c.bat`, a `runme.vbs` file and a custom `aria2.conf` with some pre configured settings.
 
 The `aria2c.bat` file contains the command we use to run aria2c. In this case, executing it and loading our custom `aria2.conf`. You can tweak the `aria2c.bat` or the `aria2.conf` to decide start-up parameters
 
@@ -96,7 +96,7 @@ You should be able to use the included `.conf` on Mac or Linux.
 
 **Important note:** Where a setting has not been included in the `aria2.conf` it is because the default setting is more than fine for almost all needs. For a full list of options and their defaults please refer to this page:
 
-[aria2c command documentation](http://aria2.sourceforge.net/manual/en/html/aria2c.html)
+[aria2c command documentation](https://aria2.github.io/)
 
 The `runme.vbs` checks to see if aria is already running before executing the bat file to prevent duplicate running processes.
 

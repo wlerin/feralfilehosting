@@ -1,4 +1,6 @@
 
+**Important note:** This is not really a solution to poor peering and if the reroute tool does not provide a solution it is very unlikely that this will help you.
+
 How to patch and install OpenSSH server with HPN-SSH on a Feral slot
 ---
 

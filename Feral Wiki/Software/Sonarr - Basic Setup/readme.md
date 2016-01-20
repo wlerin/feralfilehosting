@@ -37,6 +37,8 @@ tar xf ~/mono.tar.gz && cd ~/mono-4.2.2
 make && make install && cd && rm -rf mono{-4.2.2,.tar.gz}
 ~~~
 
+**Important:** If on executing the ./autogen.sh stage you get a message `**Error**: You must have `libtool' installed to compile Mono.` please restart the SSH session and try again from this command.
+
 Then install and run Sonarr/NzbDrone:
 
 ~~~
