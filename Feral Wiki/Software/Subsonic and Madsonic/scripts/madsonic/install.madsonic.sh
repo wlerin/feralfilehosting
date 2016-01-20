@@ -115,9 +115,9 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 ## Custom Variables Start ##
 ############################
 #
-madsonicversion="5.1 Build 5250"
-javaversion="1.8 Update 66"
-jvdecimal="1.8.0_66"
+madsonicversion="5.1 Build 5260"
+javaversion="1.8 Update 71"
+jvdecimal="1.8.0_71"
 #
 # Defines the memory variable
 initmemory="2048"
@@ -127,15 +127,15 @@ maxmemory="2048"
 installedjavaversion="$(cat ~/.javaversion 2> /dev/null)"
 #
 # Java URL
-javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=111741"
+javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=114681"
 #
 # Madsonic Standalone files
-madsonicfv="https://github.com/feralhosting/feralfilehosting/releases/download/Madsonic-5.1.5250/5.1.5250-standalone.zip"
-madsonicfvs="5.1.5250-standalone.zip"
+madsonicfv="https://github.com/feralhosting/feralfilehosting/releases/download/Madsonic-5.1.5260/5.1.5260-standalone.zip"
+madsonicfvs="5.1.5260-standalone.zip"
 #
 # ffmpeg files
-mffmpegfvc="https://github.com/feralhosting/feralfilehosting/releases/download/Madsonic-5.1.5250/sonic.ffmpeg.08.10.2015.zip"
-mffmpegfvcs="sonic.ffmpeg.08.10.2015.zip"
+mffmpegfvc="https://github.com/feralhosting/feralfilehosting/releases/download/ffmpeg.19.01.2016/sonic_ffmpeg_19.01.2016.zip"
+mffmpegfvcs="sonic_ffmpeg_19.01.2016.zip"
 #
 ############################
 ### Custom Variables End ###
