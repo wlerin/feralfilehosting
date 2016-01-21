@@ -250,8 +250,8 @@ installjava () {
         echo -e "\033[31m""Important:""\e[0m" "Java" "\033[32m""$javaversion""\e[0m" "has been installed to" "\033[36m""$HOME/""\e[0m"
         if [[ -f ~/private/subsonic/subsonic.sh.PID ]] 
         then
-            kill "$(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null)" 2> /dev/null
-            bash ~/private/subsonic/subsonic.sh
+            kill -9 "$(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null)" 2> /dev/null
+            [[ -z "$(ps -p $(cat ~/private/subsonic/subsonic.sh.PID) --no-headers)" && -d ~/private/subsonic ]] && bash ~/private/subsonic/subsonic.sh
         fi
         echo
     fi
@@ -552,7 +552,7 @@ then
         fi
         echo -e "\033[31m""Start-up script successfully configured.""\e[0m"
         echo "Executing the start-up script now."
-        bash ~/private/subsonic/subsonic.sh
+        [[ -z "$(ps -p $(cat ~/private/subsonic/subsonic.sh.PID) --no-headers)" && -d ~/private/subsonic ]] && bash ~/private/subsonic/subsonic.sh
         echo -e "A restart/start/kill script has been created at:" "\033[35m""~/bin/subsonicrsk""\e[0m"
         echo -e "\033[32m""Subsonic is now started, use the links below to access it. Don't forget to set path to FULL path to you music folder in the gui.""\e[0m"
         echo
@@ -571,7 +571,7 @@ then
         if [[ "$confirm" =~ ^[Yy]$ ]]
         then
             echo "Killing the process and removing files."
-            kill "$(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null)" 2> /dev/null
+            kill -9 "$(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null)" 2> /dev/null
             echo -e "\033[31m" "Done""\e[0m"
             echo "Removing ~/private/subsonic"
             rm -rf ~/private/subsonic
@@ -614,7 +614,7 @@ then
         elif [[ "$confirm" =~ ^[Uu]$ ]]
         then
             echo -e "Subsonic is being updated. This will only take a moment."
-            kill "$(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null)" 2> /dev/null
+            kill -9 "$(cat ~/private/subsonic/subsonic.sh.PID 2> /dev/null)" 2> /dev/null
             mkdir -p ~/sonictmp
             wget -qO ~/subsonic.tar.gz "$subsonicfv"
             tar xf ~/subsonic.tar.gz -C ~/sonictmp
@@ -638,7 +638,7 @@ then
                 echo -e 'location /subsonic {\n\nproxy_temp_path '"$HOME"'/.nginx/proxy;\n\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /subsonic/(.*) /'$(whoami)'/subsonic/$1 break;\nproxy_pass http://10.0.0.1:'$(sed -n -e 's/SUBSONIC_PORT=\([0-9]\+\)/\1/p' ~/private/subsonic/subsonic.sh 2> /dev/null)'/'$(whoami)'/subsonic/;\nproxy_redirect http:// https://;\n\n}' > ~/.nginx/conf.d/000-default-server.d/subsonic.conf
                 /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
             fi
-            bash ~/private/subsonic/subsonic.sh
+            [[ -z "$(ps -p $(cat ~/private/subsonic/subsonic.sh.PID) --no-headers)" && -d ~/private/subsonic ]] && bash ~/private/subsonic/subsonic.sh
             echo -e "A restart/start/kill script has been created at:" "\033[35m""~/bin/subsonicrsk""\e[0m"
             echo -e "\033[32m""Subsonic is now started, use the link below to access it. Don't forget to set path to FULL path to you music folder in the gui.""\e[0m"
             echo

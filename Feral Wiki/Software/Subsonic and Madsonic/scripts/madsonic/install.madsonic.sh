@@ -250,8 +250,8 @@ installjava () {
         echo -e "\033[31m""Important:""\e[0m" "Java" "\033[32m""$javaversion""\e[0m" "has been installed to" "\033[36m""$HOME/""\e[0m"
         if [[ -f ~/private/madsonic/madsonic.sh.PID ]]
         then
-            kill "$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null)" 2> /dev/null
-            bash ~/private/madsonic/madsonic.sh
+            kill -9 "$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null)" 2> /dev/null
+            [[ -z "$(ps -p $(cat ~/private/madsonic/madsonic.sh.PID) --no-headers)" && -d ~/private/madsonic ]] && bash ~/private/madsonic/madsonic.sh
         fi
         echo
     fi
@@ -552,7 +552,7 @@ then
         fi
         echo -e "\033[31m""Start-up script successfully configured.""\e[0m"
         echo "Executing the start-up script now."
-        bash ~/private/madsonic/madsonic.sh
+        [[ -z "$(ps -p $(cat ~/private/madsonic/madsonic.sh.PID) --no-headers)" && -d ~/private/madsonic ]] && bash ~/private/madsonic/madsonic.sh
         echo -e "A restart/start/kill script has been created at:" "\033[35m""~/bin/madsonicrsk""\e[0m"
         echo -e "\033[32m""Madsonic is now started, use the links below to access it. Don't forget to set path to FULL path to you music folder in the gui.""\e[0m"
         echo
@@ -571,7 +571,7 @@ then
         if [[ "$confirm" =~ ^[Yy]$ ]]
         then
             echo "Killing the process and removing files."
-            kill "$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null)" 2> /dev/null
+            kill -9 "$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null)" 2> /dev/null
             echo -e "\033[31m" "Done""\e[0m"
             echo "Removing ~/private/madsonic"
             rm -rf ~/private/madsonic
@@ -614,7 +614,7 @@ then
         elif [[ "$confirm" =~ ^[Uu]$ ]]
         then
             echo -e "Madsonic is being updated. This will only take a moment."
-            kill "$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null)" 2> /dev/null
+            kill -9 "$(cat ~/private/madsonic/madsonic.sh.PID 2> /dev/null)" 2> /dev/null
             mkdir -p ~/sonictmp
             wget -qO ~/madsonic.zip "$madsonicfv"
             unzip -qo ~/madsonic.zip -d ~/sonictmp
@@ -638,7 +638,7 @@ then
                 echo -e 'location /madsonic {\n\nproxy_temp_path '"$HOME"'/.nginx/proxy;\n\nproxy_set_header        Host            $http_x_host;\nproxy_set_header        X-Real-IP       $remote_addr;\nproxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;\nrewrite /madsonic/(.*) /'$(whoami)'/madsonic/$1 break;\nproxy_pass http://10.0.0.1:'$(sed -n -e 's/MADSONIC_PORT=\([0-9]\+\)/\1/p' ~/private/madsonic/madsonic.sh 2> /dev/null)'/'$(whoami)'/madsonic/;\nproxy_redirect http:// https://;\n\n}' > ~/.nginx/conf.d/000-default-server.d/madsonic.conf
                 /usr/sbin/nginx -s reload -c ~/.nginx/nginx.conf > /dev/null 2>&1
             fi
-            bash ~/private/madsonic/madsonic.sh
+            [[ -z "$(ps -p $(cat ~/private/madsonic/madsonic.sh.PID) --no-headers)" && -d ~/private/madsonic ]] && bash ~/private/madsonic/madsonic.sh
             echo -e "A restart/start/kill script has been created at:" "\033[35m""~/bin/madsonicrsk""\e[0m"
             echo -e "\033[32m""Madsonic is now started, use the link below to access it. Don't forget to set path to FULL path to you music folder in the gui.""\e[0m"
             echo
