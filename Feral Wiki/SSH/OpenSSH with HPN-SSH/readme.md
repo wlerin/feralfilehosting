@@ -123,7 +123,7 @@ crontab
 First create this folder
 
 ~~~
-mkdir ~/.cronjobs/logs
+mkdir -p ~/.cronjobs/logs
 ~~~
 
 Now run this command to create a script we will call with crontab

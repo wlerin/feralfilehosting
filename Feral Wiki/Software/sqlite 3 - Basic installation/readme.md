@@ -17,10 +17,10 @@ Sqlite installation
 A very basic guide to manual installation of sqlite 3.
 
 ~~~
-wget -qO ~/sqlite3.tar.gz https://www.sqlite.org/2015/sqlite-autoconf-3081101.tar.gz
+wget -qO ~/sqlite3.tar.gz https://www.sqlite.org/2016/sqlite-autoconf-3100200.tar.gz
 tar xf ~/sqlite3.tar.gz && cd ~/sqlite-*/
 ./configure --prefix=$HOME && make && make install
-cd && rm -rf sqlite{-autoconf-3081101,3.tar.gz}
+cd && rm -rf sqlite{-autoconf-3100200,3.tar.gz}
 ~~~
 
 For some applications you will have to link to this location, for example:

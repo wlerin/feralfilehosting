@@ -31,13 +31,13 @@ Then you can install mono locally:
 > **Important notes:** mono takes a long time to install. Once you do the last command expect to wait up to 20 minutes for the process to complete.
 
 ~~~
-wget -qO ~/mono.tar.gz http://download.mono-project.com/sources/mono/mono-4.2.2.10.tar.bz2
+wget -qO ~/mono.tar.gz http://download.mono-project.com/sources/mono/mono-4.2.2.29.tar.bz2
 tar xf ~/mono.tar.gz && cd ~/mono-4.2.2
 ./autogen.sh --prefix="$HOME" && make get-monolite-latest
 make && make install && cd && rm -rf mono{-4.2.2,.tar.gz}
 ~~~
 
-**Important:** If on executing the ./autogen.sh stage you get a message `**Error**: You must have `libtool' installed to compile Mono.` please restart the SSH session and try again from this command.
+**Important:** If on executing the `./autogen.sh` stage you get a message `**Error**: You must have libtool' installed to compile Mono.` please restart the SSH session and try again from this command.
 
 Then install and run Sonarr/NzbDrone:
 
