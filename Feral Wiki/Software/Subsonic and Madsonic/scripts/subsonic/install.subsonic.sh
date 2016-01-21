@@ -4,7 +4,7 @@
 ##### Basic Info Start #####
 ############################
 #
-# Script Author: randomessence
+# Script Author: userdocs
 #
 # Script Contributors: 
 #
@@ -14,7 +14,7 @@
 #
 # The MIT License (MIT)
 #
-# Copyright (c) 2016 randomessence
+# Copyright (c) 2016 userdocs
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -64,7 +64,7 @@ then
     #echo 'v0.0.7 - My changes go here'
     #echo 'v0.0.6 - My changes go here'
     #echo 'v0.0.5 - My changes go here'
-    #echo 'v0.0.4 - My changes go here'
+    echo 'v2.0.3 - crontab install and remove'
     echo 'v2.0.2 - components moved to functions and tweaks'
     echo 'v2.0.1 - rsk script moved to separate script'
     echo 'v2.0.0 - Template updated - minor script tweaks'
@@ -82,13 +82,13 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="2.0.2"
+scriptversion="2.0.3"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.subsonic"
 #
 # Author name goes here.
-scriptauthor="randomessence"
+scriptauthor="userdocs"
 #
 # Contributor's names go here.
 contributors="None credited"
@@ -168,7 +168,7 @@ updaterenabled="1"
 ###### Function Start ######
 ############################
 #
-cronjob () {
+cronjobadd () {
     # adding jobs to cron: Set the variable tmpcron to a randomly generated temporary file.
     tmpcron="$(mktemp)"
     # Check if the job exists already by grepping whatever is between ^$
@@ -182,8 +182,25 @@ cronjob () {
         crontab "$tmpcron"
         rm "$tmpcron"
     else
-        echo "This cronjob is already in crontab"
+        echo "This cronjob is already in crontab"; echo
     fi
+}
+#
+cronjobremove () {
+    tmpcron="$(mktemp)"
+    if [[ "$(crontab -l 2> /dev/null | grep -oc '^\* \* \* \* \* bash -l ~/.cronjobs/subsonic.cronjob$')" == "1" ]]
+    then
+        crontab -l 2> /dev/null > "$tmpcron"
+        sed -i '/^\* \* \* \* \* bash -l ~\/.cronjobs\/subsonic.cronjob$/d' "$tmpcron"
+        sed -i '/^$/d' "$tmpcron"
+        crontab "$tmpcron"
+        rm "$tmpcron"
+    else
+        :
+    fi
+}
+#
+cronscript () {
     # Create the cron script.
     echo '#!/bin/bash
     if [[ -z "$(ps -p $(cat ~/private/subsonic/subsonic.sh.PID) --no-headers)" && -d ~/private/subsonic ]]
@@ -193,7 +210,7 @@ cronjob () {
     else
         exit
     fi' > ~/.cronjobs/subsonic.cronjob
- } 
+}
 #
 proxypass () {
 if [[ -f ~/private/subsonic/subsonic.sh ]]
@@ -414,7 +431,8 @@ chmod -f 700 ~/bin/subsonicrsk
 #### subsonicron starts  ####
 #############################
 #
-cronjob
+cronjobadd
+cronscript
 #
 #############################
 ##### subsonicron ends  #####
@@ -558,7 +576,7 @@ then
             echo "Removing ~/private/subsonic"
             rm -rf ~/private/subsonic
             echo -e "\033[31m" "Done""\e[0m"
-            echo "Removing RSK scripts if present."
+            echo "Removing scripts."
             rm -f ~/bin/subsonic.4.8
             rm -f ~/subsonic.4.8.sh
             rm -f ~/subsonicstart.sh
@@ -567,6 +585,8 @@ then
             rm -f ~/subsonicrsk.sh
             rm -f ~/bin/subsonicrsk
             rm -f ~/bin/subsonicron
+            rm -f ~/.cronjobs/subsonic.cronjob
+            cronjobremove
             rm -f ~/.nginx/conf.d/000-default-server.d/subsonic.conf
             rm -f ~/.apache2/conf.d/subsonic.conf
             /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1

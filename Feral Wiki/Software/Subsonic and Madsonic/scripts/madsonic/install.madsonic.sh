@@ -4,7 +4,7 @@
 ##### Basic Info Start #####
 ############################
 #
-# Script Author: randomessence
+# Script Author: userdocs
 #
 # Script Contributors: 
 #
@@ -14,7 +14,7 @@
 #
 # The MIT License (MIT)
 #
-# Copyright (c) 2016 randomessence
+# Copyright (c) 2016 userdocs
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -64,7 +64,7 @@ then
     #echo 'v0.0.7 - My changes go here'
     #echo 'v0.0.6 - My changes go here'
     #echo 'v0.0.5 - My changes go here'
-    #echo 'v0.0.4 - My changes go here'
+    echo 'v2.0.3 - crontab install and remove'
     echo 'v2.0.2 - components moved to functions and tweaks'
     echo 'v2.0.1 - rsk script moved to separate script'
     echo 'v2.0.0 - Template updated - minor script tweaks'
@@ -82,13 +82,13 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="2.0.2"
+scriptversion="2.0.3"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.madsonic"
 #
 # Author name goes here.
-scriptauthor="randomessence"
+scriptauthor="userdocs"
 #
 # Contributor's names go here.
 contributors="None credited"
@@ -123,9 +123,9 @@ host2https="https://$(hostname -f)/$(whoami)/"
 [[ -d ~/www/"$(whoami)"."$(hostname -f)"/public_html ]] && feralwww="$HOME/www/$(whoami).$(hostname -f)/public_html/"
 # rtorrentdata - sets the full path to the rtorrent data directory if it exists.
 [[ -d ~/private/rtorrent/data ]] && rtorrentdata="$HOME/private/rtorrent/data"
-# deluge - sets the full path to the deluge data directory if it exists.
+# delugedata - sets the full path to the deluge data directory if it exists.
 [[ -d ~/private/deluge/data ]] && delugedata="$HOME/private/deluge/data"
-# transmission - sets the full path to the transmission data directory if it exists.
+# transmissiondata - sets the full path to the transmission data directory if it exists.
 [[ -d ~/private/transmission/data ]] && transmissiondata="$HOME/private/transmission/data"
 #
 # Bug reporting varaibles.
@@ -168,7 +168,7 @@ updaterenabled="1"
 ###### Function Start ######
 ############################
 #
-cronjob () {
+cronjobadd () {
     # adding jobs to cron: Set the variable tmpcron to a randomly generated temporary file.
     tmpcron="$(mktemp)"
     # Check if the job exists already by grepping whatever is between ^$
@@ -182,8 +182,25 @@ cronjob () {
         crontab "$tmpcron"
         rm "$tmpcron"
     else
-        echo "This cronjob is already in crontab"
+        echo "This cronjob is already in crontab"; echo
     fi
+}
+#
+cronjobremove () {
+    tmpcron="$(mktemp)"
+    if [[ "$(crontab -l 2> /dev/null | grep -oc '^\* \* \* \* \* bash -l ~/.cronjobs/madsonic.cronjob$')" == "1" ]]
+    then
+        crontab -l 2> /dev/null > "$tmpcron"
+        sed -i '/^\* \* \* \* \* bash -l ~\/.cronjobs\/madsonic.cronjob$/d' "$tmpcron"
+        sed -i '/^$/d' "$tmpcron"
+        crontab "$tmpcron"
+        rm "$tmpcron"
+    else
+        :
+    fi
+}
+#
+cronscript () {
     # Create the cron script.
     echo '#!/bin/bash
     if [[ -z "$(ps -p $(cat ~/private/madsonic/madsonic.sh.PID) --no-headers)" && -d ~/private/madsonic ]]
@@ -193,7 +210,7 @@ cronjob () {
     else
         exit
     fi' > ~/.cronjobs/madsonic.cronjob
- }
+}
 #
 proxypass () {
     if [[ -f ~/private/madsonic/madsonic.sh ]]
@@ -414,7 +431,8 @@ chmod -f 700 ~/bin/madsonicrsk
 ########## cronjob start  ##########
 #############################
 #
-cronjob
+cronjobadd
+cronscript
 #
 #############################
 ########## cronjob end  ##########
@@ -558,7 +576,7 @@ then
             echo "Removing ~/private/madsonic"
             rm -rf ~/private/madsonic
             echo -e "\033[31m" "Done""\e[0m"
-            echo "Removing RSK scripts if present."
+            echo "Removing scripts."
             rm -f ~/bin/madsonic.4.8
             rm -f ~/madsonic.4.8.sh
             rm -f ~/madsonicstart.sh
@@ -567,6 +585,8 @@ then
             rm -f ~/madsonicrsk.sh
             rm -f ~/bin/madsonicrsk
             rm -f ~/bin/madsonicron
+            rm -f ~/.cronjobs/madsonic.cronjob
+            cronjobremove
             rm -f ~/.nginx/conf.d/000-default-server.d/madsonic.conf
             rm -f ~/.apache2/conf.d/madsonic.conf
             /usr/sbin/apache2ctl -k graceful > /dev/null 2>&1
