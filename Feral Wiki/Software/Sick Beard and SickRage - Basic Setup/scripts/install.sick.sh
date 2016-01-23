@@ -4,7 +4,7 @@
 ##### Basic Info Start #####
 ############################
 #
-# Script Author: randomessence
+# Script Author: userdocs
 #
 # Script Contributors: 
 #
@@ -14,7 +14,7 @@
 #
 # The MIT License (MIT)
 #
-# Copyright (c) 2016 randomessence
+# Copyright (c) 2016 userdocs
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -88,7 +88,7 @@ scriptversion="1.2.3"
 scriptname="install.sick"
 #
 # Author name goes here.
-scriptauthor="randomessence"
+scriptauthor="userdocs"
 #
 # Contributor's names go here.
 contributors="None credited"
@@ -634,9 +634,10 @@ do
                                         manualgiturl=""
                                     fi
                                 done
+                            else
+                                manualgiturl="$giturlsickragealt"
                             fi
                         fi
-                        manualgiturl="$giturlsickragealt"
                         # function
                         killsickrage
                         if [[ -d ~/.sickrage ]]
