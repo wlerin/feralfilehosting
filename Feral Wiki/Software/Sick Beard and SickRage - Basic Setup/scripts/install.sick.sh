@@ -619,19 +619,24 @@ do
                     "1")
                         if [[ ! -d ~/.sickrage ]]
                         then
-                            read -ep "Would you like to set the Git repo URL manually? " -i "y" urlstatus
-                            echo
+                            echo -e "The default Sickrage url is: $giturlsickragealt"; echo
+                            read -ep "Would you like to set the Git repo URL manually? " -i "y" urlstatus; echo
                             if [[ "$urlstatus" = "y" ]]
                             then
-                                echo "echel0n: ""$giturlsickrage"
-                                echo "miigotu (default): ""$giturlsickragealt"
+                                echo "echel0n: $giturlsickrage"
+                                echo "miigotu (default): $giturlsickragealt"
                                 echo                              
-                                while [[ -z "$giturlsickrage" ]]
+                                while [[ -z "$manualgiturl" ]]
                                 do
-                                    read -ep "Please give me the URL: " giturlsickrage
+                                    read -ep "Please give me the URL: " manualgiturl
+                                    if [[ "$manualgiturl" != "$giturlsickrage" ]] && [[ "$manualgiturl" != "$giturlsickragealt" ]]
+                                    then
+                                        manualgiturl=""
+                                    fi
                                 done
                             fi
                         fi
+                        manualgiturl="$giturlsickragealt"
                         # function
                         killsickrage
                         if [[ -d ~/.sickrage ]]
@@ -642,7 +647,7 @@ do
                             mkdir -p ~/.sickrage.tv.shows
                         else
                             echo -ne "\033[32m"
-                            git clone "$giturlsickragealt" ~/.sickrage
+                            git clone "$manualgiturl" ~/.sickrage
                             echo -e "\e[0m"
                             mkdir -p ~/.sickrage.tv.shows
                         fi
