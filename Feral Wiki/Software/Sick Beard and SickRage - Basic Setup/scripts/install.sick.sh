@@ -623,11 +623,13 @@ do
                             echo
                             if [[ "$urlstatus" = "y" ]]
                             then
-                            echo "echel0n: ""$giturlsickrage"
-                            echo "miigotu (default): ""$giturlsickragealt"
-                            echo
-                                read -ep "Please give me the URL: " giturlsickrage
-                                [[ ! -z "giturlsickrage" ]] && giturlsickrage="https://github.com/SickRage/SickRage.git"
+                                echo "echel0n: ""$giturlsickrage"
+                                echo "miigotu (default): ""$giturlsickragealt"
+                                echo                              
+                                while [[ -z "$giturlsickrage" ]]
+                                do
+                                    read -ep "Please give me the URL: " giturlsickrage
+                                done
                             fi
                         fi
                         # function
@@ -640,7 +642,7 @@ do
                             mkdir -p ~/.sickrage.tv.shows
                         else
                             echo -ne "\033[32m"
-                            git clone "$giturlsickrage" ~/.sickrage
+                            git clone "$giturlsickragealt" ~/.sickrage
                             echo -e "\e[0m"
                             mkdir -p ~/.sickrage.tv.shows
                         fi
