@@ -82,7 +82,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.2.4"
+scriptversion="1.2.5"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.sick"
@@ -135,8 +135,8 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 ## Custom Variables Start ##
 ############################
 #
-unrarv="5.3.8"
-unrarfv="http://www.rarlab.com/rar/unrarsrc-5.3.8.tar.gz"
+unrarv="5.3.9"
+unrarfv="http://www.rarlab.com/rar/unrarsrc-5.3.9.tar.gz"
 #
 giturlsickbeard="https://github.com/midgetspy/Sick-Beard.git"
 giturlsickrage="https://github.com/SickRage/SickRage.git"
@@ -216,6 +216,7 @@ killsickbeard () {
 }
 #
 killsickrage () {
+    echo
     if [[ -f ~/.sickrage/sickrage.pid ]] && [[ "$(cat ~/.sickrage/sickrage.pid 2> /dev/null)" -eq "$(pgrep -fu "$(whoami)" "python $HOME/.sickrage/SickBeard.py -d")" ]]
     then
         counter="0"
@@ -533,20 +534,15 @@ do
                 # function
                 showSickBeardMenu
                 read -e CHOICE
-                echo
                 case "$CHOICE" in
                     "1")
                         # function
                         killsickbeard
                         if [[ -d ~/.sickbeard ]]
                         then
-                            echo -en "\033[32m"
                             git --git-dir="$HOME/.sickbeard/.git" --work-tree="$HOME/.sickbeard" pull origin
-                            echo -e "\e[0m"
                         else
-                            echo -en "\033[32m"
                             git clone "$giturlsickbeard" ~/.sickbeard
-                            echo -e "\e[0m"
                         fi
                         #
                         if [[ -f ~/.sickbeard/config.ini ]]
@@ -613,21 +609,16 @@ do
                 # function
                 showSickRageMenu
                 read -e CHOICE
-                echo
                 case "$CHOICE" in
                     "1")
                         # function
                         killsickrage
                         if [[ -d ~/.sickrage ]]
                         then
-                            echo -en "\033[32m"
                             git --git-dir="$HOME/.sickrage/.git" --work-tree="$HOME/.sickrage" pull origin
-                            echo -e "\e[0m"
                             mkdir -p ~/.sickrage.tv.shows
                         else
-                            echo -ne "\033[32m"
                             git clone "$giturlsickrage" ~/.sickrage
-                            echo -e "\e[0m"
                             mkdir -p ~/.sickrage.tv.shows
                         fi
                         #
@@ -640,11 +631,11 @@ do
                         fi
                         # function
                         sickrageproxy
-                        if [[ ! -f ~/bin/unrar ]]
+                        if [[ $(cat  ~/.sickrage/.unrarversion 2> /dev/null) != "$unrarv" ]]
                         then
                             # Installing Unrar locally.
-                            echo "Installing Unrar $unrarv locally for use with post processing"
-                            echo
+                            echo -e "\nInstalling Unrar $unrarv locally for use with post processing\n"
+                            echo -n "$unrarv" > ~/.sickrage/.unrarversion
                             wget -qO ~/unrar.tar.gz "$unrarfv"
                             tar xf ~/unrar.tar.gz
                             make -C ~/unrar > ~/.sickrage/.unrar.make.log 2>&1
