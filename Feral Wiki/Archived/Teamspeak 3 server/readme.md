@@ -12,6 +12,8 @@ You login information for the relevant slot will be shown here:
 Error on Start up
 ---
 
+> **Important note:** Teamspeak is not suited for us on Feralhosting. Whoever runs their instance first gets to use it on the whole server. This is a limitation of the program and there is no workaround. Try using a vps instead.
+
 If Teamspeak is not giving you the privilege key on first run you will need to check the logs at:
 
 ~~~
@@ -32,9 +34,7 @@ ps -e | grep ts3server
 
 If you get any results that means there is another instance running.
 
-Sadly, there is no workaround right now for this issue. Your options are:
-
-**1:** Try to get a non for profit license or purchase an annual license: [http://sales.teamspeakusa.com/pricing.php?page=aal](http://sales.teamspeakusa.com/pricing.php?page=aal)
+There is no workaround right now for this issue.
 
 Teamspeak 3 on Feral Slots.
 ---
