@@ -123,6 +123,14 @@ This will now be the URL you need to connect until you activate the proxypass.
 echo -e "\nhttps://$(hostname -f)/$(whoami)/sonarr/\n"
 ~~~
 
+Transmission
+---
+
+To connect with Transmission: 
+
+First enable advanced settings then enter accordingly:
+![](./transmission.png)
+
 Restart Sonarr
 ---
 
