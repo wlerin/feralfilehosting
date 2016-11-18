@@ -1,11 +1,7 @@
 filehosting
 ===========
 
-This is a project that aimed to make use of github as platform to build and maintain an external knowledge base and it's resource dependencies while making the articles as self sufficient as possible. This was so that people could be empowered by good documentation and tools instead of being information being hoarded and selectively shared which fostered a culture of dependency and ignorance. We see it best as an inherent problem in the Feral IRC and support in general for often referring users to poor documentation as a solution. Good documentation is a transparent and accountable solution. This project went a few steps further to provide some elements of direct support via scripts that provided built in support and troubleshooting features for their purpose and enabled users to an even greater capacity.
-
-This project has never been officially supported by Feral in any capacity and was always a user project at heart with the user's needs in mind. Written by users for other users.
-
-I thank all those who actually cared enough to provide edits, articles or scripts and those who were courageous enough to share their work publicly to be scrutinised, applauded or criticised. To those that did, not those that said; too much was said and too little was done.
+This is a project that aimed to make use of github as platform to build and maintain an external knowledge base and it's resource dependencies while making the articles as self sufficient as possible. This was so that people could be empowered by good documentation and tools and easily contribute to the resources.
 
 Licensing
 ---
@@ -14,13 +10,13 @@ If you wish to use any resource in this repo you may do so under the following l
 
 For documentation and images:
 
-> This work by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/feralhosting/feralfilehosting" property="cc:attributionName" rel="cc:attributionURL">randomessence</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
 For scripts:
 
 > The MIT License (MIT)
 
-> Copyright (c) 2016 randomessence
+> Copyright (c) 2016 userdocs
 
 > Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -29,5 +25,3 @@ For scripts:
 > THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 All other works are distributed with their original license where applicable.
-
-![Sharing is caring!](https://raw.github.com/feralhosting/feralfilehosting/master/sharingiscaring.jpg "Sharing is caring!")
