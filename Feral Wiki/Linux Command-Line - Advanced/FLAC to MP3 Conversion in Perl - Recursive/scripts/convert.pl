@@ -3,6 +3,7 @@
 use File::Find;
 use File::Path;
 use File::Copy;
+use Cwd;
 
 #all variables are global
 
@@ -26,7 +27,7 @@ $base =~ s/\\$|\/$//;
 
 #create base for new directory tree
 $newbase = $base.' ['.$ARGV[1].']';
-
+my $root = getcwd;
 mkpath($newbase);
 
 #work through files in directory tree
@@ -43,9 +44,8 @@ sub search_tree{
        $sourcefile = $File::Find::name;
        $dir = $File::Find::dir;
        $file = $_;
-
-       $dir =~ s/\Q$base/$newbase/;
-       
+	   $sourcefile = $root.'/'.$sourcefile;
+       $dir =~ s/\Q$base$/$newbase/;
        if ($sourcefile =~ m/\.flac/){&convert;}
        elsif ($sourcefile =~ m/\.jpg$|\.jpeg$|\.png$|\.gif$/){&copyfile;}}
 
@@ -55,13 +55,13 @@ sub copyfile{
 	copy($sourcefile , $newfile);}
 
 sub convert{
-	unless (-e $dir){ mkpath ( $dir);}
-	
+	unless (-e $root.'/'.$newbase.'/'.$dir)	{ mkpath ($root.'/'.$newbase.'/'.$dir); }
+
 	#remove .flac extension
 	$file =~ s/\.flac$//;
 	
 	#flac destination filename
-	$flac_dest = $dir . '/' . $file;
+	$flac_dest = $root.'/'.$newbase . '/'.$dir.'/' . $file;
 	
 	# get tags for lame	
 	$track="";	if ($track = `metaflac --show-tag tracknumber "$sourcefile"`){ chomp $track; $track =~ s/.*=//;}
@@ -71,13 +71,20 @@ sub convert{
 	$date="";	if ($date = `metaflac --show-tag date "$sourcefile"`){ chomp $date; $date =~ s/.*=//;}
 	$genre="";	if ($genre = `metaflac --show-tag genre "$sourcefile"`){ chomp $genre; $genre =~ s/.*=//;}
 
+	$track =~ s/\"/\"\"/g;
+	$title =~ s/\"/\"\"/g;
+	$artist =~ s/\"/\"\"/g;
+	$album =~ s/\"/\"\"/g;
+	$date =~ s/\"/\"\"/g;
+	$genre =~ s/\"/\"\"/g;
+	
 	# decode flac to wav - overwrite existing
 	# to decode through errors add -F to options
 	# specifying destination filename to avoid .wav extension
-	system ('flac','-d', '-f' , '-o',  "$flac_dest" , "$sourcefile"); 
+	system ("flac -d -f -o \"$flac_dest\" \"$sourcefile\""); 
 
 	#lame command for mp3 conversion
-	system ('lame', "$quality" ,'--noreplaygain', '--add-id3v2', '--pad-id3v2', '--ignore-tag-errors', '--tn', "$track", '--tt', "$title", '--ta', "$artist", '--tl', "$album", '--ty', "$date", '--tg', "$genre", "$flac_dest");
+	system ("lame $quality --noreplaygain --add-id3v2 --pad-id3v2 --ignore-tag-errors --tn $track --tt \"$title\" --ta \"$artist\" --tl \"$album\" --ty \"$date\" --tg \"$genre\" \"$flac_dest\"");
 
 	# delete temporary wav file
 	unlink($flac_dest);}
