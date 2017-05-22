@@ -147,7 +147,7 @@ installedjavaversion="$(cat ~/.javaversion 2> /dev/null)"
 # Java URL
 javaupdatev="http://javadl.sun.com/webapps/download/AutoDL?BundleId=114681"
 # Subsonic Standalone files
-subsonicfv="http://subsonic.org/download/subsonic-5.3-standalone.tar.gz"
+subsonicfv="https://downloads.sourceforge.net/project/subsonic/subsonic/5.3/subsonic-5.3-standalone.tar.gz"
 subsonicfvs="subsonic-5.3-standalone.tar.gz"
 # ffmpeg files
 sffmpegfv="https://github.com/feralhosting/feralfilehosting/releases/download/Madsonic-5.1.5260/sonic_ffmpeg_19.01.2016.zip"
