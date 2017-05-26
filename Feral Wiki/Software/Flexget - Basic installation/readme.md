@@ -26,7 +26,7 @@ Installation:
 
 ~~~
 pip install --user virtualenv
-~/.local/bin/virtualenv ~/flexget/
+~/.local/bin/virtualenv ~/flexget/ --system-site-packages
 ~/flexget/bin/pip install flexget[webui]
 ~~~
 
