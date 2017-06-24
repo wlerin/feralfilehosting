@@ -4,7 +4,7 @@
 **1:** Download SABnzbd from [here](http://sabnzbd.org/download/) to your slot. You can do this either by downloading it on your computer and then uploading it using FTP/SFTP, or with the following command on your server using SSH:
 
 ~~~
-wget -qO ~/SABnzbd.tar.gz http://sourceforge.net/projects/sabnzbdplus/files/latest/
+wget -qO ~/SABnzbd.tar.gz https://github.com/sabnzbd/sabnzbd/releases/download/2.1.0/SABnzbd-2.1.0-src.tar.gz
 ~~~
 
 **2:** Extract the files from the archive.
