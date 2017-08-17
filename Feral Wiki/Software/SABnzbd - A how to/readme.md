@@ -1,10 +1,10 @@
 
 **Please note that this software is not officially supported by Feral Hosting.**
 
-**1:** Download SABnzbd from [here](http://sabnzbd.org/download/) to your slot. You can do this either by downloading it on your computer and then uploading it using FTP/SFTP, or with the following command on your server using SSH:
+**1:** Download SABnzbd from [here](https://github.com/sabnzbd/sabnzbd/releases/latest) to your slot. You can do this either by downloading it on your computer and then uploading it using FTP/SFTP, or with the following command on your server using SSH:
 
 ~~~
-wget -qO ~/SABnzbd.tar.gz https://github.com/sabnzbd/sabnzbd/releases/download/2.1.0/SABnzbd-2.1.0-src.tar.gz
+wget -qO ~/SABnzbd.tar.gz $( curl -sL https://github.com/sabnzbd/sabnzbd/releases/latest | grep -oP 'href="(.*-src\.tar\.gz)' | sed -e 's!href="!https://github.com!' )
 ~~~
 
 **2:** Extract the files from the archive.
@@ -12,6 +12,8 @@ wget -qO ~/SABnzbd.tar.gz https://github.com/sabnzbd/sabnzbd/releases/download/2
 ~~~
 tar xf ~/SABnzbd.tar.gz
 ~~~
+
+(Note: If upgrading, also delete the previous version folder: `SABnzbd-x.x.x`)
 
 **3:** Run SABnzbd.py
 
