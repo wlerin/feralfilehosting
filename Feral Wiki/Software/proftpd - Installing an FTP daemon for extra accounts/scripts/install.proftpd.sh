@@ -6,7 +6,7 @@
 #
 # Script Author: randomessence
 #
-# Script Contributors: 
+# Script Contributors:
 #
 # License: This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. https://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -40,7 +40,7 @@ then
     #
     #echo 'v0.1.0 - My changes go here'
     #echo 'v0.0.9 - My changes go here'
-    #echo 'v0.0.8 - My changes go here'
+    echo 'v1.3.4 - proftpd-1.3.6'
     echo 'v1.3.3 - proftpd-1.3.5a'
     echo 'v1.3.2 - deleteuser option added'
     echo 'v1.3.1 - adduser custom filezilla profiles'
@@ -64,7 +64,7 @@ fi
 ############################
 #
 # Script Version number is set here.
-scriptversion="1.3.3"
+scriptversion="1.3.4"
 #
 # Script name goes here. Please prefix with install.
 scriptname="install.proftpd"
@@ -121,7 +121,7 @@ gitissue="https://github.com/feralhosting/feralfilehosting/issues/new"
 #
 filezilla="http://git.io/vfAZ9"
 #
-proftpdversion="proftpd-1.3.5a"
+proftpdversion="proftpd-1.3.6"
 installedproftpdversion="$(cat $HOME/proftpd/.proftpdversion 2> /dev/null)"
 #
 proftpdconf="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/conf/proftpd.conf"
@@ -132,7 +132,7 @@ ftpsconf="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master
 ftpsconfsize="940"
 scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/proftpd%20-%20Installing%20an%20FTP%20daemon%20for%20extra%20accounts/scripts/install.proftpd.sh"
 #
-proftpdurl="ftp://ftp.proftpd.org/distrib/source/proftpd-1.3.5a.tar.gz"
+proftpdurl="ftp://ftp.proftpd.org/distrib/source/proftpd-1.3.6.tar.gz"
 #
 sftpport="$(shuf -i 10001-32001 -n 1)"
 #
@@ -601,8 +601,8 @@ then
             killall -9 -u "$(whoami)" proftpd >/dev/null 2>&1
             mkdir -p "$HOME"/proftpd/install_logs
             rm -rf ~/"$proftpdversion"{,.tar.gz}
-            wget -qO ~/proftpd-1.3.5.tar.gz "$proftpdurl"
-            tar xf ~/proftpd-1.3.5.tar.gz
+            wget -qO ~/proftpd-1.3.6.tar.gz "$proftpdurl"
+            tar xf ~/proftpd-1.3.6.tar.gz
             #
             [[ -z "$(grep -o '^ProcessTitles terse$' $HOME/proftpd/etc/proftpd.conf)" ]] && sed -i '/###### Options/a ProcessTitles terse' "$HOME"/proftpd/etc/proftpd.conf || :
             [[ -z "$(grep -o '^IdentLookups off$' $HOME/proftpd/etc/proftpd.conf)" ]] && sed -i '/###### Options/a IdentLookups off' "$HOME"/proftpd/etc/proftpd.conf || :
@@ -652,8 +652,8 @@ then
     mkdir -p "$HOME"/proftpd/etc/sftp/authorized_keys
     mkdir -p "$HOME"/proftpd/etc/keys
     mkdir -p "$HOME"/proftpd/{ssl,install_logs}
-    wget -qO ~/proftpd-1.3.5.tar.gz "$proftpdurl"
-    tar xf ~/proftpd-1.3.5.tar.gz
+    wget -qO ~/proftpd-1.3.6.tar.gz "$proftpdurl"
+    tar xf ~/proftpd-1.3.6.tar.gz
     #git clone -q "$proftpdurl"
     #chmod -R 700 "$HOME/$proftpdversion"
     echo -n "$proftpdversion" > "$HOME"/proftpd/.proftpdversion
