@@ -601,8 +601,8 @@ then
             killall -9 -u "$(whoami)" proftpd >/dev/null 2>&1
             mkdir -p "$HOME"/proftpd/install_logs
             rm -rf ~/"$proftpdversion"{,.tar.gz}
-            wget -qO ~/proftpd-1.3.5.tar.gz "$proftpdurl"
-            tar xf ~/proftpd-1.3.5.tar.gz
+            wget -qO ~/proftpd-1.3.6.tar.gz "$proftpdurl"
+            tar xf ~/proftpd-1.3.6.tar.gz
             #
             [[ -z "$(grep -o '^ProcessTitles terse$' $HOME/proftpd/etc/proftpd.conf)" ]] && sed -i '/###### Options/a ProcessTitles terse' "$HOME"/proftpd/etc/proftpd.conf || :
             [[ -z "$(grep -o '^IdentLookups off$' $HOME/proftpd/etc/proftpd.conf)" ]] && sed -i '/###### Options/a IdentLookups off' "$HOME"/proftpd/etc/proftpd.conf || :
@@ -652,8 +652,8 @@ then
     mkdir -p "$HOME"/proftpd/etc/sftp/authorized_keys
     mkdir -p "$HOME"/proftpd/etc/keys
     mkdir -p "$HOME"/proftpd/{ssl,install_logs}
-    wget -qO ~/proftpd-1.3.5.tar.gz "$proftpdurl"
-    tar xf ~/proftpd-1.3.5.tar.gz
+    wget -qO ~/proftpd-1.3.6.tar.gz "$proftpdurl"
+    tar xf ~/proftpd-1.3.6.tar.gz
     #git clone -q "$proftpdurl"
     #chmod -R 700 "$HOME/$proftpdversion"
     echo -n "$proftpdversion" > "$HOME"/proftpd/.proftpdversion
