@@ -31,9 +31,9 @@ function pad_left() {
 # Output: formatted filesize with 2 decimals, example: 10.50 MB
 function format_filesize() {
     if [ "$1" == "" ]; then
-            awk '{x=$1;split("MB GB TB PB",type);for(i=5;y < 1;i--) { y = x / (2^(10*i)/1.024) }; printf "%.2f %s\n",y,type[i+2]; }';
+            awk '{x=$1;split("MB GB TB PB",type);for(i=5;y < 1;i--) { y = x / (10^(3*i)) }; printf "%.2f %s\n",y,type[i+2]; }';
     else
-            echo "$1" | awk '{x=$1;split("MB GB TB PB",type);for(i=5;y < 1;i--) { y = x / (2^(10*i)/1.024) }; printf "%.2f %s\n",y,type[i+2]; }';
+            echo "$1" | awk '{x=$1;split("MB GB TB PB",type);for(i=5;y < 1;i--) { y = x / (10^(3*i)) }; printf "%.2f %s\n",y,type[i+2]; }';
     fi;
 }
 
